@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="45dp"
+    android:background="@color/white"
+    android:orientation="horizontal"
+    android:paddingLeft="12dp"
+    android:paddingRight="12dp">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:src="@drawable/ic_logo"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:gravity="center"
+        android:lineSpacingExtra="4sp"
+        android:text="海口"
+        android:textColor="#333333"
+        android:textSize="12sp"
+        />
+
+    <LinearLayout
+        android:id="@+id/ll_search"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_marginBottom="7.5dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="7.5dp"
+        android:layout_weight="1"
+        android:background="@drawable/bg_search_gray_corner"
+        android:gravity="center">
+
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_search"
+            android:drawablePadding="3dp"
+            android:lineSpacingExtra="0sp"
+            android:textColor="#999999"
+            android:textSize="14sp"
+            tools:text="玫瑰花园自助烤肉"
+            />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/iv_scan"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="10dp"
+        android:src="@drawable/ic_scan"/>
+</LinearLayout>
+

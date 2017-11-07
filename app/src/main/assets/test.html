@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+</head>
+<body>
+
+<script>
+
+   //js调用android程序中的方法
+   function jsGetAndroid(){
+    var msg = androidjs.showInfoFromJs("I'M FROM JS!!!");
+    document.getElementById("androidgetjs").innerHTML=msg;
+  }
+
+  //android程序中调用js的方法
+  function androidGetJs(msg){
+    document.getElementById("androidgetjs").innerHTML="来自Android的消息："+msg;
+  }
+function gett(msg){
+    document.getElementById("token").innerHTML=window.android.getToken();
+  }
+function sett(msg){
+    document.getElementById("token").innerHTML=msg;
+  }
+
+</script>
+<div id="token"></div>
+<button id="调用android方法" onclick="window.android.goSelectPic()">点我调用android方法</button>
+<br/>
+<button id="dddddd" onclick="window.android.setRightButtonText('wew')">显示right</button>
+<button id="ttt" onclick="gett()">点我调用android方法</button>
+
+</body>
+</html>

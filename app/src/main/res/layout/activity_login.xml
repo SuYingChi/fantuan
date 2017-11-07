@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/bg_login"/>
+
+    <ImageView
+        android:id="@+id/iv_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="17dp"
+        android:src="@drawable/ic_close"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:lineSpacingExtra="0sp"
+            android:text="推荐登录方式"
+            android:textColor="#ffffff"
+            android:textSize="12sp"
+            />
+
+        <LinearLayout
+            android:id="@+id/ll_weixin"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginLeft="70dp"
+            android:layout_marginRight="70dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/bg_weixin_login_corner"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_weixin_login"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_marginLeft="10dp"
+                android:gravity="center"
+                android:text="微信登录"
+                android:textColor="#ffffff"
+                android:textSize="17sp"
+                />
+        </LinearLayout>
+        <TextView
+            android:layout_margin="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:lineSpacingExtra="0sp"
+            android:text="或者"
+            android:textColor="#ffffff"
+            android:textSize="12sp"
+            />
+
+        <LinearLayout
+            android:id="@+id/ll_phone"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginLeft="70dp"
+            android:layout_marginRight="70dp"
+            android:background="@drawable/bg_phone_login_corner"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_phone_login"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_marginLeft="10dp"
+                android:gravity="center"
+                android:text="手机登录"
+                android:textColor="#ffffff"
+                android:textSize="17sp"
+                />
+        </LinearLayout>
+        <TextView
+            android:paddingTop="80dp"
+            android:layout_margin="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:lineSpacingExtra="0sp"
+            android:text="海口微时刻信息有限公司"
+            android:textColor="#ffffff"
+            android:textSize="12sp"
+            />
+    </LinearLayout>
+
+</RelativeLayout>
+

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    >
+
+    <include layout="@layout/item_header"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/bg_etit_gray_corner"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="＋86"
+            android:textColor="#333333"
+            android:textSize="15sp"
+            />
+
+        <TextView
+            android:layout_width="0.5dp"
+            android:layout_height="20dp"
+            android:background="#cccccc"/>
+
+        <EditText
+            android:id="@+id/et_phone"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:background="@color/bg_edit"
+            android:hint="请输手机号"
+            android:inputType="number"
+            android:maxLength="11"
+            android:textColor="#333333"
+            android:textColorHint="#999999"
+            android:textSize="15sp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        android:paddingLeft="15dp"
+
+        android:paddingRight="15dp">
+
+        <EditText
+            android:id="@+id/et_code"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/bg_etit_gray_corner"
+            android:hint="请输入验证码"
+            android:inputType="number"
+            android:maxLines="11"
+            android:paddingLeft="10dp"
+            android:textColor="#333333"
+            android:textColorHint="#999999"
+            android:textSize="15sp"/>
+
+        <TextView
+            android:id="@+id/tv_send"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/bg_btn_red_corner"
+            android:gravity="center"
+            android:lineSpacingExtra="2sp"
+            android:text="获取验证码"
+            android:textColor="#ffffff"
+            android:textSize="14sp"/>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:lineSpacingExtra="0sp"
+        android:paddingLeft="15dp"
+        android:text="未注册的手机号将在登录后自动注册"
+        android:textColor="#666666"
+        android:textSize="14sp"
+        />
+
+    <TextView
+        android:id="@+id/tv_ok"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="25dp"
+        android:background="@drawable/bg_btn_red_corner"
+        android:gravity="center"
+        android:lineSpacingExtra="0sp"
+        android:text="确定"
+        android:textColor="#ffffff"
+        android:textSize="17sp"
+        />
+
+    <TextView
+        android:id="@+id/tv_pswlogin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:lineSpacingExtra="0sp"
+        android:padding="10dp"
+        android:text="使用密码登录"
+        android:textColor="#ff3f53"
+        android:textSize="12sp"/>
+</LinearLayout>
+
