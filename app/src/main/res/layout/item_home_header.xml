@@ -2,7 +2,6 @@
 
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="45dp"
     android:background="@color/white"
@@ -36,19 +35,19 @@
         android:layout_marginLeft="8dp"
         android:layout_marginTop="7.5dp"
         android:layout_weight="1"
+
         android:background="@drawable/bg_search_gray_corner"
         android:gravity="center">
 
         <TextView
-
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/ic_search"
             android:drawablePadding="3dp"
             android:lineSpacingExtra="0sp"
+            android:text="可搜索商家、购物中心"
             android:textColor="#999999"
             android:textSize="14sp"
-            tools:text="玫瑰花园自助烤肉"
             />
     </LinearLayout>
 

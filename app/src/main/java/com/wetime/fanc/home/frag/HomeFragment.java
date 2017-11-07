@@ -19,6 +19,9 @@ import com.baidu.mapapi.SDKInitializer;
 import com.king.batterytest.fbaselib.main.BaseFragment;
 import com.king.batterytest.fbaselib.main.ScanActivity;
 import com.king.batterytest.fbaselib.utils.Tools;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.wetime.fanc.R;
 import com.wetime.fanc.home.act.HomeSearchActivity;
 import com.wetime.fanc.home.adapter.CenterAdapter;
@@ -34,7 +37,7 @@ import butterknife.Unbinder;
 
 import static android.app.Activity.RESULT_OK;
 
-public class HomeFragment extends BaseFragment {
+public class HomeFragment extends BaseFragment implements OnRefreshListener {
     @BindView(R.id.iv_scan)
     ImageView ivScan;
     @BindView(R.id.test)
@@ -42,6 +45,9 @@ public class HomeFragment extends BaseFragment {
     Unbinder unbinder;
     @BindView(R.id.rcv_center)
     RecyclerView rcvCenter;
+    @BindView(R.id.refreshLayout)
+    SmartRefreshLayout refreshLayout;
+
     private LocationService locationService;
     public Vibrator mVibrator;
 
@@ -74,9 +80,14 @@ public class HomeFragment extends BaseFragment {
         rcvCenter.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
         rcvCenter.setAdapter(adapter);
         adapter.notifyDataSetChanged();
-
+        refreshLayout.setEnableLoadmore(false);
+        refreshLayout.setOnRefreshListener(this);
 
         return v;
+    }
+    @Override
+    public void onRefresh(RefreshLayout refreshlayout) {
+        refreshLayout.finishRefresh(2000);
     }
 
     @Override
