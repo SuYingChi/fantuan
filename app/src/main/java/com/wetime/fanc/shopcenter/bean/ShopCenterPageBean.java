@@ -93,6 +93,7 @@ public class ShopCenterPageBean {
             private String distance;
             private String num;
 
+
             public String getMall_list_url() {
                 return mall_list_url;
             }
@@ -164,7 +165,15 @@ public class ShopCenterPageBean {
                 private String name;
                 private String logo;
                 private String total;
+                private String detail_url;
 
+                public String getDetail_url() {
+                    return detail_url;
+                }
+
+                public void setDetail_url(String detail_url) {
+                    this.detail_url = detail_url;
+                }
                 public String getMid() {
                     return mid;
                 }

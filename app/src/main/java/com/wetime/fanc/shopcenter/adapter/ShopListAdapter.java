@@ -92,7 +92,30 @@ public class ShopListAdapter extends BaseAdapter {
                 mContext.startActivity(goweb);
             }
         });
-
+        holder.iv1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent goweb = new Intent(mContext, WebActivity.class);
+                goweb.putExtra("url", bean.getMerchants().get(0).getDetail_url());
+                mContext.startActivity(goweb);
+            }
+        });
+        holder.iv2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent goweb = new Intent(mContext, WebActivity.class);
+                goweb.putExtra("url", bean.getMerchants().get(1).getDetail_url());
+                mContext.startActivity(goweb);
+            }
+        });
+        holder.iv3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent goweb = new Intent(mContext, WebActivity.class);
+                goweb.putExtra("url", bean.getMerchants().get(2).getDetail_url());
+                mContext.startActivity(goweb);
+            }
+        });
 
         return convertView;
 

@@ -64,7 +64,7 @@
         <activity android:name=".about.AboutActivity"/>
         <activity android:name=".setting.act.UserinfoActivity"/>
         <activity android:name=".setting.act.BindWeixinActivity"/>
-        <activity android:name=".shopcenter.ShopCenterActivity"/>
+        <activity android:name=".shopcenter.act.ShopCenterActivity"/>
 
         <service
             android:name="com.baidu.location.f"

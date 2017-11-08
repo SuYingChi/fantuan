@@ -1,4 +1,4 @@
-package com.wetime.fanc.shopcenter;
+package com.wetime.fanc.shopcenter.act;
 
 import android.content.Context;
 import android.os.Bundle;

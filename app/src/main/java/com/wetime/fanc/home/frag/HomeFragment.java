@@ -26,7 +26,7 @@ import com.wetime.fanc.R;
 import com.wetime.fanc.home.act.HomeSearchActivity;
 import com.wetime.fanc.home.adapter.CenterAdapter;
 import com.wetime.fanc.home.service.LocationService;
-import com.wetime.fanc.shopcenter.ShopCenterActivity;
+import com.wetime.fanc.shopcenter.act.ShopCenterActivity;
 
 import java.util.ArrayList;
 
