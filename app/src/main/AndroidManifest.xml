@@ -80,5 +80,6 @@
             android:value="7IMPNekPvpDQzeCyefzwqXBALLQla14B"/>
         <activity android:name=".wxapi.WXEntryActivity" android:exported="true" />
         <activity android:name=".home.act.HomeSearchActivity"/>
+        <activity android:name=".shopcenter.act.CenterListActivity"/>
     </application>
 </manifest>

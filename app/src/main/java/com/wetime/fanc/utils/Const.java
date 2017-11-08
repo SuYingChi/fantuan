@@ -20,6 +20,7 @@ public interface Const {
     String USER_PROFILE_SETTING = BASEURL + "/user/profile/setting";
     String MALL = BASEURL + "/mall";
     String CATEGORY = BASEURL + "/category";
+    String MALL_LIST = BASEURL + "/mall/list";
 
 
 }

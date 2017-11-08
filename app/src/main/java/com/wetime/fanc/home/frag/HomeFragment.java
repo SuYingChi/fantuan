@@ -26,6 +26,7 @@ import com.wetime.fanc.R;
 import com.wetime.fanc.home.act.HomeSearchActivity;
 import com.wetime.fanc.home.adapter.CenterAdapter;
 import com.wetime.fanc.home.service.LocationService;
+import com.wetime.fanc.shopcenter.act.CenterListActivity;
 import com.wetime.fanc.shopcenter.act.ShopCenterActivity;
 
 import java.util.ArrayList;
@@ -133,8 +134,11 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_scan:
-                Intent goscan = new Intent(getContext(), ScanActivity.class);
-                startActivityForResult(goscan, REQUEST_CODE);
+//                Intent goscan = new Intent(getContext(), ScanActivity.class);
+//                startActivityForResult(goscan, REQUEST_CODE);
+                Intent gotest =  new Intent(getContext(), CenterListActivity.class);
+                startActivity(gotest);
+
                 break;
             case R.id.ll_search:
                 Intent gosearch = new Intent(getContext(), HomeSearchActivity.class);
