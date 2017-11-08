@@ -135,14 +135,14 @@ public class MainActivity extends BaseActivity implements IBindPushView {
         XGPushManager.registerPush(context, new XGIOperateCallback() {
             @Override
             public void onSuccess(Object o, int i) {
-                Handler mHandler = new Handler();
-                mHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        BindPushPresenter pushPresenter = new BindPushPresenter(MainActivity.this);
-                        pushPresenter.bindPush(XGPushConfig.getToken(MainActivity.this));
-                    }
-                });
+//                Handler mHandler = new Handler();
+//                mHandler.post(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        BindPushPresenter pushPresenter = new BindPushPresenter(MainActivity.this);
+//                        pushPresenter.bindPush(XGPushConfig.getToken(MainActivity.this));
+//                    }
+//                });
 
             }
 

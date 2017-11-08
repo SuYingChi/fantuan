@@ -143,6 +143,16 @@ public class SortPageBean {
                 private String imgurl;
                 private String level;
 
+                public String getUrl() {
+                    return url;
+                }
+
+                public void setUrl(String url) {
+                    this.url = url;
+                }
+
+                private String url;
+
                 public String getId() {
                     return id;
                 }
