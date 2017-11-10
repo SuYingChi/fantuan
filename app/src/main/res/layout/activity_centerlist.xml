@@ -1,25 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <include layout="@layout/item_centerlist_header"/>
 
-    <com.scwang.smartrefresh.layout.SmartRefreshLayout
-        android:id="@+id/refreshLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:srlEnableAutoLoadmore="false"
-        app:srlEnableHeaderTranslationContent="false"
-        app:srlEnableOverScrollBounce="false">
+    <include layout="@layout/item_shopcenter_sort_header"/>
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rcv_lsit"
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.scwang.smartrefresh.layout.SmartRefreshLayout
+            android:id="@+id/refreshLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+            android:layout_height="match_parent"
+            app:srlEnableAutoLoadmore="false"
+            app:srlEnableHeaderTranslationContent="false"
+            app:srlEnableOverScrollBounce="false">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rcv_lsit"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+        <include
+            android:id="@+id/v_1"
+            layout="@layout/item_down_floor"
+            android:visibility="gone"/>
+        <include
+            android:id="@+id/v_2"
+            layout="@layout/item_down_category"
+            android:visibility="gone"/>
+        <include
+            android:id="@+id/v_3"
+            layout="@layout/item_down_sortmethord"
+            android:visibility="gone"/>
+    </RelativeLayout>
+
 </LinearLayout>
 

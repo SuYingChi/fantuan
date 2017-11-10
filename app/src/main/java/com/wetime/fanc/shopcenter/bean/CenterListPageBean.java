@@ -46,6 +46,26 @@ public class CenterListPageBean {
     public static class DataBean {
         private List<MerchantsBean> merchants;
         private List<FloorBean> floor;
+        private List<SortMethordBean> sort;
+        private List<CategoryBean> category;
+
+        public List<CategoryBean> getCategory() {
+            return category;
+        }
+
+        public void setCategory(List<CategoryBean> category) {
+            this.category = category;
+        }
+
+        public List<SortMethordBean> getSort() {
+            return sort;
+        }
+
+        public void setSort(List<SortMethordBean> sort) {
+            this.sort = sort;
+        }
+
+
 
         public List<MerchantsBean> getMerchants() {
             return merchants;
@@ -64,30 +84,5 @@ public class CenterListPageBean {
         }
 
 
-        public static class FloorBean {
-            /**
-             * id : 31
-             * name : 2层
-             */
-
-            private String id;
-            private String name;
-
-            public String getId() {
-                return id;
-            }
-
-            public void setId(String id) {
-                this.id = id;
-            }
-
-            public String getName() {
-                return name;
-            }
-
-            public void setName(String name) {
-                this.name = name;
-            }
-        }
     }
 }

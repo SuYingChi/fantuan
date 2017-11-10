@@ -25,8 +25,13 @@ public class GetShopCenterListPresenter {
                 .url(Const.MALL_LIST)
                 .addParams("mall_id", iView.getMailId())
                 .addParams("floor_id", iView.getFloaId())
+                .addParams("lng", iView.getJd())
+                .addParams("lat", iView.getWd())
+                .addParams("sort", iView.getSortMethod())
+                .addParams("cid", iView.getCId())
+                .addParams("pn", iView.getPage())
                 .build()
-                .execute(new DataStringCallback(iView) {
+                .execute(new DataStringCallback(iView,false) {
                     @Override
                     public void onResponse(String s, int i) {
                         super.onResponse(s, i);

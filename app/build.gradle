@@ -17,11 +17,10 @@ android {
         release {
             keyAlias 'fdj'
             keyPassword 'yuxun123'
-            storeFile file('E:\\dev\\keystore\\fdj.jks')
+            storeFile file('E:\\dev\\keystore\\fdj\\fdj.jks')
             storePassword 'yuxun123'
         }
     }
-
 
     buildTypes {
         debug {
