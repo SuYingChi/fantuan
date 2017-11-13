@@ -53,11 +53,7 @@ public class LoginActivity extends BaseActivity implements IWXLoginView {
                 onBackPressed();
                 break;
             case R.id.ll_weixin:
-//                Intent goweixin = new Intent(this,)
                 wxLogin();
-//                UMShareAPI mShareAPI = UMShareAPI.get(this);
-//                mShareAPI.doOauthVerify(this, SHARE_MEDIA.WEIXIN, authListener);
-
                 break;
             case R.id.ll_phone:
                 Intent gophone = new Intent(this, CodeLoginActivity.class);
@@ -65,52 +61,6 @@ public class LoginActivity extends BaseActivity implements IWXLoginView {
                 break;
         }
     }
-//    UMAuthListener authListener = new UMAuthListener() {
-//        /**
-//         * @desc 授权开始的回调
-//         * @param platform 平台名称
-//         */
-//        @Override
-//        public void onStart(SHARE_MEDIA platform) {
-//
-//        }
-//
-//        /**
-//         * @desc 授权成功的回调
-//         * @param platform 平台名称
-//         * @param action 行为序号，开发者用不上
-//         * @param data 用户资料返回
-//         */
-//        @Override
-//        public void onComplete(SHARE_MEDIA platform, int action, Map<String, String> data) {
-//
-//            Toast.makeText(mContext, "成功了", Toast.LENGTH_LONG).show();
-//            String openid = data.get()
-//        }
-//
-//        /**
-//         * @desc 授权失败的回调
-//         * @param platform 平台名称
-//         * @param action 行为序号，开发者用不上
-//         * @param t 错误原因
-//         */
-//        @Override
-//        public void onError(SHARE_MEDIA platform, int action, Throwable t) {
-//
-//            Toast.makeText(mContext, "失败：" + t.getMessage(), Toast.LENGTH_LONG).show();
-//        }
-//
-//        /**
-//         * @desc 授权取消的回调
-//         * @param platform 平台名称
-//         * @param action 行为序号，开发者用不上
-//         */
-//        @Override
-//        public void onCancel(SHARE_MEDIA platform, int action) {
-//
-//            Toast.makeText(mContext, "取消了", Toast.LENGTH_LONG).show();
-//        }
-//    };
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(LoginEvent event) {
@@ -133,7 +83,7 @@ public class LoginActivity extends BaseActivity implements IWXLoginView {
 
     public void wxLogin() {
         if (!FApp.mWxApi.isWXAppInstalled()) {
-            Tools.toastInBottom(this, "meiyouanz");
+            Tools.toastInBottom(this, "您没有安装微信");
             return;
         }
         final SendAuth.Req req = new SendAuth.Req();

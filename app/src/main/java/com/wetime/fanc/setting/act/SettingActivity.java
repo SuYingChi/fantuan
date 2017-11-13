@@ -9,24 +9,31 @@ import android.widget.TextView;
 
 import com.king.batterytest.fbaselib.LogoutEvent;
 import com.king.batterytest.fbaselib.main.BaseActivity;
+import com.king.batterytest.fbaselib.main.FApp;
 import com.king.batterytest.fbaselib.main.model.BaseBean;
 import com.king.batterytest.fbaselib.utils.Tools;
+import com.tencent.mm.opensdk.modelmsg.SendAuth;
 import com.wetime.fanc.R;
 import com.wetime.fanc.about.AboutActivity;
 import com.wetime.fanc.setting.bean.SettingPageBean;
 import com.wetime.fanc.setting.iviews.IGetSettingView;
 import com.wetime.fanc.setting.iviews.ILogoutView;
+import com.wetime.fanc.setting.iviews.IWXBindView;
 import com.wetime.fanc.setting.presenter.GetSettingPresenter;
 import com.wetime.fanc.setting.presenter.LogoutPresenter;
+import com.wetime.fanc.setting.presenter.WXBindPresenter;
 import com.wetime.fanc.web.WebActivity;
+import com.wetime.fanc.wxapi.WXLoginCodeEvent;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class SettingActivity extends BaseActivity implements ILogoutView, IGetSettingView {
+public class SettingActivity extends BaseActivity implements ILogoutView, IGetSettingView, IWXBindView {
 
 
     @BindView(R.id.tv_title)
@@ -49,15 +56,24 @@ public class SettingActivity extends BaseActivity implements ILogoutView, IGetSe
     private LogoutPresenter logoutPresenter;
     private GetSettingPresenter getSettingPresenter;
     private SettingPageBean bean;
+    private WXBindPresenter wxBindPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
         ButterKnife.bind(this);
+        EventBus.getDefault().register(this);
         tvTitle.setText("设置");
         getSettingPresenter = new GetSettingPresenter(this);
         getSettingPresenter.getSettinig();
+        wxBindPresenter = new WXBindPresenter(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 
     @Override
@@ -137,7 +153,7 @@ public class SettingActivity extends BaseActivity implements ILogoutView, IGetSe
                     Tools.showTipsDialog(mContext, "绑定微信号可同步订单信息", "取消", "立即绑定", null, new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-
+                            wxLogin();
                         }
                     });
                 }
@@ -149,7 +165,7 @@ public class SettingActivity extends BaseActivity implements ILogoutView, IGetSe
                 @Override
                 public void onClick(View view) {
                     //去 解绑页面
-                    Intent gobind = new Intent(mContext,BindWeixinActivity.class);
+                    Intent gobind = new Intent(mContext, BindWeixinActivity.class);
                     startActivity(gobind);
                 }
             });
@@ -178,5 +194,28 @@ public class SettingActivity extends BaseActivity implements ILogoutView, IGetSe
         Intent goweb = new Intent(this, WebActivity.class);
         goweb.putExtra("url", url);
         startActivity(goweb);
+    }
+
+    public void wxLogin() {
+        if (!FApp.mWxApi.isWXAppInstalled()) {
+            Tools.toastInBottom(this, "您没有安装微信");
+            return;
+        }
+        final SendAuth.Req req = new SendAuth.Req();
+        req.scope = "snsapi_userinfo";
+        req.state = "diandi_wx_login";
+        FApp.mWxApi.sendReq(req);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(WXLoginCodeEvent event) {
+        wxBindPresenter.getBindResult(event.getCode());
+    }
+
+    @Override
+    public void onBindResult(BaseBean bean) {
+        if (bean.getError() == 0) {
+            getSettingPresenter.getSettinig();
+        }
     }
 }

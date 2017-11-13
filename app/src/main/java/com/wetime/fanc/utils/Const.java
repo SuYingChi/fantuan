@@ -14,6 +14,7 @@ public interface Const {
     String LOGIN_VCODE = BASEURL + "/login/vcode";
     String LOGIN_PSW = BASEURL + "/login";
     String LOGIN_WX = BASEURL + "/login/wexin";
+    String WEIXIN_BIND = BASEURL + "/user/weixin/bind";
     String USER_PROFILE = BASEURL + "/user/profile";
     String LOGOUT = BASEURL + "/logout";
     String USER_PROFILE_UPDATEAVATAR = BASEURL + "/user/profile/updateavatar";
