@@ -13,6 +13,7 @@ public interface Const {
     String SMS_SEND = BASEURL + "/sms/send";
     String LOGIN_VCODE = BASEURL + "/login/vcode";
     String LOGIN_PSW = BASEURL + "/login";
+    String LOGIN_WX = BASEURL + "/login/wexin";
     String USER_PROFILE = BASEURL + "/user/profile";
     String LOGOUT = BASEURL + "/logout";
     String USER_PROFILE_UPDATEAVATAR = BASEURL + "/user/profile/updateavatar";

@@ -24,7 +24,7 @@ public class WXLoginPresenter {
 
         OkHttpUtils
                 .post()
-                .url(Const.LOGIN_PSW)
+                .url(Const.LOGIN_WX)
                 .addParams("code", code)
                 .build()
                 .execute(new DataStringCallback(iView, true) {
