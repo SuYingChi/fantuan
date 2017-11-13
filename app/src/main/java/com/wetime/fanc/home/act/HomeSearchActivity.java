@@ -2,8 +2,11 @@ package com.wetime.fanc.home.act;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -26,9 +29,13 @@ import com.wetime.fanc.R;
 import com.wetime.fanc.home.adapter.HisAdapter;
 import com.wetime.fanc.home.adapter.HotMallAdapter;
 import com.wetime.fanc.home.adapter.HotWordAdapter;
+import com.wetime.fanc.home.adapter.ResultAdapter;
 import com.wetime.fanc.home.bean.HomeHotSearchBean;
+import com.wetime.fanc.home.bean.SearchResult;
 import com.wetime.fanc.home.iviews.IGetHomeHotSearchView;
+import com.wetime.fanc.home.iviews.IGetHomeSugView;
 import com.wetime.fanc.home.presenter.GetHomeHotSerachPresenter;
+import com.wetime.fanc.home.presenter.GetHomeSugSerachPresenter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +44,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class HomeSearchActivity extends BaseActivity implements IGetHomeHotSearchView, TextView.OnEditorActionListener {
+public class HomeSearchActivity extends BaseActivity implements IGetHomeHotSearchView, TextView.OnEditorActionListener, TextWatcher, IGetHomeSugView {
 
 
     @BindView(R.id.iv_back)
@@ -58,9 +65,14 @@ public class HomeSearchActivity extends BaseActivity implements IGetHomeHotSearc
     RecyclerView rclHis;
     @BindView(R.id.iv_delete)
     ImageView ivDelete;
+    @BindView(R.id.rcl_result)
+    RecyclerView rclResult;
     private GetHomeHotSerachPresenter getHomeHotSerachPresenter;
     private List<String> hislist = new ArrayList<>();
     private HisAdapter hisAdapter;
+    private GetHomeSugSerachPresenter getHomeSugSerachPresenter;
+    private ResultAdapter resultAdapter;
+    private List<SearchResult.DataBean.MerchantsBean> reList = new ArrayList();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +84,12 @@ public class HomeSearchActivity extends BaseActivity implements IGetHomeHotSearc
         getHomeHotSerachPresenter = new GetHomeHotSerachPresenter(this);
         getHomeHotSerachPresenter.getHotSearchPage();
         etSearch.setOnEditorActionListener(this);
+        etSearch.addTextChangedListener(this);
+        resultAdapter = new ResultAdapter(reList, this);
+        rclResult.setLayoutManager(new LinearLayoutManager(this));
+        rclResult.setAdapter(resultAdapter);
+        getHomeSugSerachPresenter = new GetHomeSugSerachPresenter(this);
+
     }
 
     @Override
@@ -103,7 +121,7 @@ public class HomeSearchActivity extends BaseActivity implements IGetHomeHotSearc
                 onBackPressed();
                 break;
             case R.id.tv_cancel:
-                onBackPressed();
+//                onBackPressed();
                 break;
             case R.id.iv_delete:
                 spu.setValue("his", "");
@@ -183,5 +201,34 @@ public class HomeSearchActivity extends BaseActivity implements IGetHomeHotSearc
             hislist.remove(9);
 
         spu.setValue("his", GsonUtils.getGsonInstance().toJson(hislist));
+    }
+
+    @Override
+    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+    }
+
+    @Override
+    public void afterTextChanged(Editable editable) {
+        if (editable.toString().length() > 0) {
+            llHot.setVisibility(View.GONE);
+            getHomeSugSerachPresenter.getSugSearchPage(editable.toString());
+        } else {
+            reList.clear();
+            resultAdapter.notifyDataSetChanged();
+            llHot.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @Override
+    public void onGetHomeSug(SearchResult bean) {
+        reList.clear();
+        reList.addAll(bean.getData().getMerchants());
+        resultAdapter.notifyDataSetChanged();
     }
 }

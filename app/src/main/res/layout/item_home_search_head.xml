@@ -17,15 +17,14 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:scaleType="centerInside"
-            android:src="@drawable/icon_back"
-            android:visibility="gone"/>
+            android:src="@drawable/icon_back"/>
 
         <EditText
             android:id="@+id/et_search"
             android:layout_width="0dp"
             android:layout_height="30dp"
             android:layout_centerInParent="true"
-            android:layout_marginLeft="15dp"
+            android:layout_marginLeft="5dp"
             android:layout_marginRight="8dp"
             android:layout_weight="1"
             android:background="@drawable/bg_search_gray_corner"
@@ -48,7 +47,7 @@
             android:layout_marginRight="15dp"
             android:gravity="center"
             android:lineSpacingExtra="0sp"
-            android:text="取消"
+            android:text="搜索"
             android:textColor="#333333"
             android:textSize="16sp"
             />

@@ -11,8 +11,18 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <include layout="@layout/item_home_search_content"/>
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <include layout="@layout/item_home_search_content"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rcl_result"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </RelativeLayout>
     </ScrollView>
 </LinearLayout>
 

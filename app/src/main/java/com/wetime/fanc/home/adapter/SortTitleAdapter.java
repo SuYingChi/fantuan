@@ -65,8 +65,10 @@ public class SortTitleAdapter extends BaseAdapter {
         holder.tvname.setText(mData.get(position).getName());
         if(position == selected){
             holder.tvname.setTextColor(Color.parseColor("#ff3f53"));
+            holder.tvname.setBackgroundColor(Color.parseColor("#ffffff"));
         }else{
             holder.tvname.setTextColor(Color.parseColor("#333333"));
+            holder.tvname.setBackgroundColor(Color.parseColor("#f5f5f5"));
         }
         return convertView;
 
