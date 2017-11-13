@@ -17,7 +17,7 @@ import com.baidu.location.BDAbstractLocationListener;
 import com.baidu.location.BDLocation;
 import com.baidu.mapapi.SDKInitializer;
 import com.king.batterytest.fbaselib.main.BaseFragment;
-import com.king.batterytest.fbaselib.main.ScanActivity;
+import com.king.batterytest.fbaselib.service.LocationService;
 import com.king.batterytest.fbaselib.utils.Tools;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -25,7 +25,6 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.wetime.fanc.R;
 import com.wetime.fanc.home.act.HomeSearchActivity;
 import com.wetime.fanc.home.adapter.CenterAdapter;
-import com.wetime.fanc.home.service.LocationService;
 import com.wetime.fanc.shopcenter.act.CenterListActivity;
 import com.wetime.fanc.shopcenter.act.ShopCenterActivity;
 
@@ -86,6 +85,7 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener {
 
         return v;
     }
+
     @Override
     public void onRefresh(RefreshLayout refreshlayout) {
         refreshLayout.finishRefresh(2000);
@@ -136,7 +136,7 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener {
             case R.id.iv_scan:
 //                Intent goscan = new Intent(getContext(), ScanActivity.class);
 //                startActivityForResult(goscan, REQUEST_CODE);
-                Intent gotest =  new Intent(getContext(), CenterListActivity.class);
+                Intent gotest = new Intent(getContext(), CenterListActivity.class);
                 startActivity(gotest);
 
                 break;
