@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#FFFFFF"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/icon_back"
+            android:visibility="gone"/>
+
+        <EditText
+            android:id="@+id/et_search"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="8dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_search_gray_corner"
+            android:drawableLeft="@drawable/ic_search_black"
+            android:drawablePadding="5dp"
+            android:gravity="center|left"
+            android:hint="可搜索商家、购物中心或分类"
+            android:imeOptions="actionSearch"
+            android:lineSpacingExtra="0sp"
+            android:paddingLeft="10dp"
+            android:singleLine="true"
+            android:textColor="#333333"
+            android:textSize="14sp"
+            />
+
+        <TextView
+            android:id="@+id/tv_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginRight="15dp"
+            android:gravity="center"
+            android:lineSpacingExtra="0sp"
+            android:text="取消"
+            android:textColor="#333333"
+            android:textSize="16sp"
+            />
+    </LinearLayout>
+
+</RelativeLayout>

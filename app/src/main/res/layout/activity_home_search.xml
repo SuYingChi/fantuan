@@ -3,44 +3,16 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/white"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="#FFFFFF"
-        android:gravity="center"
-        android:orientation="horizontal">
+    <include layout="@layout/item_home_search_head"/>
 
-        <ImageView
-            android:id="@+id/iv_back"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:scaleType="centerInside"
-            android:src="@drawable/icon_back"/>
-
-        <EditText
-            android:id="@+id/et_search"
-            android:layout_width="0dp"
-            android:layout_height="30dp"
-            android:layout_centerInParent="true"
-            android:layout_marginRight="15dp"
-            android:layout_weight="1"
-            android:background="@drawable/bg_search_gray_corner"
-            android:drawableLeft="@drawable/ic_search_black"
-            android:gravity="center|left"
-            android:lineSpacingExtra="0sp"
-            android:drawablePadding="5dp"
-            android:paddingLeft="10dp"
-            android:textColor="#333333"
-            android:textSize="14sp"
-            />
-    </LinearLayout>
-
-    <RelativeLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+        <include layout="@layout/item_home_search_content"/>
 
-    </RelativeLayout>
+    </ScrollView>
 </LinearLayout>
 
