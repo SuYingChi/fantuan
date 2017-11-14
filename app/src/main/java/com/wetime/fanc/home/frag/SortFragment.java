@@ -73,7 +73,7 @@ public class SortFragment extends BaseFragment implements IGetSortView, AdapterV
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent goweb = new Intent(getContext(), WebActivity.class);
-                goweb.putExtra("url", bean.getData().getAll_category().get(0).getUrl());
+                goweb.putExtra("url", bean.getData().getAll_category().get(0).getSubcates().get(i).getUrl());
                 startActivity(goweb);
             }
         });

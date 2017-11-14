@@ -11,11 +11,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.baidu.location.BDAbstractLocationListener;
 import com.baidu.location.BDLocation;
 import com.baidu.mapapi.SDKInitializer;
+import com.bumptech.glide.Glide;
+import com.king.batterytest.fbaselib.customview.GridViewForScrollView;
 import com.king.batterytest.fbaselib.main.BaseFragment;
 import com.king.batterytest.fbaselib.service.LocationService;
 import com.king.batterytest.fbaselib.utils.Tools;
@@ -25,10 +29,13 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.wetime.fanc.R;
 import com.wetime.fanc.home.act.HomeSearchActivity;
 import com.wetime.fanc.home.adapter.CenterAdapter;
+import com.wetime.fanc.home.adapter.HomeGridAdapter;
+import com.wetime.fanc.home.bean.HomePageBean;
+import com.wetime.fanc.home.iviews.IGetHomePageView;
+import com.wetime.fanc.home.presenter.GetHomePagePresenter;
 import com.wetime.fanc.shopcenter.act.CenterListActivity;
 import com.wetime.fanc.shopcenter.act.ShopCenterActivity;
-
-import java.util.ArrayList;
+import com.wetime.fanc.web.WebActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -37,21 +44,26 @@ import butterknife.Unbinder;
 
 import static android.app.Activity.RESULT_OK;
 
-public class HomeFragment extends BaseFragment implements OnRefreshListener {
+public class HomeFragment extends BaseFragment implements OnRefreshListener, IGetHomePageView {
     @BindView(R.id.iv_scan)
     ImageView ivScan;
-    @BindView(R.id.test)
-    ImageView test;
+    @BindView(R.id.iv_banner)
+    ImageView ivBanner;
     Unbinder unbinder;
     @BindView(R.id.rcv_center)
     RecyclerView rcvCenter;
     @BindView(R.id.refreshLayout)
     SmartRefreshLayout refreshLayout;
+    @BindView(R.id.ll_search)
+    LinearLayout llSearch;
+    @BindView(R.id.gv)
+    GridViewForScrollView gv;
 
     private LocationService locationService;
     public Vibrator mVibrator;
 
     private int REQUEST_CODE = 10000;
+    private GetHomePagePresenter getHomePagePresenter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -61,27 +73,16 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener {
         locationService.start();
 
         View v = inflater.inflate(R.layout.fragment_home, null);
-        v.findViewById(R.id.test).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent t = new Intent(getContext(), ShopCenterActivity.class);
-                startActivity(t);
 
-            }
-        });
         unbinder = ButterKnife.bind(this, v);
-        ArrayList<String> s = new ArrayList<>();
-        s.add("1");
-        s.add("2");
-        s.add("3");
-        s.add("4");
-        s.add("5");
-        CenterAdapter adapter = new CenterAdapter(s, getContext());
-        rcvCenter.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
-        rcvCenter.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
+
+
         refreshLayout.setEnableLoadmore(false);
         refreshLayout.setOnRefreshListener(this);
+
+
+        getHomePagePresenter = new GetHomePagePresenter(this);
+        getHomePagePresenter.getHomePage();
 
         return v;
     }
@@ -182,4 +183,44 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener {
 
     };
 
+    @Override
+    public void onGetHomePage(final HomePageBean bean) {
+        HomeGridAdapter homeGridAdapter = new HomeGridAdapter(getContext(), bean.getData().getBigcates());
+        gv.setAdapter(homeGridAdapter);
+        homeGridAdapter.notifyDataSetChanged();
+        gv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                goWeb(bean.getData().getBigcates().get(i).getUrl());
+            }
+        });
+
+
+        CenterAdapter adapter = new CenterAdapter(bean.getData().getMalls(), getContext());
+        rcvCenter.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
+        rcvCenter.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+        adapter.setOnItemClickLitener(new CenterAdapter.OnItemClickLitener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                goWeb(bean.getData().getMalls().get(position).getUrl());
+            }
+        });
+        Glide.with(this).load(bean.getData().getPromotion_area().getBanner()).into(ivBanner);
+        ivBanner.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                goWeb(bean.getData().getPromotion_area().getUrl());
+            }
+        });
+    }
+
+    private void goWeb(String url) {
+        Intent goweb = new Intent(getContext(), WebActivity.class);
+        goweb.putExtra("url", url);
+        startActivity(goweb);
+    }
+
+//    Intent t = new Intent(getContext(), ShopCenterActivity.class);
+//    startActivity(t);
 }

@@ -26,6 +26,7 @@ public interface Const {
 
     String HOME_SEARCH = BASEURL + "/search";
     String SEARCH_SUGGEST = BASEURL + "/search/suggest";
+    String HOMEPAGE = BASEURL + "";
 
 
 }

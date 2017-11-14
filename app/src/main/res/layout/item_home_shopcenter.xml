@@ -1,16 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical">
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent">
 
-    <ImageView
-        android:scaleType="centerCrop"
-        android:src="@mipmap/ic_launcher"
-        android:id="@+id/iv_bg"
+    <RelativeLayout
+        android:layout_marginLeft="12dp"
         android:layout_width="140dp"
-        android:layout_height="match_parent"/>
+        android:layout_height="80dp">
+
+        <ImageView
+            android:id="@+id/iv_bg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/bg_all"
+            android:scaleType="centerCrop"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:lineSpacingExtra="0sp"
+                android:textColor="#ffffff"
+                android:textSize="15sp"
+                tools:text="望海国际广场"
+                />
+
+            <TextView
+                android:id="@+id/tv_dis"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:gravity="center"
+                android:lineSpacingExtra="0sp"
+                android:textColor="#ffffff"
+                android:textSize="12sp"
+                tools:text="800m"
+                />
+        </LinearLayout>
+    </RelativeLayout>
+
 </LinearLayout>
 

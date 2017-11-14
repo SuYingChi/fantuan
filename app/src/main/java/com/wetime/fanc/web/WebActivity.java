@@ -61,7 +61,7 @@ public class WebActivity extends BaseActivity implements IPostMultiFileView {
         web.loadUrl(weburl);
 //        web.reload();
 //        web.loadUrl("file:///android_asset/test.html");
-        Log.e("weburl", weburl);
+//        Log.e("weburl", weburl);
 
         // type 1  商家动态
 
