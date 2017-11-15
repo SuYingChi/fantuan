@@ -5,9 +5,9 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.king.batterytest.fbaselib.main.BaseActivity;
-import com.king.batterytest.fbaselib.main.FApp;
 import com.king.batterytest.fbaselib.utils.Tools;
 import com.tencent.mm.opensdk.modelmsg.SendAuth;
+import com.wetime.fanc.FApp;
 import com.wetime.fanc.R;
 import com.wetime.fanc.login.bean.LoginResultBean;
 import com.wetime.fanc.login.event.LoginEvent;

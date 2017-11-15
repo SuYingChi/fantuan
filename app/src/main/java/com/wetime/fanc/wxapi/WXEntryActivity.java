@@ -14,7 +14,7 @@ import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler;
 
 import org.greenrobot.eventbus.EventBus;
 
-import static com.king.batterytest.fbaselib.main.FApp.mWxApi;
+import static com.wetime.fanc.FApp.mWxApi;
 
 
 public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
