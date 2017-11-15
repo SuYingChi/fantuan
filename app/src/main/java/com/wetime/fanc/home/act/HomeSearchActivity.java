@@ -101,7 +101,7 @@ public class HomeSearchActivity extends BaseActivity implements IGetHomeHotSearc
     @Override
     public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
         if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-            // 当按了搜索之后关闭软键盘
+
             ((InputMethodManager) etSearch.getContext().getSystemService(
                     Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(
                     HomeSearchActivity.this.getCurrentFocus().getWindowToken(),
@@ -159,9 +159,7 @@ public class HomeSearchActivity extends BaseActivity implements IGetHomeHotSearc
     public void onGetHotSearchPage(HomeHotSearchBean bean) {
         llHot.setVisibility(View.VISIBLE);
         FlexboxLayoutManager manager = new FlexboxLayoutManager(this);
-        //设置主轴排列方式
         manager.setFlexDirection(FlexDirection.ROW);
-        //设置是否换行
         manager.setFlexWrap(FlexWrap.WRAP);
         manager.setAlignItems(AlignItems.STRETCH);
 
@@ -171,9 +169,7 @@ public class HomeSearchActivity extends BaseActivity implements IGetHomeHotSearc
         hotWordAdapter.notifyDataSetChanged();
 
         FlexboxLayoutManager manager2 = new FlexboxLayoutManager(this);
-        //设置主轴排列方式
         manager2.setFlexDirection(FlexDirection.ROW);
-        //设置是否换行
         manager2.setFlexWrap(FlexWrap.WRAP);
         manager2.setAlignItems(AlignItems.STRETCH);
         HotMallAdapter hotMallAdapter = new HotMallAdapter(bean.getData().getMall_hots(), this);

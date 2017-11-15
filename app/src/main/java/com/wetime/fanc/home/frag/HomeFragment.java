@@ -20,6 +20,7 @@ import com.baidu.location.BDLocation;
 import com.baidu.mapapi.SDKInitializer;
 import com.bumptech.glide.Glide;
 import com.king.batterytest.fbaselib.customview.GridViewForScrollView;
+import com.king.batterytest.fbaselib.customview.ListViewForScrollView;
 import com.king.batterytest.fbaselib.main.BaseFragment;
 import com.king.batterytest.fbaselib.service.LocationService;
 import com.king.batterytest.fbaselib.utils.Tools;
@@ -30,11 +31,11 @@ import com.wetime.fanc.R;
 import com.wetime.fanc.home.act.HomeSearchActivity;
 import com.wetime.fanc.home.adapter.CenterAdapter;
 import com.wetime.fanc.home.adapter.HomeGridAdapter;
+import com.wetime.fanc.home.adapter.HomeShopListAdapter;
 import com.wetime.fanc.home.bean.HomePageBean;
 import com.wetime.fanc.home.iviews.IGetHomePageView;
 import com.wetime.fanc.home.presenter.GetHomePagePresenter;
 import com.wetime.fanc.shopcenter.act.CenterListActivity;
-import com.wetime.fanc.shopcenter.act.ShopCenterActivity;
 import com.wetime.fanc.web.WebActivity;
 
 import butterknife.BindView;
@@ -58,6 +59,8 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, IGe
     LinearLayout llSearch;
     @BindView(R.id.gv)
     GridViewForScrollView gv;
+    @BindView(R.id.lv_shop)
+    ListViewForScrollView lvShop;
 
     private LocationService locationService;
     public Vibrator mVibrator;
@@ -213,6 +216,12 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, IGe
                 goWeb(bean.getData().getPromotion_area().getUrl());
             }
         });
+
+        HomeShopListAdapter homeShopListAdapter = new HomeShopListAdapter(getContext(), bean.getData().getMerchants());
+        lvShop.setAdapter(homeShopListAdapter);
+        homeShopListAdapter.notifyDataSetChanged();
+
+
     }
 
     private void goWeb(String url) {
