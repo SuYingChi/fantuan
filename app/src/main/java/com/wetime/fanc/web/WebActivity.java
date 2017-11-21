@@ -14,13 +14,10 @@ import android.webkit.WebViewClient;
 import android.widget.TextView;
 
 import com.king.batterytest.fbaselib.main.BaseActivity;
-import com.king.batterytest.fbaselib.utils.GsonUtils;
 import com.king.batterytest.fbaselib.utils.Tools;
 import com.wetime.fanc.FApp;
 import com.wetime.fanc.R;
 import com.wetime.fanc.login.act.LoginActivity;
-import com.wetime.fanc.main.bean.PostFileResultBean;
-import com.wetime.fanc.main.ivews.IPostMultiFileView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -38,7 +35,6 @@ public class WebActivity extends BaseActivity {
 
     private String weburl;
     private String type = "0";
-
 
 
     @Override
@@ -142,7 +138,6 @@ public class WebActivity extends BaseActivity {
                         Intent go = new Intent(WebActivity.this, LoginActivity.class);
                         startActivity(go);
                     } else {
-
                         view.loadUrl(url); // 在当前的webview中跳转到新的url
                     }
                 }
@@ -159,11 +154,6 @@ public class WebActivity extends BaseActivity {
     }
 
 
-
-
-
-
-
     @JavascriptInterface
     public String getToken() {
         return spu.getValue("token");
@@ -178,7 +168,6 @@ public class WebActivity extends BaseActivity {
     public void setTitle(String title) {
         tvTitle.setText(title);
     }
-
 
 
 }
