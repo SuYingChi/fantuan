@@ -83,29 +83,42 @@ public class HomeShopListAdapter extends BaseAdapter {
         } else {
             holder.tvType.setVisibility(View.VISIBLE);
         }
-        if(bean.getSpider().equals("0")){
+        if (bean.getSpider().equals("0")) {
             holder.ivFantuan.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             holder.ivFantuan.setVisibility(View.GONE);
         }
-        if(bean.getSales().equals("")){
+        if (bean.getSales().equals("")) {
             holder.tvSeal.setVisibility(View.GONE);
-        }else{
+        } else {
             holder.tvSeal.setVisibility(View.VISIBLE);
         }
-        final HomeShopActAdapter actAdapter = new HomeShopActAdapter(mContext,bean.getPromotion_list());;
-        holder.lv.setAdapter(actAdapter);
-        actAdapter.notifyDataSetChanged();
 
-        if(actAdapter.isIszhe()){
+
+        if(bean.isZhe()){
             holder.ivZhe.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             holder.ivZhe.setVisibility(View.GONE);
         }
+        final HomeShopActAdapter actAdapter = new HomeShopActAdapter(mContext, bean.getPromotion_list());
+        holder.lv.setAdapter(actAdapter);
+        actAdapter.setIszhe(bean.isZhe());
+        actAdapter.notifyDataSetChanged();
+
+
+
+
+
+
+
+        final ViewHolder finalHolder = holder;
         holder.ivZhe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                actAdapter.setIszhe(false);
+//                actAdapter.setIszhe(false);
+//                actAdapter.notifyDataSetChanged();
+                bean.setZhe(false);
+//                finalHolder.ivZhe.setVisibility(View.GONE);
                 notifyDataSetChanged();
             }
         });

@@ -92,7 +92,7 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, IGe
 
     @Override
     public void onRefresh(RefreshLayout refreshlayout) {
-        refreshLayout.finishRefresh(2000);
+        getHomePagePresenter.getHomePage();
     }
 
     @Override
@@ -188,6 +188,7 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, IGe
 
     @Override
     public void onGetHomePage(final HomePageBean bean) {
+
         HomeGridAdapter homeGridAdapter = new HomeGridAdapter(getContext(), bean.getData().getBigcates());
         gv.setAdapter(homeGridAdapter);
         homeGridAdapter.notifyDataSetChanged();
@@ -220,7 +221,7 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, IGe
         HomeShopListAdapter homeShopListAdapter = new HomeShopListAdapter(getContext(), bean.getData().getMerchants());
         lvShop.setAdapter(homeShopListAdapter);
         homeShopListAdapter.notifyDataSetChanged();
-
+        refreshLayout.finishRefresh(1000);
 
     }
 

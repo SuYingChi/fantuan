@@ -244,6 +244,15 @@ public class HomePageBean {
             private String spider;
             private String distance;
             private List<String> promotion_list;
+            private boolean zhe = true;
+
+            public boolean isZhe() {
+                return zhe;
+            }
+
+            public void setZhe(boolean zhe) {
+                this.zhe = zhe;
+            }
 
             public String getId() {
                 return id;

@@ -1,7 +1,6 @@
 package com.wetime.fanc.home.adapter;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,8 +8,6 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.wetime.fanc.R;
-import com.wetime.fanc.home.bean.HomePageBean;
-import com.wetime.fanc.home.bean.SortPageBean;
 
 import java.util.List;
 
@@ -29,7 +26,12 @@ public class HomeShopActAdapter extends BaseAdapter {
     private boolean iszhe = true;
 
     public boolean isIszhe() {
-        return iszhe;
+        if (iszhe && mData.size() > 2) {
+            return iszhe;
+        } else {
+            return !iszhe;
+        }
+
     }
 
     public void setIszhe(boolean iszhe) {
@@ -46,13 +48,13 @@ public class HomeShopActAdapter extends BaseAdapter {
     @Override
     public int getCount() {
         // TODO Auto-generated method stub
-        if(mData.size()>2){
-            if(iszhe){
+        if (mData.size() > 2) {
+            if (iszhe) {
                 return 2;
-            }else{
+            } else {
                 return mData.size();
             }
-        }else{
+        } else {
             return mData.size();
         }
 
