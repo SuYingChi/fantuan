@@ -1,6 +1,7 @@
 package com.wetime.fanc.home.act;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -106,8 +107,13 @@ public class HomeSearchActivity extends BaseActivity implements IGetHomeHotSearc
                     Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(
                     HomeSearchActivity.this.getCurrentFocus().getWindowToken(),
                     InputMethodManager.HIDE_NOT_ALWAYS);
-            Tools.toastInBottom(this, "search");
+            if(etSearch.getText().toString().equals(""))
+                return false;
+
+
+//            Tools.toastInBottom(this, "search");
             savaHis(etSearch.getText().toString());
+            goResult(etSearch.getText().toString());
             return true;
         }
         return false;
@@ -226,5 +232,11 @@ public class HomeSearchActivity extends BaseActivity implements IGetHomeHotSearc
         reList.clear();
         reList.addAll(bean.getData().getMerchants());
         resultAdapter.notifyDataSetChanged();
+    }
+
+    private void goResult(String key) {
+        Intent go = new Intent(this, HomeSearchResultActivity.class);
+        go.putExtra("key", key);
+        startActivity(go);
     }
 }

@@ -1,4 +1,4 @@
-package com.wetime.fanc.shopcenter.act;
+package com.wetime.fanc.home.act;
 
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -19,15 +20,17 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.wetime.fanc.R;
+import com.wetime.fanc.home.bean.HomeSearchResult;
+import com.wetime.fanc.home.iviews.IGetHomeSearchResultView;
+import com.wetime.fanc.home.presenter.GetHomeSearchResultPresenter;
 import com.wetime.fanc.shopcenter.adapter.CategoryItemAdapter;
 import com.wetime.fanc.shopcenter.adapter.CenterListAdapter;
 import com.wetime.fanc.shopcenter.adapter.FloorItemAdapter;
+import com.wetime.fanc.shopcenter.adapter.LoaItemAdapter;
 import com.wetime.fanc.shopcenter.adapter.SCategoruItemAdapter;
+import com.wetime.fanc.shopcenter.adapter.SLoaItemAdapter;
 import com.wetime.fanc.shopcenter.adapter.SortMethordItemAdapter;
-import com.wetime.fanc.shopcenter.bean.CenterListPageBean;
 import com.wetime.fanc.shopcenter.bean.MerchantsBean;
-import com.wetime.fanc.shopcenter.iviews.IGetShopCenterListView;
-import com.wetime.fanc.shopcenter.presenter.GetShopCenterListPresenter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,15 +39,12 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class CenterListActivity extends BaseActivity implements IGetShopCenterListView, OnRefreshListener, OnLoadmoreListener {
+public class HomeSearchResultActivity extends BaseActivity implements IGetHomeSearchResultView, OnRefreshListener, OnLoadmoreListener {
 
 
-    @BindView(R.id.tv_title)
-    TextView tvTitle;
     @BindView(R.id.iv_back)
     ImageView ivBack;
-    @BindView(R.id.iv_search)
-    ImageView iv_search;
+
     @BindView(R.id.rcv_lsit)
     RecyclerView rcvLsit;
     @BindView(R.id.tv_1)
@@ -61,8 +61,10 @@ public class CenterListActivity extends BaseActivity implements IGetShopCenterLi
     LinearLayout ll3;
     @BindView(R.id.refreshLayout)
     SmartRefreshLayout refreshLayout;
-    @BindView(R.id.lv_1)
-    ListView lv1;
+    @BindView(R.id.lv_11)
+    ListView lv11;
+    @BindView(R.id.lv_12)
+    ListView lv12;
     @BindView(R.id.v_1)
     View v1;
 
@@ -76,28 +78,37 @@ public class CenterListActivity extends BaseActivity implements IGetShopCenterLi
     ListView lv22;
     @BindView(R.id.v_2)
     View v2;
+    @BindView(R.id.et_search)
+    EditText etSearch;
+    @BindView(R.id.tv_cancel)
+    TextView tvCancel;
 
-    private GetShopCenterListPresenter getShopCenterListPresenter;
+    private GetHomeSearchResultPresenter getHomeSearchResultPresenter;
     private CenterListAdapter adapter;
     private List<MerchantsBean> list = new ArrayList<>();
-    private FloorItemAdapter adapter1;
+    private LoaItemAdapter adapter11;
     private CategoryItemAdapter adapter21;
     private SortMethordItemAdapter adapter3;
 
     //    private int opper = 0;// 0  刷新 1 加载更多
     private int page = 1;
     private String sortMethod = "0";//排列方式： 0=智能排序，1=距离优先，2=人均
-    private String floorId = "";
-    private String cenerId = "24";
-    private String cid = "";
-    private String sid = "";
+//    private String floorId = "";
+//    private String cenerId = "";
+    private String cid = ""; //分类大id
+    private String sid = "";// 子分类Id
+
+    private String mid = ""; //Loa分类大id
+    private String smid = "";//Loa 子分类Id
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_centerlist);
+        setContentView(R.layout.activity_homesearch_result);
         ButterKnife.bind(this);
-        tvTitle.setText("h5传值过来");
+
+        etSearch.setText(getIntent().getStringExtra("key"));
+        etSearch.setEnabled(false);
         adapter = new CenterListAdapter(list, mContext);
         rcvLsit.setLayoutManager(new LinearLayoutManager(this));
         rcvLsit.setAdapter(adapter);
@@ -107,9 +118,8 @@ public class CenterListActivity extends BaseActivity implements IGetShopCenterLi
         refreshLayout.setOnRefreshListener(this);
 
 
-        getShopCenterListPresenter = new GetShopCenterListPresenter(this);
+        getHomeSearchResultPresenter = new GetHomeSearchResultPresenter(this);
         refreshLayout.autoRefresh();
-//        getShopCenterListPresenter.getShopCenterList();
     }
 
     @Override
@@ -117,14 +127,13 @@ public class CenterListActivity extends BaseActivity implements IGetShopCenterLi
         super.onBackPressed();
     }
 
-    @OnClick({R.id.iv_back, R.id.iv_search, R.id.ll_1, R.id.ll_3, R.id.ll_2})
+    @OnClick({R.id.iv_back, R.id.ll_1, R.id.ll_3, R.id.ll_2})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
                 onBackPressed();
                 break;
-            case R.id.iv_search:
-                break;
+
             case R.id.ll_1:
                 if (tv1.getTag() == null) {
                     tv1.setTag("");
@@ -216,6 +225,11 @@ public class CenterListActivity extends BaseActivity implements IGetShopCenterLi
     }
 
     @Override
+    public String getWord() {
+        return etSearch.getText().toString();
+    }
+
+    @Override
     public String getJd() {
         return spu.getValue("jd");
     }
@@ -227,13 +241,9 @@ public class CenterListActivity extends BaseActivity implements IGetShopCenterLi
 
     @Override
     public String getMailId() {
-        return cenerId;
+        return smid;
     }
 
-    @Override
-    public String getFloaId() {
-        return floorId;
-    }
 
     @Override
     public String getPage() {
@@ -251,37 +261,15 @@ public class CenterListActivity extends BaseActivity implements IGetShopCenterLi
     }
 
     @Override
-    public void onGetShopCenterListBean(final CenterListPageBean bean) {
+    public void onGetHomeSearchResultBean(final HomeSearchResult bean) {
         if (page == 1)
             list.clear();
 
         list.addAll(bean.getData().getMerchants());
         adapter.notifyDataSetChanged();
 
-
-        adapter1 = new FloorItemAdapter(mContext, bean.getData().getFloor());
-        adapter1.setSelectedId(floorId);
-        lv1.setAdapter(adapter1);
-        adapter1.notifyDataSetChanged();
-        lv1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                adapter1.setSelectedId(bean.getData().getFloor().get(i).getId());
-                v1.setVisibility(View.GONE);
-                tv1.setText(bean.getData().getFloor().get(i).getName());
-
-                tv1.setTag(null);
-                tv1.setTextColor(Color.parseColor("#666666"));
-                Drawable drawable = getResources().getDrawable(R.drawable.ic_head_down);
-                drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getMinimumHeight());
-                tv1.setCompoundDrawables(null, null, drawable, null);
-                floorId = bean.getData().getFloor().get(i).getId();
-                page = 1;
-                refreshLayout.autoRefresh();
-
-            }
-        });
-
+        refreshLayout.finishRefresh();
+        refreshLayout.finishLoadmore();
 
         adapter21 = new CategoryItemAdapter(mContext, bean.getData().getCategory());
         adapter21.setSelectedId(cid);
@@ -292,7 +280,7 @@ public class CenterListActivity extends BaseActivity implements IGetShopCenterLi
             public void onItemClick(AdapterView<?> adapterView, View view, final int i, long l) {
                 adapter21.setSelectedId(bean.getData().getCategory().get(i).getId());
                 cid = bean.getData().getCategory().get(i).getId();
-                if(cid.equals("")){
+                if (cid.equals("")) {
                     sid = "";
                     v2.setVisibility(View.GONE);
                     tv2.setText(bean.getData().getCategory().get(i).getName());
@@ -311,7 +299,7 @@ public class CenterListActivity extends BaseActivity implements IGetShopCenterLi
 
                     page = 1;
                     refreshLayout.autoRefresh();
-                }else{
+                } else {
                     SCategoruItemAdapter adapter22 = new SCategoruItemAdapter(mContext, bean.getData().getCategory().get(i).getSubcates());
                     adapter22.setCid(cid);
                     adapter22.setSelectedId(sid);
@@ -321,9 +309,10 @@ public class CenterListActivity extends BaseActivity implements IGetShopCenterLi
                         @Override
                         public void onItemClick(AdapterView<?> adapterView, View view, int ii, long l) {
                             sid = bean.getData().getCategory().get(i).getSubcates().get(ii).getId();
-                            Log.e("zk sid=",sid);
+                            Log.e("zk sid=", sid);
 
                             v2.setVisibility(View.GONE);
+
                             if(ii==0){
                                 tv2.setText(bean.getData().getCategory().get(i).getName());
                             }else{
@@ -342,7 +331,66 @@ public class CenterListActivity extends BaseActivity implements IGetShopCenterLi
                 }
 
 
+            }
+        });
 
+        adapter11 = new LoaItemAdapter(mContext, bean.getData().getMalls());
+        adapter11.setSelectedId(mid);
+        lv11.setAdapter(adapter11);
+        adapter11.notifyDataSetChanged();
+        lv11.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, final int i, long l) {
+                adapter11.setSelectedId(bean.getData().getMalls().get(i).getId());
+                mid = bean.getData().getMalls().get(i).getId();
+                if (mid.equals("")) {
+                    smid = "";
+                    v1.setVisibility(View.GONE);
+                    tv1.setText(bean.getData().getMalls().get(i).getName());
+
+                    tv1.setTag(null);
+                    tv1.setTextColor(Color.parseColor("#666666"));
+                    Drawable drawable = getResources().getDrawable(R.drawable.ic_head_down);
+                    drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getMinimumHeight());
+                    tv1.setCompoundDrawables(null, null, drawable, null);
+
+                    SLoaItemAdapter adapter12 = new SLoaItemAdapter(mContext, bean.getData().getMalls().get(i).getSubcates());
+                    adapter12.setCid(mid);
+                    adapter12.setSelectedId(smid);
+                    lv12.setAdapter(adapter12);
+                    adapter12.notifyDataSetChanged();
+
+                    page = 1;
+                    refreshLayout.autoRefresh();
+                } else {
+                    SLoaItemAdapter adapter12 = new SLoaItemAdapter(mContext, bean.getData().getMalls().get(i).getSubcates());
+                    adapter12.setCid(mid);
+                    adapter12.setSelectedId(smid);
+                    lv12.setAdapter(adapter12);
+                    adapter12.notifyDataSetChanged();
+                    lv12.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> adapterView, View view, int ii, long l) {
+                            smid = bean.getData().getMalls().get(i).getSubcates().get(ii).getId();
+                            v1.setVisibility(View.GONE);
+                            if(ii==0){
+                                tv1.setText(bean.getData().getMalls().get(i).getName());
+                            }else{
+                                tv1.setText(bean.getData().getMalls().get(i).getSubcates().get(ii).getName());
+                            }
+
+
+                            tv1.setTag(null);
+                            tv1.setTextColor(Color.parseColor("#666666"));
+                            Drawable drawable = getResources().getDrawable(R.drawable.ic_head_down);
+                            drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getMinimumHeight());
+                            tv1.setCompoundDrawables(null, null, drawable, null);
+
+                            page = 1;
+                            refreshLayout.autoRefresh();
+                        }
+                    });
+                }
 
 
             }
@@ -371,21 +419,53 @@ public class CenterListActivity extends BaseActivity implements IGetShopCenterLi
             }
         });
 
-
-        refreshLayout.finishRefresh();
-        refreshLayout.finishLoadmore();
     }
+
+//    @Override
+//    public void onGetShopCenterListBean(final CenterListPageBean bean) {
+//        if (page == 1)
+//            list.clear();
+//
+//        list.addAll(bean.getData().getMerchants());
+//        adapter.notifyDataSetChanged();
+//
+//
+//        adapter1 = new FloorItemAdapter(mContext, bean.getData().getFloor());
+//        adapter1.setSelectedId(floorId);
+//        lv1.setAdapter(adapter1);
+//        adapter1.notifyDataSetChanged();
+//        lv1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//                adapter1.setSelectedId(bean.getData().getFloor().get(i).getId());
+//                v1.setVisibility(View.GONE);
+//                tv1.setText(bean.getData().getFloor().get(i).getName());
+//
+//                tv1.setTag(null);
+//                tv1.setTextColor(Color.parseColor("#666666"));
+//                Drawable drawable = getResources().getDrawable(R.drawable.ic_head_down);
+//                drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getMinimumHeight());
+//                tv1.setCompoundDrawables(null, null, drawable, null);
+//                floorId = bean.getData().getFloor().get(i).getId();
+//                page = 1;
+//                refreshLayout.autoRefresh();
+//
+//            }
+//        });
+//
+//
+
 
     @Override
     public void onRefresh(RefreshLayout refreshlayout) {
         Log.e("zk", "referessssss");
         page = 1;
-        getShopCenterListPresenter.getShopCenterList();
+        getHomeSearchResultPresenter.getShopCenterList();
     }
 
     @Override
     public void onLoadmore(RefreshLayout refreshlayout) {
         page++;
-        getShopCenterListPresenter.getShopCenterList();
+        getHomeSearchResultPresenter.getShopCenterList();
     }
 }

@@ -6,9 +6,9 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <include layout="@layout/item_centerlist_header"/>
-
-    <include layout="@layout/item_shopcenter_sort_header"/>
+    <!--<include layout="@layout/item_centerlist_header"/>-->
+    <include layout="@layout/item_home_search_head"/>
+    <include layout="@layout/item_home_search_result_header"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -30,7 +30,7 @@
 
         <include
             android:id="@+id/v_1"
-            layout="@layout/item_down_1"
+            layout="@layout/item_down_12"
             android:visibility="gone"/>
         <include
             android:id="@+id/v_2"

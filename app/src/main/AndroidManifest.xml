@@ -74,5 +74,6 @@
 
         <activity android:name=".home.act.HomeSearchActivity"/>
         <activity android:name=".shopcenter.act.CenterListActivity"/>
+        <activity android:name=".home.act.HomeSearchResultActivity"/>
     </application>
 </manifest>
