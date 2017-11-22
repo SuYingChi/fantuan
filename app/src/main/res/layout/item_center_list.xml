@@ -27,16 +27,36 @@
         android:layout_weight="1"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/tv_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:letterSpacing="0.01"
-            android:lineSpacingExtra="0sp"
-            android:textColor="#333333"
-            android:textSize="16sp"
-            tools:text="青沼日本料理 (望京店)"
-            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:letterSpacing="0.01"
+                android:lineSpacingExtra="0sp"
+                android:textColor="#333333"
+                android:textSize="16sp"
+                tools:text="青沼日本料理 (望京店)"
+                />
+
+            <TextView
+
+                android:id="@+id/tv_floor"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="end"
+                android:paddingRight="12dp"
+                android:textColor="#333333"
+                android:textSize="14sp"
+                tools:text="F1"
+                />
+        </LinearLayout>
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -67,19 +87,48 @@
                 android:textSize="12sp"
                 tools:text="¥57/人"
                 />
+
+            <TextView
+                android:id="@+id/tv_dis"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="end"
+                android:lineSpacingExtra="0sp"
+                android:paddingRight="12dp"
+                android:textColor="#666666"
+                android:textSize="12sp"
+                tools:text="1.7km"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_marginTop="5dp"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_marginRight="10dp"
+                android:id="@+id/tv_mallname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:textColor="#ff3f53"
+                android:letterSpacing="0.01"
+                android:lineSpacingExtra="0sp"
+                tools:text="日月广场"
+                />
+            <TextView
+                android:id="@+id/tv_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:letterSpacing="0.01"
+                android:lineSpacingExtra="0sp"
+                android:textColor="#666666"
+                android:textSize="12sp"
+                tools:text="日韩料理"
+                />
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/tv_type"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:letterSpacing="0.01"
-            android:lineSpacingExtra="0sp"
-            android:textColor="#666666"
-            android:textSize="12sp"
-            tools:text="日韩料理"
-            />
 
         <ImageView
             android:id="@+id/iv_fantuan"
@@ -91,6 +140,7 @@
 
 
         <com.king.batterytest.fbaselib.customview.ListViewForScrollView
+            android:layout_marginTop="5dp"
             android:id="@+id/lv_act"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

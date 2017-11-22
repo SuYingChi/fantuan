@@ -50,7 +50,14 @@ public class HotMallAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         final OrderViewHolder oholder = (OrderViewHolder) holder;
         oholder.tvWrod.setText(list.get(position).getName());
-
+        if (mOnItemClickLitener != null) {
+            oholder.tvWrod.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mOnItemClickLitener.onItemClick(view,position);
+                }
+            });
+        }
     }
 
     @Override

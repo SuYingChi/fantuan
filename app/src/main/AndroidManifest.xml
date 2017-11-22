@@ -72,8 +72,8 @@
             android:value="561cae6ae0f55abd990035bf">
         </meta-data>
 
-        <activity android:name=".home.act.HomeSearchActivity"/>
+        <activity android:name=".home.act.HomeSearchActivity" android:launchMode="singleTop"/>
         <activity android:name=".shopcenter.act.CenterListActivity"/>
-        <activity android:name=".home.act.HomeSearchResultActivity"/>
+        <activity android:name=".home.act.HomeSearchResultActivity" android:launchMode="singleTask"/>
     </application>
 </manifest>

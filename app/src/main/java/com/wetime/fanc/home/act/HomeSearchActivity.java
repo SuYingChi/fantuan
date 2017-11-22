@@ -37,6 +37,7 @@ import com.wetime.fanc.home.iviews.IGetHomeHotSearchView;
 import com.wetime.fanc.home.iviews.IGetHomeSugView;
 import com.wetime.fanc.home.presenter.GetHomeHotSerachPresenter;
 import com.wetime.fanc.home.presenter.GetHomeSugSerachPresenter;
+import com.wetime.fanc.web.WebActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -90,8 +91,14 @@ public class HomeSearchActivity extends BaseActivity implements IGetHomeHotSearc
         rclResult.setLayoutManager(new LinearLayoutManager(this));
         rclResult.setAdapter(resultAdapter);
         getHomeSugSerachPresenter = new GetHomeSugSerachPresenter(this);
+        if (!TextUtils.isEmpty(getIntent().getStringExtra("key"))) {
+            etSearch.setText(getIntent().getStringExtra("key"));
+            etSearch.setSelection(etSearch.getText().length());
+            llHot.setVisibility(View.GONE);
+        }
 
     }
+
 
     @Override
     public void onBackPressed() {
@@ -107,13 +114,16 @@ public class HomeSearchActivity extends BaseActivity implements IGetHomeHotSearc
                     Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(
                     HomeSearchActivity.this.getCurrentFocus().getWindowToken(),
                     InputMethodManager.HIDE_NOT_ALWAYS);
-            if(etSearch.getText().toString().equals(""))
+            if (etSearch.getText().toString().equals(""))
                 return false;
 
 
 //            Tools.toastInBottom(this, "search");
             savaHis(etSearch.getText().toString());
             goResult(etSearch.getText().toString());
+//            if (!TextUtils.isEmpty(getIntent().getStringExtra("key"))) {
+//                finish();
+//            }
             return true;
         }
         return false;
@@ -127,7 +137,7 @@ public class HomeSearchActivity extends BaseActivity implements IGetHomeHotSearc
                 onBackPressed();
                 break;
             case R.id.tv_cancel:
-//                onBackPressed();
+                onBackPressed();
                 break;
             case R.id.iv_delete:
                 spu.setValue("his", "");
@@ -157,13 +167,24 @@ public class HomeSearchActivity extends BaseActivity implements IGetHomeHotSearc
             manager3.setAlignItems(AlignItems.STRETCH);
             rclHis.setLayoutManager(manager3);
             rclHis.setAdapter(hisAdapter);
+            hisAdapter.setOnItemClickLitener(new HisAdapter.OnItemClickLitener() {
+                @Override
+                public void onItemClick(View view, int position) {
+                    goResult(hislist.get(position));
+                }
+            });
         }
 
     }
 
     @Override
-    public void onGetHotSearchPage(HomeHotSearchBean bean) {
-        llHot.setVisibility(View.VISIBLE);
+    public void onGetHotSearchPage(final HomeHotSearchBean bean) {
+        if (TextUtils.isEmpty(etSearch.getText())) {
+            llHot.setVisibility(View.VISIBLE);
+        } else {
+            llHot.setVisibility(View.GONE);
+        }
+
         FlexboxLayoutManager manager = new FlexboxLayoutManager(this);
         manager.setFlexDirection(FlexDirection.ROW);
         manager.setFlexWrap(FlexWrap.WRAP);
@@ -173,6 +194,12 @@ public class HomeSearchActivity extends BaseActivity implements IGetHomeHotSearc
         rclHotword.setLayoutManager(manager);
         rclHotword.setAdapter(hotWordAdapter);
         hotWordAdapter.notifyDataSetChanged();
+        hotWordAdapter.setOnItemClickLitener(new HotWordAdapter.OnItemClickLitener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                goResult(bean.getData().getMerchant_hots().get(position).getName());
+            }
+        });
 
         FlexboxLayoutManager manager2 = new FlexboxLayoutManager(this);
         manager2.setFlexDirection(FlexDirection.ROW);
@@ -182,7 +209,12 @@ public class HomeSearchActivity extends BaseActivity implements IGetHomeHotSearc
         rclHotmall.setLayoutManager(manager2);
         rclHotmall.setAdapter(hotMallAdapter);
         hotMallAdapter.notifyDataSetChanged();
-
+        hotMallAdapter.setOnItemClickLitener(new HotMallAdapter.OnItemClickLitener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                goResult(bean.getData().getMall_hots().get(position).getName());
+            }
+        });
 
     }
 
@@ -232,11 +264,23 @@ public class HomeSearchActivity extends BaseActivity implements IGetHomeHotSearc
         reList.clear();
         reList.addAll(bean.getData().getMerchants());
         resultAdapter.notifyDataSetChanged();
+        resultAdapter.setOnItemClickLitener(new ResultAdapter.OnItemClickLitener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                goWeb(reList.get(position).getUrl());
+            }
+        });
     }
 
     private void goResult(String key) {
         Intent go = new Intent(this, HomeSearchResultActivity.class);
         go.putExtra("key", key);
         startActivity(go);
+    }
+
+    private void goWeb(String url) {
+        Intent goweb = new Intent(this, WebActivity.class);
+        goweb.putExtra("url", url);
+        startActivity(goweb);
     }
 }

@@ -51,7 +51,14 @@ public class ResultAdapter extends RecyclerView.Adapter {
         final OrderViewHolder oholder = (OrderViewHolder) holder;
         oholder.tvWrod.setText(list.get(position).getName());
         oholder.tvNum.setText(list.get(position).getDistance());
-
+        if (mOnItemClickLitener != null) {
+            oholder.tvWrod.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mOnItemClickLitener.onItemClick(view,position);
+                }
+            });
+        }
     }
 
     @Override

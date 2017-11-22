@@ -2,6 +2,7 @@ package com.wetime.fanc.shopcenter.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,6 +61,18 @@ public class SearchShopListAdapter extends RecyclerView.Adapter {
         holder.rbSocre.setRating(bean.getScore());
         holder.tvSpend.setText(bean.getAverage_spend());
         holder.tvType.setText(bean.getCategory_name());
+        holder.tvDis.setText(bean.getDistance());
+        holder.tvFloor.setText(bean.getFloor());
+        if(TextUtils.isEmpty(bean.getMall_name())){
+            holder.tvMallname.setVisibility(View.GONE);
+            holder.tvMallname.setText(bean.getMall_name());
+        }else{
+            holder.tvMallname.setVisibility(View.VISIBLE);
+            holder.tvMallname.setText(bean.getMall_name());
+        }
+
+
+
         if (bean.getSpider().equals("1")) {
             holder.ivFantuan.setVisibility(View.GONE);
         } else {
@@ -99,6 +112,14 @@ public class SearchShopListAdapter extends RecyclerView.Adapter {
                 notifyDataSetChanged();
             }
         });
+        if (mOnItemClickLitener != null) {
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mOnItemClickLitener.onItemClick(view,position);
+                }
+            });
+        }
     }
 
     @Override
@@ -115,6 +136,12 @@ public class SearchShopListAdapter extends RecyclerView.Adapter {
         RatingBar rbSocre;
         @BindView(R.id.tv_spend)
         TextView tvSpend;
+        @BindView(R.id.tv_floor)
+        TextView tvFloor;
+        @BindView(R.id.tv_mallname)
+        TextView tvMallname;
+        @BindView(R.id.tv_dis)
+        TextView tvDis;
         @BindView(R.id.iv_fantuan)
         ImageView ivFantuan;
         @BindView(R.id.lv_act)

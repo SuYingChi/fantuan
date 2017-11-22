@@ -1,10 +1,12 @@
 package com.wetime.fanc.home.act;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -15,6 +17,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.king.batterytest.fbaselib.main.BaseActivity;
+import com.king.batterytest.fbaselib.utils.Tools;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
@@ -30,6 +33,7 @@ import com.wetime.fanc.shopcenter.adapter.SLoaItemAdapter;
 import com.wetime.fanc.shopcenter.adapter.SearchShopListAdapter;
 import com.wetime.fanc.shopcenter.adapter.SortMethordItemAdapter;
 import com.wetime.fanc.shopcenter.bean.MerchantsBean;
+import com.wetime.fanc.web.WebActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -107,7 +111,26 @@ public class HomeSearchResultActivity extends BaseActivity implements IGetHomeSe
         ButterKnife.bind(this);
 
         etSearch.setText(getIntent().getStringExtra("key"));
-        etSearch.setEnabled(false);
+        etSearch.setInputType(InputType.TYPE_NULL);
+        adapter = new SearchShopListAdapter(list, mContext);
+        rcvLsit.setLayoutManager(new LinearLayoutManager(this));
+        rcvLsit.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+
+        refreshLayout.setOnLoadmoreListener(this);
+        refreshLayout.setOnRefreshListener(this);
+
+
+        getHomeSearchResultPresenter = new GetHomeSearchResultPresenter(this);
+        refreshLayout.autoRefresh();
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        Tools.toastInBottom(this, "new intetne");
+        etSearch.setText(intent.getStringExtra("key"));
+        etSearch.setInputType(InputType.TYPE_NULL);
         adapter = new SearchShopListAdapter(list, mContext);
         rcvLsit.setLayoutManager(new LinearLayoutManager(this));
         rcvLsit.setAdapter(adapter);
@@ -126,11 +149,17 @@ public class HomeSearchResultActivity extends BaseActivity implements IGetHomeSe
         super.onBackPressed();
     }
 
-    @OnClick({R.id.iv_back, R.id.ll_1, R.id.ll_3, R.id.ll_2})
+    @OnClick({R.id.iv_back, R.id.ll_1, R.id.ll_3, R.id.ll_2, R.id.et_search,R.id.tv_cancel})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
+            case R.id.tv_cancel:
                 onBackPressed();
+                break;
+            case R.id.et_search:
+                Intent gosearch = new Intent(this, HomeSearchActivity.class);
+                gosearch.putExtra("key", etSearch.getText().toString());
+                startActivity(gosearch);
                 break;
 
             case R.id.ll_1:
@@ -266,6 +295,12 @@ public class HomeSearchResultActivity extends BaseActivity implements IGetHomeSe
 
         list.addAll(bean.getData().getMerchants());
         adapter.notifyDataSetChanged();
+        adapter.setOnItemClickLitener(new SearchShopListAdapter.OnItemClickLitener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                goWeb(list.get(position).getDetail_url());
+            }
+        });
 
         refreshLayout.finishRefresh();
         refreshLayout.finishLoadmore();
@@ -432,5 +467,11 @@ public class HomeSearchResultActivity extends BaseActivity implements IGetHomeSe
     public void onLoadmore(RefreshLayout refreshlayout) {
         page++;
         getHomeSearchResultPresenter.getShopCenterList();
+    }
+
+    private void goWeb(String url) {
+        Intent goweb = new Intent(this, WebActivity.class);
+        goweb.putExtra("url", url);
+        startActivity(goweb);
     }
 }

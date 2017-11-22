@@ -28,7 +28,35 @@ public class MerchantsBean {
     private String spider;
     private String distance;
     private String category_name;
+    private String detail_url;
+    private String floor;
+    private String mall_name;
+
+    public String getMall_name() {
+        return mall_name;
+    }
+
+    public void setMall_name(String mall_name) {
+        this.mall_name = mall_name;
+    }
+
+    public String getFloor() {
+        return floor;
+    }
+
+    public void setFloor(String floor) {
+        this.floor = floor;
+    }
+
     private boolean zhe = true;
+
+    public String getDetail_url() {
+        return detail_url;
+    }
+
+    public void setDetail_url(String detail_url) {
+        this.detail_url = detail_url;
+    }
 
     public boolean isZhe() {
         return zhe;
