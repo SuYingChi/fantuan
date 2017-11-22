@@ -89,19 +89,18 @@
             android:background="@color/bg_all"
             android:src="@drawable/fantuanshangjia"/>
 
-        <LinearLayout
-            android:id="@+id/ll_active"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:orientation="vertical"/>
 
-        <LinearLayout
-            android:id="@+id/ll_taocan"
+        <com.king.batterytest.fbaselib.customview.ListViewForScrollView
+            android:id="@+id/lv_act"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-        </LinearLayout>
+            android:divider="@null"/>
+
+        <com.king.batterytest.fbaselib.customview.ListViewForScrollView
+            android:id="@+id/lv_taocan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:divider="@null"/>
 
         <LinearLayout
             android:id="@+id/ll_more"

@@ -96,7 +96,12 @@ public class HomeShopListAdapter extends BaseAdapter {
 
 
         if (bean.isZhe()) {
-            holder.ivZhe.setVisibility(View.VISIBLE);
+            if(bean.getPromotion_list().size()>2){
+                holder.ivZhe.setVisibility(View.VISIBLE);
+            }else{
+                holder.ivZhe.setVisibility(View.GONE);
+            }
+
         } else {
             holder.ivZhe.setVisibility(View.GONE);
         }

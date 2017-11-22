@@ -11,6 +11,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.king.batterytest.fbaselib.customview.ListViewForScrollView;
 import com.wetime.fanc.R;
 import com.wetime.fanc.shopcenter.bean.MerchantsBean;
 
@@ -23,11 +24,11 @@ import butterknife.ButterKnife;
  * Created by yuxun on 2017/4/15.
  */
 
-public class CenterListAdapter extends RecyclerView.Adapter {
+public class SearchShopListAdapter extends RecyclerView.Adapter {
     private List<MerchantsBean> list;
     private Context mActivity;
 
-    public CenterListAdapter(List<MerchantsBean> list, Context mActivity) {
+    public SearchShopListAdapter(List<MerchantsBean> list, Context mActivity) {
         this.list = list;
         this.mActivity = mActivity;
     }
@@ -64,59 +65,37 @@ public class CenterListAdapter extends RecyclerView.Adapter {
         } else {
             holder.ivFantuan.setVisibility(View.VISIBLE);
         }
-        holder.llActive.removeAllViews();
 
-        for (MerchantsBean.PromotionListBean b : bean.getPromotion_list()) {
-            View item = LayoutInflater.from(mActivity).inflate(R.layout.item_promotion, null);
-            TextView tvstr = item.findViewById(R.id.tv_str);
-            tvstr.setText(b.getName());
-            ImageView iv = item.findViewById(R.id.iv_icon);
-            Glide.with(mActivity).load(b.getIco()).into(iv);
-            holder.llActive.addView(item);
-        }
-        if (bean.getPromotion_list().size() > 0) {
-            View item = LayoutInflater.from(mActivity).inflate(R.layout.item_my_line, null);
-            holder.llActive.addView(item);
-        }
-        holder.llTaocan.removeAllViews();
-        if (bean.getVoucher_groupon_list().size() > 2 && bean.isIsfla()) {
-            holder.llMore.setVisibility(View.VISIBLE);
+        ShopActItemAdapter actItemAdapter = new ShopActItemAdapter(mActivity, bean.getPromotion_list());
+        holder.lvAct.setAdapter(actItemAdapter);
+        actItemAdapter.notifyDataSetChanged();
 
-            for (int i = 0; i < 2; i++) {
-                MerchantsBean.VoucherGrouponListBean b = bean.getVoucher_groupon_list().get(i);
-                View item = LayoutInflater.from(mActivity).inflate(R.layout.item_voucher, null);
-                TextView tvprice = item.findViewById(R.id.tv_price);
-                tvprice.setText(b.getAmount());
+        ShopTaocanItemAdapter taocanItemAdapter = new ShopTaocanItemAdapter(mActivity, bean.getVoucher_groupon_list());
+        holder.lvTaocan.setAdapter(taocanItemAdapter);
 
-                TextView tvt = item.findViewById(R.id.tv_title);
-                tvt.setText(b.getName());
 
-                TextView tvd = item.findViewById(R.id.tv_des);
-                tvd.setText(b.getSales());
 
-                holder.llTaocan.addView(item);
-                holder.tvMore.setText("查看其他" + bean.getVoucher_groupon_list().size() + "个套餐");
+        if (bean.isZhe()) {
+            if(bean.getVoucher_groupon_list().size()>2){
+                holder.llMore.setVisibility(View.VISIBLE);
+                int num = bean.getVoucher_groupon_list().size() - 2;
+                holder.tvMore.setText("查看其他" + num + "个套餐");
             }
+            else{
+                taocanItemAdapter.setIszhe(false);
+                holder.llMore.setVisibility(View.GONE);
+            }
+
         } else {
-            for (MerchantsBean.VoucherGrouponListBean b : bean.getVoucher_groupon_list()) {
-                View item = LayoutInflater.from(mActivity).inflate(R.layout.item_voucher, null);
-                TextView tvprice = item.findViewById(R.id.tv_price);
-                tvprice.setText(b.getAmount());
-
-                TextView tvt = item.findViewById(R.id.tv_title);
-                tvt.setText(b.getName());
-
-                TextView tvd = item.findViewById(R.id.tv_des);
-                tvd.setText(b.getSales());
-
-                holder.llTaocan.addView(item);
-            }
+            taocanItemAdapter.setIszhe(false);
             holder.llMore.setVisibility(View.GONE);
         }
+        taocanItemAdapter.notifyDataSetChanged();
+
         holder.tvMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                bean.setIsfla(false);
+                bean.setZhe(false);
                 notifyDataSetChanged();
             }
         });
@@ -138,10 +117,10 @@ public class CenterListAdapter extends RecyclerView.Adapter {
         TextView tvSpend;
         @BindView(R.id.iv_fantuan)
         ImageView ivFantuan;
-        @BindView(R.id.ll_active)
-        LinearLayout llActive;
-        @BindView(R.id.ll_taocan)
-        LinearLayout llTaocan;
+        @BindView(R.id.lv_act)
+        ListViewForScrollView lvAct;
+        @BindView(R.id.lv_taocan)
+        ListViewForScrollView lvTaocan;
         @BindView(R.id.tv_more)
         TextView tvMore;
         @BindView(R.id.tv_type)

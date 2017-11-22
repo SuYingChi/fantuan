@@ -20,7 +20,7 @@ import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.wetime.fanc.R;
 import com.wetime.fanc.shopcenter.adapter.CategoryItemAdapter;
-import com.wetime.fanc.shopcenter.adapter.CenterListAdapter;
+import com.wetime.fanc.shopcenter.adapter.SearchShopListAdapter;
 import com.wetime.fanc.shopcenter.adapter.FloorItemAdapter;
 import com.wetime.fanc.shopcenter.adapter.SCategoruItemAdapter;
 import com.wetime.fanc.shopcenter.adapter.SortMethordItemAdapter;
@@ -78,7 +78,7 @@ public class CenterListActivity extends BaseActivity implements IGetShopCenterLi
     View v2;
 
     private GetShopCenterListPresenter getShopCenterListPresenter;
-    private CenterListAdapter adapter;
+    private SearchShopListAdapter adapter;
     private List<MerchantsBean> list = new ArrayList<>();
     private FloorItemAdapter adapter1;
     private CategoryItemAdapter adapter21;
@@ -98,7 +98,7 @@ public class CenterListActivity extends BaseActivity implements IGetShopCenterLi
         setContentView(R.layout.activity_centerlist);
         ButterKnife.bind(this);
         tvTitle.setText("h5传值过来");
-        adapter = new CenterListAdapter(list, mContext);
+        adapter = new SearchShopListAdapter(list, mContext);
         rcvLsit.setLayoutManager(new LinearLayoutManager(this));
         rcvLsit.setAdapter(adapter);
         adapter.notifyDataSetChanged();

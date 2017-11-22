@@ -24,11 +24,10 @@ import com.wetime.fanc.home.bean.HomeSearchResult;
 import com.wetime.fanc.home.iviews.IGetHomeSearchResultView;
 import com.wetime.fanc.home.presenter.GetHomeSearchResultPresenter;
 import com.wetime.fanc.shopcenter.adapter.CategoryItemAdapter;
-import com.wetime.fanc.shopcenter.adapter.CenterListAdapter;
-import com.wetime.fanc.shopcenter.adapter.FloorItemAdapter;
 import com.wetime.fanc.shopcenter.adapter.LoaItemAdapter;
 import com.wetime.fanc.shopcenter.adapter.SCategoruItemAdapter;
 import com.wetime.fanc.shopcenter.adapter.SLoaItemAdapter;
+import com.wetime.fanc.shopcenter.adapter.SearchShopListAdapter;
 import com.wetime.fanc.shopcenter.adapter.SortMethordItemAdapter;
 import com.wetime.fanc.shopcenter.bean.MerchantsBean;
 
@@ -84,7 +83,7 @@ public class HomeSearchResultActivity extends BaseActivity implements IGetHomeSe
     TextView tvCancel;
 
     private GetHomeSearchResultPresenter getHomeSearchResultPresenter;
-    private CenterListAdapter adapter;
+    private SearchShopListAdapter adapter;
     private List<MerchantsBean> list = new ArrayList<>();
     private LoaItemAdapter adapter11;
     private CategoryItemAdapter adapter21;
@@ -93,7 +92,7 @@ public class HomeSearchResultActivity extends BaseActivity implements IGetHomeSe
     //    private int opper = 0;// 0  刷新 1 加载更多
     private int page = 1;
     private String sortMethod = "0";//排列方式： 0=智能排序，1=距离优先，2=人均
-//    private String floorId = "";
+    //    private String floorId = "";
 //    private String cenerId = "";
     private String cid = ""; //分类大id
     private String sid = "";// 子分类Id
@@ -109,7 +108,7 @@ public class HomeSearchResultActivity extends BaseActivity implements IGetHomeSe
 
         etSearch.setText(getIntent().getStringExtra("key"));
         etSearch.setEnabled(false);
-        adapter = new CenterListAdapter(list, mContext);
+        adapter = new SearchShopListAdapter(list, mContext);
         rcvLsit.setLayoutManager(new LinearLayoutManager(this));
         rcvLsit.setAdapter(adapter);
         adapter.notifyDataSetChanged();
@@ -313,9 +312,9 @@ public class HomeSearchResultActivity extends BaseActivity implements IGetHomeSe
 
                             v2.setVisibility(View.GONE);
 
-                            if(ii==0){
+                            if (ii == 0) {
                                 tv2.setText(bean.getData().getCategory().get(i).getName());
-                            }else{
+                            } else {
                                 tv2.setText(bean.getData().getCategory().get(i).getSubcates().get(ii).getName());
                             }
                             tv2.setTag(null);
@@ -373,9 +372,9 @@ public class HomeSearchResultActivity extends BaseActivity implements IGetHomeSe
                         public void onItemClick(AdapterView<?> adapterView, View view, int ii, long l) {
                             smid = bean.getData().getMalls().get(i).getSubcates().get(ii).getId();
                             v1.setVisibility(View.GONE);
-                            if(ii==0){
+                            if (ii == 0) {
                                 tv1.setText(bean.getData().getMalls().get(i).getName());
-                            }else{
+                            } else {
                                 tv1.setText(bean.getData().getMalls().get(i).getSubcates().get(ii).getName());
                             }
 
@@ -420,40 +419,6 @@ public class HomeSearchResultActivity extends BaseActivity implements IGetHomeSe
         });
 
     }
-
-//    @Override
-//    public void onGetShopCenterListBean(final CenterListPageBean bean) {
-//        if (page == 1)
-//            list.clear();
-//
-//        list.addAll(bean.getData().getMerchants());
-//        adapter.notifyDataSetChanged();
-//
-//
-//        adapter1 = new FloorItemAdapter(mContext, bean.getData().getFloor());
-//        adapter1.setSelectedId(floorId);
-//        lv1.setAdapter(adapter1);
-//        adapter1.notifyDataSetChanged();
-//        lv1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                adapter1.setSelectedId(bean.getData().getFloor().get(i).getId());
-//                v1.setVisibility(View.GONE);
-//                tv1.setText(bean.getData().getFloor().get(i).getName());
-//
-//                tv1.setTag(null);
-//                tv1.setTextColor(Color.parseColor("#666666"));
-//                Drawable drawable = getResources().getDrawable(R.drawable.ic_head_down);
-//                drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getMinimumHeight());
-//                tv1.setCompoundDrawables(null, null, drawable, null);
-//                floorId = bean.getData().getFloor().get(i).getId();
-//                page = 1;
-//                refreshLayout.autoRefresh();
-//
-//            }
-//        });
-//
-//
 
 
     @Override

@@ -28,16 +28,16 @@ public class MerchantsBean {
     private String spider;
     private String distance;
     private String category_name;
+    private boolean zhe = true;
 
-    public boolean isIsfla() {
-        return isfla;
+    public boolean isZhe() {
+        return zhe;
     }
 
-    public void setIsfla(boolean isfla) {
-        this.isfla = isfla;
+    public void setZhe(boolean zhe) {
+        this.zhe = zhe;
     }
 
-    private boolean isfla = true;
 
     public String getSpider() {
         return spider;

@@ -37,7 +37,7 @@ public class GetHomeSearchResultPresenter {
                 .addParams("lng", iView.getJd())
                 .addParams("lat", iView.getWd())
                 .addParams("sort", iView.getSortMethod())
-                .addParams("cate_id", iView.getCId())
+                .addParams("cid", iView.getCId())
                 .addParams("mall_id", iView.getMailId())
                 .addParams("pn", iView.getPage())
                 .build()
