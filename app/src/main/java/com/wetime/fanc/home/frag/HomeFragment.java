@@ -36,7 +36,10 @@ import com.wetime.fanc.home.bean.HomePageBean;
 import com.wetime.fanc.home.iviews.IGetHomePageView;
 import com.wetime.fanc.home.presenter.GetHomePagePresenter;
 import com.wetime.fanc.shopcenter.act.CenterListActivity;
+import com.wetime.fanc.shopcenter.act.ShopCenterActivity;
 import com.wetime.fanc.web.WebActivity;
+import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
+import com.zhy.adapter.recyclerview.wrapper.HeaderAndFooterWrapper;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -200,16 +203,37 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, IGe
         });
 
 
-        CenterAdapter adapter = new CenterAdapter(bean.getData().getMalls(), getContext());
+        CenterAdapter adapter = new CenterAdapter(getContext(), R.layout.item_home_shopcenter, bean.getData().getMalls());
         rcvCenter.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
-        rcvCenter.setAdapter(adapter);
+
+
         adapter.notifyDataSetChanged();
-        adapter.setOnItemClickLitener(new CenterAdapter.OnItemClickLitener() {
+        adapter.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(View view, int position) {
+            public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
                 goWeb(bean.getData().getMalls().get(position).getUrl());
             }
+
+            @Override
+            public boolean onItemLongClick(View view, RecyclerView.ViewHolder holder, int position) {
+                return false;
+            }
         });
+        HeaderAndFooterWrapper mHeaderAndFooterWrapper = new HeaderAndFooterWrapper(adapter);
+        View footer = LayoutInflater.from(getContext()).inflate(R.layout.item_seemore, null);
+        footer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent gomore = new Intent(getContext(), ShopCenterActivity.class);
+                startActivity(gomore);
+            }
+        });
+        mHeaderAndFooterWrapper.addFootView(footer);
+
+        rcvCenter.setAdapter(mHeaderAndFooterWrapper);
+        mHeaderAndFooterWrapper.notifyDataSetChanged();
+
+
         Glide.with(this).load(bean.getData().getPromotion_area().getBanner()).into(ivBanner);
         ivBanner.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -95,7 +95,7 @@ public class HomeShopListAdapter extends BaseAdapter {
         }
 
 
-        if(bean.isZhe()){
+        if (bean.isZhe()) {
             holder.ivZhe.setVisibility(View.VISIBLE);
         } else {
             holder.ivZhe.setVisibility(View.GONE);
@@ -106,19 +106,10 @@ public class HomeShopListAdapter extends BaseAdapter {
         actAdapter.notifyDataSetChanged();
 
 
-
-
-
-
-
-        final ViewHolder finalHolder = holder;
         holder.ivZhe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                actAdapter.setIszhe(false);
-//                actAdapter.notifyDataSetChanged();
                 bean.setZhe(false);
-//                finalHolder.ivZhe.setVisibility(View.GONE);
                 notifyDataSetChanged();
             }
         });
