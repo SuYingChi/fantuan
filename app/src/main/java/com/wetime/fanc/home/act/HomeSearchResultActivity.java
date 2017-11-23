@@ -18,6 +18,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.king.batterytest.fbaselib.main.BaseActivity;
+import com.king.batterytest.fbaselib.utils.Tools;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
@@ -302,7 +303,7 @@ public class HomeSearchResultActivity extends BaseActivity implements IGetHomeSe
                 goWeb(list.get(position).getDetail_url());
             }
         });
-// 空页面
+        // 空页面
         if (list.size() == 0) {
             rlEmpty.setVisibility(View.VISIBLE);
         } else {
@@ -479,5 +480,29 @@ public class HomeSearchResultActivity extends BaseActivity implements IGetHomeSe
         Intent goweb = new Intent(this, WebActivity.class);
         goweb.putExtra("url", url);
         startActivity(goweb);
+    }
+    public void hideDropDown(View view){
+        tv1.setTag(null);
+        tv1.setTextColor(Color.parseColor("#666666"));
+        Drawable drawable = getResources().getDrawable(R.drawable.ic_head_down);
+        drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getMinimumHeight());
+        tv1.setCompoundDrawables(null, null, drawable, null);
+        v1.setVisibility(View.GONE);
+
+
+        tv2.setTag(null);
+        tv2.setTextColor(Color.parseColor("#666666"));
+//        Drawable drawable = getResources().getDrawable(R.drawable.ic_head_down);
+//        drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getMinimumHeight());
+        tv2.setCompoundDrawables(null, null, drawable, null);
+        v2.setVisibility(View.GONE);
+
+        tv3.setTag(null);
+        tv3.setTextColor(Color.parseColor("#666666"));
+//        Drawable drawable = getResources().getDrawable(R.drawable.ic_head_down);
+//        drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getMinimumHeight());
+        tv3.setCompoundDrawables(null, null, drawable, null);
+
+        v3.setVisibility(View.GONE);
     }
 }

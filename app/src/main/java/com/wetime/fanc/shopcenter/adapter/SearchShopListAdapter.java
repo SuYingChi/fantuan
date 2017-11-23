@@ -1,6 +1,7 @@
 package com.wetime.fanc.shopcenter.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -13,8 +14,10 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.king.batterytest.fbaselib.customview.ListViewForScrollView;
+import com.king.batterytest.fbaselib.utils.Tools;
 import com.wetime.fanc.R;
 import com.wetime.fanc.shopcenter.bean.MerchantsBean;
+import com.wetime.fanc.web.WebActivity;
 
 import java.util.List;
 
@@ -120,6 +123,15 @@ public class SearchShopListAdapter extends RecyclerView.Adapter {
                 }
             });
         }
+        holder.tvMallname.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent goweb = new Intent(mActivity, WebActivity.class);
+//                Tools.toastInBottom(mActivity,"商城点击");
+                goweb.putExtra("url", bean.getMall_url());
+                mActivity.startActivity(goweb);
+            }
+        });
     }
 
     @Override

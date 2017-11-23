@@ -31,6 +31,15 @@ public class MerchantsBean {
     private String detail_url;
     private String floor;
     private String mall_name;
+    private String mall_url;
+
+    public String getMall_url() {
+        return mall_url;
+    }
+
+    public void setMall_url(String mall_url) {
+        this.mall_url = mall_url;
+    }
 
     public String getMall_name() {
         return mall_name;

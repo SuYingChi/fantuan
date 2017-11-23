@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide;
 import com.king.batterytest.fbaselib.customview.GridViewForScrollView;
 import com.king.batterytest.fbaselib.main.BaseFragment;
 import com.wetime.fanc.R;
+import com.wetime.fanc.home.act.HomeSearchActivity;
 import com.wetime.fanc.home.adapter.SortGridAdapter;
 import com.wetime.fanc.home.adapter.SortTitleAdapter;
 import com.wetime.fanc.home.bean.SortPageBean;
@@ -24,6 +25,7 @@ import com.wetime.fanc.web.WebActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
 
@@ -102,5 +104,17 @@ public class SortFragment extends BaseFragment implements IGetSortView, AdapterV
                 startActivity(goweb);
             }
         });
+    }
+
+    @OnClick({R.id.tv_search})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.tv_search:
+                Intent gosearch = new Intent(getContext(), HomeSearchActivity.class);
+                startActivity(gosearch);
+                break;
+
+
+        }
     }
 }

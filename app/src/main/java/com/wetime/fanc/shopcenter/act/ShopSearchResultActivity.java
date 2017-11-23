@@ -439,4 +439,28 @@ public class ShopSearchResultActivity extends BaseActivity implements IGetShopSe
         goweb.putExtra("url", url);
         startActivity(goweb);
     }
+    public void hideDropDown(View view){
+        tv1.setTag(null);
+        tv1.setTextColor(Color.parseColor("#666666"));
+        Drawable drawable = getResources().getDrawable(R.drawable.ic_head_down);
+        drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getMinimumHeight());
+        tv1.setCompoundDrawables(null, null, drawable, null);
+        v1.setVisibility(View.GONE);
+
+
+        tv2.setTag(null);
+        tv2.setTextColor(Color.parseColor("#666666"));
+//        Drawable drawable = getResources().getDrawable(R.drawable.ic_head_down);
+//        drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getMinimumHeight());
+        tv2.setCompoundDrawables(null, null, drawable, null);
+        v2.setVisibility(View.GONE);
+
+        tv3.setTag(null);
+        tv3.setTextColor(Color.parseColor("#666666"));
+//        Drawable drawable = getResources().getDrawable(R.drawable.ic_head_down);
+//        drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getMinimumHeight());
+        tv3.setCompoundDrawables(null, null, drawable, null);
+
+        v3.setVisibility(View.GONE);
+    }
 }
