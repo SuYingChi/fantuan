@@ -1,6 +1,7 @@
 package com.wetime.fanc.shopcenter.act;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.king.batterytest.fbaselib.main.BaseActivity;
 import com.wetime.fanc.R;
+import com.wetime.fanc.home.act.HomeSearchActivity;
 import com.wetime.fanc.shopcenter.adapter.ShopListAdapter;
 import com.wetime.fanc.shopcenter.bean.ShopCenterPageBean;
 import com.wetime.fanc.shopcenter.iviews.IGetShopCenterPageView;
@@ -51,11 +53,15 @@ public class ShopCenterActivity extends BaseActivity implements IGetShopCenterPa
         super.onBackPressed();
     }
 
-    @OnClick({R.id.iv_back})
+    @OnClick({R.id.iv_back, R.id.iv_search})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
                 onBackPressed();
+                break;
+            case R.id.iv_search:
+                Intent gosearch = new Intent(this, HomeSearchActivity.class);
+                startActivity(gosearch);
                 break;
 
         }

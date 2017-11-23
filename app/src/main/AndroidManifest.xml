@@ -72,8 +72,18 @@
             android:value="561cae6ae0f55abd990035bf">
         </meta-data>
 
-        <activity android:name=".home.act.HomeSearchActivity" android:launchMode="singleTop"/>
-        <activity android:name=".shopcenter.act.CenterListActivity"/>
-        <activity android:name=".home.act.HomeSearchResultActivity" android:launchMode="singleTask"/>
+        <activity
+            android:name=".home.act.HomeSearchActivity"
+            android:launchMode="singleTop"/>
+        <activity android:name=".shopcenter.act.ShopListActivity"/>
+        <activity
+            android:name=".home.act.HomeSearchResultActivity"
+            android:launchMode="singleTask"/>
+        <activity
+            android:name=".shopcenter.act.ShopSearchActivity"
+            android:launchMode="singleTop"/>
+        <activity
+            android:name=".shopcenter.act.ShopSearchResultActivity"
+            android:launchMode="singleTask"/>
     </application>
 </manifest>

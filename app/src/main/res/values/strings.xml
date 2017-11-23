@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">FanC</string>
+    <string name="str_no_search_result">对不起，暂无符合搜索的内容～</string>
 </resources>

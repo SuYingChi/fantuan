@@ -103,7 +103,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:lineSpacingExtra="0sp"
-            android:text="海口微时刻信息有限公司"
+            android:text="海南微时刻信息有限公司"
             android:textColor="#ffffff"
             android:textSize="12sp"
             />

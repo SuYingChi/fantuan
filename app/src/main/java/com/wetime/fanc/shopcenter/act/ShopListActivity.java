@@ -1,5 +1,6 @@
 package com.wetime.fanc.shopcenter.act;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -20,14 +21,15 @@ import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.wetime.fanc.R;
 import com.wetime.fanc.shopcenter.adapter.CategoryItemAdapter;
-import com.wetime.fanc.shopcenter.adapter.SearchShopListAdapter;
 import com.wetime.fanc.shopcenter.adapter.FloorItemAdapter;
 import com.wetime.fanc.shopcenter.adapter.SCategoruItemAdapter;
+import com.wetime.fanc.shopcenter.adapter.SearchShopListAdapter;
 import com.wetime.fanc.shopcenter.adapter.SortMethordItemAdapter;
 import com.wetime.fanc.shopcenter.bean.CenterListPageBean;
 import com.wetime.fanc.shopcenter.bean.MerchantsBean;
 import com.wetime.fanc.shopcenter.iviews.IGetShopCenterListView;
 import com.wetime.fanc.shopcenter.presenter.GetShopCenterListPresenter;
+import com.wetime.fanc.web.WebActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +38,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class CenterListActivity extends BaseActivity implements IGetShopCenterListView, OnRefreshListener, OnLoadmoreListener {
+public class ShopListActivity extends BaseActivity implements IGetShopCenterListView, OnRefreshListener, OnLoadmoreListener, SearchShopListAdapter.OnItemClickLitener {
 
 
     @BindView(R.id.tv_title)
@@ -110,6 +112,7 @@ public class CenterListActivity extends BaseActivity implements IGetShopCenterLi
         getShopCenterListPresenter = new GetShopCenterListPresenter(this);
         refreshLayout.autoRefresh();
 //        getShopCenterListPresenter.getShopCenterList();
+        adapter.setOnItemClickLitener(this);
     }
 
     @Override
@@ -124,6 +127,8 @@ public class CenterListActivity extends BaseActivity implements IGetShopCenterLi
                 onBackPressed();
                 break;
             case R.id.iv_search:
+                Intent goSearch = new Intent(this, ShopSearchActivity.class);
+                startActivity(goSearch);
                 break;
             case R.id.ll_1:
                 if (tv1.getTag() == null) {
@@ -292,7 +297,7 @@ public class CenterListActivity extends BaseActivity implements IGetShopCenterLi
             public void onItemClick(AdapterView<?> adapterView, View view, final int i, long l) {
                 adapter21.setSelectedId(bean.getData().getCategory().get(i).getId());
                 cid = bean.getData().getCategory().get(i).getId();
-                if(cid.equals("")){
+                if (cid.equals("")) {
                     sid = "";
                     v2.setVisibility(View.GONE);
                     tv2.setText(bean.getData().getCategory().get(i).getName());
@@ -311,7 +316,7 @@ public class CenterListActivity extends BaseActivity implements IGetShopCenterLi
 
                     page = 1;
                     refreshLayout.autoRefresh();
-                }else{
+                } else {
                     SCategoruItemAdapter adapter22 = new SCategoruItemAdapter(mContext, bean.getData().getCategory().get(i).getSubcates());
                     adapter22.setCid(cid);
                     adapter22.setSelectedId(sid);
@@ -321,12 +326,12 @@ public class CenterListActivity extends BaseActivity implements IGetShopCenterLi
                         @Override
                         public void onItemClick(AdapterView<?> adapterView, View view, int ii, long l) {
                             sid = bean.getData().getCategory().get(i).getSubcates().get(ii).getId();
-                            Log.e("zk sid=",sid);
+                            Log.e("zk sid=", sid);
 
                             v2.setVisibility(View.GONE);
-                            if(ii==0){
+                            if (ii == 0) {
                                 tv2.setText(bean.getData().getCategory().get(i).getName());
-                            }else{
+                            } else {
                                 tv2.setText(bean.getData().getCategory().get(i).getSubcates().get(ii).getName());
                             }
                             tv2.setTag(null);
@@ -340,9 +345,6 @@ public class CenterListActivity extends BaseActivity implements IGetShopCenterLi
                         }
                     });
                 }
-
-
-
 
 
             }
@@ -387,5 +389,16 @@ public class CenterListActivity extends BaseActivity implements IGetShopCenterLi
     public void onLoadmore(RefreshLayout refreshlayout) {
         page++;
         getShopCenterListPresenter.getShopCenterList();
+    }
+
+    @Override
+    public void onItemClick(View view, int position) {
+        goWeb(list.get(position).getDetail_url());
+    }
+
+    private void goWeb(String url) {
+        Intent goweb = new Intent(this, WebActivity.class);
+        goweb.putExtra("url", url);
+        startActivity(goweb);
     }
 }

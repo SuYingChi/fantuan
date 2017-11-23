@@ -35,7 +35,7 @@ import com.wetime.fanc.home.adapter.HomeShopListAdapter;
 import com.wetime.fanc.home.bean.HomePageBean;
 import com.wetime.fanc.home.iviews.IGetHomePageView;
 import com.wetime.fanc.home.presenter.GetHomePagePresenter;
-import com.wetime.fanc.shopcenter.act.CenterListActivity;
+import com.wetime.fanc.shopcenter.act.ShopListActivity;
 import com.wetime.fanc.shopcenter.act.ShopCenterActivity;
 import com.wetime.fanc.web.WebActivity;
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
@@ -143,7 +143,7 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, IGe
             case R.id.iv_scan:
 //                Intent goscan = new Intent(getContext(), ScanActivity.class);
 //                startActivityForResult(goscan, REQUEST_CODE);
-                Intent gotest = new Intent(getContext(), CenterListActivity.class);
+                Intent gotest = new Intent(getContext(), ShopListActivity.class);
                 startActivity(gotest);
 
                 break;
@@ -246,6 +246,12 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, IGe
         lvShop.setAdapter(homeShopListAdapter);
         homeShopListAdapter.notifyDataSetChanged();
         refreshLayout.finishRefresh(1000);
+        lvShop.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//                goWeb(bean.getData().getMerchants().get(i).get);
+            }
+        });
 
     }
 

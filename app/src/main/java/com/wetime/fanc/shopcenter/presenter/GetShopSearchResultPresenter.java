@@ -4,7 +4,7 @@ package com.wetime.fanc.shopcenter.presenter;
 import com.king.batterytest.fbaselib.utils.DataStringCallback;
 import com.king.batterytest.fbaselib.utils.GsonUtils;
 import com.wetime.fanc.shopcenter.bean.CenterListPageBean;
-import com.wetime.fanc.shopcenter.iviews.IGetShopCenterListView;
+import com.wetime.fanc.shopcenter.iviews.IGetShopSearchResultView;
 import com.wetime.fanc.utils.Const;
 import com.zhy.http.okhttp.OkHttpUtils;
 
@@ -12,10 +12,10 @@ import com.zhy.http.okhttp.OkHttpUtils;
  * Created by zhoukang on 2017/5/19.
  */
 
-public class GetShopCenterListPresenter {
-    private IGetShopCenterListView iView;
+public class GetShopSearchResultPresenter {
+    private IGetShopSearchResultView iView;
 
-    public GetShopCenterListPresenter(IGetShopCenterListView iView) {
+    public GetShopSearchResultPresenter(IGetShopSearchResultView iView) {
         this.iView = iView;
     }
 
@@ -33,7 +33,7 @@ public class GetShopCenterListPresenter {
 
         OkHttpUtils
                 .post()
-                .url(Const.MALL_LIST)
+                .url(Const.MALL_SEARCH_RESULT)
                 .addParams("mall_id", iView.getMailId())
                 .addParams("floor_id", iView.getFloaId())
                 .addParams("lng", iView.getJd())
@@ -41,8 +41,9 @@ public class GetShopCenterListPresenter {
                 .addParams("sort", iView.getSortMethod())
                 .addParams("cid", iView.getCId())
                 .addParams("pn", iView.getPage())
+                .addParams("search_word", iView.getWord())
                 .build()
-                .execute(new DataStringCallback(iView,false) {
+                .execute(new DataStringCallback(iView, false) {
                     @Override
                     public void onResponse(String s, int i) {
                         super.onResponse(s, i);
