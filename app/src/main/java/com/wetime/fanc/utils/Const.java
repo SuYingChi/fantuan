@@ -30,6 +30,7 @@ public interface Const {
     String MALL_SEARCH = BASEURL + "/mall/search";
     String SEARCH_SUGGEST = BASEURL + "/search/suggest";
     String HOMEPAGE = BASEURL + "";
+    String ORDER_LIST = BASEURL + "/order/list";
 
 
 }
