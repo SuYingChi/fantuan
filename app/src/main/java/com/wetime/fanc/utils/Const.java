@@ -31,6 +31,7 @@ public interface Const {
     String SEARCH_SUGGEST = BASEURL + "/search/suggest";
     String HOMEPAGE = BASEURL + "";
     String ORDER_LIST = BASEURL + "/order/list";
+    String WEIXIN_UNBIND = BASEURL + "/user/weixin/unbind";
 
 
 }

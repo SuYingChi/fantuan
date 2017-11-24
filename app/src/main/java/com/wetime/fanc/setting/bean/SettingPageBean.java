@@ -1,5 +1,7 @@
 package com.wetime.fanc.setting.bean;
 
+import java.io.Serializable;
+
 /**
  * Created by zhoukang on 2017/11/3.
  */
@@ -106,7 +108,7 @@ public class SettingPageBean {
             this.link = link;
         }
 
-        public static class WeixinBean {
+        public static class WeixinBean implements Serializable{
             /**
              * nickname : 花心萝卜腿
              * avatar : http://shoptest.weishike.net/uimage/a8/c9/45/da/a8c945da508e22bb2243e2f3772e69a0.jpg?x-oss-process=image/resize,m_fill,h_112,w_112,r_56/format,jpg/interlace,1/quality,Q_70
@@ -114,6 +116,15 @@ public class SettingPageBean {
 
             private String nickname;
             private String avatar;
+            private String time;
+
+            public String getTime() {
+                return time;
+            }
+
+            public void setTime(String time) {
+                this.time = time;
+            }
 
             public String getNickname() {
                 return nickname;

@@ -153,10 +153,10 @@ public class OrderFragment extends BaseFragment implements IGetOrderListView, On
 //        tvTitle.setText(bean.getData().getType_config().get(0).getName());
         if (!ty.equals(type) || !fi.equals(filter))
             return;
-        if (bean.getData().getList().size() > 0) {
-            rlNoOrder.setVisibility(View.GONE);
-        } else {
+        if (bean.getData().getList().size() == 0 && page == 1) {
             rlNoOrder.setVisibility(View.VISIBLE);
+        } else {
+            rlNoOrder.setVisibility(View.GONE);
         }
 
         if (bean.getData().getUnpaid_num() > 0) {
@@ -232,16 +232,16 @@ public class OrderFragment extends BaseFragment implements IGetOrderListView, On
             }
         }
         qBadgeViewUnPay = new QBadgeView(getContext());
-        qBadgeViewUnPay.bindTarget(tab.getTabAt(1).getCustomView())
+        qBadgeViewUnPay.bindTarget(tab.getTabAt(1).getCustomView()).setBadgeBackgroundColor(0xffff3f53)
                 .setBadgeTextSize(11, true).setBadgeGravity(Gravity.TOP | Gravity.END);
 
         qBadgeViewUnUse = new QBadgeView(getContext());
-        qBadgeViewUnUse.bindTarget(tab.getTabAt(2).getCustomView())
+        qBadgeViewUnUse.bindTarget(tab.getTabAt(2).getCustomView()).setBadgeBackgroundColor(0xffff3f53)
                 .setBadgeTextSize(11, true).setBadgeGravity(Gravity.TOP | Gravity.END);
 
         qBadgeViewUnComment = new QBadgeView(getContext());
         qBadgeViewUnComment.bindTarget(tab.getTabAt(3).getCustomView())
-                .setBadgeTextSize(11, true).setBadgeGravity(Gravity.TOP | Gravity.END);
+                .setBadgeTextSize(11, true).setBadgeBackgroundColor(0xffff3f53).setBadgeGravity(Gravity.TOP | Gravity.END);
 
         tab.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override

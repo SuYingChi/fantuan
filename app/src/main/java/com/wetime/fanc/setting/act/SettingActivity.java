@@ -16,6 +16,7 @@ import com.wetime.fanc.FApp;
 import com.wetime.fanc.R;
 import com.wetime.fanc.about.AboutActivity;
 import com.wetime.fanc.setting.bean.SettingPageBean;
+import com.wetime.fanc.setting.event.UnBindWXEvent;
 import com.wetime.fanc.setting.iviews.IGetSettingView;
 import com.wetime.fanc.setting.iviews.ILogoutView;
 import com.wetime.fanc.setting.iviews.IWXBindView;
@@ -166,6 +167,7 @@ public class SettingActivity extends BaseActivity implements ILogoutView, IGetSe
                 public void onClick(View view) {
                     //去 解绑页面
                     Intent gobind = new Intent(mContext, BindWeixinActivity.class);
+                    gobind.putExtra("weixin",bean.getData().getWeixin());
                     startActivity(gobind);
                 }
             });
@@ -210,6 +212,10 @@ public class SettingActivity extends BaseActivity implements ILogoutView, IGetSe
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(WXLoginCodeEvent event) {
         wxBindPresenter.getBindResult(event.getCode());
+    }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(UnBindWXEvent event) {
+        getSettingPresenter.getSettinig();
     }
 
     @Override

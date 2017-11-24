@@ -187,10 +187,12 @@ public class MyFragment extends BaseFragment implements IGetMyInfoView {
     public void onMessageEvent(LoginEvent event) {
         getUserInfoPresenter.getUserInfo();
     }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(ChangeUserInfoEvent event) {
         getUserInfoPresenter.getUserInfo();
     }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(LogoutEvent event) {
         this.bean = null;

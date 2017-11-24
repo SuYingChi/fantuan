@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_all"
+    android:orientation="vertical">
+
+    <include layout="@layout/item_header"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/white"
+            android:drawablePadding="10dp"
+            android:gravity="center|left"
+            android:lineSpacingExtra="1sp"
+            android:paddingLeft="15dp"
+            android:text="微信头像"
+            android:textColor="#333333"
+            android:textSize="15sp"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_marginRight="10dp"
+                android:id="@+id/civ_head"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_head_default"/>
+
+            <TextView
+
+                android:visibility="gone"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_marginRight="10dp"
+                android:background="@color/white"
+                android:gravity="center|left"
+                android:lineSpacingExtra="1sp"
+                android:paddingLeft="5dp"
+                android:paddingRight="15dp"
+                android:textColor="#999999"
+                android:textSize="15sp"/>
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#e1e1e1"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/white"
+            android:drawablePadding="10dp"
+            android:gravity="center|left"
+            android:lineSpacingExtra="1sp"
+            android:paddingLeft="15dp"
+            android:text="微信昵称"
+            android:textColor="#333333"
+            android:textSize="15sp"/>
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_alignParentRight="true"
+            android:background="@color/white"
+            android:drawablePadding="10dp"
+            android:gravity="center|left"
+            android:lineSpacingExtra="1sp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:textColor="#999999"
+            android:textSize="15sp"
+            tools:text="吃***团"/>
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#e1e1e1"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/white"
+            android:drawablePadding="10dp"
+            android:gravity="center|left"
+            android:lineSpacingExtra="1sp"
+            android:paddingLeft="15dp"
+            android:text="绑定时间"
+            android:textColor="#333333"
+            android:textSize="15sp"/>
+
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_alignParentRight="true"
+            android:background="@color/white"
+            android:drawablePadding="10dp"
+            android:gravity="center|left"
+            android:lineSpacingExtra="1sp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:textColor="#999999"
+            android:textSize="15sp"
+            tools:text="吃***团"/>
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_unbind"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/bg_btn_red_corner"
+
+        android:gravity="center"
+        android:lineSpacingExtra="0sp"
+        android:text="解除绑定"
+        android:textColor="#ffffff"
+        android:textSize="17sp"
+        />
+</LinearLayout>
+
