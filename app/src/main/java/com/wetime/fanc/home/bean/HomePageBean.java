@@ -244,6 +244,25 @@ public class HomePageBean {
             private String spider;
             private String distance;
             private List<String> promotion_list;
+            private String mall_url;
+            private String detail_url;
+
+            public String getDetail_url() {
+                return detail_url;
+            }
+
+            public void setDetail_url(String detail_url) {
+                this.detail_url = detail_url;
+            }
+
+            public String getMall_url() {
+                return mall_url;
+            }
+
+            public void setMall_url(String mall_url) {
+                this.mall_url = mall_url;
+            }
+
             private boolean zhe = true;
 
             public boolean isZhe() {

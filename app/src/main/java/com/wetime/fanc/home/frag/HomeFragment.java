@@ -249,7 +249,7 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, IGe
         lvShop.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                goWeb(bean.getData().getMerchants().get(i).get);
+                goWeb(bean.getData().getMerchants().get(i).getDetail_url());
             }
         });
 

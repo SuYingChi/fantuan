@@ -198,6 +198,7 @@ public class OrderFragment extends BaseFragment implements IGetOrderListView, On
         ordelist.addAll(bean.getData().getList());
         adapter.setFilter(filter);
         adapter.notifyDataSetChanged();
+        rclOrder.scrollTo(0,0);
 
         refreshLayout.finishRefresh();
         refreshLayout.finishLoadmore();
@@ -248,7 +249,9 @@ public class OrderFragment extends BaseFragment implements IGetOrderListView, On
             public void onTabSelected(TabLayout.Tab tab) {
 //                if (refreshLayout.isRefreshing())
 //                    refreshLayout.finishRefresh();
-
+                page =1;
+                ordelist.clear();
+                adapter.notifyDataSetChanged();
                 TextView tv = tab.getCustomView().findViewById(R.id.tv_title);
                 tv.setTextColor(Color.parseColor("#ff3f53"));
                 filter = tab.getPosition() + "";
