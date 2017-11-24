@@ -172,6 +172,8 @@ public class OrderFragment extends BaseFragment implements IGetOrderListView, On
         if (orderTypeAdapter == null) {
             orderTypeAdapter = new OrderTypeAdapter(getContext(), bean.getData().getType_config());
             lvType.setAdapter(orderTypeAdapter);
+            View footer = LayoutInflater.from(getContext()).inflate(R.layout.item_footer_shadow, null, false);
+            lvType.addFooterView(footer);
             orderTypeAdapter.notifyDataSetChanged();
         }
         lvType.setOnItemClickListener(new AdapterView.OnItemClickListener() {
