@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/bg_all"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_head"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingTop="15dp"
+        android:textColor="#666666"
+        android:textSize="16sp"
+        android:text="收银"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="66dp"
+            android:gravity="center_vertical">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/civ_head"
+                android:layout_width="36dp"
+                android:layout_height="36dp"/>
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                android:lineSpacingExtra="0sp"
+                android:textColor="#333333"
+                android:textSize="16sp"
+                tools:text="旺德福3-4人套餐"/>
+
+            <TextView
+                android:id="@+id/tv_state"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:lineSpacingExtra="0sp"
+                android:textColor="#ff3f53"
+                android:textSize="14sp"
+                tools:text="待付款"/>
+        </LinearLayout>
+
+        <include layout="@layout/item_my_line"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal">
+
+            <com.king.batterytest.fbaselib.customview.AlignTextView
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:textColor="#666666"
+                android:textSize="14sp"
+                app:text="数量"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="2dp"
+                android:lineSpacingExtra="0sp"
+                android:text=":"
+                android:textColor="#666666"
+                android:textSize="14sp"
+                />
+
+            <TextView
+                android:id="@+id/tv_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:lineSpacingExtra="0sp"
+                android:textColor="#666666"
+                android:textSize="14sp"
+
+                tools:text="2"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:orientation="horizontal">
+
+            <com.king.batterytest.fbaselib.customview.AlignTextView
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:textColor="#666666"
+                android:textSize="14sp"
+                app:text="有效期至"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="2dp"
+                android:lineSpacingExtra="0sp"
+                android:text=":"
+                android:textColor="#666666"
+                android:textSize="14sp"
+                />
+
+            <TextView
+                android:id="@+id/tv_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:lineSpacingExtra="0sp"
+                android:textColor="#666666"
+                android:textSize="14sp"
+                tools:text="2017-10-25"/>
+        </LinearLayout>
+
+        <include layout="@layout/item_my_line"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <com.king.batterytest.fbaselib.customview.AlignTextView
+                android:id="@+id/tv_pricetitle"
+                android:layout_width="70dp"
+
+                android:layout_height="wrap_content"
+                android:textColor="#666666"
+                android:textSize="14sp"
+                app:text="需支付金额"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="2dp"
+                android:lineSpacingExtra="0sp"
+                android:text=":"
+                android:textColor="#666666"
+                android:textSize="14sp"
+                />
+
+            <TextView
+                android:id="@+id/tv_price"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_weight="1"
+                android:lineSpacingExtra="0sp"
+                android:textColor="#ff3f53"
+                android:textSize="14sp"
+                tools:text="¥45"/>
+
+            <TextView
+
+                android:id="@+id/tv_opper"
+                android:layout_width="80dp"
+                android:layout_height="28dp"
+                android:background="@drawable/bg_btn_red_corner"
+                android:gravity="center"
+                android:lineSpacingExtra="0sp"
+                android:textColor="#ffffff"
+                android:textSize="14sp"
+                tools:text="查看券码"/>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
+
+
+

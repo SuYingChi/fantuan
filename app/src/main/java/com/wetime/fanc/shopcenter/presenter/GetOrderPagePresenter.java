@@ -3,7 +3,7 @@ package com.wetime.fanc.shopcenter.presenter;
 
 import com.king.batterytest.fbaselib.utils.DataStringCallback;
 import com.king.batterytest.fbaselib.utils.GsonUtils;
-import com.wetime.fanc.shopcenter.bean.OrderPageBean;
+import com.wetime.fanc.home.bean.OrderPageBean;
 import com.wetime.fanc.shopcenter.iviews.IGetOrderListView;
 import com.wetime.fanc.utils.Const;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -30,13 +30,13 @@ public class GetOrderPagePresenter {
                 .addParams("filter", iView.getFilter())
                 .addParams("pn", iView.getPage())
                 .build()
-                .execute(new DataStringCallback(iView, false) {
+                .execute(new DataStringCallback(iView) {
                     @Override
                     public void onResponse(String s, int i) {
                         super.onResponse(s, i);
                         OrderPageBean bean = GsonUtils.getGsonInstance().fromJson(s, OrderPageBean.class);
                         if (bean.getError() == 0)
-                            iView.onGetOrderPage(bean);
+                            iView.onGetOrderPage(bean,iView.getType(),iView.getFilter());
                     }
                 });
     }

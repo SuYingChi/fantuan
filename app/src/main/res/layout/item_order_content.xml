@@ -9,6 +9,7 @@
     android:orientation="vertical">
 
     <TextView
+        android:id="@+id/tv_title"
         android:layout_width="wrap_content"
         android:layout_height="45dp"
         android:drawablePadding="5dp"
@@ -17,47 +18,83 @@
         android:lineSpacingExtra="0sp"
         android:textColor="#333333"
         android:textSize="17sp"
-        tools:text="团购订单"
+        android:text="全部订单"
         />
 
-    <android.support.design.widget.TabLayout
-        android:id="@+id/tab"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:background="#ffffff"
-        app:tabIndicatorColor="#ff3f53"
-        app:tabBackground="@drawable/tab_background"
-        app:tabIndicatorHeight="2dp"
-        app:tabMode="fixed"
-        app:tabSelectedTextColor="#ff3f53"
-        app:tabTextColor="#333333">
+        android:layout_height="match_parent">
 
-        <android.support.design.widget.TabItem
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="a"/>
+            android:orientation="vertical">
 
-        <android.support.design.widget.TabItem
+            <android.support.design.widget.TabLayout
+                android:id="@+id/tab"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="#ffffff"
+                app:tabBackground="@drawable/tab_background"
+                app:tabIndicatorColor="#ff3f53"
+                app:tabIndicatorHeight="2dp"
+                app:tabMode="fixed"
+                app:tabSelectedTextColor="#ff3f53"
+                app:tabTextColor="#333333">
+
+                <android.support.design.widget.TabItem
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="a"/>
+
+                <android.support.design.widget.TabItem
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="b"/>
+
+                <android.support.design.widget.TabItem
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="c"/>
+
+                <android.support.design.widget.TabItem
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="d"/>
+
+
+            </android.support.design.widget.TabLayout>
+            <com.scwang.smartrefresh.layout.SmartRefreshLayout
+                android:id="@+id/refreshLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:srlEnableAutoLoadmore="false"
+                app:srlEnableHeaderTranslationContent="false"
+                app:srlEnableOverScrollBounce="false">
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rcl_order"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+            </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_type"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="b"/>
+            android:background="#88000000"
+            android:visibility="gone">
 
-        <android.support.design.widget.TabItem
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="c"/>
-
-        <android.support.design.widget.TabItem
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="d"/>
-
-
-    </android.support.design.widget.TabLayout>
+            <ListView
+                android:id="@+id/lv_type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:divider="@null"/>
+        </RelativeLayout>
 
 
-
-
+    </RelativeLayout>
 
 
 </LinearLayout>
