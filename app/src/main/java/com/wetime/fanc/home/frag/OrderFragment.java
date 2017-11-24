@@ -63,6 +63,8 @@ public class OrderFragment extends BaseFragment implements IGetOrderListView, On
     RecyclerView rclOrder;
     @BindView(R.id.refreshLayout)
     SmartRefreshLayout refreshLayout;
+    @BindView(R.id.rl_no_order)
+    RelativeLayout rlNoOrder;
 
     private GetOrderPagePresenter getOrderPagePresenter;
     private int page = 1;
@@ -151,7 +153,11 @@ public class OrderFragment extends BaseFragment implements IGetOrderListView, On
 //        tvTitle.setText(bean.getData().getType_config().get(0).getName());
         if (!ty.equals(type) || !fi.equals(filter))
             return;
-
+        if (bean.getData().getList().size() > 0) {
+            rlNoOrder.setVisibility(View.GONE);
+        } else {
+            rlNoOrder.setVisibility(View.VISIBLE);
+        }
 
         if (bean.getData().getUnpaid_num() > 0) {
             qBadgeViewUnPay.setBadgeNumber(bean.getData().getUnpaid_num());
