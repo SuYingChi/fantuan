@@ -17,13 +17,13 @@
         android:verticalSpacing="0dp"/>
 
     <ImageView
-        android:scaleType="centerCrop"
         android:id="@+id/iv_banner"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="110dp"
         android:layout_marginLeft="12dp"
         android:layout_marginRight="12dp"
-        android:background="@color/bg_edit"/>
+        android:background="@color/bg_edit"
+        android:scaleType="centerCrop"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rcv_center"
