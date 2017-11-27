@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.king.batterytest.fbaselib.LogoutEvent;
 import com.king.batterytest.fbaselib.main.BaseFragment;
+import com.king.batterytest.fbaselib.utils.Tools;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
@@ -30,6 +31,7 @@ import com.wetime.fanc.login.act.LoginActivity;
 import com.wetime.fanc.login.event.LoginEvent;
 import com.wetime.fanc.shopcenter.iviews.IGetOrderListView;
 import com.wetime.fanc.shopcenter.presenter.GetOrderPagePresenter;
+import com.wetime.fanc.web.WebActivity;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -189,6 +191,11 @@ public class OrderFragment extends BaseFragment implements IGetOrderListView, On
                 tvTitle.setText(bean.getData().getType_config().get(i).getName());
                 changeTileState();
                 orderTypeAdapter.setSelectedId(i);
+
+                page =1;
+                ordelist.clear();
+                adapter.notifyDataSetChanged();
+
                 refreshLayout.autoRefresh();
             }
         });
@@ -269,8 +276,39 @@ public class OrderFragment extends BaseFragment implements IGetOrderListView, On
 
             }
         });
-    }
+        adapter.setOnItemClickLitener(new OrderAdapter.OnItemClickLitener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                goWeb(ordelist.get(position).getOrder_detail_url());
+            }
+        });
 
+        adapter.setOnActionClickLitener(new OrderAdapter.OnActionClickLitener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                OrderPageBean.DataBean.ListBean bean = ordelist.get(position);
+                if(bean.getAction_type_name().equals("去付款")){
+                    goWeb(bean.getAction_url());
+                }else if(bean.getAction_type_name().equals("查看券码")){
+                    goWeb(bean.getAction_url());
+                }else if(bean.getAction_type_name().equals("去评价")){
+
+                }else if(bean.getAction_type_name().equals("删除订单")){
+                    Tools.showTipsDialog(getContext(), "确认要删除订单吗？", null, new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+
+                        }
+                    });
+                }
+            }
+        });
+    }
+    private void goWeb(String url) {
+        Intent goweb = new Intent(getContext(), WebActivity.class);
+        goweb.putExtra("url", url);
+        startActivity(goweb);
+    }
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(LoginEvent event) {
         initView();

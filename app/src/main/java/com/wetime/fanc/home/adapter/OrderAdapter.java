@@ -1,6 +1,7 @@
 package com.wetime.fanc.home.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -58,13 +59,25 @@ public class OrderAdapter extends RecyclerView.Adapter {
         this.mOnItemClickLitener = mOnItemClickLitener;
     }
 
+    public interface OnActionClickLitener {
+        void onItemClick(View view, int position);
+    }
+
+
+    private OnActionClickLitener mOnActionClickLitener;
+
+
+    public void setOnActionClickLitener(OnActionClickLitener mOnActionClickLitener) {
+        this.mOnActionClickLitener = mOnActionClickLitener;
+    }
+
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         final OrderViewHolder oholder = (OrderViewHolder) holder;
         OrderPageBean.DataBean.ListBean bean = list.get(position);
 //        Glide.with(mActivity).load(bean.getMerchant().getLogo()).into(oholder.civHead);
         oholder.tvName.setText(bean.getPromotion_name());
-        oholder.tvState.setText(bean.getStateName());
+
         oholder.tvNum.setText(bean.getOrder_num());
         if (bean.getExpired_time().equals("")) {
             oholder.llTime.setVisibility(View.GONE);
@@ -75,12 +88,47 @@ public class OrderAdapter extends RecyclerView.Adapter {
 
         oholder.tvPrice.setText(bean.getPrice());
         oholder.tvPriceTitle.setAlingText(bean.getPrice_type_name());
-        oholder.tvOpper.setText(bean.getAction_type_name());
+
         if (filter.equals("0")) {
             oholder.tvHead.setVisibility(View.VISIBLE);
             oholder.tvHead.setText(bean.getType_name());
         } else {
             oholder.tvHead.setVisibility(View.GONE);
+        }
+        // 变色
+        oholder.tvState.setText(bean.getStateName());
+        if (bean.getPromotion_name().equals("待付款")
+                || bean.getPromotion_name().equals("待使用")
+                ) {
+            oholder.tvState.setTextColor(Color.parseColor("#ff3f53"));
+        } else {
+            oholder.tvState.setTextColor(Color.parseColor("#666666"));
+        }
+        oholder.tvOpper.setText(bean.getAction_type_name());
+        if (bean.getAction_type_name().equals("去付款") ||
+                bean.getAction_type_name().equals("查看券码")) {
+            oholder.tvOpper.setBackgroundResource(R.drawable.bg_btn_red_corner);
+            oholder.tvOpper.setTextColor(Color.parseColor("#ffffff"));
+        } else {
+            oholder.tvOpper.setBackgroundResource(R.drawable.bg_btn_white_gray_corner);
+            oholder.tvOpper.setTextColor(Color.parseColor("#666666"));
+        }
+
+        if (mOnItemClickLitener != null) {
+            oholder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mOnItemClickLitener.onItemClick(view, position);
+                }
+            });
+        }
+        if (mOnActionClickLitener != null) {
+            oholder.tvOpper.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mOnActionClickLitener.onItemClick(view, position);
+                }
+            });
         }
 
     }

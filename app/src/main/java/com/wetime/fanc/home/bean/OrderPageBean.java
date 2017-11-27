@@ -208,6 +208,15 @@ public class OrderPageBean {
             private String price_type_name;
             private String price;
             private String action_type_name;
+            private String action_url;
+
+            public String getAction_url() {
+                return action_url;
+            }
+
+            public void setAction_url(String action_url) {
+                this.action_url = action_url;
+            }
 
             public MerchantBean getMerchant() {
                 return merchant;

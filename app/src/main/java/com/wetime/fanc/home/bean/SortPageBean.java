@@ -140,8 +140,16 @@ public class SortPageBean {
                 private String id;
                 private String cid;
                 private String name;
-                private String imgurl;
                 private String level;
+                private String image_url;
+
+                public String getImage_url() {
+                    return image_url;
+                }
+
+                public void setImage_url(String image_url) {
+                    this.image_url = image_url;
+                }
 
                 public String getUrl() {
                     return url;
@@ -177,13 +185,7 @@ public class SortPageBean {
                     this.name = name;
                 }
 
-                public String getImgurl() {
-                    return imgurl;
-                }
 
-                public void setImgurl(String imgurl) {
-                    this.imgurl = imgurl;
-                }
 
                 public String getLevel() {
                     return level;

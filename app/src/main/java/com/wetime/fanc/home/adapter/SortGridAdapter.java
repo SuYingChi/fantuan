@@ -70,7 +70,7 @@ public class SortGridAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
         holder.tvname.setText(mlist.get(position).getName());
-        Glide.with(mContext).load(mlist.get(position).getImgurl()).into(holder.ivcover);
+        Glide.with(mContext).load(mlist.get(position).getImage_url()).into(holder.ivcover);
 
         return convertView;
     }
