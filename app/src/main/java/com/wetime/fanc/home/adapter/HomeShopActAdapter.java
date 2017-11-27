@@ -36,7 +36,7 @@ public class HomeShopActAdapter extends BaseAdapter {
 
     public void setIszhe(boolean iszhe) {
         this.iszhe = iszhe;
-        notifyDataSetChanged();
+//        notifyDataSetChanged();
     }
 
     public HomeShopActAdapter(Context context, List<String> mData) {

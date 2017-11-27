@@ -10,7 +10,6 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.king.batterytest.fbaselib.customview.ListViewForScrollView;
 import com.wetime.fanc.R;
 import com.wetime.fanc.home.bean.HomePageBean;
 
@@ -96,20 +95,30 @@ public class HomeShopListAdapter extends BaseAdapter {
 
 
         if (bean.isZhe()) {
-            if(bean.getPromotion_list().size()>2){
+            if (bean.getPromotion_list().size() > 2) {
                 holder.ivZhe.setVisibility(View.VISIBLE);
-            }else{
+            } else {
                 holder.ivZhe.setVisibility(View.GONE);
             }
 
         } else {
             holder.ivZhe.setVisibility(View.GONE);
         }
-        final HomeShopActAdapter actAdapter = new HomeShopActAdapter(mContext, bean.getPromotion_list());
-        holder.lv.setAdapter(actAdapter);
-        actAdapter.setIszhe(bean.isZhe());
-        actAdapter.notifyDataSetChanged();
+//        final HomeShopActAdapter actAdapter = new HomeShopActAdapter(mContext, bean.getPromotion_list());
+//        holder.lv.setAdapter(actAdapter);
+//        actAdapter.setIszhe(bean.isZhe());
+//        actAdapter.notifyDataSetChanged();
+        String temp = "";
+        for (String s : bean.getPromotion_list()) {
+            temp = temp + s + "\n";
+        }
 
+        holder.tvAct.setText(temp.trim());
+        if(bean.isZhe()){
+            holder.tvAct.setMaxLines(2);
+        }else{
+            holder.tvAct.setMaxLines(100);
+        }
 
         holder.ivZhe.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -145,8 +154,11 @@ public class HomeShopListAdapter extends BaseAdapter {
         TextView tvSeal;
         @BindView(R.id.iv_fantuan)
         ImageView ivFantuan;
-        @BindView(R.id.lv)
-        ListViewForScrollView lv;
+
+        @BindView(R.id.tv_act)
+        TextView tvAct;
+//        @BindView(R.id.lv)
+//        ListViewForScrollView lv;
 
         ViewHolder(View view) {
             ButterKnife.bind(this, view);

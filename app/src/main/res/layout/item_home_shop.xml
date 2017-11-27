@@ -137,13 +137,21 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <com.king.batterytest.fbaselib.customview.ListViewForScrollView
-                android:id="@+id/lv"
+            <!--<com.king.batterytest.fbaselib.customview.ListViewForScrollView-->
+            <!--android:id="@+id/lv"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_marginTop="10dp"-->
+            <!--android:layout_weight="1"-->
+            <!--android:divider="@null"/>-->
+            <TextView
+                android:lineSpacingExtra="10dp"
+                android:id="@+id/tv_act"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_height="match_parent"
+                android:layout_marginTop="8dp"
                 android:layout_weight="1"
-                android:divider="@null"/>
+                />
 
             <ImageView
                 android:id="@+id/iv_zhe"
