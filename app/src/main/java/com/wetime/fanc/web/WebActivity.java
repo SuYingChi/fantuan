@@ -113,8 +113,9 @@ public class WebActivity extends BaseActivity {
         setting.setDomStorageEnabled(true);
         setting.setAppCacheEnabled(true);
         setting.setLoadWithOverviewMode(true);
-        setting.setDatabaseEnabled(true);
 
+        setting.setDatabaseEnabled(true);
+        web.addJavascriptInterface(this, "android");
 
         web.setWebChromeClient(wvcc);
         web.setWebViewClient(new WebViewClient() {
