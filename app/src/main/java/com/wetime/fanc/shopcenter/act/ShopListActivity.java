@@ -99,7 +99,13 @@ public class ShopListActivity extends BaseActivity implements IGetShopCenterList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_centerlist);
         ButterKnife.bind(this);
-        tvTitle.setText("h5传值过来");
+//        gom.putExtra("title", title);
+//        gom.putExtra("floorId", floorId);
+//        gom.putExtra("cenerId", cenerId);
+        tvTitle.setText(getIntent().getStringExtra("title"));
+        floorId = getIntent().getStringExtra("floorId");
+        cenerId = getIntent().getStringExtra("cenerId");
+
         adapter = new SearchShopListAdapter(list, mContext);
         rcvLsit.setLayoutManager(new LinearLayoutManager(this));
         rcvLsit.setAdapter(adapter);

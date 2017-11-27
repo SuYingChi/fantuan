@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.king.batterytest.fbaselib.main.BaseActivity;
 import com.wetime.fanc.R;
+import com.wetime.fanc.shopcenter.act.ShopListActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -185,8 +186,12 @@ public class WebActivity extends BaseActivity {
     }
 
     @JavascriptInterface
-    public void goMallHomePage() {
-
+    public void goMallHomePage(String title, String floorId, String cenerId) {
+        Intent gom = new Intent(this, ShopListActivity.class);
+        gom.putExtra("title", title);
+        gom.putExtra("floorId", floorId);
+        gom.putExtra("cenerId", cenerId);
+        startActivity(gom);
     }
 }
 
