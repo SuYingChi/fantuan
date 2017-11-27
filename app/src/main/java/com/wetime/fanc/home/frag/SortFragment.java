@@ -79,6 +79,7 @@ public class SortFragment extends BaseFragment implements IGetSortView, AdapterV
                 startActivity(goweb);
             }
         });
+        Glide.with(this).load(bean.getData().getBanner()).into(ivBanner);
     }
 
     @Override
@@ -94,7 +95,11 @@ public class SortFragment extends BaseFragment implements IGetSortView, AdapterV
         titleadapter.setSelected(i);
         scContent.scrollTo(0, 0);
         tvName.setText(bean.getData().getAll_category().get(i).getName());
-        Glide.with(this).load(bean.getData().getAll_category().get(i).getImgurl()).into(ivBanner);
+        if (i == 0) {
+            ivBanner.setVisibility(View.VISIBLE);
+        } else {
+            ivBanner.setVisibility(View.GONE);
+        }
         sortGridAdapter.setList(bean.getData().getAll_category().get(i).getSubcates());
         gvAll.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

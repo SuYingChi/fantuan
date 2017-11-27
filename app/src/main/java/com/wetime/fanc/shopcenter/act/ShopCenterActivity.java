@@ -17,8 +17,13 @@ import com.wetime.fanc.shopcenter.adapter.ShopListAdapter;
 import com.wetime.fanc.shopcenter.bean.ShopCenterPageBean;
 import com.wetime.fanc.shopcenter.iviews.IGetShopCenterPageView;
 import com.wetime.fanc.shopcenter.presenter.GetShopCenterPagePresenter;
+import com.wetime.fanc.web.WebActivity;
 import com.youth.banner.Banner;
+import com.youth.banner.listener.OnBannerListener;
 import com.youth.banner.loader.ImageLoader;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -78,7 +83,7 @@ public class ShopCenterActivity extends BaseActivity implements IGetShopCenterPa
     }
 
     @Override
-    public void onGetShopCenterPageBean(ShopCenterPageBean bean) {
+    public void onGetShopCenterPageBean(final ShopCenterPageBean bean) {
         ShopListAdapter adapter = new ShopListAdapter(this, bean.getData().getList());
         lvShop.setAdapter(adapter);
         adapter.notifyDataSetChanged();
@@ -92,9 +97,24 @@ public class ShopCenterActivity extends BaseActivity implements IGetShopCenterPa
         //设置图片加载器
         banner.setImageLoader(new GlideImageLoader());
         //设置图片集合
-        banner.setImages(bean.getData().getBanner());
+        List<String> b = new ArrayList<>();
+        for (ShopCenterPageBean.DataBean.BannerBean bb : bean.getData().getBanner()) {
+            b.add(bb.getImg());
+        }
+
+        banner.setImages(b);
         //banner设置方法全部调用完毕时最后调用
         banner.start();
+        banner.setOnBannerListener(new OnBannerListener() {
+            @Override
+            public void OnBannerClick(int position) {
+                if (!bean.getData().getBanner().get(position).getUrl().equals("")) {
+                    Intent goweb = new Intent(mContext, WebActivity.class);
+                    goweb.putExtra("url", bean.getData().getBanner().get(position).getUrl());
+                    mContext.startActivity(goweb);
+                }
+            }
+        });
 
     }
 
