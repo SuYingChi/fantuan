@@ -1,11 +1,9 @@
 package com.wetime.fanc.home.act;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -15,9 +13,6 @@ import android.widget.TextView;
 import com.king.batterytest.fbaselib.LogoutEvent;
 import com.king.batterytest.fbaselib.main.BaseActivity;
 import com.king.batterytest.fbaselib.view.CustomViewPager;
-import com.tencent.android.tpush.XGIOperateCallback;
-import com.tencent.android.tpush.XGPushManager;
-import com.tencent.android.tpush.service.XGPushServiceV3;
 import com.wetime.fanc.R;
 import com.wetime.fanc.home.adapter.HomeFragmentPagerAdapter;
 import com.wetime.fanc.home.frag.HomeFragment;
@@ -37,6 +32,10 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+//import com.tencent.android.tpush.XGIOperateCallback;
+//import com.tencent.android.tpush.XGPushManager;
+//import com.tencent.android.tpush.service.XGPushServiceV3;
 
 public class MainActivity extends BaseActivity implements IBindPushView {
     @BindView(R.id.vp)
@@ -80,7 +79,7 @@ public class MainActivity extends BaseActivity implements IBindPushView {
         ButterKnife.bind(this);
         EventBus.getDefault().register(this);
 
-        initXG();
+//        initXG();
         initView();
 
     }
@@ -119,37 +118,37 @@ public class MainActivity extends BaseActivity implements IBindPushView {
         vp.setPageTransformer(true, null);
     }
 
-    private void initXG() {
-//        XGPushConfig.enableDebug(this, true);
-        // 如果需要知道注册是否成功，请使用registerPush(getApplicationContext(), XGIOperateCallback)带callback版本
-        // 如果需要绑定账号，请使用registerPush(getApplicationContext(),account)版本
-        // 具体可参考详细的开发指南
-        // 传递的参数为ApplicationContext
-        Context context = getApplicationContext();
-        XGPushManager.registerPush(context, new XGIOperateCallback() {
-            @Override
-            public void onSuccess(Object o, int i) {
-//                Handler mHandler = new Handler();
-//                mHandler.post(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        BindPushPresenter pushPresenter = new BindPushPresenter(MainActivity.this);
-//                        pushPresenter.bindPush(XGPushConfig.getToken(MainActivity.this));
-//                    }
-//                });
-
-            }
-
-            @Override
-            public void onFail(Object o, int i, String s) {
-                Log.d("TPush", "xg fail s = " + s);
-                Log.d("TPush", "xg fail i = " + i);
-            }
-        });
-
-        Intent service = new Intent(context, XGPushServiceV3.class);
-        context.startService(service);
-    }
+//    private void initXG() {
+////        XGPushConfig.enableDebug(this, true);
+//        // 如果需要知道注册是否成功，请使用registerPush(getApplicationContext(), XGIOperateCallback)带callback版本
+//        // 如果需要绑定账号，请使用registerPush(getApplicationContext(),account)版本
+//        // 具体可参考详细的开发指南
+//        // 传递的参数为ApplicationContext
+//        Context context = getApplicationContext();
+//        XGPushManager.registerPush(context, new XGIOperateCallback() {
+//            @Override
+//            public void onSuccess(Object o, int i) {
+////                Handler mHandler = new Handler();
+////                mHandler.post(new Runnable() {
+////                    @Override
+////                    public void run() {
+////                        BindPushPresenter pushPresenter = new BindPushPresenter(MainActivity.this);
+////                        pushPresenter.bindPush(XGPushConfig.getToken(MainActivity.this));
+////                    }
+////                });
+//
+//            }
+//
+//            @Override
+//            public void onFail(Object o, int i, String s) {
+//                Log.d("TPush", "xg fail s = " + s);
+//                Log.d("TPush", "xg fail i = " + i);
+//            }
+//        });
+//
+//        Intent service = new Intent(context, XGPushServiceV3.class);
+//        context.startService(service);
+//    }
 
     @OnClick({R.id.ll_tab0, R.id.ll_tab1, R.id.ll_tab2, R.id.ll_tab3})
     public void onViewClicked(View view) {

@@ -16,9 +16,8 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.baidu.location.BDAbstractLocationListener;
 import com.baidu.location.BDLocation;
-import com.baidu.mapapi.SDKInitializer;
+import com.baidu.location.BDLocationListener;
 import com.bumptech.glide.Glide;
 import com.king.batterytest.fbaselib.customview.GridViewForScrollView;
 import com.king.batterytest.fbaselib.customview.ListViewForScrollView;
@@ -104,7 +103,7 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, IGe
         super.onCreate(savedInstanceState);
         locationService = new LocationService(getContext().getApplicationContext());
         mVibrator = (Vibrator) getContext().getApplicationContext().getSystemService(Service.VIBRATOR_SERVICE);
-        SDKInitializer.initialize(getContext().getApplicationContext());
+
     }
 
     @Override
@@ -131,7 +130,7 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, IGe
 //                getContext().startActivity(te);
             } else {
                 if (Patterns.WEB_URL.matcher(data.getStringExtra("key")).matches()) {
-                    goWeb(data.getStringExtra("key")+"&type=andriod");
+                    goWeb(data.getStringExtra("key") + "&type=andriod");
                 } else {
                     Tools.toastInBottom(getContext(), data.getStringExtra("key"));
                 }
@@ -168,7 +167,7 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, IGe
      * 定位结果回调，重写onReceiveLocation方法，可以直接拷贝如下代码到自己工程中修改
      *
      */
-    private BDAbstractLocationListener mListener = new BDAbstractLocationListener() {
+    private BDLocationListener mListener = new BDLocationListener() {
         @Override
         public void onReceiveLocation(BDLocation location) {
             // TODO Auto-generated method stub
