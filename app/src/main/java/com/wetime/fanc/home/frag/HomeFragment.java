@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,7 @@ import com.bumptech.glide.Glide;
 import com.king.batterytest.fbaselib.customview.GridViewForScrollView;
 import com.king.batterytest.fbaselib.customview.ListViewForScrollView;
 import com.king.batterytest.fbaselib.main.BaseFragment;
+import com.king.batterytest.fbaselib.main.ScanActivity;
 import com.king.batterytest.fbaselib.service.LocationService;
 import com.king.batterytest.fbaselib.utils.Tools;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -36,7 +38,6 @@ import com.wetime.fanc.home.bean.HomePageBean;
 import com.wetime.fanc.home.iviews.IGetHomePageView;
 import com.wetime.fanc.home.presenter.GetHomePagePresenter;
 import com.wetime.fanc.shopcenter.act.ShopCenterActivity;
-import com.wetime.fanc.shopcenter.act.ShopListActivity;
 import com.wetime.fanc.web.WebActivity;
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
 import com.zhy.adapter.recyclerview.wrapper.HeaderAndFooterWrapper;
@@ -129,8 +130,11 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, IGe
 //                Intent te = new Intent(getContext(), InputCodeSelfActivity.class);
 //                getContext().startActivity(te);
             } else {
-                Tools.toastInBottom(getContext(), data.getStringExtra("key"));
-
+                if (Patterns.WEB_URL.matcher(data.getStringExtra("key")).matches()) {
+                    goWeb(data.getStringExtra("key")+"&type=andriod");
+                } else {
+                    Tools.toastInBottom(getContext(), data.getStringExtra("key"));
+                }
             }
 
         }
@@ -141,10 +145,10 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, IGe
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_scan:
-//                Intent goscan = new Intent(getContext(), ScanActivity.class);
-//                startActivityForResult(goscan, REQUEST_CODE);
-                Intent gotest = new Intent(getContext(), ShopListActivity.class);
-                startActivity(gotest);
+                Intent goscan = new Intent(getContext(), ScanActivity.class);
+                startActivityForResult(goscan, REQUEST_CODE);
+//                Intent gotest = new Intent(getContext(), ShopListActivity.class);
+//                startActivity(gotest);
 
                 break;
             case R.id.ll_search:

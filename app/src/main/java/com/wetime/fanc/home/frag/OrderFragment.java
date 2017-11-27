@@ -281,6 +281,10 @@ public class OrderFragment extends BaseFragment implements IGetOrderListView, On
         initView();
     }
 
+    @Override
+    public void onTimeOut() {
+//        super.onTimeOut();
+    }
 
     @Override
     public void onLoadmore(RefreshLayout refreshlayout) {
