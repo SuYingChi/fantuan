@@ -13,12 +13,10 @@
         android:gravity="center|left">
 
         <TextView
-            android:layout_marginLeft="20dp"
             android:id="@+id/tv_name"
-            android:layout_width="70dp"
+            android:layout_width="90dp"
             android:layout_height="wrap_content"
-            android:letterSpacing="0.01"
-            android:lineSpacingExtra="0sp"
+            android:layout_marginLeft="20dp"
             android:textColor="#333333"
             android:textSize="14sp"
             tools:text="全部分类"
