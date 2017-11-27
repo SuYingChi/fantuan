@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.king.batterytest.fbaselib.LogoutEvent;
 import com.king.batterytest.fbaselib.main.BaseFragment;
+import com.king.batterytest.fbaselib.main.model.BaseBean;
 import com.king.batterytest.fbaselib.utils.Tools;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -27,6 +28,8 @@ import com.wetime.fanc.R;
 import com.wetime.fanc.home.adapter.OrderAdapter;
 import com.wetime.fanc.home.adapter.OrderTypeAdapter;
 import com.wetime.fanc.home.bean.OrderPageBean;
+import com.wetime.fanc.home.iviews.IDeleteOrderView;
+import com.wetime.fanc.home.presenter.DeleteOrderPresenter;
 import com.wetime.fanc.login.act.LoginActivity;
 import com.wetime.fanc.login.event.LoginEvent;
 import com.wetime.fanc.shopcenter.iviews.IGetOrderListView;
@@ -47,7 +50,7 @@ import butterknife.Unbinder;
 import q.rorbin.badgeview.QBadgeView;
 
 
-public class OrderFragment extends BaseFragment implements IGetOrderListView, OnLoadmoreListener, OnRefreshListener {
+public class OrderFragment extends BaseFragment implements IGetOrderListView, OnLoadmoreListener, OnRefreshListener, IDeleteOrderView {
     @BindView(R.id.tv_login)
     TextView tvLogin;
     @BindView(R.id.rl_empty)
@@ -78,6 +81,7 @@ public class OrderFragment extends BaseFragment implements IGetOrderListView, On
     private OrderTypeAdapter orderTypeAdapter;
     private List<OrderPageBean.DataBean.ListBean> ordelist = new ArrayList<>();
     private OrderAdapter adapter;
+    private DeleteOrderPresenter deleteOrderPresenter;
 
     @Override
 
@@ -91,7 +95,7 @@ public class OrderFragment extends BaseFragment implements IGetOrderListView, On
         adapter = new OrderAdapter(ordelist, getContext());
         rclOrder.setAdapter(adapter);
         rclOrder.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
-
+        deleteOrderPresenter = new DeleteOrderPresenter(this);
         initView();
         return v;
     }
@@ -192,7 +196,7 @@ public class OrderFragment extends BaseFragment implements IGetOrderListView, On
                 changeTileState();
                 orderTypeAdapter.setSelectedId(i);
 
-                page =1;
+                page = 1;
                 ordelist.clear();
                 adapter.notifyDataSetChanged();
 
@@ -205,7 +209,7 @@ public class OrderFragment extends BaseFragment implements IGetOrderListView, On
         ordelist.addAll(bean.getData().getList());
         adapter.setFilter(filter);
         adapter.notifyDataSetChanged();
-        rclOrder.scrollTo(0,0);
+        rclOrder.scrollTo(0, 0);
 
         refreshLayout.finishRefresh();
         refreshLayout.finishLoadmore();
@@ -256,7 +260,7 @@ public class OrderFragment extends BaseFragment implements IGetOrderListView, On
             public void onTabSelected(TabLayout.Tab tab) {
 //                if (refreshLayout.isRefreshing())
 //                    refreshLayout.finishRefresh();
-                page =1;
+                page = 1;
                 ordelist.clear();
                 adapter.notifyDataSetChanged();
                 TextView tv = tab.getCustomView().findViewById(R.id.tv_title);
@@ -285,30 +289,32 @@ public class OrderFragment extends BaseFragment implements IGetOrderListView, On
 
         adapter.setOnActionClickLitener(new OrderAdapter.OnActionClickLitener() {
             @Override
-            public void onItemClick(View view, int position) {
+            public void onItemClick(View view, final int position) {
                 OrderPageBean.DataBean.ListBean bean = ordelist.get(position);
-                if(bean.getAction_type_name().equals("去付款")){
+                if (bean.getAction_type_name().equals("去付款")) {
                     goWeb(bean.getAction_url());
-                }else if(bean.getAction_type_name().equals("查看券码")){
+                } else if (bean.getAction_type_name().equals("查看券码")) {
                     goWeb(bean.getAction_url());
-                }else if(bean.getAction_type_name().equals("去评价")){
+                } else if (bean.getAction_type_name().equals("去评价")) {
 
-                }else if(bean.getAction_type_name().equals("删除订单")){
+                } else if (bean.getAction_type_name().equals("删除订单")) {
                     Tools.showTipsDialog(getContext(), "确认要删除订单吗？", null, new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-
+                            deleteOrderPresenter.deleteOrder(ordelist.get(position).getOrder_id());
                         }
                     });
                 }
             }
         });
     }
+
     private void goWeb(String url) {
         Intent goweb = new Intent(getContext(), WebActivity.class);
         goweb.putExtra("url", url);
         startActivity(goweb);
     }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(LoginEvent event) {
         initView();
@@ -335,5 +341,14 @@ public class OrderFragment extends BaseFragment implements IGetOrderListView, On
         page = 1;
         getOrderPagePresenter.getOrderList();
 
+    }
+
+    @Override
+    public void onDeleteOrder(BaseBean bean) {
+        page = 1;
+        ordelist.clear();
+        adapter.notifyDataSetChanged();
+
+        refreshLayout.autoRefresh();
     }
 }
