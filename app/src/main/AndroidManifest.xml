@@ -85,5 +85,6 @@
         <activity
             android:name=".shopcenter.act.ShopSearchResultActivity"
             android:launchMode="singleTask"/>
+        <activity android:name=".order.CommentOrderActivity"/>
     </application>
 </manifest>

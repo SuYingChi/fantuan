@@ -32,6 +32,8 @@ import com.wetime.fanc.home.iviews.IDeleteOrderView;
 import com.wetime.fanc.home.presenter.DeleteOrderPresenter;
 import com.wetime.fanc.login.act.LoginActivity;
 import com.wetime.fanc.login.event.LoginEvent;
+import com.wetime.fanc.order.CommentOrderActivity;
+import com.wetime.fanc.order.event.CommentOrderEvent;
 import com.wetime.fanc.shopcenter.iviews.IGetOrderListView;
 import com.wetime.fanc.shopcenter.presenter.GetOrderPagePresenter;
 import com.wetime.fanc.web.WebActivity;
@@ -296,7 +298,9 @@ public class OrderFragment extends BaseFragment implements IGetOrderListView, On
                 } else if (bean.getAction_type_name().equals("查看券码")) {
                     goWeb(bean.getAction_url());
                 } else if (bean.getAction_type_name().equals("去评价")) {
-
+                    Intent goComment =  new Intent(getContext(), CommentOrderActivity.class);
+                    goComment.putExtra("id",bean.getOrder_id());
+                    startActivity(goComment);
                 } else if (bean.getAction_type_name().equals("删除订单")) {
                     Tools.showTipsDialog(getContext(), "确认要删除订单吗？", null, new View.OnClickListener() {
                         @Override
@@ -325,6 +329,14 @@ public class OrderFragment extends BaseFragment implements IGetOrderListView, On
         initView();
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(CommentOrderEvent event) {
+        page = 1;
+        ordelist.clear();
+        adapter.notifyDataSetChanged();
+
+        refreshLayout.autoRefresh();
+    }
     @Override
     public void onTimeOut() {
 //        super.onTimeOut();

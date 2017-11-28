@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+
+    android:orientation="vertical">
+
+    <include layout="@layout/item_header"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:scrollbars="none">
+
+
+        <LinearLayout
+            android:paddingBottom="30dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_score"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:lineSpacingExtra="0sp"
+                    android:text="5"
+                    android:textColor="#ff3f53"
+                    android:textSize="30sp"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="3dp"
+                    android:gravity="end"
+                    android:lineSpacingExtra="0sp"
+                    android:text="分"
+                    android:textColor="#ff3f53"
+                    android:textSize="14sp"
+                    />
+
+            </LinearLayout>
+
+            <com.wetime.fanc.order.MyRatingBar
+                android:id="@+id/rb_socre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:paddingLeft="20dp"
+                app:starCount="5"
+                app:starEmpty="@drawable/rating_in_big"
+                app:starFill="@drawable/rating_on_big"
+                app:starHalf="@drawable/rating_half_big"
+                app:starImageSize="30dp"
+                app:starPadding="20dp"
+                app:starStep="5"
+                app:stepSize="Half"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+
+                android:background="@drawable/bg_shape_corner_dark"
+                android:orientation="vertical"
+                android:padding="1dp">
+
+                <EditText
+                    android:id="@+id/et_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:layout_alignParentRight="true"
+                    android:background="#f9f9f9"
+                    android:gravity="top|left"
+                    android:hint="您的建议很重要，来点评一下吧，至少输入8个字哦。"
+                    android:maxLength="300"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:paddingTop="10dp"
+                    android:textColor="#757575"
+                    android:textColorHint="#888888"
+                    android:textSize="14sp"/>
+
+                <TextView
+                    android:id="@+id/tv_num"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#f9f9f9"
+                    android:gravity="right"
+                    android:paddingBottom="3dp"
+                    android:paddingRight="5dp"
+                    android:text="0/300"
+                    android:textColor="#999999"
+                    android:textSize="14sp"/>
+            </LinearLayout>
+
+            <com.king.batterytest.fbaselib.customview.GridViewForScrollView
+                android:id="@+id/appraise_img_gv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:background="@color/white"
+                android:horizontalSpacing="@dimen/space_size"
+                android:numColumns="4"
+
+                android:scrollbars="none"
+                android:verticalSpacing="@dimen/space_size"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:id="@+id/cb_name"
+                    style="@style/CustomCheckboxTheme"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"/>
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="@string/str_no_name_comment"
+                    android:textColor="#333333"
+                    android:textSize="15sp"
+                    />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:paddingLeft="25dp"
+                android:text="@string/tips_no_name_comment"
+                android:textColor="#999999"
+                android:textSize="12sp"
+                />
+
+            <TextView
+                android:id="@+id/tv_comment"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginTop="100dp"
+                android:background="@drawable/bg_btn_red_corner_enable"
+                android:gravity="center"
+                android:text="提交评论"
+                android:textColor="#ffffff"
+                android:textSize="17sp"
+                />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
+

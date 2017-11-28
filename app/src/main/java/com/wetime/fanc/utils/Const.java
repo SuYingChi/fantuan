@@ -33,6 +33,7 @@ public interface Const {
     String ORDER_LIST = BASEURL + "/order/list";
     String WEIXIN_UNBIND = BASEURL + "/user/weixin/unbind";
     String ORDER_DELETE = BASEURL + "/order/delete";
+    String ORDER_REVIEW = BASEURL + "/order/review";
 
 
 }
