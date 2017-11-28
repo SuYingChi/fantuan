@@ -1,4 +1,4 @@
-package com.wetime.fanc.order;
+package com.wetime.fanc.order.act;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,6 +21,7 @@ import com.wetime.fanc.R;
 import com.wetime.fanc.main.bean.PostFileResultBean;
 import com.wetime.fanc.main.ivews.IPostMultiFileView;
 import com.wetime.fanc.main.presenter.PostMultiFilePresenter;
+import com.wetime.fanc.order.MyRatingBar;
 import com.wetime.fanc.order.adapter.ImageGridAdapter;
 import com.wetime.fanc.order.event.CommentOrderEvent;
 import com.wetime.fanc.order.iviews.ICommentOrderView;

@@ -15,7 +15,10 @@ import android.widget.TextView;
 
 import com.king.batterytest.fbaselib.main.BaseActivity;
 import com.wetime.fanc.R;
+import com.wetime.fanc.home.act.HomeSearchActivity;
+import com.wetime.fanc.order.act.CommentOrderActivity;
 import com.wetime.fanc.shopcenter.act.ShopListActivity;
+import com.wetime.fanc.shopcenter.act.ShopSearchActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -162,30 +165,33 @@ public class WebActivity extends BaseActivity {
     }
 
     @JavascriptInterface
-    public void getLongitude() {
-
+    public String getLongitude() {
+        return spu.getValue("jd");
     }
 
     @JavascriptInterface
-    public void getLatitude() {
-
+    public String getLatitude() {
+        return spu.getValue("wd");
     }
 
     @JavascriptInterface
     public void finishWebView() {
-
+        finish();
     }
-
+    // 首页搜索
     @JavascriptInterface
     public void goHomeSearchPage() {
-
+        Intent gosearch = new Intent(this, HomeSearchActivity.class);
+        startActivity(gosearch);
     }
-
+    // 去商城搜索页面
     @JavascriptInterface
     public void goShopSearchPage() {
-
+        Intent goSearch = new Intent(this, ShopSearchActivity.class);
+        startActivity(goSearch);
     }
 
+    // 购物中心首页
     @JavascriptInterface
     public void goMallHomePage(String title, String floorId, String cenerId) {
         Intent gom = new Intent(this, ShopListActivity.class);
@@ -193,6 +199,13 @@ public class WebActivity extends BaseActivity {
         gom.putExtra("floorId", floorId);
         gom.putExtra("cenerId", cenerId);
         startActivity(gom);
+    }
+    // 评价订单
+    @JavascriptInterface
+    public void goCommnetOrder(String orderId) {
+        Intent goComment =  new Intent(this, CommentOrderActivity.class);
+        goComment.putExtra("id",orderId);
+        startActivity(goComment);
     }
 }
 

@@ -32,7 +32,7 @@ import com.wetime.fanc.home.iviews.IDeleteOrderView;
 import com.wetime.fanc.home.presenter.DeleteOrderPresenter;
 import com.wetime.fanc.login.act.LoginActivity;
 import com.wetime.fanc.login.event.LoginEvent;
-import com.wetime.fanc.order.CommentOrderActivity;
+import com.wetime.fanc.order.act.CommentOrderActivity;
 import com.wetime.fanc.order.event.CommentOrderEvent;
 import com.wetime.fanc.shopcenter.iviews.IGetOrderListView;
 import com.wetime.fanc.shopcenter.presenter.GetOrderPagePresenter;
