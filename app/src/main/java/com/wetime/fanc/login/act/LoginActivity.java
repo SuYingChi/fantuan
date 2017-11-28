@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.gyf.barlibrary.ImmersionBar;
 import com.king.batterytest.fbaselib.main.BaseActivity;
 import com.king.batterytest.fbaselib.utils.Tools;
 import com.tencent.mm.opensdk.modelmsg.SendAuth;
@@ -33,6 +34,15 @@ public class LoginActivity extends BaseActivity implements IWXLoginView {
         ButterKnife.bind(this);
         EventBus.getDefault().register(this);
         wxLoginPresenter = new WXLoginPresenter(this);
+    }
+
+    @Override
+    public void initStateBar() {
+//        super.initStateBar();
+        ImmersionBar.with(this)
+                .transparentStatusBar()
+                .statusBarDarkFont(false)
+                .fitsSystemWindows(false).init();
     }
 
     @Override

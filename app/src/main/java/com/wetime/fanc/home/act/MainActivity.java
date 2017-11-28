@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.gyf.barlibrary.ImmersionBar;
 import com.king.batterytest.fbaselib.LogoutEvent;
 import com.king.batterytest.fbaselib.main.BaseActivity;
 import com.king.batterytest.fbaselib.view.CustomViewPager;
@@ -78,10 +79,16 @@ public class MainActivity extends BaseActivity implements IBindPushView {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         EventBus.getDefault().register(this);
+        ImmersionBar.with(this).statusBarColor(R.color.white).statusBarDarkFont(true, 0.2f).fitsSystemWindows(true).init();
 
 //        initXG();
         initView();
 
+    }
+
+    @Override
+    public void initStateBar() {
+//        super.initStateBar();
     }
 
     @Override
@@ -157,25 +164,33 @@ public class MainActivity extends BaseActivity implements IBindPushView {
                 if (vp.getCurrentItem() != 0) {
                     initBottom(0);
                     vp.setCurrentItem(0, false);
+                    ImmersionBar.with(this).statusBarColor(R.color.white).statusBarDarkFont(true, 0.2f).fitsSystemWindows(true).init();
+
                 }
                 break;
             case R.id.ll_tab1:
                 if (vp.getCurrentItem() != 1) {
                     initBottom(1);
                     vp.setCurrentItem(1, false);
-
+                    ImmersionBar.with(this).statusBarColor(R.color.white).statusBarDarkFont(true, 0.2f).fitsSystemWindows(true).init();
                 }
                 break;
             case R.id.ll_tab2:
                 if (vp.getCurrentItem() != 2) {
                     vp.setCurrentItem(2, false);
                     initBottom(2);
+                    ImmersionBar.with(this).statusBarColor(R.color.white).statusBarDarkFont(true, 0.2f).fitsSystemWindows(true).init();
                 }
                 break;
             case R.id.ll_tab3:
                 if (vp.getCurrentItem() != 3) {
                     vp.setCurrentItem(3, false);
                     initBottom(3);
+                    ImmersionBar.with(this)
+                            .transparentStatusBar()
+                            .statusBarDarkFont(false)
+                            .fitsSystemWindows(false).init();
+
                 }
                 break;
         }

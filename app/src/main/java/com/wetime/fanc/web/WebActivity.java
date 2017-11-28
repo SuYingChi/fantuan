@@ -13,6 +13,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.TextView;
 
+import com.gyf.barlibrary.ImmersionBar;
 import com.king.batterytest.fbaselib.main.BaseActivity;
 import com.wetime.fanc.R;
 import com.wetime.fanc.home.act.HomeSearchActivity;
@@ -73,6 +74,13 @@ public class WebActivity extends BaseActivity {
             finish();
         }
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ImmersionBar.with(this).destroy(); //不调用该方法，如果界面bar发生改变，在不关闭app的情况下，退出此界面再进入将记忆最后一次bar改变的状态
+    }
+
 
     @OnClick({R.id.btn_back, R.id.tv_right})
     public void onViewClicked(View view) {
@@ -178,12 +186,14 @@ public class WebActivity extends BaseActivity {
     public void finishWebView() {
         finish();
     }
+
     // 首页搜索
     @JavascriptInterface
     public void goHomeSearchPage() {
         Intent gosearch = new Intent(this, HomeSearchActivity.class);
         startActivity(gosearch);
     }
+
     // 去商城搜索页面
     @JavascriptInterface
     public void goShopSearchPage() {
@@ -200,11 +210,12 @@ public class WebActivity extends BaseActivity {
         gom.putExtra("cenerId", cenerId);
         startActivity(gom);
     }
+
     // 评价订单
     @JavascriptInterface
     public void goCommnetOrder(String orderId) {
-        Intent goComment =  new Intent(this, CommentOrderActivity.class);
-        goComment.putExtra("id",orderId);
+        Intent goComment = new Intent(this, CommentOrderActivity.class);
+        goComment.putExtra("id", orderId);
         startActivity(goComment);
     }
 }
