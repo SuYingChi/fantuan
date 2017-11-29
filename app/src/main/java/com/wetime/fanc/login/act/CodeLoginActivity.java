@@ -72,6 +72,7 @@ public class CodeLoginActivity extends BaseActivity implements ISendSMSView, IIn
                     return;
                 }
                 invalidCodePresenter.invalidCode(etPhone.getText().toString(), etCode.getText().toString());
+                Tools.hideSoftInput(this);
                 break;
             case R.id.tv_send:
                 if (etPhone.getText().length() != 11) {

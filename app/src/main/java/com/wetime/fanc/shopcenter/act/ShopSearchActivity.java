@@ -27,7 +27,6 @@ import com.king.batterytest.fbaselib.main.BaseActivity;
 import com.king.batterytest.fbaselib.utils.GsonUtils;
 import com.king.batterytest.fbaselib.utils.Tools;
 import com.wetime.fanc.R;
-import com.wetime.fanc.home.act.HomeSearchResultActivity;
 import com.wetime.fanc.home.adapter.HisAdapter;
 import com.wetime.fanc.home.adapter.HotWordAdapter;
 import com.wetime.fanc.home.adapter.ResultAdapter;
@@ -35,8 +34,8 @@ import com.wetime.fanc.home.bean.HomeHotSearchBean;
 import com.wetime.fanc.home.bean.SearchResult;
 import com.wetime.fanc.home.iviews.IGetHomeSugView;
 import com.wetime.fanc.home.presenter.GetHomeSugSerachPresenter;
-import com.wetime.fanc.shopcenter.presenter.GetShopHotSerachPresenter;
 import com.wetime.fanc.shopcenter.iviews.IGetShopHotSearchView;
+import com.wetime.fanc.shopcenter.presenter.GetShopHotSerachPresenter;
 import com.wetime.fanc.web.WebActivity;
 
 import java.util.ArrayList;
@@ -73,6 +72,8 @@ public class ShopSearchActivity extends BaseActivity implements IGetShopHotSearc
     private GetHomeSugSerachPresenter getHomeSugSerachPresenter;
     private ResultAdapter resultAdapter;
     private List<SearchResult.DataBean.MerchantsBean> reList = new ArrayList();
+    private String millId = "";
+    private String name = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,13 +82,17 @@ public class ShopSearchActivity extends BaseActivity implements IGetShopHotSearc
         ButterKnife.bind(this);
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.showSoftInput(etSearch, InputMethodManager.SHOW_FORCED);
+        name = getIntent().getStringExtra("name");
+        millId = getIntent().getStringExtra("id");
+        etSearch.setHint("在" + name + "中搜索");
 
+        
         getShopHotSerachPresenter = new GetShopHotSerachPresenter(this);
         getShopHotSerachPresenter.getHotSearchPage();
 
         etSearch.setOnEditorActionListener(this);
         etSearch.addTextChangedListener(this);
-        etSearch.setHint("在XX中搜索");
+
 
         resultAdapter = new ResultAdapter(reList, this);
         rclResult.setLayoutManager(new LinearLayoutManager(this));
@@ -181,8 +186,8 @@ public class ShopSearchActivity extends BaseActivity implements IGetShopHotSearc
 
     @Override
     public String getMailId() {
-        // 测试写死  需要联调
-        return "24";
+
+        return millId;
     }
 
     @Override
@@ -208,7 +213,6 @@ public class ShopSearchActivity extends BaseActivity implements IGetShopHotSearc
                 goResult(bean.getData().getMerchant_hots().get(position).getName());
             }
         });
-
 
 
     }
@@ -270,6 +274,8 @@ public class ShopSearchActivity extends BaseActivity implements IGetShopHotSearc
     private void goResult(String key) {
         Intent go = new Intent(this, ShopSearchResultActivity.class);
         go.putExtra("key", key);
+        go.putExtra("id", millId);
+        go.putExtra("name", key);
         startActivity(go);
     }
 

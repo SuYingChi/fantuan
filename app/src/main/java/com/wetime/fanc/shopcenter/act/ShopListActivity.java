@@ -6,6 +6,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -106,6 +107,9 @@ public class ShopListActivity extends BaseActivity implements IGetShopCenterList
         floorId = getIntent().getStringExtra("floorId");
         cenerId = getIntent().getStringExtra("cenerId");
 
+
+        if (!TextUtils.isEmpty(getIntent().getStringExtra("floorName")))
+            tv1.setText(getIntent().getStringExtra("floorName"));
         adapter = new SearchShopListAdapter(list, mContext);
         rcvLsit.setLayoutManager(new LinearLayoutManager(this));
         rcvLsit.setAdapter(adapter);
@@ -134,6 +138,8 @@ public class ShopListActivity extends BaseActivity implements IGetShopCenterList
                 break;
             case R.id.iv_search:
                 Intent goSearch = new Intent(this, ShopSearchActivity.class);
+                goSearch.putExtra("id",cenerId);
+                goSearch.putExtra("name",getIntent().getStringExtra("title"));
                 startActivity(goSearch);
                 break;
             case R.id.ll_1:
@@ -273,6 +279,8 @@ public class ShopListActivity extends BaseActivity implements IGetShopCenterList
         adapter1 = new FloorItemAdapter(mContext, bean.getData().getFloor());
         adapter1.setSelectedId(floorId);
         lv1.setAdapter(adapter1);
+
+
         adapter1.notifyDataSetChanged();
         lv1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -407,4 +415,30 @@ public class ShopListActivity extends BaseActivity implements IGetShopCenterList
         goweb.putExtra("url", url);
         startActivity(goweb);
     }
+
+    public void hideDropDown(View view) {
+        tv1.setTag(null);
+        tv1.setTextColor(Color.parseColor("#666666"));
+        Drawable drawable = getResources().getDrawable(R.drawable.ic_head_down);
+        drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getMinimumHeight());
+        tv1.setCompoundDrawables(null, null, drawable, null);
+        v1.setVisibility(View.GONE);
+
+
+        tv2.setTag(null);
+        tv2.setTextColor(Color.parseColor("#666666"));
+//        Drawable drawable = getResources().getDrawable(R.drawable.ic_head_down);
+//        drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getMinimumHeight());
+        tv2.setCompoundDrawables(null, null, drawable, null);
+        v2.setVisibility(View.GONE);
+
+        tv3.setTag(null);
+        tv3.setTextColor(Color.parseColor("#666666"));
+//        Drawable drawable = getResources().getDrawable(R.drawable.ic_head_down);
+//        drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getMinimumHeight());
+        tv3.setCompoundDrawables(null, null, drawable, null);
+
+        v3.setVisibility(View.GONE);
+    }
+
 }

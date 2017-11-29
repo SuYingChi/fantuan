@@ -95,10 +95,11 @@ public class ShopSearchResultActivity extends BaseActivity implements IGetShopSe
     private int page = 1;
     private String sortMethod = "0";//排列方式： 0=智能排序，1=距离优先，2=人均
     private String floorId = "";
-    private String cenerId = "24";//写死 测试
+    private String cenerId = "";//写死 测试
     private String cid = "";
     private String sid = "";
 
+    private String name;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -107,6 +108,8 @@ public class ShopSearchResultActivity extends BaseActivity implements IGetShopSe
 
         etSearch.setText(getIntent().getStringExtra("key"));
         etSearch.setInputType(InputType.TYPE_NULL);
+        cenerId = getIntent().getStringExtra("id");
+        name = getIntent().getStringExtra("name");
 
         adapter = new SearchShopListAdapter(list, mContext);
         rcvLsit.setLayoutManager(new LinearLayoutManager(this));
@@ -155,6 +158,8 @@ public class ShopSearchResultActivity extends BaseActivity implements IGetShopSe
             case R.id.et_search:
                 Intent gosearch = new Intent(this, ShopSearchActivity.class);
                 gosearch.putExtra("key", etSearch.getText().toString());
+                gosearch.putExtra("id",cenerId);
+                gosearch.putExtra("id",name);
                 startActivity(gosearch);
                 break;
 

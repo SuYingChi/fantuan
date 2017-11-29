@@ -33,7 +33,7 @@
                 android:textSize="18sp"/>
 
             <TextView
-                android:visibility="invisible"
+                android:visibility="gone"
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:id="@+id/tv_right"
@@ -44,6 +44,14 @@
                 tools:text="title"
                 android:textColor="@color/head_text_color"
                 android:textSize="16sp"/>
+            <ImageView
+                android:id="@+id/iv_right"
+                android:padding="10dp"
+                android:visibility="gone"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/ic_search_head"/>
         </RelativeLayout>
 
         <View

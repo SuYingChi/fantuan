@@ -144,9 +144,9 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, IGe
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_scan:
-//                Intent goscan = new Intent(getContext(), ScanActivity.class);
-//                startActivityForResult(goscan, REQUEST_CODE);
-                goWeb("http://192.168.1.135:3001/#/mall?mall=3");
+                Intent goscan = new Intent(getContext(), ScanActivity.class);
+                startActivityForResult(goscan, REQUEST_CODE);
+//                goWeb("https://qr.alipay.com/bax0770473tfsapdfqlh0014");
 
                 break;
             case R.id.ll_search:

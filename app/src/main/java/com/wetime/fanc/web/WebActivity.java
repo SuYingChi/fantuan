@@ -11,6 +11,7 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.gyf.barlibrary.ImmersionBar;
@@ -34,6 +35,10 @@ public class WebActivity extends BaseActivity {
     WebView web;
     @BindView(R.id.tv_right)
     TextView tvRight;
+    @BindView(R.id.btn_back)
+    ImageView btnBack;
+    @BindView(R.id.iv_right)
+    ImageView ivRight;
 
     private String weburl;
     private String type = "0";
@@ -190,33 +195,91 @@ public class WebActivity extends BaseActivity {
     // 首页搜索
     @JavascriptInterface
     public void goHomeSearchPage() {
-        Intent gosearch = new Intent(this, HomeSearchActivity.class);
-        startActivity(gosearch);
+        web.post(new Runnable() {
+            @Override
+            public void run() {
+                Intent gosearch = new Intent(getApplicationContext(), HomeSearchActivity.class);
+                startActivity(gosearch);
+            }
+        });
     }
 
     // 去商城搜索页面
     @JavascriptInterface
-    public void goShopSearchPage() {
-        Intent goSearch = new Intent(this, ShopSearchActivity.class);
-        startActivity(goSearch);
+    public void goShopSearchPage(final String id, final String name) {
+        web.post(new Runnable() {
+            @Override
+            public void run() {
+                Intent goSearch = new Intent(getApplicationContext(), ShopSearchActivity.class);
+                goSearch.putExtra("id", id);
+                goSearch.putExtra("id", name);
+                startActivity(goSearch);
+            }
+        });
     }
 
     // 购物中心首页
     @JavascriptInterface
-    public void goMallHomePage(String title, String floorId, String cenerId) {
-        Intent gom = new Intent(this, ShopListActivity.class);
-        gom.putExtra("title", title);
-        gom.putExtra("floorId", floorId);
-        gom.putExtra("cenerId", cenerId);
-        startActivity(gom);
+    public void goMallHomePage(final String title, final String floorId, final String cenerId, final String floorName) {
+        web.post(new Runnable() {
+            @Override
+            public void run() {
+
+                Intent gom = new Intent(getApplicationContext(), ShopListActivity.class);
+                gom.putExtra("title", title);
+                gom.putExtra("floorId", floorId);
+                gom.putExtra("cenerId", cenerId);
+                gom.putExtra("floorName", floorName);
+                startActivity(gom);
+            }
+        });
     }
+
 
     // 评价订单
     @JavascriptInterface
-    public void goCommnetOrder(String orderId) {
-        Intent goComment = new Intent(this, CommentOrderActivity.class);
-        goComment.putExtra("id", orderId);
-        startActivity(goComment);
+    public void goCommnetOrder(final String orderId) {
+        web.post(new Runnable() {
+            @Override
+            public void run() {
+                Intent goComment = new Intent(getApplicationContext(), CommentOrderActivity.class);
+                goComment.putExtra("id", orderId);
+                startActivity(goComment);
+            }
+        });
+    }
+
+    @JavascriptInterface
+    public void setRightShopSearch(final String id, final String name) {
+        web.post(new Runnable() {
+            @Override
+            public void run() {
+                ivRight.setVisibility(View.VISIBLE);
+                ivRight.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent goSearch = new Intent(getApplicationContext(), ShopSearchActivity.class);
+                        goSearch.putExtra("id", id);
+                        goSearch.putExtra("name", name);
+                        startActivity(goSearch);
+                    }
+                });
+
+            }
+        });
+
+    }
+
+    @JavascriptInterface
+    public void hideRightButton() {
+        web.post(new Runnable() {
+            @Override
+            public void run() {
+                tvRight.setVisibility(View.GONE);
+                ivRight.setVisibility(View.GONE);
+            }
+        });
+
     }
 }
 
