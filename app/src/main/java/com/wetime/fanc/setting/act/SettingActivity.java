@@ -14,7 +14,7 @@ import com.king.batterytest.fbaselib.utils.Tools;
 import com.tencent.mm.opensdk.modelmsg.SendAuth;
 import com.wetime.fanc.FApp;
 import com.wetime.fanc.R;
-import com.wetime.fanc.about.AboutActivity;
+import com.wetime.fanc.about.act.AboutActivity;
 import com.wetime.fanc.setting.bean.SettingPageBean;
 import com.wetime.fanc.setting.event.UnBindWXEvent;
 import com.wetime.fanc.setting.iviews.IGetSettingView;

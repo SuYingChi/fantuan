@@ -34,6 +34,7 @@ public interface Const {
     String WEIXIN_UNBIND = BASEURL + "/user/weixin/unbind";
     String ORDER_DELETE = BASEURL + "/order/delete";
     String ORDER_REVIEW = BASEURL + "/order/review";
+    String VERSION = BASEURL + "/version";
 
 
 }

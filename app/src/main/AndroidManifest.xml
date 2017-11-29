@@ -54,7 +54,7 @@
         <activity android:name=".login.act.CodeLoginActivity"/>
         <activity android:name=".login.act.PSWLoginActivity"/>
         <activity android:name=".setting.act.SettingActivity"/>
-        <activity android:name=".about.AboutActivity"/>
+        <activity android:name=".about.act.AboutActivity"/>
         <activity android:name=".setting.act.UserinfoActivity"/>
         <activity android:name=".setting.act.BindWeixinActivity"/>
         <activity android:name=".shopcenter.act.ShopCenterActivity"/>
