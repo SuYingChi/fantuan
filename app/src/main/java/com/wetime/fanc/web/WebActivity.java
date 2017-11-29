@@ -4,6 +4,8 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.webkit.JavascriptInterface;
@@ -16,11 +18,17 @@ import android.widget.TextView;
 
 import com.gyf.barlibrary.ImmersionBar;
 import com.king.batterytest.fbaselib.main.BaseActivity;
+import com.king.batterytest.fbaselib.utils.Tools;
+import com.secure.pay.PayService;
 import com.wetime.fanc.R;
 import com.wetime.fanc.home.act.HomeSearchActivity;
+import com.wetime.fanc.home.event.SwichFragEvent;
 import com.wetime.fanc.order.act.CommentOrderActivity;
 import com.wetime.fanc.shopcenter.act.ShopListActivity;
 import com.wetime.fanc.shopcenter.act.ShopSearchActivity;
+
+import org.greenrobot.eventbus.EventBus;
+import org.json.JSONObject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -238,7 +246,7 @@ public class WebActivity extends BaseActivity {
 
     // 评价订单
     @JavascriptInterface
-    public void goCommnetOrder(final String orderId) {
+    public void goReview(final String orderId) {
         web.post(new Runnable() {
             @Override
             public void run() {
@@ -280,6 +288,45 @@ public class WebActivity extends BaseActivity {
             }
         });
 
+    }
+
+    @JavascriptInterface
+    public void goPayView(final String str) {
+        web.post(new Runnable() {
+            @Override
+            public void run() {
+                PayService.pay(WebActivity.this, mHandler, str, PayService.TYPE_NORMAL, 1);
+            }
+        });
+
+    }
+
+    @SuppressLint("HandlerLeak")
+    private Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            //商户需将同步返回的报文送至服务器端验签
+            if (msg.what == PayService.PAY) {
+                if (msg.obj == null || ((JSONObject) msg.obj).length() == 0) {
+//                    mEtResult.setText("返回空");
+                    Tools.toastInBottom(mContext, "返回空");
+                } else {
+                    String result = msg.obj.toString();
+                    Tools.toastInBottom(mContext, result);
+                }
+            }
+        }
+    };
+
+    @JavascriptInterface
+    public void pastToken() {
+        spu.setToken("");
+    }
+
+    @JavascriptInterface
+    public void goHomePage() {
+        EventBus.getDefault().post(new SwichFragEvent(0));
+        finish();
     }
 }
 

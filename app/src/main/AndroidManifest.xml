@@ -86,5 +86,33 @@
             android:name=".shopcenter.act.ShopSearchResultActivity"
             android:launchMode="singleTask"/>
         <activity android:name=".order.act.CommentOrderActivity"/>
+        <!-- 聚合支付中添加  start -->
+        <activity
+            android:name="com.secure.pay.activity.PayListActivity"
+            android:exported="true"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/LLTransTheme"/>
+
+        <activity-alias
+            android:name=".wxapi.WXPayEntryActivity"
+            android:exported="true"
+            android:targetActivity="com.secure.pay.activity.PayListActivity"/>
+        <!-- 聚合支付中添加  end -->
+
+        <receiver
+            android:name=".push.PushReceiver"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.REGISTRATION"/>
+                <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED"/>
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED"/>
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED"/>
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_CLICK_ACTION"/>
+                <action android:name="cn.jpush.android.intent.CONNECTION"/>
+
+                <category android:name="com.wetime.fanc"/>
+            </intent-filter>
+        </receiver>
     </application>
 </manifest>

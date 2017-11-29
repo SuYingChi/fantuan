@@ -34,7 +34,9 @@ public class LoadingActivity extends BaseActivity {
     private void gotoActivity() {
         Intent go;
         go = new Intent(this, MainActivity.class);
-
+        if (getIntent().getExtras() != null) {
+            go.putExtras(getIntent().getExtras());
+        }
         startActivity(go);
         finish();
 

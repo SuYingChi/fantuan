@@ -1,9 +1,12 @@
 package com.wetime.fanc.home.act;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -16,11 +19,14 @@ import com.king.batterytest.fbaselib.main.BaseActivity;
 import com.king.batterytest.fbaselib.view.CustomViewPager;
 import com.wetime.fanc.R;
 import com.wetime.fanc.home.adapter.HomeFragmentPagerAdapter;
+import com.wetime.fanc.home.event.SwichFragEvent;
 import com.wetime.fanc.home.frag.HomeFragment;
 import com.wetime.fanc.home.frag.MyFragment;
 import com.wetime.fanc.home.frag.OrderFragment;
 import com.wetime.fanc.home.frag.SortFragment;
 import com.wetime.fanc.home.iviews.IBindPushView;
+import com.wetime.fanc.home.presenter.BindPushPresenter;
+import com.wetime.fanc.push.event.RegistPushSuccessEvent;
 import com.wetime.fanc.web.WebActivity;
 
 import org.greenrobot.eventbus.EventBus;
@@ -33,6 +39,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.jpush.android.api.JPushInterface;
 
 //import com.tencent.android.tpush.XGIOperateCallback;
 //import com.tencent.android.tpush.XGPushManager;
@@ -81,9 +88,20 @@ public class MainActivity extends BaseActivity implements IBindPushView {
         EventBus.getDefault().register(this);
         ImmersionBar.with(this).statusBarColor(R.color.white).statusBarDarkFont(true, 0.2f).fitsSystemWindows(true).init();
 
-//        initXG();
-        initView();
 
+        initView();
+        //推送逻辑
+        if (getIntent().getExtras() != null&& !TextUtils.isEmpty(getIntent().getExtras().getString("url"))) {
+            Intent mIntent = new Intent(this, WebActivity.class);
+            mIntent.putExtra("url", getIntent().getExtras().getString("url"));
+//            mIntent.putExtras(bundle);
+//            mIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(mIntent);
+        }
+        if(!TextUtils.isEmpty(JPushInterface.getRegistrationID(this))){
+            BindPushPresenter pushPresenter = new BindPushPresenter(MainActivity.this);
+            pushPresenter.bindPush(JPushInterface.getRegistrationID(this));
+        }
     }
 
     @Override
@@ -125,37 +143,7 @@ public class MainActivity extends BaseActivity implements IBindPushView {
         vp.setPageTransformer(true, null);
     }
 
-//    private void initXG() {
-////        XGPushConfig.enableDebug(this, true);
-//        // 如果需要知道注册是否成功，请使用registerPush(getApplicationContext(), XGIOperateCallback)带callback版本
-//        // 如果需要绑定账号，请使用registerPush(getApplicationContext(),account)版本
-//        // 具体可参考详细的开发指南
-//        // 传递的参数为ApplicationContext
-//        Context context = getApplicationContext();
-//        XGPushManager.registerPush(context, new XGIOperateCallback() {
-//            @Override
-//            public void onSuccess(Object o, int i) {
-////                Handler mHandler = new Handler();
-////                mHandler.post(new Runnable() {
-////                    @Override
-////                    public void run() {
-////                        BindPushPresenter pushPresenter = new BindPushPresenter(MainActivity.this);
-////                        pushPresenter.bindPush(XGPushConfig.getToken(MainActivity.this));
-////                    }
-////                });
-//
-//            }
-//
-//            @Override
-//            public void onFail(Object o, int i, String s) {
-//                Log.d("TPush", "xg fail s = " + s);
-//                Log.d("TPush", "xg fail i = " + i);
-//            }
-//        });
-//
-//        Intent service = new Intent(context, XGPushServiceV3.class);
-//        context.startService(service);
-//    }
+
 
     @OnClick({R.id.ll_tab0, R.id.ll_tab1, R.id.ll_tab2, R.id.ll_tab3})
     public void onViewClicked(View view) {
@@ -245,14 +233,24 @@ public class MainActivity extends BaseActivity implements IBindPushView {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMessageEvent(LogoutEvent event) {
-
-//        Tools.toastInBottom(this, getString(R.string.tips_timeout));
-//        Tools.logout(this);
-//        FApp.getInstance().removeALLActivity();
-//
-//        Intent loginIntent = new Intent(this, LoginActivity.class);
-//        startActivity(loginIntent);
-//        finish();
+    public void onMessageEvent(RegistPushSuccessEvent event) {
+        BindPushPresenter pushPresenter = new BindPushPresenter(MainActivity.this);
+        pushPresenter.bindPush(event.getId());
     }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(SwichFragEvent event) {
+        vp.setCurrentItem(event.getPos(), false);
+    }
+//    @Subscribe(threadMode = ThreadMode.MAIN)
+//    public void onMessageEvent(LogoutEvent event) {
+//
+////        Tools.toastInBottom(this, getString(R.string.tips_timeout));
+////        Tools.logout(this);
+////        FApp.getInstance().removeALLActivity();
+////
+////        Intent loginIntent = new Intent(this, LoginActivity.class);
+////        startActivity(loginIntent);
+////        finish();
+//    }
 }
