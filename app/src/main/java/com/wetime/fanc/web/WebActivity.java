@@ -311,8 +311,16 @@ public class WebActivity extends BaseActivity {
 //                    mEtResult.setText("返回空");
                     Tools.toastInBottom(mContext, "返回空");
                 } else {
-                    String result = msg.obj.toString();
+                    final String result = msg.obj.toString();
+
                     Tools.toastInBottom(mContext, result);
+                    web.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            web.loadUrl("javascript:receivePayResult('" + result + "');");
+                        }
+                    });
+
                 }
             }
         }
@@ -327,7 +335,10 @@ public class WebActivity extends BaseActivity {
     public void goHomePage() {
         EventBus.getDefault().post(new SwichFragEvent(0));
         finish();
+
     }
+
+
 }
 
 
