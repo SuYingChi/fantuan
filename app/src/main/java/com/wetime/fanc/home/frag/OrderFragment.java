@@ -209,7 +209,7 @@ public class OrderFragment extends BaseFragment implements IGetOrderListView, On
             ordelist.clear();
         }
         ordelist.addAll(bean.getData().getList());
-        adapter.setFilter(filter);
+        adapter.setType(type);
         adapter.notifyDataSetChanged();
         rclOrder.scrollTo(0, 0);
 

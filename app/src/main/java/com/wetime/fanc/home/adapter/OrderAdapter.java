@@ -26,15 +26,23 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class OrderAdapter extends RecyclerView.Adapter {
     private List<OrderPageBean.DataBean.ListBean> list;
     private Context mActivity;
-    private String filter = "";
+//    private String filter = "";
+    private String type = "";
 
-    public String getFilter() {
-        return filter;
+    public String getType() {
+        return type;
     }
 
-    public void setFilter(String filter) {
-        this.filter = filter;
+    public void setType(String type) {
+        this.type = type;
     }
+//    public String getFilter() {
+//        return filter;
+//    }
+//
+//    public void setFilter(String filter) {
+//        this.filter = filter;
+//    }
 
     public OrderAdapter(List<OrderPageBean.DataBean.ListBean> list, Context mActivity) {
         this.list = list;
@@ -89,7 +97,7 @@ public class OrderAdapter extends RecyclerView.Adapter {
         oholder.tvPrice.setText(bean.getPrice());
         oholder.tvPriceTitle.setAlingText(bean.getPrice_type_name());
 
-        if (filter.equals("0")) {
+        if (type.equals("0")) {
             oholder.tvHead.setVisibility(View.VISIBLE);
             oholder.tvHead.setText(bean.getType_name());
         } else {
