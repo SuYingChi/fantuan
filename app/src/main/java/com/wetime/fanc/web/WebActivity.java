@@ -305,6 +305,7 @@ public class WebActivity extends BaseActivity {
     private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
+
             //商户需将同步返回的报文送至服务器端验签
             if (msg.what == PayService.PAY) {
                 if (msg.obj == null || ((JSONObject) msg.obj).length() == 0) {
