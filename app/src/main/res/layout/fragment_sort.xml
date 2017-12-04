@@ -43,6 +43,7 @@
             android:scrollbars="none"/>
 
         <ScrollView
+            android:overScrollMode="never"
             android:id="@+id/sc_content"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -83,10 +84,9 @@
                     android:id="@+id/gv_all"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:horizontalSpacing="15dp"
+                    android:horizontalSpacing="10dp"
                     android:numColumns="3"
                     android:padding="10dp"
-
                     android:scrollbars="none"
                     android:verticalSpacing="@dimen/space_size"/>
             </LinearLayout>

@@ -7,10 +7,11 @@
     android:background="@color/bg_all">
 
     <TextView
+        android:paddingLeft="15dp"
         android:id="@+id/tv_titlename"
         android:layout_width="match_parent"
         android:layout_height="55dp"
-        android:gravity="center"
+        android:gravity="center_vertical"
         android:lineSpacingExtra="0sp"
         android:textColor="#333333"
         android:textSize="14sp"

@@ -21,10 +21,11 @@
     <TextView
         android:id="@+id/tv_name"
         android:layout_width="match_parent"
-        android:layout_height="55dp"
-        android:gravity="center"
+        android:layout_height="35dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center_horizontal"
         android:lineSpacingExtra="0sp"
-        android:textColor="#333333"
+        android:textColor="#666666"
         android:textSize="14sp"
         tools:text="休闲娱乐"
         />
