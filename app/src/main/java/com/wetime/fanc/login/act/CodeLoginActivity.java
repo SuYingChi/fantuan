@@ -1,9 +1,11 @@
 package com.wetime.fanc.login.act;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -79,6 +81,9 @@ public class CodeLoginActivity extends BaseActivity implements ISendSMSView, IIn
                     Tools.toastInBottom(this, "请输入正确手机号");
                     return;
                 }
+                etCode.requestFocus();
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.showSoftInput(etCode,InputMethodManager.SHOW_FORCED);
 
                 if (!runningThree)
                     sendSMSPresenter.sendSMS(etPhone.getText().toString());
