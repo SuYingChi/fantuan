@@ -66,7 +66,7 @@ public class ShopActItemAdapter extends BaseAdapter {
         MerchantsBean.PromotionListBean bean = mData.get(position);
         Glide.with(mContext).load(bean.getIco()).into(holder.ivIcon);
         holder.tvStr.setText(bean.getName());
-
+        convertView.setClickable(false);
         return convertView;
 
     }

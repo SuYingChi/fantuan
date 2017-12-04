@@ -90,6 +90,11 @@ public class ShopTaocanItemAdapter extends BaseAdapter {
         holder.tvPrice.setText(bean.getAmount());
         holder.tvTitle.setText(bean.getName());
         holder.tvDes.setText(bean.getSales());
+        if(bean.getSales().equals("")){
+            holder.tvDes.setVisibility(View.GONE);
+        }else {
+            holder.tvDes.setVisibility(View.VISIBLE);
+        }
         return convertView;
 
     }

@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
@@ -84,11 +85,26 @@ public class SearchShopListAdapter extends RecyclerView.Adapter {
 
         ShopActItemAdapter actItemAdapter = new ShopActItemAdapter(mActivity, bean.getPromotion_list());
         holder.lvAct.setAdapter(actItemAdapter);
+        holder.lvAct.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent goweb = new Intent(mActivity, WebActivity.class);
+                goweb.putExtra("url", bean.getDetail_url());
+                mActivity.startActivity(goweb);
+            }
+        });
         actItemAdapter.notifyDataSetChanged();
 
         ShopTaocanItemAdapter taocanItemAdapter = new ShopTaocanItemAdapter(mActivity, bean.getVoucher_groupon_list());
         holder.lvTaocan.setAdapter(taocanItemAdapter);
-
+        holder.lvTaocan.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int ii, long id) {
+                Intent goweb = new Intent(mActivity, WebActivity.class);
+                goweb.putExtra("url", bean.getVoucher_groupon_list().get(ii).getUrl());
+                mActivity.startActivity(goweb);
+            }
+        });
 
 
         if (bean.isZhe()) {
