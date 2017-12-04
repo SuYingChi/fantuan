@@ -5,7 +5,7 @@ package com.wetime.fanc.utils;
  */
 
 public interface Const {
-    String BASEURL = "http://fanttest.weishike.net";
+    String BASEURL = "https://fanttest.weishike.net";
     //    String BASEURL = "http://shop.weishike.net";
 
     String PUSH_BIND = BASEURL + "/push/bind";

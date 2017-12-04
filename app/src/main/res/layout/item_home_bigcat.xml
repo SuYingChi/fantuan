@@ -13,6 +13,7 @@
 
         <ImageView
             android:id="@+id/iv_cover"
+            android:padding="10dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
     </com.king.batterytest.fbaselib.customview.SquareLayout>
@@ -23,7 +24,7 @@
         android:layout_height="20dp"
         android:gravity="center"
         android:lineSpacingExtra="0sp"
-        android:textColor="#666666"
+        android:textColor="#333333"
         android:textSize="12sp"
         tools:text="休闲娱乐"
         />

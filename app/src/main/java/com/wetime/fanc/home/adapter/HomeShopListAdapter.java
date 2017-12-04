@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.wetime.fanc.R;
 import com.wetime.fanc.home.bean.HomePageBean;
+import com.wetime.fanc.order.MyRatingBar;
 
 import java.util.List;
 
@@ -67,7 +68,7 @@ public class HomeShopListAdapter extends BaseAdapter {
         final HomePageBean.DataBean.MerchantsBean bean = mData.get(position);
         Glide.with(mContext).load(bean.getLogo()).into(holder.ivCover);
         holder.tvName.setText(bean.getName());
-        holder.rbSocre.setRating(bean.getScore());
+        holder.rbSocre.setStar(bean.getScore());
         holder.tvDis.setText(bean.getDistance());
         holder.tvCentername.setText(bean.getMall_name());
         holder.tvType.setText(bean.getCategory_name());
@@ -141,7 +142,7 @@ public class HomeShopListAdapter extends BaseAdapter {
         @BindView(R.id.tv_name)
         TextView tvName;
         @BindView(R.id.rb_socre)
-        RatingBar rbSocre;
+        MyRatingBar rbSocre;
         @BindView(R.id.tv_spend)
         TextView tvSpend;
         @BindView(R.id.tv_centername)

@@ -1,15 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     android:paddingTop="15dp">
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
 
     <LinearLayout
-        android:layout_width="100dp"
+        android:layout_width="104dp"
         android:layout_height="match_parent"
         android:gravity="center_horizontal">
 
@@ -29,6 +34,7 @@
         android:paddingBottom="15dp">
 
         <TextView
+            android:textStyle="bold"
             android:id="@+id/tv_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -46,17 +52,19 @@
             android:gravity="left|bottom"
             android:orientation="horizontal">
 
-            <RatingBar
-                android:id="@+id/rb_socre"
-                style="@style/AppraisalRatingBar"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginTop="3.5dp"
-                android:isIndicator="true"
-                android:numStars="5"
-                android:rating="0"
-                android:stepSize="0.5"/>
 
+            <com.wetime.fanc.order.MyRatingBar
+                android:id="@+id/rb_socre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:starCount="5"
+                app:starEmpty="@drawable/rating_in_big"
+                app:starFill="@drawable/rating_on_big"
+                app:starHalf="@drawable/rating_half_big"
+                app:starImageSize="12dp"
+                app:starPadding="3dp"
+                app:starStep="5"
+                app:stepSize="Half"/>
             <TextView
                 android:id="@+id/tv_spend"
                 android:layout_width="0dp"
@@ -163,5 +171,11 @@
 
 
     </LinearLayout>
+    </LinearLayout>
+    <TextView
+        android:layout_marginLeft="12dp"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/linebg"/>
 </LinearLayout>
 

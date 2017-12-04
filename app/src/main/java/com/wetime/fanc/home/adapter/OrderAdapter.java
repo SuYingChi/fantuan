@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.king.batterytest.fbaselib.customview.AlignTextView;
 import com.wetime.fanc.R;
 import com.wetime.fanc.home.bean.OrderPageBean;
@@ -83,15 +84,15 @@ public class OrderAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         final OrderViewHolder oholder = (OrderViewHolder) holder;
         OrderPageBean.DataBean.ListBean bean = list.get(position);
-//        Glide.with(mActivity).load(bean.getMerchant().getLogo()).into(oholder.civHead);
+        Glide.with(mActivity).load(bean.getMerchant().getLogo()).into(oholder.civHead);
         oholder.tvName.setText(bean.getPromotion_name());
 
         oholder.tvNum.setText(bean.getOrder_num());
-        if (bean.getExpired_time().equals("")) {
+        if (bean.getTime().equals("")) {
             oholder.llTime.setVisibility(View.GONE);
         } else {
             oholder.llTime.setVisibility(View.VISIBLE);
-            oholder.tvTime.setText(bean.getExpired_time());
+            oholder.tvTime.setText(bean.getTime());
         }
 
         oholder.tvPrice.setText(bean.getPrice());

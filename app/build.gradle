@@ -19,8 +19,27 @@ android {
         ]
     }
 
+//配置keystore签名
+    signingConfigs {
+        release {
+            keyAlias 'fdj'
+            keyPassword 'yuxun123'
+            storeFile file('/Users/zhoukang/dev/keystore/fdj/fdj.jks')
+            storePassword 'yuxun123'
+        }
+    }
 
-    
+    buildTypes {
+        debug {
+            signingConfig signingConfigs.release
+        }
+
+        release {
+            signingConfig signingConfigs.release
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
 
 }
 repositories {

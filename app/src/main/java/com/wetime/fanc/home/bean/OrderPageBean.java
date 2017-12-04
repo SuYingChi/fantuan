@@ -195,8 +195,7 @@ public class OrderPageBean {
             private String promotion_name;
             private String type;
             private String type_name;
-            private String create_time;
-            private String expired_time;
+            private String time;
             private String order_no;
             private String order_id;
             private String order_detail_url;
@@ -209,6 +208,14 @@ public class OrderPageBean {
             private String price;
             private String action_type_name;
             private String action_url;
+
+            public String getTime() {
+                return time;
+            }
+
+            public void setTime(String time) {
+                this.time = time;
+            }
 
             public String getAction_url() {
                 return action_url;
@@ -250,21 +257,7 @@ public class OrderPageBean {
                 this.type_name = type_name;
             }
 
-            public String getCreate_time() {
-                return create_time;
-            }
 
-            public void setCreate_time(String create_time) {
-                this.create_time = create_time;
-            }
-
-            public String getExpired_time() {
-                return expired_time;
-            }
-
-            public void setExpired_time(String expired_time) {
-                this.expired_time = expired_time;
-            }
 
             public String getOrder_no() {
                 return order_no;
