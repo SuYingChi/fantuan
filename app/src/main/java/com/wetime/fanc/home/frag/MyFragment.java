@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.king.batterytest.fbaselib.LogoutEvent;
 import com.king.batterytest.fbaselib.main.BaseFragment;
 import com.king.batterytest.fbaselib.utils.Tools;
@@ -198,6 +199,6 @@ public class MyFragment extends BaseFragment implements IGetMyInfoView {
         this.bean = null;
         tvName.setText("登录/注册");
 //        civHead.setImageResource(R.drawable.ic_head_default);
-        Glide.with(this).load(R.drawable.ic_head_default).into(civHead);
+        Glide.with(this).load(R.drawable.ic_head_default).apply(new RequestOptions().placeholder(R.drawable.ic_head_default)).into(civHead);
     }
 }

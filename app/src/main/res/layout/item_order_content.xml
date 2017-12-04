@@ -64,7 +64,7 @@
 
 
             </android.support.design.widget.TabLayout>
-
+            <include layout="@layout/item_my_line"/>
             <com.scwang.smartrefresh.layout.SmartRefreshLayout
                 android:id="@+id/refreshLayout"
                 android:layout_width="match_parent"

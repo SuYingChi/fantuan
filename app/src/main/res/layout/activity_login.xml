@@ -97,17 +97,17 @@
                 android:textSize="17sp"
                 />
         </LinearLayout>
+
         <TextView
-            android:paddingTop="80dp"
-            android:layout_margin="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="10dp"
             android:gravity="center"
             android:lineSpacingExtra="0sp"
-            android:text="海南微时刻信息有限公司"
+            android:paddingTop="80dp"
+            android:text="海南微时刻信息技术有限公司"
             android:textColor="#ffffff"
-            android:textSize="12sp"
-            />
+            android:textSize="12sp" />
     </LinearLayout>
 
 </RelativeLayout>
