@@ -185,6 +185,10 @@ public class SettingActivity extends BaseActivity implements ILogoutView, IGetSe
             tvPsw.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    if (bean.getData().getPhone().equals("")) {
+                        Tools.toastInBottom(mContext,"请先绑定手机号");
+                        return;
+                    }
                     goWeb(bean.getData().getLink().getPassword_change().getUrl());
                 }
             });

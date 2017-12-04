@@ -106,7 +106,7 @@ public class OrderAdapter extends RecyclerView.Adapter {
         }
         // 变色
         oholder.tvState.setText(bean.getStateName());
-        if (bean.getPromotion_name().equals("待付款")
+        if (bean.getStateName().equals("待付款")
                 || bean.getPromotion_name().equals("待使用")
                 ) {
             oholder.tvState.setTextColor(Color.parseColor("#ff3f53"));
