@@ -8,6 +8,7 @@
     android:gravity="center">
 
     <TextView
+        android:paddingRight="3dp"
         android:background="@color/white"
         android:gravity="center"
         android:id="@+id/tv_title"
