@@ -68,7 +68,6 @@ public class AboutActivity extends BaseActivity implements IGetVersionPageView {
                     "", "确定", null, null);
 
 
-
         }
     }
 }

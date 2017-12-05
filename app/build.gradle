@@ -20,11 +20,16 @@ android {
     }
 
 //配置keystore签名
+    Properties properties = new Properties()
+    InputStream inputStream = project.rootProject.file('local.properties').newDataInputStream() ;
+    properties.load( inputStream )
+    def keyDir = properties.getProperty('key.file')
+
     signingConfigs {
         release {
             keyAlias 'fdj'
             keyPassword 'yuxun123'
-            storeFile file('/Users/zhoukang/dev/keystore/fdj/fdj.jks')
+            storeFile file(keyDir)
             storePassword 'yuxun123'
         }
     }
