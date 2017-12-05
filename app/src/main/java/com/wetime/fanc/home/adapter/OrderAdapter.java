@@ -139,6 +139,11 @@ public class OrderAdapter extends RecyclerView.Adapter {
                 }
             });
         }
+        if(bean.getType_name().equals("收银")){
+            oholder.llNum.setVisibility(View.GONE);
+        }else{
+            oholder.llNum.setVisibility(View.VISIBLE);
+        }
 
     }
 
@@ -168,6 +173,8 @@ public class OrderAdapter extends RecyclerView.Adapter {
         TextView tvOpper;
         @BindView(R.id.ll_time)
         LinearLayout llTime;
+        @BindView(R.id.ll_num)
+        LinearLayout llNum;
 
         public OrderViewHolder(View view) {
             super(view);
