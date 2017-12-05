@@ -1,6 +1,7 @@
 package com.wetime.fanc.home.adapter;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -115,6 +116,11 @@ public class HomeShopListAdapter extends BaseAdapter {
         }
 
         holder.tvAct.setText(temp.trim());
+        if(TextUtils.isEmpty(temp.trim())){
+            holder.tvAct.setVisibility(View.GONE);
+        }else{
+            holder.tvAct.setVisibility(View.VISIBLE);
+        }
         if(bean.isZhe()){
             holder.tvAct.setMaxLines(2);
         }else{

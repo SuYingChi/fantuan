@@ -30,6 +30,11 @@
                 android:textColor="#666666"
                 android:textSize="14sp"/>
         </LinearLayout>
+        <View
+            android:layout_width="0.5dp"
+            android:layout_height="18dp"
+            android:layout_marginTop="11dp"
+            android:background="#e5e5e5"/>
         <LinearLayout
             android:id="@+id/ll_1"
             android:layout_width="0dp"
@@ -49,11 +54,7 @@
                 android:textSize="14sp"/>
         </LinearLayout>
 
-        <View
-            android:layout_width="0.5dp"
-            android:layout_height="18dp"
-            android:layout_marginTop="11dp"
-            android:background="#e5e5e5"/>
+
         <View
             android:layout_width="0.5dp"
             android:layout_height="18dp"
