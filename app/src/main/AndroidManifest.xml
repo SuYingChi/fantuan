@@ -114,5 +114,7 @@
                 <category android:name="com.wetime.fanc"/>
             </intent-filter>
         </receiver>
+        <service android:name="com.amap.api.location.APSService" />
+        <meta-data android:name="com.amap.api.v2.apikey" android:value="ece4301551d57d406721dd7db524e170"/>
     </application>
 </manifest>

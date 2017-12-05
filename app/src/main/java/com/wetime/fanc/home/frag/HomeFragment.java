@@ -1,9 +1,7 @@
 package com.wetime.fanc.home.frag;
 
-import android.app.Service;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Vibrator;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,15 +13,17 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
-import com.baidu.location.BDLocation;
-import com.baidu.location.BDLocationListener;
+import com.amap.api.location.AMapLocation;
+import com.amap.api.location.AMapLocationClient;
+import com.amap.api.location.AMapLocationClientOption;
+import com.amap.api.location.AMapLocationListener;
 import com.bumptech.glide.Glide;
 import com.king.batterytest.fbaselib.customview.GridViewForScrollView;
 import com.king.batterytest.fbaselib.customview.ListViewForScrollView;
 import com.king.batterytest.fbaselib.main.BaseFragment;
 import com.king.batterytest.fbaselib.main.ScanActivity;
-import com.king.batterytest.fbaselib.service.LocationService;
 import com.king.batterytest.fbaselib.utils.Tools;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -64,31 +64,32 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, IGe
     GridViewForScrollView gv;
     @BindView(R.id.lv_shop)
     ListViewForScrollView lvShop;
+    @BindView(R.id.tv_loc_tips)
+    TextView tvLocTips;
 
-    private LocationService locationService;
-    public Vibrator mVibrator;
 
     private int REQUEST_CODE = 10000;
     private GetHomePagePresenter getHomePagePresenter;
 
+
+    public AMapLocationClient mLocationClient = null;
+    //声明定位回调监听器
+    public AMapLocationListener mLocationListener;
+    public AMapLocationClientOption mLocationOption = null;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        locationService.registerListener(mListener);
-        locationService.setLocationOption(locationService.getDefaultLocationClientOption());
-        locationService.start();
+
+        initLoaction();
 
         View v = inflater.inflate(R.layout.fragment_home, null);
-
         unbinder = ButterKnife.bind(this, v);
 
 
         refreshLayout.setEnableLoadmore(false);
         refreshLayout.setOnRefreshListener(this);
 
-
-        getHomePagePresenter = new GetHomePagePresenter(this);
-        getHomePagePresenter.getHomePage();
 
         return v;
     }
@@ -101,16 +102,11 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, IGe
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        locationService = new LocationService(getContext().getApplicationContext());
-        mVibrator = (Vibrator) getContext().getApplicationContext().getSystemService(Service.VIBRATOR_SERVICE);
-
     }
 
     @Override
     public void onStop() {
         // TODO Auto-generated method stub
-        locationService.unregisterListener(mListener); //注销掉监听
-        locationService.stop(); //停止定位服务
         super.onStop();
     }
 
@@ -146,8 +142,6 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, IGe
             case R.id.iv_scan:
                 Intent goscan = new Intent(getContext(), ScanActivity.class);
                 startActivityForResult(goscan, REQUEST_CODE);
-//                goWeb("https://qr.alipay.com/bax0770473tfsapdfqlh0014");
-
                 break;
             case R.id.ll_search:
                 Intent gosearch = new Intent(getContext(), HomeSearchActivity.class);
@@ -160,36 +154,9 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, IGe
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+        mLocationClient.onDestroy();
     }
 
-    /*****
-     *
-     * 定位结果回调，重写onReceiveLocation方法，可以直接拷贝如下代码到自己工程中修改
-     *
-     */
-    private BDLocationListener mListener = new BDLocationListener() {
-        @Override
-        public void onReceiveLocation(BDLocation location) {
-            // TODO Auto-generated method stub
-            if (null != location && location.getLocType() != BDLocation.TypeServerError) {
-
-//                sb.append("\nlatitude : ");// 纬度
-//                sb.append(location.getLatitude());
-//                sb.append("\nlontitude : ");// 经度
-//                sb.append(location.getLongitude());
-                Log.e("zk 纬度", String.valueOf(location.getLatitude()));
-                Log.e("zk 经度", String.valueOf(location.getLongitude()));
-
-
-                spu.setValue("wd", String.valueOf(location.getLatitude()));
-                spu.setValue("jd", String.valueOf(location.getLongitude()));
-            } else {
-                Tools.toastInBottom(getContext(), "定位失败");
-                Log.e("zk error", "定位失败");
-            }
-        }
-
-    };
 
     @Override
     public void onGetHomePage(final HomePageBean bean) {
@@ -263,6 +230,54 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, IGe
         startActivity(goweb);
     }
 
-//    Intent t = new Intent(getContext(), ShopCenterActivity.class);
-//    startActivity(t);
+    private void initLoaction() {
+
+        mLocationClient = new AMapLocationClient(getContext().getApplicationContext());
+
+        //初始化AMapLocationClientOption对象
+        mLocationOption = new AMapLocationClientOption();
+        mLocationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);
+        //获取一次定位结果：
+        //该方法默认为false。
+        mLocationOption.setOnceLocation(true);
+
+        //获取最近3s内精度最高的一次定位结果：
+        //设置setOnceLocationLatest(boolean b)接口为true，启动定位时SDK会返回最近3s内精度最高的一次定位结果。如果设置其为true，setOnceLocation(boolean b)接口也会被设置为true，反之不会，默认为false。
+        mLocationOption.setOnceLocationLatest(true);
+        mLocationClient.setLocationOption(mLocationOption);
+
+
+        mLocationListener = new AMapLocationListener() {
+            @Override
+            public void onLocationChanged(AMapLocation amapLocation) {
+                if (amapLocation != null) {
+                    if (amapLocation.getErrorCode() == 0) {
+//可在其中解析amapLocation获取相应内容。
+
+                        Log.e("zk 纬度", String.valueOf(amapLocation.getLatitude()));
+                        Log.e("zk 经度", String.valueOf(amapLocation.getLongitude()));
+
+
+                        spu.setValue("wd", String.valueOf(amapLocation.getLatitude()));
+                        spu.setValue("jd", String.valueOf(amapLocation.getLongitude()));
+                    } else {
+                        //定位失败时，可通过ErrCode（错误码）信息来确定失败的原因，errInfo是错误信息，详见错误码表。
+                        Log.e("zk", "location Error, ErrCode:"
+                                + amapLocation.getErrorCode() + ", errInfo:"
+                                + amapLocation.getErrorInfo());
+                    }
+                }
+
+                getHomePagePresenter = new GetHomePagePresenter(HomeFragment.this);
+                getHomePagePresenter.getHomePage();
+                tvLocTips.setVisibility(View.GONE);
+                mLocationClient.stopLocation();
+            }
+        };
+        //设置定位回调监听
+        mLocationClient.setLocationListener(mLocationListener);
+        mLocationClient.startLocation();
+
+    }
+
 }

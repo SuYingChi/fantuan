@@ -1,27 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical">
 
-    <include layout="@layout/item_home_header"/>
+    <include layout="@layout/item_home_header" />
 
-    <com.scwang.smartrefresh.layout.SmartRefreshLayout
-        android:id="@+id/refreshLayout"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:srlEnableAutoLoadmore="false"
-        app:srlEnableHeaderTranslationContent="false"
-        app:srlEnableOverScrollBounce="false">
+        android:layout_height="match_parent">
 
-        <ScrollView
+
+        <com.scwang.smartrefresh.layout.SmartRefreshLayout
+            android:id="@+id/refreshLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            app:srlEnableAutoLoadmore="false"
+            app:srlEnableHeaderTranslationContent="false"
+            app:srlEnableOverScrollBounce="false">
 
-            <include layout="@layout/item_home_content"/>
-        </ScrollView>
-    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <include layout="@layout/item_home_content" />
+            </ScrollView>
+        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+        <TextView
+            android:background="@color/white"
+            android:id="@+id/tv_loc_tips"
+            android:gravity="center"
+            android:text="定位中..."
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </RelativeLayout>
 </LinearLayout>
