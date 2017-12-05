@@ -30,7 +30,7 @@ public class GetOrderPagePresenter {
                 .addParams("filter", iView.getFilter())
                 .addParams("pn", iView.getPage())
                 .build()
-                .execute(new DataStringCallback(iView) {
+                .execute(new DataStringCallback(iView,false) {
                     @Override
                     public void onResponse(String s, int i) {
                         super.onResponse(s, i);

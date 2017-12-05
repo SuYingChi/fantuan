@@ -63,6 +63,7 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile(name: 'pay', ext: 'aar')// 支付
 
+    compile 'com.zbase.libc:fbaselib:2.0.2'
     compile 'cn.jiguang.sdk:jpush:3.0.9'  // 此处以JPush 3.0.9 版本为例。
     compile 'cn.jiguang.sdk:jcore:1.1.7'  // 此处以JCore 1.1.7 版本为例。
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
@@ -72,7 +73,6 @@ dependencies {
     compile 'com.android.support:cardview-v7:26.1.0'
     compile 'com.android.support:recyclerview-v7:26.1.0'
     compile 'com.android.support:appcompat-v7:26.1.0'
-
     compile 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     compile 'com.zhy:base-rvadapter:3.0.3'
@@ -89,7 +89,6 @@ dependencies {
     compile 'com.scwang.smartrefresh:SmartRefreshHeader:1.0.3'
     compile 'com.google.zxing:core:3.3.0'
     compile 'com.youth.banner:banner:1.4.10'
-    compile 'com.zbase.libc:fbaselib:2.0.1'
     compile 'cn.bingoogolapple:bga-qrcodecore:1.1.8@aar'
     compile 'cn.bingoogolapple:bga-zxing:1.1.8@aar'
     compile 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:1.4.0'

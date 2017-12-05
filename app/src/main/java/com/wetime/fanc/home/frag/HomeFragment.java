@@ -64,8 +64,8 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, IGe
     GridViewForScrollView gv;
     @BindView(R.id.lv_shop)
     ListViewForScrollView lvShop;
-    @BindView(R.id.tv_loc_tips)
-    TextView tvLocTips;
+    @BindView(R.id.ll_loc)
+    LinearLayout llloc;
 
 
     private int REQUEST_CODE = 10000;
@@ -270,7 +270,7 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, IGe
 
                 getHomePagePresenter = new GetHomePagePresenter(HomeFragment.this);
                 getHomePagePresenter.getHomePage();
-                tvLocTips.setVisibility(View.GONE);
+                llloc.setVisibility(View.GONE);
                 mLocationClient.stopLocation();
             }
         };
