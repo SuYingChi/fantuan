@@ -26,6 +26,7 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
         //如果没回调onResp，八成是这句没有写
 //        mWxApi = WXAPIFactory.createWXAPI(this, "wx2fbcb61b6e5b1384", false);
 //        // 将该app注册到微信
