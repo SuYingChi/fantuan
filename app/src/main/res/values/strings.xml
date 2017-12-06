@@ -4,4 +4,18 @@
     <string name="str_tips_login_see_order">登录后才可以查看订单记录哟</string>
     <string name="str_no_name_comment">匿名评价</string>
     <string name="tips_no_name_comment">匿名评价不会对外公开您的头像、昵称给其他用户和商家</string>
+
+    <string name="tips_net_error">网络异常，请检查网络</string>
+    <string name="tips_form_json_error">返回数据格式错误</string>
+    <string name="tips_timeout">登录超时，请重新登录</string>
+
+    <string name="folder_all">所有照片</string>
+    <string name="msg_no_camera">没有系统相机</string>
+    <string name="msg_amount_limit">已经达到最高选择数量</string>
+    <string name="action_done">完成</string>
+    <string name="action_save">保存</string>
+    <string name="photo_unit">张</string>
+    <string name="tip_take_photo">拍摄照片</string>
+    <string name="preview">预览</string>
+
 </resources>

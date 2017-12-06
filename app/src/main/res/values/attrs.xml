@@ -24,5 +24,14 @@
         </attr>
     </declare-styleable>
 
-
+    <!-- Textview两端对齐的自定义属性-->
+    <declare-styleable name="AlignTextView">
+        <!-- 文本-->
+        <attr name="text" format="string"/>
+        <!-- 后缀符号类型:全角、半角-->
+        <attr name="suffixMode" format="enum">
+            <enum name="full_width" value="1"/>
+            <enum name="half_width" value="2"/>
+        </attr>
+    </declare-styleable>
 </resources>

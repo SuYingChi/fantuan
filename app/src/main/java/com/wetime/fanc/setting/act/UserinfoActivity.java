@@ -36,6 +36,7 @@ import com.wetime.fanc.setting.presenter.SetUserNamePresenter;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.io.File;
 import java.util.List;
 
 import butterknife.BindView;
@@ -43,7 +44,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class UserinfoActivity extends BaseActivity implements IGetMyInfoView, IPostMultiFileView, ISetHeadImageView, ISetUsernameView {
+public class UserinfoActivity extends BaseActivity implements IGetMyInfoView,
+        IPostMultiFileView, ISetHeadImageView, ISetUsernameView {
 
 
     @BindView(R.id.tv_title)
@@ -101,12 +103,15 @@ public class UserinfoActivity extends BaseActivity implements IGetMyInfoView, IP
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK && requestCode == Tools.REQUEST_IMAGE && data != null) {
-            final List<String> path = data.getStringArrayListExtra(MultiImageSelectorActivity.EXTRA_RESULT);
+            final List<String> path =
+                    data.getStringArrayListExtra(MultiImageSelectorActivity.EXTRA_RESULT);
             if (path != null && path.size() > 0) {
                 new Handler().post(new Runnable() {
                     @Override
                     public void run() {
                         postMultiFilePresenter.PostMultiFile(path);
+                        Glide.with(mContext).load(path.get(0)).into(civHead);
+
                     }
                 });
 
@@ -121,8 +126,7 @@ public class UserinfoActivity extends BaseActivity implements IGetMyInfoView, IP
 
         SetHeadImagePresenter setHeadImagePresenter = new SetHeadImagePresenter(this);
         setHeadImagePresenter.setHeadImage(bean.getData().getId().get(0));
-        Glide.with(this).load(bean.getData().getUrl().get(0)).into(civHead);
-    }
+     }
 
     @Override
     public void onSetHeadImageResult(BaseBean bean) {

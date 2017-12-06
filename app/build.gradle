@@ -63,7 +63,7 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile(name: 'pay', ext: 'aar')// 支付
 
-    compile 'com.zbase.libc:fbaselib:2.0.3'
+//    compile 'com.zbase.libc:fbaselib:2.0.3'
     compile 'cn.jiguang.sdk:jpush:3.0.9'  // 此处以JPush 3.0.9 版本为例。
     compile 'cn.jiguang.sdk:jcore:1.1.7'  // 此处以JCore 1.1.7 版本为例。
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
