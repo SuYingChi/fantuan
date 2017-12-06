@@ -48,6 +48,7 @@ public class PSWLoginActivity extends BaseActivity implements ILoginView {
 
     @Override
     public void onBackPressed() {
+        Tools.hideSoftInput(this);
         super.onBackPressed();
     }
 
@@ -79,8 +80,8 @@ public class PSWLoginActivity extends BaseActivity implements ILoginView {
             spu.setValue("token", bean.getData().getToken());
 //            Intent goMain = new Intent(this, MainActivity.class);
 //            startActivity(goMain);
-            finish();
             EventBus.getDefault().post(new LoginEvent(GsonUtils.getGsonInstance().toJson(bean)));
+            onBackPressed();
         }
     }
 
