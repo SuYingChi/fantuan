@@ -31,7 +31,10 @@ public class PostMultiFilePresenter {
                 .addParams("token", iView.getToken())
                 .url(Const.POSTMUTILEFILE);
         for (int i = 0; i < list.size(); i++) {
-            builder = builder.addFile("mFile" + i, "jhjhj" + i, new File(list.get(i)));
+
+            File f = new File(list.get(i));
+
+            builder = builder.addFile("mFile" + i, "jhjhj" + i, f);
         }
 
 

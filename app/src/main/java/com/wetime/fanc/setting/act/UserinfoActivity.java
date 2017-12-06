@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
@@ -100,9 +101,15 @@ public class UserinfoActivity extends BaseActivity implements IGetMyInfoView, IP
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK && requestCode == Tools.REQUEST_IMAGE && data != null) {
-            List<String> path = data.getStringArrayListExtra(MultiImageSelectorActivity.EXTRA_RESULT);
+            final List<String> path = data.getStringArrayListExtra(MultiImageSelectorActivity.EXTRA_RESULT);
             if (path != null && path.size() > 0) {
-                postMultiFilePresenter.PostMultiFile(path);
+                new Handler().post(new Runnable() {
+                    @Override
+                    public void run() {
+                        postMultiFilePresenter.PostMultiFile(path);
+                    }
+                });
+
             }
         }
     }
