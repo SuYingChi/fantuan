@@ -43,6 +43,7 @@ public class MultiImageSelectorActivity extends AppCompatActivity implements
      */
     public static final int MODE_SINGLE = 0;
     /**
+     *
      * 多选
      */
     public static final int MODE_MULTI = 1;
