@@ -112,8 +112,13 @@ public class WebActivity extends BaseActivity {
         }
     }
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMessageEvent(LoginEvent event) {
-
+    public void onMessageEvent(final LoginEvent event) {
+        web.post(new Runnable() {
+            @Override
+            public void run() {
+                web.loadUrl("javascript:loginCallback('" + event.getStr() + "');");
+            }
+        });
     }
 
     @SuppressLint("JavascriptInterface")
