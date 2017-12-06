@@ -180,8 +180,14 @@ public class MyFragment extends BaseFragment implements IGetMyInfoView {
     @Override
     public void onGetUserInfo(MyInfoBean bean) {
         this.bean = bean;
-        Glide.with(this).load(bean.getData().getUser().getAvatar()).into(civHead);
+        Glide.with(getActivity().getApplicationContext())
+                .load(bean.getData().getUser().getAvatar()).into(civHead);
         tvName.setText(bean.getData().getUser().getUsername());
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

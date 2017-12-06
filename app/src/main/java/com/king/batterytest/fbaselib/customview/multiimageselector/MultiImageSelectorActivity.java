@@ -6,13 +6,10 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 
-
-import com.wetime.fanc.R;
 import com.king.batterytest.fbaselib.utils.Tools;
+import com.wetime.fanc.R;
 
 import java.io.File;
 import java.util.ArrayList;
