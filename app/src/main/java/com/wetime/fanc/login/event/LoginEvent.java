@@ -5,4 +5,17 @@ package com.wetime.fanc.login.event;
  */
 
 public class LoginEvent {
+    private String str;
+
+    public LoginEvent(String str) {
+        this.str = str;
+    }
+
+    public String getStr() {
+        return str;
+    }
+
+    public void setStr(String str) {
+        this.str = str;
+    }
 }

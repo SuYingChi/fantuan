@@ -74,12 +74,13 @@
                 app:srlEnableOverScrollBounce="false">
 
                 <RelativeLayout
+                    android:background="@color/bg_all"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/rcl_order"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"/>
+                        android:layout_height="wrap_content"/>
                     <include layout="@layout/item_no_order_empty"/>
 
                 </RelativeLayout>

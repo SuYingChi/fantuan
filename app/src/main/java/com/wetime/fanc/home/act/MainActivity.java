@@ -1,9 +1,7 @@
 package com.wetime.fanc.home.act;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
@@ -14,7 +12,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.gyf.barlibrary.ImmersionBar;
-import com.king.batterytest.fbaselib.LogoutEvent;
 import com.king.batterytest.fbaselib.main.BaseActivity;
 import com.king.batterytest.fbaselib.view.CustomViewPager;
 import com.wetime.fanc.R;

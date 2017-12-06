@@ -154,12 +154,6 @@ public class MultiImageSelectorActivity extends AppCompatActivity implements
 
     @Override
     public boolean handleMessage(Message msg) {
-        switch (msg.what) {
-            case 1:
-
-                break;
-
-        }
 
         return false;
     }

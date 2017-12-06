@@ -6,6 +6,7 @@ import android.view.View;
 
 import com.gyf.barlibrary.ImmersionBar;
 import com.king.batterytest.fbaselib.main.BaseActivity;
+import com.king.batterytest.fbaselib.utils.GsonUtils;
 import com.king.batterytest.fbaselib.utils.Tools;
 import com.tencent.mm.opensdk.modelmsg.SendAuth;
 import com.wetime.fanc.application.FApp;
@@ -87,7 +88,7 @@ public class LoginActivity extends BaseActivity implements IWXLoginView {
         if (bean.getError() == 0) {
             spu.setValue("token", bean.getData().getToken());
             finish();
-            EventBus.getDefault().post(new LoginEvent());
+            EventBus.getDefault().post(new LoginEvent(GsonUtils.getGsonInstance().toJson(bean)));
         }
     }
 

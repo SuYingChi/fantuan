@@ -10,7 +10,7 @@ import android.util.TypedValue;
 import android.view.WindowManager;
 
 import com.gyf.barlibrary.ImmersionBar;
-import com.king.batterytest.fbaselib.LogoutEvent;
+import com.wetime.fanc.setting.event.LogoutEvent;
 import com.king.batterytest.fbaselib.main.iview.IBaseVIew;
 import com.king.batterytest.fbaselib.utils.LogUtils;
 import com.king.batterytest.fbaselib.utils.SharePreferenceUtil;

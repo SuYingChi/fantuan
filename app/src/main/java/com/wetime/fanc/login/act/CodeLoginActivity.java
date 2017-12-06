@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.king.batterytest.fbaselib.main.BaseActivity;
 import com.king.batterytest.fbaselib.main.model.BaseBean;
+import com.king.batterytest.fbaselib.utils.GsonUtils;
 import com.king.batterytest.fbaselib.utils.Tools;
 import com.wetime.fanc.R;
 import com.wetime.fanc.home.act.MainActivity;
@@ -131,7 +132,7 @@ public class CodeLoginActivity extends BaseActivity implements ISendSMSView, IIn
 //            Intent goMain = new Intent(this, MainActivity.class);
 //            startActivity(goMain);
             finish();
-            EventBus.getDefault().post(new LoginEvent());
+            EventBus.getDefault().post(new LoginEvent(GsonUtils.getGsonInstance().toJson(bean)));
         }
     }
 }

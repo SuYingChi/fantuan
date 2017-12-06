@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.king.batterytest.fbaselib.main.BaseActivity;
+import com.king.batterytest.fbaselib.utils.GsonUtils;
 import com.king.batterytest.fbaselib.utils.Tools;
 import com.wetime.fanc.R;
 import com.wetime.fanc.login.bean.LoginResultBean;
@@ -79,7 +80,7 @@ public class PSWLoginActivity extends BaseActivity implements ILoginView {
 //            Intent goMain = new Intent(this, MainActivity.class);
 //            startActivity(goMain);
             finish();
-            EventBus.getDefault().post(new LoginEvent());
+            EventBus.getDefault().post(new LoginEvent(GsonUtils.getGsonInstance().toJson(bean)));
         }
     }
 

@@ -1,4 +1,4 @@
-package com.king.batterytest.fbaselib;
+package com.wetime.fanc.setting.event;
 
 /**
  * Created by zhoukang on 2017/10/17.

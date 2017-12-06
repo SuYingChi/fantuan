@@ -23,11 +23,15 @@ import com.secure.pay.PayService;
 import com.wetime.fanc.R;
 import com.wetime.fanc.home.act.HomeSearchActivity;
 import com.wetime.fanc.home.event.SwichFragEvent;
+import com.wetime.fanc.login.act.LoginActivity;
+import com.wetime.fanc.login.event.LoginEvent;
 import com.wetime.fanc.order.act.CommentOrderActivity;
 import com.wetime.fanc.shopcenter.act.ShopListActivity;
 import com.wetime.fanc.shopcenter.act.ShopSearchActivity;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONObject;
 
 import butterknife.BindView;
@@ -57,7 +61,7 @@ public class WebActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_web);
         ButterKnife.bind(this);
-
+        EventBus.getDefault().register(this);
         Intent intent = getIntent();
         weburl = intent.getStringExtra("url");
         web.loadUrl(weburl);
@@ -91,7 +95,7 @@ public class WebActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        ImmersionBar.with(this).destroy(); //不调用该方法，如果界面bar发生改变，在不关闭app的情况下，退出此界面再进入将记忆最后一次bar改变的状态
+        EventBus.getDefault().unregister(this);
     }
 
 
@@ -107,7 +111,10 @@ public class WebActivity extends BaseActivity {
                 break;
         }
     }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(LoginEvent event) {
 
+    }
 
     @SuppressLint("JavascriptInterface")
     private void webSetting() {
@@ -336,6 +343,12 @@ public class WebActivity extends BaseActivity {
     public void goHomePage() {
         EventBus.getDefault().post(new SwichFragEvent(0));
         finish();
+
+    }
+    @JavascriptInterface
+    public void nativeLogin() {
+        Intent goLogin = new Intent(this, LoginActivity.class);
+        startActivity(goLogin);
 
     }
 
