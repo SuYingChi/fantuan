@@ -92,7 +92,7 @@ public class BaseActivity extends AppCompatActivity implements IBaseVIew {
     @Override
     public void onTimeOut() {
 //        Tools.toastInBottom(this, getString(R.string.tips_timeout));
-//        Tools.logout(this);
+        Tools.logout(this);
 //        FApp.getInstance().removeALLActivity();
 //        Intent go = new Intent(this, LoginActivity.class);
 //        startActivity(go);

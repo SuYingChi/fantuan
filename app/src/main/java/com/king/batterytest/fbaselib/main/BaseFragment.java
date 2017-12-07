@@ -46,7 +46,7 @@ public class BaseFragment extends Fragment implements IBaseVIew {
     @Override
     public void onTimeOut() {
 //        Tools.toastInBottom(getActivity(), getString(R.string.tips_timeout));
-//        Tools.logout(getActivity());
+        Tools.logout(getActivity());
 //        FApp.getInstance().removeALLActivity();
 //        Intent go = new Intent(getActivity(), LoginActivity.class);
 //        startActivity(go);

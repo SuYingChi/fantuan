@@ -28,6 +28,7 @@
             android:layout_marginRight="15dp"
             android:lineSpacingExtra="0sp"
             android:textColor="#333333"
+            android:textStyle="bold"
             android:textSize="18sp"
             android:layout_marginBottom="20dp"
             tools:text="您的附近有10个购物中心"

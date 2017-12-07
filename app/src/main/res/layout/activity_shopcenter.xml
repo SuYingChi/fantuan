@@ -8,6 +8,7 @@
 
     <include layout="@layout/item_shopcenter_header"/>
     <ListView
+        android:overScrollMode="never"
         android:divider="@null"
         android:id="@+id/lv_shop"
         android:layout_width="match_parent"

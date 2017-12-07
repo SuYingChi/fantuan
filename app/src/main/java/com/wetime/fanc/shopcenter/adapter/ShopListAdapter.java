@@ -2,6 +2,7 @@ package com.wetime.fanc.shopcenter.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -78,10 +79,27 @@ public class ShopListAdapter extends BaseAdapter {
         holder.tvShopname1.setText(bean.getMerchants().get(0).getName());
         holder.tvShopname2.setText(bean.getMerchants().get(1).getName());
         holder.tvShopname3.setText(bean.getMerchants().get(2).getName());
+        if(TextUtils.isEmpty(bean.getMerchants().get(0).getTotal())){
+            holder.tvTotal1.setVisibility(View.INVISIBLE);
+        }else{
+            holder.tvTotal1.setVisibility(View.VISIBLE);
+            holder.tvTotal1.setText(bean.getMerchants().get(0).getTotal());
+        }
 
-        holder.tvTotal1.setText(bean.getMerchants().get(0).getTotal());
-        holder.tvTotal2.setText(bean.getMerchants().get(1).getTotal());
-        holder.tvTotal3.setText(bean.getMerchants().get(2).getTotal());
+        if(TextUtils.isEmpty(bean.getMerchants().get(1).getTotal())){
+            holder.tvTotal2.setVisibility(View.INVISIBLE);
+        }else{
+            holder.tvTotal2.setVisibility(View.VISIBLE);
+            holder.tvTotal2.setText(bean.getMerchants().get(1).getTotal());
+        }
+
+
+        if(TextUtils.isEmpty(bean.getMerchants().get(2).getTotal())){
+            holder.tvTotal3.setVisibility(View.INVISIBLE);
+        }else{
+            holder.tvTotal3.setVisibility(View.VISIBLE);
+            holder.tvTotal3.setText(bean.getMerchants().get(2).getTotal());
+        }
 
         holder.tvNum.setText(bean.getNum());
         holder.tvGoshop.setOnClickListener(new View.OnClickListener() {
