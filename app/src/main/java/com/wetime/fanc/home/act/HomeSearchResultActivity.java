@@ -25,6 +25,7 @@ import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.wetime.fanc.R;
 import com.wetime.fanc.home.bean.HomeSearchResult;
+import com.wetime.fanc.home.event.KeyWordEvent;
 import com.wetime.fanc.home.iviews.IGetHomeSearchResultView;
 import com.wetime.fanc.home.presenter.GetHomeSearchResultPresenter;
 import com.wetime.fanc.shopcenter.adapter.CategoryItemAdapter;
@@ -35,6 +36,8 @@ import com.wetime.fanc.shopcenter.adapter.SearchShopListAdapter;
 import com.wetime.fanc.shopcenter.adapter.SortMethordItemAdapter;
 import com.wetime.fanc.shopcenter.bean.MerchantsBean;
 import com.wetime.fanc.web.WebActivity;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -131,6 +134,22 @@ public class HomeSearchResultActivity extends BaseActivity implements IGetHomeSe
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
+        Tools.toastInBottom(mContext, "new intent");
+        // 重置
+        cid = "";
+        sid = "";
+        mid = "";
+        smid = "";
+        v1.setVisibility(View.GONE);
+        v2.setVisibility(View.GONE);
+        v3.setVisibility(View.GONE);
+        tv2.setText("全部分类");
+        tv2.setTextColor(Color.parseColor("#666666"));
+        tv1.setText("附近");
+        tv1.setTextColor(Color.parseColor("#666666"));
+        tv3.setText("智能排序");
+        tv3.setTextColor(Color.parseColor("#666666"));
+
         etSearch.setText(intent.getStringExtra("key"));
         etSearch.setInputType(InputType.TYPE_NULL);
         adapter = new SearchShopListAdapter(list, mContext);
@@ -148,7 +167,9 @@ public class HomeSearchResultActivity extends BaseActivity implements IGetHomeSe
 
     @Override
     public void onBackPressed() {
+        EventBus.getDefault().post(new KeyWordEvent(etSearch.getText().toString()));
         super.onBackPressed();
+
     }
 
     @OnClick({R.id.iv_back, R.id.ll_1, R.id.ll_3, R.id.ll_2, R.id.et_search, R.id.tv_cancel})
@@ -481,7 +502,8 @@ public class HomeSearchResultActivity extends BaseActivity implements IGetHomeSe
         goweb.putExtra("url", url);
         startActivity(goweb);
     }
-    public void hideDropDown(View view){
+
+    public void hideDropDown(View view) {
         tv1.setTag(null);
         tv1.setTextColor(Color.parseColor("#666666"));
         Drawable drawable = getResources().getDrawable(R.drawable.ic_head_down);

@@ -33,11 +33,17 @@ import com.wetime.fanc.home.adapter.HotWordAdapter;
 import com.wetime.fanc.home.adapter.ResultAdapter;
 import com.wetime.fanc.home.bean.HomeHotSearchBean;
 import com.wetime.fanc.home.bean.SearchResult;
+import com.wetime.fanc.home.event.KeyWordEvent;
 import com.wetime.fanc.home.iviews.IGetHomeHotSearchView;
 import com.wetime.fanc.home.iviews.IGetHomeSugView;
 import com.wetime.fanc.home.presenter.GetHomeHotSerachPresenter;
 import com.wetime.fanc.home.presenter.GetHomeSugSerachPresenter;
 import com.wetime.fanc.web.WebActivity;
+import com.wetime.fanc.web.event.FinishWebEvent;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -81,8 +87,9 @@ public class HomeSearchActivity extends BaseActivity implements IGetHomeHotSearc
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_search);
         ButterKnife.bind(this);
-        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.showSoftInput(etSearch, InputMethodManager.SHOW_FORCED);
+        EventBus.getDefault().register(this);
+//        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+//        imm.showSoftInput(etSearch, InputMethodManager.SHOW_FORCED);
         getHomeHotSerachPresenter = new GetHomeHotSerachPresenter(this);
         getHomeHotSerachPresenter.getHotSearchPage();
         etSearch.setOnEditorActionListener(this);
@@ -98,7 +105,6 @@ public class HomeSearchActivity extends BaseActivity implements IGetHomeHotSearc
         }
 
     }
-
 
     @Override
     public void onBackPressed() {
@@ -117,18 +123,17 @@ public class HomeSearchActivity extends BaseActivity implements IGetHomeHotSearc
             if (etSearch.getText().toString().equals(""))
                 return false;
 
-
-//            Tools.toastInBottom(this, "search");
             savaHis(etSearch.getText().toString());
             goResult(etSearch.getText().toString());
-//            if (!TextUtils.isEmpty(getIntent().getStringExtra("key"))) {
-//                finish();
-//            }
             return true;
         }
         return false;
     }
-
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(final KeyWordEvent event) {
+        etSearch.setText(event.getKey());
+        etSearch.setSelection(etSearch.getText().length());
+    }
 
     @OnClick({R.id.iv_back, R.id.tv_cancel, R.id.iv_delete})
     public void onViewClicked(View view) {
@@ -146,6 +151,12 @@ public class HomeSearchActivity extends BaseActivity implements IGetHomeHotSearc
                 hisAdapter.notifyDataSetChanged();
                 break;
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        EventBus.getDefault().unregister(this);
+        super.onDestroy();
     }
 
     @Override

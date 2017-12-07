@@ -10,6 +10,7 @@ import android.util.TypedValue;
 import android.view.WindowManager;
 
 import com.gyf.barlibrary.ImmersionBar;
+import com.wetime.fanc.application.FApp;
 import com.wetime.fanc.login.event.LogoutEvent;
 import com.king.batterytest.fbaselib.main.iview.IBaseVIew;
 import com.king.batterytest.fbaselib.utils.LogUtils;
@@ -40,7 +41,7 @@ public class BaseActivity extends AppCompatActivity implements IBaseVIew {
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         spu = Tools.getSpu(this);
         initStateBar();
-//        FApp.getInstance().addActivity(this);
+        FApp.getInstance().addActivity(this);
 //        getTheme()
         mContext = this;
 //        Tools.MIUISetStatusBarLightMode(getWindow(),wihteBar);

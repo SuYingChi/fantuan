@@ -6,11 +6,11 @@ android {
     defaultConfig {
         minSdkVersion 16
         targetSdkVersion 22
-        versionCode 1
-        versionName "0.0.1"
+        versionCode 100
+        versionName "1.0.0"
         applicationId "com.wetime.fanc"
         ndk {
-            abiFilters "armeabi"
+            abiFilters "armeabi","x86"
         }
         manifestPlaceholders = [
                 JPUSH_PKGNAME: applicationId,

@@ -30,9 +30,12 @@ import com.wetime.fanc.shopcenter.adapter.SearchShopListAdapter;
 import com.wetime.fanc.shopcenter.adapter.SortMethordItemAdapter;
 import com.wetime.fanc.shopcenter.bean.CenterListPageBean;
 import com.wetime.fanc.shopcenter.bean.MerchantsBean;
+import com.wetime.fanc.shopcenter.event.ShopKeyWordEvent;
 import com.wetime.fanc.shopcenter.iviews.IGetShopSearchResultView;
 import com.wetime.fanc.shopcenter.presenter.GetShopSearchResultPresenter;
 import com.wetime.fanc.web.WebActivity;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -95,7 +98,7 @@ public class ShopSearchResultActivity extends BaseActivity implements IGetShopSe
     private int page = 1;
     private String sortMethod = "0";//排列方式： 0=智能排序，1=距离优先，2=人均
     private String floorId = "";
-    private String cenerId = "";//写死 测试
+    private String cenerId = "";
     private String cid = "";
     private String sid = "";
 
@@ -128,6 +131,28 @@ public class ShopSearchResultActivity extends BaseActivity implements IGetShopSe
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
+        floorId = "";
+//        cenerId = "";
+        cid = "";
+        sid = "";
+
+        v1.setVisibility(View.GONE);
+        v2.setVisibility(View.GONE);
+        v3.setVisibility(View.GONE);
+
+        tv1.setText("全部");
+        tv1.setTag(null);
+        tv1.setTextColor(Color.parseColor("#666666"));
+
+        tv2.setText("全部分类");
+        tv2.setTag(null);
+        tv2.setTextColor(Color.parseColor("#666666"));
+
+        tv3.setText("智能排序");
+        tv3.setTag(null);
+        tv3.setTextColor(Color.parseColor("#666666"));
+
+
 
         etSearch.setText(intent.getStringExtra("key"));
         etSearch.setInputType(InputType.TYPE_NULL);
@@ -146,6 +171,7 @@ public class ShopSearchResultActivity extends BaseActivity implements IGetShopSe
 
     @Override
     public void onBackPressed() {
+        EventBus.getDefault().post(new ShopKeyWordEvent(etSearch.getText().toString()));
         super.onBackPressed();
     }
 
@@ -159,7 +185,7 @@ public class ShopSearchResultActivity extends BaseActivity implements IGetShopSe
                 Intent gosearch = new Intent(this, ShopSearchActivity.class);
                 gosearch.putExtra("key", etSearch.getText().toString());
                 gosearch.putExtra("id",cenerId);
-                gosearch.putExtra("id",name);
+                gosearch.putExtra("name",name);
                 startActivity(gosearch);
                 break;
 

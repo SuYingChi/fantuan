@@ -40,7 +40,7 @@ public class FApp extends Application {
         super.onCreate();
         registToWX();
         JPushInterface.init(this);
-        ArrayList<String> keys = new ArrayList<>();
+//        ArrayList<String> keys = new ArrayList<>();
 //        if (isd(this)) {
 //            keys.add("41:C2:55:46:96:1E:86:A8:FC:21:77:2C:77:37:6C:C9:30:41:C9:FA");//test
 //        }
@@ -113,15 +113,12 @@ public class FApp extends Application {
     }
 
     private void registToWX() {
-
         mWxApi = WXAPIFactory.createWXAPI(this, "wx2fbcb61b6e5b1384", true);
-
         mWxApi.registerApp("wx2fbcb61b6e5b1384");
     }
 
 
     public void removeActivity(Activity activity) {
-
         if (oList.contains(activity)) {
             oList.remove(activity);
             activity.finish();

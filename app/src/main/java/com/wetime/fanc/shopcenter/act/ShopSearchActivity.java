@@ -32,11 +32,17 @@ import com.wetime.fanc.home.adapter.HotWordAdapter;
 import com.wetime.fanc.home.adapter.ResultAdapter;
 import com.wetime.fanc.home.bean.HomeHotSearchBean;
 import com.wetime.fanc.home.bean.SearchResult;
+import com.wetime.fanc.home.event.KeyWordEvent;
 import com.wetime.fanc.home.iviews.IGetHomeSugView;
 import com.wetime.fanc.home.presenter.GetHomeSugSerachPresenter;
+import com.wetime.fanc.shopcenter.event.ShopKeyWordEvent;
 import com.wetime.fanc.shopcenter.iviews.IGetShopHotSearchView;
 import com.wetime.fanc.shopcenter.presenter.GetShopHotSerachPresenter;
 import com.wetime.fanc.web.WebActivity;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -80,6 +86,7 @@ public class ShopSearchActivity extends BaseActivity implements IGetShopHotSearc
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shop_search);
         ButterKnife.bind(this);
+        EventBus.getDefault().register(this);
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.showSoftInput(etSearch, InputMethodManager.SHOW_FORCED);
         name = getIntent().getStringExtra("name");
@@ -106,6 +113,11 @@ public class ShopSearchActivity extends BaseActivity implements IGetShopHotSearc
 
     }
 
+    @Override
+    protected void onDestroy() {
+        EventBus.getDefault().unregister(this);
+        super.onDestroy();
+    }
 
     @Override
     public void onBackPressed() {
@@ -283,5 +295,10 @@ public class ShopSearchActivity extends BaseActivity implements IGetShopHotSearc
         Intent goweb = new Intent(this, WebActivity.class);
         goweb.putExtra("url", url);
         startActivity(goweb);
+    }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(final ShopKeyWordEvent event) {
+        etSearch.setText(event.getKey());
+        etSearch.setSelection(etSearch.getText().length());
     }
 }
