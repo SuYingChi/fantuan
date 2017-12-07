@@ -76,7 +76,7 @@ public class CodeLoginActivity extends BaseActivity implements ISendSMSView, IIn
                     return;
                 }
                 invalidCodePresenter.invalidCode(etPhone.getText().toString(), etCode.getText().toString());
-                Tools.hideSoftInput(this);
+
                 break;
             case R.id.tv_send:
                 if (etPhone.getText().length() != 11) {
@@ -84,8 +84,8 @@ public class CodeLoginActivity extends BaseActivity implements ISendSMSView, IIn
                     return;
                 }
                 etCode.requestFocus();
-                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.showSoftInput(etCode,InputMethodManager.SHOW_FORCED);
+//                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+//                imm.showSoftInput(etCode,InputMethodManager.SHOW_FORCED);
 
                 if (!runningThree)
                     sendSMSPresenter.sendSMS(etPhone.getText().toString());

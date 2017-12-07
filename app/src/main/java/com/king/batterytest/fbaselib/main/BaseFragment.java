@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 
-import com.wetime.fanc.setting.event.LogoutEvent;
+import com.wetime.fanc.login.event.LogoutEvent;
 import com.king.batterytest.fbaselib.main.iview.IBaseVIew;
 import com.king.batterytest.fbaselib.utils.SharePreferenceUtil;
 import com.king.batterytest.fbaselib.utils.Tools;

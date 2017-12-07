@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.gyf.barlibrary.ImmersionBar;
 import com.king.batterytest.fbaselib.main.BaseActivity;
+import com.king.batterytest.fbaselib.utils.Tools;
 import com.king.batterytest.fbaselib.view.CustomViewPager;
 import com.wetime.fanc.R;
 import com.wetime.fanc.home.adapter.HomeFragmentPagerAdapter;
@@ -234,6 +235,8 @@ public class MainActivity extends BaseActivity implements IBindPushView {
         BindPushPresenter pushPresenter = new BindPushPresenter(MainActivity.this);
         pushPresenter.bindPush(event.getId());
     }
+
+
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(SwichFragEvent event) {

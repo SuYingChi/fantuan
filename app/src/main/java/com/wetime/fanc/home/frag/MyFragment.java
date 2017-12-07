@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.wetime.fanc.setting.event.LogoutEvent;
+import com.wetime.fanc.login.event.LogoutEvent;
 import com.king.batterytest.fbaselib.main.BaseFragment;
 import com.king.batterytest.fbaselib.utils.Tools;
 import com.wetime.fanc.R;

@@ -16,6 +16,7 @@ import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -65,10 +66,17 @@ public class Tools {
     }
 
     public static void hideSoftInput(Activity mActivity) {
-        IBinder mIBinder = mActivity.getCurrentFocus().getWindowToken();
-        if (mIBinder != null)
-            ((InputMethodManager) mActivity.getSystemService(INPUT_METHOD_SERVICE))
-                    .hideSoftInputFromWindow(mIBinder, InputMethodManager.HIDE_NOT_ALWAYS);
+        try {
+            IBinder mIBinder = mActivity.getCurrentFocus().getWindowToken();
+            if (mIBinder != null)
+                if ((mActivity.getSystemService(INPUT_METHOD_SERVICE)) != null) {
+                    ((InputMethodManager) mActivity.getSystemService(INPUT_METHOD_SERVICE))
+                            .hideSoftInputFromWindow(mIBinder, InputMethodManager.HIDE_NOT_ALWAYS);
+                }
+
+        } catch (Exception e) {
+            Log.e("zk",e.toString());
+        }
     }
 
 
@@ -141,7 +149,6 @@ public class Tools {
     }
 
 
-
     public static boolean checkPrice(String price) {
         if (price.contains(".")) {
             if (price.substring(0, 1).equals(".")) {
@@ -156,8 +163,6 @@ public class Tools {
     }
 
 
-
-
     public static void hideWaitDialog() {
         if (loadingDialog != null)
             loadingDialog.dismiss();
@@ -170,11 +175,11 @@ public class Tools {
         LinearLayout layout = (LinearLayout) inflaterDl.inflate(
                 R.layout.dialog_tips, null);
         final AlertDialog tel_dialog = new AlertDialog.Builder(mContext).create();
-        TextView tvtips = (TextView) layout.findViewById(R.id.tv_delete_tips);
+        TextView tvtips = layout.findViewById(R.id.tv_delete_tips);
         tvtips.setText(tips);
         tel_dialog.show();
         tel_dialog.getWindow().setContentView(layout);
-        Button btnCancel = (Button) layout.findViewById(R.id.dialog_btn_cancel);
+        Button btnCancel = layout.findViewById(R.id.dialog_btn_cancel);
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -185,7 +190,7 @@ public class Tools {
             }
         });
 
-        Button btnOK = (Button) layout.findViewById(R.id.dialog_btn_ok);
+        Button btnOK = layout.findViewById(R.id.dialog_btn_ok);
         btnOK.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -366,7 +371,7 @@ public class Tools {
         return mDisplayMetrics.widthPixels;
     }
 
-      public static SpannableString matcherSearchText(int color, String text, String keyword) {
+    public static SpannableString matcherSearchText(int color, String text, String keyword) {
         SpannableString ss = new SpannableString(text);
         Pattern pattern = Pattern.compile(keyword);
         Matcher matcher = pattern.matcher(ss);
