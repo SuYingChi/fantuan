@@ -16,7 +16,6 @@ import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.gyf.barlibrary.ImmersionBar;
 import com.king.batterytest.fbaselib.main.BaseActivity;
 import com.king.batterytest.fbaselib.utils.Tools;
 import com.secure.pay.PayService;
@@ -26,8 +25,10 @@ import com.wetime.fanc.home.event.SwichFragEvent;
 import com.wetime.fanc.login.act.LoginActivity;
 import com.wetime.fanc.login.event.LoginEvent;
 import com.wetime.fanc.order.act.CommentOrderActivity;
+import com.wetime.fanc.order.event.RefreshOrderEvent;
 import com.wetime.fanc.shopcenter.act.ShopListActivity;
 import com.wetime.fanc.shopcenter.act.ShopSearchActivity;
+import com.wetime.fanc.web.event.FinishWebEvent;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -111,12 +112,22 @@ public class WebActivity extends BaseActivity {
                 break;
         }
     }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(final LoginEvent event) {
         web.post(new Runnable() {
             @Override
             public void run() {
                 web.loadUrl("javascript:loginCallback('" + event.getStr() + "');");
+            }
+        });
+    }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(final FinishWebEvent event) {
+        web.post(new Runnable() {
+            @Override
+            public void run() {
+                finish();
             }
         });
     }
@@ -346,16 +357,38 @@ public class WebActivity extends BaseActivity {
 
     @JavascriptInterface
     public void goHomePage() {
-        EventBus.getDefault().post(new SwichFragEvent(0));
-        finish();
+        web.post(new Runnable() {
+            @Override
+            public void run() {
+                EventBus.getDefault().post(new SwichFragEvent(0));
+                finish();
+            }
+        });
 
     }
+
     @JavascriptInterface
     public void nativeLogin() {
-        Intent goLogin = new Intent(this, LoginActivity.class);
-        startActivity(goLogin);
+        web.post(new Runnable() {
+            @Override
+            public void run() {
+                Intent goLogin = new Intent(mContext, LoginActivity.class);
+                startActivity(goLogin);
+            }
+        });
+    }
+
+    @JavascriptInterface
+    public void reloadOrderData() {
+        web.post(new Runnable() {
+            @Override
+            public void run() {
+                EventBus.getDefault().post(new RefreshOrderEvent());
+            }
+        });
 
     }
+
 
 
 }

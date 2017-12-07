@@ -33,7 +33,7 @@ import com.wetime.fanc.home.presenter.DeleteOrderPresenter;
 import com.wetime.fanc.login.act.LoginActivity;
 import com.wetime.fanc.login.event.LoginEvent;
 import com.wetime.fanc.order.act.CommentOrderActivity;
-import com.wetime.fanc.order.event.CommentOrderEvent;
+import com.wetime.fanc.order.event.RefreshOrderEvent;
 import com.wetime.fanc.shopcenter.iviews.IGetOrderListView;
 import com.wetime.fanc.shopcenter.presenter.GetOrderPagePresenter;
 import com.wetime.fanc.web.WebActivity;
@@ -330,7 +330,7 @@ public class OrderFragment extends BaseFragment implements IGetOrderListView, On
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMessageEvent(CommentOrderEvent event) {
+    public void onMessageEvent(RefreshOrderEvent event) {
         page = 1;
         ordelist.clear();
         adapter.notifyDataSetChanged();

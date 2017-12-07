@@ -23,9 +23,10 @@ import com.wetime.fanc.main.ivews.IPostMultiFileView;
 import com.wetime.fanc.main.presenter.PostMultiFilePresenter;
 import com.wetime.fanc.order.MyRatingBar;
 import com.wetime.fanc.order.adapter.ImageGridAdapter;
-import com.wetime.fanc.order.event.CommentOrderEvent;
+import com.wetime.fanc.order.event.RefreshOrderEvent;
 import com.wetime.fanc.order.iviews.ICommentOrderView;
 import com.wetime.fanc.order.presenter.CommentOrderPresenter;
+import com.wetime.fanc.web.event.FinishWebEvent;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -199,7 +200,8 @@ public class CommentOrderActivity extends BaseActivity implements AdapterView.On
 
     @Override
     public void onCommentResult(BaseBean bean) {
-        EventBus.getDefault().post(new CommentOrderEvent());
+        EventBus.getDefault().post(new RefreshOrderEvent());
+        EventBus.getDefault().post(new FinishWebEvent());
         finish();
     }
 
