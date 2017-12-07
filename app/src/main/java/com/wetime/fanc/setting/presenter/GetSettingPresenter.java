@@ -25,7 +25,7 @@ public class GetSettingPresenter {
                 .url(Const.USER_PROFILE_SETTING)
                 .addParams("token", iView.getToken())
                 .build()
-                .execute(new DataStringCallback(iView) {
+                .execute(new DataStringCallback(iView,false) {
                     @Override
                     public void onResponse(String s, int i) {
                         super.onResponse(s, i);

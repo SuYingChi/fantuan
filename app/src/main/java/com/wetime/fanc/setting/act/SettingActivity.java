@@ -67,8 +67,14 @@ public class SettingActivity extends BaseActivity implements ILogoutView, IGetSe
         EventBus.getDefault().register(this);
         tvTitle.setText("设置");
         getSettingPresenter = new GetSettingPresenter(this);
-        getSettingPresenter.getSettinig();
+
         wxBindPresenter = new WXBindPresenter(this);
+    }
+
+    @Override
+    public void onResume() {
+        getSettingPresenter.getSettinig();
+        super.onResume();
     }
 
     @Override

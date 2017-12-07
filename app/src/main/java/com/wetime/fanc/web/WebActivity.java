@@ -388,7 +388,34 @@ public class WebActivity extends BaseActivity {
         });
 
     }
+    @JavascriptInterface
+    public void showLoading() {
+        web.post(new Runnable() {
+            @Override
+            public void run() {
+                Tools.showWaitDialog(getApplicationContext());
+            }
+        });
+    }
 
+    @JavascriptInterface
+    public void hideLoading() {
+        web.post(new Runnable() {
+            @Override
+            public void run() {
+                Tools.hideWaitDialog();
+            }
+        });
+    }
+//    @JavascriptInterface
+//    public void showTipsDialog() {
+//        web.post(new Runnable() {
+//            @Override
+//            public void run() {
+//                Tools.sho;
+//            }
+//        });
+//    }
 
 
 }
