@@ -72,7 +72,7 @@ public class CodeLoginActivity extends BaseActivity implements ISendSMSView, IIn
                 break;
             case R.id.tv_ok:
                 if (etCode.getText().length() != 6) {
-                    Tools.toastInBottom(this, "请输入正确填写验证码");
+                    Tools.toastInBottom(this, "请输入正确验证码");
                     return;
                 }
                 invalidCodePresenter.invalidCode(etPhone.getText().toString(), etCode.getText().toString());
