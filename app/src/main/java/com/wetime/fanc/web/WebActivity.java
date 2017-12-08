@@ -343,7 +343,7 @@ public class WebActivity extends BaseActivity {
             if (msg.what == PayService.PAY) {
                 if (msg.obj == null || ((JSONObject) msg.obj).length() == 0) {
 //                    mEtResult.setText("返回空");
-                    Tools.toastInBottom(mContext, "返回空");
+//                    Tools.toastInBottom(mContext, "返回空");
                 } else {
                     final String result = msg.obj.toString();
 
@@ -403,7 +403,7 @@ public class WebActivity extends BaseActivity {
         web.post(new Runnable() {
             @Override
             public void run() {
-                Tools.showWaitDialog(getApplicationContext());
+                Tools.showWaitDialog(mContext);
             }
         });
     }
