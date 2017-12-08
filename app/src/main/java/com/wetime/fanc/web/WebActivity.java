@@ -346,8 +346,6 @@ public class WebActivity extends BaseActivity {
 //                    Tools.toastInBottom(mContext, "返回空");
                 } else {
                     final String result = msg.obj.toString();
-
-                    Tools.toastInBottom(mContext, result);
                     web.post(new Runnable() {
                         @Override
                         public void run() {
@@ -418,7 +416,7 @@ public class WebActivity extends BaseActivity {
         });
     }
     @JavascriptInterface
-    public void showTipsDialog(final String tips, final String left, final String right) {
+    public void showTipsDialog(final String tips, final String left, final String right, final String leftm, final String rightm) {
         web.post(new Runnable() {
             @Override
             public void run() {
@@ -428,7 +426,7 @@ public class WebActivity extends BaseActivity {
                         web.post(new Runnable() {
                             @Override
                             public void run() {
-                                web.loadUrl("javascript:onCancel();");
+                                web.loadUrl("javascript:"+leftm+"();");
                             }
                         });
                     }
@@ -438,7 +436,7 @@ public class WebActivity extends BaseActivity {
                         web.post(new Runnable() {
                             @Override
                             public void run() {
-                                web.loadUrl("javascript:onOk();");
+                                web.loadUrl("javascript:"+rightm+"();");
                             }
                         });
                     }

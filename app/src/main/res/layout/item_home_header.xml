@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="45dp"
     android:background="@color/white"
@@ -10,9 +10,10 @@
     android:paddingRight="12dp">
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:src="@drawable/ic_logo"/>
+        android:layout_marginTop="11dp"
+        android:layout_width="45dp"
+        android:layout_height="22dp"
+        app:srcCompat="@drawable/ic_logo" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -23,8 +24,7 @@
         android:lineSpacingExtra="4sp"
         android:text="海口"
         android:textColor="#333333"
-        android:textSize="12sp"
-        />
+        android:textSize="12sp" />
 
     <LinearLayout
         android:id="@+id/ll_search"
@@ -47,8 +47,7 @@
             android:lineSpacingExtra="0sp"
             android:text="可搜索商家、购物中心"
             android:textColor="#999999"
-            android:textSize="14sp"
-            />
+            android:textSize="14sp" />
     </LinearLayout>
 
     <ImageView
@@ -56,6 +55,6 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_marginLeft="10dp"
-        android:src="@drawable/ic_scan"/>
+        android:src="@drawable/ic_scan" />
 </LinearLayout>
 
