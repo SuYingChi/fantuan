@@ -16,6 +16,7 @@ import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.gyf.barlibrary.ImmersionBar;
 import com.king.batterytest.fbaselib.main.BaseActivity;
 import com.king.batterytest.fbaselib.utils.Tools;
 import com.secure.pay.PayService;
@@ -82,6 +83,15 @@ public class WebActivity extends BaseActivity {
         }
 
         webSetting();
+    }
+
+    @Override
+    public void initStateBar() {
+//        super.initStateBar();
+        ImmersionBar.with(this).statusBarColor(R.color.white_lib)
+                .statusBarDarkFont(true, 0.2f)
+                .fitsSystemWindows(true).keyboardEnable(true).init();
+
     }
 
     @Override

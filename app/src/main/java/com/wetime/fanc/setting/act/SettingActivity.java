@@ -108,8 +108,14 @@ public class SettingActivity extends BaseActivity implements ILogoutView, IGetSe
                 startActivity(goAbout);
                 break;
             case R.id.tv_logout:
-                logoutPresenter = new LogoutPresenter(this);
-                logoutPresenter.logout();
+                Tools.showTipsDialog(this, "确定要退出登录吗？", null, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        logoutPresenter = new LogoutPresenter(SettingActivity.this);
+                        logoutPresenter.logout();
+                    }
+                });
+
                 break;
         }
     }
