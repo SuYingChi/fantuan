@@ -39,9 +39,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.jpush.android.api.JPushInterface;
 
-//import com.tencent.android.tpush.XGIOperateCallback;
-//import com.tencent.android.tpush.XGPushManager;
-//import com.tencent.android.tpush.service.XGPushServiceV3;
 
 public class MainActivity extends BaseActivity implements IBindPushView {
     @BindView(R.id.vp)
