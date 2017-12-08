@@ -54,14 +54,15 @@
 
         <RelativeLayout
             android:id="@+id/ll_his"
+
+            android:layout_marginTop="15dp"
             android:layout_width="match_parent"
-            android:layout_height="55dp"
+            android:layout_height="30dp"
             android:gravity="center_vertical">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
                 android:lineSpacingExtra="0sp"
                 android:paddingLeft="15dp"
                 android:text="搜索记录"
@@ -84,7 +85,7 @@
             android:id="@+id/rcl_his"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="0dp"
             android:background="@color/white"/>
     </LinearLayout>
 </LinearLayout>

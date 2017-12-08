@@ -202,44 +202,7 @@ public class Tools {
 
     }
 
-    public static void showTipsDialog(Context mContext, SpannableString tips, String left, String right,
-                                      final View.OnClickListener onCancel,
-                                      final View.OnClickListener onOK) {
-        LayoutInflater inflaterDl = LayoutInflater.from(mContext);
-        LinearLayout layout = (LinearLayout) inflaterDl.inflate(
-                R.layout.dialog_tips, null);
-        final AlertDialog tel_dialog = new AlertDialog.Builder(mContext).create();
-        TextView tvtips = (TextView) layout.findViewById(R.id.tv_delete_tips);
-        tvtips.setText(tips);
-        tel_dialog.show();
-        tel_dialog.getWindow().setContentView(layout);
-        Button btnCancel = (Button) layout.findViewById(R.id.dialog_btn_cancel);
-        btnCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                tel_dialog.dismiss();
-                if (onCancel != null)
-                    onCancel.onClick(v);
 
-            }
-        });
-
-        Button btnOK = (Button) layout.findViewById(R.id.dialog_btn_ok);
-        btnOK.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                tel_dialog.dismiss();
-                if (onOK != null)
-                    onOK.onClick(v);
-            }
-        });
-        btnCancel.setText(left);
-        btnOK.setText(right);
-        if (TextUtils.isEmpty(left)) {
-            layout.findViewById(R.id.view_middle).setVisibility(View.GONE);
-            btnCancel.setVisibility(View.GONE);
-        }
-    }
 
     public static void showTipsDialog(Context mContext, String tips, String left, String right,
                                       final View.OnClickListener onCancel,
@@ -248,11 +211,11 @@ public class Tools {
         LinearLayout layout = (LinearLayout) inflaterDl.inflate(
                 R.layout.dialog_tips, null);
         final AlertDialog tel_dialog = new AlertDialog.Builder(mContext).create();
-        TextView tvtips = (TextView) layout.findViewById(R.id.tv_delete_tips);
+        TextView tvtips = layout.findViewById(R.id.tv_delete_tips);
         tvtips.setText(tips);
         tel_dialog.show();
         tel_dialog.getWindow().setContentView(layout);
-        Button btnCancel = (Button) layout.findViewById(R.id.dialog_btn_cancel);
+        Button btnCancel = layout.findViewById(R.id.dialog_btn_cancel);
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -263,7 +226,7 @@ public class Tools {
             }
         });
 
-        Button btnOK = (Button) layout.findViewById(R.id.dialog_btn_ok);
+        Button btnOK = layout.findViewById(R.id.dialog_btn_ok);
         btnOK.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

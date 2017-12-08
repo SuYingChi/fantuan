@@ -407,15 +407,35 @@ public class WebActivity extends BaseActivity {
             }
         });
     }
-//    @JavascriptInterface
-//    public void showTipsDialog() {
-//        web.post(new Runnable() {
-//            @Override
-//            public void run() {
-//                Tools.sho;
-//            }
-//        });
-//    }
+    @JavascriptInterface
+    public void showTipsDialog(final String tips, final String left, final String right) {
+        web.post(new Runnable() {
+            @Override
+            public void run() {
+                Tools.showTipsDialog(mContext, tips, left, right, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        web.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                web.loadUrl("javascript:onCancel();");
+                            }
+                        });
+                    }
+                }, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        web.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                web.loadUrl("javascript:onOk();");
+                            }
+                        });
+                    }
+                });
+            }
+        });
+    }
 
 
 }

@@ -241,6 +241,8 @@ public class MainActivity extends BaseActivity implements IBindPushView {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(SwichFragEvent event) {
         vp.setCurrentItem(event.getPos(), false);
+        ImmersionBar.with(this).statusBarColor(R.color.white).statusBarDarkFont(true, 0.2f).fitsSystemWindows(true).init();
+
     }
 //    @Subscribe(threadMode = ThreadMode.MAIN)
 //    public void onMessageEvent(LogoutEvent event) {

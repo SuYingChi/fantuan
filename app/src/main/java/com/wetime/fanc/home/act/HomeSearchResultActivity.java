@@ -18,7 +18,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.king.batterytest.fbaselib.main.BaseActivity;
-import com.king.batterytest.fbaselib.utils.Tools;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
@@ -134,7 +133,7 @@ public class HomeSearchResultActivity extends BaseActivity implements IGetHomeSe
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        Tools.toastInBottom(mContext, "new intent");
+//        Tools.toastInBottom(mContext, "new intent");
         // 重置
         cid = "";
         sid = "";
@@ -156,6 +155,14 @@ public class HomeSearchResultActivity extends BaseActivity implements IGetHomeSe
         rcvLsit.setLayoutManager(new LinearLayoutManager(this));
         rcvLsit.setAdapter(adapter);
         adapter.notifyDataSetChanged();
+
+//        RecyclerViewDivider.with(this)
+//                .color(ContextCompat.getColor(this,R.color.line_color))
+//                .size(1)
+//                .inset(15, 0)
+//                .hideLastDivider()
+//                .build()
+//                .addTo(rcvLsit);
 
         refreshLayout.setOnLoadmoreListener(this);
         refreshLayout.setOnRefreshListener(this);

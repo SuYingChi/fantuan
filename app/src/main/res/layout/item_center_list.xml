@@ -1,180 +1,193 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white"
-    android:orientation="horizontal"
-    android:paddingTop="15dp">
+    android:orientation="vertical">
 
     <LinearLayout
-        android:layout_width="100dp"
-        android:layout_height="match_parent"
-        android:gravity="center_horizontal">
-
-        <ImageView
-            android:id="@+id/iv_cover"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:background="@color/bg_all"
-            android:scaleType="centerCrop"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:orientation="vertical">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:paddingTop="15dp">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal">
 
-            <TextView
-                android:id="@+id/tv_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:letterSpacing="0.01"
-                android:lineSpacingExtra="0sp"
-                android:textColor="#333333"
-                android:textSize="16sp"
-                tools:text="青沼日本料理 (望京店)"
-                />
-
-            <TextView
-
-                android:id="@+id/tv_floor"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="end"
-                android:paddingRight="12dp"
-                android:textColor="#333333"
-                android:textSize="14sp"
-                tools:text="F1"
-                />
+            <ImageView
+                android:id="@+id/iv_cover"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:background="@color/bg_all"
+                android:scaleType="centerCrop" />
         </LinearLayout>
 
-
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="14dp"
-            android:layout_marginTop="5dp"
-            android:gravity="left|bottom"
-            android:orientation="horizontal">
-
-            <RatingBar
-                android:id="@+id/rb_socre"
-                style="@style/AppraisalRatingBar"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginTop="3.5dp"
-                android:isIndicator="true"
-                android:numStars="5"
-                android:rating="0"
-                android:stepSize="0.5"/>
-
-            <TextView
-                android:id="@+id/tv_spend"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:letterSpacing="0.01"
-                android:lineSpacingExtra="0sp"
-                android:textColor="#666666"
-                android:textSize="12sp"
-                tools:text="¥57/人"
-                />
-
-            <TextView
-                android:id="@+id/tv_dis"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="end"
-                android:lineSpacingExtra="0sp"
-                android:paddingRight="12dp"
-                android:textColor="#666666"
-                android:textSize="12sp"
-                tools:text="1.7km"
-                />
-        </LinearLayout>
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_marginTop="5dp"
-            android:layout_height="wrap_content">
-            <TextView
-                android:layout_marginRight="10dp"
-                android:id="@+id/tv_mallname"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="12sp"
-                android:textColor="#ff3f53"
-                android:letterSpacing="0.01"
-                android:lineSpacingExtra="0sp"
-                tools:text="日月广场"
-                />
-            <TextView
-                android:id="@+id/tv_type"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:letterSpacing="0.01"
-                android:lineSpacingExtra="0sp"
-                android:textColor="#666666"
-                android:textSize="12sp"
-                tools:text="日韩料理"
-                />
-        </LinearLayout>
-
-
-        <ImageView
-            android:id="@+id/iv_fantuan"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:background="@color/bg_all"
-            android:src="@drawable/fantuanshangjia"/>
-
-
-        <com.king.batterytest.fbaselib.customview.ListViewForScrollView
-            android:layout_marginTop="5dp"
-            android:id="@+id/lv_act"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:divider="@null"/>
-
-        <com.king.batterytest.fbaselib.customview.ListViewForScrollView
-            android:id="@+id/lv_taocan"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:divider="@null"/>
-
-        <LinearLayout
-            android:id="@+id/ll_more"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tv_more"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tv_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:letterSpacing="0.01"
+                    android:lineSpacingExtra="0sp"
+                    android:textColor="#333333"
+                    android:textSize="16sp"
+                    tools:text="青沼日本料理 (望京店)" />
+
+                <TextView
+
+                    android:id="@+id/tv_floor"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    android:paddingRight="12dp"
+                    android:textColor="#333333"
+                    android:textSize="14sp"
+                    tools:text="F1" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="14dp"
+                android:layout_marginTop="5dp"
+                android:gravity="left|bottom"
+                android:orientation="horizontal">
+
+                <RatingBar
+                    android:id="@+id/rb_socre"
+                    style="@style/AppraisalRatingBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="3.5dp"
+                    android:isIndicator="true"
+                    android:numStars="5"
+                    android:rating="0"
+                    android:stepSize="0.5" />
+
+                <TextView
+                    android:id="@+id/tv_spend"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:letterSpacing="0.01"
+                    android:lineSpacingExtra="0sp"
+                    android:textColor="#666666"
+                    android:textSize="12sp"
+                    tools:text="¥57/人" />
+
+                <TextView
+                    android:id="@+id/tv_dis"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    android:lineSpacingExtra="0sp"
+                    android:paddingRight="12dp"
+                    android:textColor="#666666"
+                    android:textSize="12sp"
+                    tools:text="1.7km" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_mallname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:letterSpacing="0.01"
+                    android:lineSpacingExtra="0sp"
+                    android:textColor="#ff3f53"
+                    android:textSize="12sp"
+                    tools:text="日月广场" />
+
+                <TextView
+                    android:id="@+id/tv_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:letterSpacing="0.01"
+                    android:lineSpacingExtra="0sp"
+                    android:textColor="#666666"
+                    android:textSize="12sp"
+                    tools:text="日韩料理" />
+            </LinearLayout>
+
+
+            <ImageView
+                android:id="@+id/iv_fantuan"
                 android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:drawablePadding="5dp"
-                android:drawableRight="@drawable/lib_icon_down"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@color/bg_all"
+                android:src="@drawable/fantuanshangjia" />
+
+
+            <com.king.batterytest.fbaselib.customview.ListViewForScrollView
+                android:id="@+id/lv_act"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:divider="@null" />
+
+            <com.king.batterytest.fbaselib.customview.ListViewForScrollView
+                android:id="@+id/lv_taocan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:divider="@null"
+                android:footerDividersEnabled="true"
+                android:headerDividersEnabled="true" />
+
+            <LinearLayout
+                android:id="@+id/ll_more"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:gravity="center"
-                android:lineSpacingExtra="2sp"
-                android:textColor="#666666"
-                android:textSize="12sp"
-                tools:text="查看其他5个套餐"
-                />
+                android:orientation="vertical">
 
-            <include layout="@layout/item_my_line"/>
+                <include layout="@layout/item_my_line" />
+
+                <TextView
+                    android:id="@+id/tv_more"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:drawablePadding="5dp"
+                    android:drawableRight="@drawable/lib_icon_down"
+                    android:gravity="center"
+                    android:lineSpacingExtra="2sp"
+                    android:textColor="#666666"
+                    android:textSize="12sp"
+                    tools:text="查看其他5个套餐" />
+
+                <include layout="@layout/item_my_line" />
+            </LinearLayout>
+
         </LinearLayout>
-
     </LinearLayout>
+
+    <TextView
+        android:layout_marginLeft="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/linebg"/>
 </LinearLayout>
 

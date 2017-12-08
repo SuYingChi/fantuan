@@ -1,28 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
-
+    <include layout="@layout/item_my_line" />
     <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="55dp"
         android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/tv_price"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:gravity="center"
-            android:lineSpacingExtra="0sp"
-            android:textColor="#ff3f53"
-            android:textSize="15sp"
-            tools:text="68"
-            />
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:textColor="#ff3f53"
+                android:lineSpacingExtra="0sp"
+                android:text="¥" />
+
+            <TextView
+                android:layout_marginLeft="2dp"
+                android:id="@+id/tv_price"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textColor="#ff3f53"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                tools:text="68" />
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="0dp"
@@ -39,8 +50,7 @@
                 android:lineSpacingExtra="0sp"
                 android:textColor="#333333"
                 android:textSize="15sp"
-                tools:text="100元代金券1张"
-                />
+                tools:text="100元代金券1张" />
 
             <TextView
                 android:id="@+id/tv_des"
@@ -50,11 +60,10 @@
                 android:lineSpacingExtra="0sp"
                 android:textColor="#999999"
                 android:textSize="12sp"
-                tools:text="月销量768"
-                />
+                tools:text="月销量768" />
         </LinearLayout>
 
     </LinearLayout>
 
-    <include layout="@layout/item_my_line"/>
+
 </LinearLayout>
