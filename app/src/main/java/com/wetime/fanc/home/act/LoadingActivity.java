@@ -12,7 +12,7 @@ import java.util.TimerTask;
 
 public class LoadingActivity extends BaseActivity {
 
-    private long timelong = 1500;
+    private long timelong = 1000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
