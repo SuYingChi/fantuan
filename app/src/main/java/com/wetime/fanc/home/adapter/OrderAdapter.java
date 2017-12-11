@@ -141,8 +141,10 @@ public class OrderAdapter extends RecyclerView.Adapter {
         }
         if(bean.getType_name().equals("收银")){
             oholder.llNum.setVisibility(View.GONE);
+            oholder.tvTimeType.setAlingText("消费时间");
         }else{
             oholder.llNum.setVisibility(View.VISIBLE);
+            oholder.tvTimeType.setAlingText("有效期至");
         }
 
     }
@@ -161,6 +163,8 @@ public class OrderAdapter extends RecyclerView.Adapter {
         TextView tvState;
         @BindView(R.id.tv_num)
         TextView tvNum;
+        @BindView(R.id.tv_time_type)
+        AlignTextView tvTimeType;
         @BindView(R.id.tv_time)
         TextView tvTime;
         @BindView(R.id.tv_price)
