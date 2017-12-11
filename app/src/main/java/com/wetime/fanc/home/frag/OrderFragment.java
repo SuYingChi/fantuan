@@ -16,7 +16,6 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.wetime.fanc.login.event.LogoutEvent;
 import com.king.batterytest.fbaselib.main.BaseFragment;
 import com.king.batterytest.fbaselib.main.model.BaseBean;
 import com.king.batterytest.fbaselib.utils.Tools;
@@ -32,6 +31,7 @@ import com.wetime.fanc.home.iviews.IDeleteOrderView;
 import com.wetime.fanc.home.presenter.DeleteOrderPresenter;
 import com.wetime.fanc.login.act.LoginActivity;
 import com.wetime.fanc.login.event.LoginEvent;
+import com.wetime.fanc.login.event.LogoutEvent;
 import com.wetime.fanc.order.act.CommentOrderActivity;
 import com.wetime.fanc.order.event.RefreshOrderEvent;
 import com.wetime.fanc.shopcenter.iviews.IGetOrderListView;
@@ -230,33 +230,36 @@ public class OrderFragment extends BaseFragment implements IGetOrderListView, On
             return;
         } else {
             rlEmpty.setVisibility(View.GONE);
-            getOrderPagePresenter = new GetOrderPagePresenter(this);
-            getOrderPagePresenter.getOrderList();
         }
-
 
         String[] str = {"全部", "待付款", "待使用", "待评价"};
+
         for (int i = 0; i < str.length; i++) {
-            View view = LayoutInflater.from(getContext()).inflate(R.layout.item_tab_with_red, null);
-            TextView tv = view.findViewById(R.id.tv_title);
-            tv.setText(str[i]);
-            tab.getTabAt(i).setCustomView(tv);
-            if (i == 0) {
-                tv.setTextColor(Color.parseColor("#ff3f53"));
+            if (tab.getTabAt(i).getCustomView() == null) {
+                View view = LayoutInflater.from(getContext()).inflate(R.layout.item_tab_with_red, null);
+                TextView tv = view.findViewById(R.id.tv_title);
+                tv.setText(str[i]);
+                tab.getTabAt(i).setCustomView(tv);
+                if (i == 0) {
+                    tv.setTextColor(Color.parseColor("#ff3f53"));
+                }
             }
         }
-        qBadgeViewUnPay = new QBadgeView(getContext());
-        qBadgeViewUnPay.bindTarget(tab.getTabAt(1).getCustomView()).setBadgeBackgroundColor(0xffff3f53)
-                .setBadgeTextSize(11, true).setBadgeGravity(Gravity.TOP | Gravity.END);
-
-        qBadgeViewUnUse = new QBadgeView(getContext());
-        qBadgeViewUnUse.bindTarget(tab.getTabAt(2).getCustomView()).setBadgeBackgroundColor(0xffff3f53)
-                .setBadgeTextSize(11, true).setBadgeGravity(Gravity.TOP | Gravity.END);
-
-        qBadgeViewUnComment = new QBadgeView(getContext());
-        qBadgeViewUnComment.bindTarget(tab.getTabAt(3).getCustomView())
-                .setBadgeTextSize(11, true).setBadgeBackgroundColor(0xffff3f53).setBadgeGravity(Gravity.TOP | Gravity.END);
-
+        if (qBadgeViewUnPay == null) {
+            qBadgeViewUnPay = new QBadgeView(getContext());
+            qBadgeViewUnPay.bindTarget(tab.getTabAt(1).getCustomView()).setBadgeBackgroundColor(0xffff3f53)
+                    .setBadgeTextSize(11, true).setBadgeGravity(Gravity.TOP | Gravity.END);
+        }
+        if (qBadgeViewUnUse == null) {
+            qBadgeViewUnUse = new QBadgeView(getContext());
+            qBadgeViewUnUse.bindTarget(tab.getTabAt(2).getCustomView()).setBadgeBackgroundColor(0xffff3f53)
+                    .setBadgeTextSize(11, true).setBadgeGravity(Gravity.TOP | Gravity.END);
+        }
+        if (qBadgeViewUnComment == null) {
+            qBadgeViewUnComment = new QBadgeView(getContext());
+            qBadgeViewUnComment.bindTarget(tab.getTabAt(3).getCustomView())
+                    .setBadgeTextSize(11, true).setBadgeBackgroundColor(0xffff3f53).setBadgeGravity(Gravity.TOP | Gravity.END);
+        }
         tab.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -298,8 +301,8 @@ public class OrderFragment extends BaseFragment implements IGetOrderListView, On
                 } else if (bean.getAction_type_name().equals("查看券码")) {
                     goWeb(bean.getAction_url());
                 } else if (bean.getAction_type_name().equals("去评价")) {
-                    Intent goComment =  new Intent(getContext(), CommentOrderActivity.class);
-                    goComment.putExtra("id",bean.getOrder_id());
+                    Intent goComment = new Intent(getContext(), CommentOrderActivity.class);
+                    goComment.putExtra("id", bean.getOrder_id());
                     startActivity(goComment);
                 } else if (bean.getAction_type_name().equals("删除订单")) {
                     Tools.showTipsDialog(getContext(), "确认要删除订单吗？", null, new View.OnClickListener() {
@@ -311,6 +314,9 @@ public class OrderFragment extends BaseFragment implements IGetOrderListView, On
                 }
             }
         });
+
+        getOrderPagePresenter = new GetOrderPagePresenter(this);
+        getOrderPagePresenter.getOrderList();
     }
 
     private void goWeb(String url) {
@@ -337,6 +343,7 @@ public class OrderFragment extends BaseFragment implements IGetOrderListView, On
 
         refreshLayout.autoRefresh();
     }
+
     @Override
     public void onTimeOut() {
 //        super.onTimeOut();
