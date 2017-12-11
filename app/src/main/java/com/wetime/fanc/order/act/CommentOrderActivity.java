@@ -151,7 +151,7 @@ public class CommentOrderActivity extends BaseActivity implements AdapterView.On
                 onBackPressed();
                 break;
             case R.id.tv_comment:
-                if (etContent.getText().toString().length() > 8) {
+                if (etContent.getText().toString().length() >= 8) {
                     postMultiFilePresenter.PostMultiFile(defaultDataArray);
                 } else {
                     Tools.toastInBottom(this, "评论内容至少八个字哦");
