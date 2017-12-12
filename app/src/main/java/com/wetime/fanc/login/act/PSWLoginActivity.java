@@ -66,7 +66,7 @@ public class PSWLoginActivity extends BaseActivity implements ILoginView {
                 }
                 Tools.hideSoftInput(this);
                 if (etCode.getText().length() == 0) {
-                    Tools.toastInBottom(this, "请输入正确填写密码");
+                    Tools.toastInBottom(this, "请输入正确密码");
                     return;
                 }
                 loginPresenter.getloginResult();
