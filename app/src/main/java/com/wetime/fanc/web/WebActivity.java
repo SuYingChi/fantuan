@@ -128,7 +128,7 @@ public class WebActivity extends BaseActivity {
         web.post(new Runnable() {
             @Override
             public void run() {
-                web.loadUrl("javascript:loginCallback('" + event.getStr() + "');");
+                web.loadUrl("javascript:receiveLoginResult('" + event.getStr() + "');");
             }
         });
     }
