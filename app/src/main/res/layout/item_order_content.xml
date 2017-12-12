@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -18,8 +17,7 @@
         android:lineSpacingExtra="0sp"
         android:text="全部订单"
         android:textColor="#333333"
-        android:textSize="17sp"
-        />
+        android:textSize="17sp" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -45,26 +43,32 @@
                 <android.support.design.widget.TabItem
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="a"/>
+                    android:text="a"
+                    app:tabTextColor="#333333" />
 
                 <android.support.design.widget.TabItem
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="b"/>
+                    android:text="b"
+                    app:tabTextColor="#333333" />
 
                 <android.support.design.widget.TabItem
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="c"/>
+                    android:text="c"
+                    app:tabTextColor="#333333" />
 
                 <android.support.design.widget.TabItem
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="d"/>
+                    android:text="d"
+                    app:tabTextColor="#333333" />
 
 
             </android.support.design.widget.TabLayout>
-            <include layout="@layout/item_my_line"/>
+
+            <include layout="@layout/item_my_line" />
+
             <com.scwang.smartrefresh.layout.SmartRefreshLayout
                 android:id="@+id/refreshLayout"
                 android:layout_width="match_parent"
@@ -74,14 +78,16 @@
                 app:srlEnableOverScrollBounce="false">
 
                 <RelativeLayout
-                    android:background="@color/bg_all"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:background="@color/bg_all">
+
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/rcl_order"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
-                    <include layout="@layout/item_no_order_empty"/>
+                        android:layout_height="wrap_content" />
+
+                    <include layout="@layout/item_no_order_empty" />
 
                 </RelativeLayout>
             </com.scwang.smartrefresh.layout.SmartRefreshLayout>
@@ -99,7 +105,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
-                android:divider="@null"/>
+                android:divider="@null" />
         </RelativeLayout>
 
 

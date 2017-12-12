@@ -238,6 +238,7 @@ public class OrderFragment extends BaseFragment implements IGetOrderListView, On
             if (tab.getTabAt(i).getCustomView() == null) {
                 View view = LayoutInflater.from(getContext()).inflate(R.layout.item_tab_with_red, null);
                 TextView tv = view.findViewById(R.id.tv_title);
+                tv.setTextColor(Color.parseColor("#333333"));
                 tv.setText(str[i]);
                 tab.getTabAt(i).setCustomView(tv);
                 if (i == 0) {

@@ -42,7 +42,7 @@
             android:gravity="center|left"
             android:lineSpacingExtra="1sp"
             android:paddingLeft="15dp"
-            android:text="绑定手机号"
+            android:text="手机号"
             android:textColor="#333333"
             android:textSize="15sp"/>
 
