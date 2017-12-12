@@ -24,6 +24,8 @@ import com.wetime.fanc.login.presenter.InvalidCodePresenter;
 import com.wetime.fanc.login.presenter.SendSMSPresenter;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -53,6 +55,7 @@ public class CodeLoginActivity extends BaseActivity implements ISendSMSView, IIn
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_codelogin);
         ButterKnife.bind(this);
+        EventBus.getDefault().register(this);
         tvTitle.setText("短信验证码登录");
         sendSMSPresenter = new SendSMSPresenter(this);
         invalidCodePresenter = new InvalidCodePresenter(this);
@@ -91,7 +94,7 @@ public class CodeLoginActivity extends BaseActivity implements ISendSMSView, IIn
                     sendSMSPresenter.sendSMS(etPhone.getText().toString());
                 break;
             case R.id.tv_pswlogin:
-                finish();
+
                 Intent gopsw = new Intent(this, PSWLoginActivity.class);
                 startActivity(gopsw);
                 break;
@@ -118,6 +121,7 @@ public class CodeLoginActivity extends BaseActivity implements ISendSMSView, IIn
     protected void onDestroy() {
         super.onDestroy();
         downTimer.cancel();
+        EventBus.getDefault().unregister(this);
     }
 
     @Override
@@ -137,4 +141,9 @@ public class CodeLoginActivity extends BaseActivity implements ISendSMSView, IIn
             onBackPressed();
         }
     }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(LoginEvent event) {
+        finish();
+    }
+
 }

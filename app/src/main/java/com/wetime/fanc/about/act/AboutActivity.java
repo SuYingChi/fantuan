@@ -6,6 +6,7 @@ import android.widget.TextView;
 
 import com.king.batterytest.fbaselib.main.BaseActivity;
 import com.king.batterytest.fbaselib.utils.Tools;
+import com.wetime.fanc.BuildConfig;
 import com.wetime.fanc.R;
 import com.wetime.fanc.about.bean.VersionPageBean;
 import com.wetime.fanc.about.iviews.IGetVersionPageView;
@@ -26,8 +27,11 @@ public class AboutActivity extends BaseActivity implements IGetVersionPageView {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
         ButterKnife.bind(this);
-        tvTitle.setText("关于");
-
+        if(BuildConfig.DEBUG){
+            tvTitle.setText("关于Build"+BuildConfig.releaseTime);
+        }else {
+            tvTitle.setText("关于");
+        }
     }
 
     @Override
