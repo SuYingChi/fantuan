@@ -80,6 +80,7 @@ public class SortFragment extends BaseFragment implements IGetSortView, AdapterV
             }
         });
         Glide.with(this).load(bean.getData().getBanner()).into(ivBanner);
+        tvName.setText(bean.getData().getAll_category().get(0).getName());
     }
 
     @Override

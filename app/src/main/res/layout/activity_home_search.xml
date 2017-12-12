@@ -7,8 +7,14 @@
     android:orientation="vertical">
 
     <include layout="@layout/item_home_search_head"/>
+    <RelativeLayout
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
 
     <ScrollView
+        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -24,5 +30,6 @@
                 android:layout_height="wrap_content"/>
         </RelativeLayout>
     </ScrollView>
+    </RelativeLayout>
 </LinearLayout>
 
