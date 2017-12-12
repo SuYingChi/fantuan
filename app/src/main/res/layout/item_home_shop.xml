@@ -64,6 +64,7 @@
                     app:starImageSize="12dp"
                     app:starPadding="3dp"
                     app:starStep="5"
+                    android:clickable="false"
                     app:stepSize="Half" />
 
                 <TextView

@@ -70,6 +70,7 @@ public class HomeShopListAdapter extends BaseAdapter {
         Glide.with(mContext).load(bean.getLogo()).into(holder.ivCover);
         holder.tvName.setText(bean.getName());
         holder.rbSocre.setStar(bean.getScore());
+        holder.rbSocre.setClickable(false);
         holder.tvDis.setText(bean.getDistance());
         holder.tvCentername.setText(bean.getMall_name());
         holder.tvType.setText(bean.getCategory_name());
