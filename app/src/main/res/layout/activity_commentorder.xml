@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,7 +7,7 @@
 
     android:orientation="vertical">
 
-    <include layout="@layout/item_header"/>
+    <include layout="@layout/item_header" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -18,12 +17,12 @@
 
 
         <LinearLayout
-            android:paddingBottom="30dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
             android:gravity="center_horizontal"
+
             android:orientation="vertical"
+            android:paddingBottom="30dp"
             android:paddingLeft="12dp"
             android:paddingRight="12dp">
 
@@ -43,8 +42,7 @@
                     android:lineSpacingExtra="0sp"
                     android:text="5"
                     android:textColor="#ff3f53"
-                    android:textSize="30sp"
-                    />
+                    android:textSize="30sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -54,8 +52,7 @@
                     android:lineSpacingExtra="0sp"
                     android:text="分"
                     android:textColor="#ff3f53"
-                    android:textSize="14sp"
-                    />
+                    android:textSize="14sp" />
 
             </LinearLayout>
 
@@ -72,7 +69,7 @@
                 app:starImageSize="30dp"
                 app:starPadding="20dp"
                 app:starStep="5"
-                app:stepSize="Half"/>
+                app:stepSize="Half" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -98,7 +95,7 @@
                     android:paddingTop="10dp"
                     android:textColor="#757575"
                     android:textColorHint="#888888"
-                    android:textSize="14sp"/>
+                    android:textSize="14sp" />
 
                 <TextView
                     android:id="@+id/tv_num"
@@ -110,7 +107,7 @@
                     android:paddingRight="5dp"
                     android:text="0/300"
                     android:textColor="#999999"
-                    android:textSize="14sp"/>
+                    android:textSize="14sp" />
             </LinearLayout>
 
             <com.king.batterytest.fbaselib.customview.GridViewForScrollView
@@ -123,7 +120,7 @@
                 android:numColumns="4"
 
                 android:scrollbars="none"
-                android:verticalSpacing="@dimen/space_size"/>
+                android:verticalSpacing="@dimen/space_size" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -135,21 +132,22 @@
                     android:id="@+id/cb_name"
                     style="@style/CustomCheckboxTheme"
                     android:layout_width="20dp"
-                    android:layout_height="20dp"/>
+                    android:layout_height="20dp" />
 
 
                 <TextView
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
                     android:text="@string/str_no_name_comment"
                     android:textColor="#333333"
-                    android:textSize="15sp"
-                    />
+                    android:textSize="15sp" />
 
             </LinearLayout>
 
             <TextView
+                android:id="@+id/tv_tips"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"
@@ -157,7 +155,7 @@
                 android:text="@string/tips_no_name_comment"
                 android:textColor="#999999"
                 android:textSize="12sp"
-                />
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/tv_comment"
@@ -168,8 +166,7 @@
                 android:gravity="center"
                 android:text="提交评论"
                 android:textColor="#ffffff"
-                android:textSize="17sp"
-                />
+                android:textSize="17sp" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

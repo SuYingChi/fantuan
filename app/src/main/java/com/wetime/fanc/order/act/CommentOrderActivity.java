@@ -7,6 +7,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -59,6 +60,8 @@ public class CommentOrderActivity extends BaseActivity implements AdapterView.On
     CheckBox cbName;
     @BindView(R.id.tv_comment)
     TextView tvComment;
+    @BindView(R.id.tv_tips)
+    TextView tvTips;
 
     private ArrayList<String> defaultDataArray = new ArrayList<>();
     private ImageGridAdapter mPicGridAdapter;
@@ -73,6 +76,7 @@ public class CommentOrderActivity extends BaseActivity implements AdapterView.On
         tvTitle.setText("发表评价");
         initView();
         postMultiFilePresenter = new PostMultiFilePresenter(this);
+
     }
 
     private void initView() {
@@ -109,7 +113,16 @@ public class CommentOrderActivity extends BaseActivity implements AdapterView.On
 
         gv.setAdapter(mPicGridAdapter);
         gv.setOnItemClickListener(this);
-
+        cbName.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    tvTips.setVisibility(View.VISIBLE);
+                }else{
+                    tvTips.setVisibility(View.GONE);
+                }
+            }
+        });
     }
 
     @Override
