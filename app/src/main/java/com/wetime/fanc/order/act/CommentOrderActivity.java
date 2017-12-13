@@ -119,7 +119,7 @@ public class CommentOrderActivity extends BaseActivity implements AdapterView.On
                 if(isChecked){
                     tvTips.setVisibility(View.VISIBLE);
                 }else{
-                    tvTips.setVisibility(View.GONE);
+                    tvTips.setVisibility(View.INVISIBLE);
                 }
             }
         });

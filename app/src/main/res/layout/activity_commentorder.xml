@@ -155,7 +155,7 @@
                 android:text="@string/tips_no_name_comment"
                 android:textColor="#999999"
                 android:textSize="12sp"
-                android:visibility="gone" />
+                android:visibility="invisible" />
 
             <TextView
                 android:id="@+id/tv_comment"
