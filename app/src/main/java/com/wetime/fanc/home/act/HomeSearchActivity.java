@@ -271,7 +271,10 @@ public class HomeSearchActivity extends BaseActivity implements IGetHomeHotSearc
     }
 
     @Override
-    public void onGetHomeSug(SearchResult bean) {
+    public void onGetHomeSug(SearchResult bean,String word) {
+        if(!word.equals(etSearch.getText().toString())){
+            return;
+        }
         reList.clear();
         reList.addAll(bean.getData().getMerchants());
         resultAdapter.notifyDataSetChanged();

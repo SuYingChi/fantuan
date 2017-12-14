@@ -19,7 +19,7 @@ public class GetHomeSugSerachPresenter {
         this.iView = iView;
     }
 
-    public void getSugSearchPage(String word) {
+    public void getSugSearchPage(final String word) {
         OkHttpUtils
                 .post()
                 .url(Const.SEARCH_SUGGEST)
@@ -33,7 +33,7 @@ public class GetHomeSugSerachPresenter {
                         super.onResponse(s, i);
                         SearchResult bean = GsonUtils.getGsonInstance().fromJson(s, SearchResult.class);
                         if (bean.getError() == 0)
-                            iView.onGetHomeSug(bean);
+                            iView.onGetHomeSug(bean,word);
                     }
                 });
     }

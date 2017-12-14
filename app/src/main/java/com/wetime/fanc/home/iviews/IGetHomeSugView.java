@@ -11,6 +11,6 @@ import com.wetime.fanc.home.bean.SearchResult;
 
 public interface IGetHomeSugView extends IBaseVIew {
 
-    void  onGetHomeSug(SearchResult bean);
+    void  onGetHomeSug(SearchResult bean,String word);
 
 }
