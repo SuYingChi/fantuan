@@ -457,6 +457,7 @@ public class WebActivity extends BaseActivity {
                 Tools.logout(mContext);
                 EventBus.getDefault().post(new LogoutEvent());
             }
+
         });
     }
 
