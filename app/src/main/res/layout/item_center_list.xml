@@ -41,30 +41,18 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
-                    android:letterSpacing="0.01"
                     android:lineSpacingExtra="0sp"
                     android:textColor="#333333"
                     android:textSize="16sp"
+                    android:textStyle="bold"
                     tools:text="青沼日本料理 (望京店)" />
-
-                <TextView
-
-                    android:id="@+id/tv_floor"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="end"
-                    android:paddingRight="12dp"
-                    android:textColor="#333333"
-                    android:textSize="14sp"
-                    tools:text="F1" />
             </LinearLayout>
 
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="14dp"
-                android:layout_marginTop="5dp"
+                android:layout_height="18dp"
+                android:layout_marginTop="3dp"
                 android:gravity="left|bottom"
                 android:orientation="horizontal">
 
@@ -90,17 +78,33 @@
                     android:textSize="12sp"
                     tools:text="¥57/人" />
 
-                <TextView
-                    android:id="@+id/tv_dis"
+                <LinearLayout
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="end"
-                    android:lineSpacingExtra="0sp"
                     android:paddingRight="12dp"
-                    android:textColor="#666666"
-                    android:textSize="12sp"
-                    tools:text="1.7km" />
+                    android:orientation="horizontal">
+
+
+                    <TextView
+                        android:id="@+id/tv_dis"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:lineSpacingExtra="0sp"
+                        android:textColor="#666666"
+                        android:textSize="12sp"
+                        tools:text="1.7km" />
+
+                    <TextView
+                        android:id="@+id/tv_floor"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
+                        android:textColor="#333333"
+                        android:textSize="14sp"
+                        tools:text="F1" />
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
@@ -133,13 +137,13 @@
 
 
             <ImageView
-                android:visibility="invisible"
                 android:id="@+id/iv_fantuan"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:background="@color/bg_all"
-                android:src="@drawable/fantuanshangjia" />
+                android:src="@drawable/fantuanshangjia"
+                android:visibility="invisible" />
 
 
             <com.king.batterytest.fbaselib.customview.ListViewForScrollView
@@ -186,9 +190,9 @@
     </LinearLayout>
 
     <TextView
-        android:layout_marginLeft="10dp"
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        android:background="@color/linebg"/>
+        android:layout_marginLeft="10dp"
+        android:background="@color/linebg" />
 </LinearLayout>
 
