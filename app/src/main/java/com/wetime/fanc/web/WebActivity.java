@@ -424,7 +424,7 @@ public class WebActivity extends BaseActivity {
         web.post(new Runnable() {
             @Override
             public void run() {
-                Tools.showTipsDialog(mContext, tips, left, right, new View.OnClickListener() {
+                Tools.showTipsDialog(mContext,"", tips, left, right, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         web.post(new Runnable() {

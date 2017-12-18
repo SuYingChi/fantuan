@@ -64,7 +64,7 @@ public class BindWeixinActivity extends BaseActivity implements IUnBindView {
                 onBackPressed();
                 break;
             case R.id.tv_unbind:
-                Tools.showTipsDialog(this, "是否解除绑定微信号?", null, new View.OnClickListener() {
+                Tools.showTipsDialog(this, "","是否解除绑定微信号?","取消","解除绑定", null, new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         UnBindWeiXinPresenter unBindWeiXinPresenter = new UnBindWeiXinPresenter(BindWeixinActivity.this);

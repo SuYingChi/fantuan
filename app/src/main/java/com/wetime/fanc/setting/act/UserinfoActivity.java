@@ -147,7 +147,7 @@ public class UserinfoActivity extends BaseActivity implements IGetMyInfoView,
         tel_dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
 
 
-        Button btnCancel = layout.findViewById(R.id.dialog_btn_cancel);
+        TextView btnCancel = layout.findViewById(R.id.dialog_btn_cancel);
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -160,7 +160,7 @@ public class UserinfoActivity extends BaseActivity implements IGetMyInfoView,
         });
 
 
-        Button btnOK = layout.findViewById(R.id.dialog_btn_ok);
+        TextView btnOK = layout.findViewById(R.id.dialog_btn_ok);
         btnOK.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

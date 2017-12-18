@@ -168,18 +168,25 @@ public class Tools {
             loadingDialog.dismiss();
     }
 
-    public static void showTipsDialog(Context mContext, String tips,
+    public static void showTipsDialog(Context mContext,String title, String tips,
                                       final View.OnClickListener onCancel,
                                       final View.OnClickListener onOK) {
         LayoutInflater inflaterDl = LayoutInflater.from(mContext);
         LinearLayout layout = (LinearLayout) inflaterDl.inflate(
                 R.layout.dialog_tips, null);
         final AlertDialog tel_dialog = new AlertDialog.Builder(mContext).create();
+
+        TextView tvTitle = layout.findViewById(R.id.tv_title);
+        tvTitle.setText(title);
+        if(TextUtils.isEmpty(title)){
+            tvTitle.setVisibility(View.GONE);
+        }
+
         TextView tvtips = layout.findViewById(R.id.tv_delete_tips);
         tvtips.setText(tips);
         tel_dialog.show();
         tel_dialog.getWindow().setContentView(layout);
-        Button btnCancel = layout.findViewById(R.id.dialog_btn_cancel);
+        TextView btnCancel = layout.findViewById(R.id.dialog_btn_cancel);
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -190,7 +197,7 @@ public class Tools {
             }
         });
 
-        Button btnOK = layout.findViewById(R.id.dialog_btn_ok);
+        TextView btnOK = layout.findViewById(R.id.dialog_btn_ok);
         btnOK.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -204,18 +211,25 @@ public class Tools {
 
 
 
-    public static void showTipsDialog(Context mContext, String tips, String left, String right,
+    public static void showTipsDialog(Context mContext, String title,String tips, String left, String right,
                                       final View.OnClickListener onCancel,
                                       final View.OnClickListener onOK) {
         LayoutInflater inflaterDl = LayoutInflater.from(mContext);
         LinearLayout layout = (LinearLayout) inflaterDl.inflate(
                 R.layout.dialog_tips, null);
         final AlertDialog tel_dialog = new AlertDialog.Builder(mContext).create();
+
+        TextView tvTitle = layout.findViewById(R.id.tv_title);
+        tvTitle.setText(title);
+        if(TextUtils.isEmpty(title)){
+            tvTitle.setVisibility(View.GONE);
+        }
+
         TextView tvtips = layout.findViewById(R.id.tv_delete_tips);
         tvtips.setText(tips);
         tel_dialog.show();
         tel_dialog.getWindow().setContentView(layout);
-        Button btnCancel = layout.findViewById(R.id.dialog_btn_cancel);
+        TextView btnCancel = layout.findViewById(R.id.dialog_btn_cancel);
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -226,7 +240,7 @@ public class Tools {
             }
         });
 
-        Button btnOK = layout.findViewById(R.id.dialog_btn_ok);
+        TextView btnOK = layout.findViewById(R.id.dialog_btn_ok);
         btnOK.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -237,37 +251,11 @@ public class Tools {
         });
         btnCancel.setText(left);
         btnOK.setText(right);
-        if (TextUtils.isEmpty(left)) {
-            layout.findViewById(R.id.view_middle).setVisibility(View.GONE);
-            btnCancel.setVisibility(View.GONE);
-        }
+
     }
 
 
-    public static boolean MIUISetStatusBarLightMode(Window window, boolean dark) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-            return true;
-        }
-        boolean result = false;
-        if (window != null) {
-            Class clazz = window.getClass();
-            try {
-                int darkModeFlag = 0;
-                Class layoutParams = Class.forName("android.view.MiuiWindowManager$LayoutParams");
-                Field field = layoutParams.getField("EXTRA_FLAG_STATUS_BAR_DARK_MODE");
-                darkModeFlag = field.getInt(layoutParams);
-                Method extraFlagField = clazz.getMethod("setExtraFlags", int.class, int.class);
-                if (dark) {
-                    extraFlagField.invoke(window, darkModeFlag, darkModeFlag);
-                } else {
-                    extraFlagField.invoke(window, 0, darkModeFlag);
-                }
-                result = true;
-            } catch (Exception e) {
-            }
-        }
-        return result;
-    }
+
 
     public static int getVerCode(Context context) {
         int verCode = -1;

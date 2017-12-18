@@ -94,7 +94,7 @@
                     android:paddingRight="8dp"
                     android:paddingTop="10dp"
                     android:textColor="#757575"
-                    android:textColorHint="#888888"
+                    android:textColorHint="@color/text_hint"
                     android:textSize="14sp" />
 
                 <TextView

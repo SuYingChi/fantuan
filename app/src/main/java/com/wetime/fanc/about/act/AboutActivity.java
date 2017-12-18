@@ -57,10 +57,10 @@ public class AboutActivity extends BaseActivity implements IGetVersionPageView {
     public void onVersionResult(VersionPageBean bean) {
         int code = Tools.getVerCode(this);
         if (bean.getData().getVersion().getCode() > code) {
-            Tools.showTipsDialog(this, "当前版本为V" + Tools.getVerName(this)
+            Tools.showTipsDialog(this, "检查更新","当前版本为V" + Tools.getVerName(this)
                             + ",最新版本为V" + bean.getData().getVersion().getName()
                             + ",是否更新到最新版本？",
-                    "取消", "确定", null, new View.OnClickListener() {
+                    "取消", "确定更新", null, new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
                             Tools.goMarket(AboutActivity.this);
@@ -68,10 +68,8 @@ public class AboutActivity extends BaseActivity implements IGetVersionPageView {
                     });
 
         } else {
-            Tools.showTipsDialog(this, "赞一个，当前已是最新版本了哦~",
+            Tools.showTipsDialog(this,"提示", "赞一个，当前已是最新版本了哦~",
                     "", "确定", null, null);
-
-
         }
     }
 }

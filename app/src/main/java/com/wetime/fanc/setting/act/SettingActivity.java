@@ -108,7 +108,7 @@ public class SettingActivity extends BaseActivity implements ILogoutView, IGetSe
                 startActivity(goAbout);
                 break;
             case R.id.tv_logout:
-                Tools.showTipsDialog(this, "确定要退出登录吗？", null, new View.OnClickListener() {
+                Tools.showTipsDialog(this, "", "确定要退出登录吗？", null, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         logoutPresenter = new LogoutPresenter(SettingActivity.this);
@@ -153,7 +153,13 @@ public class SettingActivity extends BaseActivity implements ILogoutView, IGetSe
             tvPhone.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    goWeb(bean.getData().getLink().getPhone_change().getUrl());
+                    Tools.showTipsDialog(mContext, "", "是否修改手机号", null, new View.OnClickListener() {
+
+                        @Override
+                        public void onClick(View v) {
+                            goWeb(bean.getData().getLink().getPhone_change().getUrl());
+                        }
+                    });
                 }
             });
         }
@@ -163,7 +169,7 @@ public class SettingActivity extends BaseActivity implements ILogoutView, IGetSe
             tvWx.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Tools.showTipsDialog(mContext, "绑定微信号可同步订单信息", "取消", "立即绑定", null, new View.OnClickListener() {
+                    Tools.showTipsDialog(mContext, "提示", "绑定微信号可同步订单信息", "取消", "立即绑定", null, new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
                             wxLogin();
@@ -179,7 +185,7 @@ public class SettingActivity extends BaseActivity implements ILogoutView, IGetSe
                 public void onClick(View view) {
                     //去 解绑页面
                     Intent gobind = new Intent(mContext, BindWeixinActivity.class);
-                    gobind.putExtra("weixin",bean.getData().getWeixin());
+                    gobind.putExtra("weixin", bean.getData().getWeixin());
                     startActivity(gobind);
                 }
             });
@@ -190,7 +196,7 @@ public class SettingActivity extends BaseActivity implements ILogoutView, IGetSe
                 @Override
                 public void onClick(View view) {
                     if (bean.getData().getPhone().equals("")) {
-                        Tools.toastInBottom(mContext,"请先绑定手机号");
+                        Tools.toastInBottom(mContext, "请先绑定手机号");
                         return;
                     }
                     goWeb(bean.getData().getLink().getPassword_create().getUrl());
@@ -202,7 +208,7 @@ public class SettingActivity extends BaseActivity implements ILogoutView, IGetSe
                 @Override
                 public void onClick(View view) {
                     if (bean.getData().getPhone().equals("")) {
-                        Tools.toastInBottom(mContext,"请先绑定手机号");
+                        Tools.toastInBottom(mContext, "请先绑定手机号");
                         return;
                     }
                     goWeb(bean.getData().getLink().getPassword_change().getUrl());
@@ -233,6 +239,7 @@ public class SettingActivity extends BaseActivity implements ILogoutView, IGetSe
     public void onMessageEvent(WXLoginCodeEvent event) {
         wxBindPresenter.getBindResult(event.getCode());
     }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(UnBindWXEvent event) {
         getSettingPresenter.getSettinig();
