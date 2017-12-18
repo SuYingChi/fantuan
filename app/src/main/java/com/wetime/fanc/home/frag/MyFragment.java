@@ -3,6 +3,7 @@ package com.wetime.fanc.home.frag;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +13,6 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.wetime.fanc.login.event.LogoutEvent;
 import com.king.batterytest.fbaselib.main.BaseFragment;
 import com.king.batterytest.fbaselib.utils.Tools;
 import com.wetime.fanc.R;
@@ -21,6 +21,7 @@ import com.wetime.fanc.home.iviews.IGetMyInfoView;
 import com.wetime.fanc.home.presenter.GetUserInfoPresenter;
 import com.wetime.fanc.login.act.LoginActivity;
 import com.wetime.fanc.login.event.LoginEvent;
+import com.wetime.fanc.login.event.LogoutEvent;
 import com.wetime.fanc.setting.act.SettingActivity;
 import com.wetime.fanc.setting.event.ChangeUserInfoEvent;
 import com.wetime.fanc.web.WebActivity;
@@ -34,6 +35,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import de.hdodenhof.circleimageview.CircleImageView;
+import q.rorbin.badgeview.QBadgeView;
 
 
 public class MyFragment extends BaseFragment implements IGetMyInfoView {
@@ -60,9 +62,14 @@ public class MyFragment extends BaseFragment implements IGetMyInfoView {
     @BindView(R.id.tv_waimai)
     TextView tvWaimai;
     Unbinder unbinder;
+    @BindView(R.id.tv_rednum)
+    TextView tvRednum;
+    @BindView(R.id.ll_call)
+    LinearLayout llCall;
 
     private GetUserInfoPresenter getUserInfoPresenter;
     private MyInfoBean bean;
+    private QBadgeView  QBred;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -74,6 +81,10 @@ public class MyFragment extends BaseFragment implements IGetMyInfoView {
         getUserInfoPresenter = new GetUserInfoPresenter(this);
         if (!spu.getToken().equals(""))
             getUserInfoPresenter.getUserInfo();
+        QBred = new QBadgeView(getContext());
+        QBred.bindTarget(tvRednum).setBadgeBackgroundColor(0xffff3f53)
+                .setBadgeTextSize(11, true).setBadgeGravity(Gravity.CENTER);
+        QBred.setBadgeNumber(10);
         return v;
     }
 
