@@ -25,6 +25,7 @@ import com.wetime.fanc.home.act.HomeSearchActivity;
 import com.wetime.fanc.home.event.SwichFragEvent;
 import com.wetime.fanc.login.act.LoginActivity;
 import com.wetime.fanc.login.event.LoginEvent;
+import com.wetime.fanc.login.event.LogoutEvent;
 import com.wetime.fanc.order.act.CommentOrderActivity;
 import com.wetime.fanc.order.event.RefreshOrderEvent;
 import com.wetime.fanc.shopcenter.act.ShopListActivity;
@@ -132,6 +133,7 @@ public class WebActivity extends BaseActivity {
             }
         });
     }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(final FinishWebEvent event) {
         web.post(new Runnable() {
@@ -396,6 +398,7 @@ public class WebActivity extends BaseActivity {
         });
 
     }
+
     @JavascriptInterface
     public void showLoading() {
         web.post(new Runnable() {
@@ -415,6 +418,7 @@ public class WebActivity extends BaseActivity {
             }
         });
     }
+
     @JavascriptInterface
     public void showTipsDialog(final String tips, final String left, final String right, final String leftm, final String rightm) {
         web.post(new Runnable() {
@@ -426,7 +430,7 @@ public class WebActivity extends BaseActivity {
                         web.post(new Runnable() {
                             @Override
                             public void run() {
-                                web.loadUrl("javascript:"+leftm+"();");
+                                web.loadUrl("javascript:" + leftm + "();");
                             }
                         });
                     }
@@ -436,11 +440,22 @@ public class WebActivity extends BaseActivity {
                         web.post(new Runnable() {
                             @Override
                             public void run() {
-                                web.loadUrl("javascript:"+rightm+"();");
+                                web.loadUrl("javascript:" + rightm + "();");
                             }
                         });
                     }
                 });
+            }
+        });
+    }
+
+    @JavascriptInterface
+    public void logout() {
+        web.post(new Runnable() {
+            @Override
+            public void run() {
+                Tools.logout(mContext);
+                EventBus.getDefault().post(new LogoutEvent());
             }
         });
     }
