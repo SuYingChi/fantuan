@@ -76,11 +76,11 @@ public class SearchShopListAdapter extends RecyclerView.Adapter {
         }
 
 
-
+        // 1.1.0 新需求
         if (bean.getSpider().equals("1")) {
-            holder.ivFantuan.setVisibility(View.GONE);
+            holder.ivFantuan.setVisibility(View.INVISIBLE);
         } else {
-            holder.ivFantuan.setVisibility(View.VISIBLE);
+            holder.ivFantuan.setVisibility(View.INVISIBLE);
         }
 
         ShopActItemAdapter actItemAdapter = new ShopActItemAdapter(mActivity, bean.getPromotion_list());

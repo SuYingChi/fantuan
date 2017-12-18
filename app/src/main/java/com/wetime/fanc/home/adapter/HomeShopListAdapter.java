@@ -85,10 +85,11 @@ public class HomeShopListAdapter extends BaseAdapter {
         } else {
             holder.tvType.setVisibility(View.VISIBLE);
         }
+        // 1.1.0需求
         if (bean.getSpider().equals("0")) {
-            holder.ivFantuan.setVisibility(View.VISIBLE);
+            holder.ivFantuan.setVisibility(View.INVISIBLE);
         } else {
-            holder.ivFantuan.setVisibility(View.GONE);
+            holder.ivFantuan.setVisibility(View.INVISIBLE);
         }
         if (bean.getSales().equals("")) {
             holder.tvSeal.setVisibility(View.GONE);
