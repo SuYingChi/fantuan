@@ -17,5 +17,7 @@
     <string name="photo_unit">张</string>
     <string name="tip_take_photo">拍摄照片</string>
     <string name="preview">预览</string>
+    <string name="tips_login">登录即代表您已经同意</string>
+    <string name="tips_login_por">范团用户协议</string>
 
 </resources>

@@ -1,31 +1,46 @@
 package com.wetime.fanc.login.act;
 
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.gyf.barlibrary.ImmersionBar;
 import com.king.batterytest.fbaselib.main.BaseActivity;
 import com.king.batterytest.fbaselib.utils.GsonUtils;
 import com.king.batterytest.fbaselib.utils.Tools;
 import com.tencent.mm.opensdk.modelmsg.SendAuth;
-import com.wetime.fanc.application.FApp;
 import com.wetime.fanc.R;
+import com.wetime.fanc.application.FApp;
 import com.wetime.fanc.login.bean.LoginResultBean;
 import com.wetime.fanc.login.event.LoginEvent;
 import com.wetime.fanc.login.iviews.IWXLoginView;
 import com.wetime.fanc.login.presenter.WXLoginPresenter;
+import com.wetime.fanc.utils.Const;
+import com.wetime.fanc.web.WebActivity;
 import com.wetime.fanc.wxapi.WXLoginCodeEvent;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class LoginActivity extends BaseActivity implements IWXLoginView {
 
+    @BindView(R.id.iv_close)
+    ImageView ivClose;
+    @BindView(R.id.ll_weixin)
+    LinearLayout llWeixin;
+    @BindView(R.id.ll_phone)
+    LinearLayout llPhone;
+    @BindView(R.id.tv_protocol)
+    TextView tvProtocol;
     private WXLoginPresenter wxLoginPresenter;
 
     @Override
@@ -35,6 +50,9 @@ public class LoginActivity extends BaseActivity implements IWXLoginView {
         ButterKnife.bind(this);
         EventBus.getDefault().register(this);
         wxLoginPresenter = new WXLoginPresenter(this);
+
+        tvProtocol.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG); //下划线
+        tvProtocol.getPaint().setAntiAlias(true);//抗锯齿
     }
 
     @Override
@@ -57,7 +75,7 @@ public class LoginActivity extends BaseActivity implements IWXLoginView {
         EventBus.getDefault().unregister(this);
     }
 
-    @OnClick({R.id.iv_close, R.id.ll_weixin, R.id.ll_phone})
+    @OnClick({R.id.iv_close, R.id.ll_weixin, R.id.ll_phone,R.id.tv_protocol})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_close:
@@ -65,6 +83,11 @@ public class LoginActivity extends BaseActivity implements IWXLoginView {
                 break;
             case R.id.ll_weixin:
                 wxLogin();
+                break;
+            case R.id.tv_protocol:
+                Intent goweb = new Intent(mContext, WebActivity.class);
+                goweb.putExtra("url", Const.PROTOCOL);
+                mContext.startActivity(goweb);
                 break;
             case R.id.ll_phone:
                 Intent gophone = new Intent(this, CodeLoginActivity.class);
