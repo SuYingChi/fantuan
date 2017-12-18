@@ -45,7 +45,7 @@
     <color name="head_color">#FFFFFF</color>
     <color name="head_text_color">#313131</color>
     <color name="green">#3cdc91</color>
-    <color name="none_color">#FFFFFFFF</color>
+    <color name="none_color">#00000000</color>
     <color name="text_hint">#999999</color>
 
 </resources>

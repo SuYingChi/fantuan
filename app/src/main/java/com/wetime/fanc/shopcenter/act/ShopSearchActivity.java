@@ -72,6 +72,9 @@ public class ShopSearchActivity extends BaseActivity implements IGetShopHotSearc
     ImageView ivDelete;
     @BindView(R.id.rcl_result)
     RecyclerView rclResult;
+    @BindView(R.id.iv_close)
+    ImageView ivClose;
+
     private GetShopHotSerachPresenter getShopHotSerachPresenter;
     private List<String> hislist = new ArrayList<>();
     private HisAdapter hisAdapter;
@@ -149,7 +152,7 @@ public class ShopSearchActivity extends BaseActivity implements IGetShopHotSearc
     }
 
 
-    @OnClick({R.id.iv_back, R.id.tv_cancel, R.id.iv_delete})
+    @OnClick({R.id.iv_back, R.id.tv_cancel, R.id.iv_delete,R.id.iv_close})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
@@ -163,6 +166,9 @@ public class ShopSearchActivity extends BaseActivity implements IGetShopHotSearc
                 hislist.clear();
                 ivDelete.setVisibility(View.GONE);
                 hisAdapter.notifyDataSetChanged();
+                break;
+            case R.id.iv_close:
+                etSearch.setText("");
                 break;
         }
     }
@@ -198,7 +204,6 @@ public class ShopSearchActivity extends BaseActivity implements IGetShopHotSearc
 
     @Override
     public String getMailId() {
-
         return millId;
     }
 
@@ -261,9 +266,11 @@ public class ShopSearchActivity extends BaseActivity implements IGetShopHotSearc
     @Override
     public void afterTextChanged(Editable editable) {
         if (editable.toString().length() > 0) {
+            ivClose.setVisibility(View.VISIBLE);
             llHot.setVisibility(View.GONE);
             getHomeSugSerachPresenter.getSugSearchPage(editable.toString());
         } else {
+            ivClose.setVisibility(View.GONE);
             reList.clear();
             resultAdapter.notifyDataSetChanged();
             llHot.setVisibility(View.VISIBLE);

@@ -19,5 +19,6 @@
     <string name="preview">预览</string>
     <string name="tips_login">登录即代表您已经同意</string>
     <string name="tips_login_por">范团用户协议</string>
+    <string name="str_cancel">取消</string>
 
 </resources>

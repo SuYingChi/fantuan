@@ -39,7 +39,6 @@ import com.wetime.fanc.home.iviews.IGetHomeSugView;
 import com.wetime.fanc.home.presenter.GetHomeHotSerachPresenter;
 import com.wetime.fanc.home.presenter.GetHomeSugSerachPresenter;
 import com.wetime.fanc.web.WebActivity;
-import com.wetime.fanc.web.event.FinishWebEvent;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -75,6 +74,8 @@ public class HomeSearchActivity extends BaseActivity implements IGetHomeHotSearc
     ImageView ivDelete;
     @BindView(R.id.rcl_result)
     RecyclerView rclResult;
+    @BindView(R.id.iv_close)
+    ImageView ivClose;
     private GetHomeHotSerachPresenter getHomeHotSerachPresenter;
     private List<String> hislist = new ArrayList<>();
     private HisAdapter hisAdapter;
@@ -129,13 +130,14 @@ public class HomeSearchActivity extends BaseActivity implements IGetHomeHotSearc
         }
         return false;
     }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(final KeyWordEvent event) {
         etSearch.setText(event.getKey());
         etSearch.setSelection(etSearch.getText().length());
     }
 
-    @OnClick({R.id.iv_back, R.id.tv_cancel, R.id.iv_delete})
+    @OnClick({R.id.iv_back, R.id.tv_cancel, R.id.iv_delete,R.id.iv_close})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
@@ -149,6 +151,9 @@ public class HomeSearchActivity extends BaseActivity implements IGetHomeHotSearc
                 hislist.clear();
                 ivDelete.setVisibility(View.GONE);
                 hisAdapter.notifyDataSetChanged();
+                break;
+            case R.id.iv_close:
+                etSearch.setText("");
                 break;
         }
     }
@@ -261,9 +266,11 @@ public class HomeSearchActivity extends BaseActivity implements IGetHomeHotSearc
     @Override
     public void afterTextChanged(Editable editable) {
         if (editable.toString().length() > 0) {
+            ivClose.setVisibility(View.VISIBLE);
             llHot.setVisibility(View.GONE);
             getHomeSugSerachPresenter.getSugSearchPage(editable.toString());
         } else {
+            ivClose.setVisibility(View.GONE);
             reList.clear();
             resultAdapter.notifyDataSetChanged();
             llHot.setVisibility(View.VISIBLE);
@@ -271,8 +278,8 @@ public class HomeSearchActivity extends BaseActivity implements IGetHomeHotSearc
     }
 
     @Override
-    public void onGetHomeSug(SearchResult bean,String word) {
-        if(!word.equals(etSearch.getText().toString())){
+    public void onGetHomeSug(SearchResult bean, String word) {
+        if (!word.equals(etSearch.getText().toString())) {
             return;
         }
         reList.clear();

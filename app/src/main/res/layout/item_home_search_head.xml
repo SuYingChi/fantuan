@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white">
@@ -17,28 +17,46 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:scaleType="centerInside"
-            android:src="@drawable/icon_back"/>
+            android:src="@drawable/icon_back" />
 
-        <EditText
-            android:id="@+id/et_search"
+        <LinearLayout
+            android:paddingRight="10dp"
             android:layout_width="0dp"
-            android:layout_height="30dp"
-            android:layout_centerInParent="true"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="8dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="30dp"
             android:layout_weight="1"
             android:background="@drawable/bg_search_gray_corner"
-            android:drawableLeft="@drawable/ic_search_black"
-            android:drawablePadding="5dp"
-            android:gravity="center|left"
-            android:hint="可搜索商家、购物中心或分类"
-            android:imeOptions="actionSearch"
-            android:lineSpacingExtra="0sp"
-            android:paddingLeft="10dp"
-            android:singleLine="true"
-            android:textColor="#333333"
-            android:textSize="14sp"
-            />
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/et_search"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="8dp"
+                android:layout_weight="1"
+                android:background="@color/translucent_background"
+                android:drawableLeft="@drawable/ic_search_black"
+                android:drawablePadding="5dp"
+                android:gravity="center|left"
+                android:hint="可搜索商家、购物中心或分类"
+                android:imeOptions="actionSearch"
+                android:lineSpacingExtra="0sp"
+                android:paddingLeft="10dp"
+                android:singleLine="true"
+                android:textColor="#333333"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:visibility="gone"
+                android:id="@+id/iv_close"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:scaleType="centerInside"
+                app:srcCompat="@drawable/icv_search_close" />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/tv_cancel"
@@ -47,10 +65,10 @@
             android:layout_marginRight="15dp"
             android:gravity="center"
             android:lineSpacingExtra="0sp"
-            android:text="取消"
+            android:text="@string/str_cancel"
             android:textColor="#333333"
             android:textSize="16sp"
-            />
+            android:visibility="gone" />
     </LinearLayout>
 
 </RelativeLayout>
