@@ -5,8 +5,8 @@ package com.wetime.fanc.utils;
  */
 
 public interface Const {
-    String BASEURL = "https://fanttest.weishike.net";
-    //    String BASEURL = "http://shop.weishike.net";
+//    String BASEURL = "https://fanttest.fantuanlife.com";
+        String BASEURL = "https://fant.fantuanlife.com";
 
     String PUSH_BIND = BASEURL + "/push/bind";
     String POSTMUTILEFILE = BASEURL + "/upload/image";
