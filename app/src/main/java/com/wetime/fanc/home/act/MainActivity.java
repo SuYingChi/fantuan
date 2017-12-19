@@ -73,8 +73,8 @@ public class MainActivity extends BaseActivity implements IBindPushView {
 
 
     private List<Fragment> list_fragment = new ArrayList<>();
-    private int mOnId = R.drawable.bot_3_on_red;
-    private int mOffId = R.drawable.bot_3_off_red;
+    private int mOnId = R.drawable.bot_3_on;
+    private int mOffId = R.drawable.bot_3_off;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
