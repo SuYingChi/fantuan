@@ -73,7 +73,8 @@ public class MainActivity extends BaseActivity implements IBindPushView {
 
 
     private List<Fragment> list_fragment = new ArrayList<>();
-
+    private int mOnId = R.drawable.bot_3_on_red;
+    private int mOffId = R.drawable.bot_3_off_red;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -184,7 +185,7 @@ public class MainActivity extends BaseActivity implements IBindPushView {
             ivTab0.setImageResource(R.drawable.bot_0_on);
             ivTab1.setImageResource(R.drawable.bot_1_off);
             ivTab2.setImageResource(R.drawable.bot_2_off);
-            ivTab3.setImageResource(R.drawable.bot_3_off);
+            ivTab3.setImageResource(mOffId);
 
             tvTab0.setTextColor(ContextCompat.getColor(this, R.color.colorPrimary));
             tvTab1.setTextColor(ContextCompat.getColor(this, R.color.bot_gray));
@@ -195,7 +196,7 @@ public class MainActivity extends BaseActivity implements IBindPushView {
             ivTab0.setImageResource(R.drawable.bot_0_off);
             ivTab1.setImageResource(R.drawable.bot_1_on);
             ivTab2.setImageResource(R.drawable.bot_2_off);
-            ivTab3.setImageResource(R.drawable.bot_3_off);
+            ivTab3.setImageResource(mOffId);
 
             tvTab0.setTextColor(ContextCompat.getColor(this, R.color.bot_gray));
             tvTab1.setTextColor(ContextCompat.getColor(this, R.color.colorPrimary));
@@ -206,7 +207,7 @@ public class MainActivity extends BaseActivity implements IBindPushView {
             ivTab0.setImageResource(R.drawable.bot_0_off);
             ivTab1.setImageResource(R.drawable.bot_1_off);
             ivTab2.setImageResource(R.drawable.bot_2_on);
-            ivTab3.setImageResource(R.drawable.bot_3_off);
+            ivTab3.setImageResource(mOffId);
 
             tvTab0.setTextColor(ContextCompat.getColor(this, R.color.bot_gray));
             tvTab1.setTextColor(ContextCompat.getColor(this, R.color.bot_gray));
@@ -217,7 +218,7 @@ public class MainActivity extends BaseActivity implements IBindPushView {
             ivTab0.setImageResource(R.drawable.bot_0_off);
             ivTab1.setImageResource(R.drawable.bot_1_off);
             ivTab2.setImageResource(R.drawable.bot_2_off);
-            ivTab3.setImageResource(R.drawable.bot_3_on);
+            ivTab3.setImageResource(mOnId);
 
             tvTab0.setTextColor(ContextCompat.getColor(this, R.color.bot_gray));
             tvTab1.setTextColor(ContextCompat.getColor(this, R.color.bot_gray));
