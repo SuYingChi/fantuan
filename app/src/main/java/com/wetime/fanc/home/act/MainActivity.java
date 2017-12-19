@@ -17,6 +17,7 @@ import com.king.batterytest.fbaselib.utils.Tools;
 import com.king.batterytest.fbaselib.view.CustomViewPager;
 import com.wetime.fanc.R;
 import com.wetime.fanc.home.adapter.HomeFragmentPagerAdapter;
+import com.wetime.fanc.home.event.RefreshRedNunEvent;
 import com.wetime.fanc.home.event.SwichFragEvent;
 import com.wetime.fanc.home.frag.HomeFragment;
 import com.wetime.fanc.home.frag.MyFragment;
@@ -215,6 +216,7 @@ public class MainActivity extends BaseActivity implements IBindPushView {
             tvTab3.setTextColor(ContextCompat.getColor(this, R.color.bot_gray));
         }
         if (item == 3) {
+            EventBus.getDefault().post(new RefreshRedNunEvent());
             ivTab0.setImageResource(R.drawable.bot_0_off);
             ivTab1.setImageResource(R.drawable.bot_1_off);
             ivTab2.setImageResource(R.drawable.bot_2_off);

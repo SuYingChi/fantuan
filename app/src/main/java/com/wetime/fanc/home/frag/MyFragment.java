@@ -17,6 +17,7 @@ import com.king.batterytest.fbaselib.main.BaseFragment;
 import com.king.batterytest.fbaselib.utils.Tools;
 import com.wetime.fanc.R;
 import com.wetime.fanc.home.bean.MyInfoBean;
+import com.wetime.fanc.home.event.RefreshRedNunEvent;
 import com.wetime.fanc.home.iviews.IGetMyInfoView;
 import com.wetime.fanc.home.presenter.GetUserInfoPresenter;
 import com.wetime.fanc.login.act.LoginActivity;
@@ -69,7 +70,7 @@ public class MyFragment extends BaseFragment implements IGetMyInfoView {
 
     private GetUserInfoPresenter getUserInfoPresenter;
     private MyInfoBean bean;
-    private QBadgeView  QBred;
+    private QBadgeView QBred;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -79,12 +80,7 @@ public class MyFragment extends BaseFragment implements IGetMyInfoView {
 
         unbinder = ButterKnife.bind(this, v);
         getUserInfoPresenter = new GetUserInfoPresenter(this);
-        if (!spu.getToken().equals(""))
-            getUserInfoPresenter.getUserInfo();
-        QBred = new QBadgeView(getContext());
-        QBred.bindTarget(tvRednum).setBadgeBackgroundColor(0xffff3f53)
-                .setBadgeTextSize(11, true).setBadgeGravity(Gravity.CENTER);
-        QBred.setBadgeNumber(10);
+
         return v;
     }
 
@@ -94,6 +90,7 @@ public class MyFragment extends BaseFragment implements IGetMyInfoView {
         unbinder.unbind();
         EventBus.getDefault().unregister(this);
     }
+
 
     @OnClick({R.id.ll_call, R.id.iv_setting, R.id.ll_login, R.id.tv_fanpiao, R.id.tv_youhuiquan, R.id.tv_guanzhu, R.id.tv_message, R.id.tv_comment, R.id.tv_waimai})
     public void onViewClicked(View view) {
@@ -194,16 +191,31 @@ public class MyFragment extends BaseFragment implements IGetMyInfoView {
         Glide.with(getActivity().getApplicationContext())
                 .load(bean.getData().getUser().getAvatar()).into(civHead);
         tvName.setText(bean.getData().getUser().getUsername());
+
+        QBred = new QBadgeView(getContext());
+        QBred.bindTarget(tvRednum).setBadgeBackgroundColor(0xffff3f53)
+                .setBadgeTextSize(11, true).setBadgeGravity(Gravity.CENTER);
+        QBred.setBadgeNumber(bean.getData().getNotice_num());
+        QBred.setClickable(false);
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        if (!spu.getToken().equals(""))
+            getUserInfoPresenter.getUserInfo();
+
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(LoginEvent event) {
         getUserInfoPresenter.getUserInfo();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(RefreshRedNunEvent event) {
+        if (!spu.getToken().equals(""))
+            getUserInfoPresenter.getUserInfo();
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

@@ -167,8 +167,8 @@
                     android:textColor="#333333"
                     android:textSize="15sp"/>
                 <TextView
-                    android:layout_marginRight="3dp"
-                    android:text="      "
+                    android:clickable="false"
+                    android:text="        "
                     android:id="@+id/tv_rednum"
                     android:gravity="center"
                     android:layout_width="wrap_content"

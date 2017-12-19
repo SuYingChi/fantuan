@@ -40,6 +40,7 @@ public class FApp extends Application {
         super.onCreate();
         registToWX();
         JPushInterface.init(this);
+        JPushInterface.stopCrashHandler(this);
 //        ArrayList<String> keys = new ArrayList<>();
 //        if (isd(this)) {
 //            keys.add("41:C2:55:46:96:1E:86:A8:FC:21:77:2C:77:37:6C:C9:30:41:C9:FA");//test

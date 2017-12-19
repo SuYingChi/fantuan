@@ -49,6 +49,16 @@ public class MyInfoBean {
 
         private UserBean user;
         private LinkBean link;
+        private int notice_num;
+
+
+        public int getNotice_num() {
+            return notice_num;
+        }
+
+        public void setNotice_num(int notice_num) {
+            this.notice_num = notice_num;
+        }
 
         public UserBean getUser() {
             return user;
