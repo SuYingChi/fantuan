@@ -27,6 +27,7 @@ import com.king.batterytest.fbaselib.main.ScanActivity;
 import com.king.batterytest.fbaselib.utils.Tools;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.wetime.fanc.R;
 import com.wetime.fanc.home.act.HomeSearchActivity;
@@ -48,7 +49,7 @@ import butterknife.Unbinder;
 
 import static android.app.Activity.RESULT_OK;
 
-public class HomeFragment extends BaseFragment implements OnRefreshListener, IGetHomePageView {
+public class HomeFragment extends BaseFragment implements OnRefreshListener, IGetHomePageView, OnLoadmoreListener {
     @BindView(R.id.iv_scan)
     ImageView ivScan;
     @BindView(R.id.iv_banner)
@@ -87,7 +88,7 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, IGe
         unbinder = ButterKnife.bind(this, v);
 
 
-        refreshLayout.setEnableLoadmore(false);
+        refreshLayout.setOnLoadmoreListener(this);
         refreshLayout.setOnRefreshListener(this);
 
 
@@ -280,4 +281,8 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, IGe
 
     }
 
+    @Override
+    public void onLoadmore(RefreshLayout refreshlayout) {
+        refreshlayout.finishLoadmore(2000);
+    }
 }
