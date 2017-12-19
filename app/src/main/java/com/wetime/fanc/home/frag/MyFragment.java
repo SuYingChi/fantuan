@@ -77,8 +77,18 @@ public class MyFragment extends BaseFragment implements IGetMyInfoView {
                              Bundle savedInstanceState) {
         EventBus.getDefault().register(this);
         View v = inflater.inflate(R.layout.fragment_my, null);
-
         unbinder = ButterKnife.bind(this, v);
+
+        QBred = new QBadgeView(getContext());
+        QBred.bindTarget(tvRednum).setBadgeBackgroundColor(0xffff3f53)
+                .setBadgeTextSize(11, true).setBadgeGravity(Gravity.CENTER);
+        QBred.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goMessage();
+            }
+        });
+
         getUserInfoPresenter = new GetUserInfoPresenter(this);
 
         return v;
@@ -146,13 +156,7 @@ public class MyFragment extends BaseFragment implements IGetMyInfoView {
                 }
                 break;
             case R.id.tv_message:
-                if (bean != null)
-                    goWeb(bean.getData().getLink().getNotice().getUrl());
-                else {
-                    Tools.toastInBottom(getContext(), "请先登录");
-                    Intent goLogin = new Intent(getContext(), LoginActivity.class);
-                    startActivity(goLogin);
-                }
+                goMessage();
                 break;
             case R.id.tv_comment:
                 if (bean != null)
@@ -168,7 +172,15 @@ public class MyFragment extends BaseFragment implements IGetMyInfoView {
                 break;
         }
     }
-
+    private void goMessage(){
+        if (bean != null)
+            goWeb(bean.getData().getLink().getNotice().getUrl());
+        else {
+            Tools.toastInBottom(getContext(), "请先登录");
+            Intent goLogin = new Intent(getContext(), LoginActivity.class);
+            startActivity(goLogin);
+        }
+    }
     private void goWeb(String url) {
         if (spu.getToken().equals("")) {
             Tools.toastInBottom(getContext(), "请先登录");
@@ -192,11 +204,9 @@ public class MyFragment extends BaseFragment implements IGetMyInfoView {
                 .load(bean.getData().getUser().getAvatar()).into(civHead);
         tvName.setText(bean.getData().getUser().getUsername());
 
-        QBred = new QBadgeView(getContext());
-        QBred.bindTarget(tvRednum).setBadgeBackgroundColor(0xffff3f53)
-                .setBadgeTextSize(11, true).setBadgeGravity(Gravity.CENTER);
+
         QBred.setBadgeNumber(bean.getData().getNotice_num());
-        QBred.setClickable(false);
+
     }
 
     @Override
