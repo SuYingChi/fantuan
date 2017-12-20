@@ -24,10 +24,10 @@ public class GetHomePagePresenter {
         OkHttpUtils
                 .post()
                 .url(Const.HOMEPAGE)
-//                .addParams("lng", iView.getJd())
-//                .addParams("lat", iView.getWd())
-                .addParams("lng", "0")
-                .addParams("lat", "0")
+                .addParams("lng", iView.getJd())
+                .addParams("lat", iView.getWd())
+//                .addParams("lng", "0")
+//                .addParams("lat", "0")
                 .addParams("pn", iView.getPage())
                 .build()
                 .execute(new DataStringCallback(iView, false) {
