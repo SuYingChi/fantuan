@@ -266,6 +266,8 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, IGe
                         Log.e("zk", "location Error, ErrCode:"
                                 + amapLocation.getErrorCode() + ", errInfo:"
                                 + amapLocation.getErrorInfo());
+                        spu.setValue("wd", "");
+                        spu.setValue("jd", "");
                     }
                 }
 
