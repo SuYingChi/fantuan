@@ -20,5 +20,6 @@
     <string name="tips_login">登录即代表您已经同意</string>
     <string name="tips_login_por">范团用户协议</string>
     <string name="str_cancel">取消</string>
+    <string name="str_cannot_receice_code">收不到验证码</string>
 
 </resources>

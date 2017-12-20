@@ -1,11 +1,9 @@
 package com.wetime.fanc.login.act;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -15,7 +13,6 @@ import com.king.batterytest.fbaselib.main.model.BaseBean;
 import com.king.batterytest.fbaselib.utils.GsonUtils;
 import com.king.batterytest.fbaselib.utils.Tools;
 import com.wetime.fanc.R;
-import com.wetime.fanc.home.act.MainActivity;
 import com.wetime.fanc.login.bean.LoginResultBean;
 import com.wetime.fanc.login.event.LoginEvent;
 import com.wetime.fanc.login.iviews.IInvalidCodeView;
@@ -67,9 +64,12 @@ public class CodeLoginActivity extends BaseActivity implements ISendSMSView, IIn
         super.onBackPressed();
     }
 
-    @OnClick({R.id.tv_ok, R.id.iv_back, R.id.tv_send, R.id.tv_pswlogin})
+    @OnClick({R.id.tv_not_receive, R.id.tv_ok, R.id.iv_back, R.id.tv_send, R.id.tv_pswlogin})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            case R.id.tv_not_receive:
+                Tools.showTipsDialog(mContext,"请联系客服处理","客服电话：400-3663-2552",null,null);
+                break;
             case R.id.iv_back:
                 onBackPressed();
                 break;
@@ -141,6 +141,7 @@ public class CodeLoginActivity extends BaseActivity implements ISendSMSView, IIn
             onBackPressed();
         }
     }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(LoginEvent event) {
         finish();
