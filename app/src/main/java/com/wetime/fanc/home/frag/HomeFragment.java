@@ -28,6 +28,7 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+import com.wang.avi.AVLoadingIndicatorView;
 import com.wetime.fanc.R;
 import com.wetime.fanc.home.act.HomeSearchActivity;
 import com.wetime.fanc.home.adapter.CenterAdapter;
@@ -83,7 +84,8 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, IGe
 
     private int page = 1;
     private HomeShopListAdapter homeShopListAdapter;
-    private List<HomePageBean.DataBean.MerchantsBean> mMerchanetlist =  new ArrayList<>();
+    private List<HomePageBean.DataBean.MerchantsBean> mMerchanetlist = new ArrayList<>();
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -92,7 +94,6 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, IGe
 
         View v = inflater.inflate(R.layout.fragment_home, null);
         unbinder = ButterKnife.bind(this, v);
-
         homeShopListAdapter = new HomeShopListAdapter(getContext(), mMerchanetlist);
         lvShop.setAdapter(homeShopListAdapter);
 
@@ -102,6 +103,7 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, IGe
                 goWeb(mMerchanetlist.get(i).getDetail_url());
             }
         });
+
         refreshLayout.setOnLoadmoreListener(this);
         refreshLayout.setOnRefreshListener(this);
         return v;
@@ -146,8 +148,6 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, IGe
                 break;
         }
     }
-
-
 
 
     @Override
@@ -219,7 +219,7 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, IGe
 
         mMerchanetlist.addAll(bean.getData().getMerchants());
         homeShopListAdapter.notifyDataSetChanged();
-        if(bean.getData().getPaging().isIs_end()){
+        if (bean.getData().getPaging().isIs_end()) {
             refreshLayout.setEnableLoadmore(false);
         }
         refreshLayout.finishLoadmore();
@@ -288,8 +288,6 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, IGe
     }
 
 
-
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();
@@ -313,7 +311,7 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, IGe
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
-        Log.d(TAG, "onHiddenChanged: "+hidden);
+        Log.d(TAG, "onHiddenChanged: " + hidden);
     }
 
     @Override

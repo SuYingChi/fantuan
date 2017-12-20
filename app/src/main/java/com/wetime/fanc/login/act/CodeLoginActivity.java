@@ -68,7 +68,7 @@ public class CodeLoginActivity extends BaseActivity implements ISendSMSView, IIn
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_not_receive:
-                Tools.showTipsDialog(mContext,"请联系客服处理","客服电话：400-3663-2552",null,null);
+                Tools.showTipsDialog(mContext,"请联系客服处理","客服电话：400-3663-2552","","确定",null,null);
                 break;
             case R.id.iv_back:
                 onBackPressed();
