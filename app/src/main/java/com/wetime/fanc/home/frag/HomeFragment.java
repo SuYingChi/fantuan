@@ -216,12 +216,13 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, IGe
 
     @Override
     public void onLoadMoreHomePage(HomePageBean bean) {
-        refreshLayout.finishLoadmore();
+
         mMerchanetlist.addAll(bean.getData().getMerchants());
         homeShopListAdapter.notifyDataSetChanged();
         if(bean.getData().getPaging().isIs_end()){
             refreshLayout.setEnableLoadmore(false);
         }
+        refreshLayout.finishLoadmore();
     }
 
     private void goWeb(String url) {
