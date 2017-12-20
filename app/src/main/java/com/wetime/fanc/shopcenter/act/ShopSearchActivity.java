@@ -94,7 +94,7 @@ public class ShopSearchActivity extends BaseActivity implements IGetShopHotSearc
         imm.showSoftInput(etSearch, InputMethodManager.SHOW_FORCED);
         name = getIntent().getStringExtra("name");
         millId = getIntent().getStringExtra("id");
-        etSearch.setHint("在" + name + "中搜索");
+        etSearch.setHint("在" + name + "中的搜索结果");
 
         
         getShopHotSerachPresenter = new GetShopHotSerachPresenter(this);

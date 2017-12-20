@@ -57,6 +57,7 @@
                     android:id="@+id/rb_socre"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:clickable="false"
                     app:starCount="5"
                     app:starEmpty="@drawable/rating_in_big"
                     app:starFill="@drawable/rating_on_big"
@@ -64,7 +65,6 @@
                     app:starImageSize="12dp"
                     app:starPadding="3dp"
                     app:starStep="5"
-                    android:clickable="false"
                     app:stepSize="Half" />
 
                 <TextView
@@ -129,43 +129,47 @@
                 tools:text="月销量1200" />
 
             <!--<ImageView-->
-                <!--android:visibility="gone"-->
-                <!--android:id="@+id/iv_fantuan"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginTop="5dp"-->
-                <!--android:background="@color/bg_all"-->
-                <!--android:src="@drawable/fantuanshangjia" />-->
+            <!--android:visibility="gone"-->
+            <!--android:id="@+id/iv_fantuan"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="5dp"-->
+            <!--android:background="@color/bg_all"-->
+            <!--android:src="@drawable/fantuanshangjia" />-->
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <com.king.batterytest.fbaselib.customview.ListViewForScrollView
-                android:id="@+id/lv"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginTop="10dp"
-                android:layout_weight="1"
-                android:divider="@null"/>
-
-
-                <!--<TextView-->
-                    <!--android:id="@+id/tv_act"-->
+                <!--<com.king.batterytest.fbaselib.customview.ListViewForScrollView-->
+                    <!--android:id="@+id/lv"-->
                     <!--android:layout_width="0dp"-->
                     <!--android:layout_height="match_parent"-->
-                    <!--android:layout_marginTop="8dp"-->
+                    <!--android:layout_marginTop="10dp"-->
                     <!--android:layout_weight="1"-->
-                    <!--android:background="@color/warning_red"-->
-                    <!--android:lineSpacingExtra="10dp" />-->
+                    <!--android:divider="@null" />-->
+                <LinearLayout
+                    android:id="@+id/ll_act"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <!--<TextView-->
+                <!--android:id="@+id/tv_act"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_marginTop="8dp"-->
+                <!--android:layout_weight="1"-->
+                <!--android:background="@color/warning_red"-->
+                <!--android:lineSpacingExtra="10dp" />-->
 
                 <!--<ImageView-->
-                    <!--android:id="@+id/iv_zhe"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="match_parent"-->
-                    <!--android:padding="10dp"-->
-                    <!--android:src="@drawable/ic_head_down" />-->
+                <!--android:id="@+id/iv_zhe"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:padding="10dp"-->
+                <!--android:src="@drawable/ic_head_down" />-->
             </LinearLayout>
 
 
@@ -173,10 +177,10 @@
     </LinearLayout>
 
     <TextView
-        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:layout_marginLeft="12dp"
+        android:layout_marginTop="10dp"
         android:background="@color/linebg" />
 </LinearLayout>
 

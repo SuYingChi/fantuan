@@ -1,5 +1,6 @@
 package com.wetime.fanc.home.frag;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -68,6 +69,7 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, IGe
     ListViewForScrollView lvShop;
     @BindView(R.id.ll_loc)
     LinearLayout llloc;
+    private String TAG = "zkhomefrag";
 
 
     private int REQUEST_CODE = 10000;
@@ -85,7 +87,7 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, IGe
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
+        Log.d(TAG, "onCreateView: ");
         initLoaction();
 
         View v = inflater.inflate(R.layout.fragment_home, null);
@@ -145,12 +147,7 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, IGe
         }
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
-        mLocationClient.onDestroy();
-    }
+
 
 
     @Override
@@ -287,5 +284,70 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, IGe
     public void onLoadmore(RefreshLayout refreshlayout) {
         page++;
         getHomePagePresenter.getHomePage();
+    }
+
+
+
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
+        mLocationClient.onDestroy();
+        Log.d(TAG, "onDestroyView: ");
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Log.d(TAG, "onStart: ");
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d(TAG, "onResume: ");
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        Log.d(TAG, "onHiddenChanged: "+hidden);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.d(TAG, "onPause: ");
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        Log.d(TAG, "onStop: ");
+    }
+
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+        Log.d(TAG, "onLowMemory: ");
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.d(TAG, "onDestroy: ");
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        Log.d(TAG, "onDetach: ");
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        Log.d(TAG, "onAttach: ");
     }
 }

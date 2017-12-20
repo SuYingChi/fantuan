@@ -259,6 +259,11 @@ public class MyMaterialHeader extends ViewGroup implements RefreshHeader {
     }
 
     @Override
+    public void onRefreshReleased(RefreshLayout layout, int headerHeight, int extendHeight) {
+
+    }
+
+    @Override
     public void onStartAnimator(RefreshLayout layout, int headHeight, int extendHeight) {
         mProgress.start();
         if ((int) mCircleView.getTranslationY() != headHeight / 2 + mCircleDiameter / 2) {
