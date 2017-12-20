@@ -2,7 +2,6 @@ package com.wetime.fanc.home.frag;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -13,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
@@ -41,6 +39,9 @@ import com.wetime.fanc.shopcenter.act.ShopCenterActivity;
 import com.wetime.fanc.web.WebActivity;
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
 import com.zhy.adapter.recyclerview.wrapper.HeaderAndFooterWrapper;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -78,6 +79,9 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, IGe
     public AMapLocationListener mLocationListener;
     public AMapLocationClientOption mLocationOption = null;
 
+    private int page = 1;
+    private HomeShopListAdapter homeShopListAdapter;
+    private List<HomePageBean.DataBean.MerchantsBean> mMerchanetlist =  new ArrayList<>();
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -87,34 +91,24 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, IGe
         View v = inflater.inflate(R.layout.fragment_home, null);
         unbinder = ButterKnife.bind(this, v);
 
+        homeShopListAdapter = new HomeShopListAdapter(getContext(), mMerchanetlist);
+        lvShop.setAdapter(homeShopListAdapter);
 
+        lvShop.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                goWeb(mMerchanetlist.get(i).getDetail_url());
+            }
+        });
         refreshLayout.setOnLoadmoreListener(this);
         refreshLayout.setOnRefreshListener(this);
-
-
         return v;
     }
 
     @Override
     public void onRefresh(RefreshLayout refreshlayout) {
+        page = 1;
         getHomePagePresenter.getHomePage();
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
-    public void onStop() {
-        // TODO Auto-generated method stub
-        super.onStop();
-    }
-
-    @Override
-    public void onStart() {
-        // TODO Auto-generated method stub
-        super.onStart();
     }
 
 
@@ -158,6 +152,11 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, IGe
         mLocationClient.onDestroy();
     }
 
+
+    @Override
+    public String getPage() {
+        return page + "";
+    }
 
     @Override
     public void onGetHomePage(final HomePageBean bean) {
@@ -211,18 +210,21 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, IGe
                 goWeb(bean.getData().getPromotion_area().getUrl());
             }
         });
+        mMerchanetlist.clear();
+        mMerchanetlist.addAll(bean.getData().getMerchants());
 
-        HomeShopListAdapter homeShopListAdapter = new HomeShopListAdapter(getContext(), bean.getData().getMerchants());
-        lvShop.setAdapter(homeShopListAdapter);
         homeShopListAdapter.notifyDataSetChanged();
         refreshLayout.finishRefresh(1000);
-        lvShop.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                goWeb(bean.getData().getMerchants().get(i).getDetail_url());
-            }
-        });
+    }
 
+    @Override
+    public void onLoadMoreHomePage(HomePageBean bean) {
+        refreshLayout.finishLoadmore();
+        mMerchanetlist.addAll(bean.getData().getMerchants());
+        homeShopListAdapter.notifyDataSetChanged();
+        if(bean.getData().getPaging().isIs_end()){
+            refreshLayout.setEnableLoadmore(false);
+        }
     }
 
     private void goWeb(String url) {
@@ -253,7 +255,7 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, IGe
             public void onLocationChanged(AMapLocation amapLocation) {
                 if (amapLocation != null) {
                     if (amapLocation.getErrorCode() == 0) {
-//可在其中解析amapLocation获取相应内容。
+                        //可在其中解析amapLocation获取相应内容。
 
                         Log.e("zk 纬度", String.valueOf(amapLocation.getLatitude()));
                         Log.e("zk 经度", String.valueOf(amapLocation.getLongitude()));
@@ -283,6 +285,7 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, IGe
 
     @Override
     public void onLoadmore(RefreshLayout refreshlayout) {
-        refreshlayout.finishLoadmore(2000);
+        page++;
+        getHomePagePresenter.getHomePage();
     }
 }

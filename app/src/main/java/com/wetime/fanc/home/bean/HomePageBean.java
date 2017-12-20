@@ -55,6 +55,15 @@ public class HomePageBean {
         private List<BigcatesBean> bigcates;
         private List<MallsBean> malls;
         private List<MerchantsBean> merchants;
+        private PagingBean paging;
+
+        public PagingBean getPaging() {
+            return paging;
+        }
+
+        public void setPaging(PagingBean paging) {
+            this.paging = paging;
+        }
 
         public PromotionAreaBean getPromotion_area() {
             return promotion_area;
@@ -111,6 +120,42 @@ public class HomePageBean {
 
             public void setBanner(String banner) {
                 this.banner = banner;
+            }
+        }
+
+        public static class PagingBean {
+            /**
+             * totals : 1
+             * current : 1
+             * is_end : true
+             */
+
+            private int totals;
+            private int current;
+            private boolean is_end;
+
+            public int getTotals() {
+                return totals;
+            }
+
+            public void setTotals(int totals) {
+                this.totals = totals;
+            }
+
+            public int getCurrent() {
+                return current;
+            }
+
+            public void setCurrent(int current) {
+                this.current = current;
+            }
+
+            public boolean isIs_end() {
+                return is_end;
+            }
+
+            public void setIs_end(boolean is_end) {
+                this.is_end = is_end;
             }
         }
 
@@ -244,8 +289,17 @@ public class HomePageBean {
             private String spider;
             private String distance;
             private List<String> promotion_list;
+            private List<MerchantPromotionListBean> merchant_promotion_list;
             private String mall_url;
             private String detail_url;
+
+            public List<MerchantPromotionListBean> getMerchant_promotion_list() {
+                return merchant_promotion_list;
+            }
+
+            public void setMerchant_promotion_list(List<MerchantPromotionListBean> merchant_promotion_list) {
+                this.merchant_promotion_list = merchant_promotion_list;
+            }
 
             public String getDetail_url() {
                 return detail_url;
@@ -263,15 +317,15 @@ public class HomePageBean {
                 this.mall_url = mall_url;
             }
 
-            private boolean zhe = true;
+//            private boolean zhe = true;
 
-            public boolean isZhe() {
-                return zhe;
-            }
-
-            public void setZhe(boolean zhe) {
-                this.zhe = zhe;
-            }
+//            public boolean isZhe() {
+//                return zhe;
+//            }
+//
+//            public void setZhe(boolean zhe) {
+//                this.zhe = zhe;
+//            }
 
             public String getId() {
                 return id;
@@ -367,6 +421,43 @@ public class HomePageBean {
 
             public void setPromotion_list(List<String> promotion_list) {
                 this.promotion_list = promotion_list;
+            }
+
+
+            public static class MerchantPromotionListBean {
+                /**
+                 * content : 买单立享0.90折优惠
+                 * type : 7
+                 * ico : https://staticcdntest.fantuanlife.com/image/fant/promotion/payDiscount.png
+                 */
+
+                private String content;
+                private int type;
+                private String ico;
+
+                public String getContent() {
+                    return content;
+                }
+
+                public void setContent(String content) {
+                    this.content = content;
+                }
+
+                public int getType() {
+                    return type;
+                }
+
+                public void setType(int type) {
+                    this.type = type;
+                }
+
+                public String getIco() {
+                    return ico;
+                }
+
+                public void setIco(String ico) {
+                    this.ico = ico;
+                }
             }
         }
     }

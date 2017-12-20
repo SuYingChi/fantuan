@@ -1,16 +1,15 @@
 package com.wetime.fanc.home.adapter;
 
 import android.content.Context;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.king.batterytest.fbaselib.customview.ListViewForScrollView;
 import com.wetime.fanc.R;
 import com.wetime.fanc.home.bean.HomePageBean;
 import com.wetime.fanc.order.MyRatingBar;
@@ -85,57 +84,57 @@ public class HomeShopListAdapter extends BaseAdapter {
         } else {
             holder.tvType.setVisibility(View.VISIBLE);
         }
-        // 1.1.0需求
-        if (bean.getSpider().equals("0")) {
-            holder.ivFantuan.setVisibility(View.INVISIBLE);
-        } else {
-            holder.ivFantuan.setVisibility(View.INVISIBLE);
-        }
+//        // 1.1.0需求
+//        if (bean.getSpider().equals("0")) {
+//            holder.ivFantuan.setVisibility(View.INVISIBLE);
+//        } else {
+//            holder.ivFantuan.setVisibility(View.INVISIBLE);
+//        }
         if (bean.getSales().equals("")) {
-            holder.tvSeal.setVisibility(View.GONE);
+            holder.tvSeal.setVisibility(View.INVISIBLE);
         } else {
             holder.tvSeal.setVisibility(View.VISIBLE);
         }
 
 
-        if (bean.isZhe()) {
-            if (bean.getPromotion_list().size() > 2) {
-                holder.ivZhe.setVisibility(View.VISIBLE);
-            } else {
-                holder.ivZhe.setVisibility(View.GONE);
-            }
-
-        } else {
-            holder.ivZhe.setVisibility(View.GONE);
-        }
-//        final HomeShopActAdapter actAdapter = new HomeShopActAdapter(mContext, bean.getPromotion_list());
-//        holder.lv.setAdapter(actAdapter);
+//        if (bean.isZhe()) {
+//            if (bean.getPromotion_list().size() > 2) {
+//                holder.ivZhe.setVisibility(View.VISIBLE);
+//            } else {
+//                holder.ivZhe.setVisibility(View.GONE);
+//            }
+//
+//        } else {
+//            holder.ivZhe.setVisibility(View.GONE);
+//        }
+        final HomeShopActAdapter actAdapter = new HomeShopActAdapter(mContext, bean.getMerchant_promotion_list());
+        holder.lv.setAdapter(actAdapter);
 //        actAdapter.setIszhe(bean.isZhe());
-//        actAdapter.notifyDataSetChanged();
-        String temp = "";
-        for (String s : bean.getPromotion_list()) {
-            temp = temp + s + "\n";
-        }
+        actAdapter.notifyDataSetChanged();
+//        String temp = "";
+//        for (String s : bean.getPromotion_list()) {
+//            temp = temp + s + "\n";
+//        }
 
-        holder.tvAct.setText(temp.trim());
-        if(TextUtils.isEmpty(temp.trim())){
-            holder.tvAct.setVisibility(View.GONE);
-        }else{
-            holder.tvAct.setVisibility(View.VISIBLE);
-        }
-        if(bean.isZhe()){
-            holder.tvAct.setMaxLines(2);
-        }else{
-            holder.tvAct.setMaxLines(100);
-        }
+//        holder.tvAct.setText(temp.trim());
+//        if (TextUtils.isEmpty(temp.trim())) {
+//            holder.tvAct.setVisibility(View.GONE);
+//        } else {
+//            holder.tvAct.setVisibility(View.VISIBLE);
+//        }
+//        if (bean.isZhe()) {
+//            holder.tvAct.setMaxLines(2);
+//        } else {
+//            holder.tvAct.setMaxLines(100);
+//        }
 
-        holder.ivZhe.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                bean.setZhe(false);
-                notifyDataSetChanged();
-            }
-        });
+//        holder.ivZhe.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                bean.setZhe(false);
+//                notifyDataSetChanged();
+//            }
+//        });
 
         return convertView;
 
@@ -145,8 +144,8 @@ public class HomeShopListAdapter extends BaseAdapter {
     static public class ViewHolder {
         @BindView(R.id.iv_cover)
         ImageView ivCover;
-        @BindView(R.id.iv_zhe)
-        ImageView ivZhe;
+        //        @BindView(R.id.iv_zhe)
+//        ImageView ivZhe;
         @BindView(R.id.tv_name)
         TextView tvName;
         @BindView(R.id.rb_socre)
@@ -161,13 +160,13 @@ public class HomeShopListAdapter extends BaseAdapter {
         TextView tvDis;
         @BindView(R.id.tv_seal)
         TextView tvSeal;
-        @BindView(R.id.iv_fantuan)
-        ImageView ivFantuan;
+//        @BindView(R.id.iv_fantuan)
+//        ImageView ivFantuan;
 
-        @BindView(R.id.tv_act)
-        TextView tvAct;
-//        @BindView(R.id.lv)
-//        ListViewForScrollView lv;
+        //@BindView(R.id.tv_act)
+        //TextView tvAct;
+        @BindView(R.id.lv)
+        ListViewForScrollView lv;
 
         ViewHolder(View view) {
             ButterKnife.bind(this, view);
