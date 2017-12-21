@@ -1,8 +1,8 @@
 package com.wetime.fanc.order.iviews;
 
 
-import com.king.batterytest.fbaselib.main.iview.IBaseVIew;
-import com.king.batterytest.fbaselib.main.model.BaseBean;
+import com.wetime.fanc.main.ivews.IBaseVIew;
+import com.wetime.fanc.main.model.BaseBean;
 
 /**
  * Created by zhoukang on 2017/5/19.

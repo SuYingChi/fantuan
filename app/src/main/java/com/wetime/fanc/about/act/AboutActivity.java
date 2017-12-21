@@ -4,8 +4,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-import com.king.batterytest.fbaselib.main.BaseActivity;
-import com.king.batterytest.fbaselib.utils.Tools;
+import com.wetime.fanc.main.act.BaseActivity;
+import com.wetime.fanc.utils.Tools;
 import com.wetime.fanc.BuildConfig;
 import com.wetime.fanc.R;
 import com.wetime.fanc.about.bean.VersionPageBean;

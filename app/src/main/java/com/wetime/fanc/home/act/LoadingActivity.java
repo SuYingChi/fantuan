@@ -3,8 +3,8 @@ package com.wetime.fanc.home.act;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.king.batterytest.fbaselib.main.BaseActivity;
-import com.king.batterytest.fbaselib.utils.LogUtils;
+import com.wetime.fanc.main.act.BaseActivity;
+import com.wetime.fanc.utils.LogUtils;
 import com.wetime.fanc.R;
 
 import java.util.Timer;

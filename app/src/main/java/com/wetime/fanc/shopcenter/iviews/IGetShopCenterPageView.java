@@ -1,7 +1,7 @@
 package com.wetime.fanc.shopcenter.iviews;
 
 
-import com.king.batterytest.fbaselib.main.iview.IBaseVIew;
+import com.wetime.fanc.main.ivews.IBaseVIew;
 import com.wetime.fanc.shopcenter.bean.ShopCenterPageBean;
 
 /**

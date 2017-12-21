@@ -8,10 +8,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.king.batterytest.fbaselib.main.BaseActivity;
-import com.king.batterytest.fbaselib.main.model.BaseBean;
-import com.king.batterytest.fbaselib.utils.GsonUtils;
-import com.king.batterytest.fbaselib.utils.Tools;
+import com.wetime.fanc.main.act.BaseActivity;
+import com.wetime.fanc.main.model.BaseBean;
+import com.wetime.fanc.utils.GsonUtils;
+import com.wetime.fanc.utils.Tools;
 import com.wetime.fanc.R;
 import com.wetime.fanc.login.bean.LoginResultBean;
 import com.wetime.fanc.login.event.LoginEvent;

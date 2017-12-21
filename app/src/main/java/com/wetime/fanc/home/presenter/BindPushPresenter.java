@@ -3,9 +3,9 @@ package com.wetime.fanc.home.presenter;
 
 import android.util.Log;
 
-import com.king.batterytest.fbaselib.main.model.BaseBean;
-import com.king.batterytest.fbaselib.utils.GsonUtils;
-import com.king.batterytest.fbaselib.utils.MyStringCallback;
+import com.wetime.fanc.main.model.BaseBean;
+import com.wetime.fanc.utils.GsonUtils;
+import com.wetime.fanc.utils.MyStringCallback;
 import com.wetime.fanc.home.iviews.IBindPushView;
 import com.wetime.fanc.utils.Const;
 import com.zhy.http.okhttp.OkHttpUtils;

@@ -10,7 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.king.batterytest.fbaselib.customview.AlignTextView;
+import com.wetime.fanc.customview.AlignTextView;
 import com.wetime.fanc.R;
 import com.wetime.fanc.home.bean.OrderPageBean;
 

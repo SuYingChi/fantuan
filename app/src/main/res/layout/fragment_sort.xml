@@ -79,7 +79,7 @@
                     tools:text="美食"
                     />
 
-                <com.king.batterytest.fbaselib.customview.GridViewForScrollView
+                <com.wetime.fanc.customview.GridViewForScrollView
                     android:id="@+id/gv_all"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

@@ -110,7 +110,7 @@
                     android:textSize="14sp" />
             </LinearLayout>
 
-            <com.king.batterytest.fbaselib.customview.GridViewForScrollView
+            <com.wetime.fanc.customview.GridViewForScrollView
                 android:id="@+id/appraise_img_gv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

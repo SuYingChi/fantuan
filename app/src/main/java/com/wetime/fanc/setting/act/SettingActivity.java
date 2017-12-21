@@ -8,9 +8,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.wetime.fanc.login.event.LogoutEvent;
-import com.king.batterytest.fbaselib.main.BaseActivity;
-import com.king.batterytest.fbaselib.main.model.BaseBean;
-import com.king.batterytest.fbaselib.utils.Tools;
+import com.wetime.fanc.main.act.BaseActivity;
+import com.wetime.fanc.main.model.BaseBean;
+import com.wetime.fanc.utils.Tools;
 import com.tencent.mm.opensdk.modelmsg.SendAuth;
 import com.wetime.fanc.application.FApp;
 import com.wetime.fanc.R;

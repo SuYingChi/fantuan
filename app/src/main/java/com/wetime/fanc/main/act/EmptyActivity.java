@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-import com.king.batterytest.fbaselib.main.BaseActivity;
 import com.wetime.fanc.R;
 
 import butterknife.BindView;

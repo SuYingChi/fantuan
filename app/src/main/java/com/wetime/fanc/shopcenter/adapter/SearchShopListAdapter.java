@@ -14,8 +14,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.king.batterytest.fbaselib.customview.ListViewForScrollView;
-import com.king.batterytest.fbaselib.utils.Tools;
+import com.wetime.fanc.customview.ListViewForScrollView;
 import com.wetime.fanc.R;
 import com.wetime.fanc.shopcenter.bean.MerchantsBean;
 import com.wetime.fanc.web.WebActivity;

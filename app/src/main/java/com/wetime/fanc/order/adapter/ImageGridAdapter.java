@@ -10,7 +10,7 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.king.batterytest.fbaselib.customview.multiimageselector.adapter.SquaredImageView;
+import com.wetime.fanc.customview.multiimageselector.adapter.SquaredImageView;
 import com.wetime.fanc.R;
 
 

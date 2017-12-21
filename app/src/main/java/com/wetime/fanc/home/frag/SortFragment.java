@@ -12,8 +12,8 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.king.batterytest.fbaselib.customview.GridViewForScrollView;
-import com.king.batterytest.fbaselib.main.BaseFragment;
+import com.wetime.fanc.customview.GridViewForScrollView;
+import com.wetime.fanc.main.frag.BaseFragment;
 import com.wetime.fanc.R;
 import com.wetime.fanc.home.act.HomeSearchActivity;
 import com.wetime.fanc.home.adapter.SortGridAdapter;

@@ -7,7 +7,7 @@
     android:background="@color/white"
     android:orientation="vertical">
 
-    <com.king.batterytest.fbaselib.customview.SquareLayout
+    <com.wetime.fanc.customview.SquareLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/bg_all"/>
-    </com.king.batterytest.fbaselib.customview.SquareLayout>
+    </com.wetime.fanc.customview.SquareLayout>
 
     <TextView
         android:id="@+id/tv_name"

@@ -10,17 +10,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.king.batterytest.fbaselib.customview.multiimageselector.MultiImageSelectorActivity;
-import com.king.batterytest.fbaselib.main.BaseActivity;
-import com.king.batterytest.fbaselib.main.model.BaseBean;
-import com.king.batterytest.fbaselib.utils.Tools;
+import com.wetime.fanc.customview.multiimageselector.MultiImageSelectorActivity;
+import com.wetime.fanc.main.act.BaseActivity;
+import com.wetime.fanc.main.model.BaseBean;
+import com.wetime.fanc.utils.Tools;
 import com.wetime.fanc.R;
 import com.wetime.fanc.home.bean.MyInfoBean;
 import com.wetime.fanc.home.iviews.IGetMyInfoView;
@@ -36,7 +35,6 @@ import com.wetime.fanc.setting.presenter.SetUserNamePresenter;
 
 import org.greenrobot.eventbus.EventBus;
 
-import java.io.File;
 import java.util.List;
 
 import butterknife.BindView;

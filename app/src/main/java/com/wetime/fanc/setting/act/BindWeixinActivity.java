@@ -6,9 +6,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.king.batterytest.fbaselib.main.BaseActivity;
-import com.king.batterytest.fbaselib.main.model.BaseBean;
-import com.king.batterytest.fbaselib.utils.Tools;
+import com.wetime.fanc.main.act.BaseActivity;
+import com.wetime.fanc.main.model.BaseBean;
+import com.wetime.fanc.utils.Tools;
 import com.wetime.fanc.R;
 import com.wetime.fanc.setting.bean.SettingPageBean;
 import com.wetime.fanc.setting.event.UnBindWXEvent;

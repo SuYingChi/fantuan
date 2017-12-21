@@ -10,7 +10,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.king.batterytest.fbaselib.main.BaseActivity;
+import com.wetime.fanc.main.act.BaseActivity;
 import com.wetime.fanc.R;
 import com.wetime.fanc.home.act.HomeSearchActivity;
 import com.wetime.fanc.shopcenter.adapter.ShopListAdapter;

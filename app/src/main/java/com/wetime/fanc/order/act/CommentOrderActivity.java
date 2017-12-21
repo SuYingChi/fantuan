@@ -12,12 +12,12 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.king.batterytest.fbaselib.customview.GridViewForScrollView;
-import com.king.batterytest.fbaselib.customview.multiimageselector.MultiImageSelectorActivity;
-import com.king.batterytest.fbaselib.main.BaseActivity;
-import com.king.batterytest.fbaselib.main.model.BaseBean;
-import com.king.batterytest.fbaselib.utils.GsonUtils;
-import com.king.batterytest.fbaselib.utils.Tools;
+import com.wetime.fanc.customview.GridViewForScrollView;
+import com.wetime.fanc.customview.multiimageselector.MultiImageSelectorActivity;
+import com.wetime.fanc.main.act.BaseActivity;
+import com.wetime.fanc.main.model.BaseBean;
+import com.wetime.fanc.utils.GsonUtils;
+import com.wetime.fanc.utils.Tools;
 import com.wetime.fanc.R;
 import com.wetime.fanc.main.bean.PostFileResultBean;
 import com.wetime.fanc.main.ivews.IPostMultiFileView;
@@ -37,7 +37,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import static com.king.batterytest.fbaselib.utils.Tools.REQUEST_IMAGE;
+import static com.wetime.fanc.utils.Tools.REQUEST_IMAGE;
 
 public class CommentOrderActivity extends BaseActivity implements AdapterView.OnItemClickListener, IPostMultiFileView, ICommentOrderView {
 

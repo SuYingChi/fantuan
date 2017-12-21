@@ -1,7 +1,6 @@
 package com.wetime.fanc.main.ivews;
 
 
-import com.king.batterytest.fbaselib.main.iview.IBaseVIew;
 import com.wetime.fanc.main.bean.PostFileResultBean;
 
 /**

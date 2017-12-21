@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
-        <com.king.batterytest.fbaselib.view.CustomViewPager
+        <com.wetime.fanc.customview.CustomViewPager
             android:id="@+id/vp"
             android:background="#ffffff"
             android:layout_width="match_parent"

@@ -5,10 +5,10 @@ import android.app.Application;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 
-import com.king.batterytest.fbaselib.utils.MLoggerInterceptor;
-import com.king.batterytest.fbaselib.utils.SharePreferenceUtil;
-import com.king.batterytest.fbaselib.utils.Tools;
-import com.king.batterytest.fbaselib.view.MyMaterialHeader;
+import com.wetime.fanc.utils.MLoggerInterceptor;
+import com.wetime.fanc.utils.SharePreferenceUtil;
+import com.wetime.fanc.utils.Tools;
+import com.wetime.fanc.customview.MyMaterialHeader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.DefaultRefreshFooterCreater;
 import com.scwang.smartrefresh.layout.api.DefaultRefreshHeaderCreater;

@@ -1,7 +1,7 @@
 package com.wetime.fanc.main.presenter;
 
 
-import com.king.batterytest.fbaselib.utils.DataStringCallback;
+import com.wetime.fanc.utils.DataStringCallback;
 import com.wetime.fanc.main.bean.PostFileResultBean;
 import com.wetime.fanc.main.ivews.IPostMultiFileView;
 import com.wetime.fanc.utils.Const;
@@ -11,7 +11,7 @@ import com.zhy.http.okhttp.builder.PostFormBuilder;
 import java.io.File;
 import java.util.List;
 
-import static com.king.batterytest.fbaselib.utils.GsonUtils.getGsonInstance;
+import static com.wetime.fanc.utils.GsonUtils.getGsonInstance;
 
 /**
  * Created by zhoukang on 2017/5/19.

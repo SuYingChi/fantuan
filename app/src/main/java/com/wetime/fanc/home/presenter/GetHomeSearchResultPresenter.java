@@ -1,12 +1,10 @@
 package com.wetime.fanc.home.presenter;
 
 
-import com.king.batterytest.fbaselib.utils.DataStringCallback;
-import com.king.batterytest.fbaselib.utils.GsonUtils;
+import com.wetime.fanc.utils.DataStringCallback;
+import com.wetime.fanc.utils.GsonUtils;
 import com.wetime.fanc.home.bean.HomeSearchResult;
 import com.wetime.fanc.home.iviews.IGetHomeSearchResultView;
-import com.wetime.fanc.shopcenter.bean.CenterListPageBean;
-import com.wetime.fanc.shopcenter.iviews.IGetShopCenterListView;
 import com.wetime.fanc.utils.Const;
 import com.zhy.http.okhttp.OkHttpUtils;
 

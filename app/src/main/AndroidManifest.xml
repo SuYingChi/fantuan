@@ -71,10 +71,10 @@
             android:value="5a1fbb29f43e482bb4000098">
         </meta-data>
         <activity
-            android:name="com.king.batterytest.fbaselib.main.ScanActivity"
+            android:name=".qr.ScanActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name="com.king.batterytest.fbaselib.customview.multiimageselector.MultiImageSelectorActivity"
+            android:name=".customview.multiimageselector.MultiImageSelectorActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:windowSoftInputMode="stateHidden|stateAlwaysHidden"/>

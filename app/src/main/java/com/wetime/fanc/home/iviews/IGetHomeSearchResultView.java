@@ -1,9 +1,8 @@
 package com.wetime.fanc.home.iviews;
 
 
-import com.king.batterytest.fbaselib.main.iview.IBaseVIew;
+import com.wetime.fanc.main.ivews.IBaseVIew;
 import com.wetime.fanc.home.bean.HomeSearchResult;
-import com.wetime.fanc.shopcenter.bean.CenterListPageBean;
 
 /**
  * Created by zhoukang on 2017/5/19.

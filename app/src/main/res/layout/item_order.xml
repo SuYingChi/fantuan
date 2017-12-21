@@ -70,7 +70,7 @@
             android:layout_marginTop="15dp"
             android:orientation="horizontal">
 
-            <com.king.batterytest.fbaselib.customview.AlignTextView
+            <com.wetime.fanc.customview.AlignTextView
                 android:layout_width="70dp"
                 android:layout_height="wrap_content"
                 android:textColor="#666666"
@@ -107,7 +107,7 @@
             android:layout_marginBottom="15dp"
             android:orientation="horizontal">
 
-            <com.king.batterytest.fbaselib.customview.AlignTextView
+            <com.wetime.fanc.customview.AlignTextView
                 android:id="@+id/tv_time_type"
                 android:layout_width="70dp"
                 android:layout_height="wrap_content"
@@ -144,7 +144,7 @@
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
-            <com.king.batterytest.fbaselib.customview.AlignTextView
+            <com.wetime.fanc.customview.AlignTextView
                 android:id="@+id/tv_pricetitle"
                 android:layout_width="70dp"
 

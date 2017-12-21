@@ -16,9 +16,9 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.king.batterytest.fbaselib.main.BaseFragment;
-import com.king.batterytest.fbaselib.main.model.BaseBean;
-import com.king.batterytest.fbaselib.utils.Tools;
+import com.wetime.fanc.main.frag.BaseFragment;
+import com.wetime.fanc.main.model.BaseBean;
+import com.wetime.fanc.utils.Tools;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;

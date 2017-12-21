@@ -1,8 +1,8 @@
 package com.wetime.fanc.home.presenter;
 
 
-import com.king.batterytest.fbaselib.utils.DataStringCallback;
-import com.king.batterytest.fbaselib.utils.GsonUtils;
+import com.wetime.fanc.utils.DataStringCallback;
+import com.wetime.fanc.utils.GsonUtils;
 import com.wetime.fanc.home.bean.SearchResult;
 import com.wetime.fanc.home.iviews.IGetHomeSugView;
 import com.wetime.fanc.utils.Const;

@@ -13,8 +13,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.king.batterytest.fbaselib.main.BaseFragment;
-import com.king.batterytest.fbaselib.utils.Tools;
+import com.wetime.fanc.main.frag.BaseFragment;
+import com.wetime.fanc.utils.Tools;
 import com.wetime.fanc.R;
 import com.wetime.fanc.home.bean.MyInfoBean;
 import com.wetime.fanc.home.event.RefreshRedNunEvent;

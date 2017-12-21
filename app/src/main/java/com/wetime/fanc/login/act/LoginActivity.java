@@ -9,9 +9,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.gyf.barlibrary.ImmersionBar;
-import com.king.batterytest.fbaselib.main.BaseActivity;
-import com.king.batterytest.fbaselib.utils.GsonUtils;
-import com.king.batterytest.fbaselib.utils.Tools;
+import com.wetime.fanc.main.act.BaseActivity;
+import com.wetime.fanc.utils.GsonUtils;
+import com.wetime.fanc.utils.Tools;
 import com.tencent.mm.opensdk.modelmsg.SendAuth;
 import com.wetime.fanc.R;
 import com.wetime.fanc.application.FApp;

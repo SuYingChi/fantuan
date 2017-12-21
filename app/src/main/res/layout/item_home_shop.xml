@@ -142,7 +142,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <!--<com.king.batterytest.fbaselib.customview.ListViewForScrollView-->
+                <!--<com.wetime.fanc.customviewview.ListViewForScrollView&ndash;&gt;-->
                     <!--android:id="@+id/lv"-->
                     <!--android:layout_width="0dp"-->
                     <!--android:layout_height="match_parent"-->

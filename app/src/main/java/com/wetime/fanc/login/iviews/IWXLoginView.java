@@ -1,7 +1,7 @@
 package com.wetime.fanc.login.iviews;
 
 
-import com.king.batterytest.fbaselib.main.iview.IBaseVIew;
+import com.wetime.fanc.main.ivews.IBaseVIew;
 import com.wetime.fanc.login.bean.LoginResultBean;
 
 /**
