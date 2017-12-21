@@ -128,7 +128,6 @@ public class FApp extends Application {
 
 
     public void removeALLActivity() {
-
         for (Activity activity : oList) {
             activity.finish();
         }

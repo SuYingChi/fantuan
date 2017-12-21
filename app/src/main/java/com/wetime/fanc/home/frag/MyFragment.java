@@ -200,8 +200,7 @@ public class MyFragment extends BaseFragment implements IGetMyInfoView {
     @Override
     public void onGetUserInfo(MyInfoBean bean) {
         this.bean = bean;
-        Glide.with(getActivity().getApplicationContext())
-                .load(bean.getData().getUser().getAvatar()).into(civHead);
+        Glide.with(getContext()).load(bean.getData().getUser().getAvatar()).into(civHead);
         tvName.setText(bean.getData().getUser().getUsername());
 
 
@@ -239,5 +238,6 @@ public class MyFragment extends BaseFragment implements IGetMyInfoView {
         tvName.setText("登录/注册");
 //        civHead.setImageResource(R.drawable.ic_head_default);
         Glide.with(this).load(R.drawable.ic_head_default).apply(new RequestOptions().placeholder(R.drawable.ic_head_default)).into(civHead);
+        QBred.setBadgeNumber(0);
     }
 }

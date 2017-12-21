@@ -21,17 +21,10 @@ import com.wetime.fanc.R;
 
 import org.greenrobot.eventbus.EventBus;
 
-//import com.wetime.fanc.FApp;
 
 
 public class BaseActivity extends AppCompatActivity implements IBaseVIew {
     public SharePreferenceUtil spu;
-    private boolean wihteBar = true;
-
-    public void setWihteBar(boolean wihteBar) {
-        this.wihteBar = wihteBar;
-    }
-
     public Context mContext;
 
     @Override
@@ -41,13 +34,12 @@ public class BaseActivity extends AppCompatActivity implements IBaseVIew {
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         spu = Tools.getSpu(this);
         initStateBar();
-        FApp.getInstance().addActivity(this);
-//        getTheme()
+        addToActManager();
         mContext = this;
-//        Tools.MIUISetStatusBarLightMode(getWindow(),wihteBar);
-        LogUtils.d("color=" + getDarkColorPrimary());
     }
-
+    protected void addToActManager(){
+        FApp.getInstance().addActivity(this);
+    }
     @Override
     public Resources getResources() {
         Resources res = super.getResources();
@@ -58,26 +50,19 @@ public class BaseActivity extends AppCompatActivity implements IBaseVIew {
         return res;
     }
 
-    public int getDarkColorPrimary() {
-        TypedValue typedValue = new TypedValue();
-        getTheme().resolveAttribute(R.attr.colorPrimaryDark, typedValue, true);
-        return typedValue.resourceId;
-    }
-
-    public void onResume() {
+    protected void onResume() {
         super.onResume();
         MobclickAgent.onResume(this);
     }
 
-    public void onPause() {
+    protected void onPause() {
         super.onPause();
         MobclickAgent.onPause(this);
     }
 
 
-    public void initStateBar() {
+    protected void initStateBar() {
         ImmersionBar.with(this).statusBarColor(R.color.white_lib).statusBarDarkFont(true, 0.2f).fitsSystemWindows(true).init();
-
     }
 
     @Override

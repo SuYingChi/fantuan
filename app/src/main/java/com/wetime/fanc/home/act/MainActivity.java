@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.gyf.barlibrary.ImmersionBar;
+import com.wetime.fanc.login.event.LoginEvent;
 import com.wetime.fanc.main.act.BaseActivity;
 import com.wetime.fanc.customview.CustomViewPager;
 import com.wetime.fanc.R;
@@ -49,7 +50,6 @@ public class MainActivity extends BaseActivity implements IBindPushView {
     ImageView ivTab1;
     @BindView(R.id.iv_tab0)
     ImageView ivTab0;
-
     @BindView(R.id.tv_tab0)
     TextView tvTab0;
     @BindView(R.id.tv_tab1)
@@ -98,6 +98,11 @@ public class MainActivity extends BaseActivity implements IBindPushView {
             BindPushPresenter pushPresenter = new BindPushPresenter(MainActivity.this);
             pushPresenter.bindPush(JPushInterface.getRegistrationID(this));
         }
+    }
+
+    @Override
+    protected void addToActManager() {
+
     }
 
     @Override
@@ -241,7 +246,13 @@ public class MainActivity extends BaseActivity implements IBindPushView {
     public void onMessageEvent(SwichFragEvent event) {
         vp.setCurrentItem(event.getPos(), false);
         ImmersionBar.with(this).statusBarColor(R.color.white).statusBarDarkFont(true, 0.2f).fitsSystemWindows(true).init();
-
+    }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(LoginEvent event) {
+        if(!TextUtils.isEmpty(JPushInterface.getRegistrationID(this))){
+            BindPushPresenter pushPresenter = new BindPushPresenter(MainActivity.this);
+            pushPresenter.bindPush(JPushInterface.getRegistrationID(this));
+        }
     }
 //    @Subscribe(threadMode = ThreadMode.MAIN)
 //    public void onMessageEvent(LogoutEvent event) {

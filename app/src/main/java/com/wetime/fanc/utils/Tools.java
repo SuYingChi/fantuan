@@ -56,6 +56,7 @@ public class Tools {
     public static void logout(Context mContext) {
         SharePreferenceUtil spu = getSpu(mContext);
         spu.setToken("");
+
     }
 
     public static void hideSoftInput(Activity mActivity) {

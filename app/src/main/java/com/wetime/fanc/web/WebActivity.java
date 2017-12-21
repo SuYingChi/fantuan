@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.gyf.barlibrary.ImmersionBar;
+import com.wetime.fanc.application.FApp;
 import com.wetime.fanc.main.act.BaseActivity;
 import com.wetime.fanc.utils.Tools;
 import com.secure.pay.PayService;
@@ -456,6 +457,7 @@ public class WebActivity extends BaseActivity {
             public void run() {
                 Tools.logout(mContext);
                 EventBus.getDefault().post(new LogoutEvent());
+                FApp.getInstance().removeALLActivity();
             }
 
         });
