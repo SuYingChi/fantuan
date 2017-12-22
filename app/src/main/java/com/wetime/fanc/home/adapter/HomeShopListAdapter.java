@@ -74,6 +74,7 @@ public class HomeShopListAdapter extends BaseAdapter {
         holder.tvCentername.setText(bean.getMall_name());
         holder.tvType.setText(bean.getCategory_name());
         holder.tvSeal.setText(bean.getSales());
+        holder.tvSpend.setText(bean.getAverage_spend());
         if (bean.getMall_name().equals("")) {
             holder.tvCentername.setVisibility(View.GONE);
         } else {
