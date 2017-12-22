@@ -135,6 +135,8 @@ public class HomeSearchResultActivity extends BaseActivity implements IGetHomeSe
         super.onNewIntent(intent);
 //        Tools.toastInBottom(mContext, "new intent");
         // 重置
+        rlEmpty.setVisibility(View.GONE);
+
         cid = "";
         sid = "";
         mid = "";
