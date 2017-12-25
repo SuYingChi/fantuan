@@ -140,7 +140,7 @@ public class MainActivity extends BaseActivity implements IBindPushView {
         vp.setCurrentItem(0);
         vp.setOffscreenPageLimit(3);
 
-        vp.setScanScroll(true);
+        vp.setScanScroll(false);
         vp.setPageTransformer(true, null);
     }
 
