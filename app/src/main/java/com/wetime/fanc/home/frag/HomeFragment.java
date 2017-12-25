@@ -156,6 +156,7 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, IGe
 
     @Override
     public void onGetHomePage(final HomePageBean bean) {
+        refreshLayout.setEnableLoadmore(true);
 
         HomeGridAdapter homeGridAdapter = new HomeGridAdapter(getContext(), bean.getData().getBigcates());
         gv.setAdapter(homeGridAdapter);
