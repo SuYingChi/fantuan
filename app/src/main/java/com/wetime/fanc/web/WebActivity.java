@@ -119,7 +119,12 @@ public class WebActivity extends BaseActivity {
                 onBackPressed();
                 break;
             case R.id.tv_right:
-
+                web.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        web.loadUrl("javascript:window.onSaveButtonClick();");
+                    }
+                });
 
                 break;
         }
@@ -462,7 +467,18 @@ public class WebActivity extends BaseActivity {
 
         });
     }
-
+    @JavascriptInterface
+    public void setRightButtonText(final String text) {
+        web.post(new Runnable() {
+            @Override
+            public void run() {
+                tvRight.setText(text);
+                tvRight.setVisibility(View.VISIBLE);
+                if (text.equals(""))
+                    tvRight.setVisibility(View.GONE);
+            }
+        });
+    }
 
 }
 
