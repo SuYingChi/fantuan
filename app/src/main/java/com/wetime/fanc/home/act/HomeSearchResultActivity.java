@@ -17,7 +17,6 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.wetime.fanc.main.act.BaseActivity;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
@@ -27,6 +26,7 @@ import com.wetime.fanc.home.bean.HomeSearchResult;
 import com.wetime.fanc.home.event.KeyWordEvent;
 import com.wetime.fanc.home.iviews.IGetHomeSearchResultView;
 import com.wetime.fanc.home.presenter.GetHomeSearchResultPresenter;
+import com.wetime.fanc.main.act.BaseActivity;
 import com.wetime.fanc.shopcenter.adapter.CategoryItemAdapter;
 import com.wetime.fanc.shopcenter.adapter.LoaItemAdapter;
 import com.wetime.fanc.shopcenter.adapter.SCategoruItemAdapter;
@@ -108,6 +108,8 @@ public class HomeSearchResultActivity extends BaseActivity implements IGetHomeSe
 
     private String mid = ""; //Loa分类大id
     private String smid = "";//Loa 子分类Id
+
+    private int l21pos = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -346,11 +348,21 @@ public class HomeSearchResultActivity extends BaseActivity implements IGetHomeSe
         adapter21.setSelectedId(cid);
         lv21.setAdapter(adapter21);
         adapter21.notifyDataSetChanged();
+
+        if (l21pos >= 0) {
+            SCategoruItemAdapter adapter22 = new SCategoruItemAdapter(mContext, bean.getData().getCategory().get(l21pos).getSubcates());
+            adapter22.setCid(cid);
+            adapter22.setSelectedId(sid);
+            lv22.setAdapter(adapter22);
+            adapter22.notifyDataSetChanged();
+        }
+
         lv21.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, final int i, long l) {
                 adapter21.setSelectedId(bean.getData().getCategory().get(i).getId());
                 cid = bean.getData().getCategory().get(i).getId();
+                l21pos = i;
                 if (cid.equals("")) {
                     sid = "";
                     v2.setVisibility(View.GONE);
@@ -371,9 +383,9 @@ public class HomeSearchResultActivity extends BaseActivity implements IGetHomeSe
                     page = 1;
                     refreshLayout.autoRefresh();
                 } else {
-                    SCategoruItemAdapter adapter22 = new SCategoruItemAdapter(mContext, bean.getData().getCategory().get(i).getSubcates());
+                    final SCategoruItemAdapter adapter22 = new SCategoruItemAdapter(mContext, bean.getData().getCategory().get(i).getSubcates());
                     adapter22.setCid(cid);
-                    adapter22.setSelectedId(sid);
+                    adapter22.setSelectedId(sid);//切换一级 列表 需要保存
                     lv22.setAdapter(adapter22);
                     adapter22.notifyDataSetChanged();
                     lv22.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -381,6 +393,9 @@ public class HomeSearchResultActivity extends BaseActivity implements IGetHomeSe
                         public void onItemClick(AdapterView<?> adapterView, View view, int ii, long l) {
                             sid = bean.getData().getCategory().get(i).getSubcates().get(ii).getId();
                             Log.e("zk sid=", sid);
+
+                            adapter22.setSelectedId(sid);
+                            adapter22.notifyDataSetChanged();
 
                             v2.setVisibility(View.GONE);
 
@@ -426,7 +441,7 @@ public class HomeSearchResultActivity extends BaseActivity implements IGetHomeSe
                     tv1.setCompoundDrawables(null, null, drawable, null);
 
                     SLoaItemAdapter adapter12 = new SLoaItemAdapter(mContext, bean.getData().getMalls().get(i).getSubcates());
-                    adapter12.setCid(mid);
+//                    adapter12.setCid(mid);
                     adapter12.setSelectedId(smid);
                     lv12.setAdapter(adapter12);
                     adapter12.notifyDataSetChanged();
@@ -434,8 +449,8 @@ public class HomeSearchResultActivity extends BaseActivity implements IGetHomeSe
                     page = 1;
                     refreshLayout.autoRefresh();
                 } else {
-                    SLoaItemAdapter adapter12 = new SLoaItemAdapter(mContext, bean.getData().getMalls().get(i).getSubcates());
-                    adapter12.setCid(mid);
+                    final SLoaItemAdapter adapter12 = new SLoaItemAdapter(mContext, bean.getData().getMalls().get(i).getSubcates());
+//                    adapter12.setCid(mid);
                     adapter12.setSelectedId(smid);
                     lv12.setAdapter(adapter12);
                     adapter12.notifyDataSetChanged();
@@ -443,6 +458,8 @@ public class HomeSearchResultActivity extends BaseActivity implements IGetHomeSe
                         @Override
                         public void onItemClick(AdapterView<?> adapterView, View view, int ii, long l) {
                             smid = bean.getData().getMalls().get(i).getSubcates().get(ii).getId();
+                            adapter12.setSelectedId(smid);
+                            adapter12.notifyDataSetChanged();
                             v1.setVisibility(View.GONE);
                             if (ii == 0) {
                                 tv1.setText(bean.getData().getMalls().get(i).getName());

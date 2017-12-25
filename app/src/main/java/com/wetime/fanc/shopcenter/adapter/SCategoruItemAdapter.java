@@ -78,7 +78,7 @@ public class SCategoruItemAdapter extends BaseAdapter {
         holder.tvname.setText(mData.get(position).getName());
         holder.tvnum.setText("(" + mData.get(position).getNum() + ")");
 
-        if (selectedid.equals("") && cid.equals("")) {
+        if (mData.get(position).getCid() == null&&selectedid.equals(mData.get(position).getId())) {//
             if (position == 0) {
                 holder.tvname.setTextColor(Color.parseColor("#ff3f53"));
                 holder.tvnum.setTextColor(Color.parseColor("#ff3f53"));
@@ -87,6 +87,7 @@ public class SCategoruItemAdapter extends BaseAdapter {
                 holder.tvnum.setTextColor(Color.parseColor("#999999"));
             }
         } else {
+            //selectedid  是  sub 里的 id
             if (selectedid.equals(mData.get(position).getId()) && cid.equals(mData.get(position).getCid())) {
                 holder.tvname.setTextColor(Color.parseColor("#ff3f53"));
                 holder.tvnum.setTextColor(Color.parseColor("#ff3f53"));

@@ -386,7 +386,7 @@ public class ShopSearchResultActivity extends BaseActivity implements IGetShopSe
                     page = 1;
                     refreshLayout.autoRefresh();
                 } else {
-                    SCategoruItemAdapter adapter22 = new SCategoruItemAdapter(mContext, bean.getData().getCategory().get(i).getSubcates());
+                    final SCategoruItemAdapter adapter22 = new SCategoruItemAdapter(mContext, bean.getData().getCategory().get(i).getSubcates());
                     adapter22.setCid(cid);
                     adapter22.setSelectedId(sid);
                     lv22.setAdapter(adapter22);
@@ -396,6 +396,9 @@ public class ShopSearchResultActivity extends BaseActivity implements IGetShopSe
                         public void onItemClick(AdapterView<?> adapterView, View view, int ii, long l) {
                             sid = bean.getData().getCategory().get(i).getSubcates().get(ii).getId();
                             Log.e("zk sid=", sid);
+
+                            adapter22.setSelectedId(sid);
+                            adapter22.notifyDataSetChanged();
 
                             v2.setVisibility(View.GONE);
                             if (ii == 0) {

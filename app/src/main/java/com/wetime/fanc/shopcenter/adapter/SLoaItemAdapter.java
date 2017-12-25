@@ -27,15 +27,15 @@ public class SLoaItemAdapter extends BaseAdapter {
     private List<MallsBean.SubcatesBean> mData;
     private Context mContext;
     private String selectedid = "";
-    private String cid = "";
+//    private String cid = "";
 
-    public String getCid() {
-        return cid;
-    }
-
-    public void setCid(String cid) {
-        this.cid = cid;
-    }
+//    public String getCid() {
+//        return cid;
+//    }
+//
+//    public void setCid(String cid) {
+//        this.cid = cid;
+//    }
 
 
     public SLoaItemAdapter(Context context, List<MallsBean.SubcatesBean> mData) {
@@ -79,22 +79,13 @@ public class SLoaItemAdapter extends BaseAdapter {
         holder.tvname.setText(mData.get(position).getName());
         holder.tvnum.setText("(" + mData.get(position).getNum() + ")");
 
-        if (selectedid.equals("") && cid.equals("")) {
-            if (position == 0) {
-                holder.tvname.setTextColor(Color.parseColor("#ff3f53"));
-                holder.tvnum.setTextColor(Color.parseColor("#ff3f53"));
-            } else {
-                holder.tvname.setTextColor(Color.parseColor("#333333"));
-                holder.tvnum.setTextColor(Color.parseColor("#999999"));
-            }
+
+        if (selectedid.equals(mData.get(position).getId())) {
+            holder.tvname.setTextColor(Color.parseColor("#ff3f53"));
+            holder.tvnum.setTextColor(Color.parseColor("#ff3f53"));
         } else {
-            if (selectedid.equals(mData.get(position).getId()) && cid.equals(mData.get(position).getId())) {
-                holder.tvname.setTextColor(Color.parseColor("#ff3f53"));
-                holder.tvnum.setTextColor(Color.parseColor("#ff3f53"));
-            } else {
-                holder.tvname.setTextColor(Color.parseColor("#333333"));
-                holder.tvnum.setTextColor(Color.parseColor("#999999"));
-            }
+            holder.tvname.setTextColor(Color.parseColor("#333333"));
+            holder.tvnum.setTextColor(Color.parseColor("#999999"));
         }
 
 
