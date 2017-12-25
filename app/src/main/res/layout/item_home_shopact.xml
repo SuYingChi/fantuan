@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:paddingTop="3dp"
+    android:layout_height="wrap_content"
     android:paddingBottom="3dp"
-    android:layout_height="wrap_content">
+    android:paddingTop="3dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,16 +16,18 @@
             android:id="@+id/iv_icon"
             android:layout_width="13dp"
             android:layout_height="13dp"
-            android:background="@color/bg_all"/>
+            android:background="@color/bg_all" />
 
         <TextView
+            android:paddingRight="10dp"
             android:id="@+id/tv_str"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="3dp"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:textColor="#666666"
             android:textSize="12sp"
-            tools:text="买单立享9折起"
-            />
+            tools:text="买单立享9折起" />
     </LinearLayout>
 </RelativeLayout>
