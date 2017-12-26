@@ -1,12 +1,15 @@
 package com.wetime.fanc.utils;
 
+import com.wetime.fanc.BuildConfig;
+
 /**
  * Created by zhoukang on 2017/8/29.
  */
 
 public interface Const {
 //    String BASEURL = "https://fanttest.fantuanlife.com";
-        String BASEURL = "https://fant.fantuanlife.com";
+
+    String BASEURL = BuildConfig.DEBUG ? "https://fanttest.fantuanlife.com" : "https://fant.fantuanlife.com";
 
     String PUSH_BIND = BASEURL + "/push/bind";
     String POSTMUTILEFILE = BASEURL + "/upload/image";
