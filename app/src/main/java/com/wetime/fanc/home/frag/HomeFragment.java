@@ -54,23 +54,19 @@ import static android.app.Activity.RESULT_OK;
 public class HomeFragment extends BaseFragment implements OnRefreshListener, IGetHomePageView, OnLoadmoreListener {
     @BindView(R.id.iv_scan)
     ImageView ivScan;
-    @BindView(R.id.iv_banner)
-    ImageView ivBanner;
-    Unbinder unbinder;
-    @BindView(R.id.rcv_center)
-    RecyclerView rcvCenter;
     @BindView(R.id.refreshLayout)
     SmartRefreshLayout refreshLayout;
     @BindView(R.id.ll_search)
     LinearLayout llSearch;
-    @BindView(R.id.gv)
-    GridViewForScrollView gv;
     @BindView(R.id.lv_shop)
-    ListViewForScrollView lvShop;
+    RecyclerView lvShop;
     @BindView(R.id.ll_loc)
     LinearLayout llloc;
-    private String TAG = "zkhomefrag";
+    Unbinder unbinder;
 
+    private View hView;
+    private String TAG = "zkhomefrag";
+    private HeaderAndFooterWrapper mHeadWrapper;
 
     private int REQUEST_CODE = 10000;
     private GetHomePagePresenter getHomePagePresenter;
@@ -94,14 +90,15 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, IGe
         View v = inflater.inflate(R.layout.fragment_home, null);
         unbinder = ButterKnife.bind(this, v);
         homeShopListAdapter = new HomeShopListAdapter(getContext(), mMerchanetlist);
-        lvShop.setAdapter(homeShopListAdapter);
+        lvShop.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
 
-        lvShop.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                goWeb(mMerchanetlist.get(i).getDetail_url());
-            }
-        });
+
+//        lvShop.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//                goWeb(mMerchanetlist.get(i).getDetail_url());
+//            }
+//        });
 
         refreshLayout.setOnLoadmoreListener(this);
         refreshLayout.setOnRefreshListener(this);
@@ -158,59 +155,73 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, IGe
     public void onGetHomePage(final HomePageBean bean) {
         refreshLayout.setEnableLoadmore(true);
 
-        HomeGridAdapter homeGridAdapter = new HomeGridAdapter(getContext(), bean.getData().getBigcates());
-        gv.setAdapter(homeGridAdapter);
-        homeGridAdapter.notifyDataSetChanged();
-        gv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                goWeb(bean.getData().getBigcates().get(i).getUrl());
-            }
-        });
+        if (hView == null) {
+            LayoutInflater inflater = LayoutInflater.from(getContext());
+            hView = inflater.inflate(R.layout.item_home_content, null);
+
+            GridViewForScrollView gv = hView.findViewById(R.id.gv);
+            HomeGridAdapter homeGridAdapter = new HomeGridAdapter(getContext(), bean.getData().getBigcates());
+            gv.setAdapter(homeGridAdapter);
+            homeGridAdapter.notifyDataSetChanged();
+            gv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    goWeb(bean.getData().getBigcates().get(i).getUrl());
+                }
+            });
+
+            RecyclerView rcvCenter = hView.findViewById(R.id.rcv_center);
+            CenterAdapter adapter = new CenterAdapter(getContext(), R.layout.item_home_shopcenter, bean.getData().getMalls());
+            rcvCenter.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
+            adapter.notifyDataSetChanged();
+            adapter.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
+                    goWeb(bean.getData().getMalls().get(position).getUrl());
+                }
+
+                @Override
+                public boolean onItemLongClick(View view, RecyclerView.ViewHolder holder, int position) {
+                    return false;
+                }
+            });
 
 
-        CenterAdapter adapter = new CenterAdapter(getContext(), R.layout.item_home_shopcenter, bean.getData().getMalls());
-        rcvCenter.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
+            HeaderAndFooterWrapper mHeaderAndFooterWrapper = new HeaderAndFooterWrapper(adapter);
+            View footer = LayoutInflater.from(getContext()).inflate(R.layout.item_seemore, null);
+            footer.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent gomore = new Intent(getContext(), ShopCenterActivity.class);
+                    startActivity(gomore);
+                }
+            });
+            mHeaderAndFooterWrapper.addFootView(footer);
+            rcvCenter.setAdapter(mHeaderAndFooterWrapper);
+            mHeaderAndFooterWrapper.notifyDataSetChanged();
 
 
-        adapter.notifyDataSetChanged();
-        adapter.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
-                goWeb(bean.getData().getMalls().get(position).getUrl());
-            }
-
-            @Override
-            public boolean onItemLongClick(View view, RecyclerView.ViewHolder holder, int position) {
-                return false;
-            }
-        });
-        HeaderAndFooterWrapper mHeaderAndFooterWrapper = new HeaderAndFooterWrapper(adapter);
-        View footer = LayoutInflater.from(getContext()).inflate(R.layout.item_seemore, null);
-        footer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent gomore = new Intent(getContext(), ShopCenterActivity.class);
-                startActivity(gomore);
-            }
-        });
-        mHeaderAndFooterWrapper.addFootView(footer);
-
-        rcvCenter.setAdapter(mHeaderAndFooterWrapper);
-        mHeaderAndFooterWrapper.notifyDataSetChanged();
-
-
-        Glide.with(this).load(bean.getData().getPromotion_area().getBanner()).into(ivBanner);
-        ivBanner.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                goWeb(bean.getData().getPromotion_area().getUrl());
-            }
-        });
+            ImageView ivBanner = hView.findViewById(R.id.iv_banner);
+            Glide.with(this).load(bean.getData().getPromotion_area().getBanner()).into(ivBanner);
+            ivBanner.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    goWeb(bean.getData().getPromotion_area().getUrl());
+                }
+            });
+        }
         mMerchanetlist.clear();
         mMerchanetlist.addAll(bean.getData().getMerchants());
 
-        homeShopListAdapter.notifyDataSetChanged();
+//        homeShopListAdapter.notifyDataSetChanged();
+
+        if (mHeadWrapper == null) {
+            mHeadWrapper = new HeaderAndFooterWrapper(homeShopListAdapter);
+            mHeadWrapper.addHeaderView(hView);
+            lvShop.setAdapter(mHeadWrapper);
+        }
+
+        mHeadWrapper.notifyDataSetChanged();
         refreshLayout.finishRefresh(1000);
     }
 
@@ -218,11 +229,11 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, IGe
     public void onLoadMoreHomePage(HomePageBean bean) {
 
         mMerchanetlist.addAll(bean.getData().getMerchants());
-        homeShopListAdapter.notifyDataSetChanged();
+        mHeadWrapper.notifyDataSetChanged();
         if (bean.getData().getPaging().isIs_end()) {
             refreshLayout.setEnableLoadmore(false);
         }
-        refreshLayout.finishLoadmore();
+        refreshLayout.finishLoadmore(1500);
     }
 
     private void goWeb(String url) {
@@ -268,7 +279,7 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, IGe
                                 + amapLocation.getErrorInfo());
                         spu.setValue("wd", "");
                         spu.setValue("jd", "");
-                        Tools.toastInBottom(getContext(),"获取位置信息失败");
+                        Tools.toastInBottom(getContext(), "获取位置信息失败");
                     }
                 }
 

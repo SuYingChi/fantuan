@@ -1,6 +1,7 @@
 package com.wetime.fanc.home.adapter;
 
 import android.content.Context;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +25,7 @@ import butterknife.ButterKnife;
  * Created by zhoukang on 2017/4/17.
  */
 
-public class HomeShopListAdapter extends BaseAdapter {
+public class HomeShopListAdapter extends RecyclerView.Adapter {
     private LayoutInflater mInflater;
     private List<HomePageBean.DataBean.MerchantsBean> mData;
     private Context mContext;
@@ -34,19 +35,69 @@ public class HomeShopListAdapter extends BaseAdapter {
         this.mData = mData;
         mContext = context;
     }
+//
+//    @Override
+//    public int getCount() {
+//        // TODO Auto-generated method stub
+//        return mData.size();
+//    }
+//
+//    @Override
+//    public Object getItem(int arg0) {
+//        // TODO Auto-generated method stub
+//        return mData.get(arg0);
+//    }
+
 
     @Override
-    public int getCount() {
-        // TODO Auto-generated method stub
-        return mData.size();
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        return new ViewHolder(LayoutInflater.from(mContext).inflate(R.layout.item_home_shop, parent, false));
+
     }
 
     @Override
-    public Object getItem(int arg0) {
-        // TODO Auto-generated method stub
-        return mData.get(arg0);
-    }
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        final ViewHolder oholder = (ViewHolder) holder;
 
+        final HomePageBean.DataBean.MerchantsBean bean = mData.get(position);
+        Glide.with(mContext).load(bean.getLogo()).into(oholder.ivCover);
+        oholder.tvName.setText(bean.getName());
+        oholder.rbSocre.setStar(bean.getScore());
+        oholder.rbSocre.setClickable(false);
+        oholder.tvDis.setText(bean.getDistance());
+        oholder.tvCentername.setText(bean.getMall_name());
+        oholder.tvType.setText(bean.getCategory_name());
+        oholder.tvSeal.setText(bean.getSales());
+        if (bean.getMall_name().equals("")) {
+            oholder.tvCentername.setVisibility(View.GONE);
+        } else {
+            oholder.tvCentername.setVisibility(View.VISIBLE);
+        }
+        if (bean.getCategory_name().equals("")) {
+            oholder.tvType.setVisibility(View.GONE);
+        } else {
+            oholder.tvType.setVisibility(View.VISIBLE);
+        }
+        if (bean.getSales().equals("")) {
+            oholder.tvSeal.setVisibility(View.INVISIBLE);
+        } else {
+            oholder.tvSeal.setVisibility(View.VISIBLE);
+        }
+
+//        final HomeShopActAdapter actAdapter = new HomeShopActAdapter(mContext, bean.getMerchant_promotion_list());
+//        holder.lv.setAdapter(actAdapter);
+//        actAdapter.notifyDataSetChanged();
+
+        oholder.llAct.removeAllViews();
+        for(HomePageBean.DataBean.MerchantsBean.MerchantPromotionListBean b :bean.getMerchant_promotion_list()){
+            View mView = mInflater.inflate(R.layout.item_home_shopact, null);
+            TextView tvstr = mView.findViewById(R.id.tv_str);
+            tvstr.setText(b.getContent());
+            Glide.with(mContext).load(b.getIco()).into((ImageView)mView.findViewById(R.id.iv_icon));
+            oholder.llAct.addView(mView);
+        }
+
+    }
 
     @Override
     public long getItemId(int arg0) {
@@ -55,61 +106,14 @@ public class HomeShopListAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder holder;
-        if (convertView == null) {
-
-            convertView = mInflater.inflate(R.layout.item_home_shop, null);
-            holder = new ViewHolder(convertView);
-            convertView.setTag(holder);
-        } else {
-            holder = (ViewHolder) convertView.getTag();
-        }
-        final HomePageBean.DataBean.MerchantsBean bean = mData.get(position);
-        Glide.with(mContext).load(bean.getLogo()).into(holder.ivCover);
-        holder.tvName.setText(bean.getName());
-        holder.rbSocre.setStar(bean.getScore());
-        holder.rbSocre.setClickable(false);
-        holder.tvDis.setText(bean.getDistance());
-        holder.tvCentername.setText(bean.getMall_name());
-        holder.tvType.setText(bean.getCategory_name());
-        holder.tvSeal.setText(bean.getSales());
-        holder.tvSpend.setText(bean.getAverage_spend());
-        if (bean.getMall_name().equals("")) {
-            holder.tvCentername.setVisibility(View.GONE);
-        } else {
-            holder.tvCentername.setVisibility(View.VISIBLE);
-        }
-        if (bean.getCategory_name().equals("")) {
-            holder.tvType.setVisibility(View.GONE);
-        } else {
-            holder.tvType.setVisibility(View.VISIBLE);
-        }
-        if (bean.getSales().equals("")) {
-            holder.tvSeal.setVisibility(View.INVISIBLE);
-        } else {
-            holder.tvSeal.setVisibility(View.VISIBLE);
-        }
-
-//        final HomeShopActAdapter actAdapter = new HomeShopActAdapter(mContext, bean.getMerchant_promotion_list());
-//        holder.lv.setAdapter(actAdapter);
-//        actAdapter.notifyDataSetChanged();
-
-        holder.llAct.removeAllViews();
-        for(HomePageBean.DataBean.MerchantsBean.MerchantPromotionListBean b :bean.getMerchant_promotion_list()){
-            View mView = mInflater.inflate(R.layout.item_home_shopact, null);
-            TextView tvstr = mView.findViewById(R.id.tv_str);
-            tvstr.setText(b.getContent());
-            Glide.with(mContext).load(b.getIco()).into((ImageView)mView.findViewById(R.id.iv_icon));
-            holder.llAct.addView(mView);
-        }
-
-        return convertView;
-
+    public int getItemCount() {
+        return mData.size();
     }
 
 
-    static public class ViewHolder {
+
+
+    static public class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.iv_cover)
         ImageView ivCover;
         @BindView(R.id.tv_name)
@@ -131,7 +135,8 @@ public class HomeShopListAdapter extends BaseAdapter {
         @BindView(R.id.ll_act)
         LinearLayout llAct;
 
-        ViewHolder(View view) {
+        public ViewHolder(View view) {
+            super(view);
             ButterKnife.bind(this, view);
         }
     }
