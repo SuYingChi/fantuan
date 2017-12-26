@@ -24,7 +24,7 @@ android {
 
 //配置keystore签名
     Properties properties = new Properties()
-    InputStream inputStream = project.rootProject.file('local.properties').newDataInputStream() ;
+    InputStream inputStream = project.rootProject.file('local.properties').newDataInputStream()
     properties.load( inputStream )
     def keyDir = properties.getProperty('key.file')
 
@@ -46,6 +46,11 @@ android {
             signingConfig signingConfigs.release
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    android.applicationVariants.all { variant ->
+        variant.outputs.all {
+            outputFileName = "范团_${variant.name}_${variant.versionName}.apk"
         }
     }
 
