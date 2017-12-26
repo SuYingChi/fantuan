@@ -30,8 +30,7 @@ public class HisAdapter extends RecyclerView.Adapter {
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new OrderViewHolder(LayoutInflater.from(mActivity).inflate(R.layout.item_home_hotword, parent, false));
-
+        return new OrderViewHolder(LayoutInflater.from(mActivity).inflate(R.layout.item_home_hisword, parent, false));
     }
 
     public interface OnItemClickLitener {

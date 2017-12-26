@@ -268,6 +268,7 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, IGe
                                 + amapLocation.getErrorInfo());
                         spu.setValue("wd", "");
                         spu.setValue("jd", "");
+                        Tools.toastInBottom(getContext(),"获取位置信息失败");
                     }
                 }
 
