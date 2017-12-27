@@ -38,6 +38,7 @@ public interface Const {
     String ORDER_DELETE = BASEURL + "/order/delete";
     String ORDER_REVIEW = BASEURL + "/order/review";
     String VERSION = BASEURL + "/version";
+    String SHOP = BASEURL + "/shop";
 
     String PROTOCOL = "http://fant.fantuanlife.com/index.html#/user/agreement";
 

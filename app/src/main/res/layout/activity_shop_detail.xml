@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
@@ -7,34 +8,54 @@
 
     <include layout="@layout/item_header" />
 
-    <android.support.v4.widget.NestedScrollView
-        android:id="@+id/ntscrollview"
+    <RelativeLayout
+        android:id="@+id/rl_content"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/tv_bottom"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp">
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
+            android:background="#ff3f53"
+            android:gravity="center"
+            android:lineSpacingExtra="4sp"
+            android:textColor="#ffffff"
+            android:textSize="17sp"
+            tools:text="优惠买单" />
 
-            <include layout="@layout/item_shop_detail_info" />
+        <android.support.v4.widget.NestedScrollView
+            android:id="@+id/ntscrollview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/tv_bottom">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp">
 
-            <include layout="@layout/item_shop_detail_youhui" />
+                <include layout="@layout/item_shop_detail_info" />
 
-            <include layout="@layout/item_shop_detail_taocan" />
+                <include layout="@layout/item_shop_detail_youhui" />
 
-            <include layout="@layout/item_shop_detail_daijinquan" />
+                <include layout="@layout/item_shop_detail_taocan" />
 
-            <include layout="@layout/item_shop_detail_shopcenter" />
+                <include layout="@layout/item_shop_detail_daijinquan" />
 
-            <include layout="@layout/item_shop_detail_comment" />
+                <include layout="@layout/item_shop_detail_shopcenter" />
 
-            <include layout="@layout/item_shop_detail_dongtai" />
+                <include layout="@layout/item_shop_detail_comment" />
 
-            <include layout="@layout/item_shop_detail_moreinfo" />
-        </LinearLayout>
-    </android.support.v4.widget.NestedScrollView>
+                <include layout="@layout/item_shop_detail_dongtai" />
+
+                <include layout="@layout/item_shop_detail_moreinfo" />
+            </LinearLayout>
+
+
+        </android.support.v4.widget.NestedScrollView>
+    </RelativeLayout>
 </LinearLayout>
 

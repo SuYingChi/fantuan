@@ -21,6 +21,7 @@
             android:gravity="center_horizontal">
 
             <ImageView
+                android:layout_marginTop="5dp"
                 android:id="@+id/iv_cover"
                 android:layout_width="90dp"
                 android:layout_height="90dp"
@@ -44,7 +45,7 @@
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:textColor="#333333"
-                android:textSize="16sp"
+                android:textSize="18sp"
                 android:textStyle="bold"
                 tools:text="青沼日本料理 (望京店)" />
 
@@ -158,11 +159,13 @@
 
 
     <LinearLayout
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:orientation="horizontal">
 
         <TextView
+            android:id="@+id/tv_loc"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -178,6 +181,7 @@
         <ImageView
             android:id="@+id/iv_phone"
             android:layout_width="85dp"
+            android:paddingLeft="20dp"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_phone_red" />

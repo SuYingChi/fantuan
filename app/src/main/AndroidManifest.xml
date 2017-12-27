@@ -123,6 +123,6 @@
         </receiver>
         <service android:name="com.amap.api.location.APSService" />
         <meta-data android:name="com.amap.api.v2.apikey" android:value="ece4301551d57d406721dd7db524e170"/>
-        <activity android:name=".shop.ShopDetailActivity"/>
+        <activity android:name=".shop.act.ShopDetailActivity"/>
     </application>
 </manifest>
