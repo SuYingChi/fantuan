@@ -12,7 +12,7 @@ public class ShopDetailBean {
     /**
      * error : 0
      * msg :
-     * data : {"merchant":{"mid":"55","name":"范团13","score":"4.6","average_spend":"","address":"海口市琼山区忠介路2号铺面","phone":"18976267677","cid":"0","logo":"https://staticcdntest.fantuanlife.com/uimage/70/a7/70/64/70a77064e41d3b6182d260065a2537ae.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70","spider":"0","sales":"25","business_hours":"00:04-00:51 10:00-17:12 18:03-18:26 18:36-19:36 20:05-23:05","affiche":"这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公","distance":"距167m","post_url":"https://fanttest.fantuanlife.com/index.html#/merchant/55/picture","category_name":"其他","mall":"金棕榈广场","discounts":"优惠买单"},"mall":{"title":"所在购物中心","content":[{"name":"金棕榈广场","mall_url":"https://fanttest.fantuanlife.com/index.html#/mall?mall=12","logo_url":"https://staticcdntest.fantuanlife.com/uimage/c1/f7/b9/a6/c1f7b9a6b63ff2e7cdb4d84e9493779b.jpg"}]},"coupon":{"title":"买单优惠活动","coupon":[{"pid":"134","name":"满2减1优惠券","is_get":false},{"pid":"135","name":"满3减2优惠券","is_get":false},{"pid":"136","name":"满4减3优惠券","is_get":false}],"activity":[{"ico":"https://staticcdntest.fantuanlife.com/image/fant/promotion/moneyOff.png","name":"满2减1、满3减2、满4减3、满5减4、满6减5、满7减6、满8减7、满9减8、满10减9、满11减10"},{"ico":"https://staticcdntest.fantuanlife.com/image/fant/promotion/cashCoupon.png","name":"满2赠1、满2赠1"},{"ico":"https://staticcdntest.fantuanlife.com/image/fant/promotion/payDiscount.png","name":"买单立享6.00折优惠"}]},"groupon":{"title":"团购套餐","content":[{"pid":"128","name":"翔帅专用团购","amount":"0.01","market_price":"500","total_sales":"0","imgUrl":"https://staticcdntest.fantuanlife.com/image/m_logo.png"},{"pid":"129","name":"翔帅专用团购2","amount":"0.01","market_price":"200","total_sales":"0","imgUrl":"https://staticcdntest.fantuanlife.com/image/m_logo.png"}]},"voucher":{"title":"代金券","content":[{"pid":"117","amount":"0.01","market_price":"500","total_sales":"20"},{"pid":"130","amount":"0.01","market_price":"150","total_sales":"0"},{"pid":"131","amount":"0.01","market_price":"300","total_sales":"0"}]},"post":{"title":"商家动态","content":[{"content":"带图的商家动态","create_at":"2017-12-26 15:16:20"}]},"focus":false,"review":{"totals":"16","title":"商家动态","content":[{"score":"5","uid":"23","content":"lost咯胡了holy咯啊配件给哦","image":"307138,307140,307141,307382","review_time":"2017-12-26 17:18:46","is_anonymous":"0","reply":null,"user":{"id":"23","username":"陈加尧","avatar":"https://staticcdntest.fantuanlife.com/uimage/84/57/36/c4/845736c4a0febc922c22b5e4fca24806.jpg?x-oss-process=image/resize,m_fill,h_112,w_112/format,jpg/interlace,1/quality,Q_70"},"imageUrl":["https://staticcdntest.fantuanlife.com/uimage/7f/ad/19/69/7fad1969e970f77948e416546aab6efa.jpg","https://staticcdntest.fantuanlife.com/uimage/71/31/6e/c3/71316ec379977d880250bbaa791c2ceb.jpg","https://staticcdntest.fantuanlife.com/uimage/56/89/1a/36/56891a3639c0fa4cad0af462a541b454.jpg"]}]}}
+     * data : {"merchant":{"mid":"55","name":"范团13","score":"4.6","average_spend":"","address":"海口市琼山区忠介路2号铺面","phone":"18976267677","cid":"0","logo":"https://staticcdntest.fantuanlife.com/uimage/70/a7/70/64/70a77064e41d3b6182d260065a2537ae.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70","spider":"0","sales":"月销量 999999","business_hours":"00:04-00:51 10:00-17:12 18:03-18:26 18:36-19:36 20:05-23:05","affiche":"这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公","distance":"距167m","post_url":"https://fanttest.fantuanlife.com/index.html#/merchant/55/picture","category_name":"其他","mall":"金棕榈广场","discounts":"优惠买单"},"mall":{"title":"所在购物中心","content":[{"name":"金棕榈广场","mall_url":"https://fanttest.fantuanlife.com/index.html#/mall?mall=12","logo_url":"https://staticcdntest.fantuanlife.com/uimage/c1/f7/b9/a6/c1f7b9a6b63ff2e7cdb4d84e9493779b.jpg"}]},"coupon":{"title":"买单优惠活动","content":[{"pid":"134","threshold":"2","amount":"1","is_get":false},{"pid":"135","threshold":"3","amount":"2","is_get":false},{"pid":"136","threshold":"4","amount":"3","is_get":false}],"activity":[{"ico":"https://staticcdntest.fantuanlife.com/image/fant/promotion/moneyOff.png","name":"满2减1、满3减2、满4减3、满5减4、满6减5、满7减6、满8减7、满9减8、满10减9、满11减10"},{"ico":"https://staticcdntest.fantuanlife.com/image/fant/promotion/cashCoupon.png","name":"满2赠1、满2赠1"},{"ico":"https://staticcdntest.fantuanlife.com/image/fant/promotion/payDiscount.png","name":"买单立享6.00折优惠"}]},"groupon":{"title":"团购套餐","content":[{"pid":"128","name":"翔帅专用团购","amount":"0.01","market_price":"500","total_sales":"0","imgUrl":"https://staticcdntest.fantuanlife.com/image/m_logo.png"},{"pid":"129","name":"翔帅专用团购2","amount":"0.01","market_price":"200","total_sales":"0","imgUrl":"https://staticcdntest.fantuanlife.com/image/m_logo.png"}]},"voucher":{"title":"代金券","content":[{"pid":"117","amount":"0.01","market_price":"500","total_sales":"20"},{"pid":"130","amount":"0.01","market_price":"150","total_sales":"0"},{"pid":"131","amount":"0.01","market_price":"300","total_sales":"0"}]},"post":{"title":"商家动态","content":[{"content":"带图的商家动态","create_at":"2017-12-26 15:16:20"}]},"focus":false,"review":{"totals":"16","title":"商家动态","content":[{"score":"5","uid":"23","content":"lost咯胡了holy咯啊配件给哦","image":"307138,307140,307141,307382","review_time":"2017-12-26 17:18:46","is_anonymous":"0","reply":null,"user":{"id":"23","username":"陈加尧","avatar":"https://staticcdntest.fantuanlife.com/uimage/84/57/36/c4/845736c4a0febc922c22b5e4fca24806.jpg?x-oss-process=image/resize,m_fill,h_112,w_112/format,jpg/interlace,1/quality,Q_70"},"imageUrl":["https://staticcdntest.fantuanlife.com/uimage/7f/ad/19/69/7fad1969e970f77948e416546aab6efa.jpg","https://staticcdntest.fantuanlife.com/uimage/71/31/6e/c3/71316ec379977d880250bbaa791c2ceb.jpg","https://staticcdntest.fantuanlife.com/uimage/56/89/1a/36/56891a3639c0fa4cad0af462a541b454.jpg"]}]}}
      */
 
     private int error;
@@ -45,9 +45,9 @@ public class ShopDetailBean {
 
     public static class DataBean {
         /**
-         * merchant : {"mid":"55","name":"范团13","score":"4.6","average_spend":"","address":"海口市琼山区忠介路2号铺面","phone":"18976267677","cid":"0","logo":"https://staticcdntest.fantuanlife.com/uimage/70/a7/70/64/70a77064e41d3b6182d260065a2537ae.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70","spider":"0","sales":"25","business_hours":"00:04-00:51 10:00-17:12 18:03-18:26 18:36-19:36 20:05-23:05","affiche":"这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公","distance":"距167m","post_url":"https://fanttest.fantuanlife.com/index.html#/merchant/55/picture","category_name":"其他","mall":"金棕榈广场","discounts":"优惠买单"}
+         * merchant : {"mid":"55","name":"范团13","score":"4.6","average_spend":"","address":"海口市琼山区忠介路2号铺面","phone":"18976267677","cid":"0","logo":"https://staticcdntest.fantuanlife.com/uimage/70/a7/70/64/70a77064e41d3b6182d260065a2537ae.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70","spider":"0","sales":"月销量 999999","business_hours":"00:04-00:51 10:00-17:12 18:03-18:26 18:36-19:36 20:05-23:05","affiche":"这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公","distance":"距167m","post_url":"https://fanttest.fantuanlife.com/index.html#/merchant/55/picture","category_name":"其他","mall":"金棕榈广场","discounts":"优惠买单"}
          * mall : {"title":"所在购物中心","content":[{"name":"金棕榈广场","mall_url":"https://fanttest.fantuanlife.com/index.html#/mall?mall=12","logo_url":"https://staticcdntest.fantuanlife.com/uimage/c1/f7/b9/a6/c1f7b9a6b63ff2e7cdb4d84e9493779b.jpg"}]}
-         * coupon : {"title":"买单优惠活动","coupon":[{"pid":"134","name":"满2减1优惠券","is_get":false},{"pid":"135","name":"满3减2优惠券","is_get":false},{"pid":"136","name":"满4减3优惠券","is_get":false}],"activity":[{"ico":"https://staticcdntest.fantuanlife.com/image/fant/promotion/moneyOff.png","name":"满2减1、满3减2、满4减3、满5减4、满6减5、满7减6、满8减7、满9减8、满10减9、满11减10"},{"ico":"https://staticcdntest.fantuanlife.com/image/fant/promotion/cashCoupon.png","name":"满2赠1、满2赠1"},{"ico":"https://staticcdntest.fantuanlife.com/image/fant/promotion/payDiscount.png","name":"买单立享6.00折优惠"}]}
+         * coupon : {"title":"买单优惠活动","content":[{"pid":"134","threshold":"2","amount":"1","is_get":false},{"pid":"135","threshold":"3","amount":"2","is_get":false},{"pid":"136","threshold":"4","amount":"3","is_get":false}],"activity":[{"ico":"https://staticcdntest.fantuanlife.com/image/fant/promotion/moneyOff.png","name":"满2减1、满3减2、满4减3、满5减4、满6减5、满7减6、满8减7、满9减8、满10减9、满11减10"},{"ico":"https://staticcdntest.fantuanlife.com/image/fant/promotion/cashCoupon.png","name":"满2赠1、满2赠1"},{"ico":"https://staticcdntest.fantuanlife.com/image/fant/promotion/payDiscount.png","name":"买单立享6.00折优惠"}]}
          * groupon : {"title":"团购套餐","content":[{"pid":"128","name":"翔帅专用团购","amount":"0.01","market_price":"500","total_sales":"0","imgUrl":"https://staticcdntest.fantuanlife.com/image/m_logo.png"},{"pid":"129","name":"翔帅专用团购2","amount":"0.01","market_price":"200","total_sales":"0","imgUrl":"https://staticcdntest.fantuanlife.com/image/m_logo.png"}]}
          * voucher : {"title":"代金券","content":[{"pid":"117","amount":"0.01","market_price":"500","total_sales":"20"},{"pid":"130","amount":"0.01","market_price":"150","total_sales":"0"},{"pid":"131","amount":"0.01","market_price":"300","total_sales":"0"}]}
          * post : {"title":"商家动态","content":[{"content":"带图的商家动态","create_at":"2017-12-26 15:16:20"}]}
@@ -57,7 +57,7 @@ public class ShopDetailBean {
 
         private MerchantBean merchant;
         private MallBean mall;
-        private CouponBeanX coupon;
+        private CouponBean coupon;
         private GrouponBean groupon;
         private VoucherBean voucher;
         private PostBean post;
@@ -80,11 +80,11 @@ public class ShopDetailBean {
             this.mall = mall;
         }
 
-        public CouponBeanX getCoupon() {
+        public CouponBean getCoupon() {
             return coupon;
         }
 
-        public void setCoupon(CouponBeanX coupon) {
+        public void setCoupon(CouponBean coupon) {
             this.coupon = coupon;
         }
 
@@ -139,7 +139,7 @@ public class ShopDetailBean {
              * cid : 0
              * logo : https://staticcdntest.fantuanlife.com/uimage/70/a7/70/64/70a77064e41d3b6182d260065a2537ae.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70
              * spider : 0
-             * sales : 25
+             * sales : 月销量 999999
              * business_hours : 00:04-00:51 10:00-17:12 18:03-18:26 18:36-19:36 20:05-23:05
              * affiche : 这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公
              * distance : 距167m
@@ -366,15 +366,15 @@ public class ShopDetailBean {
             }
         }
 
-        public static class CouponBeanX {
+        public static class CouponBean {
             /**
              * title : 买单优惠活动
-             * coupon : [{"pid":"134","name":"满2减1优惠券","is_get":false},{"pid":"135","name":"满3减2优惠券","is_get":false},{"pid":"136","name":"满4减3优惠券","is_get":false}]
+             * content : [{"pid":"134","threshold":"2","amount":"1","is_get":false},{"pid":"135","threshold":"3","amount":"2","is_get":false},{"pid":"136","threshold":"4","amount":"3","is_get":false}]
              * activity : [{"ico":"https://staticcdntest.fantuanlife.com/image/fant/promotion/moneyOff.png","name":"满2减1、满3减2、满4减3、满5减4、满6减5、满7减6、满8减7、满9减8、满10减9、满11减10"},{"ico":"https://staticcdntest.fantuanlife.com/image/fant/promotion/cashCoupon.png","name":"满2赠1、满2赠1"},{"ico":"https://staticcdntest.fantuanlife.com/image/fant/promotion/payDiscount.png","name":"买单立享6.00折优惠"}]
              */
 
             private String title;
-            private List<CouponBean> coupon;
+            private List<ContentBeanX> content;
             private List<ActivityBean> activity;
 
             public String getTitle() {
@@ -385,12 +385,12 @@ public class ShopDetailBean {
                 this.title = title;
             }
 
-            public List<CouponBean> getCoupon() {
-                return coupon;
+            public List<ContentBeanX> getContent() {
+                return content;
             }
 
-            public void setCoupon(List<CouponBean> coupon) {
-                this.coupon = coupon;
+            public void setContent(List<ContentBeanX> content) {
+                this.content = content;
             }
 
             public List<ActivityBean> getActivity() {
@@ -401,15 +401,17 @@ public class ShopDetailBean {
                 this.activity = activity;
             }
 
-            public static class CouponBean {
+            public static class ContentBeanX {
                 /**
                  * pid : 134
-                 * name : 满2减1优惠券
+                 * threshold : 2
+                 * amount : 1
                  * is_get : false
                  */
 
                 private String pid;
-                private String name;
+                private String threshold;
+                private String amount;
                 private boolean is_get;
 
                 public String getPid() {
@@ -420,12 +422,20 @@ public class ShopDetailBean {
                     this.pid = pid;
                 }
 
-                public String getName() {
-                    return name;
+                public String getThreshold() {
+                    return threshold;
                 }
 
-                public void setName(String name) {
-                    this.name = name;
+                public void setThreshold(String threshold) {
+                    this.threshold = threshold;
+                }
+
+                public String getAmount() {
+                    return amount;
+                }
+
+                public void setAmount(String amount) {
+                    this.amount = amount;
                 }
 
                 public boolean isIs_get() {
@@ -471,7 +481,7 @@ public class ShopDetailBean {
              */
 
             private String title;
-            private List<ContentBeanX> content;
+            private List<ContentBeanXX> content;
 
             public String getTitle() {
                 return title;
@@ -481,15 +491,15 @@ public class ShopDetailBean {
                 this.title = title;
             }
 
-            public List<ContentBeanX> getContent() {
+            public List<ContentBeanXX> getContent() {
                 return content;
             }
 
-            public void setContent(List<ContentBeanX> content) {
+            public void setContent(List<ContentBeanXX> content) {
                 this.content = content;
             }
 
-            public static class ContentBeanX {
+            public static class ContentBeanXX {
                 /**
                  * pid : 128
                  * name : 翔帅专用团购
@@ -563,7 +573,7 @@ public class ShopDetailBean {
              */
 
             private String title;
-            private List<ContentBeanXX> content;
+            private List<ContentBeanXXX> content;
 
             public String getTitle() {
                 return title;
@@ -573,15 +583,15 @@ public class ShopDetailBean {
                 this.title = title;
             }
 
-            public List<ContentBeanXX> getContent() {
+            public List<ContentBeanXXX> getContent() {
                 return content;
             }
 
-            public void setContent(List<ContentBeanXX> content) {
+            public void setContent(List<ContentBeanXXX> content) {
                 this.content = content;
             }
 
-            public static class ContentBeanXX {
+            public static class ContentBeanXXX {
                 /**
                  * pid : 117
                  * amount : 0.01
@@ -635,7 +645,7 @@ public class ShopDetailBean {
              */
 
             private String title;
-            private List<ContentBeanXXX> content;
+            private List<ContentBeanXXXX> content;
 
             public String getTitle() {
                 return title;
@@ -645,15 +655,15 @@ public class ShopDetailBean {
                 this.title = title;
             }
 
-            public List<ContentBeanXXX> getContent() {
+            public List<ContentBeanXXXX> getContent() {
                 return content;
             }
 
-            public void setContent(List<ContentBeanXXX> content) {
+            public void setContent(List<ContentBeanXXXX> content) {
                 this.content = content;
             }
 
-            public static class ContentBeanXXX {
+            public static class ContentBeanXXXX {
                 /**
                  * content : 带图的商家动态
                  * create_at : 2017-12-26 15:16:20
@@ -689,7 +699,7 @@ public class ShopDetailBean {
 
             private String totals;
             private String title;
-            private List<ContentBeanXXXX> content;
+            private List<ContentBeanXXXXX> content;
 
             public String getTotals() {
                 return totals;
@@ -707,15 +717,15 @@ public class ShopDetailBean {
                 this.title = title;
             }
 
-            public List<ContentBeanXXXX> getContent() {
+            public List<ContentBeanXXXXX> getContent() {
                 return content;
             }
 
-            public void setContent(List<ContentBeanXXXX> content) {
+            public void setContent(List<ContentBeanXXXXX> content) {
                 this.content = content;
             }
 
-            public static class ContentBeanXXXX {
+            public static class ContentBeanXXXXX {
                 /**
                  * score : 5
                  * uid : 23

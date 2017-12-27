@@ -16,6 +16,8 @@ import com.wetime.fanc.R;
 import com.wetime.fanc.customview.ListViewForScrollView;
 import com.wetime.fanc.main.act.BaseActivity;
 import com.wetime.fanc.order.MyRatingBar;
+import com.wetime.fanc.shop.adapter.ShopDetailActAdapter;
+import com.wetime.fanc.shop.adapter.ShopDetailYouhuiquanAdapter;
 import com.wetime.fanc.shop.bean.ShopDetailBean;
 import com.wetime.fanc.shop.iviews.IGetShopDetailView;
 import com.wetime.fanc.shop.presenter.GetShopDetailPresenter;
@@ -134,6 +136,8 @@ public class ShopDetailActivity extends BaseActivity implements IGetShopDetailVi
     RelativeLayout rlContent;
     @BindView(R.id.tv_bottom)
     TextView tvBottom;
+    @BindView(R.id.tv_title_youhui)
+    TextView tvTitleYouhui;
 
     private GetShopDetailPresenter getShopDetailPresenter;
 
@@ -209,6 +213,40 @@ public class ShopDetailActivity extends BaseActivity implements IGetShopDetailVi
                 }
             }
         });
+        // 买单优惠
+        tvTitleYouhui.setText(bean.getData().getCoupon().getTitle());
+        ShopDetailActAdapter actItemAdapter = new ShopDetailActAdapter(mContext, bean.getData().getCoupon().getActivity());
+        lvAct.setAdapter(actItemAdapter);
+        actItemAdapter.notifyDataSetChanged();
+
+        ShopDetailYouhuiquanAdapter youhuiquanActItemAdapter = new ShopDetailYouhuiquanAdapter(mContext, bean.getData().getCoupon().getContent());
+        lvYouhuiquan.setAdapter(youhuiquanActItemAdapter);
+        youhuiquanActItemAdapter.setOnGetClickLitener(new ShopDetailYouhuiquanAdapter.OnGetClickLitener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                Tools.toastInBottom(mContext, position+"");
+            }
+        });
+        youhuiquanActItemAdapter.notifyDataSetChanged();
+        if(bean.getData().getCoupon().getContent().size()==0
+                &&bean.getData().getCoupon().getActivity().size()==0){
+            llYouhui.setVisibility(View.GONE);
+        }
+
+        if (bean.getData().getCoupon().getContent().size() > 2) {
+            tvMoreYouhuiquan.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Tools.toastInBottom(mContext, "moren youhuiquan");
+                }
+            });
+        } else {
+            tvMoreYouhuiquan.setVisibility(View.GONE);
+        }
+        //团购套餐
+
+
+
         // 底部
         if (TextUtils.isEmpty(bean.getData().getMerchant().getAffiche())) {
             llGonggao.setVisibility(View.GONE);
@@ -218,8 +256,14 @@ public class ShopDetailActivity extends BaseActivity implements IGetShopDetailVi
         tvBusinesstime.setText(bean.getData().getMerchant().getBusiness_hours());
         if (bean.getData().getMerchant().getSpider().equals("1")) {
             tvBottom.setVisibility(View.GONE);
-        }else {
+        } else {
             tvBottom.setText(bean.getData().getMerchant().getDiscounts());
+            tvBottom.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Tools.toastInBottom(mContext,"gogogog");
+                }
+            });
         }
 
 

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="1dp"
+    android:paddingTop="1dp">
+
+    <LinearLayout
+        android:background="@drawable/bg_youhui"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="80dp">
+        <TextView
+            android:id="@+id/tv_jine"
+            android:layout_marginLeft="20dp"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textSize="24sp"
+            android:textColor="#333333"
+            android:textStyle="bold"
+            android:lineSpacingExtra="0sp"
+            tools:text="￥20"
+            />
+        <TextView
+            android:id="@+id/tv_mane"
+            android:layout_marginLeft="20dp"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:textSize="14sp"
+            android:textColor="#333333"
+            android:gravity="center|left"
+            android:lineSpacingExtra="0sp"
+            tools:text="满100可用"
+            />
+        <TextView
+            android:layout_marginRight="20dp"
+            android:id="@+id/tv_get"
+            android:layout_width="60dp"
+            android:layout_height="27dp"
+            android:background="@drawable/bg_btn_red_corner"
+            android:gravity="center"
+            android:text="领取"
+            android:textColor="#ffffff"
+            android:textSize="14sp" />
+    </LinearLayout>
+</RelativeLayout>

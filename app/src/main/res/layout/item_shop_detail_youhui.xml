@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_youhui"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white"
     android:gravity="center"
-    android:id="@+id/ll_youhui"
     android:orientation="vertical"
     android:paddingTop="50dp">
 
     <TextView
+        android:id="@+id/tv_title_youhui"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:lineSpacingExtra="0sp"
@@ -19,18 +20,22 @@
     <com.wetime.fanc.customview.ListViewForScrollView
         android:id="@+id/lv_act"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:divider="@null" />
 
     <com.wetime.fanc.customview.ListViewForScrollView
         android:id="@+id/lv_youhuiquan"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:divider="@null" />
 
     <TextView
         android:id="@+id/tv_more_youhuiquan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="20dp"
         android:drawablePadding="5dp"
         android:drawableRight="@drawable/lib_icon_down"
         android:gravity="center"

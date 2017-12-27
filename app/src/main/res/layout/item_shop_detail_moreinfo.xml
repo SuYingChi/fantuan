@@ -34,6 +34,7 @@
         android:orientation="horizontal">
 
         <ImageView
+            android:layout_marginTop="6dp"
             android:layout_width="16dp"
             android:layout_height="16dp"
             android:src="@drawable/ic_laba" />
@@ -57,6 +58,7 @@
         android:orientation="horizontal">
 
         <ImageView
+            android:layout_marginTop="6dp"
             android:layout_width="16dp"
             android:layout_height="16dp"
             android:src="@drawable/ic_time" />
@@ -68,7 +70,7 @@
             android:lineSpacingExtra="9sp"
             android:textColor="#333333"
             android:textSize="14sp"
-            tools:text="营业时间: " />
+            android:text="营业时间: " />
 
         <TextView
             android:id="@+id/tv_businesstime"
