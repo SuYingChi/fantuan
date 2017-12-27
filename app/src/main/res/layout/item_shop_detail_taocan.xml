@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:gravity="center"
+    android:id="@+id/ll_taocan"
+    android:orientation="vertical"
+    android:paddingTop="50dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:lineSpacingExtra="0sp"
+        android:text="团购套餐"
+        android:textColor="#333333"
+        android:textSize="19sp" />
+
+    <com.wetime.fanc.customview.ListViewForScrollView
+        android:id="@+id/lv_taocan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
+    <TextView
+        android:id="@+id/tv_more_taocan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:drawablePadding="5dp"
+        android:drawableRight="@drawable/lib_icon_down"
+        android:gravity="center"
+        android:lineSpacingExtra="0sp"
+        android:text="查看其他3个团购套餐"
+        android:textColor="#666666"
+        android:textSize="14sp" />
+</LinearLayout>
+

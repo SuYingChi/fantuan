@@ -56,7 +56,7 @@ public class HomeShopListAdapter extends RecyclerView.Adapter {
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         final ViewHolder oholder = (ViewHolder) holder;
 
         final HomePageBean.DataBean.MerchantsBean bean = mData.get(position);
@@ -97,7 +97,28 @@ public class HomeShopListAdapter extends RecyclerView.Adapter {
             oholder.llAct.addView(mView);
         }
 
+        if (mOnItemClickLitener != null) {
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mOnItemClickLitener.onItemClick(view,position);
+                }
+            });
+        }
+
     }
+    public interface OnItemClickLitener {
+        void onItemClick(View view, int position);
+    }
+
+
+    private OnItemClickLitener mOnItemClickLitener;
+
+
+    public void setOnItemClickLitener(OnItemClickLitener mOnItemClickLitener) {
+        this.mOnItemClickLitener = mOnItemClickLitener;
+    }
+
 
     @Override
     public long getItemId(int arg0) {

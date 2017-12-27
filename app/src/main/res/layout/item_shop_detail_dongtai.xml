@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ll_dongtai"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:paddingTop="50dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="商家动态"
+            android:textColor="#333333"
+            android:textSize="19sp" />
+
+        <TextView
+            android:id="@+id/tv_moredongtai"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawablePadding="5dp"
+            android:drawableRight="@drawable/ic_right_red"
+            android:lineSpacingExtra="0sp"
+            android:textColor="#ff6060"
+            android:textSize="14sp"
+            android:text="查看更多" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_dongtaicontent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:lineSpacingExtra="9dp"
+        android:textColor="#333333"
+        android:textSize="14sp"
+        tools:text="食材还算新鲜，量不大，服务略有点欠缺。小朋友最爱吃寿司，而这家有好几款带鳗鱼可供选择。中午有套餐，有20多个选择，一两个人平时当工作餐也不错。" />
+
+    <TextView
+        android:id="@+id/tv_dongtaitime"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        android:textColor="#666666"
+        android:lineSpacingExtra="0sp"
+        android:gravity="end"
+        tools:text="2017/08/07 12:35"
+        />
+</LinearLayout>
+

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <include layout="@layout/item_header" />
+
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/ntscrollview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp">
+
+            <include layout="@layout/item_shop_detail_info" />
+
+            <include layout="@layout/item_shop_detail_youhui" />
+
+            <include layout="@layout/item_shop_detail_taocan" />
+
+            <include layout="@layout/item_shop_detail_daijinquan" />
+
+            <include layout="@layout/item_shop_detail_shopcenter" />
+
+            <include layout="@layout/item_shop_detail_comment" />
+
+            <include layout="@layout/item_shop_detail_dongtai" />
+
+            <include layout="@layout/item_shop_detail_moreinfo" />
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+</LinearLayout>
+

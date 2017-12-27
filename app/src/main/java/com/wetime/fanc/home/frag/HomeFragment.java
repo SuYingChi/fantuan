@@ -23,6 +23,7 @@ import com.wetime.fanc.customview.GridViewForScrollView;
 import com.wetime.fanc.customview.ListViewForScrollView;
 import com.wetime.fanc.main.frag.BaseFragment;
 import com.wetime.fanc.qr.ScanActivity;
+import com.wetime.fanc.shop.ShopDetailActivity;
 import com.wetime.fanc.utils.Tools;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -91,14 +92,13 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, IGe
         unbinder = ButterKnife.bind(this, v);
         homeShopListAdapter = new HomeShopListAdapter(getContext(), mMerchanetlist);
         lvShop.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
-
-
-//        lvShop.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                goWeb(mMerchanetlist.get(i).getDetail_url());
-//            }
-//        });
+        homeShopListAdapter.setOnItemClickLitener(new HomeShopListAdapter.OnItemClickLitener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                Intent goShop = new Intent(getContext(), ShopDetailActivity.class);
+                startActivity(goShop);
+            }
+        });
 
         refreshLayout.setOnLoadmoreListener(this);
         refreshLayout.setOnRefreshListener(this);
