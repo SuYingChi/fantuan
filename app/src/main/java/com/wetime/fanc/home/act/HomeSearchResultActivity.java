@@ -349,7 +349,7 @@ public class HomeSearchResultActivity extends BaseActivity implements IGetHomeSe
         lv21.setAdapter(adapter21);
         adapter21.notifyDataSetChanged();
 
-        if (l21pos >= 0) {
+        if (l21pos >= 0 && l21pos < bean.getData().getCategory().size()) {
             SCategoruItemAdapter adapter22 = new SCategoruItemAdapter(mContext, bean.getData().getCategory().get(l21pos).getSubcates());
             adapter22.setCid(cid);
             adapter22.setSelectedId(sid);
