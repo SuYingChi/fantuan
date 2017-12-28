@@ -17,6 +17,7 @@ import com.wetime.fanc.customview.ListViewForScrollView;
 import com.wetime.fanc.main.act.BaseActivity;
 import com.wetime.fanc.order.MyRatingBar;
 import com.wetime.fanc.shop.adapter.ShopDetailActAdapter;
+import com.wetime.fanc.shop.adapter.ShopDetailDaijinquanAdapter;
 import com.wetime.fanc.shop.adapter.ShopDetailTaocanAdapter;
 import com.wetime.fanc.shop.adapter.ShopDetailYouhuiquanAdapter;
 import com.wetime.fanc.shop.bean.ShopDetailBean;
@@ -269,6 +270,34 @@ public class ShopDetailActivity extends BaseActivity implements IGetShopDetailVi
         } else {
             tvMoreTaocan.setVisibility(View.GONE);
         }
+        if (bean.getData().getGroupon() == null
+                || bean.getData().getGroupon().getContent().size() == 0)
+            llTaocan.setVisibility(View.GONE);
+
+        //代金券
+        ShopDetailDaijinquanAdapter daijinquanAdapter = new ShopDetailDaijinquanAdapter(mContext, bean.getData().getVoucher().getContent());
+        lvDaijinquan.setAdapter(daijinquanAdapter);
+        daijinquanAdapter.setOnBuyDaijinquanClickLitener(new ShopDetailDaijinquanAdapter.OnBuyDaijinquanClickLitener() {
+            @Override
+            public void onBuyDaijinquanClick(View view, int position) {
+                Tools.toastInBottom(mContext, "bu daijinquan");
+            }
+        });
+        daijinquanAdapter.notifyDataSetChanged();
+        if (bean.getData().getVoucher().getContent().size() > 2) {
+            tvMoreDaijinquan.setText(String.format(getString(R.string.str_more_daijinquan)
+                    , bean.getData().getVoucher().getContent().size() - 2));
+            tvMoreDaijinquan.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Tools.toastInBottom(mContext, "moren daijinquan");
+                }
+            });
+        } else {
+            tvMoreDaijinquan.setVisibility(View.GONE);
+        }
+        if (bean.getData().getVoucher() == null || bean.getData().getVoucher().getContent().size() == 0)
+            llDaijinquan.setVisibility(View.GONE);
 
 
         // 底部

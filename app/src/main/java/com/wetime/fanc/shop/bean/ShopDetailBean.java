@@ -603,6 +603,15 @@ public class ShopDetailBean {
                 private String amount;
                 private String market_price;
                 private String total_sales;
+                private String name;
+
+                public String getName() {
+                    return name;
+                }
+
+                public void setName(String name) {
+                    this.name = name;
+                }
 
                 public String getPid() {
                     return pid;
