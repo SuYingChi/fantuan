@@ -27,7 +27,15 @@ public class ShopDetailTaocanAdapter extends BaseAdapter {
     private LayoutInflater mInflater;
     private List<ShopDetailBean.DataBean.GrouponBean.ContentBeanXX> mData;
     private Context mContext;
+    private boolean iszhe = true;
 
+    public boolean isIszhe() {
+        return iszhe;
+    }
+
+    public void setIszhe(boolean iszhe) {
+        this.iszhe = iszhe;
+    }
     public ShopDetailTaocanAdapter(Context context, List<ShopDetailBean.DataBean.GrouponBean.ContentBeanXX> mData) {
         this.mInflater = LayoutInflater.from(context);
         this.mData = mData;
@@ -37,7 +45,10 @@ public class ShopDetailTaocanAdapter extends BaseAdapter {
     @Override
     public int getCount() {
         // TODO Auto-generated method stub
-        return mData.size() > 2 ? 2 : mData.size();
+        if (isIszhe())
+            return mData.size() > 2 ? 2 : mData.size();
+        else
+            return mData.size();
     }
 
     @Override

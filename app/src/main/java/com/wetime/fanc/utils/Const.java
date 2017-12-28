@@ -39,6 +39,9 @@ public interface Const {
     String ORDER_REVIEW = BASEURL + "/order/review";
     String VERSION = BASEURL + "/version";
     String SHOP = BASEURL + "/shop";
+    String SHOP_FOCUS = BASEURL + "/shop/focus";
+    String SHOP_FOCUS_CANCEL = BASEURL + "/shop/focus/cancel";
+    String SHOP_COUPON_GET = BASEURL + "/shop/coupon/get";
 
     String PROTOCOL = "http://fant.fantuanlife.com/index.html#/user/agreement";
 

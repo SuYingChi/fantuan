@@ -25,7 +25,15 @@ public class ShopDetailDaijinquanAdapter extends BaseAdapter {
     private LayoutInflater mInflater;
     private List<ShopDetailBean.DataBean.VoucherBean.ContentBeanXXX> mData;
     private Context mContext;
+    private boolean iszhe = true;
 
+    public boolean isIszhe() {
+        return iszhe;
+    }
+
+    public void setIszhe(boolean iszhe) {
+        this.iszhe = iszhe;
+    }
     public ShopDetailDaijinquanAdapter(Context context, List<ShopDetailBean.DataBean.VoucherBean.ContentBeanXXX> mData) {
         this.mInflater = LayoutInflater.from(context);
         this.mData = mData;
@@ -35,7 +43,10 @@ public class ShopDetailDaijinquanAdapter extends BaseAdapter {
     @Override
     public int getCount() {
         // TODO Auto-generated method stub
-        return mData.size() > 2 ? 2 : mData.size();
+        if (isIszhe())
+            return mData.size() > 2 ? 2 : mData.size();
+        else
+            return mData.size();
     }
 
     @Override

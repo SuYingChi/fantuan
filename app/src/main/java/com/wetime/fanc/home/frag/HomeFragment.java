@@ -95,6 +95,7 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, IGe
             @Override
             public void onItemClick(View view, int position) {
                 Intent goShop = new Intent(getContext(), ShopDetailActivity.class);
+                goShop.putExtra("mid",mMerchanetlist.get(position).getId());
                 startActivity(goShop);
             }
         });

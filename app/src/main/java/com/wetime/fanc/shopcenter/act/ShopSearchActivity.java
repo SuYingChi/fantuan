@@ -24,6 +24,7 @@ import com.google.android.flexbox.FlexWrap;
 import com.google.android.flexbox.FlexboxLayoutManager;
 import com.google.gson.reflect.TypeToken;
 import com.wetime.fanc.main.act.BaseActivity;
+import com.wetime.fanc.shop.act.ShopDetailActivity;
 import com.wetime.fanc.utils.GsonUtils;
 import com.wetime.fanc.utils.Tools;
 import com.wetime.fanc.R;
@@ -287,7 +288,9 @@ public class ShopSearchActivity extends BaseActivity implements IGetShopHotSearc
         resultAdapter.setOnItemClickLitener(new ResultAdapter.OnItemClickLitener() {
             @Override
             public void onItemClick(View view, int position) {
-                goWeb(reList.get(position).getUrl());
+                Intent goShop = new Intent(mContext, ShopDetailActivity.class);
+                goShop.putExtra("mid",reList.get(position).getMid());
+                startActivity(goShop);
             }
         });
     }

@@ -24,6 +24,15 @@ public class ShopDetailYouhuiquanAdapter extends BaseAdapter {
     private LayoutInflater mInflater;
     private List<ShopDetailBean.DataBean.CouponBean.ContentBeanX> mData;
     private Context mContext;
+    private boolean iszhe = true;
+
+    public boolean isIszhe() {
+        return iszhe;
+    }
+
+    public void setIszhe(boolean iszhe) {
+        this.iszhe = iszhe;
+    }
 
     public ShopDetailYouhuiquanAdapter(Context context, List<ShopDetailBean.DataBean.CouponBean.ContentBeanX> mData) {
         this.mInflater = LayoutInflater.from(context);
@@ -34,7 +43,10 @@ public class ShopDetailYouhuiquanAdapter extends BaseAdapter {
     @Override
     public int getCount() {
         // TODO Auto-generated method stub
-        return mData.size() > 2 ? 2 : mData.size();
+        if (isIszhe())
+            return mData.size() > 2 ? 2 : mData.size();
+        else
+            return mData.size();
     }
 
     @Override
@@ -79,7 +91,10 @@ public class ShopDetailYouhuiquanAdapter extends BaseAdapter {
 
         if (bean.isIs_get()) {
             holder.tvGet.setBackgroundResource(R.drawable.bg_btn_red_corner_enable);
+            holder.tvGet.setText("已领取");
         } else {
+            holder.tvGet.setBackgroundResource(R.drawable.bg_btn_red_corner);
+            holder.tvGet.setText("领取");
             holder.tvGet.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

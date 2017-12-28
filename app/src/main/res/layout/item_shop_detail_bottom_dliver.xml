@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="420dp"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+            <TextView
+                android:id="@+id/tv_bottomtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:lineSpacingExtra="0sp"
+                android:textColor="#333333"
+                android:textSize="15sp"
+                tools:text="优惠券免费领" />
+
+            <ImageView
+                android:id="@+id/iv_close"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:padding="18dp"
+                android:src="@drawable/iv_bottom_close" />
+        </RelativeLayout>
+        <TextView
+            android:background="#e1e1e1"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp" />
+        <ScrollView
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <com.wetime.fanc.customview.ListViewForScrollView
+                android:divider="#e1e1e1"
+                android:dividerHeight="0.5dp"
+                android:id="@+id/lv_bottom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </ScrollView>
+    </LinearLayout>
+</LinearLayout>
+
+
+

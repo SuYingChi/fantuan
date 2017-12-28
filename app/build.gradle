@@ -101,4 +101,5 @@ dependencies {
     compile 'q.rorbin:badgeview:1.1.3'
     compile 'com.gyf.barlibrary:barlibrary:2.3.0'
     compile 'com.amap.api:location:3.6.1'
+    compile 'me.shaohui:bottomdialog:1.1.9'
 }

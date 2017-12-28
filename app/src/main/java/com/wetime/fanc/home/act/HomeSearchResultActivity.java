@@ -27,6 +27,7 @@ import com.wetime.fanc.home.event.KeyWordEvent;
 import com.wetime.fanc.home.iviews.IGetHomeSearchResultView;
 import com.wetime.fanc.home.presenter.GetHomeSearchResultPresenter;
 import com.wetime.fanc.main.act.BaseActivity;
+import com.wetime.fanc.shop.act.ShopDetailActivity;
 import com.wetime.fanc.shopcenter.adapter.CategoryItemAdapter;
 import com.wetime.fanc.shopcenter.adapter.LoaItemAdapter;
 import com.wetime.fanc.shopcenter.adapter.SCategoruItemAdapter;
@@ -332,7 +333,9 @@ public class HomeSearchResultActivity extends BaseActivity implements IGetHomeSe
         adapter.setOnItemClickLitener(new SearchShopListAdapter.OnItemClickLitener() {
             @Override
             public void onItemClick(View view, int position) {
-                goWeb(list.get(position).getDetail_url());
+                Intent goShop = new Intent(mContext, ShopDetailActivity.class);
+                goShop.putExtra("mid",list.get(position).getMid());
+                startActivity(goShop);
             }
         });
         // 空页面

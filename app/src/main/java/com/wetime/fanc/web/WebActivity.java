@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.gyf.barlibrary.ImmersionBar;
 import com.wetime.fanc.application.FApp;
 import com.wetime.fanc.main.act.BaseActivity;
+import com.wetime.fanc.shop.act.ShopDetailActivity;
 import com.wetime.fanc.utils.Tools;
 import com.secure.pay.PayService;
 import com.wetime.fanc.R;
@@ -476,6 +477,17 @@ public class WebActivity extends BaseActivity {
                 tvRight.setVisibility(View.VISIBLE);
                 if (text.equals(""))
                     tvRight.setVisibility(View.GONE);
+            }
+        });
+    }
+    @JavascriptInterface
+    public void goShopDetail(final String mid) {
+        web.post(new Runnable() {
+            @Override
+            public void run() {
+                Intent goShop = new Intent(mContext, ShopDetailActivity.class);
+                goShop.putExtra("mid",mid);
+                startActivity(goShop);
             }
         });
     }

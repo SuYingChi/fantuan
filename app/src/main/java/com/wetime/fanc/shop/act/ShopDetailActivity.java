@@ -14,15 +14,22 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.wetime.fanc.R;
 import com.wetime.fanc.customview.ListViewForScrollView;
+import com.wetime.fanc.login.act.LoginActivity;
 import com.wetime.fanc.main.act.BaseActivity;
+import com.wetime.fanc.main.model.BaseBean;
 import com.wetime.fanc.order.MyRatingBar;
 import com.wetime.fanc.shop.adapter.ShopDetailActAdapter;
 import com.wetime.fanc.shop.adapter.ShopDetailDaijinquanAdapter;
 import com.wetime.fanc.shop.adapter.ShopDetailTaocanAdapter;
 import com.wetime.fanc.shop.adapter.ShopDetailYouhuiquanAdapter;
 import com.wetime.fanc.shop.bean.ShopDetailBean;
+import com.wetime.fanc.shop.iviews.IFocusShopView;
 import com.wetime.fanc.shop.iviews.IGetShopDetailView;
+import com.wetime.fanc.shop.iviews.IGetShopYouhuiquanView;
+import com.wetime.fanc.shop.presenter.FocusShopPresenter;
 import com.wetime.fanc.shop.presenter.GetShopDetailPresenter;
+import com.wetime.fanc.shop.presenter.GetShopYouhuiquanPresenter;
+import com.wetime.fanc.shop.presenter.UnFocusShopPresenter;
 import com.wetime.fanc.utils.Tools;
 import com.wetime.fanc.web.WebActivity;
 
@@ -30,8 +37,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
+import me.shaohui.bottomdialog.BottomDialog;
 
-public class ShopDetailActivity extends BaseActivity implements IGetShopDetailView {
+public class ShopDetailActivity extends BaseActivity implements IGetShopDetailView, IFocusShopView, IGetShopYouhuiquanView {
 
 
     @BindView(R.id.tv_title)
@@ -129,9 +137,9 @@ public class ShopDetailActivity extends BaseActivity implements IGetShopDetailVi
     @BindView(R.id.ll_businesstime)
     LinearLayout llBusinesstime;
     @BindView(R.id.ll_moreinfo)
-    LinearLayout llCommentIma;
-    @BindView(R.id.ll_comment_img)
     LinearLayout llMoreinfo;
+    @BindView(R.id.ll_comment_img)
+    LinearLayout llCommentIma;
     @BindView(R.id.ntscrollview)
     NestedScrollView ntscrollview;
     @BindView(R.id.tv_loc)
@@ -144,6 +152,10 @@ public class ShopDetailActivity extends BaseActivity implements IGetShopDetailVi
     TextView tvTitleYouhui;
 
     private GetShopDetailPresenter getShopDetailPresenter;
+    private FocusShopPresenter focusShopPresenter;
+    private UnFocusShopPresenter unFocusShopPresenter;
+    private GetShopYouhuiquanPresenter getShopYouhuiquanPresenter;
+    private BottomDialog mBottomDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -154,6 +166,9 @@ public class ShopDetailActivity extends BaseActivity implements IGetShopDetailVi
         rlContent.setVisibility(View.INVISIBLE);
         getShopDetailPresenter = new GetShopDetailPresenter(this);
         getShopDetailPresenter.getShopDetail();
+        focusShopPresenter = new FocusShopPresenter(this);
+        unFocusShopPresenter = new UnFocusShopPresenter(this);
+        getShopYouhuiquanPresenter = new GetShopYouhuiquanPresenter(this);
     }
 
     @Override
@@ -172,11 +187,22 @@ public class ShopDetailActivity extends BaseActivity implements IGetShopDetailVi
 
     @Override
     public String getMId() {
-        return "55";
+        return getIntent().getStringExtra("mid");
+    }
+
+    @Override
+    public void onGetShopYouhuiquan(BaseBean bean) {
+
+    }
+
+    @Override
+    public void onFocusShop(BaseBean bean) {
+
     }
 
     @Override
     public void onGetShopDetail(final ShopDetailBean bean) {
+        mBottomDialog = BottomDialog.create(getSupportFragmentManager());
         Glide.with(this).load(bean.getData().getMerchant().getLogo()).into(ivCover);
         ivCover.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -198,6 +224,24 @@ public class ShopDetailActivity extends BaseActivity implements IGetShopDetailVi
             tvGuanzhu.setText("+ 关注");
             tvGuanzhu.setBackgroundResource(R.drawable.bg_btn_red_corner);
         }
+        tvGuanzhu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (TextUtils.isEmpty(spu.getToken())) {
+                    goLogin();
+                    return;
+                }
+                if (tvGuanzhu.getText().equals("已关注")) {
+                    unFocusShopPresenter.unfocusShop();
+                    tvGuanzhu.setText("+ 关注");
+                    tvGuanzhu.setBackgroundResource(R.drawable.bg_btn_red_corner);
+                } else {
+                    focusShopPresenter.focusShop();
+                    tvGuanzhu.setText("已关注");
+                    tvGuanzhu.setBackgroundResource(R.drawable.bg_btn_red_corner_enable);
+                }
+            }
+        });
         tvLoc.setText(bean.getData().getMerchant().getAddress());
         ivPhone.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -223,12 +267,20 @@ public class ShopDetailActivity extends BaseActivity implements IGetShopDetailVi
         lvAct.setAdapter(actItemAdapter);
         actItemAdapter.notifyDataSetChanged();
 
-        ShopDetailYouhuiquanAdapter youhuiquanActItemAdapter = new ShopDetailYouhuiquanAdapter(mContext, bean.getData().getCoupon().getContent());
+        final ShopDetailYouhuiquanAdapter youhuiquanActItemAdapter = new ShopDetailYouhuiquanAdapter(mContext, bean.getData().getCoupon().getContent());
         lvYouhuiquan.setAdapter(youhuiquanActItemAdapter);
         youhuiquanActItemAdapter.setOnGetClickLitener(new ShopDetailYouhuiquanAdapter.OnGetClickLitener() {
             @Override
             public void onItemClick(View view, int position) {
-                Tools.toastInBottom(mContext, position + "");
+                if (!bean.getData().getCoupon().getContent().get(position).isIs_get()) {
+                    if (TextUtils.isEmpty(spu.getToken())) {
+                        goLogin();
+                        return;
+                    }
+                    getShopYouhuiquanPresenter.getShopYouhuiquan(bean.getData().getCoupon().getContent().get(position).getPid());
+                    bean.getData().getCoupon().getContent().get(position).setIs_get(true);
+                    youhuiquanActItemAdapter.notifyDataSetChanged();
+                }
             }
         });
         youhuiquanActItemAdapter.notifyDataSetChanged();
@@ -243,7 +295,43 @@ public class ShopDetailActivity extends BaseActivity implements IGetShopDetailVi
             tvMoreYouhuiquan.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Tools.toastInBottom(mContext, "moren youhuiquan");
+                    // dialog layout
+
+                    mBottomDialog.setLayoutRes(R.layout.item_shop_detail_bottom_youhuiquan);
+                    mBottomDialog.setViewListener(new BottomDialog.ViewListener() {      // 可以进行一些必要对View的操作
+                        @Override
+                        public void bindView(View v) {
+                            ListViewForScrollView lvbottom = v.findViewById(R.id.lv_bottom);
+                            final ShopDetailYouhuiquanAdapter bAdapter = new ShopDetailYouhuiquanAdapter(mContext, bean.getData().getCoupon().getContent());
+                            bAdapter.setIszhe(false);
+                            lvbottom.setAdapter(bAdapter);
+                            bAdapter.setOnGetClickLitener(new ShopDetailYouhuiquanAdapter.OnGetClickLitener() {
+                                @Override
+                                public void onItemClick(View view, int position) {
+                                    if (!bean.getData().getCoupon().getContent().get(position).isIs_get()) {
+                                        if (TextUtils.isEmpty(spu.getToken())) {
+                                            goLogin();
+                                            return;
+                                        }
+                                        getShopYouhuiquanPresenter.getShopYouhuiquan(bean.getData().getCoupon().getContent().get(position).getPid());
+                                        bean.getData().getCoupon().getContent().get(position).setIs_get(true);
+                                        bAdapter.notifyDataSetChanged();
+                                        youhuiquanActItemAdapter.notifyDataSetChanged();
+                                    }
+                                }
+                            });
+                            bAdapter.notifyDataSetChanged();
+                            v.findViewById(R.id.iv_close).setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    mBottomDialog.dismiss();
+                                }
+                            });
+                            TextView tvTitle = v.findViewById(R.id.tv_bottomtitle);
+                            tvTitle.setText("优惠券免费领");
+                        }
+                    });
+                    mBottomDialog.show();
                 }
             });
         } else {
@@ -255,7 +343,11 @@ public class ShopDetailActivity extends BaseActivity implements IGetShopDetailVi
         taocanAdapter.setOnBuyTaocanClickLitener(new ShopDetailTaocanAdapter.OnBuyTaocanClickLitener() {
             @Override
             public void onBuyTaocanClick(View view, int position) {
-                Tools.toastInBottom(mContext, position + "");
+                if (TextUtils.isEmpty(spu.getToken())) {
+                    goLogin();
+                    return;
+                }
+                goWeb(bean.getData().getGroupon().getContent().get(position).getDetail_url());
             }
         });
         taocanAdapter.notifyDataSetChanged();
@@ -266,7 +358,37 @@ public class ShopDetailActivity extends BaseActivity implements IGetShopDetailVi
             tvMoreTaocan.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Tools.toastInBottom(mContext, "moren taocan");
+                    mBottomDialog.setLayoutRes(R.layout.item_shop_detail_bottom_dliver);
+                    mBottomDialog.setViewListener(new BottomDialog.ViewListener() {      // 可以进行一些必要对View的操作
+                        @Override
+                        public void bindView(View v) {
+                            ListViewForScrollView lvbottom = v.findViewById(R.id.lv_bottom);
+                            ShopDetailTaocanAdapter bAdapter = new ShopDetailTaocanAdapter(mContext, bean.getData().getGroupon().getContent());
+                            bAdapter.setIszhe(false);
+                            lvbottom.setAdapter(bAdapter);
+                            bAdapter.setOnBuyTaocanClickLitener(new ShopDetailTaocanAdapter.OnBuyTaocanClickLitener() {
+                                @Override
+                                public void onBuyTaocanClick(View view, int position) {
+                                    if (TextUtils.isEmpty(spu.getToken())) {
+                                        goLogin();
+                                        return;
+                                    }
+                                    goWeb(bean.getData().getGroupon().getContent().get(position).getDetail_url());
+                                }
+                            });
+                            bAdapter.notifyDataSetChanged();
+
+                            v.findViewById(R.id.iv_close).setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    mBottomDialog.dismiss();
+                                }
+                            });
+                            TextView tvTitle = v.findViewById(R.id.tv_bottomtitle);
+                            tvTitle.setText("团购套餐");
+                        }
+                    });
+                    mBottomDialog.show();
                 }
             });
         } else {
@@ -282,7 +404,11 @@ public class ShopDetailActivity extends BaseActivity implements IGetShopDetailVi
         daijinquanAdapter.setOnBuyDaijinquanClickLitener(new ShopDetailDaijinquanAdapter.OnBuyDaijinquanClickLitener() {
             @Override
             public void onBuyDaijinquanClick(View view, int position) {
-                Tools.toastInBottom(mContext, "bu daijinquan");
+                if (TextUtils.isEmpty(spu.getToken())) {
+                    goLogin();
+                    return;
+                }
+                goWeb(bean.getData().getVoucher().getContent().get(position).getDetail_url());
             }
         });
         daijinquanAdapter.notifyDataSetChanged();
@@ -292,7 +418,37 @@ public class ShopDetailActivity extends BaseActivity implements IGetShopDetailVi
             tvMoreDaijinquan.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Tools.toastInBottom(mContext, "moren daijinquan");
+                    mBottomDialog.setLayoutRes(R.layout.item_shop_detail_bottom_dliver);
+                    mBottomDialog.setViewListener(new BottomDialog.ViewListener() {      // 可以进行一些必要对View的操作
+                        @Override
+                        public void bindView(View v) {
+                            ListViewForScrollView lvbottom = v.findViewById(R.id.lv_bottom);
+                            ShopDetailDaijinquanAdapter bAdapter = new ShopDetailDaijinquanAdapter(mContext, bean.getData().getVoucher().getContent());
+                            bAdapter.setIszhe(false);
+                            lvbottom.setAdapter(bAdapter);
+                            bAdapter.setOnBuyDaijinquanClickLitener(new ShopDetailDaijinquanAdapter.OnBuyDaijinquanClickLitener() {
+                                @Override
+                                public void onBuyDaijinquanClick(View view, int position) {
+                                    if (TextUtils.isEmpty(spu.getToken())) {
+                                        goLogin();
+                                        return;
+                                    }
+                                    goWeb(bean.getData().getVoucher().getContent().get(position).getDetail_url());
+                                }
+                            });
+                            bAdapter.notifyDataSetChanged();
+
+                            v.findViewById(R.id.iv_close).setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    mBottomDialog.dismiss();
+                                }
+                            });
+                            TextView tvTitle = v.findViewById(R.id.tv_bottomtitle);
+                            tvTitle.setText("代金券");
+                        }
+                    });
+                    mBottomDialog.show();
                 }
             });
         } else {
@@ -349,7 +505,7 @@ public class ShopDetailActivity extends BaseActivity implements IGetShopDetailVi
             llComment.setVisibility(View.GONE);
         }
         // 商家动态
-        if(bean.getData().getPost().getContent().size()>0){
+        if (bean.getData().getPost().getContent().size() > 0) {
             tvDongtaicontent.setText(bean.getData().getPost().getContent().get(0).getContent());
             tvDongtaitime.setText(bean.getData().getPost().getContent().get(0).getCreate_at());
             tvMoredongtai.setOnClickListener(new View.OnClickListener() {
@@ -358,7 +514,7 @@ public class ShopDetailActivity extends BaseActivity implements IGetShopDetailVi
                     goWeb(bean.getData().getPost().getPost_url());
                 }
             });
-        }else{
+        } else {
             llDongtai.setVisibility(View.GONE);
         }
 
@@ -390,5 +546,10 @@ public class ShopDetailActivity extends BaseActivity implements IGetShopDetailVi
         Intent goweb = new Intent(this, WebActivity.class);
         goweb.putExtra("url", url);
         startActivity(goweb);
+    }
+
+    private void goLogin() {
+        Intent go = new Intent(mContext, LoginActivity.class);
+        startActivity(go);
     }
 }

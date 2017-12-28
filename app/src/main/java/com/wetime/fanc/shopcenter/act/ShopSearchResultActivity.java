@@ -23,6 +23,7 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.wetime.fanc.R;
+import com.wetime.fanc.shop.act.ShopDetailActivity;
 import com.wetime.fanc.shopcenter.adapter.CategoryItemAdapter;
 import com.wetime.fanc.shopcenter.adapter.FloorItemAdapter;
 import com.wetime.fanc.shopcenter.adapter.SCategoruItemAdapter;
@@ -465,7 +466,9 @@ public class ShopSearchResultActivity extends BaseActivity implements IGetShopSe
 
     @Override
     public void onItemClick(View view, int position) {
-        goWeb(list.get(position).getDetail_url());
+        Intent goShop = new Intent(mContext, ShopDetailActivity.class);
+        goShop.putExtra("mid",list.get(position).getMid());
+        startActivity(goShop);
     }
 
     private void goWeb(String url) {
