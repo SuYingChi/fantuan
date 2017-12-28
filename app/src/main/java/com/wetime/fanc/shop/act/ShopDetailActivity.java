@@ -17,6 +17,7 @@ import com.wetime.fanc.customview.ListViewForScrollView;
 import com.wetime.fanc.main.act.BaseActivity;
 import com.wetime.fanc.order.MyRatingBar;
 import com.wetime.fanc.shop.adapter.ShopDetailActAdapter;
+import com.wetime.fanc.shop.adapter.ShopDetailTaocanAdapter;
 import com.wetime.fanc.shop.adapter.ShopDetailYouhuiquanAdapter;
 import com.wetime.fanc.shop.bean.ShopDetailBean;
 import com.wetime.fanc.shop.iviews.IGetShopDetailView;
@@ -224,16 +225,18 @@ public class ShopDetailActivity extends BaseActivity implements IGetShopDetailVi
         youhuiquanActItemAdapter.setOnGetClickLitener(new ShopDetailYouhuiquanAdapter.OnGetClickLitener() {
             @Override
             public void onItemClick(View view, int position) {
-                Tools.toastInBottom(mContext, position+"");
+                Tools.toastInBottom(mContext, position + "");
             }
         });
         youhuiquanActItemAdapter.notifyDataSetChanged();
-        if(bean.getData().getCoupon().getContent().size()==0
-                &&bean.getData().getCoupon().getActivity().size()==0){
+        if (bean.getData().getCoupon().getContent().size() == 0
+                && bean.getData().getCoupon().getActivity().size() == 0) {
             llYouhui.setVisibility(View.GONE);
         }
 
         if (bean.getData().getCoupon().getContent().size() > 2) {
+            tvMoreYouhuiquan.setText(String.format(getString(R.string.str_more_youhuiquan)
+                    , bean.getData().getCoupon().getContent().size() - 2));
             tvMoreYouhuiquan.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -244,7 +247,28 @@ public class ShopDetailActivity extends BaseActivity implements IGetShopDetailVi
             tvMoreYouhuiquan.setVisibility(View.GONE);
         }
         //团购套餐
+        ShopDetailTaocanAdapter taocanAdapter = new ShopDetailTaocanAdapter(mContext, bean.getData().getGroupon().getContent());
+        lvTaocan.setAdapter(taocanAdapter);
+        taocanAdapter.setOnBuyTaocanClickLitener(new ShopDetailTaocanAdapter.OnBuyTaocanClickLitener() {
+            @Override
+            public void onBuyTaocanClick(View view, int position) {
+                Tools.toastInBottom(mContext, position + "");
+            }
+        });
+        taocanAdapter.notifyDataSetChanged();
 
+        if (bean.getData().getGroupon().getContent().size() > 2) {
+            tvMoreTaocan.setText(String.format(getString(R.string.str_more_taocan)
+                    , bean.getData().getGroupon().getContent().size() - 2));
+            tvMoreTaocan.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Tools.toastInBottom(mContext, "moren taocan");
+                }
+            });
+        } else {
+            tvMoreTaocan.setVisibility(View.GONE);
+        }
 
 
         // 底部
@@ -261,7 +285,7 @@ public class ShopDetailActivity extends BaseActivity implements IGetShopDetailVi
             tvBottom.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Tools.toastInBottom(mContext,"gogogog");
+                    Tools.toastInBottom(mContext, "gogogog");
                 }
             });
         }

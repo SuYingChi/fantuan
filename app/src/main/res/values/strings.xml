@@ -21,5 +21,8 @@
     <string name="tips_login_por">范团用户协议</string>
     <string name="str_cancel">取消</string>
     <string name="str_cannot_receice_code">收不到验证码</string>
+    <string name="str_more_youhuiquan">查看其他%d张优惠券</string>
+    <string name="str_more_taocan">查看其他%d个团购套餐</string>
+    <string name="str_buy">购买</string>
 
 </resources>
