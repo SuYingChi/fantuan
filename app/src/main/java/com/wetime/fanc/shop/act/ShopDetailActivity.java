@@ -299,6 +299,21 @@ public class ShopDetailActivity extends BaseActivity implements IGetShopDetailVi
         if (bean.getData().getVoucher() == null || bean.getData().getVoucher().getContent().size() == 0)
             llDaijinquan.setVisibility(View.GONE);
 
+        // 购物中心
+        if (bean.getData().getMall().getContent().size() > 0) {
+            Glide.with(this).load(bean.getData().getMall().getContent().get(0).getLogo_url()).into(ivCenterCover);
+            tvCentername.setText(bean.getData().getMall().getContent().get(0).getName());
+            llShopcenter.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    goWeb(bean.getData().getMall().getContent().get(0).getMall_url());
+                }
+            });
+
+        } else {
+            llShopcenter.setVisibility(View.GONE);
+        }
+
 
         // 底部
         if (TextUtils.isEmpty(bean.getData().getMerchant().getAffiche())) {
