@@ -12,7 +12,7 @@ public class ShopDetailBean {
     /**
      * error : 0
      * msg :
-     * data : {"merchant":{"mid":"55","name":"范团13","score":"4.6","average_spend":"","address":"海口市琼山区忠介路2号铺面","phone":"18976267677","cid":"0","logo":"https://staticcdntest.fantuanlife.com/uimage/70/a7/70/64/70a77064e41d3b6182d260065a2537ae.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70","spider":"0","sales":"月销量 999999","business_hours":"00:04-00:51 10:00-17:12 18:03-18:26 18:36-19:36 20:05-23:05","affiche":"这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公","distance":"距167m","post_url":"https://fanttest.fantuanlife.com/index.html#/merchant/55/picture","category_name":"其他","mall":"金棕榈广场","discounts":"优惠买单"},"mall":{"title":"所在购物中心","content":[{"name":"金棕榈广场","mall_url":"https://fanttest.fantuanlife.com/index.html#/mall?mall=12","logo_url":"https://staticcdntest.fantuanlife.com/uimage/c1/f7/b9/a6/c1f7b9a6b63ff2e7cdb4d84e9493779b.jpg"}]},"coupon":{"title":"买单优惠活动","content":[{"pid":"134","threshold":"2","amount":"1","is_get":false},{"pid":"135","threshold":"3","amount":"2","is_get":false},{"pid":"136","threshold":"4","amount":"3","is_get":false}],"activity":[{"ico":"https://staticcdntest.fantuanlife.com/image/fant/promotion/moneyOff.png","name":"满2减1、满3减2、满4减3、满5减4、满6减5、满7减6、满8减7、满9减8、满10减9、满11减10"},{"ico":"https://staticcdntest.fantuanlife.com/image/fant/promotion/cashCoupon.png","name":"满2赠1、满2赠1"},{"ico":"https://staticcdntest.fantuanlife.com/image/fant/promotion/payDiscount.png","name":"买单立享6.00折优惠"}]},"groupon":{"title":"团购套餐","content":[{"pid":"128","name":"翔帅专用团购","amount":"0.01","market_price":"500","total_sales":"0","imgUrl":"https://staticcdntest.fantuanlife.com/image/m_logo.png"},{"pid":"129","name":"翔帅专用团购2","amount":"0.01","market_price":"200","total_sales":"0","imgUrl":"https://staticcdntest.fantuanlife.com/image/m_logo.png"}]},"voucher":{"title":"代金券","content":[{"pid":"117","amount":"0.01","market_price":"500","total_sales":"20"},{"pid":"130","amount":"0.01","market_price":"150","total_sales":"0"},{"pid":"131","amount":"0.01","market_price":"300","total_sales":"0"}]},"post":{"title":"商家动态","content":[{"content":"带图的商家动态","create_at":"2017-12-26 15:16:20"}]},"focus":false,"review":{"totals":"16","title":"商家动态","content":[{"score":"5","uid":"23","content":"lost咯胡了holy咯啊配件给哦","image":"307138,307140,307141,307382","review_time":"2017-12-26 17:18:46","is_anonymous":"0","reply":null,"user":{"id":"23","username":"陈加尧","avatar":"https://staticcdntest.fantuanlife.com/uimage/84/57/36/c4/845736c4a0febc922c22b5e4fca24806.jpg?x-oss-process=image/resize,m_fill,h_112,w_112/format,jpg/interlace,1/quality,Q_70"},"imageUrl":["https://staticcdntest.fantuanlife.com/uimage/7f/ad/19/69/7fad1969e970f77948e416546aab6efa.jpg","https://staticcdntest.fantuanlife.com/uimage/71/31/6e/c3/71316ec379977d880250bbaa791c2ceb.jpg","https://staticcdntest.fantuanlife.com/uimage/56/89/1a/36/56891a3639c0fa4cad0af462a541b454.jpg"]}]}}
+     * data : {"merchant":{"mid":"55","name":"范团13","score":"4.6","average_spend":"","address":"海口市琼山区忠介路2号铺面","phone":"18976267677","cid":"0","logo":"https://staticcdntest.fantuanlife.com/uimage/70/a7/70/64/70a77064e41d3b6182d260065a2537ae.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70","spider":"0","sales":"","business_hours":"00:04-00:51 10:00-17:12 18:03-18:26 18:36-19:36 20:05-23:05","affiche":"这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公","distance":"距167m","picture_url":"https://fanttest.fantuanlife.com/index.html#/merchant/55/picture","category_name":"其他","mall":"金棕榈广场","discounts":"优惠买单"},"mall":{"title":"所在购物中心","content":[{"name":"金棕榈广场","mall_url":"https://fanttest.fantuanlife.com/index.html#/mall?mall=12","logo_url":"https://staticcdntest.fantuanlife.com/uimage/c1/f7/b9/a6/c1f7b9a6b63ff2e7cdb4d84e9493779b.jpg"}]},"coupon":{"title":"买单优惠活动","content":[{"pid":"134","threshold":"2","amount":"1","is_get":false},{"pid":"135","threshold":"3","amount":"2","is_get":false},{"pid":"136","threshold":"4","amount":"3","is_get":false}],"activity":[{"ico":"https://staticcdntest.fantuanlife.com/image/fant/promotion/moneyOff.png","name":"满2减1、满3减2、满4减3、满5减4、满6减5、满7减6、满8减7、满9减8、满10减9、满11减10"},{"ico":"https://staticcdntest.fantuanlife.com/image/fant/promotion/cashCoupon.png","name":"满2赠1、满2赠1"},{"ico":"https://staticcdntest.fantuanlife.com/image/fant/promotion/payDiscount.png","name":"买单立享6.00折优惠"}]},"groupon":{"title":"团购套餐","content":[{"pid":"128","name":"翔帅专用团购","amount":"0.01","market_price":"500","total_sales":"","imgUrl":"https://staticcdntest.fantuanlife.com/image/m_logo.png"},{"pid":"129","name":"翔帅专用团购2","amount":"0.01","market_price":"200","total_sales":"","imgUrl":"https://staticcdntest.fantuanlife.com/image/m_logo.png"},{"pid":"145","name":"团购3","amount":"10","market_price":"100","total_sales":"","imgUrl":"https://staticcdntest.fantuanlife.com/image/m_logo.png"},{"pid":"146","name":"团购4","amount":"500","market_price":"1000","total_sales":"","imgUrl":"https://staticcdntest.fantuanlife.com/uimage/00/00/c6/7e/0000c67e3c0cd27d105444132b14c2c7.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"},{"pid":"147","name":"团购5","amount":"500","market_price":"1000","total_sales":"","imgUrl":"https://staticcdntest.fantuanlife.com/uimage/00/00/c6/7e/0000c67e3c0cd27d105444132b14c2c7.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"},{"pid":"148","name":"翔专用团购6","amount":"500","market_price":"1000","total_sales":"","imgUrl":"https://staticcdntest.fantuanlife.com/uimage/00/00/c6/7e/0000c67e3c0cd27d105444132b14c2c7.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"},{"pid":"149","name":"翔专用团购7","amount":"500","market_price":"1000","total_sales":"","imgUrl":"https://staticcdntest.fantuanlife.com/uimage/00/00/c6/7e/0000c67e3c0cd27d105444132b14c2c7.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"},{"pid":"150","name":"翔专用团购8","amount":"500","market_price":"1000","total_sales":"","imgUrl":"https://staticcdntest.fantuanlife.com/uimage/00/00/c6/7e/0000c67e3c0cd27d105444132b14c2c7.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"},{"pid":"151","name":"翔专用团购9","amount":"500","market_price":"1000","total_sales":"","imgUrl":"https://staticcdntest.fantuanlife.com/uimage/00/00/c6/7e/0000c67e3c0cd27d105444132b14c2c7.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"},{"pid":"152","name":"翔专用团购10","amount":"500","market_price":"1000","total_sales":"","imgUrl":"https://staticcdntest.fantuanlife.com/uimage/00/00/c6/7e/0000c67e3c0cd27d105444132b14c2c7.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"},{"pid":"153","name":"翔专用团购11","amount":"500","market_price":"1000","total_sales":"","imgUrl":"https://staticcdntest.fantuanlife.com/uimage/00/00/c6/7e/0000c67e3c0cd27d105444132b14c2c7.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"},{"pid":"154","name":"翔专用团购12","amount":"500","market_price":"1000","total_sales":"","imgUrl":"https://staticcdntest.fantuanlife.com/uimage/00/00/c6/7e/0000c67e3c0cd27d105444132b14c2c7.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"},{"pid":"155","name":"翔专用团购13","amount":"500","market_price":"1000","total_sales":"","imgUrl":"https://staticcdntest.fantuanlife.com/uimage/00/00/c6/7e/0000c67e3c0cd27d105444132b14c2c7.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"},{"pid":"156","name":"翔专用团购14","amount":"500","market_price":"1000","total_sales":"","imgUrl":"https://staticcdntest.fantuanlife.com/uimage/00/00/c6/7e/0000c67e3c0cd27d105444132b14c2c7.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"},{"pid":"157","name":"翔专用团购15","amount":"500","market_price":"1000","total_sales":"","imgUrl":"https://staticcdntest.fantuanlife.com/uimage/00/00/c6/7e/0000c67e3c0cd27d105444132b14c2c7.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"},{"pid":"158","name":"翔专用团购16","amount":"500","market_price":"1000","total_sales":"","imgUrl":"https://staticcdntest.fantuanlife.com/uimage/00/00/c6/7e/0000c67e3c0cd27d105444132b14c2c7.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"},{"pid":"159","name":"翔专用团购17","amount":"500","market_price":"1000","total_sales":"","imgUrl":"https://staticcdntest.fantuanlife.com/uimage/00/00/c6/7e/0000c67e3c0cd27d105444132b14c2c7.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"},{"pid":"160","name":"翔专用团购18","amount":"500","market_price":"1000","total_sales":"","imgUrl":"https://staticcdntest.fantuanlife.com/uimage/00/00/c6/7e/0000c67e3c0cd27d105444132b14c2c7.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"},{"pid":"161","name":"翔专用团购19","amount":"500","market_price":"1000","total_sales":"","imgUrl":"https://staticcdntest.fantuanlife.com/uimage/00/00/c6/7e/0000c67e3c0cd27d105444132b14c2c7.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"},{"pid":"162","name":"翔专用团购20","amount":"500","market_price":"1000","total_sales":"","imgUrl":"https://staticcdntest.fantuanlife.com/uimage/00/00/c6/7e/0000c67e3c0cd27d105444132b14c2c7.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"}]},"voucher":{"title":"代金券","content":[{"pid":"130","name":"150元代金券","amount":"0.01","market_price":"150","total_sales":""},{"pid":"131","name":"300元代金券","amount":"0.01","market_price":"300","total_sales":""},{"pid":"163","name":"200元代金券","amount":"160","market_price":"200","total_sales":""},{"pid":"164","name":"500元代金券","amount":"160","market_price":"500","total_sales":""},{"pid":"165","name":"5000元代金券","amount":"160","market_price":"5000","total_sales":""}]},"post":{"title":"商家动态","post_url":"https://fanttest.fantuanlife.com/index.html#/merchant/55/moment","content":[{"content":"带图的商家动态","create_at":"2017-12-26"}]},"focus":false,"review":{"title":"用户评价","totals":"16","review_url":"https://fanttest.fantuanlife.com/index.html#/merchant/55/comment","content":[{"score":"5","uid":"23","content":"lost咯胡了holy咯啊配件给哦","image":"307138,307140,307141,307382","review_time":"2017-12-26 17:18:46","is_anonymous":"0","reply":null,"user":{"id":"23","username":"陈加尧","avatar":"https://staticcdntest.fantuanlife.com/uimage/84/57/36/c4/845736c4a0febc922c22b5e4fca24806.jpg?x-oss-process=image/resize,m_fill,h_112,w_112/format,jpg/interlace,1/quality,Q_70"},"imageUrl":["https://staticcdntest.fantuanlife.com/uimage/7f/ad/19/69/7fad1969e970f77948e416546aab6efa.jpg","https://staticcdntest.fantuanlife.com/uimage/71/31/6e/c3/71316ec379977d880250bbaa791c2ceb.jpg","https://staticcdntest.fantuanlife.com/uimage/56/89/1a/36/56891a3639c0fa4cad0af462a541b454.jpg"]}]}}
      */
 
     private int error;
@@ -45,14 +45,14 @@ public class ShopDetailBean {
 
     public static class DataBean {
         /**
-         * merchant : {"mid":"55","name":"范团13","score":"4.6","average_spend":"","address":"海口市琼山区忠介路2号铺面","phone":"18976267677","cid":"0","logo":"https://staticcdntest.fantuanlife.com/uimage/70/a7/70/64/70a77064e41d3b6182d260065a2537ae.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70","spider":"0","sales":"月销量 999999","business_hours":"00:04-00:51 10:00-17:12 18:03-18:26 18:36-19:36 20:05-23:05","affiche":"这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公","distance":"距167m","post_url":"https://fanttest.fantuanlife.com/index.html#/merchant/55/picture","category_name":"其他","mall":"金棕榈广场","discounts":"优惠买单"}
+         * merchant : {"mid":"55","name":"范团13","score":"4.6","average_spend":"","address":"海口市琼山区忠介路2号铺面","phone":"18976267677","cid":"0","logo":"https://staticcdntest.fantuanlife.com/uimage/70/a7/70/64/70a77064e41d3b6182d260065a2537ae.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70","spider":"0","sales":"","business_hours":"00:04-00:51 10:00-17:12 18:03-18:26 18:36-19:36 20:05-23:05","affiche":"这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公","distance":"距167m","picture_url":"https://fanttest.fantuanlife.com/index.html#/merchant/55/picture","category_name":"其他","mall":"金棕榈广场","discounts":"优惠买单"}
          * mall : {"title":"所在购物中心","content":[{"name":"金棕榈广场","mall_url":"https://fanttest.fantuanlife.com/index.html#/mall?mall=12","logo_url":"https://staticcdntest.fantuanlife.com/uimage/c1/f7/b9/a6/c1f7b9a6b63ff2e7cdb4d84e9493779b.jpg"}]}
          * coupon : {"title":"买单优惠活动","content":[{"pid":"134","threshold":"2","amount":"1","is_get":false},{"pid":"135","threshold":"3","amount":"2","is_get":false},{"pid":"136","threshold":"4","amount":"3","is_get":false}],"activity":[{"ico":"https://staticcdntest.fantuanlife.com/image/fant/promotion/moneyOff.png","name":"满2减1、满3减2、满4减3、满5减4、满6减5、满7减6、满8减7、满9减8、满10减9、满11减10"},{"ico":"https://staticcdntest.fantuanlife.com/image/fant/promotion/cashCoupon.png","name":"满2赠1、满2赠1"},{"ico":"https://staticcdntest.fantuanlife.com/image/fant/promotion/payDiscount.png","name":"买单立享6.00折优惠"}]}
-         * groupon : {"title":"团购套餐","content":[{"pid":"128","name":"翔帅专用团购","amount":"0.01","market_price":"500","total_sales":"0","imgUrl":"https://staticcdntest.fantuanlife.com/image/m_logo.png"},{"pid":"129","name":"翔帅专用团购2","amount":"0.01","market_price":"200","total_sales":"0","imgUrl":"https://staticcdntest.fantuanlife.com/image/m_logo.png"}]}
-         * voucher : {"title":"代金券","content":[{"pid":"117","amount":"0.01","market_price":"500","total_sales":"20"},{"pid":"130","amount":"0.01","market_price":"150","total_sales":"0"},{"pid":"131","amount":"0.01","market_price":"300","total_sales":"0"}]}
-         * post : {"title":"商家动态","content":[{"content":"带图的商家动态","create_at":"2017-12-26 15:16:20"}]}
+         * groupon : {"title":"团购套餐","content":[{"pid":"128","name":"翔帅专用团购","amount":"0.01","market_price":"500","total_sales":"","imgUrl":"https://staticcdntest.fantuanlife.com/image/m_logo.png"},{"pid":"129","name":"翔帅专用团购2","amount":"0.01","market_price":"200","total_sales":"","imgUrl":"https://staticcdntest.fantuanlife.com/image/m_logo.png"},{"pid":"145","name":"团购3","amount":"10","market_price":"100","total_sales":"","imgUrl":"https://staticcdntest.fantuanlife.com/image/m_logo.png"},{"pid":"146","name":"团购4","amount":"500","market_price":"1000","total_sales":"","imgUrl":"https://staticcdntest.fantuanlife.com/uimage/00/00/c6/7e/0000c67e3c0cd27d105444132b14c2c7.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"},{"pid":"147","name":"团购5","amount":"500","market_price":"1000","total_sales":"","imgUrl":"https://staticcdntest.fantuanlife.com/uimage/00/00/c6/7e/0000c67e3c0cd27d105444132b14c2c7.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"},{"pid":"148","name":"翔专用团购6","amount":"500","market_price":"1000","total_sales":"","imgUrl":"https://staticcdntest.fantuanlife.com/uimage/00/00/c6/7e/0000c67e3c0cd27d105444132b14c2c7.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"},{"pid":"149","name":"翔专用团购7","amount":"500","market_price":"1000","total_sales":"","imgUrl":"https://staticcdntest.fantuanlife.com/uimage/00/00/c6/7e/0000c67e3c0cd27d105444132b14c2c7.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"},{"pid":"150","name":"翔专用团购8","amount":"500","market_price":"1000","total_sales":"","imgUrl":"https://staticcdntest.fantuanlife.com/uimage/00/00/c6/7e/0000c67e3c0cd27d105444132b14c2c7.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"},{"pid":"151","name":"翔专用团购9","amount":"500","market_price":"1000","total_sales":"","imgUrl":"https://staticcdntest.fantuanlife.com/uimage/00/00/c6/7e/0000c67e3c0cd27d105444132b14c2c7.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"},{"pid":"152","name":"翔专用团购10","amount":"500","market_price":"1000","total_sales":"","imgUrl":"https://staticcdntest.fantuanlife.com/uimage/00/00/c6/7e/0000c67e3c0cd27d105444132b14c2c7.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"},{"pid":"153","name":"翔专用团购11","amount":"500","market_price":"1000","total_sales":"","imgUrl":"https://staticcdntest.fantuanlife.com/uimage/00/00/c6/7e/0000c67e3c0cd27d105444132b14c2c7.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"},{"pid":"154","name":"翔专用团购12","amount":"500","market_price":"1000","total_sales":"","imgUrl":"https://staticcdntest.fantuanlife.com/uimage/00/00/c6/7e/0000c67e3c0cd27d105444132b14c2c7.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"},{"pid":"155","name":"翔专用团购13","amount":"500","market_price":"1000","total_sales":"","imgUrl":"https://staticcdntest.fantuanlife.com/uimage/00/00/c6/7e/0000c67e3c0cd27d105444132b14c2c7.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"},{"pid":"156","name":"翔专用团购14","amount":"500","market_price":"1000","total_sales":"","imgUrl":"https://staticcdntest.fantuanlife.com/uimage/00/00/c6/7e/0000c67e3c0cd27d105444132b14c2c7.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"},{"pid":"157","name":"翔专用团购15","amount":"500","market_price":"1000","total_sales":"","imgUrl":"https://staticcdntest.fantuanlife.com/uimage/00/00/c6/7e/0000c67e3c0cd27d105444132b14c2c7.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"},{"pid":"158","name":"翔专用团购16","amount":"500","market_price":"1000","total_sales":"","imgUrl":"https://staticcdntest.fantuanlife.com/uimage/00/00/c6/7e/0000c67e3c0cd27d105444132b14c2c7.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"},{"pid":"159","name":"翔专用团购17","amount":"500","market_price":"1000","total_sales":"","imgUrl":"https://staticcdntest.fantuanlife.com/uimage/00/00/c6/7e/0000c67e3c0cd27d105444132b14c2c7.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"},{"pid":"160","name":"翔专用团购18","amount":"500","market_price":"1000","total_sales":"","imgUrl":"https://staticcdntest.fantuanlife.com/uimage/00/00/c6/7e/0000c67e3c0cd27d105444132b14c2c7.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"},{"pid":"161","name":"翔专用团购19","amount":"500","market_price":"1000","total_sales":"","imgUrl":"https://staticcdntest.fantuanlife.com/uimage/00/00/c6/7e/0000c67e3c0cd27d105444132b14c2c7.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"},{"pid":"162","name":"翔专用团购20","amount":"500","market_price":"1000","total_sales":"","imgUrl":"https://staticcdntest.fantuanlife.com/uimage/00/00/c6/7e/0000c67e3c0cd27d105444132b14c2c7.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"}]}
+         * voucher : {"title":"代金券","content":[{"pid":"130","name":"150元代金券","amount":"0.01","market_price":"150","total_sales":""},{"pid":"131","name":"300元代金券","amount":"0.01","market_price":"300","total_sales":""},{"pid":"163","name":"200元代金券","amount":"160","market_price":"200","total_sales":""},{"pid":"164","name":"500元代金券","amount":"160","market_price":"500","total_sales":""},{"pid":"165","name":"5000元代金券","amount":"160","market_price":"5000","total_sales":""}]}
+         * post : {"title":"商家动态","post_url":"https://fanttest.fantuanlife.com/index.html#/merchant/55/moment","content":[{"content":"带图的商家动态","create_at":"2017-12-26"}]}
          * focus : false
-         * review : {"totals":"16","title":"商家动态","content":[{"score":"5","uid":"23","content":"lost咯胡了holy咯啊配件给哦","image":"307138,307140,307141,307382","review_time":"2017-12-26 17:18:46","is_anonymous":"0","reply":null,"user":{"id":"23","username":"陈加尧","avatar":"https://staticcdntest.fantuanlife.com/uimage/84/57/36/c4/845736c4a0febc922c22b5e4fca24806.jpg?x-oss-process=image/resize,m_fill,h_112,w_112/format,jpg/interlace,1/quality,Q_70"},"imageUrl":["https://staticcdntest.fantuanlife.com/uimage/7f/ad/19/69/7fad1969e970f77948e416546aab6efa.jpg","https://staticcdntest.fantuanlife.com/uimage/71/31/6e/c3/71316ec379977d880250bbaa791c2ceb.jpg","https://staticcdntest.fantuanlife.com/uimage/56/89/1a/36/56891a3639c0fa4cad0af462a541b454.jpg"]}]}
+         * review : {"title":"用户评价","totals":"16","review_url":"https://fanttest.fantuanlife.com/index.html#/merchant/55/comment","content":[{"score":"5","uid":"23","content":"lost咯胡了holy咯啊配件给哦","image":"307138,307140,307141,307382","review_time":"2017-12-26 17:18:46","is_anonymous":"0","reply":null,"user":{"id":"23","username":"陈加尧","avatar":"https://staticcdntest.fantuanlife.com/uimage/84/57/36/c4/845736c4a0febc922c22b5e4fca24806.jpg?x-oss-process=image/resize,m_fill,h_112,w_112/format,jpg/interlace,1/quality,Q_70"},"imageUrl":["https://staticcdntest.fantuanlife.com/uimage/7f/ad/19/69/7fad1969e970f77948e416546aab6efa.jpg","https://staticcdntest.fantuanlife.com/uimage/71/31/6e/c3/71316ec379977d880250bbaa791c2ceb.jpg","https://staticcdntest.fantuanlife.com/uimage/56/89/1a/36/56891a3639c0fa4cad0af462a541b454.jpg"]}]}
          */
 
         private MerchantBean merchant;
@@ -139,11 +139,11 @@ public class ShopDetailBean {
              * cid : 0
              * logo : https://staticcdntest.fantuanlife.com/uimage/70/a7/70/64/70a77064e41d3b6182d260065a2537ae.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70
              * spider : 0
-             * sales : 月销量 999999
+             * sales :
              * business_hours : 00:04-00:51 10:00-17:12 18:03-18:26 18:36-19:36 20:05-23:05
              * affiche : 这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公
              * distance : 距167m
-             * post_url : https://fanttest.fantuanlife.com/index.html#/merchant/55/picture
+             * picture_url : https://fanttest.fantuanlife.com/index.html#/merchant/55/picture
              * category_name : 其他
              * mall : 金棕榈广场
              * discounts : 优惠买单
@@ -162,7 +162,7 @@ public class ShopDetailBean {
             private String business_hours;
             private String affiche;
             private String distance;
-            private String post_url;
+            private String picture_url;
             private String category_name;
             private String mall;
             private String discounts;
@@ -271,12 +271,12 @@ public class ShopDetailBean {
                 this.distance = distance;
             }
 
-            public String getPost_url() {
-                return post_url;
+            public String getPicture_url() {
+                return picture_url;
             }
 
-            public void setPost_url(String post_url) {
-                this.post_url = post_url;
+            public void setPicture_url(String picture_url) {
+                this.picture_url = picture_url;
             }
 
             public String getCategory_name() {
@@ -477,7 +477,7 @@ public class ShopDetailBean {
         public static class GrouponBean {
             /**
              * title : 团购套餐
-             * content : [{"pid":"128","name":"翔帅专用团购","amount":"0.01","market_price":"500","total_sales":"0","imgUrl":"https://staticcdntest.fantuanlife.com/image/m_logo.png"},{"pid":"129","name":"翔帅专用团购2","amount":"0.01","market_price":"200","total_sales":"0","imgUrl":"https://staticcdntest.fantuanlife.com/image/m_logo.png"}]
+             * content : [{"pid":"128","name":"翔帅专用团购","amount":"0.01","market_price":"500","total_sales":"","imgUrl":"https://staticcdntest.fantuanlife.com/image/m_logo.png"},{"pid":"129","name":"翔帅专用团购2","amount":"0.01","market_price":"200","total_sales":"","imgUrl":"https://staticcdntest.fantuanlife.com/image/m_logo.png"},{"pid":"145","name":"团购3","amount":"10","market_price":"100","total_sales":"","imgUrl":"https://staticcdntest.fantuanlife.com/image/m_logo.png"},{"pid":"146","name":"团购4","amount":"500","market_price":"1000","total_sales":"","imgUrl":"https://staticcdntest.fantuanlife.com/uimage/00/00/c6/7e/0000c67e3c0cd27d105444132b14c2c7.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"},{"pid":"147","name":"团购5","amount":"500","market_price":"1000","total_sales":"","imgUrl":"https://staticcdntest.fantuanlife.com/uimage/00/00/c6/7e/0000c67e3c0cd27d105444132b14c2c7.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"},{"pid":"148","name":"翔专用团购6","amount":"500","market_price":"1000","total_sales":"","imgUrl":"https://staticcdntest.fantuanlife.com/uimage/00/00/c6/7e/0000c67e3c0cd27d105444132b14c2c7.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"},{"pid":"149","name":"翔专用团购7","amount":"500","market_price":"1000","total_sales":"","imgUrl":"https://staticcdntest.fantuanlife.com/uimage/00/00/c6/7e/0000c67e3c0cd27d105444132b14c2c7.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"},{"pid":"150","name":"翔专用团购8","amount":"500","market_price":"1000","total_sales":"","imgUrl":"https://staticcdntest.fantuanlife.com/uimage/00/00/c6/7e/0000c67e3c0cd27d105444132b14c2c7.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"},{"pid":"151","name":"翔专用团购9","amount":"500","market_price":"1000","total_sales":"","imgUrl":"https://staticcdntest.fantuanlife.com/uimage/00/00/c6/7e/0000c67e3c0cd27d105444132b14c2c7.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"},{"pid":"152","name":"翔专用团购10","amount":"500","market_price":"1000","total_sales":"","imgUrl":"https://staticcdntest.fantuanlife.com/uimage/00/00/c6/7e/0000c67e3c0cd27d105444132b14c2c7.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"},{"pid":"153","name":"翔专用团购11","amount":"500","market_price":"1000","total_sales":"","imgUrl":"https://staticcdntest.fantuanlife.com/uimage/00/00/c6/7e/0000c67e3c0cd27d105444132b14c2c7.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"},{"pid":"154","name":"翔专用团购12","amount":"500","market_price":"1000","total_sales":"","imgUrl":"https://staticcdntest.fantuanlife.com/uimage/00/00/c6/7e/0000c67e3c0cd27d105444132b14c2c7.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"},{"pid":"155","name":"翔专用团购13","amount":"500","market_price":"1000","total_sales":"","imgUrl":"https://staticcdntest.fantuanlife.com/uimage/00/00/c6/7e/0000c67e3c0cd27d105444132b14c2c7.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"},{"pid":"156","name":"翔专用团购14","amount":"500","market_price":"1000","total_sales":"","imgUrl":"https://staticcdntest.fantuanlife.com/uimage/00/00/c6/7e/0000c67e3c0cd27d105444132b14c2c7.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"},{"pid":"157","name":"翔专用团购15","amount":"500","market_price":"1000","total_sales":"","imgUrl":"https://staticcdntest.fantuanlife.com/uimage/00/00/c6/7e/0000c67e3c0cd27d105444132b14c2c7.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"},{"pid":"158","name":"翔专用团购16","amount":"500","market_price":"1000","total_sales":"","imgUrl":"https://staticcdntest.fantuanlife.com/uimage/00/00/c6/7e/0000c67e3c0cd27d105444132b14c2c7.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"},{"pid":"159","name":"翔专用团购17","amount":"500","market_price":"1000","total_sales":"","imgUrl":"https://staticcdntest.fantuanlife.com/uimage/00/00/c6/7e/0000c67e3c0cd27d105444132b14c2c7.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"},{"pid":"160","name":"翔专用团购18","amount":"500","market_price":"1000","total_sales":"","imgUrl":"https://staticcdntest.fantuanlife.com/uimage/00/00/c6/7e/0000c67e3c0cd27d105444132b14c2c7.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"},{"pid":"161","name":"翔专用团购19","amount":"500","market_price":"1000","total_sales":"","imgUrl":"https://staticcdntest.fantuanlife.com/uimage/00/00/c6/7e/0000c67e3c0cd27d105444132b14c2c7.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"},{"pid":"162","name":"翔专用团购20","amount":"500","market_price":"1000","total_sales":"","imgUrl":"https://staticcdntest.fantuanlife.com/uimage/00/00/c6/7e/0000c67e3c0cd27d105444132b14c2c7.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"}]
              */
 
             private String title;
@@ -505,7 +505,7 @@ public class ShopDetailBean {
                  * name : 翔帅专用团购
                  * amount : 0.01
                  * market_price : 500
-                 * total_sales : 0
+                 * total_sales :
                  * imgUrl : https://staticcdntest.fantuanlife.com/image/m_logo.png
                  */
 
@@ -569,7 +569,7 @@ public class ShopDetailBean {
         public static class VoucherBean {
             /**
              * title : 代金券
-             * content : [{"pid":"117","amount":"0.01","market_price":"500","total_sales":"20"},{"pid":"130","amount":"0.01","market_price":"150","total_sales":"0"},{"pid":"131","amount":"0.01","market_price":"300","total_sales":"0"}]
+             * content : [{"pid":"130","name":"150元代金券","amount":"0.01","market_price":"150","total_sales":""},{"pid":"131","name":"300元代金券","amount":"0.01","market_price":"300","total_sales":""},{"pid":"163","name":"200元代金券","amount":"160","market_price":"200","total_sales":""},{"pid":"164","name":"500元代金券","amount":"160","market_price":"500","total_sales":""},{"pid":"165","name":"5000元代金券","amount":"160","market_price":"5000","total_sales":""}]
              */
 
             private String title;
@@ -593,25 +593,18 @@ public class ShopDetailBean {
 
             public static class ContentBeanXXX {
                 /**
-                 * pid : 117
+                 * pid : 130
+                 * name : 150元代金券
                  * amount : 0.01
-                 * market_price : 500
-                 * total_sales : 20
+                 * market_price : 150
+                 * total_sales :
                  */
 
                 private String pid;
+                private String name;
                 private String amount;
                 private String market_price;
                 private String total_sales;
-                private String name;
-
-                public String getName() {
-                    return name;
-                }
-
-                public void setName(String name) {
-                    this.name = name;
-                }
 
                 public String getPid() {
                     return pid;
@@ -619,6 +612,14 @@ public class ShopDetailBean {
 
                 public void setPid(String pid) {
                     this.pid = pid;
+                }
+
+                public String getName() {
+                    return name;
+                }
+
+                public void setName(String name) {
+                    this.name = name;
                 }
 
                 public String getAmount() {
@@ -650,10 +651,12 @@ public class ShopDetailBean {
         public static class PostBean {
             /**
              * title : 商家动态
-             * content : [{"content":"带图的商家动态","create_at":"2017-12-26 15:16:20"}]
+             * post_url : https://fanttest.fantuanlife.com/index.html#/merchant/55/moment
+             * content : [{"content":"带图的商家动态","create_at":"2017-12-26"}]
              */
 
             private String title;
+            private String post_url;
             private List<ContentBeanXXXX> content;
 
             public String getTitle() {
@@ -662,6 +665,14 @@ public class ShopDetailBean {
 
             public void setTitle(String title) {
                 this.title = title;
+            }
+
+            public String getPost_url() {
+                return post_url;
+            }
+
+            public void setPost_url(String post_url) {
+                this.post_url = post_url;
             }
 
             public List<ContentBeanXXXX> getContent() {
@@ -675,7 +686,7 @@ public class ShopDetailBean {
             public static class ContentBeanXXXX {
                 /**
                  * content : 带图的商家动态
-                 * create_at : 2017-12-26 15:16:20
+                 * create_at : 2017-12-26
                  */
 
                 private String content;
@@ -701,14 +712,24 @@ public class ShopDetailBean {
 
         public static class ReviewBean {
             /**
+             * title : 用户评价
              * totals : 16
-             * title : 商家动态
+             * review_url : https://fanttest.fantuanlife.com/index.html#/merchant/55/comment
              * content : [{"score":"5","uid":"23","content":"lost咯胡了holy咯啊配件给哦","image":"307138,307140,307141,307382","review_time":"2017-12-26 17:18:46","is_anonymous":"0","reply":null,"user":{"id":"23","username":"陈加尧","avatar":"https://staticcdntest.fantuanlife.com/uimage/84/57/36/c4/845736c4a0febc922c22b5e4fca24806.jpg?x-oss-process=image/resize,m_fill,h_112,w_112/format,jpg/interlace,1/quality,Q_70"},"imageUrl":["https://staticcdntest.fantuanlife.com/uimage/7f/ad/19/69/7fad1969e970f77948e416546aab6efa.jpg","https://staticcdntest.fantuanlife.com/uimage/71/31/6e/c3/71316ec379977d880250bbaa791c2ceb.jpg","https://staticcdntest.fantuanlife.com/uimage/56/89/1a/36/56891a3639c0fa4cad0af462a541b454.jpg"]}]
              */
 
-            private String totals;
             private String title;
+            private String totals;
+            private String review_url;
             private List<ContentBeanXXXXX> content;
+
+            public String getTitle() {
+                return title;
+            }
+
+            public void setTitle(String title) {
+                this.title = title;
+            }
 
             public String getTotals() {
                 return totals;
@@ -718,12 +739,12 @@ public class ShopDetailBean {
                 this.totals = totals;
             }
 
-            public String getTitle() {
-                return title;
+            public String getReview_url() {
+                return review_url;
             }
 
-            public void setTitle(String title) {
-                this.title = title;
+            public void setReview_url(String review_url) {
+                this.review_url = review_url;
             }
 
             public List<ContentBeanXXXXX> getContent() {

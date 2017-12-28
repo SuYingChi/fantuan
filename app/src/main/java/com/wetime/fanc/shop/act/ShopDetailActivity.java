@@ -129,6 +129,8 @@ public class ShopDetailActivity extends BaseActivity implements IGetShopDetailVi
     @BindView(R.id.ll_businesstime)
     LinearLayout llBusinesstime;
     @BindView(R.id.ll_moreinfo)
+    LinearLayout llCommentIma;
+    @BindView(R.id.ll_comment_img)
     LinearLayout llMoreinfo;
     @BindView(R.id.ntscrollview)
     NestedScrollView ntscrollview;
@@ -179,7 +181,7 @@ public class ShopDetailActivity extends BaseActivity implements IGetShopDetailVi
         ivCover.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                goWeb(bean.getData().getMerchant().getPost_url());
+                goWeb(bean.getData().getMerchant().getPicture_url());
             }
         });
         tvName.setText(bean.getData().getMerchant().getName());
@@ -312,6 +314,52 @@ public class ShopDetailActivity extends BaseActivity implements IGetShopDetailVi
 
         } else {
             llShopcenter.setVisibility(View.GONE);
+        }
+        //用户评价
+        if (bean.getData().getReview().getContent() != null && bean.getData().getReview().getContent().size() > 0) {
+            tvCommentnum.setText("(" + bean.getData().getReview().getTotals() + ")");
+            Glide.with(this).load(bean.getData().getReview().getContent().get(0).getUser().getAvatar()).into(icCommentHead);
+            tvCommentUsername.setText(bean.getData().getReview().getContent().get(0).getUser().getUsername());
+            tvCommentTime.setText(bean.getData().getReview().getContent().get(0).getReview_time());
+            rbSocreComment.setStar(Float.valueOf(bean.getData().getReview().getContent().get(0).getScore()));
+            tvCommnentScore.setText(bean.getData().getReview().getContent().get(0).getScore() + "分");
+            tvCommnentContent.setText(bean.getData().getReview().getContent().get(0).getContent());
+            if (bean.getData().getReview().getContent().get(0).getImageUrl().size() > 0) {
+                Glide.with(this).load(bean.getData().getReview().getContent().get(0)
+                        .getImageUrl().get(0)).into(ivCommnet0);
+            }
+            if (bean.getData().getReview().getContent().get(0).getImageUrl().size() > 1) {
+                Glide.with(this).load(bean.getData().getReview().getContent().get(0)
+                        .getImageUrl().get(1)).into(ivCommnet1);
+            }
+            if (bean.getData().getReview().getContent().get(0).getImageUrl().size() > 2) {
+                Glide.with(this).load(bean.getData().getReview().getContent().get(0)
+                        .getImageUrl().get(2)).into(ivCommnet2);
+            }
+            if (bean.getData().getReview().getContent().get(0).getImageUrl().size() == 0) {
+                llCommentIma.setVisibility(View.GONE);
+            }
+            tvMorecomment.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    goWeb(bean.getData().getReview().getReview_url());
+                }
+            });
+        } else {
+            llComment.setVisibility(View.GONE);
+        }
+        // 商家动态
+        if(bean.getData().getPost().getContent().size()>0){
+            tvDongtaicontent.setText(bean.getData().getPost().getContent().get(0).getContent());
+            tvDongtaitime.setText(bean.getData().getPost().getContent().get(0).getCreate_at());
+            tvMoredongtai.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    goWeb(bean.getData().getPost().getPost_url());
+                }
+            });
+        }else{
+            llDongtai.setVisibility(View.GONE);
         }
 
 

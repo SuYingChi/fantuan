@@ -135,6 +135,7 @@
                 tools:text="食材还算新鲜，量不大，服务略有点欠缺。小朋友最爱吃寿司，而这家有好几款带鳗鱼可供选择。中午有套餐，有20多个选择，一两个人平时当工作餐也不错。" />
 
             <LinearLayout
+                android:id="@+id/ll_comment_img"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
                 android:layout_marginTop="5dp">
@@ -144,8 +145,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/ic_default" />
+                    android:scaleType="centerCrop" />
 
                 <ImageView
                     android:id="@+id/iv_commnet1"
@@ -153,8 +153,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginLeft="10dp"
                     android:layout_weight="1"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/ic_default" />
+                    android:scaleType="centerCrop"/>
 
                 <ImageView
                     android:id="@+id/iv_commnet2"
@@ -162,8 +161,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginLeft="10dp"
                     android:layout_weight="1"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/ic_default" />
+                    android:scaleType="centerCrop" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
