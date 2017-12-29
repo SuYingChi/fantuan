@@ -533,7 +533,11 @@ public class ShopDetailActivity extends BaseActivity implements IGetShopDetailVi
             tvBottom.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Tools.toastInBottom(mContext, "gogogog");
+                    if (TextUtils.isEmpty(spu.getToken())) {
+                        goLogin();
+                        return;
+                    }
+                    Tools.goWeb(mContext,bean.getData().getMerchant().getPayment_url());
                 }
             });
         }
