@@ -22,8 +22,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.wetime.fanc.application.FApp;
 import com.wetime.fanc.customview.multiimageselector.MultiImageSelectorActivity;
 import com.wetime.fanc.R;
+import com.wetime.fanc.web.WebActivity;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -326,5 +328,10 @@ public class Tools {
             ss.setSpan(new ForegroundColorSpan(color), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
         return ss;
+    }
+    public static void goWeb(Context mContext,String url){
+        Intent goweb = new Intent(mContext, WebActivity.class);
+        goweb.putExtra("url", url);
+        mContext.startActivity(goweb);
     }
 }
