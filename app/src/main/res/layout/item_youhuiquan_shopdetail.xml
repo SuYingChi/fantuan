@@ -17,13 +17,13 @@
             android:id="@+id/tv_jine"
             android:layout_marginLeft="20dp"
             android:gravity="center"
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="match_parent"
             android:textSize="24sp"
             android:textColor="#333333"
             android:textStyle="bold"
             android:lineSpacingExtra="0sp"
-            tools:text="￥20"
+            tools:text="￥2000"
             />
         <TextView
             android:id="@+id/tv_mane"
