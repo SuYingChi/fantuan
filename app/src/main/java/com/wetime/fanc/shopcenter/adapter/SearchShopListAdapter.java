@@ -84,14 +84,14 @@ public class SearchShopListAdapter extends RecyclerView.Adapter {
 
         ShopActItemAdapter actItemAdapter = new ShopActItemAdapter(mActivity, bean.getPromotion_list());
         holder.lvAct.setAdapter(actItemAdapter);
-        holder.lvAct.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent goweb = new Intent(mActivity, WebActivity.class);
-                goweb.putExtra("url", bean.getDetail_url());
-                mActivity.startActivity(goweb);
-            }
-        });
+//        holder.lvAct.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                Intent goweb = new Intent(mActivity, WebActivity.class);
+//                goweb.putExtra("url", bean.getDetail_url());
+//                mActivity.startActivity(goweb);
+//            }
+//        });
         actItemAdapter.notifyDataSetChanged();
 
         ShopTaocanItemAdapter taocanItemAdapter = new ShopTaocanItemAdapter(mActivity, bean.getVoucher_groupon_list());
