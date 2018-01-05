@@ -15,15 +15,15 @@
         android:layout_height="80dp">
         <TextView
             android:id="@+id/tv_jine"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="5dp"
             android:gravity="center"
-            android:layout_width="100dp"
+            android:layout_width="90dp"
             android:layout_height="match_parent"
             android:textSize="24sp"
             android:textColor="#333333"
             android:textStyle="bold"
             android:lineSpacingExtra="0sp"
-            tools:text="￥2000"
+            tools:text="￥200"
             />
         <TextView
             android:id="@+id/tv_mane"
