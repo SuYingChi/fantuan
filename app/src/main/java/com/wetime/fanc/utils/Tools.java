@@ -334,4 +334,8 @@ public class Tools {
         goweb.putExtra("url", url);
         mContext.startActivity(goweb);
     }
+    public static void goActivity(Context mContext,Class<?> cls) {
+        Intent go = new Intent(mContext, cls);
+        mContext.startActivity(go);
+    }
 }

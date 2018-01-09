@@ -13,7 +13,7 @@ public interface Const {
 
     String PUSH_BIND = BASEURL + "/push/bind";
     String POSTMUTILEFILE = BASEURL + "/upload/image";
-    String SMS_SEND = BASEURL + "/sms/send";
+
     String LOGIN_VCODE = BASEURL + "/login/vcode";
     String LOGIN_PSW = BASEURL + "/login";
     String LOGIN_WX = BASEURL + "/login/wexin";
@@ -42,6 +42,13 @@ public interface Const {
     String SHOP_FOCUS = BASEURL + "/shop/focus";
     String SHOP_FOCUS_CANCEL = BASEURL + "/shop/focus/cancel";
     String SHOP_COUPON_GET = BASEURL + "/shop/coupon/get";
+    String WALLET_BALANCE = BASEURL + "/wallet/balance";
+    String WALLET_PASSWORD_SET = BASEURL + "/wallet/password/set";
+    String SMS_SEND = BASEURL + "/sms/send";
+    String SMS_VERIFY = BASEURL + "/sms/verify";
+
+
+
 
     String PROTOCOL = "http://fant.fantuanlife.com/index.html#/user/agreement";
 

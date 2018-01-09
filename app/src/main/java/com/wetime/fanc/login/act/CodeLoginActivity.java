@@ -17,8 +17,8 @@ import com.wetime.fanc.login.bean.LoginResultBean;
 import com.wetime.fanc.login.event.LoginEvent;
 import com.wetime.fanc.login.iviews.IInvalidCodeView;
 import com.wetime.fanc.login.iviews.ISendSMSView;
-import com.wetime.fanc.login.presenter.InvalidCodePresenter;
-import com.wetime.fanc.login.presenter.SendSMSPresenter;
+import com.wetime.fanc.login.presenter.InvalidLoginCodePresenter;
+import com.wetime.fanc.login.presenter.SendLoginSMSPresenter;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -44,8 +44,8 @@ public class CodeLoginActivity extends BaseActivity implements ISendSMSView, IIn
     @BindView(R.id.tv_pswlogin)
     TextView tvPswlogin;
     private boolean runningThree = false;
-    private SendSMSPresenter sendSMSPresenter;
-    private InvalidCodePresenter invalidCodePresenter;
+    private SendLoginSMSPresenter sendLoginSMSPresenter;
+    private InvalidLoginCodePresenter invalidLoginCodePresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,8 +54,8 @@ public class CodeLoginActivity extends BaseActivity implements ISendSMSView, IIn
         ButterKnife.bind(this);
         EventBus.getDefault().register(this);
         tvTitle.setText("短信验证码登录");
-        sendSMSPresenter = new SendSMSPresenter(this);
-        invalidCodePresenter = new InvalidCodePresenter(this);
+        sendLoginSMSPresenter = new SendLoginSMSPresenter(this);
+        invalidLoginCodePresenter = new InvalidLoginCodePresenter(this);
     }
 
     @Override
@@ -78,7 +78,7 @@ public class CodeLoginActivity extends BaseActivity implements ISendSMSView, IIn
                     Tools.toastInBottom(this, "请输入正确验证码");
                     return;
                 }
-                invalidCodePresenter.invalidCode(etPhone.getText().toString(), etCode.getText().toString());
+                invalidLoginCodePresenter.invalidCode(etPhone.getText().toString(), etCode.getText().toString());
 
                 break;
             case R.id.tv_send:
@@ -91,7 +91,7 @@ public class CodeLoginActivity extends BaseActivity implements ISendSMSView, IIn
 //                imm.showSoftInput(etCode,InputMethodManager.SHOW_FORCED);
 
                 if (!runningThree)
-                    sendSMSPresenter.sendSMS(etPhone.getText().toString());
+                    sendLoginSMSPresenter.sendSMS(etPhone.getText().toString());
                 break;
             case R.id.tv_pswlogin:
 

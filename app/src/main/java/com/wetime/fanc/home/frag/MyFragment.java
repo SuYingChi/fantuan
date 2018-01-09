@@ -13,8 +13,6 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.wetime.fanc.main.frag.BaseFragment;
-import com.wetime.fanc.utils.Tools;
 import com.wetime.fanc.R;
 import com.wetime.fanc.home.bean.MyInfoBean;
 import com.wetime.fanc.home.event.RefreshRedNunEvent;
@@ -23,8 +21,11 @@ import com.wetime.fanc.home.presenter.GetUserInfoPresenter;
 import com.wetime.fanc.login.act.LoginActivity;
 import com.wetime.fanc.login.event.LoginEvent;
 import com.wetime.fanc.login.event.LogoutEvent;
+import com.wetime.fanc.main.frag.BaseFragment;
 import com.wetime.fanc.setting.act.SettingActivity;
 import com.wetime.fanc.setting.event.ChangeUserInfoEvent;
+import com.wetime.fanc.utils.Tools;
+import com.wetime.fanc.wallet.act.MyWalletActivity;
 import com.wetime.fanc.web.WebActivity;
 
 import org.greenrobot.eventbus.EventBus;
@@ -102,7 +103,8 @@ public class MyFragment extends BaseFragment implements IGetMyInfoView {
     }
 
 
-    @OnClick({R.id.ll_call, R.id.iv_setting, R.id.ll_login, R.id.tv_fanpiao, R.id.tv_youhuiquan, R.id.tv_guanzhu, R.id.tv_message, R.id.tv_comment, R.id.tv_waimai})
+    @OnClick({R.id.ll_call, R.id.iv_setting, R.id.ll_login, R.id.tv_fanpiao, R.id.tv_youhuiquan,
+            R.id.tv_guanzhu, R.id.tv_message, R.id.tv_comment, R.id.tv_waimai,R.id.tv_wallet,R.id.ll_invite})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ll_call:
@@ -168,11 +170,17 @@ public class MyFragment extends BaseFragment implements IGetMyInfoView {
                 }
                 break;
             case R.id.tv_waimai:
-
+                break;
+            case R.id.tv_wallet:
+                Tools.goActivity(getContext(), MyWalletActivity.class);
+                break;
+            case R.id.ll_invite:
+                Tools.goWeb(getContext(), "https://www.baidu.com");
                 break;
         }
     }
-    private void goMessage(){
+
+    private void goMessage() {
         if (bean != null)
             goWeb(bean.getData().getLink().getNotice().getUrl());
         else {
@@ -181,6 +189,7 @@ public class MyFragment extends BaseFragment implements IGetMyInfoView {
             startActivity(goLogin);
         }
     }
+
     private void goWeb(String url) {
         if (spu.getToken().equals("")) {
             Tools.toastInBottom(getContext(), "请先登录");
@@ -189,9 +198,6 @@ public class MyFragment extends BaseFragment implements IGetMyInfoView {
             return;
         }
 
-        if (url.equals("")) {
-            url = "http://www.baidu.com";
-        }
         Intent goweb = new Intent(getContext(), WebActivity.class);
         goweb.putExtra("url", url);
         startActivity(goweb);
@@ -203,9 +209,7 @@ public class MyFragment extends BaseFragment implements IGetMyInfoView {
         Glide.with(getContext()).load(bean.getData().getUser().getAvatar()).into(civHead);
         tvName.setText(bean.getData().getUser().getUsername());
 
-
         QBred.setBadgeNumber(bean.getData().getNotice_num());
-
     }
 
     @Override

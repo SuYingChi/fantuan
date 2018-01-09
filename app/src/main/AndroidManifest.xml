@@ -124,5 +124,8 @@
         <service android:name="com.amap.api.location.APSService" />
         <meta-data android:name="com.amap.api.v2.apikey" android:value="ece4301551d57d406721dd7db524e170"/>
         <activity android:name=".shop.act.ShopDetailActivity"/>
+        <activity android:name=".wallet.act.MyWalletActivity" />
+        <activity android:name=".wallet.act.SetPayPwdActivity" />
+        <activity android:name=".wallet.act.VerfyPhoneNumActivity" />
     </application>
 </manifest>

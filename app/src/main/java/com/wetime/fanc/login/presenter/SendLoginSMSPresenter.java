@@ -1,9 +1,9 @@
 package com.wetime.fanc.login.presenter;
 
 
+import com.wetime.fanc.main.model.BaseBean;
 import com.wetime.fanc.utils.DataStringCallback;
-import com.wetime.fanc.login.bean.LoginResultBean;
-import com.wetime.fanc.login.iviews.IInvalidCodeView;
+import com.wetime.fanc.login.iviews.ISendSMSView;
 import com.wetime.fanc.utils.Const;
 import com.zhy.http.okhttp.OkHttpUtils;
 
@@ -13,28 +13,27 @@ import static com.wetime.fanc.utils.GsonUtils.getGsonInstance;
  * Created by zhoukang on 2017/5/19.
  */
 
-public class InvalidCodePresenter {
-    private IInvalidCodeView iView;
+public class SendLoginSMSPresenter {
+    private ISendSMSView iView;
 
-    public InvalidCodePresenter(IInvalidCodeView iView) {
+    public SendLoginSMSPresenter(ISendSMSView iView) {
         this.iView = iView;
     }
 
-    public void invalidCode(String phone,String code) {
+    public void sendSMS(String phone) {
 
         OkHttpUtils
                 .post()
-                .url(Const.LOGIN_VCODE)
+                .url(Const.SMS_SEND)
                 .addParams("phone", phone)
-                .addParams("code", code)
                 .build()
                 .execute(new DataStringCallback(iView, true) {
                     @Override
                     public void onResponse(String s, int i) {
                         super.onResponse(s, i);
-                        LoginResultBean msg = getGsonInstance().fromJson(s, LoginResultBean.class);
+                        BaseBean msg = getGsonInstance().fromJson(s, BaseBean.class);
                         if (msg.getError() == 0)
-                            iView.onInvalidResult(msg);
+                            iView.onSendResult(msg);
                     }
                 });
     }
