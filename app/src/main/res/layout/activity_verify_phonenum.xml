@@ -91,9 +91,9 @@
                 android:layout_margin="30dp"
                 android:gravity="center_horizontal"
                 android:lineSpacingExtra="0sp"
+                android:text="收不到验证码？"
                 android:textColor="#ff3f53"
-                android:textSize="12sp"
-                android:text="收不到验证码？" />
+                android:textSize="12sp" />
         </LinearLayout>
     </ScrollView>
 

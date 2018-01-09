@@ -127,5 +127,7 @@
         <activity android:name=".wallet.act.MyWalletActivity" />
         <activity android:name=".wallet.act.SetPayPwdActivity" />
         <activity android:name=".wallet.act.VerfyPhoneNumActivity" />
+        <activity android:name=".wallet.act.CashOutActivity" />
+        <activity android:name=".wallet.act.BalanceDetailActivity" />
     </application>
 </manifest>

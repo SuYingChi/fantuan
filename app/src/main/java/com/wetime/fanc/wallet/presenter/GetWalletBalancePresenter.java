@@ -27,8 +27,7 @@ public class GetWalletBalancePresenter {
                 .url(Const.WALLET_BALANCE)
                 .addParams("token", iView.getToken())
                 .build()
-                .execute(new DataStringCallback(iView, true,true
-                        ,true,true,false) {
+                .execute(new DataStringCallback(iView, false) {
                     @Override
                     public void onResponse(String s, int i) {
                         super.onResponse(s, i);
