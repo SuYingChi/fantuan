@@ -73,14 +73,14 @@ public class MyWalletActivity extends BaseActivity implements IGetWalletBalanceV
         super.onBackPressed();
     }
 
-    @OnClick({R.id.iv_back,R.id.tv_detail})
+    @OnClick({R.id.iv_back, R.id.tv_detail})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
                 onBackPressed();
                 break;
             case R.id.tv_detail:
-                Tools.goActivity(mContext,BalanceDetailActivity.class);
+                Tools.goActivity(mContext, BalanceDetailActivity.class);
                 break;
         }
     }
@@ -125,8 +125,14 @@ public class MyWalletActivity extends BaseActivity implements IGetWalletBalanceV
             @Override
             public void onClick(View v) {
                 if (bean.getData().getHas_bind_wechat().equals("1")) {
-                    Intent go = new Intent(mContext, CashOutActivity.class);
-                    startActivity(go);
+                    if (Double.valueOf(bean.getData().getMoney()) >= Double.valueOf(bean.getData().getWithdraw_money_min())) {
+                        Intent go = new Intent(mContext, CashOutActivity.class);
+                        go.putExtra("wxname", bean.getData().getWechat_nickname());
+                        go.putExtra("balance", bean.getData().getMoney());
+                        startActivity(go);
+                    } else {
+                        Tools.toastInBottom(mContext, "余额需大于或等于" + bean.getData().getWithdraw_money_min() + "元才可提现");
+                    }
                 } else {
                     Tools.showTipsDialog(mContext, "", "将提现到微信钱包中因此需要绑定微信号哦",
                             "取消", "立即绑定", null,

@@ -1,39 +1,39 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.wetime.fanc">
+    package="com.wetime.fanc">
 
-    <uses-permission android:name="android.permission.USE_CREDENTIALS"/>
-    <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
-    <uses-permission android:name="android.permission.READ_PROFILE"/>
-    <uses-permission android:name="android.permission.CALL_PHONE"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
-    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
-    <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
+    <uses-permission android:name="android.permission.USE_CREDENTIALS" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.READ_PROFILE" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <!-- 【必须】 信鸽SDK所需权限 -->
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.WAKE_LOCK"/>
-    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.VIBRATE" />
     <!-- 【常用】 信鸽SDK所需权限 -->
-    <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT"/>
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <!-- 【可选】 信鸽SDK所需权限 -->
-    <uses-permission android:name="android.permission.RESTART_PACKAGES"/>
-    <uses-permission android:name="android.permission.BROADCAST_STICKY"/>
-    <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES"/>
-    <uses-permission android:name="android.permission.GET_TASKS"/>
-    <uses-permission android:name="android.permission.READ_LOGS"/>
-    <uses-permission android:name="android.permission.BLUETOOTH"/>
-    <uses-permission android:name="android.permission.BATTERY_STATS"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
+    <uses-permission android:name="android.permission.RESTART_PACKAGES" />
+    <uses-permission android:name="android.permission.BROADCAST_STICKY" />
+    <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.READ_LOGS" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BATTERY_STATS" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
 
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-permission android:name="android.permission.FLASHLIGHT"/>
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
 
     <application
         android:name=".application.FApp"
@@ -42,21 +42,21 @@
         android:theme="@style/AppTheme">
         <activity android:name=".home.act.LoadingActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".login.act.LoginActivity"/>
-        <activity android:name=".home.act.MainActivity"/>
-        <activity android:name=".web.WebActivity"/>
-        <activity android:name=".login.act.CodeLoginActivity"/>
-        <activity android:name=".login.act.PSWLoginActivity"/>
-        <activity android:name=".setting.act.SettingActivity"/>
-        <activity android:name=".about.act.AboutActivity"/>
-        <activity android:name=".setting.act.UserinfoActivity"/>
-        <activity android:name=".setting.act.BindWeixinActivity"/>
-        <activity android:name=".shopcenter.act.ShopCenterActivity"/>
+        <activity android:name=".login.act.LoginActivity" />
+        <activity android:name=".home.act.MainActivity" />
+        <activity android:name=".web.WebActivity" />
+        <activity android:name=".login.act.CodeLoginActivity" />
+        <activity android:name=".login.act.PSWLoginActivity" />
+        <activity android:name=".setting.act.SettingActivity" />
+        <activity android:name=".about.act.AboutActivity" />
+        <activity android:name=".setting.act.UserinfoActivity" />
+        <activity android:name=".setting.act.BindWeixinActivity" />
+        <activity android:name=".shopcenter.act.ShopCenterActivity" />
 
 
         <activity
@@ -64,66 +64,69 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 
         <meta-data
             android:name="UMENG_APPKEY"
-            android:value="5a1fbb29f43e482bb4000098">
-        </meta-data>
+            android:value="5a1fbb29f43e482bb4000098"></meta-data>
+
         <activity
             android:name=".qr.ScanActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".customview.multiimageselector.MultiImageSelectorActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-            android:windowSoftInputMode="stateHidden|stateAlwaysHidden"/>
+            android:windowSoftInputMode="stateHidden|stateAlwaysHidden" />
 
         <activity
             android:name=".home.act.HomeSearchActivity"
-            android:launchMode="singleTop"/>
-        <activity android:name=".shopcenter.act.ShopListActivity"/>
+            android:launchMode="singleTop" />
+        <activity android:name=".shopcenter.act.ShopListActivity" />
         <activity
             android:name=".home.act.HomeSearchResultActivity"
-            android:launchMode="singleTask"/>
+            android:launchMode="singleTask" />
         <activity
             android:name=".shopcenter.act.ShopSearchActivity"
-            android:launchMode="singleTop"/>
+            android:launchMode="singleTop" />
         <activity
             android:name=".shopcenter.act.ShopSearchResultActivity"
-            android:launchMode="singleTask"/>
-        <activity android:name=".order.act.CommentOrderActivity"/>
+            android:launchMode="singleTask" />
+        <activity android:name=".order.act.CommentOrderActivity" />
         <!-- 聚合支付中添加  start -->
         <activity
             android:name="com.secure.pay.activity.PayListActivity"
             android:exported="true"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
-            android:theme="@style/LLTransTheme"/>
+            android:theme="@style/LLTransTheme" />
 
         <activity-alias
             android:name=".wxapi.WXPayEntryActivity"
             android:exported="true"
-            android:targetActivity="com.secure.pay.activity.PayListActivity"/>
+            android:targetActivity="com.secure.pay.activity.PayListActivity" />
         <!-- 聚合支付中添加  end -->
 
         <receiver
             android:name=".push.PushReceiver"
             android:enabled="true">
             <intent-filter>
-                <action android:name="cn.jpush.android.intent.REGISTRATION"/>
-                <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED"/>
-                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED"/>
-                <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED"/>
-                <action android:name="cn.jpush.android.intent.NOTIFICATION_CLICK_ACTION"/>
-                <action android:name="cn.jpush.android.intent.CONNECTION"/>
+                <action android:name="cn.jpush.android.intent.REGISTRATION" />
+                <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED" />
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED" />
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED" />
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_CLICK_ACTION" />
+                <action android:name="cn.jpush.android.intent.CONNECTION" />
 
-                <category android:name="com.wetime.fanc"/>
+                <category android:name="com.wetime.fanc" />
             </intent-filter>
         </receiver>
         <service android:name="com.amap.api.location.APSService" />
-        <meta-data android:name="com.amap.api.v2.apikey" android:value="ece4301551d57d406721dd7db524e170"/>
-        <activity android:name=".shop.act.ShopDetailActivity"/>
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="ece4301551d57d406721dd7db524e170" />
+
+        <activity android:name=".shop.act.ShopDetailActivity" />
         <activity android:name=".wallet.act.MyWalletActivity" />
         <activity android:name=".wallet.act.SetPayPwdActivity" />
         <activity android:name=".wallet.act.VerfyPhoneNumActivity" />
