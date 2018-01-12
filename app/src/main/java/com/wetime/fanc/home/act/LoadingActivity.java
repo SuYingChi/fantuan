@@ -13,14 +13,16 @@ import java.util.TimerTask;
 public class LoadingActivity extends BaseActivity {
 
     private long timelong = 1000;
+    private Timer time;
+    private TimerTask tk;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loading);
         LogUtils.d("loading");
-        Timer time = new Timer();
-        TimerTask tk = new TimerTask() {
+        time = new Timer();
+        tk = new TimerTask() {
             @Override
             public void run() {
                 // TODO Auto-generated method stub
@@ -31,6 +33,12 @@ public class LoadingActivity extends BaseActivity {
         time.schedule(tk, timelong);
     }
 
+    @Override
+    protected void onDestroy() {
+        time.cancel();
+        tk.cancel();
+        super.onDestroy();
+    }
     private void gotoActivity() {
         Intent go;
         go = new Intent(this, MainActivity.class);

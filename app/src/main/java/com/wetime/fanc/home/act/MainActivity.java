@@ -12,10 +12,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.gyf.barlibrary.ImmersionBar;
-import com.wetime.fanc.login.event.LoginEvent;
-import com.wetime.fanc.main.act.BaseActivity;
-import com.wetime.fanc.customview.CustomViewPager;
 import com.wetime.fanc.R;
+import com.wetime.fanc.customview.CustomViewPager;
 import com.wetime.fanc.home.adapter.HomeFragmentPagerAdapter;
 import com.wetime.fanc.home.event.RefreshRedNunEvent;
 import com.wetime.fanc.home.event.SwichFragEvent;
@@ -25,6 +23,8 @@ import com.wetime.fanc.home.frag.OrderFragment;
 import com.wetime.fanc.home.frag.SortFragment;
 import com.wetime.fanc.home.iviews.IBindPushView;
 import com.wetime.fanc.home.presenter.BindPushPresenter;
+import com.wetime.fanc.login.event.LoginEvent;
+import com.wetime.fanc.main.act.BaseActivity;
 import com.wetime.fanc.push.event.RegistPushSuccessEvent;
 import com.wetime.fanc.web.WebActivity;
 
@@ -75,6 +75,10 @@ public class MainActivity extends BaseActivity implements IBindPushView {
     private List<Fragment> list_fragment = new ArrayList<>();
     private int mOnId = R.drawable.bot_3_on;
     private int mOffId = R.drawable.bot_3_off;
+    private HomeFragment f0;
+    private SortFragment f1;
+    private OrderFragment f2;
+    private MyFragment f3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,14 +91,14 @@ public class MainActivity extends BaseActivity implements IBindPushView {
 
         initView();
         //推送逻辑
-        if (getIntent().getExtras() != null&& !TextUtils.isEmpty(getIntent().getExtras().getString("url"))) {
+        if (getIntent().getExtras() != null && !TextUtils.isEmpty(getIntent().getExtras().getString("url"))) {
             Intent mIntent = new Intent(this, WebActivity.class);
             mIntent.putExtra("url", getIntent().getExtras().getString("url"));
 //            mIntent.putExtras(bundle);
 //            mIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(mIntent);
         }
-        if(!TextUtils.isEmpty(JPushInterface.getRegistrationID(this))){
+        if (!TextUtils.isEmpty(JPushInterface.getRegistrationID(this))) {
             BindPushPresenter pushPresenter = new BindPushPresenter(MainActivity.this);
             pushPresenter.bindPush(JPushInterface.getRegistrationID(this));
         }
@@ -112,8 +116,14 @@ public class MainActivity extends BaseActivity implements IBindPushView {
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
+        list_fragment.clear();
+        f0 = null;
+        f1 = null;
+        f2 = null;
+        f3 = null;
         EventBus.getDefault().unregister(this);
+        System.gc();
+        super.onDestroy();
     }
 
 
@@ -121,15 +131,13 @@ public class MainActivity extends BaseActivity implements IBindPushView {
         Intent goweb = new Intent(this, WebActivity.class);
         goweb.putExtra("url", url);
         startActivity(goweb);
-
-
     }
 
     private void initView() {
-        HomeFragment f0 = new HomeFragment();
-        SortFragment f1 = new SortFragment();
-        OrderFragment f2 = new OrderFragment();
-        MyFragment f3 = new MyFragment();
+        f0 = new HomeFragment();
+        f1 = new SortFragment();
+        f2 = new OrderFragment();
+        f3 = new MyFragment();
         list_fragment.add(f0);
         list_fragment.add(f1);
         list_fragment.add(f2);
@@ -143,7 +151,6 @@ public class MainActivity extends BaseActivity implements IBindPushView {
         vp.setScanScroll(false);
         vp.setPageTransformer(true, null);
     }
-
 
 
     @OnClick({R.id.ll_tab0, R.id.ll_tab1, R.id.ll_tab2, R.id.ll_tab3})
@@ -241,15 +248,15 @@ public class MainActivity extends BaseActivity implements IBindPushView {
     }
 
 
-
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(SwichFragEvent event) {
         vp.setCurrentItem(event.getPos(), false);
         ImmersionBar.with(this).statusBarColor(R.color.white).statusBarDarkFont(true, 0.2f).fitsSystemWindows(true).init();
     }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(LoginEvent event) {
-        if(!TextUtils.isEmpty(JPushInterface.getRegistrationID(this))){
+        if (!TextUtils.isEmpty(JPushInterface.getRegistrationID(this))) {
             BindPushPresenter pushPresenter = new BindPushPresenter(MainActivity.this);
             pushPresenter.bindPush(JPushInterface.getRegistrationID(this));
         }

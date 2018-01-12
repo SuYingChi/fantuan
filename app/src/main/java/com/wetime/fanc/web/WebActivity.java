@@ -14,6 +14,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.gyf.barlibrary.ImmersionBar;
@@ -57,6 +58,8 @@ public class WebActivity extends BaseActivity {
     ImageView btnBack;
     @BindView(R.id.iv_right)
     ImageView ivRight;
+    @BindView(R.id.webcontent)
+    LinearLayout mWebViewContainer;
 
     private String weburl;
     private String type = "0";
@@ -109,8 +112,14 @@ public class WebActivity extends BaseActivity {
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
         EventBus.getDefault().unregister(this);
+        mWebViewContainer.removeView(web);
+        web.stopLoading();
+        web.getSettings().setJavaScriptEnabled(false);
+        web.clearHistory();
+        web.removeAllViews();
+        web.destroy();
+        super.onDestroy();
     }
 
 

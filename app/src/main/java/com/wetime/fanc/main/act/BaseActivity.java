@@ -87,8 +87,9 @@ public class BaseActivity extends AppCompatActivity implements IBaseVIew {
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
         ImmersionBar.with(this).destroy();
+        FApp.getInstance().removeActivity(this);
+        super.onDestroy();
     }
 
     @Override
