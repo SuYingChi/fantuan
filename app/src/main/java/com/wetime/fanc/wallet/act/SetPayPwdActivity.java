@@ -33,12 +33,7 @@ public class SetPayPwdActivity extends BaseActivity implements ISetPayPwdView {
     Keyboard keyboard;
 
 
-    private static final String[] KEY = new String[]{
-            "1", "2", "3",
-            "4", "5", "6",
-            "7", "8", "9",
-            "<<", "0"
-    };
+
     private SetPayPwdPresenter setPayPwdPresenter;
 
     @Override
@@ -75,7 +70,7 @@ public class SetPayPwdActivity extends BaseActivity implements ISetPayPwdView {
 
     private void initKeyBorad() {
         //设置键盘
-        keyboard.setKeyboardKeys(KEY);
+        keyboard.setKeyboardKeys(Keyboard.KEY);
         //键盘键的点击事件
         keyboard.setOnClickKeyboardListener(new Keyboard.OnClickKeyboardListener() {
             @Override
@@ -83,8 +78,9 @@ public class SetPayPwdActivity extends BaseActivity implements ISetPayPwdView {
                 if (position < 11 && position != 9) {
                     payEditText.add(value);
                 } else if (position == 9) {
-                    payEditText.remove();
+
                 } else if (position == 11) {
+                    payEditText.remove();
 //                    //当点击d键盘上的完成时候，也可以通过payEditText.getText()获取密码，此时不应该注册OnInputFinishedListener接口
 //                    Toast.makeText(getApplication(), "您的密码是：" + payEditText.getText(), Toast.LENGTH_SHORT).show();
 //                    finish();

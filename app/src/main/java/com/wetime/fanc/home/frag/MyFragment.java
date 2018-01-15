@@ -22,6 +22,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.wetime.fanc.R;
 import com.wetime.fanc.home.bean.MyInfoBean;
+import com.wetime.fanc.home.event.BeInvaterSuccess;
 import com.wetime.fanc.home.event.RefreshRedNunEvent;
 import com.wetime.fanc.home.iviews.IGetMyInfoView;
 import com.wetime.fanc.home.presenter.GetUserInfoPresenter;
@@ -268,7 +269,14 @@ public class MyFragment extends BaseFragment implements IGetMyInfoView {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(LoginEvent event) {
-        getUserInfoPresenter.getUserInfo();
+        if (!spu.getToken().equals(""))
+            getUserInfoPresenter.getUserInfo();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(BeInvaterSuccess event) {
+        if (!spu.getToken().equals(""))
+            getUserInfoPresenter.getUserInfo();
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

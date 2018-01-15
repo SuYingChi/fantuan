@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <include layout="@layout/item_header" />
+
+    <TextView
+        android:id="@+id/tv_tips"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="#fff6dd"
+        android:gravity="center"
+        android:textColor="#ff3f53"
+        android:textSize="14sp"
+        tools:text="所有邀请资格已使用完，不可再邀请用户" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_gradient_invite_red"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:gravity="center"
+            android:text="已获得金额(元)"
+            android:textColor="#ffffff"
+            android:textSize="14sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:gravity="center"
+            android:text="0.00"
+            android:textColor="#ffffff"
+            android:textSize="50sp" />
+
+        <TextView
+            android:id="@+id/tv_cashout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp"
+            android:layout_marginTop="15dp"
+            android:drawablePadding="3dp"
+            android:drawableRight="@drawable/ic_arrow_white_right"
+            android:gravity="center"
+            android:paddingBottom="5dp"
+            android:text="若需提现请前往我的钱包中操作"
+            android:textColor="#ffffff"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp">
+
+        <TextView
+            android:id="@+id/tv_inviteqr"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/white"
+            android:drawableRight="@drawable/ic_right"
+            android:gravity="center|left"
+            android:lineSpacingExtra="1sp"
+            android:text="邀请二维码"
+            android:textColor="#333333"
+            android:textSize="15sp" />
+
+        <include layout="@layout/item_my_line" />
+
+        <TextView
+            android:id="@+id/tv_invitehistory"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/white"
+            android:drawableRight="@drawable/ic_right"
+            android:gravity="center|left"
+            android:lineSpacingExtra="1sp"
+            android:text="邀请记录"
+            android:textColor="#333333"
+            android:textSize="15sp" />
+
+        <include layout="@layout/item_my_line" />
+
+        <TextView
+            android:id="@+id/tv_authentication"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/white"
+            android:drawableRight="@drawable/ic_right"
+            android:gravity="center|left"
+            android:lineSpacingExtra="1sp"
+            android:text="查看实名认证"
+            android:textColor="#333333"
+            android:textSize="15sp" />
+
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_rule"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/white"
+        android:drawableRight="@drawable/ic_right"
+        android:gravity="center|left"
+        android:lineSpacingExtra="1sp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:text="邀请规则"
+        android:textColor="#333333"
+        android:textSize="15sp" />
+
+</LinearLayout>
+

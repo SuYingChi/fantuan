@@ -133,5 +133,7 @@
         <activity android:name=".wallet.act.CashOutActivity" />
         <activity android:name=".wallet.act.BalanceDetailActivity" />
         <activity android:name=".wallet.act.InviteHomeActivity" />
+        <activity android:name=".wallet.act.InviteQRActivity" />
+        <activity android:name=".wallet.act.InviteHistoryActivity" />
     </application>
 </manifest>

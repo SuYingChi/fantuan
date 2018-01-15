@@ -18,22 +18,25 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.gyf.barlibrary.ImmersionBar;
-import com.wetime.fanc.application.FApp;
-import com.wetime.fanc.login.event.WXBindPhoneEvent;
-import com.wetime.fanc.main.act.BaseActivity;
-import com.wetime.fanc.shop.act.ShopDetailActivity;
-import com.wetime.fanc.utils.Tools;
 import com.secure.pay.PayService;
 import com.wetime.fanc.R;
+import com.wetime.fanc.application.FApp;
 import com.wetime.fanc.home.act.HomeSearchActivity;
+import com.wetime.fanc.home.event.BeInvaterSuccess;
 import com.wetime.fanc.home.event.SwichFragEvent;
 import com.wetime.fanc.login.act.LoginActivity;
 import com.wetime.fanc.login.event.LoginEvent;
 import com.wetime.fanc.login.event.LogoutEvent;
+import com.wetime.fanc.login.event.WXBindPhoneEvent;
+import com.wetime.fanc.main.act.BaseActivity;
 import com.wetime.fanc.order.act.CommentOrderActivity;
 import com.wetime.fanc.order.event.RefreshOrderEvent;
+import com.wetime.fanc.shop.act.ShopDetailActivity;
 import com.wetime.fanc.shopcenter.act.ShopListActivity;
 import com.wetime.fanc.shopcenter.act.ShopSearchActivity;
+import com.wetime.fanc.utils.Tools;
+import com.wetime.fanc.wallet.act.InviteHomeActivity;
+import com.wetime.fanc.wallet.act.MyWalletActivity;
 import com.wetime.fanc.web.event.FinishWebEvent;
 
 import org.greenrobot.eventbus.EventBus;
@@ -441,7 +444,7 @@ public class WebActivity extends BaseActivity {
         web.post(new Runnable() {
             @Override
             public void run() {
-                Tools.showTipsDialog(mContext,"", tips, left, right, new View.OnClickListener() {
+                Tools.showTipsDialog(mContext, "", tips, left, right, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         web.post(new Runnable() {
@@ -478,6 +481,7 @@ public class WebActivity extends BaseActivity {
 
         });
     }
+
     @JavascriptInterface
     public void setRightButtonText(final String text) {
         web.post(new Runnable() {
@@ -490,13 +494,14 @@ public class WebActivity extends BaseActivity {
             }
         });
     }
+
     @JavascriptInterface
     public void goShopDetail(final String mid) {
         web.post(new Runnable() {
             @Override
             public void run() {
                 Intent goShop = new Intent(mContext, ShopDetailActivity.class);
-                goShop.putExtra("mid",mid);
+                goShop.putExtra("mid", mid);
                 startActivity(goShop);
             }
         });
@@ -508,6 +513,36 @@ public class WebActivity extends BaseActivity {
             @Override
             public void run() {
                 EventBus.getDefault().post(new WXBindPhoneEvent());
+            }
+        });
+    }
+
+    @JavascriptInterface
+    public void beInvateSuccess() {
+        web.post(new Runnable() {
+            @Override
+            public void run() {
+                EventBus.getDefault().post(new BeInvaterSuccess());
+            }
+        });
+    }
+
+    @JavascriptInterface
+    public void goInviterCenter() {
+        web.post(new Runnable() {
+            @Override
+            public void run() {
+                Tools.goActivity(mContext, InviteHomeActivity.class);
+            }
+        });
+    }
+
+    @JavascriptInterface
+    public void goUserWallet() {
+        web.post(new Runnable() {
+            @Override
+            public void run() {
+                Tools.goActivity(mContext, MyWalletActivity.class);
             }
         });
     }

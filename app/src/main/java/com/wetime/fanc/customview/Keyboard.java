@@ -21,6 +21,13 @@ import com.wetime.fanc.R;
  * @date 2016-10-9 11:06
  */
 public class Keyboard extends RelativeLayout {
+
+    public static final String[] KEY = new String[]{
+            "1", "2", "3",
+            "4", "5", "6",
+            "7", "8", "9",
+            "", "0", "<<"
+    };
     private Context context;
     private GridView gvKeyboard;
 
@@ -59,7 +66,7 @@ public class Keyboard extends RelativeLayout {
      */
     private void initKeyboardView() {
         View view = View.inflate(context, R.layout.view_keyboard, this);
-        gvKeyboard =  view.findViewById(R.id.gv_keyboard);
+        gvKeyboard = view.findViewById(R.id.gv_keyboard);
         gvKeyboard.setAdapter(keyboardAdapter);
         initEvent();
     }
@@ -88,7 +95,7 @@ public class Keyboard extends RelativeLayout {
     }
 
     private BaseAdapter keyboardAdapter = new BaseAdapter() {
-        private static final int KEY_NINE = 9;
+        private static final int KEY_DELETE = 11;
 
         @Override
         public int getCount() {
@@ -112,7 +119,7 @@ public class Keyboard extends RelativeLayout {
 
         @Override
         public int getItemViewType(int position) {
-            return (getItemId(position) == KEY_NINE) ? 2 : 1;
+            return (getItemId(position) == KEY_DELETE) ? 2 : 1;
         }
 
         @Override
