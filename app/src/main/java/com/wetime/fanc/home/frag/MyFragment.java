@@ -3,6 +3,9 @@ package com.wetime.fanc.home.frag;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +14,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.amap.api.location.AMapLocation;
+import com.amap.api.location.AMapLocationClient;
+import com.amap.api.location.AMapLocationClientOption;
+import com.amap.api.location.AMapLocationListener;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.wetime.fanc.R;
@@ -25,6 +32,7 @@ import com.wetime.fanc.main.frag.BaseFragment;
 import com.wetime.fanc.setting.act.SettingActivity;
 import com.wetime.fanc.setting.event.ChangeUserInfoEvent;
 import com.wetime.fanc.utils.Tools;
+import com.wetime.fanc.wallet.act.InviteHomeActivity;
 import com.wetime.fanc.wallet.act.MyWalletActivity;
 import com.wetime.fanc.web.WebActivity;
 
@@ -73,6 +81,11 @@ public class MyFragment extends BaseFragment implements IGetMyInfoView {
     private MyInfoBean bean;
     private QBadgeView QBred;
 
+    public AMapLocationClient mLocationClient = null;
+    //声明定位回调监听器
+    public AMapLocationListener mLocationListener;
+    public AMapLocationClientOption mLocationOption = null;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -104,7 +117,8 @@ public class MyFragment extends BaseFragment implements IGetMyInfoView {
 
 
     @OnClick({R.id.ll_call, R.id.iv_setting, R.id.ll_login, R.id.tv_fanpiao, R.id.tv_youhuiquan,
-            R.id.tv_guanzhu, R.id.tv_message, R.id.tv_comment, R.id.tv_waimai,R.id.tv_wallet,R.id.ll_invite})
+            R.id.tv_guanzhu, R.id.tv_message, R.id.tv_comment, R.id.tv_waimai, R.id.tv_wallet, R.id.ll_invite,
+            R.id.ll_redpacket})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ll_call:
@@ -172,10 +186,42 @@ public class MyFragment extends BaseFragment implements IGetMyInfoView {
             case R.id.tv_waimai:
                 break;
             case R.id.tv_wallet:
-                Tools.goActivity(getContext(), MyWalletActivity.class);
+                if (bean != null) {
+                    Tools.goActivity(getContext(), MyWalletActivity.class);
+                } else {
+                    Tools.toastInBottom(getContext(), "请先登录");
+                    Intent goLogin = new Intent(getContext(), LoginActivity.class);
+                    startActivity(goLogin);
+                }
+                break;
+            case R.id.ll_redpacket:
+                if (bean != null) {
+                    if (TextUtils.isEmpty(spu.getValue("jd")) && TextUtils.isEmpty(spu.getValue("wd"))) {
+                        // 去定位
+                        initLoaction();
+                    } else {
+                        Tools.toastInBottom(getContext(), "领红包");
+                    }
+                } else {
+                    Tools.toastInBottom(getContext(), "请先登录");
+                    Intent goLogin = new Intent(getContext(), LoginActivity.class);
+                    startActivity(goLogin);
+                }
                 break;
             case R.id.ll_invite:
-                Tools.goWeb(getContext(), "https://www.baidu.com");
+                if (bean != null) {
+                    if (TextUtils.isEmpty(bean.getData().getLink().getInviter().getUrl())) {
+                        Tools.goActivity(getContext(), InviteHomeActivity.class);
+                    } else {
+                        Tools.goWeb(getContext(), bean.getData().getLink().getInviter().getUrl());
+                    }
+
+                } else {
+                    Tools.toastInBottom(getContext(), "请先登录");
+                    Intent goLogin = new Intent(getContext(), LoginActivity.class);
+                    startActivity(goLogin);
+                }
+
                 break;
         }
     }
@@ -209,7 +255,7 @@ public class MyFragment extends BaseFragment implements IGetMyInfoView {
         Glide.with(getContext()).load(bean.getData().getUser().getAvatar()).into(civHead);
         tvName.setText(bean.getData().getUser().getUsername());
 
-        QBred.setBadgeNumber(bean.getData().getNotice_num());
+        QBred.setBadgeNumber(Integer.valueOf(bean.getData().getNotice_num()));
     }
 
     @Override
@@ -243,5 +289,71 @@ public class MyFragment extends BaseFragment implements IGetMyInfoView {
 //        civHead.setImageResource(R.drawable.ic_head_default);
         Glide.with(this).load(R.drawable.ic_head_default).apply(new RequestOptions().placeholder(R.drawable.ic_head_default)).into(civHead);
         QBred.setBadgeNumber(0);
+    }
+
+    private void initLoaction() {
+
+        mLocationClient = new AMapLocationClient(getContext().getApplicationContext());
+
+        //初始化AMapLocationClientOption对象
+        mLocationOption = new AMapLocationClientOption();
+        mLocationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);
+        //获取一次定位结果：
+        //该方法默认为false。
+        mLocationOption.setOnceLocation(true);
+
+        //获取最近3s内精度最高的一次定位结果：
+        //设置setOnceLocationLatest(boolean b)接口为true，启动定位时SDK会返回最近3s内精度最高的一次定位结果。如果设置其为true，setOnceLocation(boolean b)接口也会被设置为true，反之不会，默认为false。
+        mLocationOption.setOnceLocationLatest(true);
+        mLocationClient.setLocationOption(mLocationOption);
+
+
+        mLocationListener = new AMapLocationListener() {
+            @Override
+            public void onLocationChanged(AMapLocation amapLocation) {
+                if (amapLocation != null) {
+                    if (amapLocation.getErrorCode() == 0) {
+                        //可在其中解析amapLocation获取相应内容。
+
+                        Log.e("zk 纬度", String.valueOf(amapLocation.getLatitude()));
+                        Log.e("zk 经度", String.valueOf(amapLocation.getLongitude()));
+
+
+                        spu.setValue("wd", String.valueOf(amapLocation.getLatitude()));
+                        spu.setValue("jd", String.valueOf(amapLocation.getLongitude()));
+                        //进行操作 获取红包操作
+
+
+                    } else {
+                        //定位失败时，可通过ErrCode（错误码）信息来确定失败的原因，errInfo是错误信息，详见错误码表。
+                        Log.e("zk", "location Error, ErrCode:"
+                                + amapLocation.getErrorCode() + ", errInfo:"
+                                + amapLocation.getErrorInfo());
+                        spu.setValue("wd", "");
+                        spu.setValue("jd", "");
+                        Tools.toastInBottom(getContext(), "获取位置信息失败");
+                        Tools.showTipsDialog(getContext(), "", "需开启定位且位置为海南才可领取红包",
+                                "取消", "开启定位", null, new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        Intent intent = new Intent();
+                                        intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                                        intent.setData(Uri.fromParts("package", getContext().getPackageName(), null));
+                                        startActivity(intent);
+                                    }
+                                });
+                    }
+                }
+
+
+                mLocationClient.stopLocation();
+                dismissLoading();
+            }
+        };
+        //设置定位回调监听
+        mLocationClient.setLocationListener(mLocationListener);
+        mLocationClient.startLocation();
+        showLoading();
+
     }
 }

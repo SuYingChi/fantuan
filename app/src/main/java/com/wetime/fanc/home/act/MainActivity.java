@@ -2,9 +2,11 @@ package com.wetime.fanc.home.act;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -80,6 +82,7 @@ public class MainActivity extends BaseActivity implements IBindPushView {
     private OrderFragment f2;
     private MyFragment f3;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -126,12 +129,18 @@ public class MainActivity extends BaseActivity implements IBindPushView {
         super.onDestroy();
     }
 
-
-    private void goWeb(String url) {
-        Intent goweb = new Intent(this, WebActivity.class);
-        goweb.putExtra("url", url);
-        startActivity(goweb);
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        Log.e("zkkk", "onRestoreInstanceState: ");
     }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
+        super.onSaveInstanceState(outState, outPersistentState);
+        Log.e("zkkk", "outState: ");
+    }
+
 
     private void initView() {
         f0 = new HomeFragment();
@@ -145,7 +154,8 @@ public class MainActivity extends BaseActivity implements IBindPushView {
 
         vp.setAdapter(new HomeFragmentPagerAdapter(getSupportFragmentManager(), list_fragment));
 
-        vp.setCurrentItem(0);
+        vp.setCurrentItem(Integer.valueOf(spu.getValue("citem")));
+        initBottom(Integer.valueOf(spu.getValue("citem")));
         vp.setOffscreenPageLimit(3);
 
         vp.setScanScroll(false);
@@ -161,7 +171,7 @@ public class MainActivity extends BaseActivity implements IBindPushView {
                     initBottom(0);
                     vp.setCurrentItem(0, false);
                     ImmersionBar.with(this).statusBarColor(R.color.white).statusBarDarkFont(true, 0.2f).fitsSystemWindows(true).init();
-
+                    spu.setValue("citem", "0");
                 }
                 break;
             case R.id.ll_tab1:
@@ -169,6 +179,7 @@ public class MainActivity extends BaseActivity implements IBindPushView {
                     initBottom(1);
                     vp.setCurrentItem(1, false);
                     ImmersionBar.with(this).statusBarColor(R.color.white).statusBarDarkFont(true, 0.2f).fitsSystemWindows(true).init();
+                    spu.setValue("citem", "1");
                 }
                 break;
             case R.id.ll_tab2:
@@ -176,6 +187,7 @@ public class MainActivity extends BaseActivity implements IBindPushView {
                     vp.setCurrentItem(2, false);
                     initBottom(2);
                     ImmersionBar.with(this).statusBarColor(R.color.white).statusBarDarkFont(true, 0.2f).fitsSystemWindows(true).init();
+                    spu.setValue("citem", "2");
                 }
                 break;
             case R.id.ll_tab3:
@@ -186,7 +198,7 @@ public class MainActivity extends BaseActivity implements IBindPushView {
                             .transparentStatusBar()
                             .statusBarDarkFont(false)
                             .fitsSystemWindows(false).init();
-
+                    spu.setValue("citem", "3");
                 }
                 break;
         }

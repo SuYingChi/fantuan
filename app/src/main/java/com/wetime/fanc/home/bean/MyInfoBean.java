@@ -10,7 +10,7 @@ public class MyInfoBean {
     /**
      * error : 0
      * msg :
-     * data : {"user":{"username":"花心萝卜腿","avatar":"306766?x-oss-process=image/resize,m_fill,h_112,w_112,r_56/format,jpg/interlace,1/quality,Q_70"},"link":{"reward":{"name":"我的范票","url":"https://www.baidu.com/"},"coupon":{"name":"我的优惠券","url":"https://www.baidu.com/"},"focus":{"name":"我的关注","url":"https://www.baidu.com/"},"notice":{"name":"我的消息","url":"https://www.baidu.com/"},"review":{"name":"我的评价","url":"https://www.baidu.com/"},"address":{"name":"我的地址","url":"https://www.baidu.com/"}}}
+     * data : {"user":{"username":"Yun'''。","phone":"18689789691","avatar":"https://staticcdntest.fantuanlife.com/uimage/55/5e/8c/12/555e8c12849a191cc42cfab16f904c54.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"},"link":{"reward":{"name":"我的范票","url":"https://fanttest.fantuanlife.com/index.html#/user/reward"},"coupon":{"name":"我的优惠券","url":"https://fanttest.fantuanlife.com/index.html#/user/coupon"},"focus":{"name":"我的关注","url":"https://fanttest.fantuanlife.com/index.html#/user/follow"},"notice":{"name":"我的消息","url":"https://fanttest.fantuanlife.com/index.html#/user/message"},"review":{"name":"我的评价","url":"https://fanttest.fantuanlife.com/index.html#/user/comment"},"inviter":{"name":"邀请有礼","url":""}},"notice_num":"0"}
      */
 
     private int error;
@@ -43,22 +43,14 @@ public class MyInfoBean {
 
     public static class DataBean {
         /**
-         * user : {"username":"花心萝卜腿","avatar":"306766?x-oss-process=image/resize,m_fill,h_112,w_112,r_56/format,jpg/interlace,1/quality,Q_70"}
-         * link : {"reward":{"name":"我的范票","url":"https://www.baidu.com/"},"coupon":{"name":"我的优惠券","url":"https://www.baidu.com/"},"focus":{"name":"我的关注","url":"https://www.baidu.com/"},"notice":{"name":"我的消息","url":"https://www.baidu.com/"},"review":{"name":"我的评价","url":"https://www.baidu.com/"},"address":{"name":"我的地址","url":"https://www.baidu.com/"}}
+         * user : {"username":"Yun'''。","phone":"18689789691","avatar":"https://staticcdntest.fantuanlife.com/uimage/55/5e/8c/12/555e8c12849a191cc42cfab16f904c54.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"}
+         * link : {"reward":{"name":"我的范票","url":"https://fanttest.fantuanlife.com/index.html#/user/reward"},"coupon":{"name":"我的优惠券","url":"https://fanttest.fantuanlife.com/index.html#/user/coupon"},"focus":{"name":"我的关注","url":"https://fanttest.fantuanlife.com/index.html#/user/follow"},"notice":{"name":"我的消息","url":"https://fanttest.fantuanlife.com/index.html#/user/message"},"review":{"name":"我的评价","url":"https://fanttest.fantuanlife.com/index.html#/user/comment"},"inviter":{"name":"邀请有礼","url":""}}
+         * notice_num : 0
          */
 
         private UserBean user;
         private LinkBean link;
-        private int notice_num;
-
-
-        public int getNotice_num() {
-            return notice_num;
-        }
-
-        public void setNotice_num(int notice_num) {
-            this.notice_num = notice_num;
-        }
+        private String notice_num;
 
         public UserBean getUser() {
             return user;
@@ -76,13 +68,23 @@ public class MyInfoBean {
             this.link = link;
         }
 
+        public String getNotice_num() {
+            return notice_num;
+        }
+
+        public void setNotice_num(String notice_num) {
+            this.notice_num = notice_num;
+        }
+
         public static class UserBean {
             /**
-             * username : 花心萝卜腿
-             * avatar : 306766?x-oss-process=image/resize,m_fill,h_112,w_112,r_56/format,jpg/interlace,1/quality,Q_70
+             * username : Yun'''。
+             * phone : 18689789691
+             * avatar : https://staticcdntest.fantuanlife.com/uimage/55/5e/8c/12/555e8c12849a191cc42cfab16f904c54.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70
              */
 
             private String username;
+            private String phone;
             private String avatar;
 
             public String getUsername() {
@@ -91,6 +93,14 @@ public class MyInfoBean {
 
             public void setUsername(String username) {
                 this.username = username;
+            }
+
+            public String getPhone() {
+                return phone;
+            }
+
+            public void setPhone(String phone) {
+                this.phone = phone;
             }
 
             public String getAvatar() {
@@ -104,12 +114,12 @@ public class MyInfoBean {
 
         public static class LinkBean {
             /**
-             * reward : {"name":"我的范票","url":"https://www.baidu.com/"}
-             * coupon : {"name":"我的优惠券","url":"https://www.baidu.com/"}
-             * focus : {"name":"我的关注","url":"https://www.baidu.com/"}
-             * notice : {"name":"我的消息","url":"https://www.baidu.com/"}
-             * review : {"name":"我的评价","url":"https://www.baidu.com/"}
-             * address : {"name":"我的地址","url":"https://www.baidu.com/"}
+             * reward : {"name":"我的范票","url":"https://fanttest.fantuanlife.com/index.html#/user/reward"}
+             * coupon : {"name":"我的优惠券","url":"https://fanttest.fantuanlife.com/index.html#/user/coupon"}
+             * focus : {"name":"我的关注","url":"https://fanttest.fantuanlife.com/index.html#/user/follow"}
+             * notice : {"name":"我的消息","url":"https://fanttest.fantuanlife.com/index.html#/user/message"}
+             * review : {"name":"我的评价","url":"https://fanttest.fantuanlife.com/index.html#/user/comment"}
+             * inviter : {"name":"邀请有礼","url":""}
              */
 
             private RewardBean reward;
@@ -117,7 +127,7 @@ public class MyInfoBean {
             private FocusBean focus;
             private NoticeBean notice;
             private ReviewBean review;
-            private AddressBean address;
+            private InviterBean inviter;
 
             public RewardBean getReward() {
                 return reward;
@@ -159,18 +169,18 @@ public class MyInfoBean {
                 this.review = review;
             }
 
-            public AddressBean getAddress() {
-                return address;
+            public InviterBean getInviter() {
+                return inviter;
             }
 
-            public void setAddress(AddressBean address) {
-                this.address = address;
+            public void setInviter(InviterBean inviter) {
+                this.inviter = inviter;
             }
 
             public static class RewardBean {
                 /**
                  * name : 我的范票
-                 * url : https://www.baidu.com/
+                 * url : https://fanttest.fantuanlife.com/index.html#/user/reward
                  */
 
                 private String name;
@@ -196,7 +206,7 @@ public class MyInfoBean {
             public static class CouponBean {
                 /**
                  * name : 我的优惠券
-                 * url : https://www.baidu.com/
+                 * url : https://fanttest.fantuanlife.com/index.html#/user/coupon
                  */
 
                 private String name;
@@ -222,7 +232,7 @@ public class MyInfoBean {
             public static class FocusBean {
                 /**
                  * name : 我的关注
-                 * url : https://www.baidu.com/
+                 * url : https://fanttest.fantuanlife.com/index.html#/user/follow
                  */
 
                 private String name;
@@ -248,7 +258,7 @@ public class MyInfoBean {
             public static class NoticeBean {
                 /**
                  * name : 我的消息
-                 * url : https://www.baidu.com/
+                 * url : https://fanttest.fantuanlife.com/index.html#/user/message
                  */
 
                 private String name;
@@ -274,7 +284,7 @@ public class MyInfoBean {
             public static class ReviewBean {
                 /**
                  * name : 我的评价
-                 * url : https://www.baidu.com/
+                 * url : https://fanttest.fantuanlife.com/index.html#/user/comment
                  */
 
                 private String name;
@@ -297,10 +307,10 @@ public class MyInfoBean {
                 }
             }
 
-            public static class AddressBean {
+            public static class InviterBean {
                 /**
-                 * name : 我的地址
-                 * url : https://www.baidu.com/
+                 * name : 邀请有礼
+                 * url :
                  */
 
                 private String name;

@@ -3,9 +3,9 @@ package com.wetime.fanc.home.act;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.wetime.fanc.R;
 import com.wetime.fanc.main.act.BaseActivity;
 import com.wetime.fanc.utils.LogUtils;
-import com.wetime.fanc.R;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -31,6 +31,7 @@ public class LoadingActivity extends BaseActivity {
             }
         };
         time.schedule(tk, timelong);
+        spu.setValue("citem", "0");
     }
 
     @Override
@@ -39,6 +40,7 @@ public class LoadingActivity extends BaseActivity {
         tk.cancel();
         super.onDestroy();
     }
+
     private void gotoActivity() {
         Intent go;
         go = new Intent(this, MainActivity.class);
