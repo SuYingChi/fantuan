@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.webkit.JavascriptInterface;
@@ -543,6 +544,25 @@ public class WebActivity extends BaseActivity {
             @Override
             public void run() {
                 Tools.goActivity(mContext, MyWalletActivity.class);
+            }
+        });
+    }
+
+    @JavascriptInterface
+    public void allowLocation() {
+        web.post(new Runnable() {
+            @Override
+            public void run() {
+                Tools.showTipsDialog(mContext, "", "需开启定位且位置为海南才可领取红包",
+                        "取消", "开启定位", null, new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent intent = new Intent();
+                                intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                                intent.setData(Uri.fromParts("package", mContext.getPackageName(), null));
+                                startActivity(intent);
+                            }
+                        });
             }
         });
     }
