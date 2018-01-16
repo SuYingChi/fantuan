@@ -68,7 +68,7 @@
 
         <meta-data
             android:name="UMENG_APPKEY"
-            android:value="5a1fbb29f43e482bb4000098"></meta-data>
+            android:value="5a1fbb29f43e482bb4000098" />
 
         <activity
             android:name=".qr.ScanActivity"
@@ -135,5 +135,10 @@
         <activity android:name=".wallet.act.InviteHomeActivity" />
         <activity android:name=".wallet.act.InviteQRActivity" />
         <activity android:name=".wallet.act.InviteHistoryActivity" />
+        <activity android:name=".wallet.act.InputPwdActivity" />
+        <activity
+            android:name=".wallet.act.RedPackActivity"
+            android:theme="@style/translucent" />
+
     </application>
 </manifest>

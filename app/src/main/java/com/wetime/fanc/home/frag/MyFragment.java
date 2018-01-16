@@ -35,6 +35,7 @@ import com.wetime.fanc.setting.event.ChangeUserInfoEvent;
 import com.wetime.fanc.utils.Tools;
 import com.wetime.fanc.wallet.act.InviteHomeActivity;
 import com.wetime.fanc.wallet.act.MyWalletActivity;
+import com.wetime.fanc.wallet.act.RedPackActivity;
 import com.wetime.fanc.web.WebActivity;
 
 import org.greenrobot.eventbus.EventBus;
@@ -201,7 +202,7 @@ public class MyFragment extends BaseFragment implements IGetMyInfoView {
                         // 去定位
                         initLoaction();
                     } else {
-                        Tools.toastInBottom(getContext(), "领红包");
+                        goRedPack("100");
                     }
                 } else {
                     Tools.toastInBottom(getContext(), "请先登录");
@@ -235,6 +236,13 @@ public class MyFragment extends BaseFragment implements IGetMyInfoView {
             Intent goLogin = new Intent(getContext(), LoginActivity.class);
             startActivity(goLogin);
         }
+    }
+
+    private void goRedPack(String num) {
+        Intent go = new Intent(getActivity(), RedPackActivity.class);
+        go.putExtra("num", num);
+        getActivity().startActivity(go);
+        getActivity().overridePendingTransition(0, 0);
     }
 
     private void goWeb(String url) {

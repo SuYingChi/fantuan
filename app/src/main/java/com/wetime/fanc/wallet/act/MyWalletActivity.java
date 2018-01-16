@@ -129,6 +129,7 @@ public class MyWalletActivity extends BaseActivity implements IGetWalletBalanceV
                         Intent go = new Intent(mContext, CashOutActivity.class);
                         go.putExtra("wxname", bean.getData().getWechat_nickname());
                         go.putExtra("balance", bean.getData().getMoney());
+                        go.putExtra("phone", bean.getData().getPhone());
                         startActivity(go);
                     } else {
                         Tools.toastInBottom(mContext, "余额需大于或等于" + bean.getData().getWithdraw_money_min() + "元才可提现");

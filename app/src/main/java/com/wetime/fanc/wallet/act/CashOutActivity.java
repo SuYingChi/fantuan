@@ -1,7 +1,9 @@
 package com.wetime.fanc.wallet.act;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
@@ -35,6 +37,7 @@ public class CashOutActivity extends BaseActivity {
     TextView tvOk;
 
     private int digits = 2;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,7 +54,7 @@ public class CashOutActivity extends BaseActivity {
         super.onBackPressed();
     }
 
-    @OnClick({R.id.iv_back,R.id.tv_cashall})
+    @OnClick({R.id.iv_back, R.id.tv_cashall, R.id.tv_ok})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
@@ -61,10 +64,28 @@ public class CashOutActivity extends BaseActivity {
             case R.id.tv_cashall:
                 etNum.setText(getIntent().getStringExtra("balance"));
                 break;
+            case R.id.tv_ok:
+                if (TextUtils.isEmpty(etNum.getText().toString())
+                        || Double.valueOf(etNum.getText().toString()) == 0) {
+                    Tools.toastInBottom(mContext, "请输入提现金额");
+                } else {
+                    Intent go = new Intent(mContext, InputPwdActivity.class);
+                    go.putExtra("num", etNum.getText().toString());
+                    go.putExtra("phone", getIntent().getStringExtra("phone"));
+                    startActivityForResult(go, InputPwdActivity.REQUSTCODEPWD);
+                }
+                break;
 
         }
     }
-    private void initView(){
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == InputPwdActivity.REQUSTCODEPWD && resultCode == RESULT_OK) {
+            String pwd = data.getStringExtra("pwd");
+            Tools.toastInBottom(mContext, pwd);
+        }
+    }
+    private void initView() {
         etNum.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {

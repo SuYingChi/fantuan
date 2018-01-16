@@ -71,7 +71,7 @@ public class Tools {
                 }
 
         } catch (Exception e) {
-            Log.e("zk",e.toString());
+            Log.e("zk", e.toString());
         }
     }
 
@@ -164,7 +164,7 @@ public class Tools {
             loadingDialog.dismiss();
     }
 
-    public static void showTipsDialog(Context mContext,String title, String tips,
+    public static void showTipsDialog(Context mContext, String title, String tips,
                                       final View.OnClickListener onCancel,
                                       final View.OnClickListener onOK) {
         LayoutInflater inflaterDl = LayoutInflater.from(mContext);
@@ -174,7 +174,7 @@ public class Tools {
 
         TextView tvTitle = layout.findViewById(R.id.tv_title);
         tvTitle.setText(title);
-        if(TextUtils.isEmpty(title)){
+        if (TextUtils.isEmpty(title)) {
             tvTitle.setVisibility(View.GONE);
         }
 
@@ -206,8 +206,7 @@ public class Tools {
     }
 
 
-
-    public static void showTipsDialog(Context mContext, String title,String tips, String left, String right,
+    public static void showTipsDialog(Context mContext, String title, String tips, String left, String right,
                                       final View.OnClickListener onCancel,
                                       final View.OnClickListener onOK) {
         LayoutInflater inflaterDl = LayoutInflater.from(mContext);
@@ -217,7 +216,7 @@ public class Tools {
 
         TextView tvTitle = layout.findViewById(R.id.tv_title);
         tvTitle.setText(title);
-        if(TextUtils.isEmpty(title)){
+        if (TextUtils.isEmpty(title)) {
             tvTitle.setVisibility(View.GONE);
         }
 
@@ -249,8 +248,6 @@ public class Tools {
         btnOK.setText(right);
 
     }
-
-
 
 
     public static int getVerCode(Context context) {
@@ -329,13 +326,17 @@ public class Tools {
         }
         return ss;
     }
-    public static void goWeb(Context mContext,String url){
+
+    public static void goWeb(Context mContext, String url) {
         Intent goweb = new Intent(mContext, WebActivity.class);
         goweb.putExtra("url", url);
         mContext.startActivity(goweb);
     }
-    public static void goActivity(Context mContext,Class<?> cls) {
+
+    public static void goActivity(Context mContext, Class<?> cls) {
         Intent go = new Intent(mContext, cls);
         mContext.startActivity(go);
     }
+
+
 }
