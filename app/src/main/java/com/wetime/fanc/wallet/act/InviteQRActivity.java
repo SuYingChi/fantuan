@@ -7,8 +7,10 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.tencent.mm.opensdk.modelmsg.SendMessageToWX;
 import com.tencent.mm.opensdk.modelmsg.WXMediaMessage;
 import com.tencent.mm.opensdk.modelmsg.WXWebpageObject;
@@ -32,6 +34,14 @@ public class InviteQRActivity extends BaseActivity {
 
     @BindView(R.id.tv_title)
     TextView tvTitle;
+    @BindView(R.id.iv_back)
+    ImageView ivBack;
+    @BindView(R.id.iv_right)
+    ImageView ivRight;
+    @BindView(R.id.iv_qr)
+    ImageView ivQr;
+    @BindView(R.id.tv_down)
+    TextView tvDown;
     private Handler mHandler;
     private BottomDialog mBottomDialog;
 
@@ -42,7 +52,7 @@ public class InviteQRActivity extends BaseActivity {
         ButterKnife.bind(this);
         tvTitle.setText("邀请二维码");
         mHandler = new Handler();
-
+        Glide.with(this).load(getIntent().getStringExtra("url")).into(ivQr);
     }
 
     @Override
@@ -57,7 +67,7 @@ public class InviteQRActivity extends BaseActivity {
                 onBackPressed();
                 break;
             case R.id.tv_down:
-                downQRcode("");
+                downQRcode(getIntent().getStringExtra("url"));
                 break;
             case R.id.iv_right:
                 showShare();
@@ -77,14 +87,16 @@ public class InviteQRActivity extends BaseActivity {
                         @Override
                         public void onClick(View v) {
                             mBottomDialog.dismiss();
-                            shareWx("http://www.baidu.com", SendMessageToWX.Req.WXSceneSession);
+                            shareWx(getIntent().getStringExtra("shareurl")
+                                    , SendMessageToWX.Req.WXSceneSession);
                         }
                     });
                     v.findViewById(R.id.ll_share_wxq).setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             mBottomDialog.dismiss();
-                            shareWx("http://www.baidu.com", SendMessageToWX.Req.WXSceneTimeline);
+                            shareWx(getIntent().getStringExtra("shareurl")
+                                    , SendMessageToWX.Req.WXSceneTimeline);
                         }
                     });
                     v.findViewById(R.id.ll_share_copy).setOnClickListener(new View.OnClickListener() {
@@ -93,7 +105,7 @@ public class InviteQRActivity extends BaseActivity {
                             mBottomDialog.dismiss();
                             ClipboardManager cm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
                             // 将文本内容放到系统剪贴板里。
-                            cm.setText("");
+                            cm.setText(getIntent().getStringExtra("shareurl"));
                             Tools.toastInBottom(mContext, "复制成功");
                         }
                     });
@@ -148,7 +160,7 @@ public class InviteQRActivity extends BaseActivity {
         webpage.webpageUrl = url;
 
         WXMediaMessage msg = new WXMediaMessage(webpage);
-        msg.title = "下载范团APP，扫此二维码，就就有现金可拿";
+        msg.title = "下载范团APP，扫此二维码，就有现金可拿";
         msg.description = "海南潮人城市生活指南APP";
 
         Bitmap thumb = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);

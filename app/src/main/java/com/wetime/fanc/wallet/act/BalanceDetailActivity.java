@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -35,6 +36,8 @@ public class BalanceDetailActivity extends BaseActivity implements IGetBalanceDe
     ListView lvbalance;
     @BindView(R.id.refreshLayout)
     SmartRefreshLayout refreshLayout;
+    @BindView(R.id.rl_empty)
+    RelativeLayout rlEmpty;
     private GetBalanceDetailListPresenter getBalanceDetailListPresenter;
     private int page = 1;
     private List<BalanceDetailListBean.DataBean.ListBean> list = new ArrayList<>();
@@ -83,6 +86,9 @@ public class BalanceDetailActivity extends BaseActivity implements IGetBalanceDe
             TextView tvtotal = headView.findViewById(R.id.tv_totalnum);
             tvtotal.setText(String.format("共%d笔", bean.getData().getPage().getTotal()));
             lvbalance.addHeaderView(headView);
+            if (bean.getData().getList().size() != 0) {
+                rlEmpty.setVisibility(View.GONE);
+            }
         }
         list.addAll(bean.getData().getList());
         adapter.notifyDataSetChanged();

@@ -8,6 +8,7 @@
     <include layout="@layout/item_header" />
 
     <TextView
+        android:visibility="gone"
         android:id="@+id/tv_tips"
         android:layout_width="match_parent"
         android:layout_height="45dp"
@@ -34,6 +35,7 @@
             android:textSize="14sp" />
 
         <TextView
+            android:id="@+id/tv_num"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
