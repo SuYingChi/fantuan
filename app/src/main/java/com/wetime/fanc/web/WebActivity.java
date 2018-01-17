@@ -78,6 +78,7 @@ public class WebActivity extends BaseActivity {
         Intent intent = getIntent();
         weburl = intent.getStringExtra("url");
         web.loadUrl(weburl);
+//        web.loadUrl("http:192.168.11.178:3001/#/inviter/redpack");
 //        web.reload();
 //        web.loadUrl("file:///android_asset/test.html");
 //        Log.e("weburl", weburl);

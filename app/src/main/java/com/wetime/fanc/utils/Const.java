@@ -46,6 +46,7 @@ public interface Const {
     String WALLET_PASSWORD_SET = BASEURL + "/wallet/password/set";
     String SMS_SEND = BASEURL + "/sms/send";
     String SMS_VERIFY = BASEURL + "/sms/verify";
+    String WALLET_BALANCE_LIST = BASEURL + "/wallet/balance/list";
 
 
 
