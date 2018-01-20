@@ -91,7 +91,8 @@ public class CashOutActivity extends BaseActivity implements ICashOutView {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == InputPwdActivity.REQUSTCODEPWD && resultCode == RESULT_OK) {
             String pwd = data.getStringExtra("pwd");
-            cashOutPresenter.cashOut(pwd);
+//            cashOutPresenter.cashOut(pwd);
+            Tools.toastInBottom(mContext, "还没给接口，暂时不要测试");
         }
     }
 
