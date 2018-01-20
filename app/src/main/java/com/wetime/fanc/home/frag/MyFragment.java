@@ -22,14 +22,18 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.wetime.fanc.R;
 import com.wetime.fanc.home.bean.MyInfoBean;
+import com.wetime.fanc.home.bean.RebPackageBean;
 import com.wetime.fanc.home.event.BeInvaterSuccess;
 import com.wetime.fanc.home.event.RefreshRedNunEvent;
 import com.wetime.fanc.home.iviews.IGetMyInfoView;
+import com.wetime.fanc.home.iviews.IGetRedPackageView;
+import com.wetime.fanc.home.presenter.GetRedPackagePresenter;
 import com.wetime.fanc.home.presenter.GetUserInfoPresenter;
 import com.wetime.fanc.login.act.LoginActivity;
 import com.wetime.fanc.login.event.LoginEvent;
 import com.wetime.fanc.login.event.LogoutEvent;
 import com.wetime.fanc.main.frag.BaseFragment;
+import com.wetime.fanc.main.model.BaseBean;
 import com.wetime.fanc.setting.act.SettingActivity;
 import com.wetime.fanc.setting.event.ChangeUserInfoEvent;
 import com.wetime.fanc.utils.Tools;
@@ -50,7 +54,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import q.rorbin.badgeview.QBadgeView;
 
 
-public class MyFragment extends BaseFragment implements IGetMyInfoView {
+public class MyFragment extends BaseFragment implements IGetMyInfoView, IGetRedPackageView {
 
 
     @BindView(R.id.iv_setting)
@@ -87,6 +91,7 @@ public class MyFragment extends BaseFragment implements IGetMyInfoView {
     //声明定位回调监听器
     public AMapLocationListener mLocationListener;
     public AMapLocationClientOption mLocationOption = null;
+    private GetRedPackagePresenter getRedPackagePresenter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -106,7 +111,7 @@ public class MyFragment extends BaseFragment implements IGetMyInfoView {
         });
 
         getUserInfoPresenter = new GetUserInfoPresenter(this);
-
+        getRedPackagePresenter = new GetRedPackagePresenter(this);
         return v;
     }
 
@@ -202,7 +207,7 @@ public class MyFragment extends BaseFragment implements IGetMyInfoView {
                         // 去定位
                         initLoaction();
                     } else {
-                        goRedPack("100");
+                        getRedPackagePresenter.getRedpackage();
                     }
                 } else {
                     Tools.toastInBottom(getContext(), "请先登录");
@@ -261,7 +266,7 @@ public class MyFragment extends BaseFragment implements IGetMyInfoView {
     @Override
     public void onGetUserInfo(MyInfoBean bean) {
         this.bean = bean;
-        Glide.with(getContext()).load(bean.getData().getUser().getAvatar()).into(civHead);
+        Glide.with(this).load(bean.getData().getUser().getAvatar()).into(civHead);
         tvName.setText(bean.getData().getUser().getUsername());
 
         QBred.setBadgeNumber(Integer.valueOf(bean.getData().getNotice_num()));
@@ -338,7 +343,7 @@ public class MyFragment extends BaseFragment implements IGetMyInfoView {
                         spu.setValue("wd", String.valueOf(amapLocation.getLatitude()));
                         spu.setValue("jd", String.valueOf(amapLocation.getLongitude()));
                         //进行操作 获取红包操作
-
+                        getRedPackagePresenter.getRedpackage();
 
                     } else {
                         //定位失败时，可通过ErrCode（错误码）信息来确定失败的原因，errInfo是错误信息，详见错误码表。
@@ -371,5 +376,10 @@ public class MyFragment extends BaseFragment implements IGetMyInfoView {
         mLocationClient.startLocation();
         showLoading();
 
+    }
+
+    @Override
+    public void onGetRedPackage(RebPackageBean bean) {
+        goRedPack(bean.getData().getMoney());
     }
 }

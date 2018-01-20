@@ -3,6 +3,7 @@ package com.wetime.fanc.home.frag;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -13,22 +14,19 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
 import com.bumptech.glide.Glide;
-import com.wetime.fanc.customview.GridViewForScrollView;
-import com.wetime.fanc.main.frag.BaseFragment;
-import com.wetime.fanc.qr.ScanActivity;
-import com.wetime.fanc.shop.act.ShopDetailActivity;
-import com.wetime.fanc.utils.Tools;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.wetime.fanc.R;
+import com.wetime.fanc.customview.GridViewForScrollView;
 import com.wetime.fanc.home.act.HomeSearchActivity;
 import com.wetime.fanc.home.adapter.CenterAdapter;
 import com.wetime.fanc.home.adapter.HomeGridAdapter;
@@ -36,13 +34,19 @@ import com.wetime.fanc.home.adapter.HomeShopListAdapter;
 import com.wetime.fanc.home.bean.HomePageBean;
 import com.wetime.fanc.home.iviews.IGetHomePageView;
 import com.wetime.fanc.home.presenter.GetHomePagePresenter;
+import com.wetime.fanc.main.frag.BaseFragment;
+import com.wetime.fanc.qr.ScanActivity;
+import com.wetime.fanc.shop.act.ShopDetailActivity;
 import com.wetime.fanc.shopcenter.act.ShopCenterActivity;
+import com.wetime.fanc.utils.Tools;
 import com.wetime.fanc.web.WebActivity;
 import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
 import com.zhy.adapter.recyclerview.wrapper.HeaderAndFooterWrapper;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -63,6 +67,8 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, IGe
     @BindView(R.id.ll_loc)
     LinearLayout llloc;
     Unbinder unbinder;
+    @BindView(R.id.tv_loc)
+    TextView tvLoc;
 
     private View hView;
     private String TAG = "zkhomefrag";
@@ -81,27 +87,30 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, IGe
     private HomeShopListAdapter homeShopListAdapter;
     private List<HomePageBean.DataBean.MerchantsBean> mMerchanetlist = new ArrayList<>();
 
+    private Timer time;
+    private TimerTask tk;
+    private int i = 0;
+    private Handler mHandler;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         Log.d(TAG, "onCreateView: ");
         initLoaction();
-
+        mHandler = new Handler();
         View v = inflater.inflate(R.layout.fragment_home, null);
         unbinder = ButterKnife.bind(this, v);
         homeShopListAdapter = new HomeShopListAdapter(getContext(), mMerchanetlist);
         lvShop.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
-        homeShopListAdapter.setOnItemClickLitener(new HomeShopListAdapter.OnItemClickLitener() {
-            @Override
-            public void onItemClick(View view, int position) {
-                Intent goShop = new Intent(getContext(), ShopDetailActivity.class);
-                goShop.putExtra("mid",mMerchanetlist.get(position).getId());
-                startActivity(goShop);
-            }
+        homeShopListAdapter.setOnItemClickLitener((view, position) -> {
+            Intent goShop = new Intent(getContext(), ShopDetailActivity.class);
+            goShop.putExtra("mid", mMerchanetlist.get(position).getId());
+            startActivity(goShop);
         });
 
         refreshLayout.setOnLoadmoreListener(this);
         refreshLayout.setOnRefreshListener(this);
+        initlocview();
         return v;
     }
 
@@ -130,6 +139,28 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, IGe
         }
     }
 
+    private void initlocview() {
+        time = new Timer();
+        tk = new TimerTask() {
+            @Override
+            public void run() {
+                // TODO Auto-generated method stub
+                mHandler.post(() -> {
+                    if (i % 3 == 0) {
+                        tvLoc.setText(".");
+                    } else if (i % 3 == 1) {
+                        tvLoc.setText("..");
+                    } else if (i % 3 == 2) {
+                        tvLoc.setText("...");
+                    }
+                    i++;
+                });
+
+            }
+        };
+        time.schedule(tk, 0,500);
+
+    }
 
     @OnClick({R.id.iv_scan, R.id.ll_search})
     public void onViewClicked(View view) {
@@ -286,6 +317,8 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, IGe
                 getHomePagePresenter = new GetHomePagePresenter(HomeFragment.this);
                 getHomePagePresenter.getHomePage();
                 llloc.setVisibility(View.GONE);
+                time.cancel();
+                tk.cancel();
                 mLocationClient.stopLocation();
             }
         };
@@ -307,6 +340,7 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, IGe
         super.onDestroyView();
         unbinder.unbind();
         mLocationClient.onDestroy();
+
         Log.d(TAG, "onDestroyView: ");
     }
 

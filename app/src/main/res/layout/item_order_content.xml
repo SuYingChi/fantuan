@@ -70,6 +70,7 @@
             <include layout="@layout/item_my_line" />
 
             <com.scwang.smartrefresh.layout.SmartRefreshLayout
+                android:background="@color/bg_dark"
                 android:id="@+id/refreshLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

@@ -2,9 +2,7 @@ package com.wetime.fanc.wallet.act;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -12,13 +10,17 @@ import android.widget.TextView;
 
 import com.wetime.fanc.R;
 import com.wetime.fanc.main.act.BaseActivity;
+import com.wetime.fanc.main.model.BaseBean;
 import com.wetime.fanc.utils.Tools;
+import com.wetime.fanc.utils.TwoDigitsTextWatcher;
+import com.wetime.fanc.wallet.iviews.ICashOutView;
+import com.wetime.fanc.wallet.presenter.CashOutPresenter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class CashOutActivity extends BaseActivity {
+public class CashOutActivity extends BaseActivity implements ICashOutView {
 
 
     @BindView(R.id.tv_title)
@@ -36,7 +38,8 @@ public class CashOutActivity extends BaseActivity {
     @BindView(R.id.tv_ok)
     TextView tvOk;
 
-    private int digits = 2;
+
+    private CashOutPresenter cashOutPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +50,8 @@ public class CashOutActivity extends BaseActivity {
         tvWxname.setText(String.format("微信昵称：%s", getIntent().getStringExtra("wxname")));
         tvBalance.setText(String.format("￥%s", getIntent().getStringExtra("balance")));
         initView();
+
+        cashOutPresenter = new CashOutPresenter(this);
     }
 
     @Override
@@ -68,6 +73,9 @@ public class CashOutActivity extends BaseActivity {
                 if (TextUtils.isEmpty(etNum.getText().toString())
                         || Double.valueOf(etNum.getText().toString()) == 0) {
                     Tools.toastInBottom(mContext, "请输入提现金额");
+                } else if (Double.valueOf(etNum.getText().toString())
+                        > Double.valueOf(getIntent().getStringExtra("balance"))) {
+                    Tools.toastInBottom(mContext, "提现金额不能大于余额");
                 } else {
                     Intent go = new Intent(mContext, InputPwdActivity.class);
                     go.putExtra("num", etNum.getText().toString());
@@ -78,55 +86,26 @@ public class CashOutActivity extends BaseActivity {
 
         }
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == InputPwdActivity.REQUSTCODEPWD && resultCode == RESULT_OK) {
             String pwd = data.getStringExtra("pwd");
-            Tools.toastInBottom(mContext, pwd);
+            cashOutPresenter.cashOut(pwd);
         }
     }
+
     private void initView() {
-        etNum.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                //删除“.”后面超过2位后的数据
-                if (s.toString().contains(".")) {
-                    if (s.length() - 1 - s.toString().indexOf(".") > digits) {
-                        s = s.toString().subSequence(0,
-                                s.toString().indexOf(".") + digits + 1);
-                        etNum.setText(s);
-                        etNum.setSelection(s.length()); //光标移到最后
-                    }
-                }
-                //如果"."在起始位置,则起始位置自动补0
-                if (s.toString().trim().substring(0).equals(".")) {
-                    s = "0" + s;
-                    etNum.setText(s);
-                    etNum.setSelection(2);
-                }
-
-                //如果起始位置为0,且第二位跟的不是".",则无法后续输入
-                if (s.toString().startsWith("0")
-                        && s.toString().trim().length() > 1) {
-                    if (!s.toString().substring(1, 2).equals(".")) {
-                        etNum.setText(s.subSequence(0, 1));
-                        etNum.setSelection(1);
-                        return;
-                    }
-                }
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
+        etNum.addTextChangedListener(new TwoDigitsTextWatcher(etNum));
     }
 
+    @Override
+    public void onCashOutResult(BaseBean bean) {
+
+    }
+
+    @Override
+    public String getNum() {
+        return etNum.getText().toString();
+    }
 }

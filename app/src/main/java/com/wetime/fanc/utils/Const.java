@@ -49,6 +49,7 @@ public interface Const {
     String WALLET_BALANCE_LIST = BASEURL + "/wallet/balance/list";
     String USER_INVITER = BASEURL + "/user/inviter";
     String USER_INVITER_HISTORY = BASEURL + "/user/inviter/history";
+    String user_inviter_redbag = BASEURL + "/user/inviter/redbag";
 
 
 

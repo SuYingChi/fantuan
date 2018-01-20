@@ -215,6 +215,7 @@ public class OrderFragment extends BaseFragment implements IGetOrderListView, On
 
         refreshLayout.finishRefresh();
         refreshLayout.finishLoadmore();
+        refreshLayout.setEnableLoadmore(!bean.getData().getPaging().isIs_end());
     }
 
     @Override
@@ -306,7 +307,7 @@ public class OrderFragment extends BaseFragment implements IGetOrderListView, On
                     goComment.putExtra("id", bean.getOrder_id());
                     startActivity(goComment);
                 } else if (bean.getAction_type_name().equals("删除订单")) {
-                    Tools.showTipsDialog(getContext(), "","确认要删除订单吗？", null, new View.OnClickListener() {
+                    Tools.showTipsDialog(getContext(), "", "确认要删除订单吗？", null, new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
                             deleteOrderPresenter.deleteOrder(ordelist.get(position).getOrder_id());

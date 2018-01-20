@@ -253,6 +253,11 @@ public class WebActivity extends BaseActivity {
     }
 
     @JavascriptInterface
+    public String isFanTuan() {
+        return "1";
+    }
+
+    @JavascriptInterface
     public void finishWebView() {
         finish();
     }

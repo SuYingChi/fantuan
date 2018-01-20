@@ -4,13 +4,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-import com.wetime.fanc.main.act.BaseActivity;
-import com.wetime.fanc.utils.Tools;
 import com.wetime.fanc.BuildConfig;
 import com.wetime.fanc.R;
 import com.wetime.fanc.about.bean.VersionPageBean;
 import com.wetime.fanc.about.iviews.IGetVersionPageView;
 import com.wetime.fanc.about.presenter.GetVersionPresenter;
+import com.wetime.fanc.main.act.BaseActivity;
+import com.wetime.fanc.utils.Tools;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -27,9 +27,9 @@ public class AboutActivity extends BaseActivity implements IGetVersionPageView {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
         ButterKnife.bind(this);
-        if(BuildConfig.DEBUG){
-            tvTitle.setText("关于Build"+BuildConfig.releaseTime);
-        }else {
+        if (BuildConfig.DEBUG) {
+            tvTitle.setText(BuildConfig.releaseTime);
+        } else {
             tvTitle.setText("关于");
         }
     }
@@ -57,7 +57,7 @@ public class AboutActivity extends BaseActivity implements IGetVersionPageView {
     public void onVersionResult(VersionPageBean bean) {
         int code = Tools.getVerCode(this);
         if (bean.getData().getVersion().getCode() > code) {
-            Tools.showTipsDialog(this, "检查更新","当前版本为V" + Tools.getVerName(this)
+            Tools.showTipsDialog(this, "检查更新", "当前版本为V" + Tools.getVerName(this)
                             + ",最新版本为V" + bean.getData().getVersion().getName()
                             + ",是否更新到最新版本？",
                     "取消", "确定更新", null, new View.OnClickListener() {
@@ -68,7 +68,7 @@ public class AboutActivity extends BaseActivity implements IGetVersionPageView {
                     });
 
         } else {
-            Tools.showTipsDialog(this,"提示", "赞一个，当前已是最新版本了哦~",
+            Tools.showTipsDialog(this, "提示", "赞一个，当前已是最新版本了哦~",
                     "", "确定", null, null);
         }
     }
