@@ -13,7 +13,7 @@
         android:orientation="vertical">
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="320dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
@@ -90,9 +90,9 @@
 
             <com.wetime.fanc.customview.PayEditText
                 android:id="@+id/pay_et"
-                android:layout_width="250dp"
-                android:layout_height="40dp"
-                android:layout_marginBottom="40dp"
+                android:layout_width="260dp"
+                android:layout_height="42dp"
+                android:layout_marginBottom="30dp"
                 android:layout_marginTop="20dp" />
 
         </LinearLayout>
