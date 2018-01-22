@@ -86,7 +86,7 @@
                 android:gravity="center"
                 android:textColor="#2d2d2d"
                 android:textSize="40sp"
-                tools:text="￥15.00" />
+                tools:text="¥15.00" />
 
             <com.wetime.fanc.customview.PayEditText
                 android:id="@+id/pay_et"

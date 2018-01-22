@@ -27,7 +27,7 @@ public class RedPackActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_redpack);
         ButterKnife.bind(this);
-        tvNum.setText(String.format("￥%s", getIntent().getStringExtra("num")));
+        tvNum.setText(String.format("¥%s", getIntent().getStringExtra("num")));
 
     }
 

@@ -86,7 +86,7 @@ public class ShopDetailYouhuiquanAdapter extends BaseAdapter {
         }
 
         ShopDetailBean.DataBean.CouponBean.ContentBeanX bean = mData.get(position);
-        holder.tvJine.setText("￥" + bean.getAmount());
+        holder.tvJine.setText("¥" + bean.getAmount());
         holder.tvMane.setText("满" + bean.getThreshold() + "可用");
 
         if (bean.isIs_get()) {

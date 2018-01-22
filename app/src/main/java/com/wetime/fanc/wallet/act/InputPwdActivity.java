@@ -43,7 +43,7 @@ public class InputPwdActivity extends BaseActivity {
     }
 
     private void initView() {
-        tvNum.setText(String.format("￥%s", getIntent().getStringExtra("num")));
+        tvNum.setText(String.format("¥%s", getIntent().getStringExtra("num")));
         initKeyBorad();
     }
 

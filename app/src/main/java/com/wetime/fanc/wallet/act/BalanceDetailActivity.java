@@ -3,6 +3,7 @@ package com.wetime.fanc.wallet.act;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -13,6 +14,7 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
 import com.wetime.fanc.R;
 import com.wetime.fanc.main.act.BaseActivity;
+import com.wetime.fanc.utils.Tools;
 import com.wetime.fanc.wallet.adapter.BalanceDetailListAdapter;
 import com.wetime.fanc.wallet.bean.BalanceDetailListBean;
 import com.wetime.fanc.wallet.iviews.IGetBalanceDetailListView;
@@ -57,6 +59,7 @@ public class BalanceDetailActivity extends BaseActivity implements IGetBalanceDe
 
         refreshLayout.setOnLoadmoreListener(this);
         refreshLayout.setEnableRefresh(false);
+        lvbalance.setOnItemClickListener((parent, view, position, id) -> Tools.goWeb(mContext,list.get(position-1).getUrl()));
     }
 
     @Override

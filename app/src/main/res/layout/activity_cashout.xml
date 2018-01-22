@@ -73,7 +73,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingLeft="15dp"
-            android:text="￥ "
+            android:text="¥ "
             android:textColor="#333333"
             android:textSize="40sp" />
 
@@ -89,6 +89,7 @@
     </LinearLayout>
 
     <TextView
+        android:background="@color/linebg"
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:layout_marginBottom="10dp"
@@ -118,7 +119,7 @@
             android:lineSpacingExtra="-2sp"
             android:textColor="#333333"
             android:textSize="14sp"
-            tools:text="￥500" />
+            tools:text="¥500" />
 
         <TextView
             android:id="@+id/tv_cashall"
@@ -140,7 +141,7 @@
         android:layout_marginTop="40dp"
         android:background="@drawable/bg_btn_red_corner"
         android:gravity="center"
-        android:text="确定提现"
+        android:text="确认提现"
         android:textColor="#ffffff"
         android:textSize="17sp" />
 </LinearLayout>

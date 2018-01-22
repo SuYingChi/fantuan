@@ -41,7 +41,7 @@
                 android:lineSpacingExtra="0sp"
                 android:textColor="#333333"
                 android:textSize="33sp"
-                tools:text="￥15.50" />
+                tools:text="¥15.50" />
 
             <RelativeLayout
                 android:layout_width="match_parent"

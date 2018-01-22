@@ -48,7 +48,7 @@ public class CashOutActivity extends BaseActivity implements ICashOutView {
         ButterKnife.bind(this);
         tvTitle.setText("余额提现");
         tvWxname.setText(String.format("微信昵称：%s", getIntent().getStringExtra("wxname")));
-        tvBalance.setText(String.format("￥%s", getIntent().getStringExtra("balance")));
+        tvBalance.setText(String.format("¥%s", getIntent().getStringExtra("balance")));
         initView();
 
         cashOutPresenter = new CashOutPresenter(this);
