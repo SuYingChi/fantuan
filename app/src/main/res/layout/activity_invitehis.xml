@@ -22,6 +22,7 @@
             app:srlEnableOverScrollBounce="false">
 
             <ListView
+                android:headerDividersEnabled="false"
                 android:id="@+id/lvbalance"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

@@ -15,8 +15,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="50dp"
-            android:layout_marginRight="50dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
             android:layout_marginTop="80dp"
             android:background="@color/white"
             android:gravity="center"
@@ -71,7 +71,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="15dp"
                 android:gravity="center_horizontal"
                 android:lineSpacingExtra="0sp"
                 android:text="提现金额"
@@ -82,7 +82,7 @@
                 android:id="@+id/tv_num"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="20dp"
                 android:gravity="center"
                 android:textColor="#2d2d2d"
                 android:textSize="40sp"
@@ -92,7 +92,7 @@
                 android:id="@+id/pay_et"
                 android:layout_width="250dp"
                 android:layout_height="40dp"
-                android:layout_marginBottom="30dp"
+                android:layout_marginBottom="40dp"
                 android:layout_marginTop="20dp" />
 
         </LinearLayout>
