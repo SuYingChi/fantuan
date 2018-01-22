@@ -25,5 +25,6 @@
     <string name="str_more_taocan">查看其他%d个团购套餐</string>
     <string name="str_more_daijinquan">查看其他%d张代金券</string>
     <string name="str_buy">购买</string>
+    <string name="str_rmb">¥</string>
 
 </resources>
