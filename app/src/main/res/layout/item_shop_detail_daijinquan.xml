@@ -22,7 +22,7 @@
         android:id="@+id/lv_daijinquan"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:divider="#e1e1e1"
         android:dividerHeight="0.5dp" />
 
