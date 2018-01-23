@@ -62,8 +62,8 @@ public class WebActivity extends BaseActivity {
     ImageView btnBack;
     @BindView(R.id.iv_right)
     ImageView ivRight;
-    @BindView(R.id.webcontent)
-    LinearLayout mWebViewContainer;
+//    @BindView(R.id.webcontent)
+//    LinearLayout mWebViewContainer;
 
     private String weburl;
     private String type = "0";
@@ -118,12 +118,12 @@ public class WebActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         EventBus.getDefault().unregister(this);
-        mWebViewContainer.removeView(web);
-        web.stopLoading();
-        web.getSettings().setJavaScriptEnabled(false);
-        web.clearHistory();
-        web.removeAllViews();
-        web.destroy();
+//        mWebViewContainer.removeView(web);
+//        web.stopLoading();
+//        web.getSettings().setJavaScriptEnabled(false);
+//        web.clearHistory();
+//        web.removeAllViews();
+//        web.destroy();
         super.onDestroy();
     }
 

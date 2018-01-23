@@ -129,17 +129,7 @@ public class MainActivity extends BaseActivity implements IBindPushView {
         super.onDestroy();
     }
 
-    @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-        Log.e("zkkk", "onRestoreInstanceState: ");
-    }
 
-    @Override
-    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
-        super.onSaveInstanceState(outState, outPersistentState);
-        Log.e("zkkk", "outState: ");
-    }
 
 
     private void initView() {
