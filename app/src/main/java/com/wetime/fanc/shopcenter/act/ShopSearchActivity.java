@@ -25,6 +25,8 @@ import com.google.android.flexbox.FlexboxLayoutManager;
 import com.google.gson.reflect.TypeToken;
 import com.wetime.fanc.main.act.BaseActivity;
 import com.wetime.fanc.shop.act.ShopDetailActivity;
+import com.wetime.fanc.shopcenter.iviews.IGetShopSugView;
+import com.wetime.fanc.shopcenter.presenter.GetShopSugSerachPresenter;
 import com.wetime.fanc.utils.GsonUtils;
 import com.wetime.fanc.utils.Tools;
 import com.wetime.fanc.R;
@@ -51,7 +53,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class ShopSearchActivity extends BaseActivity implements IGetShopHotSearchView, TextView.OnEditorActionListener, TextWatcher, IGetHomeSugView {
+public class ShopSearchActivity extends BaseActivity implements IGetShopHotSearchView, TextView.OnEditorActionListener, TextWatcher, IGetShopSugView {
 
 
     @BindView(R.id.iv_back)
@@ -78,7 +80,7 @@ public class ShopSearchActivity extends BaseActivity implements IGetShopHotSearc
     private GetShopHotSerachPresenter getShopHotSerachPresenter;
     private List<String> hislist = new ArrayList<>();
     private HisAdapter hisAdapter;
-    private GetHomeSugSerachPresenter getHomeSugSerachPresenter;
+    private GetShopSugSerachPresenter getHomeSugSerachPresenter;
     private ResultAdapter resultAdapter;
     private List<SearchResult.DataBean.MerchantsBean> reList = new ArrayList();
     private String millId = "";
@@ -107,7 +109,7 @@ public class ShopSearchActivity extends BaseActivity implements IGetShopHotSearc
         resultAdapter = new ResultAdapter(reList, this);
         rclResult.setLayoutManager(new LinearLayoutManager(this));
         rclResult.setAdapter(resultAdapter);
-        getHomeSugSerachPresenter = new GetHomeSugSerachPresenter(this);
+        getHomeSugSerachPresenter = new GetShopSugSerachPresenter(this);
         if (!TextUtils.isEmpty(getIntent().getStringExtra("key"))) {
             etSearch.setText(getIntent().getStringExtra("key"));
             etSearch.setSelection(etSearch.getText().length());

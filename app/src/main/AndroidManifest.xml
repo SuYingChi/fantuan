@@ -46,6 +46,18 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.BROWSABLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data
+                    android:host="myhost"
+                    android:pathPrefix="/open"
+                    android:scheme="launchapp" />
+            </intent-filter>
+
         </activity>
         <activity android:name=".login.act.LoginActivity" />
         <activity android:name=".home.act.MainActivity" />
