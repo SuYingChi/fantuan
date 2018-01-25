@@ -38,6 +38,7 @@ import com.wetime.fanc.shopcenter.act.ShopSearchActivity;
 import com.wetime.fanc.utils.Tools;
 import com.wetime.fanc.wallet.act.InviteHomeActivity;
 import com.wetime.fanc.wallet.act.MyWalletActivity;
+import com.wetime.fanc.wallet.act.VerfyPhoneNumActivity;
 import com.wetime.fanc.web.event.FinishWebEvent;
 
 import org.greenrobot.eventbus.EventBus;
@@ -546,31 +547,26 @@ public class WebActivity extends BaseActivity {
 
     @JavascriptInterface
     public void goUserWallet() {
-        web.post(new Runnable() {
-            @Override
-            public void run() {
-                Tools.goActivity(mContext, MyWalletActivity.class);
-            }
+        web.post(() -> Tools.goActivity(mContext, MyWalletActivity.class));
+    }
+    @JavascriptInterface
+    public void goModifyPassword(String phone) {
+        web.post(() -> {
+            Intent go = new Intent(mContext, VerfyPhoneNumActivity.class);
+            go.putExtra("phone", phone);
+            startActivity(go);
         });
     }
 
     @JavascriptInterface
     public void allowLocation() {
-        web.post(new Runnable() {
-            @Override
-            public void run() {
-                Tools.showTipsDialog(mContext, "", "需开启定位且位置为海南才可领取红包",
-                        "取消", "开启定位", null, new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                Intent intent = new Intent();
-                                intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-                                intent.setData(Uri.fromParts("package", mContext.getPackageName(), null));
-                                startActivity(intent);
-                            }
-                        });
-            }
-        });
+        web.post(() -> Tools.showTipsDialog(mContext, "", "需开启定位且位置为海南才可领取红包",
+                "取消", "开启定位", null, v -> {
+                    Intent intent = new Intent();
+                    intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                    intent.setData(Uri.fromParts("package", mContext.getPackageName(), null));
+                    startActivity(intent);
+                }));
     }
 }
 
