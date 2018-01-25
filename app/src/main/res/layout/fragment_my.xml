@@ -82,6 +82,7 @@
                 android:background="@color/bg_all" />
 
             <TextView
+                android:visibility="gone"
                 android:id="@+id/tv_wallet"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
@@ -98,6 +99,7 @@
                 android:textSize="15sp" />
 
             <View
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
                 android:layout_marginLeft="15dp"
@@ -258,11 +260,13 @@
                 android:visibility="gone" />
 
             <View
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="10dp"
                 android:background="@color/bg_all" />
 
             <LinearLayout
+                android:visibility="gone"
                 android:id="@+id/ll_invite"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
@@ -297,6 +301,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:visibility="gone"
                 android:id="@+id/ll_redpacket"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -327,6 +332,7 @@
             </LinearLayout>
 
             <View
+
                 android:layout_width="match_parent"
                 android:layout_height="10dp"
                 android:background="@color/bg_all" />
