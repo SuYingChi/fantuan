@@ -21,6 +21,7 @@ import com.wetime.fanc.home.event.RefreshRedNunEvent;
 import com.wetime.fanc.home.event.SwichFragEvent;
 import com.wetime.fanc.home.frag.HomeFragment;
 import com.wetime.fanc.home.frag.MyFragment;
+import com.wetime.fanc.home.frag.NewsFragment;
 import com.wetime.fanc.home.frag.OrderFragment;
 import com.wetime.fanc.home.frag.SortFragment;
 import com.wetime.fanc.home.iviews.IBindPushView;
@@ -78,7 +79,8 @@ public class MainActivity extends BaseActivity implements IBindPushView {
     private int mOnId = R.drawable.bot_3_on;
     private int mOffId = R.drawable.bot_3_off;
     private HomeFragment f0;
-    private SortFragment f1;
+    private NewsFragment f1;
+//    private SortFragment f1;
     private OrderFragment f2;
     private MyFragment f3;
 
@@ -134,7 +136,8 @@ public class MainActivity extends BaseActivity implements IBindPushView {
 
     private void initView() {
         f0 = new HomeFragment();
-        f1 = new SortFragment();
+//        f1 = new SortFragment();
+        f1 = new NewsFragment();
         f2 = new OrderFragment();
         f3 = new MyFragment();
         list_fragment.add(f0);
