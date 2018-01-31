@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    　　
+    <string-array name="newstype">
+        <item>推荐</item>
+        <item>美食</item>
+        <item>活动</item>
+        <item>海口</item>
+        <item>体育</item>
+        <item>段子</item>
+        <item>娱乐</item>
+    </string-array>
+</resources>

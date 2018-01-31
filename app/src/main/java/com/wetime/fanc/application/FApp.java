@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.pm.ApplicationInfo;
 
 import com.scwang.smartrefresh.header.DeliveryHeader;
+import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.wetime.fanc.utils.MLoggerInterceptor;
 import com.wetime.fanc.utils.SharePreferenceUtil;
 import com.wetime.fanc.utils.Tools;
@@ -86,7 +87,8 @@ public class FApp extends Application {
 
     static {
 
-        SmartRefreshLayout.setDefaultRefreshHeaderCreater((context, layout) -> new MyMaterialHeader(context));
+//        SmartRefreshLayout.setDefaultRefreshHeaderCreater((context, layout) -> new MyMaterialHeader(context));
+        SmartRefreshLayout.setDefaultRefreshHeaderCreater((context, layout) -> new ClassicsHeader(context));
 
         SmartRefreshLayout.setDefaultRefreshFooterCreater((context, layout) -> new ClassicsFooter(context).setSpinnerStyle(SpinnerStyle.Translate));
     }

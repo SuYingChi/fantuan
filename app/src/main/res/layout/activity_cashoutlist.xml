@@ -18,7 +18,7 @@
             android:background="@color/bg_dark"
             android:layout_height="match_parent"
             app:srlEnableAutoLoadmore="false"
-            app:srlEnableHeaderTranslationContent="false"
+            app:srlEnableHeaderTranslationContent="true"
             app:srlEnableOverScrollBounce="false">
 
             <ListView

@@ -1,13 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/test"
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/refreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center" />
+        app:srlEnableAutoLoadmore="false"
+        app:srlEnableHeaderTranslationContent="true"
+        app:srlEnableOverScrollBounce="false">
 
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rcl_news"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/tv_recoment"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:background="#fff6dd"
+        android:gravity="center"
+        android:textColor="#ff3f53"
+        android:textSize="14sp"
+        tools:text="范团为您推荐了7条新内容" />
 </RelativeLayout>

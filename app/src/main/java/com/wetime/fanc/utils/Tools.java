@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.net.Uri;
 import android.os.IBinder;
 import android.support.v7.app.AlertDialog;
@@ -22,9 +23,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.wetime.fanc.application.FApp;
-import com.wetime.fanc.customview.multiimageselector.MultiImageSelectorActivity;
 import com.wetime.fanc.R;
+import com.wetime.fanc.customview.multiimageselector.MultiImageSelectorActivity;
 import com.wetime.fanc.web.WebActivity;
 
 import java.util.regex.Matcher;
@@ -308,11 +308,17 @@ public class Tools {
         return (int) (pxValue / scale + 0.5f);
     }
 
-    public static int getScreenW(Activity mActivity) {
-        DisplayMetrics mDisplayMetrics = new DisplayMetrics();
-        mActivity.getWindowManager().getDefaultDisplay().getMetrics(mDisplayMetrics);
+    //    public static int getScreenW(Activity mActivity) {
+//        DisplayMetrics mDisplayMetrics = new DisplayMetrics();
+//        mActivity.getWindowManager().getDefaultDisplay().getMetrics(mDisplayMetrics);
+//
+//        return mDisplayMetrics.widthPixels;
+//    }
+    public static int getScreenW(Context mContext) {
+        Resources resources = mContext.getResources();
+        DisplayMetrics dm = resources.getDisplayMetrics();
 
-        return mDisplayMetrics.widthPixels;
+        return dm.widthPixels;
     }
 
     public static SpannableString matcherSearchText(int color, String text, String keyword) {
@@ -328,6 +334,8 @@ public class Tools {
     }
 
     public static void goWeb(Context mContext, String url) {
+        if (TextUtils.isEmpty(url))
+            return;
         Intent goweb = new Intent(mContext, WebActivity.class);
         goweb.putExtra("url", url);
         mContext.startActivity(goweb);

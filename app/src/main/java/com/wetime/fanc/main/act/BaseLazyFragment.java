@@ -63,6 +63,7 @@ public abstract class BaseLazyFragment extends BaseFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         unbinder = ButterKnife.bind(this, mRootView);
+        initView();
         if (isLazyLoad()) {
             mIsPrepare = true;
             mIsImmersion = true;
@@ -72,7 +73,7 @@ public abstract class BaseLazyFragment extends BaseFragment {
             if (isImmersionBarEnabled())
                 initImmersionBar();
         }
-        initView();
+
         setListener();
     }
 
