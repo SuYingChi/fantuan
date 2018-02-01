@@ -84,6 +84,7 @@
             android:layout_alignParentRight="true"
             android:layout_marginLeft="12dp"
             android:layout_weight="1"
+            android:scaleType="centerCrop"
             android:src="@drawable/iv_default_news_small" />
 
     </LinearLayout>

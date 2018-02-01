@@ -147,7 +147,7 @@ public class NewsListBean {
 
             private String id;
             private String name;
-            private String author;
+            private String news_name;
             private String time;
             private String read_num;
             private String article_url;
@@ -161,6 +161,14 @@ public class NewsListBean {
 
             public void setBanner(List<BannerBean> banner) {
                 this.banner = banner;
+            }
+
+            public String getNews_name() {
+                return news_name;
+            }
+
+            public void setNews_name(String news_name) {
+                this.news_name = news_name;
             }
 
             public static class BannerBean {
@@ -205,13 +213,7 @@ public class NewsListBean {
                 this.name = name;
             }
 
-            public String getAuthor() {
-                return author;
-            }
 
-            public void setAuthor(String author) {
-                this.author = author;
-            }
 
             public String getTime() {
                 return time;

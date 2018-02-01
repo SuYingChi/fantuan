@@ -31,11 +31,13 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:scaleType="centerCrop"
             android:src="@drawable/iv_default_news_small" />
 
         <ImageView
             android:id="@+id/iv_cover1"
             android:layout_width="0dp"
+            android:scaleType="centerCrop"
             android:layout_height="match_parent"
             android:layout_marginLeft="6dp"
             android:layout_weight="1"
@@ -44,6 +46,7 @@
         <ImageView
             android:id="@+id/iv_cover2"
             android:layout_width="0dp"
+            android:scaleType="centerCrop"
             android:layout_height="match_parent"
             android:layout_marginLeft="6dp"
             android:layout_weight="1"

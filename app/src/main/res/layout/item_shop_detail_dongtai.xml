@@ -20,7 +20,7 @@
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="商家动态"
+            android:text="商家说"
             android:textColor="#333333"
             android:textSize="19sp" />
 

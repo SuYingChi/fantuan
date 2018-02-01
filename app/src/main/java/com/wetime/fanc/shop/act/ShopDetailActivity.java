@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.v4.widget.NestedScrollView;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -217,12 +216,7 @@ public class ShopDetailActivity extends BaseActivity implements IGetShopDetailVi
     public void onGetShopDetail(final ShopDetailBean bean) {
         mBottomDialog = BottomDialog.create(getSupportFragmentManager());
         Glide.with(this).load(bean.getData().getMerchant().getLogo()).into(ivCover);
-        ivCover.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                goWeb(bean.getData().getMerchant().getPicture_url());
-            }
-        });
+        ivCover.setOnClickListener(v -> goWeb(bean.getData().getMerchant().getPicture_url()));
         tvName.setText(bean.getData().getMerchant().getName());
         rbSocre.setStar(Float.valueOf(bean.getData().getMerchant().getScore()));
         tvSpend.setText(bean.getData().getMerchant().getAverage_spend());
@@ -237,41 +231,32 @@ public class ShopDetailActivity extends BaseActivity implements IGetShopDetailVi
             tvGuanzhu.setText("+ 关注");
             tvGuanzhu.setBackgroundResource(R.drawable.bg_btn_red_corner);
         }
-        tvGuanzhu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (TextUtils.isEmpty(spu.getToken())) {
-                    goLogin();
-                    return;
-                }
-                if (tvGuanzhu.getText().equals("已关注")) {
-                    unFocusShopPresenter.unfocusShop();
-                    tvGuanzhu.setText("+ 关注");
-                    tvGuanzhu.setBackgroundResource(R.drawable.bg_btn_red_corner);
-                } else {
-                    focusShopPresenter.focusShop();
-                    tvGuanzhu.setText("已关注");
-                    tvGuanzhu.setBackgroundResource(R.drawable.bg_btn_red_corner_enable);
-                }
+        tvGuanzhu.setOnClickListener(v -> {
+            if (TextUtils.isEmpty(spu.getToken())) {
+                goLogin();
+                return;
+            }
+            if (tvGuanzhu.getText().equals("已关注")) {
+                unFocusShopPresenter.unfocusShop();
+                tvGuanzhu.setText("+ 关注");
+                tvGuanzhu.setBackgroundResource(R.drawable.bg_btn_red_corner);
+            } else {
+                focusShopPresenter.focusShop();
+                tvGuanzhu.setText("已关注");
+                tvGuanzhu.setBackgroundResource(R.drawable.bg_btn_red_corner_enable);
             }
         });
         tvLoc.setText(bean.getData().getMerchant().getAddress());
-        ivPhone.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + bean.getData().getMerchant().getPhone()));
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
-            }
+        ivPhone.setOnClickListener(v -> {
+            Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + bean.getData().getMerchant().getPhone()));
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
         });
-        ntscrollview.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
-            @Override
-            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-                if (scrollY > tvName.getBottom() + Tools.dip2px(mContext, 15)) {
-                    tvTitle.setText(bean.getData().getMerchant().getName());
-                } else {
-                    tvTitle.setText("商家详情");
-                }
+        ntscrollview.setOnScrollChangeListener((NestedScrollView.OnScrollChangeListener) (v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
+            if (scrollY > tvName.getBottom() + Tools.dip2px(mContext, 15)) {
+                tvTitle.setText(bean.getData().getMerchant().getName());
+            } else {
+                tvTitle.setText("商家详情");
             }
         });
         // 买单优惠
@@ -282,19 +267,16 @@ public class ShopDetailActivity extends BaseActivity implements IGetShopDetailVi
 
         final ShopDetailYouhuiquanAdapter youhuiquanActItemAdapter = new ShopDetailYouhuiquanAdapter(mContext, bean.getData().getCoupon().getContent());
         lvYouhuiquan.setAdapter(youhuiquanActItemAdapter);
-        youhuiquanActItemAdapter.setOnGetClickLitener(new ShopDetailYouhuiquanAdapter.OnGetClickLitener() {
-            @Override
-            public void onItemClick(View view, int position) {
-                if (!bean.getData().getCoupon().getContent().get(position).isIs_get()) {
-                    if (TextUtils.isEmpty(spu.getToken())) {
+        youhuiquanActItemAdapter.setOnGetClickLitener((view, position) -> {
+            if (!bean.getData().getCoupon().getContent().get(position).isIs_get()) {
+                if (TextUtils.isEmpty(spu.getToken())) {
 
-                        goLogin();
-                        return;
-                    }
-                    getShopYouhuiquanPresenter.getShopYouhuiquan(bean.getData().getCoupon().getContent().get(position).getPid());
-                    bean.getData().getCoupon().getContent().get(position).setIs_get(true);
-                    youhuiquanActItemAdapter.notifyDataSetChanged();
+                    goLogin();
+                    return;
                 }
+                getShopYouhuiquanPresenter.getShopYouhuiquan(bean.getData().getCoupon().getContent().get(position).getPid());
+                bean.getData().getCoupon().getContent().get(position).setIs_get(true);
+                youhuiquanActItemAdapter.notifyDataSetChanged();
             }
         });
         youhuiquanActItemAdapter.notifyDataSetChanged();
@@ -306,48 +288,35 @@ public class ShopDetailActivity extends BaseActivity implements IGetShopDetailVi
         if (bean.getData().getCoupon().getContent().size() > 2) {
             tvMoreYouhuiquan.setText(String.format(getString(R.string.str_more_youhuiquan)
                     , bean.getData().getCoupon().getContent().size() - 2));
-            tvMoreYouhuiquan.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    // dialog layout
+            tvMoreYouhuiquan.setOnClickListener(v -> {
+                // dialog layout
 
-                    mBottomDialog.setLayoutRes(R.layout.item_shop_detail_bottom_youhuiquan);
-                    mBottomDialog.setViewListener(new BottomDialog.ViewListener() {      // 可以进行一些必要对View的操作
-                        @Override
-                        public void bindView(View v) {
-                            ListViewForScrollView lvbottom = v.findViewById(R.id.lv_bottom);
-                            final ShopDetailYouhuiquanAdapter bAdapter = new ShopDetailYouhuiquanAdapter(mContext, bean.getData().getCoupon().getContent());
-                            bAdapter.setIszhe(false);
-                            lvbottom.setAdapter(bAdapter);
-                            bAdapter.setOnGetClickLitener(new ShopDetailYouhuiquanAdapter.OnGetClickLitener() {
-                                @Override
-                                public void onItemClick(View view, int position) {
-                                    if (!bean.getData().getCoupon().getContent().get(position).isIs_get()) {
-                                        if (TextUtils.isEmpty(spu.getToken())) {
-                                            mBottomDialog.dismiss();
-                                            goLogin();
-                                            return;
-                                        }
-                                        getShopYouhuiquanPresenter.getShopYouhuiquan(bean.getData().getCoupon().getContent().get(position).getPid());
-                                        bean.getData().getCoupon().getContent().get(position).setIs_get(true);
-                                        bAdapter.notifyDataSetChanged();
-                                        youhuiquanActItemAdapter.notifyDataSetChanged();
-                                    }
-                                }
-                            });
+                mBottomDialog.setLayoutRes(R.layout.item_shop_detail_bottom_youhuiquan);
+                // 可以进行一些必要对View的操作
+                mBottomDialog.setViewListener(v1 -> {
+                    ListViewForScrollView lvbottom = v1.findViewById(R.id.lv_bottom);
+                    final ShopDetailYouhuiquanAdapter bAdapter = new ShopDetailYouhuiquanAdapter(mContext, bean.getData().getCoupon().getContent());
+                    bAdapter.setIszhe(false);
+                    lvbottom.setAdapter(bAdapter);
+                    bAdapter.setOnGetClickLitener((view, position) -> {
+                        if (!bean.getData().getCoupon().getContent().get(position).isIs_get()) {
+                            if (TextUtils.isEmpty(spu.getToken())) {
+                                mBottomDialog.dismiss();
+                                goLogin();
+                                return;
+                            }
+                            getShopYouhuiquanPresenter.getShopYouhuiquan(bean.getData().getCoupon().getContent().get(position).getPid());
+                            bean.getData().getCoupon().getContent().get(position).setIs_get(true);
                             bAdapter.notifyDataSetChanged();
-                            v.findViewById(R.id.iv_close).setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    mBottomDialog.dismiss();
-                                }
-                            });
-                            TextView tvTitle = v.findViewById(R.id.tv_bottomtitle);
-                            tvTitle.setText("优惠券免费领");
+                            youhuiquanActItemAdapter.notifyDataSetChanged();
                         }
                     });
-                    mBottomDialog.show();
-                }
+                    bAdapter.notifyDataSetChanged();
+                    v1.findViewById(R.id.iv_close).setOnClickListener(v11 -> mBottomDialog.dismiss());
+                    TextView tvTitle = v1.findViewById(R.id.tv_bottomtitle);
+                    tvTitle.setText("优惠券免费领");
+                });
+                mBottomDialog.show();
             });
         } else {
             tvMoreYouhuiquan.setVisibility(View.GONE);
@@ -355,71 +324,47 @@ public class ShopDetailActivity extends BaseActivity implements IGetShopDetailVi
         //团购套餐
         ShopDetailTaocanAdapter taocanAdapter = new ShopDetailTaocanAdapter(mContext, bean.getData().getGroupon().getContent());
         lvTaocan.setAdapter(taocanAdapter);
-        taocanAdapter.setOnBuyTaocanClickLitener(new ShopDetailTaocanAdapter.OnBuyTaocanClickLitener() {
-            @Override
-            public void onBuyTaocanClick(View view, int position) {
-                if (TextUtils.isEmpty(spu.getToken())) {
-                    goLogin();
-                    return;
-                }
-                goWeb(bean.getData().getGroupon().getContent().get(position).getBuy_url());
+        taocanAdapter.setOnBuyTaocanClickLitener((view, position) -> {
+            if (TextUtils.isEmpty(spu.getToken())) {
+                goLogin();
+                return;
             }
+            goWeb(bean.getData().getGroupon().getContent().get(position).getBuy_url());
         });
-        lvTaocan.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                goWeb(bean.getData().getGroupon().getContent().get(position).getDetail_url());
-            }
-        });
+        lvTaocan.setOnItemClickListener((parent, view, position, id) -> goWeb(bean.getData().getGroupon().getContent().get(position).getDetail_url()));
 
         taocanAdapter.notifyDataSetChanged();
 
         if (bean.getData().getGroupon().getContent().size() > 2) {
             tvMoreTaocan.setText(String.format(getString(R.string.str_more_taocan)
                     , bean.getData().getGroupon().getContent().size() - 2));
-            tvMoreTaocan.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mBottomDialog.setLayoutRes(R.layout.item_shop_detail_bottom_dliver);
-                    mBottomDialog.setViewListener(new BottomDialog.ViewListener() {      // 可以进行一些必要对View的操作
-                        @Override
-                        public void bindView(View v) {
-                            ListViewForScrollView lvbottom = v.findViewById(R.id.lv_bottom);
-                            ShopDetailTaocanAdapter bAdapter = new ShopDetailTaocanAdapter(mContext, bean.getData().getGroupon().getContent());
-                            bAdapter.setIszhe(false);
-                            lvbottom.setAdapter(bAdapter);
-                            bAdapter.setOnBuyTaocanClickLitener(new ShopDetailTaocanAdapter.OnBuyTaocanClickLitener() {
-                                @Override
-                                public void onBuyTaocanClick(View view, int position) {
-                                    mBottomDialog.dismiss();
-                                    if (TextUtils.isEmpty(spu.getToken())) {
-                                        goLogin();
-                                        return;
-                                    }
-                                    goWeb(bean.getData().getGroupon().getContent().get(position).getBuy_url());
-                                }
-                            });
-                            bAdapter.notifyDataSetChanged();
-                            lvbottom.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                                @Override
-                                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                    mBottomDialog.dismiss();
-                                    goWeb(bean.getData().getGroupon().getContent().get(position).getDetail_url());
-                                }
-                            });
-
-                            v.findViewById(R.id.iv_close).setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    mBottomDialog.dismiss();
-                                }
-                            });
-                            TextView tvTitle = v.findViewById(R.id.tv_bottomtitle);
-                            tvTitle.setText("团购套餐");
+            tvMoreTaocan.setOnClickListener(v -> {
+                mBottomDialog.setLayoutRes(R.layout.item_shop_detail_bottom_dliver);
+                // 可以进行一些必要对View的操作
+                mBottomDialog.setViewListener(v12 -> {
+                    ListViewForScrollView lvbottom = v12.findViewById(R.id.lv_bottom);
+                    ShopDetailTaocanAdapter bAdapter = new ShopDetailTaocanAdapter(mContext, bean.getData().getGroupon().getContent());
+                    bAdapter.setIszhe(false);
+                    lvbottom.setAdapter(bAdapter);
+                    bAdapter.setOnBuyTaocanClickLitener((view, position) -> {
+                        mBottomDialog.dismiss();
+                        if (TextUtils.isEmpty(spu.getToken())) {
+                            goLogin();
+                            return;
                         }
+                        goWeb(bean.getData().getGroupon().getContent().get(position).getBuy_url());
                     });
-                    mBottomDialog.show();
-                }
+                    bAdapter.notifyDataSetChanged();
+                    lvbottom.setOnItemClickListener((parent, view, position, id) -> {
+                        mBottomDialog.dismiss();
+                        goWeb(bean.getData().getGroupon().getContent().get(position).getDetail_url());
+                    });
+
+                    v12.findViewById(R.id.iv_close).setOnClickListener(v121 -> mBottomDialog.dismiss());
+                    TextView tvTitle = v12.findViewById(R.id.tv_bottomtitle);
+                    tvTitle.setText("团购套餐");
+                });
+                mBottomDialog.show();
             });
         } else {
             tvMoreTaocan.setVisibility(View.GONE);
@@ -431,69 +376,45 @@ public class ShopDetailActivity extends BaseActivity implements IGetShopDetailVi
         //代金券
         ShopDetailDaijinquanAdapter daijinquanAdapter = new ShopDetailDaijinquanAdapter(mContext, bean.getData().getVoucher().getContent());
         lvDaijinquan.setAdapter(daijinquanAdapter);
-        daijinquanAdapter.setOnBuyDaijinquanClickLitener(new ShopDetailDaijinquanAdapter.OnBuyDaijinquanClickLitener() {
-            @Override
-            public void onBuyDaijinquanClick(View view, int position) {
-                if (TextUtils.isEmpty(spu.getToken())) {
-                    goLogin();
-                    return;
-                }
-                goWeb(bean.getData().getVoucher().getContent().get(position).getBuy_url());
+        daijinquanAdapter.setOnBuyDaijinquanClickLitener((view, position) -> {
+            if (TextUtils.isEmpty(spu.getToken())) {
+                goLogin();
+                return;
             }
+            goWeb(bean.getData().getVoucher().getContent().get(position).getBuy_url());
         });
         daijinquanAdapter.notifyDataSetChanged();
-        lvDaijinquan.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                goWeb(bean.getData().getVoucher().getContent().get(position).getDetail_url());
-            }
-        });
+        lvDaijinquan.setOnItemClickListener((parent, view, position, id) -> goWeb(bean.getData().getVoucher().getContent().get(position).getDetail_url()));
         if (bean.getData().getVoucher().getContent().size() > 2) {
             tvMoreDaijinquan.setText(String.format(getString(R.string.str_more_daijinquan)
                     , bean.getData().getVoucher().getContent().size() - 2));
-            tvMoreDaijinquan.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mBottomDialog.setLayoutRes(R.layout.item_shop_detail_bottom_dliver);
-                    mBottomDialog.setViewListener(new BottomDialog.ViewListener() {      // 可以进行一些必要对View的操作
-                        @Override
-                        public void bindView(View v) {
-                            ListViewForScrollView lvbottom = v.findViewById(R.id.lv_bottom);
-                            ShopDetailDaijinquanAdapter bAdapter = new ShopDetailDaijinquanAdapter(mContext, bean.getData().getVoucher().getContent());
-                            bAdapter.setIszhe(false);
-                            lvbottom.setAdapter(bAdapter);
-                            bAdapter.setOnBuyDaijinquanClickLitener(new ShopDetailDaijinquanAdapter.OnBuyDaijinquanClickLitener() {
-                                @Override
-                                public void onBuyDaijinquanClick(View view, int position) {
-                                    mBottomDialog.dismiss();
-                                    if (TextUtils.isEmpty(spu.getToken())) {
-                                        goLogin();
-                                        return;
-                                    }
-                                    goWeb(bean.getData().getVoucher().getContent().get(position).getBuy_url());
-                                }
-                            });
-                            lvbottom.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                                @Override
-                                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                    mBottomDialog.dismiss();
-                                    goWeb(bean.getData().getVoucher().getContent().get(position).getDetail_url());
-                                }
-                            });
-                            bAdapter.notifyDataSetChanged();
-
-                            v.findViewById(R.id.iv_close).setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    mBottomDialog.dismiss();
-                                }
-                            });
-                            TextView tvTitle = v.findViewById(R.id.tv_bottomtitle);
-                            tvTitle.setText("代金券");
+            tvMoreDaijinquan.setOnClickListener(v -> {
+                mBottomDialog.setLayoutRes(R.layout.item_shop_detail_bottom_dliver);
+                // 可以进行一些必要对View的操作
+                mBottomDialog.setViewListener(v13 -> {
+                    ListViewForScrollView lvbottom = v13.findViewById(R.id.lv_bottom);
+                    ShopDetailDaijinquanAdapter bAdapter = new ShopDetailDaijinquanAdapter(mContext, bean.getData().getVoucher().getContent());
+                    bAdapter.setIszhe(false);
+                    lvbottom.setAdapter(bAdapter);
+                    bAdapter.setOnBuyDaijinquanClickLitener((view, position) -> {
+                        mBottomDialog.dismiss();
+                        if (TextUtils.isEmpty(spu.getToken())) {
+                            goLogin();
+                            return;
                         }
+                        goWeb(bean.getData().getVoucher().getContent().get(position).getBuy_url());
                     });
-                    mBottomDialog.show();
-                }
+                    lvbottom.setOnItemClickListener((parent, view, position, id) -> {
+                        mBottomDialog.dismiss();
+                        goWeb(bean.getData().getVoucher().getContent().get(position).getDetail_url());
+                    });
+                    bAdapter.notifyDataSetChanged();
+
+                    v13.findViewById(R.id.iv_close).setOnClickListener(v131 -> mBottomDialog.dismiss());
+                    TextView tvTitle = v13.findViewById(R.id.tv_bottomtitle);
+                    tvTitle.setText("代金券");
+                });
+                mBottomDialog.show();
             });
         } else {
             tvMoreDaijinquan.setVisibility(View.GONE);
@@ -505,12 +426,7 @@ public class ShopDetailActivity extends BaseActivity implements IGetShopDetailVi
         if (bean.getData().getMall().getContent().size() > 0) {
             Glide.with(this).load(bean.getData().getMall().getContent().get(0).getLogo_url()).into(ivCenterCover);
             tvCentername.setText(bean.getData().getMall().getContent().get(0).getName());
-            llShopDetail.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    goWeb(bean.getData().getMall().getContent().get(0).getMall_url());
-                }
-            });
+            llShopDetail.setOnClickListener(v -> goWeb(bean.getData().getMall().getContent().get(0).getMall_url()));
 
         } else {
             llShopcenter.setVisibility(View.GONE);
@@ -539,12 +455,7 @@ public class ShopDetailActivity extends BaseActivity implements IGetShopDetailVi
             if (bean.getData().getReview().getContent().get(0).getImageUrl().size() == 0) {
                 llCommentIma.setVisibility(View.GONE);
             }
-            tvMorecomment.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    goWeb(bean.getData().getReview().getReview_url());
-                }
-            });
+            tvMorecomment.setOnClickListener(v -> goWeb(bean.getData().getReview().getReview_url()));
         } else {
             llComment.setVisibility(View.GONE);
         }
@@ -552,11 +463,10 @@ public class ShopDetailActivity extends BaseActivity implements IGetShopDetailVi
         if (bean.getData().getPost().getContent().size() > 0) {
             tvDongtaicontent.setText(bean.getData().getPost().getContent().get(0).getContent());
             tvDongtaitime.setText(bean.getData().getPost().getContent().get(0).getCreate_at());
-            tvMoredongtai.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    goWeb(bean.getData().getPost().getPost_url());
-                }
+            tvMoredongtai.setOnClickListener(v -> {
+//                Intent view = new Intent(mContext,);
+//                startActivity(view);
+                goWeb(bean.getData().getPost().getPost_url());
             });
         } else {
             llDongtai.setVisibility(View.GONE);
@@ -574,15 +484,12 @@ public class ShopDetailActivity extends BaseActivity implements IGetShopDetailVi
             tvBottom.setVisibility(View.GONE);
         } else {
             tvBottom.setText(bean.getData().getMerchant().getDiscounts());
-            tvBottom.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (TextUtils.isEmpty(spu.getToken())) {
-                        goLogin();
-                        return;
-                    }
-                    Tools.goWeb(mContext, bean.getData().getMerchant().getPayment_url());
+            tvBottom.setOnClickListener(v -> {
+                if (TextUtils.isEmpty(spu.getToken())) {
+                    goLogin();
+                    return;
                 }
+                Tools.goWeb(mContext, bean.getData().getMerchant().getPayment_url());
             });
         }
 
@@ -600,6 +507,7 @@ public class ShopDetailActivity extends BaseActivity implements IGetShopDetailVi
         Intent go = new Intent(mContext, LoginActivity.class);
         startActivity(go);
     }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(LoginEvent event) {
         getShopDetailPresenter.getShopDetail();

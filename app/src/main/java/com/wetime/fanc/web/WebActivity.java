@@ -15,7 +15,6 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.gyf.barlibrary.ImmersionBar;
@@ -33,6 +32,7 @@ import com.wetime.fanc.main.act.BaseActivity;
 import com.wetime.fanc.order.act.CommentOrderActivity;
 import com.wetime.fanc.order.event.RefreshOrderEvent;
 import com.wetime.fanc.shop.act.ShopDetailActivity;
+import com.wetime.fanc.shop.act.ShopNewsHomeActivity;
 import com.wetime.fanc.shopcenter.act.ShopListActivity;
 import com.wetime.fanc.shopcenter.act.ShopSearchActivity;
 import com.wetime.fanc.utils.Tools;
@@ -549,12 +549,22 @@ public class WebActivity extends BaseActivity {
     public void goUserWallet() {
         web.post(() -> Tools.goActivity(mContext, MyWalletActivity.class));
     }
+
     @JavascriptInterface
     public void goModifyPassword(String phone) {
         web.post(() -> {
             Intent go = new Intent(mContext, VerfyPhoneNumActivity.class);
             go.putExtra("phone", phone);
             startActivity(go);
+        });
+    }
+
+    @JavascriptInterface
+    public void goShopNews(String mid) {
+        web.post(() -> {
+            Intent goShopnews = new Intent(this, ShopNewsHomeActivity.class);
+            goShopnews.putExtra("mid", mid);
+            startActivity(goShopnews);
         });
     }
 

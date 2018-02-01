@@ -2,6 +2,7 @@ package com.wetime.fanc.home.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,6 +44,8 @@ public class NewsAdapter extends RecyclerView.Adapter {
             return new NewsHolder1(inflater.inflate(R.layout.item_news_type1, parent, false));
         } else if (viewType == 3) {
             return new NewsHolder3(inflater.inflate(R.layout.item_news_type3, parent, false));
+        } else if (viewType == 4) {
+            return new NewsHolder4(inflater.inflate(R.layout.item_news_type4, parent, false));
         } else {
             return null;
         }
@@ -60,7 +63,9 @@ public class NewsAdapter extends RecyclerView.Adapter {
         if (holder instanceof NewsHolder0) {
             int sw = Tools.getScreenW(mContext);
             int w = (sw - Tools.dip2px(mContext, 15 + 15));
-            int h = Tools.dip2px(mContext, 80);
+            Double rate = 80.0 / 345;
+
+            int h = (int) (w * rate);
 
             Glide.with(mContext).load(bean.getBanner().get(0).getImg()).apply(
                     new RequestOptions()
@@ -68,14 +73,35 @@ public class NewsAdapter extends RecyclerView.Adapter {
                             .centerCrop()
                             .placeholder(R.drawable.iv_default_news_small)).into(((NewsHolder0) holder).ivBanner);
         }
+        if (holder instanceof NewsHolder4) {
+            int sw = Tools.getScreenW(mContext);
+            int w = (sw - Tools.dip2px(mContext, 15 + 15));
+            Double rate = 135.0 / 345;
+
+            int h = (int) (w * rate);
+            ((NewsHolder4) holder).tvName.setText(bean.getName());
+            Glide.with(mContext).load(bean.getCover().get(0)).apply(
+                    new RequestOptions()
+                            .override(w, h)
+                            .centerCrop()
+                            .placeholder(R.drawable.iv_default_news_single_big)).into(((NewsHolder4) holder).ivBanner);
+        }
         if (holder instanceof NewsHolder1) {
             ((NewsHolder1) holder).tvName.setText(bean.getName());
-            ((NewsHolder1) holder).tvAuthor.setText(bean.getAuthor());
+            ((NewsHolder1) holder).tvAuthor.setText(bean.getNews_name());
             ((NewsHolder1) holder).tvTime.setText(bean.getTime());
             ((NewsHolder1) holder).tvReadnum.setText(bean.getRead_num());
+            if (TextUtils.isEmpty(bean.getNews_name())) {
+                ((NewsHolder1) holder).tvAuthor.setVisibility(View.GONE);
+            } else {
+                ((NewsHolder1) holder).tvAuthor.setVisibility(View.VISIBLE);
+            }
             int sw = Tools.getScreenW(mContext);
             int w = (sw - Tools.dip2px(mContext, 15 + 15 + 6 + 6)) / 3;
-            int h = Tools.dip2px(mContext, 80);
+
+            Double rate = 80.0 / 110;
+
+            int h = (int) (w * rate);
             Glide.with(mContext).load(bean.getCover().get(0)).apply(
                     new RequestOptions()
                             .override(w, h)
@@ -86,13 +112,22 @@ public class NewsAdapter extends RecyclerView.Adapter {
         }
         if (holder instanceof NewsHolder3) {
             ((NewsHolder3) holder).tvName.setText(bean.getName());
-            ((NewsHolder3) holder).tvAuthor.setText(bean.getAuthor());
+            ((NewsHolder3) holder).tvAuthor.setText(bean.getNews_name());
             ((NewsHolder3) holder).tvTime.setText(bean.getTime());
             ((NewsHolder3) holder).tvReadnum.setText(bean.getRead_num());
 
+            if (TextUtils.isEmpty(bean.getNews_name())) {
+                ((NewsHolder3) holder).tvAuthor.setVisibility(View.GONE);
+            } else {
+                ((NewsHolder3) holder).tvAuthor.setVisibility(View.VISIBLE);
+            }
+
             int sw = Tools.getScreenW(mContext);
             int w = (sw - Tools.dip2px(mContext, 15 + 15 + 6 + 6)) / 3;
-            int h = Tools.dip2px(mContext, 80);
+            Double rate = 80.0 / 110;
+
+            int h = (int) (w * rate);
+
 
             Glide.with(mContext).load(bean.getCover().get(0)).apply(
                     new RequestOptions()
@@ -177,6 +212,19 @@ public class NewsAdapter extends RecyclerView.Adapter {
 
 
         NewsHolder3(View view) {
+            super(view);
+            ButterKnife.bind(this, view);
+        }
+    }
+
+    // 一张小图
+    class NewsHolder4 extends RecyclerView.ViewHolder {
+        @BindView(R.id.iv_banner)
+        ImageView ivBanner;
+        @BindView(R.id.tv_name)
+        TextView tvName;
+
+        NewsHolder4(View view) {
             super(view);
             ButterKnife.bind(this, view);
         }

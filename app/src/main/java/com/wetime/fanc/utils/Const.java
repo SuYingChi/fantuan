@@ -52,6 +52,7 @@ public interface Const {
     String USER_INVITER_HISTORY = BASEURL + "/user/inviter/history";
     String user_inviter_redbag = BASEURL + "/user/inviter/redbag";
     String NEWS = BASEURL + "/news";
+    String NEWS_MALL = BASEURL + "/news/mall";
 
 
 

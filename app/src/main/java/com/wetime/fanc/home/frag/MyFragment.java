@@ -33,9 +33,9 @@ import com.wetime.fanc.login.act.LoginActivity;
 import com.wetime.fanc.login.event.LoginEvent;
 import com.wetime.fanc.login.event.LogoutEvent;
 import com.wetime.fanc.main.frag.BaseFragment;
-import com.wetime.fanc.main.model.BaseBean;
 import com.wetime.fanc.setting.act.SettingActivity;
 import com.wetime.fanc.setting.event.ChangeUserInfoEvent;
+import com.wetime.fanc.shop.act.ShopNewsHomeActivity;
 import com.wetime.fanc.utils.Tools;
 import com.wetime.fanc.wallet.act.InviteHomeActivity;
 import com.wetime.fanc.wallet.act.MyWalletActivity;
@@ -103,12 +103,7 @@ public class MyFragment extends BaseFragment implements IGetMyInfoView, IGetRedP
         QBred = new QBadgeView(getContext());
         QBred.bindTarget(tvRednum).setBadgeBackgroundColor(0xffff3f53)
                 .setBadgeTextSize(11, true).setBadgeGravity(Gravity.CENTER);
-        QBred.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                goMessage();
-            }
-        });
+        QBred.setOnClickListener(v1 -> goMessage());
 
         getUserInfoPresenter = new GetUserInfoPresenter(this);
         getRedPackagePresenter = new GetRedPackagePresenter(this);
