@@ -1,12 +1,13 @@
 package com.wetime.fanc.shop.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by zhoukang on 2017/12/27.
  */
 
-public class ShopDetailBean {
+public class ShopDetailBean implements Serializable {
 
 
     /**
@@ -43,7 +44,7 @@ public class ShopDetailBean {
         this.data = data;
     }
 
-    public static class DataBean {
+    public static class DataBean implements Serializable{
         /**
          * merchant : {"mid":"55","name":"范团13","score":"4.6","average_spend":"","address":"海口市琼山区忠介路2号铺面","phone":"18976267677","cid":"0","logo":"https://staticcdntest.fantuanlife.com/uimage/70/a7/70/64/70a77064e41d3b6182d260065a2537ae.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70","spider":"0","sales":"","business_hours":"00:04-00:51 10:00-17:12 18:03-18:26 18:36-19:36 20:05-23:05","affiche":"这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公告这是门店公","distance":"距167m","picture_url":"https://fanttest.fantuanlife.com/index.html#/merchant/55/picture","category_name":"其他","mall":"金棕榈广场","discounts":"优惠买单","payment_url":"https://fanttest.fantuanlife.com/index.html#/payment/balance?mid=55"}
          * mall : {"title":"所在购物中心","content":[{"name":"金棕榈广场","mall_url":"https://fanttest.fantuanlife.com/index.html#/mall?mall=12","logo_url":"https://staticcdntest.fantuanlife.com/uimage/c1/f7/b9/a6/c1f7b9a6b63ff2e7cdb4d84e9493779b.jpg"}]}
@@ -128,7 +129,7 @@ public class ShopDetailBean {
             this.review = review;
         }
 
-        public static class MerchantBean {
+        public static class MerchantBean implements Serializable {
             /**
              * mid : 55
              * name : 范团13
@@ -314,7 +315,7 @@ public class ShopDetailBean {
             }
         }
 
-        public static class MallBean {
+        public static class MallBean implements Serializable{
             /**
              * title : 所在购物中心
              * content : [{"name":"金棕榈广场","mall_url":"https://fanttest.fantuanlife.com/index.html#/mall?mall=12","logo_url":"https://staticcdntest.fantuanlife.com/uimage/c1/f7/b9/a6/c1f7b9a6b63ff2e7cdb4d84e9493779b.jpg"}]
@@ -339,7 +340,7 @@ public class ShopDetailBean {
                 this.content = content;
             }
 
-            public static class ContentBean {
+            public static class ContentBean implements Serializable{
                 /**
                  * name : 金棕榈广场
                  * mall_url : https://fanttest.fantuanlife.com/index.html#/mall?mall=12
@@ -376,7 +377,7 @@ public class ShopDetailBean {
             }
         }
 
-        public static class CouponBean {
+        public static class CouponBean implements Serializable{
             /**
              * title : 买单优惠活动
              * content : [{"pid":"134","threshold":"2","amount":"1","is_get":false},{"pid":"135","threshold":"3","amount":"2","is_get":false},{"pid":"136","threshold":"4","amount":"3","is_get":false},{"pid":"169","threshold":"100","amount":"99","is_get":false},{"pid":"170","threshold":"10","amount":"9.9","is_get":false},{"pid":"171","threshold":"100","amount":"99","is_get":false}]
@@ -411,7 +412,7 @@ public class ShopDetailBean {
                 this.activity = activity;
             }
 
-            public static class ContentBeanX {
+            public static class ContentBeanX implements Serializable{
                 /**
                  * pid : 134
                  * threshold : 2
@@ -457,7 +458,7 @@ public class ShopDetailBean {
                 }
             }
 
-            public static class ActivityBean {
+            public static class ActivityBean implements Serializable{
                 /**
                  * ico : https://staticcdntest.fantuanlife.com/image/fant/promotion/moneyOff.png
                  * name : 满2减1、满3减2、满4减3、满5减4、满6减5、满7减6、满8减7、满9减8、满10减9、满11减10
@@ -484,7 +485,7 @@ public class ShopDetailBean {
             }
         }
 
-        public static class GrouponBean {
+        public static class GrouponBean implements Serializable{
             /**
              * title : 团购套餐
              * content : [{"pid":"128","name":"翔帅专用团购","amount":"0.01","market_price":"500","total_sales":"","detail_url":"https://fanttest.fantuanlife.com/index.html#/product/128?mid=55","buy_url":"https://fanttest.fantuanlife.com/index.html#/product/128/order?mid=55","imgUrl":"https://staticcdntest.fantuanlife.com/image/m_logo.png"},{"pid":"129","name":"翔帅专用团购2","amount":"0.01","market_price":"200","total_sales":"","detail_url":"https://fanttest.fantuanlife.com/index.html#/product/129?mid=55","buy_url":"https://fanttest.fantuanlife.com/index.html#/product/129/order?mid=55","imgUrl":"https://staticcdntest.fantuanlife.com/image/m_logo.png"},{"pid":"145","name":"团购3","amount":"10","market_price":"100","total_sales":"","detail_url":"https://fanttest.fantuanlife.com/index.html#/product/145?mid=55","buy_url":"https://fanttest.fantuanlife.com/index.html#/product/145/order?mid=55","imgUrl":"https://staticcdntest.fantuanlife.com/image/m_logo.png"},{"pid":"146","name":"团购4","amount":"500","market_price":"1000","total_sales":"","detail_url":"https://fanttest.fantuanlife.com/index.html#/product/146?mid=55","buy_url":"https://fanttest.fantuanlife.com/index.html#/product/146/order?mid=55","imgUrl":"https://staticcdntest.fantuanlife.com/uimage/00/00/c6/7e/0000c67e3c0cd27d105444132b14c2c7.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"},{"pid":"147","name":"团购5","amount":"500","market_price":"1000","total_sales":"","detail_url":"https://fanttest.fantuanlife.com/index.html#/product/147?mid=55","buy_url":"https://fanttest.fantuanlife.com/index.html#/product/147/order?mid=55","imgUrl":"https://staticcdntest.fantuanlife.com/uimage/00/00/c6/7e/0000c67e3c0cd27d105444132b14c2c7.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"},{"pid":"148","name":"翔专用团购6","amount":"500","market_price":"1000","total_sales":"","detail_url":"https://fanttest.fantuanlife.com/index.html#/product/148?mid=55","buy_url":"https://fanttest.fantuanlife.com/index.html#/product/148/order?mid=55","imgUrl":"https://staticcdntest.fantuanlife.com/uimage/00/00/c6/7e/0000c67e3c0cd27d105444132b14c2c7.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"},{"pid":"149","name":"翔专用团购7","amount":"500","market_price":"1000","total_sales":"","detail_url":"https://fanttest.fantuanlife.com/index.html#/product/149?mid=55","buy_url":"https://fanttest.fantuanlife.com/index.html#/product/149/order?mid=55","imgUrl":"https://staticcdntest.fantuanlife.com/uimage/00/00/c6/7e/0000c67e3c0cd27d105444132b14c2c7.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"},{"pid":"150","name":"翔专用团购8","amount":"500","market_price":"1000","total_sales":"","detail_url":"https://fanttest.fantuanlife.com/index.html#/product/150?mid=55","buy_url":"https://fanttest.fantuanlife.com/index.html#/product/150/order?mid=55","imgUrl":"https://staticcdntest.fantuanlife.com/uimage/00/00/c6/7e/0000c67e3c0cd27d105444132b14c2c7.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"},{"pid":"151","name":"翔专用团购9","amount":"500","market_price":"1000","total_sales":"","detail_url":"https://fanttest.fantuanlife.com/index.html#/product/151?mid=55","buy_url":"https://fanttest.fantuanlife.com/index.html#/product/151/order?mid=55","imgUrl":"https://staticcdntest.fantuanlife.com/uimage/00/00/c6/7e/0000c67e3c0cd27d105444132b14c2c7.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"},{"pid":"152","name":"翔专用团购10","amount":"500","market_price":"1000","total_sales":"","detail_url":"https://fanttest.fantuanlife.com/index.html#/product/152?mid=55","buy_url":"https://fanttest.fantuanlife.com/index.html#/product/152/order?mid=55","imgUrl":"https://staticcdntest.fantuanlife.com/uimage/00/00/c6/7e/0000c67e3c0cd27d105444132b14c2c7.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"},{"pid":"153","name":"翔专用团购11","amount":"500","market_price":"1000","total_sales":"","detail_url":"https://fanttest.fantuanlife.com/index.html#/product/153?mid=55","buy_url":"https://fanttest.fantuanlife.com/index.html#/product/153/order?mid=55","imgUrl":"https://staticcdntest.fantuanlife.com/uimage/00/00/c6/7e/0000c67e3c0cd27d105444132b14c2c7.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"},{"pid":"154","name":"翔专用团购12","amount":"500","market_price":"1000","total_sales":"","detail_url":"https://fanttest.fantuanlife.com/index.html#/product/154?mid=55","buy_url":"https://fanttest.fantuanlife.com/index.html#/product/154/order?mid=55","imgUrl":"https://staticcdntest.fantuanlife.com/uimage/00/00/c6/7e/0000c67e3c0cd27d105444132b14c2c7.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"},{"pid":"155","name":"翔专用团购13","amount":"500","market_price":"1000","total_sales":"","detail_url":"https://fanttest.fantuanlife.com/index.html#/product/155?mid=55","buy_url":"https://fanttest.fantuanlife.com/index.html#/product/155/order?mid=55","imgUrl":"https://staticcdntest.fantuanlife.com/uimage/00/00/c6/7e/0000c67e3c0cd27d105444132b14c2c7.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"},{"pid":"156","name":"翔专用团购14","amount":"500","market_price":"1000","total_sales":"","detail_url":"https://fanttest.fantuanlife.com/index.html#/product/156?mid=55","buy_url":"https://fanttest.fantuanlife.com/index.html#/product/156/order?mid=55","imgUrl":"https://staticcdntest.fantuanlife.com/uimage/00/00/c6/7e/0000c67e3c0cd27d105444132b14c2c7.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"},{"pid":"157","name":"翔专用团购15","amount":"500","market_price":"1000","total_sales":"","detail_url":"https://fanttest.fantuanlife.com/index.html#/product/157?mid=55","buy_url":"https://fanttest.fantuanlife.com/index.html#/product/157/order?mid=55","imgUrl":"https://staticcdntest.fantuanlife.com/uimage/00/00/c6/7e/0000c67e3c0cd27d105444132b14c2c7.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"},{"pid":"158","name":"翔专用团购16","amount":"500","market_price":"1000","total_sales":"","detail_url":"https://fanttest.fantuanlife.com/index.html#/product/158?mid=55","buy_url":"https://fanttest.fantuanlife.com/index.html#/product/158/order?mid=55","imgUrl":"https://staticcdntest.fantuanlife.com/uimage/00/00/c6/7e/0000c67e3c0cd27d105444132b14c2c7.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"},{"pid":"159","name":"翔专用团购17","amount":"500","market_price":"1000","total_sales":"","detail_url":"https://fanttest.fantuanlife.com/index.html#/product/159?mid=55","buy_url":"https://fanttest.fantuanlife.com/index.html#/product/159/order?mid=55","imgUrl":"https://staticcdntest.fantuanlife.com/uimage/00/00/c6/7e/0000c67e3c0cd27d105444132b14c2c7.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"},{"pid":"160","name":"翔专用团购18","amount":"500","market_price":"1000","total_sales":"","detail_url":"https://fanttest.fantuanlife.com/index.html#/product/160?mid=55","buy_url":"https://fanttest.fantuanlife.com/index.html#/product/160/order?mid=55","imgUrl":"https://staticcdntest.fantuanlife.com/uimage/00/00/c6/7e/0000c67e3c0cd27d105444132b14c2c7.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"},{"pid":"161","name":"翔专用团购19","amount":"500","market_price":"1000","total_sales":"","detail_url":"https://fanttest.fantuanlife.com/index.html#/product/161?mid=55","buy_url":"https://fanttest.fantuanlife.com/index.html#/product/161/order?mid=55","imgUrl":"https://staticcdntest.fantuanlife.com/uimage/00/00/c6/7e/0000c67e3c0cd27d105444132b14c2c7.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"},{"pid":"162","name":"翔专用团购20","amount":"500","market_price":"1000","total_sales":"","detail_url":"https://fanttest.fantuanlife.com/index.html#/product/162?mid=55","buy_url":"https://fanttest.fantuanlife.com/index.html#/product/162/order?mid=55","imgUrl":"https://staticcdntest.fantuanlife.com/uimage/00/00/c6/7e/0000c67e3c0cd27d105444132b14c2c7.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"}]
@@ -509,7 +510,7 @@ public class ShopDetailBean {
                 this.content = content;
             }
 
-            public static class ContentBeanXX {
+            public static class ContentBeanXX implements Serializable{
                 /**
                  * pid : 128
                  * name : 翔帅专用团购
@@ -596,7 +597,7 @@ public class ShopDetailBean {
             }
         }
 
-        public static class VoucherBean {
+        public static class VoucherBean implements Serializable{
             /**
              * title : 代金券
              * content : [{"pid":"130","name":"150元代金券","amount":"0.01","market_price":"150","total_sales":"","detail_url":"https://fanttest.fantuanlife.com/index.html#/product/130?mid=55","buy_url":"https://fanttest.fantuanlife.com/index.html#/product/130/order?mid=55"},{"pid":"131","name":"300元代金券","amount":"0.01","market_price":"300","total_sales":"","detail_url":"https://fanttest.fantuanlife.com/index.html#/product/131?mid=55","buy_url":"https://fanttest.fantuanlife.com/index.html#/product/131/order?mid=55"},{"pid":"163","name":"200元代金券","amount":"160","market_price":"200","total_sales":"","detail_url":"https://fanttest.fantuanlife.com/index.html#/product/163?mid=55","buy_url":"https://fanttest.fantuanlife.com/index.html#/product/163/order?mid=55"},{"pid":"164","name":"500元代金券","amount":"160","market_price":"500","total_sales":"","detail_url":"https://fanttest.fantuanlife.com/index.html#/product/164?mid=55","buy_url":"https://fanttest.fantuanlife.com/index.html#/product/164/order?mid=55"},{"pid":"165","name":"5000元代金券","amount":"160","market_price":"5000","total_sales":"","detail_url":"https://fanttest.fantuanlife.com/index.html#/product/165?mid=55","buy_url":"https://fanttest.fantuanlife.com/index.html#/product/165/order?mid=55"}]
@@ -621,7 +622,7 @@ public class ShopDetailBean {
                 this.content = content;
             }
 
-            public static class ContentBeanXXX {
+            public static class ContentBeanXXX implements Serializable{
                 /**
                  * pid : 130
                  * name : 150元代金券
@@ -698,7 +699,7 @@ public class ShopDetailBean {
             }
         }
 
-        public static class PostBean {
+        public static class PostBean implements Serializable{
             /**
              * title : 商家动态
              * post_url : https://fanttest.fantuanlife.com/index.html#/merchant/55/moment
@@ -733,18 +734,18 @@ public class ShopDetailBean {
                 this.content = content;
             }
 
-            public static class ContentBeanXXXX {
+            public static class ContentBeanXXXX implements Serializable{
                 /**
                  * content : 赶回去莫得的份由来轻七尺巨魔都是
-                 看看去我们
-                 5门武器
-                 5句我的几号回去莫得
-                 莫得我自己来取门口了
-                 绿叶看看几个人
-                 了的
-                 5颗额我自己回去
-                 5门中央音乐学院啰啰嗦嗦么看见啊就几个人普陀门徒旅进旅退看见了魔域垃圾垃圾李说啥了11测度图哦我的油嘴滑舌葡萄牙
-                 模具姥姥姥爷我们我的爱过刺
+                 * 看看去我们
+                 * 5门武器
+                 * 5句我的几号回去莫得
+                 * 莫得我自己来取门口了
+                 * 绿叶看看几个人
+                 * 了的
+                 * 5颗额我自己回去
+                 * 5门中央音乐学院啰啰嗦嗦么看见啊就几个人普陀门徒旅进旅退看见了魔域垃圾垃圾李说啥了11测度图哦我的油嘴滑舌葡萄牙
+                 * 模具姥姥姥爷我们我的爱过刺
                  * create_at : 2017-12-29 10:57
                  */
 
@@ -769,7 +770,7 @@ public class ShopDetailBean {
             }
         }
 
-        public static class ReviewBean {
+        public static class ReviewBean implements Serializable{
             /**
              * title : 用户评价
              * totals : 16
@@ -814,7 +815,7 @@ public class ShopDetailBean {
                 this.content = content;
             }
 
-            public static class ContentBeanXXXXX {
+            public static class ContentBeanXXXXX implements Serializable{
                 /**
                  * score : 5
                  * uid : 23
@@ -909,7 +910,7 @@ public class ShopDetailBean {
                     this.imageUrl = imageUrl;
                 }
 
-                public static class UserBean {
+                public static class UserBean implements Serializable{
                     /**
                      * id : 23
                      * username : 陈加尧

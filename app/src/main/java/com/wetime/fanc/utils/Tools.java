@@ -25,6 +25,7 @@ import android.widget.Toast;
 
 import com.wetime.fanc.R;
 import com.wetime.fanc.customview.multiimageselector.MultiImageSelectorActivity;
+import com.wetime.fanc.login.act.LoginActivity;
 import com.wetime.fanc.web.WebActivity;
 
 import java.util.regex.Matcher;
@@ -345,6 +346,9 @@ public class Tools {
         Intent go = new Intent(mContext, cls);
         mContext.startActivity(go);
     }
-
+    public static void goLogin(Context mContext) {
+        Intent go = new Intent(mContext, LoginActivity.class);
+        mContext.startActivity(go);
+    }
 
 }

@@ -2,11 +2,9 @@ package com.wetime.fanc.home.act;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -21,9 +19,8 @@ import com.wetime.fanc.home.event.RefreshRedNunEvent;
 import com.wetime.fanc.home.event.SwichFragEvent;
 import com.wetime.fanc.home.frag.HomeFragment;
 import com.wetime.fanc.home.frag.MyFragment;
-import com.wetime.fanc.home.frag.NewsFragment;
+import com.wetime.fanc.home.frag.NewsLazyFragment;
 import com.wetime.fanc.home.frag.OrderFragment;
-import com.wetime.fanc.home.frag.SortFragment;
 import com.wetime.fanc.home.iviews.IBindPushView;
 import com.wetime.fanc.home.presenter.BindPushPresenter;
 import com.wetime.fanc.login.event.LoginEvent;
@@ -79,7 +76,7 @@ public class MainActivity extends BaseActivity implements IBindPushView {
     private int mOnId = R.drawable.bot_3_on;
     private int mOffId = R.drawable.bot_3_off;
     private HomeFragment f0;
-    private NewsFragment f1;
+    private NewsLazyFragment f1;
 //    private SortFragment f1;
     private OrderFragment f2;
     private MyFragment f3;
@@ -137,7 +134,7 @@ public class MainActivity extends BaseActivity implements IBindPushView {
     private void initView() {
         f0 = new HomeFragment();
 //        f1 = new SortFragment();
-        f1 = new NewsFragment();
+        f1 = new NewsLazyFragment();
         f2 = new OrderFragment();
         f3 = new MyFragment();
         list_fragment.add(f0);

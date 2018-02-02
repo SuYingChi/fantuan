@@ -21,7 +21,7 @@ import com.wetime.fanc.home.adapter.NewsAdapter;
 import com.wetime.fanc.home.bean.NewsListBean;
 import com.wetime.fanc.home.iviews.IGetNewsTypeView;
 import com.wetime.fanc.home.presenter.GetNewsTypePresenter;
-import com.wetime.fanc.main.act.BaseLazyFragment;
+import com.wetime.fanc.main.frag.BaseLazyFragment;
 import com.wetime.fanc.utils.Tools;
 
 import java.util.ArrayList;
@@ -29,10 +29,9 @@ import java.util.List;
 
 /**
  * Created by zhoukang on 2018/1/29.
- *
  */
 
-public class NewsTypeFragment extends BaseLazyFragment implements IGetNewsTypeView, OnRefreshListener, OnLoadmoreListener {
+public class NewsTypeLazyFragment extends BaseLazyFragment implements IGetNewsTypeView, OnRefreshListener, OnLoadmoreListener {
     private String type;
     private GetNewsTypePresenter getNewsTypePresenter;
     private String total = "";
@@ -98,6 +97,8 @@ public class NewsTypeFragment extends BaseLazyFragment implements IGetNewsTypeVi
         adapter.notifyDataSetChanged();
 
         tvRec.setVisibility(View.VISIBLE);
+        if (bean.getData().getUpdate_num().equals("0"))
+            return;
         tvRec.setText(String.format("范团为您推荐了%s条新内容", bean.getData().getUpdate_num()));
         AnimationSet animationSet = (AnimationSet) AnimationUtils.loadAnimation(
                 getContext(), R.anim.anim_header);
@@ -139,6 +140,13 @@ public class NewsTypeFragment extends BaseLazyFragment implements IGetNewsTypeVi
     public void onRefresh(RefreshLayout refreshlayout) {
         page = 1;
         getNewsTypePresenter.getNews();
+    }
+
+    @Override
+    public void onNetError() {
+        super.onNetError();
+        refreshLayout.finishLoadmore();
+        refreshLayout.finishRefresh();
     }
 
     @Override

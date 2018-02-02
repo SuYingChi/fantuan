@@ -7,12 +7,12 @@ import android.support.v4.view.ViewPager;
 import com.flyco.tablayout.SlidingTabLayout;
 import com.wetime.fanc.R;
 import com.wetime.fanc.home.adapter.NewsPagerAdapter;
-import com.wetime.fanc.main.act.BaseLazyFragment;
+import com.wetime.fanc.main.frag.BaseLazyFragment;
 
 import java.util.ArrayList;
 
 
-public class NewsFragment extends BaseLazyFragment {
+public class NewsLazyFragment extends BaseLazyFragment {
 
     private ArrayList<Fragment> mFragments = new ArrayList<>();
 
@@ -30,7 +30,7 @@ public class NewsFragment extends BaseLazyFragment {
     protected void initData() {
         String[] mTitles = getResources().getStringArray(R.array.newstype);
         for (int i = 0; i < mTitles.length; i++) {
-            NewsTypeFragment myFragment = new NewsTypeFragment();
+            NewsTypeLazyFragment myFragment = new NewsTypeLazyFragment();
             Bundle bundle = new Bundle();
             bundle.putString("type", i + "");
             myFragment.setArguments(bundle);

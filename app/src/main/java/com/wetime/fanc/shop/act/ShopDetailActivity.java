@@ -14,7 +14,6 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.wetime.fanc.R;
 import com.wetime.fanc.customview.ListViewForScrollView;
-import com.wetime.fanc.login.act.LoginActivity;
 import com.wetime.fanc.login.event.LoginEvent;
 import com.wetime.fanc.main.act.BaseActivity;
 import com.wetime.fanc.main.model.BaseBean;
@@ -24,6 +23,7 @@ import com.wetime.fanc.shop.adapter.ShopDetailDaijinquanAdapter;
 import com.wetime.fanc.shop.adapter.ShopDetailTaocanAdapter;
 import com.wetime.fanc.shop.adapter.ShopDetailYouhuiquanAdapter;
 import com.wetime.fanc.shop.bean.ShopDetailBean;
+import com.wetime.fanc.shop.event.ShopFoucsChangeEvent;
 import com.wetime.fanc.shop.iviews.IFocusShopView;
 import com.wetime.fanc.shop.iviews.IGetShopDetailView;
 import com.wetime.fanc.shop.iviews.IGetShopYouhuiquanView;
@@ -233,7 +233,7 @@ public class ShopDetailActivity extends BaseActivity implements IGetShopDetailVi
         }
         tvGuanzhu.setOnClickListener(v -> {
             if (TextUtils.isEmpty(spu.getToken())) {
-                goLogin();
+                Tools.goLogin(mContext);
                 return;
             }
             if (tvGuanzhu.getText().equals("已关注")) {
@@ -271,7 +271,7 @@ public class ShopDetailActivity extends BaseActivity implements IGetShopDetailVi
             if (!bean.getData().getCoupon().getContent().get(position).isIs_get()) {
                 if (TextUtils.isEmpty(spu.getToken())) {
 
-                    goLogin();
+                    Tools.goLogin(mContext);
                     return;
                 }
                 getShopYouhuiquanPresenter.getShopYouhuiquan(bean.getData().getCoupon().getContent().get(position).getPid());
@@ -302,7 +302,7 @@ public class ShopDetailActivity extends BaseActivity implements IGetShopDetailVi
                         if (!bean.getData().getCoupon().getContent().get(position).isIs_get()) {
                             if (TextUtils.isEmpty(spu.getToken())) {
                                 mBottomDialog.dismiss();
-                                goLogin();
+                                Tools.goLogin(mContext);
                                 return;
                             }
                             getShopYouhuiquanPresenter.getShopYouhuiquan(bean.getData().getCoupon().getContent().get(position).getPid());
@@ -326,7 +326,7 @@ public class ShopDetailActivity extends BaseActivity implements IGetShopDetailVi
         lvTaocan.setAdapter(taocanAdapter);
         taocanAdapter.setOnBuyTaocanClickLitener((view, position) -> {
             if (TextUtils.isEmpty(spu.getToken())) {
-                goLogin();
+                Tools.goLogin(mContext);
                 return;
             }
             goWeb(bean.getData().getGroupon().getContent().get(position).getBuy_url());
@@ -349,7 +349,7 @@ public class ShopDetailActivity extends BaseActivity implements IGetShopDetailVi
                     bAdapter.setOnBuyTaocanClickLitener((view, position) -> {
                         mBottomDialog.dismiss();
                         if (TextUtils.isEmpty(spu.getToken())) {
-                            goLogin();
+                            Tools.goLogin(mContext);
                             return;
                         }
                         goWeb(bean.getData().getGroupon().getContent().get(position).getBuy_url());
@@ -378,7 +378,7 @@ public class ShopDetailActivity extends BaseActivity implements IGetShopDetailVi
         lvDaijinquan.setAdapter(daijinquanAdapter);
         daijinquanAdapter.setOnBuyDaijinquanClickLitener((view, position) -> {
             if (TextUtils.isEmpty(spu.getToken())) {
-                goLogin();
+                Tools.goLogin(mContext);
                 return;
             }
             goWeb(bean.getData().getVoucher().getContent().get(position).getBuy_url());
@@ -399,7 +399,7 @@ public class ShopDetailActivity extends BaseActivity implements IGetShopDetailVi
                     bAdapter.setOnBuyDaijinquanClickLitener((view, position) -> {
                         mBottomDialog.dismiss();
                         if (TextUtils.isEmpty(spu.getToken())) {
-                            goLogin();
+                            Tools.goLogin(mContext);
                             return;
                         }
                         goWeb(bean.getData().getVoucher().getContent().get(position).getBuy_url());
@@ -433,12 +433,12 @@ public class ShopDetailActivity extends BaseActivity implements IGetShopDetailVi
         }
         //用户评价
         if (bean.getData().getReview().getContent() != null && bean.getData().getReview().getContent().size() > 0) {
-            tvCommentnum.setText("(" + bean.getData().getReview().getTotals() + ")");
+            tvCommentnum.setText(String.format("(%s)", bean.getData().getReview().getTotals()));
             Glide.with(this).load(bean.getData().getReview().getContent().get(0).getUser().getAvatar()).into(icCommentHead);
             tvCommentUsername.setText(bean.getData().getReview().getContent().get(0).getUser().getUsername());
             tvCommentTime.setText(bean.getData().getReview().getContent().get(0).getReview_time());
             rbSocreComment.setStar(Float.valueOf(bean.getData().getReview().getContent().get(0).getScore()));
-            tvCommnentScore.setText(bean.getData().getReview().getContent().get(0).getScore() + "分");
+            tvCommnentScore.setText(String.format("%s分", bean.getData().getReview().getContent().get(0).getScore()));
             tvCommnentContent.setText(bean.getData().getReview().getContent().get(0).getContent());
             if (bean.getData().getReview().getContent().get(0).getImageUrl().size() > 0) {
                 Glide.with(this).load(bean.getData().getReview().getContent().get(0)
@@ -464,9 +464,11 @@ public class ShopDetailActivity extends BaseActivity implements IGetShopDetailVi
             tvDongtaicontent.setText(bean.getData().getPost().getContent().get(0).getContent());
             tvDongtaitime.setText(bean.getData().getPost().getContent().get(0).getCreate_at());
             tvMoredongtai.setOnClickListener(v -> {
-//                Intent view = new Intent(mContext,);
-//                startActivity(view);
-                goWeb(bean.getData().getPost().getPost_url());
+                Intent go = new Intent(mContext, ShopSayActivity.class);
+                go.putExtra("data", bean);
+                go.putExtra("mid", getMId());
+                startActivity(go);
+//                goWeb(bean.getData().getPost().getPost_url());
             });
         } else {
             llDongtai.setVisibility(View.GONE);
@@ -486,7 +488,7 @@ public class ShopDetailActivity extends BaseActivity implements IGetShopDetailVi
             tvBottom.setText(bean.getData().getMerchant().getDiscounts());
             tvBottom.setOnClickListener(v -> {
                 if (TextUtils.isEmpty(spu.getToken())) {
-                    goLogin();
+                    Tools.goLogin(mContext);
                     return;
                 }
                 Tools.goWeb(mContext, bean.getData().getMerchant().getPayment_url());
@@ -503,13 +505,19 @@ public class ShopDetailActivity extends BaseActivity implements IGetShopDetailVi
         startActivity(goweb);
     }
 
-    private void goLogin() {
-        Intent go = new Intent(mContext, LoginActivity.class);
-        startActivity(go);
-    }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(LoginEvent event) {
         getShopDetailPresenter.getShopDetail();
+    }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(ShopFoucsChangeEvent event) {
+        if (tvGuanzhu.getText().equals("已关注")) {
+            tvGuanzhu.setText("+ 关注");
+            tvGuanzhu.setBackgroundResource(R.drawable.bg_btn_red_corner);
+        } else {
+            tvGuanzhu.setText("已关注");
+            tvGuanzhu.setBackgroundResource(R.drawable.bg_btn_red_corner_enable);
+        }
     }
 }

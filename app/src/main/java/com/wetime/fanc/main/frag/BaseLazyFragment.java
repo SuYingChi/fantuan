@@ -1,4 +1,4 @@
-package com.wetime.fanc.main.act;
+package com.wetime.fanc.main.frag;
 
 /**
  * Created by zhoukang on 2018/1/29.

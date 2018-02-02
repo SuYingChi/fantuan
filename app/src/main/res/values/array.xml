@@ -10,4 +10,8 @@
         <item>段子</item>
         <item>娱乐</item>
     </string-array>
+    <string-array name="shopsay">
+        <item>动态</item>
+        <item>文章</item>
+    </string-array>
 </resources>
