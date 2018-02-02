@@ -77,7 +77,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_height="72dp"
             android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp"
             android:orientation="horizontal">
@@ -89,14 +89,15 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:paddingTop="3dp"
                     android:id="@+id/name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
-                    android:lineSpacingExtra="7sp"
+                    android:lineSpacingExtra="4sp"
                     android:maxLines="2"
                     android:textColor="#333333"
-                    android:textSize="16sp"
+                    android:textSize="14sp"
                     tools:text="满口喝到完苏梅子果肉，这杯正是暖冬的味道正是暖冬的..." />
 
                 <RelativeLayout
