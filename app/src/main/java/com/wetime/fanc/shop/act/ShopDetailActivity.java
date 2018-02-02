@@ -155,6 +155,20 @@ public class ShopDetailActivity extends BaseActivity implements IGetShopDetailVi
     TextView tvBottom;
     @BindView(R.id.tv_title_youhui)
     TextView tvTitleYouhui;
+    @BindView(R.id.name)
+    TextView name;
+    @BindView(R.id.tv_author)
+    TextView tvAuthor;
+    @BindView(R.id.tv_time)
+    TextView tvTime;
+    @BindView(R.id.tv_readnum)
+    TextView tvReadnum;
+    @BindView(R.id.ll_news)
+    LinearLayout llNews;
+    @BindView(R.id.ll_dongtaiact)
+    LinearLayout llDongtaiact;
+    @BindView(R.id.iv_newcover)
+    ImageView ivNewcover;
 
     private GetShopDetailPresenter getShopDetailPresenter;
     private FocusShopPresenter focusShopPresenter;
@@ -460,15 +474,34 @@ public class ShopDetailActivity extends BaseActivity implements IGetShopDetailVi
             llComment.setVisibility(View.GONE);
         }
         // 商家动态
+
+        tvMoredongtai.setOnClickListener(v -> {
+            Intent go = new Intent(mContext, ShopSayActivity.class);
+            go.putExtra("data", bean);
+            go.putExtra("mid", getMId());
+            startActivity(go);
+//                goWeb(bean.getData().getPost().getPost_url());
+        });
+
         if (bean.getData().getPost().getContent().size() > 0) {
             tvDongtaicontent.setText(bean.getData().getPost().getContent().get(0).getContent());
             tvDongtaitime.setText(bean.getData().getPost().getContent().get(0).getCreate_at());
-            tvMoredongtai.setOnClickListener(v -> {
-                Intent go = new Intent(mContext, ShopSayActivity.class);
-                go.putExtra("data", bean);
-                go.putExtra("mid", getMId());
-                startActivity(go);
-//                goWeb(bean.getData().getPost().getPost_url());
+            llNews.setVisibility(View.GONE);
+        } else if (bean.getData().getNews().getContent().size() > 0) {
+            name.setText(bean.getData().getNews().getContent().get(0).getName());
+            tvAuthor.setText(bean.getData().getNews().getContent().get(0).getNews_name());
+            tvTime.setText(bean.getData().getNews().getContent().get(0).getTime());
+            tvReadnum.setText(bean.getData().getNews().getContent().get(0).getRead_num());
+            if (TextUtils.isEmpty(bean.getData().getNews().getContent().get(0).getNews_name())) {
+                tvAuthor.setVisibility(View.GONE);
+            } else {
+                tvAuthor.setVisibility(View.VISIBLE);
+            }
+            Glide.with(mContext).load(bean.getData().getNews().getContent().get(0)
+                    .getCover().get(0)).into(ivNewcover);
+            llDongtaiact.setVisibility(View.GONE);
+            llNews.setOnClickListener(view -> {
+                Tools.goWeb(mContext,bean.getData().getNews().getContent().get(0).getArticle_url()         );
             });
         } else {
             llDongtai.setVisibility(View.GONE);
@@ -510,6 +543,7 @@ public class ShopDetailActivity extends BaseActivity implements IGetShopDetailVi
     public void onMessageEvent(LoginEvent event) {
         getShopDetailPresenter.getShopDetail();
     }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(ShopFoucsChangeEvent event) {
         if (tvGuanzhu.getText().equals("已关注")) {

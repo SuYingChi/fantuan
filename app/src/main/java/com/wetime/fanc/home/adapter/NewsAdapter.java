@@ -22,13 +22,14 @@ import butterknife.ButterKnife;
 
 /**
  * Created by yuxun on 2017/4/15.
- *
  */
 
 public class NewsAdapter extends RecyclerView.Adapter {
     private List<NewsListBean.DataBean.ListBean> list;
     private Context mContext;
     private LayoutInflater inflater;
+    // 区分  0 默认样式  1  特殊 shopnews 带阴影  只有单图
+    private int listtype = 0;
 
     public NewsAdapter(List<NewsListBean.DataBean.ListBean> list, Context mContext) {
         this.list = list;
@@ -36,19 +37,31 @@ public class NewsAdapter extends RecyclerView.Adapter {
         this.inflater = LayoutInflater.from(mContext);
     }
 
+    public int getListtype() {
+        return listtype;
+    }
+
+    public void setListtype(int listtype) {
+        this.listtype = listtype;
+    }
+
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        if (viewType == 0) {
-            return new NewsHolder0(inflater.inflate(R.layout.item_news_type0, parent, false));
-        } else if (viewType == 1) {
-            return new NewsHolder1(inflater.inflate(R.layout.item_news_type1, parent, false));
-        } else if (viewType == 3) {
-            return new NewsHolder3(inflater.inflate(R.layout.item_news_type3, parent, false));
-        } else if (viewType == 4) {
-            return new NewsHolder4(inflater.inflate(R.layout.item_news_type4, parent, false));
-        } else {
-            return null;
+        if (listtype == 0) {
+            if (viewType == 0) {
+                return new NewsHolder0(inflater.inflate(R.layout.item_news_type0, parent, false));
+            } else if (viewType == 1) {
+                return new NewsHolder1(inflater.inflate(R.layout.item_news_type1, parent, false));
+            } else if (viewType == 3) {
+                return new NewsHolder3(inflater.inflate(R.layout.item_news_type3, parent, false));
+            } else if (viewType == 4) {
+                return new NewsHolder4(inflater.inflate(R.layout.item_news_type4, parent, false));
+            }
+        } else if (listtype == 1) {
+            return new NewsHolder1Shop(inflater.inflate(R.layout.item_news_type1_shop, parent, false));
         }
+        return null;
+
 
     }
 
@@ -109,6 +122,30 @@ public class NewsAdapter extends RecyclerView.Adapter {
                             .placeholder(R.drawable.iv_default_news_small))
 
                     .into(((NewsHolder1) holder).ivCover);
+        }
+
+        if (holder instanceof NewsHolder1Shop) {
+            ((NewsHolder1Shop) holder).tvName.setText(bean.getName());
+            ((NewsHolder1Shop) holder).tvAuthor.setText(bean.getNews_name());
+            ((NewsHolder1Shop) holder).tvTime.setText(bean.getTime());
+            ((NewsHolder1Shop) holder).tvReadnum.setText(bean.getRead_num());
+            if (TextUtils.isEmpty(bean.getNews_name())) {
+                ((NewsHolder1Shop) holder).tvAuthor.setVisibility(View.GONE);
+            } else {
+                ((NewsHolder1Shop) holder).tvAuthor.setVisibility(View.VISIBLE);
+            }
+            int sw = Tools.getScreenW(mContext);
+            int w = (sw - Tools.dip2px(mContext, 15 + 15 + 6 + 6)) / 3;
+
+            Double rate = 80.0 / 110;
+
+            int h = (int) (w * rate);
+            Glide.with(mContext).load(bean.getCover().get(0)).apply(
+                    new RequestOptions()
+                            .override(w, h)
+                            .centerCrop()
+                            .placeholder(R.drawable.iv_default_news_small))
+                    .into(((NewsHolder1Shop) holder).ivCover);
         }
         if (holder instanceof NewsHolder3) {
             ((NewsHolder3) holder).tvName.setText(bean.getName());
@@ -189,6 +226,24 @@ public class NewsAdapter extends RecyclerView.Adapter {
 
 
         NewsHolder1(View view) {
+            super(view);
+            ButterKnife.bind(this, view);
+        }
+    }// 小图加文字
+    class NewsHolder1Shop extends RecyclerView.ViewHolder {
+        @BindView(R.id.name)
+        TextView tvName;
+        @BindView(R.id.tv_author)
+        TextView tvAuthor;
+        @BindView(R.id.tv_time)
+        TextView tvTime;
+        @BindView(R.id.tv_readnum)
+        TextView tvReadnum;
+        @BindView(R.id.iv_cover)
+        ImageView ivCover;
+
+
+        NewsHolder1Shop(View view) {
             super(view);
             ButterKnife.bind(this, view);
         }

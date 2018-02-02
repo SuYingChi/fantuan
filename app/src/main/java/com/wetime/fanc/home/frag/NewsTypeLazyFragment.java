@@ -46,7 +46,6 @@ public class NewsTypeLazyFragment extends BaseLazyFragment implements IGetNewsTy
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         Bundle bundle = getArguments();
-        assert bundle != null;
         type = bundle.getString("type");
         return super.onCreateView(inflater, container, savedInstanceState);
     }
@@ -96,9 +95,10 @@ public class NewsTypeLazyFragment extends BaseLazyFragment implements IGetNewsTy
         list.addAll(bean.getData().getList());
         adapter.notifyDataSetChanged();
 
-        tvRec.setVisibility(View.VISIBLE);
+
         if (bean.getData().getUpdate_num().equals("0"))
             return;
+        tvRec.setVisibility(View.VISIBLE);
         tvRec.setText(String.format("范团为您推荐了%s条新内容", bean.getData().getUpdate_num()));
         AnimationSet animationSet = (AnimationSet) AnimationUtils.loadAnimation(
                 getContext(), R.anim.anim_header);

@@ -77,7 +77,6 @@
             android:id="@+id/tv_businesstime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:lineSpacingExtra="9sp"
             android:textColor="#333333"
             android:textSize="14sp"
             tools:text="11:00-21:00   20:00-24:00 11:00-21:00   20:00-24:00 11:00-21:00   20:00-24:00 11:00-21:00   20:00-24:00" />
