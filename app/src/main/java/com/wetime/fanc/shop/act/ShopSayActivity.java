@@ -65,16 +65,16 @@ public class ShopSayActivity extends BaseActivity {
 
         String[] mTitles = getResources().getStringArray(R.array.shopsay);
 
+        Bundle bundle = new Bundle();
+        bundle.putString("mid", getIntent().getStringExtra("mid"));
 
         ShopActLazyFragment actLazyFragment = new ShopActLazyFragment();
+        actLazyFragment.setArguments(bundle);
         mFragments.add(actLazyFragment);
 
         ShopNewsLazyFragment shopNewsLazyFragment = new ShopNewsLazyFragment();
-        Bundle bundle = new Bundle();
-        bundle.putString("mid", getIntent().getStringExtra("mid"));
         shopNewsLazyFragment.setArguments(bundle);
         mFragments.add(shopNewsLazyFragment);
-
 
 
 //        for (int i = 0; i < mTitles.length; i++) {

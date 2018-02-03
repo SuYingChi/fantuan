@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingLeft="15dp"
+    android:paddingRight="15dp"
+    android:paddingTop="20dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/ic_head_default" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:paddingLeft="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingTop="3dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:lineSpacingExtra="1sp"
+                    android:text="商家"
+                    android:textColor="#333333"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/tv_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:lineSpacingExtra="0sp"
+                    android:textColor="#999999"
+                    android:textSize="12sp"
+                    tools:text="2017-08-07  23:45" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_marginTop="8dp"
+                android:id="@+id/tv_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:lineSpacingExtra="0sp"
+                android:textColor="#333333"
+                android:textSize="14sp"
+                tools:text="食材还算新鲜，量不大，服务略有点欠缺。小" />
+            <com.wetime.fanc.customview.GridViewForScrollView
+                android:id="@+id/gv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@color/white"
+                android:horizontalSpacing="10dp"
+                android:numColumns="3"
+                android:scrollbars="none"
+                android:verticalSpacing="@dimen/space_size" />
+        </LinearLayout>
+    </LinearLayout>
+
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/linebg" />
+
+</LinearLayout>
+

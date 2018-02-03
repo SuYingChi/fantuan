@@ -54,6 +54,7 @@ public interface Const {
     String NEWS = BASEURL + "/news";
     String NEWS_MALL = BASEURL + "/news/mall";
     String SHOP_POST_ARTICLE = BASEURL + "/shop/post/article";
+    String SHOP_POST_LIST = BASEURL + "/shop/post/list";
 
 
 
