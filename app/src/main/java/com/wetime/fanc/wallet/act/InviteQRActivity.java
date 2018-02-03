@@ -80,42 +80,25 @@ public class InviteQRActivity extends BaseActivity {
         if (mBottomDialog == null) {
             mBottomDialog = BottomDialog.create(getSupportFragmentManager());
             mBottomDialog.setLayoutRes(R.layout.item_share_bottom);
-            mBottomDialog.setViewListener(new BottomDialog.ViewListener() {
-                @Override
-                public void bindView(View v) {
-                    v.findViewById(R.id.ll_share_wx).setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            mBottomDialog.dismiss();
-                            shareWx(getIntent().getStringExtra("shareurl")
-                                    , SendMessageToWX.Req.WXSceneSession);
-                        }
-                    });
-                    v.findViewById(R.id.ll_share_wxq).setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            mBottomDialog.dismiss();
-                            shareWx(getIntent().getStringExtra("shareurl")
-                                    , SendMessageToWX.Req.WXSceneTimeline);
-                        }
-                    });
-                    v.findViewById(R.id.ll_share_copy).setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            mBottomDialog.dismiss();
-                            ClipboardManager cm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-                            // 将文本内容放到系统剪贴板里。
-                            cm.setText(getIntent().getStringExtra("shareurl"));
-                            Tools.toastInBottom(mContext, "复制成功");
-                        }
-                    });
-                    v.findViewById(R.id.tv_cancel).setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            mBottomDialog.dismiss();
-                        }
-                    });
-                }
+            mBottomDialog.setViewListener(v -> {
+                v.findViewById(R.id.ll_share_wx).setOnClickListener(v1 -> {
+                    mBottomDialog.dismiss();
+                    shareWx(getIntent().getStringExtra("shareurl")
+                            , SendMessageToWX.Req.WXSceneSession);
+                });
+                v.findViewById(R.id.ll_share_wxq).setOnClickListener(v12 -> {
+                    mBottomDialog.dismiss();
+                    shareWx(getIntent().getStringExtra("shareurl")
+                            , SendMessageToWX.Req.WXSceneTimeline);
+                });
+                v.findViewById(R.id.ll_share_copy).setOnClickListener(v13 -> {
+                    mBottomDialog.dismiss();
+                    ClipboardManager cm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                    // 将文本内容放到系统剪贴板里。
+                    cm.setText(getIntent().getStringExtra("shareurl"));
+                    Tools.toastInBottom(mContext, "复制成功");
+                });
+                v.findViewById(R.id.tv_cancel).setOnClickListener(v14 -> mBottomDialog.dismiss());
             });
         }
         mBottomDialog.show();

@@ -1,6 +1,8 @@
 package com.wetime.fanc.web;
 
 import android.annotation.SuppressLint;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -19,6 +21,7 @@ import android.widget.TextView;
 
 import com.gyf.barlibrary.ImmersionBar;
 import com.secure.pay.PayService;
+import com.tencent.mm.opensdk.modelmsg.SendMessageToWX;
 import com.wetime.fanc.R;
 import com.wetime.fanc.application.FApp;
 import com.wetime.fanc.home.act.HomeSearchActivity;
@@ -49,6 +52,7 @@ import org.json.JSONObject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import me.shaohui.bottomdialog.BottomDialog;
 
 
 public class WebActivity extends BaseActivity {
@@ -69,6 +73,7 @@ public class WebActivity extends BaseActivity {
     private String weburl;
     private String type = "0";
 
+    private BottomDialog mBottomDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -565,6 +570,35 @@ public class WebActivity extends BaseActivity {
             Intent goShopnews = new Intent(this, ShopNewsHomeActivity.class);
             goShopnews.putExtra("mid", mid);
             startActivity(goShopnews);
+        });
+    }
+
+    @JavascriptInterface
+    public void shareView(String title, String des) {
+        web.post(() -> {
+            if (mBottomDialog == null) {
+                mBottomDialog = BottomDialog.create(getSupportFragmentManager());
+                mBottomDialog.setLayoutRes(R.layout.item_share_bottom);
+                mBottomDialog.setViewListener(v -> {
+                    v.findViewById(R.id.ll_share_wx).setOnClickListener(v1 -> {
+                        mBottomDialog.dismiss();
+                        Tools.shareWx(mContext, weburl, SendMessageToWX.Req.WXSceneSession, title, des);
+                    });
+                    v.findViewById(R.id.ll_share_wxq).setOnClickListener(v12 -> {
+                        mBottomDialog.dismiss();
+                        Tools.shareWx(mContext, weburl, SendMessageToWX.Req.WXSceneTimeline, title, des);
+                    });
+                    v.findViewById(R.id.ll_share_copy).setOnClickListener(v13 -> {
+                        mBottomDialog.dismiss();
+                        ClipboardManager cm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                        // 将文本内容放到系统剪贴板里。
+                        cm.setText(getIntent().getStringExtra("shareurl"));
+                        Tools.toastInBottom(mContext, "复制成功");
+                    });
+                    v.findViewById(R.id.tv_cancel).setOnClickListener(v14 -> mBottomDialog.dismiss());
+                });
+            }
+            mBottomDialog.show();
         });
     }
 
