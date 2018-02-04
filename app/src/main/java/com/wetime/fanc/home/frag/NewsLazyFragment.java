@@ -61,6 +61,9 @@ public class NewsLazyFragment extends BaseLazyFragment {
             myFragment.setArguments(bundle);
             mFragments.add(myFragment);
         }
+
+
+
         vp = mRootView.findViewById(R.id.vp);
         NewsPagerAdapter mAdapter = new NewsPagerAdapter(getChildFragmentManager(), mFragments, mTitles);
         vp.setAdapter(mAdapter);
@@ -73,7 +76,8 @@ public class NewsLazyFragment extends BaseLazyFragment {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(ReFreshNewsEvent event) {
-        EventBus.getDefault().post(new ReFreshNewsTypeEvent(vp.getCurrentItem()));
+        String[] mIndex = getResources().getStringArray(R.array.newstypeindex);
+        EventBus.getDefault().post(new ReFreshNewsTypeEvent(mIndex[vp.getCurrentItem()]));
     }
 
 }

@@ -5,17 +5,17 @@ package com.wetime.fanc.home.event;
  */
 
 public class ReFreshNewsTypeEvent {
-    private int type;
+    private String type;
 
-    public ReFreshNewsTypeEvent(int type) {
+    public ReFreshNewsTypeEvent(String type) {
         this.type = type;
     }
 
-    public int getType() {
+    public String getType() {
         return type;
     }
 
-    public void setType(int type) {
+    public void setType(String type) {
         this.type = type;
     }
 }

@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:id="@+id/webcontent"
@@ -22,48 +21,51 @@
                 android:layout_height="match_parent"
                 android:paddingLeft="20dp"
                 android:paddingRight="30dp"
-                android:src="@drawable/icon_back"/>
+                android:src="@drawable/icon_back" />
 
             <TextView
                 android:id="@+id/tv_title"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_centerInParent="true"
+                android:ellipsize="end"
                 android:gravity="center"
+                android:maxLength="12"
                 android:textColor="#323233"
-                android:textSize="18sp"/>
+                android:textSize="18sp" />
 
             <TextView
-                android:visibility="gone"
-                android:ellipsize="end"
-                android:maxLines="1"
                 android:id="@+id/tv_right"
                 android:layout_width="60dp"
                 android:layout_height="match_parent"
                 android:layout_alignParentRight="true"
+                android:ellipsize="end"
                 android:gravity="center"
-                tools:text="title"
+                android:maxLines="1"
                 android:textColor="@color/head_text_color"
-                android:textSize="16sp"/>
+                android:textSize="16sp"
+                android:visibility="gone"
+                tools:text="title" />
+
             <ImageView
                 android:id="@+id/iv_right"
-                android:padding="10dp"
-                android:visibility="gone"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_alignParentRight="true"
-                android:src="@drawable/ic_search_head"/>
+                android:padding="10dp"
+                android:src="@drawable/ic_search_head"
+                android:visibility="gone" />
         </RelativeLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
-            android:background="#dcdde0"/>
+            android:background="#dcdde0" />
 
         <WebView
             android:id="@+id/web_webshow"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent" />
     </LinearLayout>
 
 </RelativeLayout>

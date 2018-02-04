@@ -85,13 +85,13 @@ public class NewsTypeLazyFragment extends BaseLazyFragment implements IGetNewsTy
         rcl.setLayoutManager(new LinearLayoutManager(getContext()));
         rcl.setAdapter(adapter);
         adapter.setOnItemClickLitener((view, position) -> Tools.goWeb(getContext(), list.get(position).getArticle_url()));
-
+        getNewsTypePresenter = new GetNewsTypePresenter(this);
     }
 
 
     @Override
     protected void initData() {
-        getNewsTypePresenter = new GetNewsTypePresenter(this);
+
         refreshLayout.autoRefresh();
     }
 
@@ -170,7 +170,7 @@ public class NewsTypeLazyFragment extends BaseLazyFragment implements IGetNewsTy
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(ReFreshNewsTypeEvent event) {
-        if (event.getType() == Integer.valueOf(type)) {
+        if (event.getType().equals(type)) {
             rcl.scrollToPosition(0);
             refreshLayout.autoRefresh();
         }
