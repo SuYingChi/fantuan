@@ -1,6 +1,7 @@
 package com.wetime.fanc.web;
 
 import android.annotation.SuppressLint;
+import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
@@ -36,6 +37,7 @@ import com.wetime.fanc.order.act.CommentOrderActivity;
 import com.wetime.fanc.order.event.RefreshOrderEvent;
 import com.wetime.fanc.shop.act.ShopDetailActivity;
 import com.wetime.fanc.shop.act.ShopNewsHomeActivity;
+import com.wetime.fanc.shop.act.ShopSayActivity;
 import com.wetime.fanc.shopcenter.act.ShopListActivity;
 import com.wetime.fanc.shopcenter.act.ShopSearchActivity;
 import com.wetime.fanc.utils.Tools;
@@ -141,12 +143,7 @@ public class WebActivity extends BaseActivity {
                 onBackPressed();
                 break;
             case R.id.tv_right:
-                web.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        web.loadUrl("javascript:window.onSaveButtonClick();");
-                    }
-                });
+                web.post(() -> web.loadUrl("javascript:window.onSaveButtonClick();"));
 
                 break;
         }
@@ -154,22 +151,12 @@ public class WebActivity extends BaseActivity {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(final LoginEvent event) {
-        web.post(new Runnable() {
-            @Override
-            public void run() {
-                web.loadUrl("javascript:receiveLoginResult('" + event.getStr() + "');");
-            }
-        });
+        web.post(() -> web.loadUrl("javascript:receiveLoginResult('" + event.getStr() + "');"));
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(final FinishWebEvent event) {
-        web.post(new Runnable() {
-            @Override
-            public void run() {
-                finish();
-            }
-        });
+        web.post(() -> finish());
     }
 
     @SuppressLint("JavascriptInterface")
@@ -271,43 +258,34 @@ public class WebActivity extends BaseActivity {
     // 首页搜索
     @JavascriptInterface
     public void goHomeSearchPage() {
-        web.post(new Runnable() {
-            @Override
-            public void run() {
-                Intent gosearch = new Intent(getApplicationContext(), HomeSearchActivity.class);
-                startActivity(gosearch);
-            }
+        web.post(() -> {
+            Intent gosearch = new Intent(getApplicationContext(), HomeSearchActivity.class);
+            startActivity(gosearch);
         });
     }
 
     // 去商城搜索页面
     @JavascriptInterface
     public void goShopSearchPage(final String id, final String name) {
-        web.post(new Runnable() {
-            @Override
-            public void run() {
-                Intent goSearch = new Intent(getApplicationContext(), ShopSearchActivity.class);
-                goSearch.putExtra("id", id);
-                goSearch.putExtra("id", name);
-                startActivity(goSearch);
-            }
+        web.post(() -> {
+            Intent goSearch = new Intent(getApplicationContext(), ShopSearchActivity.class);
+            goSearch.putExtra("id", id);
+            goSearch.putExtra("id", name);
+            startActivity(goSearch);
         });
     }
 
     // 购物中心首页
     @JavascriptInterface
     public void goMallHomePage(final String title, final String floorId, final String cenerId, final String floorName) {
-        web.post(new Runnable() {
-            @Override
-            public void run() {
+        web.post(() -> {
 
-                Intent gom = new Intent(getApplicationContext(), ShopListActivity.class);
-                gom.putExtra("title", title);
-                gom.putExtra("floorId", floorId);
-                gom.putExtra("cenerId", cenerId);
-                gom.putExtra("floorName", floorName);
-                startActivity(gom);
-            }
+            Intent gom = new Intent(getApplicationContext(), ShopListActivity.class);
+            gom.putExtra("title", title);
+            gom.putExtra("floorId", floorId);
+            gom.putExtra("cenerId", cenerId);
+            gom.putExtra("floorName", floorName);
+            startActivity(gom);
         });
     }
 
@@ -315,57 +293,40 @@ public class WebActivity extends BaseActivity {
     // 评价订单
     @JavascriptInterface
     public void goReview(final String orderId) {
-        web.post(new Runnable() {
-            @Override
-            public void run() {
-                Intent goComment = new Intent(getApplicationContext(), CommentOrderActivity.class);
-                goComment.putExtra("id", orderId);
-                startActivity(goComment);
-            }
+        web.post(() -> {
+            Intent goComment = new Intent(getApplicationContext(), CommentOrderActivity.class);
+            goComment.putExtra("id", orderId);
+            startActivity(goComment);
         });
     }
 
     @JavascriptInterface
     public void setRightShopSearch(final String id, final String name) {
-        web.post(new Runnable() {
-            @Override
-            public void run() {
-                ivRight.setVisibility(View.VISIBLE);
-                ivRight.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Intent goSearch = new Intent(getApplicationContext(), ShopSearchActivity.class);
-                        goSearch.putExtra("id", id);
-                        goSearch.putExtra("name", name);
-                        startActivity(goSearch);
-                    }
-                });
+        web.post(() -> {
+            ivRight.setVisibility(View.VISIBLE);
+            ivRight.setOnClickListener(view -> {
+                Intent goSearch = new Intent(getApplicationContext(), ShopSearchActivity.class);
+                goSearch.putExtra("id", id);
+                goSearch.putExtra("name", name);
+                startActivity(goSearch);
+            });
 
-            }
         });
 
     }
 
     @JavascriptInterface
     public void hideRightButton() {
-        web.post(new Runnable() {
-            @Override
-            public void run() {
-                tvRight.setVisibility(View.GONE);
-                ivRight.setVisibility(View.GONE);
-            }
+        web.post(() -> {
+            tvRight.setVisibility(View.GONE);
+            ivRight.setVisibility(View.GONE);
         });
 
     }
 
     @JavascriptInterface
     public void goPayView(final String str) {
-        web.post(new Runnable() {
-            @Override
-            public void run() {
-                PayService.pay(WebActivity.this, mHandler, str, PayService.TYPE_NORMAL, 1);
-            }
-        });
+        web.post(() -> PayService.pay(WebActivity.this, mHandler, str, PayService.TYPE_NORMAL, 1));
 
     }
 
@@ -381,12 +342,7 @@ public class WebActivity extends BaseActivity {
 //                    Tools.toastInBottom(mContext, "返回空");
                 } else {
                     final String result = msg.obj.toString();
-                    web.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            web.loadUrl("javascript:receivePayResult('" + result + "');");
-                        }
-                    });
+                    web.post(() -> web.loadUrl("javascript:receivePayResult('" + result + "');"));
 
                 }
             }
@@ -400,134 +356,90 @@ public class WebActivity extends BaseActivity {
 
     @JavascriptInterface
     public void goHomePage() {
-        web.post(new Runnable() {
-            @Override
-            public void run() {
-                EventBus.getDefault().post(new SwichFragEvent(0));
-                finish();
-            }
+        web.post(() -> {
+            EventBus.getDefault().post(new SwichFragEvent(0));
+            finish();
         });
 
     }
 
     @JavascriptInterface
     public void nativeLogin() {
-        web.post(new Runnable() {
-            @Override
-            public void run() {
-                Intent goLogin = new Intent(mContext, LoginActivity.class);
-                startActivity(goLogin);
-            }
+        web.post(() -> {
+            Intent goLogin = new Intent(mContext, LoginActivity.class);
+            startActivity(goLogin);
         });
     }
 
     @JavascriptInterface
     public void reloadOrderData() {
-        web.post(new Runnable() {
-            @Override
-            public void run() {
-                EventBus.getDefault().post(new RefreshOrderEvent());
-            }
-        });
+        web.post(() -> EventBus.getDefault().post(new RefreshOrderEvent()));
 
     }
 
     @JavascriptInterface
     public void showLoading() {
-        web.post(new Runnable() {
-            @Override
-            public void run() {
-                Tools.showWaitDialog(mContext);
-            }
-        });
+        web.post(() -> Tools.showWaitDialog(mContext));
     }
 
     @JavascriptInterface
     public void hideLoading() {
-        web.post(new Runnable() {
-            @Override
-            public void run() {
-                Tools.hideWaitDialog();
-            }
-        });
+        web.post(() -> Tools.hideWaitDialog());
     }
 
     @JavascriptInterface
     public void showTipsDialog(final String tips, final String left, final String right, final String leftm, final String rightm) {
-        web.post(new Runnable() {
+        web.post(() -> Tools.showTipsDialog(mContext, "", tips, left, right, new View.OnClickListener() {
             @Override
-            public void run() {
-                Tools.showTipsDialog(mContext, "", tips, left, right, new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        web.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                web.loadUrl("javascript:" + leftm + "();");
-                            }
-                        });
-                    }
-                }, new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        web.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                web.loadUrl("javascript:" + rightm + "();");
-                            }
-                        });
-                    }
-                });
+            public void onClick(View v) {
+                web.post(() -> web.loadUrl("javascript:" + leftm + "();"));
             }
-        });
+        }, v -> web.post(() -> web.loadUrl("javascript:" + rightm + "();"))));
     }
 
     @JavascriptInterface
     public void logout() {
-        web.post(new Runnable() {
-            @Override
-            public void run() {
-                Tools.logout(mContext);
-                EventBus.getDefault().post(new LogoutEvent());
-                FApp.getInstance().removeALLActivity();
-            }
-
+        web.post(() -> {
+            Tools.logout(mContext);
+            EventBus.getDefault().post(new LogoutEvent());
+            FApp.getInstance().removeALLActivity();
         });
     }
 
     @JavascriptInterface
     public void setRightButtonText(final String text) {
-        web.post(new Runnable() {
-            @Override
-            public void run() {
-                tvRight.setText(text);
-                tvRight.setVisibility(View.VISIBLE);
-                if (text.equals(""))
-                    tvRight.setVisibility(View.GONE);
-            }
+        web.post(() -> {
+            tvRight.setText(text);
+            tvRight.setVisibility(View.VISIBLE);
+            if (text.equals(""))
+                tvRight.setVisibility(View.GONE);
         });
     }
 
     @JavascriptInterface
     public void goShopDetail(final String mid) {
-        web.post(new Runnable() {
-            @Override
-            public void run() {
-                Intent goShop = new Intent(mContext, ShopDetailActivity.class);
-                goShop.putExtra("mid", mid);
-                startActivity(goShop);
-            }
+        web.post(() -> {
+            Intent goShop = new Intent(mContext, ShopDetailActivity.class);
+            goShop.putExtra("mid", mid);
+            startActivity(goShop);
+        });
+    }
+
+    @JavascriptInterface
+    public void goShopSay(String mid, String name, String score, String imageUrl) {
+        web.post(() -> {
+            Intent goShop = new Intent(mContext, ShopSayActivity.class);
+            goShop.putExtra("mid", mid);
+            goShop.putExtra("url", imageUrl);
+            goShop.putExtra("name", name);
+            goShop.putExtra("score", score);
+            startActivity(goShop);
         });
     }
 
     @JavascriptInterface
     public void wxbindPhoneSuccess() {
-        web.post(new Runnable() {
-            @Override
-            public void run() {
-                EventBus.getDefault().post(new WXBindPhoneEvent());
-            }
-        });
+        web.post(() -> EventBus.getDefault().post(new WXBindPhoneEvent()));
     }
 
     @JavascriptInterface
@@ -592,7 +504,7 @@ public class WebActivity extends BaseActivity {
                         mBottomDialog.dismiss();
                         ClipboardManager cm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
                         // 将文本内容放到系统剪贴板里。
-                        cm.setText(getIntent().getStringExtra("shareurl"));
+                        cm.setPrimaryClip(ClipData.newPlainText("text", weburl));
                         Tools.toastInBottom(mContext, "复制成功");
                     });
                     v.findViewById(R.id.tv_cancel).setOnClickListener(v14 -> mBottomDialog.dismiss());

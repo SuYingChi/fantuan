@@ -59,9 +59,15 @@ public class ShopSayActivity extends BaseActivity {
     private void initHead() {
         tvTitle.setText("商家说");
         ShopDetailBean bean = (ShopDetailBean) getIntent().getSerializableExtra("data");
-        Glide.with(this).load(bean.getData().getMerchant().getLogo()).into(ivCover);
-        tvName.setText(bean.getData().getMerchant().getName());
-        rbSocre.setStar(Float.valueOf(bean.getData().getMerchant().getScore()));
+        if (bean != null) {
+            Glide.with(this).load(bean.getData().getMerchant().getLogo()).into(ivCover);
+            tvName.setText(bean.getData().getMerchant().getName());
+            rbSocre.setStar(Float.valueOf(bean.getData().getMerchant().getScore()));
+        } else {
+            Glide.with(this).load(getIntent().getStringExtra("url")).into(ivCover);
+            tvName.setText(getIntent().getStringExtra("name"));
+            rbSocre.setStar(Float.valueOf(getIntent().getStringExtra("score")));
+        }
 
         String[] mTitles = getResources().getStringArray(R.array.shopsay);
 
