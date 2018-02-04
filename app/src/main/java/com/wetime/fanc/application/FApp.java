@@ -5,22 +5,15 @@ import android.app.Application;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 
-import com.scwang.smartrefresh.header.DeliveryHeader;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.constant.SpinnerStyle;
+import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.wetime.fanc.utils.MLoggerInterceptor;
 import com.wetime.fanc.utils.SharePreferenceUtil;
 import com.wetime.fanc.utils.Tools;
-import com.wetime.fanc.customview.MyMaterialHeader;
-import com.scwang.smartrefresh.layout.SmartRefreshLayout;
-import com.scwang.smartrefresh.layout.api.DefaultRefreshFooterCreater;
-import com.scwang.smartrefresh.layout.api.DefaultRefreshHeaderCreater;
-import com.scwang.smartrefresh.layout.api.RefreshFooter;
-import com.scwang.smartrefresh.layout.api.RefreshHeader;
-import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.constant.SpinnerStyle;
-import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
-import com.tencent.mm.opensdk.openapi.IWXAPI;
-import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.zhy.http.okhttp.OkHttpUtils;
 
 import java.util.ArrayList;
