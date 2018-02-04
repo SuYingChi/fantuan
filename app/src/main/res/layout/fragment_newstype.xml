@@ -10,9 +10,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:srlEnableAutoLoadmore="true"
-        app:srlEnableHeaderTranslationContent="true"
-        app:srlEnableFooterTranslationContent="true"
-        app:srlEnableOverScrollBounce="true">
+        app:srlEnableScrollContentWhenLoaded="true"
+        app:srlEnableOverScrollDrag="true"
+        app:srlEnableFooterFollowWhenLoadFinished="true">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rcl_news"
