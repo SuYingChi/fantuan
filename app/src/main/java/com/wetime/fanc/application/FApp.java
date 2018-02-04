@@ -97,6 +97,7 @@ public class FApp extends Application {
             footer.setDrawableProgressSize(14);//设置图片的大小（dp单位）
             footer.setAccentColor(context.getResources().getColor(R.color.text_hint));//设置强调颜色
             footer.setTextSizeTitle(14);
+            footer.setFinishDuration(0);
             return footer;
         });
 

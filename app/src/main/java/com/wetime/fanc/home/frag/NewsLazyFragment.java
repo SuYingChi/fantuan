@@ -13,7 +13,6 @@ import com.wetime.fanc.R;
 import com.wetime.fanc.home.adapter.NewsPagerAdapter;
 import com.wetime.fanc.home.event.ReFreshNewsEvent;
 import com.wetime.fanc.home.event.ReFreshNewsTypeEvent;
-import com.wetime.fanc.login.event.LoginEvent;
 import com.wetime.fanc.main.frag.BaseLazyFragment;
 
 import org.greenrobot.eventbus.EventBus;
@@ -54,10 +53,11 @@ public class NewsLazyFragment extends BaseLazyFragment {
     @Override
     protected void initData() {
         String[] mTitles = getResources().getStringArray(R.array.newstype);
+        String[] mIndex = getResources().getStringArray(R.array.newstypeindex);
         for (int i = 0; i < mTitles.length; i++) {
             NewsTypeLazyFragment myFragment = new NewsTypeLazyFragment();
             Bundle bundle = new Bundle();
-            bundle.putString("type", i + "");
+            bundle.putString("type", mIndex[i]);
             myFragment.setArguments(bundle);
             mFragments.add(myFragment);
         }
@@ -72,7 +72,7 @@ public class NewsLazyFragment extends BaseLazyFragment {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(ReFreshNewsEvent event) {
-       EventBus.getDefault().post(new ReFreshNewsTypeEvent(vp.getCurrentItem()));
+        EventBus.getDefault().post(new ReFreshNewsTypeEvent(vp.getCurrentItem()));
     }
 
 }
