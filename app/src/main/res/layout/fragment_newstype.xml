@@ -9,9 +9,10 @@
         android:id="@+id/refreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:srlEnableAutoLoadmore="false"
+        app:srlEnableAutoLoadmore="true"
         app:srlEnableHeaderTranslationContent="true"
-        app:srlEnableOverScrollBounce="false">
+        app:srlEnableFooterTranslationContent="true"
+        app:srlEnableOverScrollBounce="true">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rcl_news"
@@ -20,7 +21,6 @@
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
     <TextView
-        android:visibility="gone"
         android:id="@+id/tv_recoment"
         android:layout_width="match_parent"
         android:layout_height="30dp"
@@ -28,5 +28,6 @@
         android:gravity="center"
         android:textColor="#ff3f53"
         android:textSize="14sp"
+        android:visibility="gone"
         tools:text="范团为您推荐了7条新内容" />
 </RelativeLayout>

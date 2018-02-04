@@ -27,6 +27,7 @@
         tl:tl_tab_padding="2dp"
         tl:tl_tab_space_equal="true"
         tl:tl_textSelectColor="#ff3f53"
+        tl:tl_textsize="17sp"
         tl:tl_textUnselectColor="#333333"
         tl:tl_underline_color="#e5e5e5"
         tl:tl_underline_height="0.5dp"/>

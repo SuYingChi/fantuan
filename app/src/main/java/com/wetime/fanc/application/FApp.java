@@ -11,6 +11,7 @@ import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
+import com.wetime.fanc.R;
 import com.wetime.fanc.utils.MLoggerInterceptor;
 import com.wetime.fanc.utils.SharePreferenceUtil;
 import com.wetime.fanc.utils.Tools;
@@ -81,9 +82,25 @@ public class FApp extends Application {
     static {
 
 //        SmartRefreshLayout.setDefaultRefreshHeaderCreater((context, layout) -> new MyMaterialHeader(context));
-        SmartRefreshLayout.setDefaultRefreshHeaderCreater((context, layout) -> new ClassicsHeader(context));
+        SmartRefreshLayout.setDefaultRefreshHeaderCreater((context, layout) -> {
+            ClassicsHeader header = new ClassicsHeader(context);
+            header.setDrawableArrowSize(14);//设置箭头的大小（dp单位）
+            header.setDrawableProgressSize(14);//设置图片的大小（dp单位）
+            header.setAccentColor(context.getResources().getColor(R.color.text_hint));//设置强调颜色
+            header.setTextSizeTitle(14);
+            return header;
+        });
 
-        SmartRefreshLayout.setDefaultRefreshFooterCreater((context, layout) -> new ClassicsFooter(context).setSpinnerStyle(SpinnerStyle.Translate));
+        SmartRefreshLayout.setDefaultRefreshFooterCreater((context, layout) -> {
+            ClassicsFooter footer = new ClassicsFooter(context).setSpinnerStyle(SpinnerStyle.Translate);
+            footer.setDrawableArrowSize(14);//设置箭头的大小（dp单位）
+            footer.setDrawableProgressSize(14);//设置图片的大小（dp单位）
+            footer.setAccentColor(context.getResources().getColor(R.color.text_hint));//设置强调颜色
+            footer.setTextSizeTitle(14);
+            return footer;
+        });
+
+
     }
 
     public static FApp getInstance() {

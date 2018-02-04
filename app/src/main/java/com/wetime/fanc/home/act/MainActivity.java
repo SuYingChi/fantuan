@@ -15,6 +15,7 @@ import com.gyf.barlibrary.ImmersionBar;
 import com.wetime.fanc.R;
 import com.wetime.fanc.customview.CustomViewPager;
 import com.wetime.fanc.home.adapter.HomeFragmentPagerAdapter;
+import com.wetime.fanc.home.event.ReFreshNewsEvent;
 import com.wetime.fanc.home.event.RefreshRedNunEvent;
 import com.wetime.fanc.home.event.SwichFragEvent;
 import com.wetime.fanc.home.frag.HomeFragment;
@@ -170,6 +171,8 @@ public class MainActivity extends BaseActivity implements IBindPushView {
                     vp.setCurrentItem(1, false);
                     ImmersionBar.with(this).statusBarColor(R.color.white).statusBarDarkFont(true, 0.2f).fitsSystemWindows(true).init();
                     spu.setValue("citem", "1");
+                }else{
+                    EventBus.getDefault().post(new ReFreshNewsEvent());
                 }
                 break;
             case R.id.ll_tab2:

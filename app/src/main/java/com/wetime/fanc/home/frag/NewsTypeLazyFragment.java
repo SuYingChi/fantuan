@@ -19,10 +19,16 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.wetime.fanc.R;
 import com.wetime.fanc.home.adapter.NewsAdapter;
 import com.wetime.fanc.home.bean.NewsListBean;
+import com.wetime.fanc.home.event.ReFreshNewsTypeEvent;
 import com.wetime.fanc.home.iviews.IGetNewsTypeView;
 import com.wetime.fanc.home.presenter.GetNewsTypePresenter;
+import com.wetime.fanc.login.event.LoginEvent;
 import com.wetime.fanc.main.frag.BaseLazyFragment;
 import com.wetime.fanc.utils.Tools;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,9 +51,16 @@ public class NewsTypeLazyFragment extends BaseLazyFragment implements IGetNewsTy
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        EventBus.getDefault().register(this);
         Bundle bundle = getArguments();
         type = bundle.getString("type");
         return super.onCreateView(inflater, container, savedInstanceState);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 
     @Override
@@ -74,6 +87,7 @@ public class NewsTypeLazyFragment extends BaseLazyFragment implements IGetNewsTy
         adapter.setOnItemClickLitener((view, position) -> Tools.goWeb(getContext(), list.get(position).getArticle_url()));
 
     }
+
 
     @Override
     protected void initData() {
@@ -152,5 +166,13 @@ public class NewsTypeLazyFragment extends BaseLazyFragment implements IGetNewsTy
     @Override
     public void onLoadmore(RefreshLayout refreshlayout) {
         getNewsTypePresenter.getNews();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(ReFreshNewsTypeEvent event) {
+        if (event.getType() == Integer.valueOf(type)) {
+            rcl.scrollToPosition(0);
+            refreshLayout.autoRefresh();
+        }
     }
 }
