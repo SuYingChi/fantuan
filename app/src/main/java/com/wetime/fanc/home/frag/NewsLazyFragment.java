@@ -64,6 +64,7 @@ public class NewsLazyFragment extends BaseLazyFragment {
         vp = mRootView.findViewById(R.id.vp);
         NewsPagerAdapter mAdapter = new NewsPagerAdapter(getChildFragmentManager(), mFragments, mTitles);
         vp.setAdapter(mAdapter);
+        vp.setOffscreenPageLimit(7);
 
         SlidingTabLayout slidingTabLayout = mRootView.findViewById(R.id.tablayout);
 

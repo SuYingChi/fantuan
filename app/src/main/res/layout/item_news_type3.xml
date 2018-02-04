@@ -6,7 +6,7 @@
     android:orientation="vertical"
     android:paddingLeft="15dp"
     android:paddingRight="15dp"
-    android:paddingTop="20dp">
+    android:paddingTop="15dp">
 
     <TextView
         android:id="@+id/name"
@@ -15,7 +15,7 @@
         android:ellipsize="end"
         android:lineSpacingExtra="5sp"
         android:maxLines="2"
-        android:textColor="#333333"
+        android:textColor="#000000"
         android:textSize="17sp"
         tools:text="满口喝到完苏梅子果肉，这杯正是暖冬的味道正是暖冬的..." />
 
@@ -37,19 +37,19 @@
         <ImageView
             android:id="@+id/iv_cover1"
             android:layout_width="0dp"
-            android:scaleType="centerCrop"
             android:layout_height="match_parent"
             android:layout_marginLeft="6dp"
             android:layout_weight="1"
+            android:scaleType="centerCrop"
             android:src="@drawable/iv_default_news_small" />
 
         <ImageView
             android:id="@+id/iv_cover2"
             android:layout_width="0dp"
-            android:scaleType="centerCrop"
             android:layout_height="match_parent"
             android:layout_marginLeft="6dp"
             android:layout_weight="1"
+            android:scaleType="centerCrop"
             android:src="@drawable/iv_default_news_small" />
     </LinearLayout>
 
