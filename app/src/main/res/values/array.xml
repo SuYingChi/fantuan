@@ -20,7 +20,7 @@
         <item>7</item>
     </string-array>
     <string-array name="shopsay">
-        <item>动态</item>
         <item>文章</item>
+        <item>动态</item>
     </string-array>
 </resources>

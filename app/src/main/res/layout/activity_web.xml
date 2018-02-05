@@ -57,15 +57,39 @@
                 android:visibility="gone" />
         </RelativeLayout>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:background="#dcdde0" />
 
-        <WebView
-            android:id="@+id/web_webshow"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <WebView
+                    android:id="@+id/web_webshow"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <ImageView
+                    android:visibility="gone"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/bg_news_temp"
+                    android:id="@+id/iv_temp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </RelativeLayout>
+
+
+            <ProgressBar
+                android:id="@+id/progressBar1"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:progressDrawable="@drawable/pg"
+                android:visibility="gone" />
+        </RelativeLayout>
+
     </LinearLayout>
 
 </RelativeLayout>

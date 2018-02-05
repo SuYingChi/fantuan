@@ -1,7 +1,9 @@
 package com.wetime.fanc.shop.frag;
 
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.RelativeLayout;
 
@@ -14,7 +16,7 @@ import com.wetime.fanc.home.bean.NewsListBean;
 import com.wetime.fanc.home.iviews.IGetShopNewsTypeView;
 import com.wetime.fanc.home.presenter.GetShopNewsTypePresenter;
 import com.wetime.fanc.main.frag.BaseLazyFragment;
-import com.wetime.fanc.utils.Tools;
+import com.wetime.fanc.web.WebActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,7 +54,14 @@ public class ShopNewsLazyFragment extends BaseLazyFragment implements OnLoadmore
         adapter.setListtype(1);
         rcl.setLayoutManager(new LinearLayoutManager(getContext()));
         rcl.setAdapter(adapter);
-        adapter.setOnItemClickLitener((view, position) -> Tools.goWeb(getContext(), list.get(position).getArticle_url()));
+        adapter.setOnItemClickLitener((view, position) -> {
+            if (TextUtils.isEmpty(list.get(position).getArticle_url()))
+                return;
+            Intent goweb = new Intent(getContext(), WebActivity.class);
+            goweb.putExtra("url", list.get(position).getArticle_url());
+            goweb.putExtra("type", "2");
+            startActivity(goweb);
+        });
     }
 
     @Override

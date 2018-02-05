@@ -18,6 +18,8 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.gyf.barlibrary.ImmersionBar;
@@ -69,13 +71,16 @@ public class WebActivity extends BaseActivity {
     ImageView btnBack;
     @BindView(R.id.iv_right)
     ImageView ivRight;
-//    @BindView(R.id.webcontent)
-//    LinearLayout mWebViewContainer;
+    @BindView(R.id.progressBar1)
+    ProgressBar pg1;
+    @BindView(R.id.iv_temp)
+    ImageView ivTemp;
 
     private String weburl;
-    private String type = "0";
+    private String type = "0";//2 from news
 
     private BottomDialog mBottomDialog;
+    private Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,7 +88,7 @@ public class WebActivity extends BaseActivity {
         setContentView(R.layout.activity_web);
         ButterKnife.bind(this);
         EventBus.getDefault().register(this);
-        Intent intent = getIntent();
+        intent = getIntent();
         weburl = intent.getStringExtra("url");
         web.loadUrl(weburl);
 //        web.loadUrl("http:192.168.11.178:3001/#/inviter/redpack");
@@ -92,8 +97,6 @@ public class WebActivity extends BaseActivity {
 //        Log.e("weburl", weburl);
 
         // type 1  商家动态
-
-
         if (intent.getStringExtra("type") != null) {
             type = intent.getStringExtra("type");
             if (type.equals("1")) {
@@ -167,9 +170,23 @@ public class WebActivity extends BaseActivity {
             public void onReceivedTitle(WebView view, String title) {
                 super.onReceivedTitle(view, title);
                 tvTitle.setText(title);
-
             }
 
+            @Override
+            public void onProgressChanged(WebView view, int newProgress) {
+                // TODO 自动生成的方法存根
+                if (intent.getStringExtra("type") != null
+                        && intent.getStringExtra("type").equals("2")) {
+                    if (newProgress == 100) {
+                        pg1.setVisibility(View.GONE);//加载完网页进度条消失
+                        ivTemp.setVisibility(View.GONE);
+                    } else {
+                        ivTemp.setVisibility(View.VISIBLE);
+                        pg1.setVisibility(View.VISIBLE);//开始加载网页时显示进度条
+                        pg1.setProgress(newProgress);//设置进度值
+                    }
+                }
+            }
         };
 
         // 触摸焦点起作用
@@ -444,22 +461,12 @@ public class WebActivity extends BaseActivity {
 
     @JavascriptInterface
     public void beInvateSuccess() {
-        web.post(new Runnable() {
-            @Override
-            public void run() {
-                EventBus.getDefault().post(new BeInvaterSuccess());
-            }
-        });
+        web.post(() -> EventBus.getDefault().post(new BeInvaterSuccess()));
     }
 
     @JavascriptInterface
     public void goInviterCenter() {
-        web.post(new Runnable() {
-            @Override
-            public void run() {
-                Tools.goActivity(mContext, InviteHomeActivity.class);
-            }
-        });
+        web.post(() -> Tools.goActivity(mContext, InviteHomeActivity.class));
     }
 
     @JavascriptInterface

@@ -1,5 +1,6 @@
 package com.wetime.fanc.home.frag;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -24,6 +25,7 @@ import com.wetime.fanc.home.iviews.IGetNewsTypeView;
 import com.wetime.fanc.home.presenter.GetNewsTypePresenter;
 import com.wetime.fanc.main.frag.BaseLazyFragment;
 import com.wetime.fanc.utils.Tools;
+import com.wetime.fanc.web.WebActivity;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -83,7 +85,12 @@ public class NewsTypeLazyFragment extends BaseLazyFragment implements IGetNewsTy
         rcl = mRootView.findViewById(R.id.rcl_news);
         rcl.setLayoutManager(new LinearLayoutManager(getContext()));
         rcl.setAdapter(adapter);
-        adapter.setOnItemClickLitener((view, position) -> Tools.goWeb(getContext(), list.get(position).getArticle_url()));
+        adapter.setOnItemClickLitener((view, position) -> {
+            Intent goweb = new Intent(getContext(), WebActivity.class);
+            goweb.putExtra("url", list.get(position).getArticle_url());
+            goweb.putExtra("type", "2");
+            startActivity(goweb);
+        });
         getNewsTypePresenter = new GetNewsTypePresenter(this);
     }
 
