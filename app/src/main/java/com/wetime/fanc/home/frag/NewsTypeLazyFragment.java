@@ -22,7 +22,6 @@ import com.wetime.fanc.home.bean.NewsListBean;
 import com.wetime.fanc.home.event.ReFreshNewsTypeEvent;
 import com.wetime.fanc.home.iviews.IGetNewsTypeView;
 import com.wetime.fanc.home.presenter.GetNewsTypePresenter;
-import com.wetime.fanc.login.event.LoginEvent;
 import com.wetime.fanc.main.frag.BaseLazyFragment;
 import com.wetime.fanc.utils.Tools;
 
