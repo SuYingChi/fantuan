@@ -24,7 +24,6 @@ import com.wetime.fanc.home.event.ReFreshNewsTypeEvent;
 import com.wetime.fanc.home.iviews.IGetNewsTypeView;
 import com.wetime.fanc.home.presenter.GetNewsTypePresenter;
 import com.wetime.fanc.main.frag.BaseLazyFragment;
-import com.wetime.fanc.utils.Tools;
 import com.wetime.fanc.web.WebActivity;
 
 import org.greenrobot.eventbus.EventBus;
@@ -89,6 +88,7 @@ public class NewsTypeLazyFragment extends BaseLazyFragment implements IGetNewsTy
             Intent goweb = new Intent(getContext(), WebActivity.class);
             goweb.putExtra("url", list.get(position).getArticle_url());
             goweb.putExtra("type", "2");
+            goweb.putExtra("title", list.get(position).getNews_name());
             startActivity(goweb);
         });
         getNewsTypePresenter = new GetNewsTypePresenter(this);

@@ -10,13 +10,19 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:srlEnableAutoLoadmore="true"
+        app:srlEnableOverScrollBounce="false"
         app:srlEnableFooterFollowWhenLoadFinished="true"
         app:srlEnableScrollContentWhenLoaded="true">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rcl_news"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:fadingEdge="none"
+            android:overScrollMode="always"
+            android:requiresFadingEdge="none"
+            android:scrollbarStyle="insideInset"
+            android:scrollbars="vertical" />
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
     <TextView

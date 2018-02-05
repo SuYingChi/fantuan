@@ -18,7 +18,6 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -104,7 +103,9 @@ public class WebActivity extends BaseActivity {
                 tvRight.setVisibility(View.VISIBLE);
             }
         }
-
+        if (intent.getStringExtra("title") != null) {
+            tvTitle.setText(intent.getStringExtra("title"));
+        }
         webSetting();
     }
 
@@ -169,7 +170,9 @@ public class WebActivity extends BaseActivity {
             @Override
             public void onReceivedTitle(WebView view, String title) {
                 super.onReceivedTitle(view, title);
-                tvTitle.setText(title);
+                    if (!type.equals("2")) {
+                        tvTitle.setText(view.getTitle());
+                    }
             }
 
             @Override
@@ -204,15 +207,15 @@ public class WebActivity extends BaseActivity {
         setting.setDomStorageEnabled(true);
         setting.setAppCacheEnabled(true);
         setting.setLoadWithOverviewMode(true);
-
         setting.setDatabaseEnabled(true);
         web.addJavascriptInterface(this, "android");
-
         web.setWebChromeClient(wvcc);
         web.setWebViewClient(new WebViewClient() {
             @Override
             public void onPageFinished(WebView view, String url) {
-                tvTitle.setText(view.getTitle());
+                if (!type.equals("2")) {
+                    tvTitle.setText(view.getTitle());
+                }
             }
 
             @Override
