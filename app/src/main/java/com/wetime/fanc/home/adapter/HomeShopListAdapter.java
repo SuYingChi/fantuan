@@ -74,6 +74,7 @@ public class HomeShopListAdapter extends RecyclerView.Adapter {
         } else {
             oholder.tvCentername.setVisibility(View.VISIBLE);
         }
+
         if (bean.getCategory_name().equals("")) {
             oholder.tvType.setVisibility(View.GONE);
         } else {
