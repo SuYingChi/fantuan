@@ -68,6 +68,7 @@ public class HomeShopListAdapter extends RecyclerView.Adapter {
         oholder.tvCentername.setText(bean.getMall_name());
         oholder.tvType.setText(bean.getCategory_name());
         oholder.tvSeal.setText(bean.getSales());
+        oholder.tvSpend.setText(bean.getAverage_spend());
         if (bean.getMall_name().equals("")) {
             oholder.tvCentername.setVisibility(View.GONE);
         } else {
