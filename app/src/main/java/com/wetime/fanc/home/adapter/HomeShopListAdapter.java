@@ -5,7 +5,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -91,11 +90,11 @@ public class HomeShopListAdapter extends RecyclerView.Adapter {
 //        actAdapter.notifyDataSetChanged();
 
         oholder.llAct.removeAllViews();
-        for(HomePageBean.DataBean.MerchantsBean.MerchantPromotionListBean b :bean.getMerchant_promotion_list()){
+        for (HomePageBean.DataBean.MerchantsBean.MerchantPromotionListBean b : bean.getMerchant_promotion_list()) {
             View mView = mInflater.inflate(R.layout.item_home_shopact, null);
             TextView tvstr = mView.findViewById(R.id.tv_str);
             tvstr.setText(b.getContent());
-            Glide.with(mContext).load(b.getIco()).into((ImageView)mView.findViewById(R.id.iv_icon));
+            Glide.with(mContext).load(b.getIco()).into((ImageView) mView.findViewById(R.id.iv_icon));
             oholder.llAct.addView(mView);
         }
 
@@ -103,12 +102,13 @@ public class HomeShopListAdapter extends RecyclerView.Adapter {
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    mOnItemClickLitener.onItemClick(view,position);
+                    mOnItemClickLitener.onItemClick(view, position);
                 }
             });
         }
 
     }
+
     public interface OnItemClickLitener {
         void onItemClick(View view, int position);
     }
@@ -134,8 +134,6 @@ public class HomeShopListAdapter extends RecyclerView.Adapter {
     }
 
 
-
-
     static public class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.iv_cover)
         ImageView ivCover;
@@ -153,7 +151,7 @@ public class HomeShopListAdapter extends RecyclerView.Adapter {
         TextView tvDis;
         @BindView(R.id.tv_seal)
         TextView tvSeal;
-//        @BindView(R.id.lv)
+        //        @BindView(R.id.lv)
 //        ListViewForScrollView lv;
         @BindView(R.id.ll_act)
         LinearLayout llAct;
