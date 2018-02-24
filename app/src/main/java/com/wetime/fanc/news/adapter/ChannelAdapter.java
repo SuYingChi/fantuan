@@ -22,6 +22,7 @@ import com.wetime.fanc.news.helper.OnDragVHListener;
 import com.wetime.fanc.news.helper.OnItemMoveListener;
 
 import java.util.List;
+
 import com.wetime.fanc.R;
 
 /**
@@ -399,6 +400,10 @@ public class ChannelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         if (startPosition > mOtherChannelItems.size() - 1) {
             return -1;
         }
+        //未知
+        if (startPosition < 0)
+            return -1;
+
         ChannelBean item = mOtherChannelItems.get(startPosition);
         mOtherChannelItems.remove(startPosition);
         mMyChannelItems.add(item);
@@ -519,6 +524,9 @@ public class ChannelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         @Override
         public void onItemSelected() {
             textView.setBackgroundResource(R.drawable.bg_channel_p);
+            textView.setScaleX(1.2f);
+            textView.setScaleY(1.2f);
+
         }
 
         /**
@@ -526,7 +534,9 @@ public class ChannelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
          */
         @Override
         public void onItemFinish() {
-            textView.setBackgroundResource(R.drawable.bg_channel);
+            textView.setBackgroundResource(R.drawable.bg_channel_p);
+            textView.setScaleX(1.0f);
+            textView.setScaleY(1.0f);
         }
     }
 
