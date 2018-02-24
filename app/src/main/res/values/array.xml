@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     　　
+    <string-array name="newstype_defaultfix">
+        <item>推荐</item>
+        <item>海口</item>
+    </string-array>
+    <string-array name="newstypeindex_defaultfix">
+        <item>0</item>
+        <item>3</item>
+    </string-array>
+
+
     <string-array name="newstype_default">
         <item>推荐</item>
         <item>海口</item>

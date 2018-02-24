@@ -165,6 +165,10 @@ public class SharePreferenceUtil {
         editor.putString(key, value);
         editor.commit();
     }
+//    public void setValue(String key, String value) {
+//        editor.put(key, value);
+//        editor.commit();
+//    }
 
     public String getValue(String key) {
         return sp.getString(key, "");

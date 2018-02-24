@@ -5,13 +5,16 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.Toast;
 
+import com.google.gson.reflect.TypeToken;
 import com.wetime.fanc.R;
 import com.wetime.fanc.main.act.BaseActivity;
 import com.wetime.fanc.news.adapter.ChannelAdapter;
 import com.wetime.fanc.news.bean.ChannelBean;
 import com.wetime.fanc.news.helper.ItemDragHelperCallback;
+import com.wetime.fanc.utils.GsonUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +27,8 @@ import java.util.List;
 public class ChannelActivity extends BaseActivity {
 
     private RecyclerView mRecy;
+    private List<ChannelBean> items;
+    private List<ChannelBean> otherItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,29 +39,53 @@ public class ChannelActivity extends BaseActivity {
         init();
     }
 
-    private void init() {
+    @Override
+    public void onBackPressed() {
+        for (ChannelBean channelBean : items) {
+            Log.e("zkmy", channelBean.getName());
+        }
+        for (ChannelBean channelBean : otherItems) {
+            Log.e("zkother", channelBean.getName());
+        }
 
-        String[] mTitles = getResources().getStringArray(R.array.newstype_default);
-        String[] mIndex = getResources().getStringArray(R.array.newstypeindex_default);
+        spu.setValue("mychannal", GsonUtils.getGsonInstance().toJson(items));
+
+        super.onBackPressed();
+    }
+
+    private void init() {
+        String[] mTitles;
+        String[] mIndex;
+
+        // 推荐和海口 固定 不进来  前两个
+        final int fixed = 2;
+        if (TextUtils.isEmpty(spu.getValue("mychannal"))) {
+            mTitles = getResources().getStringArray(R.array.newstype_default);
+            mIndex = getResources().getStringArray(R.array.newstypeindex_default);
+            items = new ArrayList<>();
+            for (int i = fixed; i < mTitles.length; i++) {
+                ChannelBean entity = new ChannelBean();
+                entity.setName(mTitles[i]);
+                entity.setId(mIndex[i]);
+                items.add(entity);
+            }
+
+        } else {
+            items = GsonUtils.getGsonInstance().fromJson(spu.getValue("mychannal"),
+                    new TypeToken<List<ChannelBean>>() {
+                    }.getType());
+        }
+
 
         String[] mTitlesAll = getResources().getStringArray(R.array.newstype);
         String[] mIndexAll = getResources().getStringArray(R.array.newstypeindex);
 
-        final List<ChannelBean> items = new ArrayList<>();
-        // 推荐和海口 固定 不进来  前两个
-        final int fixed = 2;
-        for (int i = fixed; i < mTitles.length; i++) {
-            ChannelBean entity = new ChannelBean();
-            entity.setName(mTitles[i]);
-            entity.setId(mIndex[i]);
-            items.add(entity);
-        }
 
-        final List<ChannelBean> otherItems = new ArrayList<>();
+        otherItems = new ArrayList<>();
         for (int i = fixed; i < mTitlesAll.length; i++) {
             boolean has = false;
-            for (int ii = fixed; ii < mTitles.length; ii++) {
-                if (TextUtils.equals(mTitlesAll[i], mTitles[ii])) {
+            for (int ii = 0; ii < items.size(); ii++) {
+                if (TextUtils.equals(mTitlesAll[i], items.get(ii).getName())) {
                     has = true;
                     break;
                 }
