@@ -1,4 +1,4 @@
-package com.wetime.fanc.home.frag;
+package com.wetime.fanc.news.frag;
 
 import android.content.Intent;
 import android.os.Bundle;

@@ -1,9 +1,10 @@
-package com.wetime.fanc.home.frag;
+package com.wetime.fanc.news.frag;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,8 @@ import com.wetime.fanc.home.adapter.NewsPagerAdapter;
 import com.wetime.fanc.home.event.ReFreshNewsEvent;
 import com.wetime.fanc.home.event.ReFreshNewsTypeEvent;
 import com.wetime.fanc.main.frag.BaseLazyFragment;
+import com.wetime.fanc.news.act.ChannelActivity;
+import com.wetime.fanc.utils.Tools;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -47,13 +50,17 @@ public class NewsLazyFragment extends BaseLazyFragment {
 
     @Override
     protected void initView() {
+        mRootView.findViewById(R.id.iv_edit).setOnClickListener(view -> {
+            Log.e("zk" , "");
+            Tools.goActivity(getContext(), ChannelActivity.class);
+        });
 
     }
 
     @Override
     protected void initData() {
-        String[] mTitles = getResources().getStringArray(R.array.newstype);
-        String[] mIndex = getResources().getStringArray(R.array.newstypeindex);
+        String[] mTitles = getResources().getStringArray(R.array.newstype_default);
+        String[] mIndex = getResources().getStringArray(R.array.newstypeindex_default);
         for (int i = 0; i < mTitles.length; i++) {
             NewsTypeLazyFragment myFragment = new NewsTypeLazyFragment();
             Bundle bundle = new Bundle();
@@ -61,7 +68,6 @@ public class NewsLazyFragment extends BaseLazyFragment {
             myFragment.setArguments(bundle);
             mFragments.add(myFragment);
         }
-
 
 
         vp = mRootView.findViewById(R.id.vp);

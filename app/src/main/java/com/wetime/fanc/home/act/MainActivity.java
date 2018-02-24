@@ -20,7 +20,7 @@ import com.wetime.fanc.home.event.RefreshRedNunEvent;
 import com.wetime.fanc.home.event.SwichFragEvent;
 import com.wetime.fanc.home.frag.HomeFragment;
 import com.wetime.fanc.home.frag.MyFragment;
-import com.wetime.fanc.home.frag.NewsLazyFragment;
+import com.wetime.fanc.news.frag.NewsLazyFragment;
 import com.wetime.fanc.home.frag.OrderFragment;
 import com.wetime.fanc.home.iviews.IBindPushView;
 import com.wetime.fanc.home.presenter.BindPushPresenter;
