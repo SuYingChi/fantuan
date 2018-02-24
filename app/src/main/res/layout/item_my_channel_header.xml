@@ -6,18 +6,20 @@
     <TextView
         android:id="@+id/tv"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_centerVertical="true"
         android:layout_marginLeft="16dp"
+        android:gravity="center"
         android:text="已选频道"
         android:textSize="16sp" />
 
     <TextView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_alignBottom="@id/tv"
         android:layout_marginLeft="16dp"
         android:layout_toRightOf="@id/tv"
+        android:gravity="center"
         android:text="按住拖动排序"
         android:textColor="#333333"
         android:textSize="12sp" />
@@ -33,11 +35,8 @@
         android:gravity="center"
         android:text="编辑"
         android:textColor="@color/warning_red"
-        android:textSize="13sp" />
+        android:textSize="13sp"
+        android:visibility="gone" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.3dp"
-        android:layout_alignParentBottom="true"
-        android:background="@color/linebg" />
+
 </RelativeLayout>

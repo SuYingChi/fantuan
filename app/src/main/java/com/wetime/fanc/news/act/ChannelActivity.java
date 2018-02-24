@@ -56,12 +56,12 @@ public class ChannelActivity extends BaseActivity {
         for (int i = fixed; i < mTitlesAll.length; i++) {
             boolean has = false;
             for (int ii = fixed; ii < mTitles.length; ii++) {
-                if (TextUtils.equals(mTitlesAll[i], mTitles[ii])){
-                    has =true;
+                if (TextUtils.equals(mTitlesAll[i], mTitles[ii])) {
+                    has = true;
                     break;
                 }
             }
-            if(!has){
+            if (!has) {
                 ChannelBean entity = new ChannelBean();
                 entity.setName(mTitlesAll[i]);
                 entity.setId(mTitlesAll[i]);
@@ -85,7 +85,7 @@ public class ChannelActivity extends BaseActivity {
             }
         });
         mRecy.setAdapter(adapter);
-
+        adapter.startEditMode(mRecy);
 
         adapter.setOnMyChannelItemClickListener((v, position) -> Toast.makeText(ChannelActivity.this, items.get(position).getName(), Toast.LENGTH_SHORT).show());
     }

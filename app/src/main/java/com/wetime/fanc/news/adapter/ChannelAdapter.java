@@ -446,7 +446,7 @@ public class ChannelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
      *
      * @param parent
      */
-    private void startEditMode(RecyclerView parent) {
+    public void startEditMode(RecyclerView parent) {
         isEditMode = true;
 
         int visibleChildCount = parent.getChildCount();
