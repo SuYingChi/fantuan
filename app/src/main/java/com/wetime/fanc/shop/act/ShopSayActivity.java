@@ -12,6 +12,7 @@ import com.bumptech.glide.Glide;
 import com.flyco.tablayout.SlidingTabLayout;
 import com.wetime.fanc.R;
 import com.wetime.fanc.home.adapter.NewsPagerAdapter;
+import com.wetime.fanc.home.adapter.NormalTitlePagerAdapter;
 import com.wetime.fanc.main.act.BaseActivity;
 import com.wetime.fanc.order.MyRatingBar;
 import com.wetime.fanc.shop.bean.ShopDetailBean;
@@ -92,7 +93,7 @@ public class ShopSayActivity extends BaseActivity {
 //            myFragment.setArguments(bundle);
 //            mFragments.add(myFragment);
 //        }
-        NewsPagerAdapter mAdapter = new NewsPagerAdapter(getSupportFragmentManager(), mFragments, mTitles);
+        NormalTitlePagerAdapter mAdapter = new NormalTitlePagerAdapter(getSupportFragmentManager(), mFragments, mTitles);
         vp.setAdapter(mAdapter);
         slidingTabLayout.setViewPager(vp, mTitles);
     }

@@ -13,8 +13,11 @@ import com.wetime.fanc.R;
 import com.wetime.fanc.main.act.BaseActivity;
 import com.wetime.fanc.news.adapter.ChannelAdapter;
 import com.wetime.fanc.news.bean.ChannelBean;
+import com.wetime.fanc.news.event.ChannelChangeEvent;
 import com.wetime.fanc.news.helper.ItemDragHelperCallback;
 import com.wetime.fanc.utils.GsonUtils;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,6 +53,7 @@ public class ChannelActivity extends BaseActivity {
 
         spu.setValue("mychannal", GsonUtils.getGsonInstance().toJson(items));
 
+        EventBus.getDefault().post(new ChannelChangeEvent());
         super.onBackPressed();
     }
 
@@ -93,7 +97,7 @@ public class ChannelActivity extends BaseActivity {
             if (!has) {
                 ChannelBean entity = new ChannelBean();
                 entity.setName(mTitlesAll[i]);
-                entity.setId(mTitlesAll[i]);
+                entity.setId(mIndexAll[i]);
                 otherItems.add(entity);
             }
         }
