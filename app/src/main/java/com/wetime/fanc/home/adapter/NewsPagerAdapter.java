@@ -3,7 +3,10 @@ package com.wetime.fanc.home.adapter;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.PagerAdapter;
+import android.view.View;
 import android.view.ViewGroup;
 
 import com.wetime.fanc.news.bean.ChannelBean;
@@ -15,7 +18,7 @@ import java.util.ArrayList;
  */
 
 
-public class NewsPagerAdapter extends FragmentPagerAdapter {
+public class NewsPagerAdapter extends FragmentStatePagerAdapter {
 
     private ArrayList<Fragment> mFragments;
     private ArrayList<ChannelBean> mChannels;
@@ -44,10 +47,15 @@ public class NewsPagerAdapter extends FragmentPagerAdapter {
         return mFragments.get(position);
     }
 
-    @Override
-    public void destroyItem(ViewGroup container, int position, Object object) {
-//            super.destroyItem(container, position, object);
-    }
+//    @Override
+//    public void destroyItem(ViewGroup container, int position, Object object) {
+////            super.destroyItem(container, position, object);
+//    }
+//    @Override
+//    public void destroyItem(ViewGroup container, int position, Object object) {
+//        // 把 Object 强转为 View，然后将 view 从 ViewGroup 中清除
+//        container.removeView((View) object);
+//    }
 
 //    public void setFragments(ArrayList<Fragment> fragments) {
 //        if (this.mFragments != null) {
@@ -70,6 +78,17 @@ public class NewsPagerAdapter extends FragmentPagerAdapter {
     }
 
     public void recreateItems(ArrayList<Fragment> mFragments, ArrayList<ChannelBean> mChannels) {
+//        if (this.mFragments != null) {
+//            FragmentTransaction ft = fm.beginTransaction();
+//            for (Fragment f : this.mFragments) {
+//                ft.remove(f);
+//            }
+//            ft.commit();
+//            fm.executePendingTransactions();
+//        }
+
+
+
         this.mFragments = mFragments;
         this.mChannels = mChannels;
         notifyDataSetChanged();

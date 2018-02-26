@@ -3,8 +3,6 @@ package com.wetime.fanc.news.frag;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.util.Log;
@@ -30,7 +28,9 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class NewsLazyFragment extends BaseLazyFragment {
@@ -40,6 +40,8 @@ public class NewsLazyFragment extends BaseLazyFragment {
     private ViewPager vp;
     private NewsPagerAdapter mAdapter;
     private SlidingTabLayout slidingTabLayout;
+
+    private Map<String, Fragment> map = new HashMap<>();
 
     @Nullable
     @Override
@@ -80,10 +82,13 @@ public class NewsLazyFragment extends BaseLazyFragment {
                 myFragment.setArguments(bundle);
                 mFragments.add(myFragment);
 
+                map.put(mIndex[i], myFragment);
+
                 ChannelBean entity = new ChannelBean();
                 entity.setName(mTitles[i]);
                 entity.setId(mIndex[i]);
                 mChannels.add(entity);
+
             }
         } else {
             mChannels.addAll(GsonUtils.getGsonInstance().fromJson(spu.getValue("mychannal"),
@@ -100,6 +105,7 @@ public class NewsLazyFragment extends BaseLazyFragment {
                 bundle.putString("type", bean.getId());
                 myFragment.setArguments(bundle);
                 mFragments.add(myFragment);
+                map.put(bean.getId(), myFragment);
             }
         }
 
@@ -107,7 +113,7 @@ public class NewsLazyFragment extends BaseLazyFragment {
         vp = mRootView.findViewById(R.id.vp);
         mAdapter = new NewsPagerAdapter(getChildFragmentManager(), mFragments, mChannels);
         vp.setAdapter(mAdapter);
-        vp.setOffscreenPageLimit(mFragments.size());
+        vp.setOffscreenPageLimit(20);
 
         slidingTabLayout = mRootView.findViewById(R.id.tablayout);
         slidingTabLayout.setViewPager(vp);
@@ -121,8 +127,12 @@ public class NewsLazyFragment extends BaseLazyFragment {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(ChannelChangeEvent event) {
+        String currentId = mChannels.get(vp.getCurrentItem()).getId();
+        int currentIndex = 0;
+
         mChannels.clear();
-        mFragments.clear();
+        mFragments = new ArrayList<>();
+//        mFragments.clear();
 
         mChannels.addAll(GsonUtils.getGsonInstance().fromJson(spu.getValue("mychannal"),
                 new TypeToken<List<ChannelBean>>() {
@@ -133,24 +143,42 @@ public class NewsLazyFragment extends BaseLazyFragment {
         mChannels.add(0, d2);
         mChannels.add(0, d1);
 
-        for (ChannelBean bean : mChannels) {
-            NewsTypeLazyFragment myFragment = new NewsTypeLazyFragment();
-            Bundle bundle = new Bundle();
-            bundle.putString("type", bean.getId());
-            myFragment.setArguments(bundle);
+//        for (ChannelBean bean : mChannels) {
+        for (int i = 0; i < mChannels.size(); i++) {
+            ChannelBean bean = mChannels.get(i);
+
+            NewsTypeLazyFragment myFragment;
+            if (map.containsKey(bean.getId())) {
+                myFragment = (NewsTypeLazyFragment) map.get(bean.getId());
+            } else {
+                myFragment = new NewsTypeLazyFragment();
+                Bundle bundle = new Bundle();
+                bundle.putString("type", bean.getId());
+                myFragment.setArguments(bundle);
+            }
             mFragments.add(myFragment);
+
+//
+//            NewsTypeLazyFragment myFragment = new NewsTypeLazyFragment();
+//            Bundle bundle = new Bundle();
+//            bundle.putString("type", bean.getId());
+//            myFragment.setArguments(bundle);
+//            mFragments.add(myFragment);
+            if (TextUtils.equals(bean.getId(), currentId)) {
+                currentIndex = i;
+            }
+
         }
 //        vp.removeAllViews();
 
-//        mAdapter = new NewsPagerAdapter(getChildFragmentManager(), mFragments, mChannels);
-//        vp.setAdapter(mAdapter);
+        mAdapter = new NewsPagerAdapter(getChildFragmentManager(), mFragments, mChannels);
+        vp.setAdapter(mAdapter);
 //        vp.setOffscreenPageLimit(mFragments.size());
 //        mAdapter.notifyDataSetChanged();
-//        vp.setCurrentItem(0);
+
         mAdapter.recreateItems(mFragments, mChannels);
-
-
-//        slidingTabLayout.setViewPager(vp);
+        vp.setCurrentItem(currentIndex);
+        slidingTabLayout.setCurrentTab(currentIndex);
         slidingTabLayout.notifyDataSetChanged();
 
 

@@ -48,10 +48,12 @@ public class NewsTypeLazyFragment extends BaseLazyFragment implements IGetNewsTy
     private SmartRefreshLayout refreshLayout;
     private TextView tvRec;
 
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        EventBus.getDefault().register(this);
+        if (!EventBus.getDefault().isRegistered(this))
+            EventBus.getDefault().register(this);
         Bundle bundle = getArguments();
         type = bundle.getString("type");
         return super.onCreateView(inflater, container, savedInstanceState);
@@ -59,8 +61,8 @@ public class NewsTypeLazyFragment extends BaseLazyFragment implements IGetNewsTy
 
     @Override
     public void onDestroy() {
-        super.onDestroy();
         EventBus.getDefault().unregister(this);
+        super.onDestroy();
     }
 
     @Override
