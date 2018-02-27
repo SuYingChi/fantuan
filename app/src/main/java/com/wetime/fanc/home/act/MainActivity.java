@@ -20,12 +20,12 @@ import com.wetime.fanc.home.event.RefreshRedNunEvent;
 import com.wetime.fanc.home.event.SwichFragEvent;
 import com.wetime.fanc.home.frag.HomeFragment;
 import com.wetime.fanc.home.frag.MyFragment;
-import com.wetime.fanc.news.frag.NewsLazyFragment;
 import com.wetime.fanc.home.frag.OrderFragment;
 import com.wetime.fanc.home.iviews.IBindPushView;
 import com.wetime.fanc.home.presenter.BindPushPresenter;
 import com.wetime.fanc.login.event.LoginEvent;
 import com.wetime.fanc.main.act.BaseActivity;
+import com.wetime.fanc.news.frag.NewsLazyFragment;
 import com.wetime.fanc.push.event.RegistPushSuccessEvent;
 import com.wetime.fanc.web.WebActivity;
 
@@ -78,7 +78,7 @@ public class MainActivity extends BaseActivity implements IBindPushView {
     private int mOffId = R.drawable.bot_3_off;
     private HomeFragment f0;
     private NewsLazyFragment f1;
-//    private SortFragment f1;
+    //    private SortFragment f1;
     private OrderFragment f2;
     private MyFragment f3;
 
@@ -130,8 +130,6 @@ public class MainActivity extends BaseActivity implements IBindPushView {
     }
 
 
-
-
     private void initView() {
         f0 = new HomeFragment();
 //        f1 = new SortFragment();
@@ -171,7 +169,7 @@ public class MainActivity extends BaseActivity implements IBindPushView {
                     vp.setCurrentItem(1, false);
                     ImmersionBar.with(this).statusBarColor(R.color.white).statusBarDarkFont(true, 0.2f).fitsSystemWindows(true).init();
                     spu.setValue("citem", "1");
-                }else{
+                } else {
                     EventBus.getDefault().post(new ReFreshNewsEvent());
                 }
                 break;
@@ -204,7 +202,7 @@ public class MainActivity extends BaseActivity implements IBindPushView {
             ivTab2.setImageResource(R.drawable.bot_2_off);
             ivTab3.setImageResource(mOffId);
 
-            tvTab0.setTextColor(ContextCompat.getColor(this, R.color.colorPrimary));
+            tvTab0.setTextColor(ContextCompat.getColor(this, R.color.bot_on));
             tvTab1.setTextColor(ContextCompat.getColor(this, R.color.bot_gray));
             tvTab2.setTextColor(ContextCompat.getColor(this, R.color.bot_gray));
             tvTab3.setTextColor(ContextCompat.getColor(this, R.color.bot_gray));
@@ -216,7 +214,7 @@ public class MainActivity extends BaseActivity implements IBindPushView {
             ivTab3.setImageResource(mOffId);
 
             tvTab0.setTextColor(ContextCompat.getColor(this, R.color.bot_gray));
-            tvTab1.setTextColor(ContextCompat.getColor(this, R.color.colorPrimary));
+            tvTab1.setTextColor(ContextCompat.getColor(this, R.color.bot_on));
             tvTab2.setTextColor(ContextCompat.getColor(this, R.color.bot_gray));
             tvTab3.setTextColor(ContextCompat.getColor(this, R.color.bot_gray));
         }
@@ -228,7 +226,7 @@ public class MainActivity extends BaseActivity implements IBindPushView {
 
             tvTab0.setTextColor(ContextCompat.getColor(this, R.color.bot_gray));
             tvTab1.setTextColor(ContextCompat.getColor(this, R.color.bot_gray));
-            tvTab2.setTextColor(ContextCompat.getColor(this, R.color.colorPrimary));
+            tvTab2.setTextColor(ContextCompat.getColor(this, R.color.bot_on));
             tvTab3.setTextColor(ContextCompat.getColor(this, R.color.bot_gray));
         }
         if (item == 3) {
@@ -241,7 +239,7 @@ public class MainActivity extends BaseActivity implements IBindPushView {
             tvTab0.setTextColor(ContextCompat.getColor(this, R.color.bot_gray));
             tvTab1.setTextColor(ContextCompat.getColor(this, R.color.bot_gray));
             tvTab2.setTextColor(ContextCompat.getColor(this, R.color.bot_gray));
-            tvTab3.setTextColor(ContextCompat.getColor(this, R.color.colorPrimary));
+            tvTab3.setTextColor(ContextCompat.getColor(this, R.color.bot_on));
         }
 
     }

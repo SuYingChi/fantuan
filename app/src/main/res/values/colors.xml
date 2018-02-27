@@ -28,7 +28,8 @@
     <color name="black">#000000</color>
     <color name="linebg">#e5e5e5</color>
     <color name="line_color">#e5e5e5</color>
-    <color name="bot_gray">#333333</color>
+    <color name="bot_gray">#999999</color>
+    <color name="bot_on">#333333</color>
     <color name="bg_input_fill">#f9f9f9</color>
     <color name="bg_input_border">#dddddd</color>
     <color name="input_text">#333333</color>
