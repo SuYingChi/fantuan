@@ -6,6 +6,9 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.reflect.TypeToken;
@@ -22,6 +25,10 @@ import org.greenrobot.eventbus.EventBus;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 
 /**
  * 频道 增删改查 排序
@@ -29,7 +36,12 @@ import java.util.List;
  */
 public class ChannelActivity extends BaseActivity {
 
-    private RecyclerView mRecy;
+    @BindView(R.id.tv_title)
+    TextView tvTitle;
+    @BindView(R.id.iv_back)
+    ImageView ivBack;
+    @BindView(R.id.recy)
+    RecyclerView mRecy;
     private List<ChannelBean> items;
     private List<ChannelBean> otherItems;
 
@@ -37,8 +49,8 @@ public class ChannelActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_channal_edit);
+        ButterKnife.bind(this);
 
-        mRecy = findViewById(R.id.recy);
         init();
     }
 
@@ -121,5 +133,15 @@ public class ChannelActivity extends BaseActivity {
         adapter.startEditMode(mRecy);
 
         adapter.setOnMyChannelItemClickListener((v, position) -> Toast.makeText(ChannelActivity.this, items.get(position).getName(), Toast.LENGTH_SHORT).show());
+    }
+
+    @OnClick({R.id.iv_back})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.iv_back:
+                onBackPressed();
+                break;
+
+        }
     }
 }

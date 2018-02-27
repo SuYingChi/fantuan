@@ -26,13 +26,12 @@
             android:id="@+id/tablayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginRight="30dp"
             android:background="@color/white"
-           android:layout_marginRight="30dp"
             tl:tl_indicator_color="#ff3f53"
             tl:tl_indicator_height="3dp"
             tl:tl_indicator_width_equal_title="true"
             tl:tl_tab_padding="20dp"
-            tl:tl_tab_paddingr="20dp"
             tl:tl_tab_space_equal="true"
             tl:tl_textSelectColor="#ff3f53"
             tl:tl_textUnselectColor="#000000"
@@ -53,10 +52,10 @@
                 android:src="@drawable/icon_news_add" />
 
             <View
-                android:layout_alignParentBottom="true"
-                android:background="#e5e5e5"
                 android:layout_width="match_parent"
-                android:layout_height="0.5dp" />
+                android:layout_height="0.5dp"
+                android:layout_alignParentBottom="true"
+                android:background="#e5e5e5" />
         </RelativeLayout>
 
     </RelativeLayout>

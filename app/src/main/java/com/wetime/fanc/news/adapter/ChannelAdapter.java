@@ -107,7 +107,7 @@ public class ChannelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 view = mInflater.inflate(R.layout.item_my, parent, false);
                 final MyViewHolder myHolder = new MyViewHolder(view);
 
-                myHolder.textView.setOnClickListener(new View.OnClickListener() {
+                myHolder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(final View v) {
                         int position = myHolder.getAdapterPosition();
@@ -145,7 +145,7 @@ public class ChannelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                     }
                 });
 
-                myHolder.textView.setOnLongClickListener(new View.OnLongClickListener() {
+                myHolder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
                     @Override
                     public boolean onLongClick(final View v) {
                         if (!isEditMode) {
@@ -165,7 +165,7 @@ public class ChannelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                     }
                 });
 
-                myHolder.textView.setOnTouchListener(new View.OnTouchListener() {
+                myHolder.itemView.setOnTouchListener(new View.OnTouchListener() {
 
                     @Override
                     public boolean onTouch(View v, MotionEvent event) {
@@ -457,7 +457,7 @@ public class ChannelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         int visibleChildCount = parent.getChildCount();
         for (int i = 0; i < visibleChildCount; i++) {
             View view = parent.getChildAt(i);
-            ImageView imgEdit = (ImageView) view.findViewById(R.id.img_edit);
+            ImageView imgEdit =  view.findViewById(R.id.img_edit);
             if (imgEdit != null) {
                 imgEdit.setVisibility(View.VISIBLE);
             }
@@ -475,7 +475,7 @@ public class ChannelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         int visibleChildCount = parent.getChildCount();
         for (int i = 0; i < visibleChildCount; i++) {
             View view = parent.getChildAt(i);
-            ImageView imgEdit = (ImageView) view.findViewById(R.id.img_edit);
+            ImageView imgEdit = view.findViewById(R.id.img_edit);
             if (imgEdit != null) {
                 imgEdit.setVisibility(View.INVISIBLE);
             }
@@ -514,8 +514,8 @@ public class ChannelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
         public MyViewHolder(View itemView) {
             super(itemView);
-            textView = (TextView) itemView.findViewById(R.id.tv);
-            imgEdit = (ImageView) itemView.findViewById(R.id.img_edit);
+            textView =  itemView.findViewById(R.id.tv);
+            imgEdit = itemView.findViewById(R.id.img_edit);
         }
 
         /**
@@ -548,7 +548,7 @@ public class ChannelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
         public OtherViewHolder(View itemView) {
             super(itemView);
-            textView = (TextView) itemView.findViewById(R.id.tv);
+            textView = itemView.findViewById(R.id.tv);
         }
     }
 
@@ -560,7 +560,7 @@ public class ChannelAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
         public MyChannelHeaderViewHolder(View itemView) {
             super(itemView);
-            tvBtnEdit = (TextView) itemView.findViewById(R.id.tv_btn_edit);
+            tvBtnEdit = itemView.findViewById(R.id.tv_btn_edit);
         }
     }
 }
