@@ -2,7 +2,7 @@
     <string name="app_name">范团</string>
     <string name="str_bot1">首页</string>
     <string name="str_bot2">头条</string>
-    <string name="str_bot3">订单</string>
+    <string name="str_bot3">圈子</string>
     <string name="str_bot4">我的</string>
 
     <string name="str_no_search_result">对不起，暂无符合搜索的内容～</string>

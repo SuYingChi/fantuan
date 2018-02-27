@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.gyf.barlibrary.ImmersionBar;
 import com.wetime.fanc.R;
+import com.wetime.fanc.circle.CircleLazyFragment;
 import com.wetime.fanc.customview.CustomViewPager;
 import com.wetime.fanc.home.adapter.HomeFragmentPagerAdapter;
 import com.wetime.fanc.home.event.ReFreshNewsEvent;
@@ -79,7 +80,7 @@ public class MainActivity extends BaseActivity implements IBindPushView {
     private HomeFragment f0;
     private NewsLazyFragment f1;
     //    private SortFragment f1;
-    private OrderFragment f2;
+    private CircleLazyFragment f2;
     private MyFragment f3;
 
 
@@ -134,7 +135,7 @@ public class MainActivity extends BaseActivity implements IBindPushView {
         f0 = new HomeFragment();
 //        f1 = new SortFragment();
         f1 = new NewsLazyFragment();
-        f2 = new OrderFragment();
+        f2 = new CircleLazyFragment();
         f3 = new MyFragment();
         list_fragment.add(f0);
         list_fragment.add(f1);
