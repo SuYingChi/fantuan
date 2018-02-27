@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.gyf.barlibrary.ImmersionBar;
 import com.wetime.fanc.R;
-import com.wetime.fanc.circle.CircleLazyFragment;
+import com.wetime.fanc.circle.frag.CircleLazyFragment;
 import com.wetime.fanc.customview.CustomViewPager;
 import com.wetime.fanc.home.adapter.HomeFragmentPagerAdapter;
 import com.wetime.fanc.home.event.ReFreshNewsEvent;
@@ -21,7 +21,6 @@ import com.wetime.fanc.home.event.RefreshRedNunEvent;
 import com.wetime.fanc.home.event.SwichFragEvent;
 import com.wetime.fanc.home.frag.HomeFragment;
 import com.wetime.fanc.home.frag.MyFragment;
-import com.wetime.fanc.home.frag.OrderFragment;
 import com.wetime.fanc.home.iviews.IBindPushView;
 import com.wetime.fanc.home.presenter.BindPushPresenter;
 import com.wetime.fanc.login.event.LoginEvent;
