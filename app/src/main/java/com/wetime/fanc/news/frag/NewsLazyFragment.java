@@ -128,6 +128,22 @@ public class NewsLazyFragment extends BaseLazyFragment {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(ChannelChangeEvent event) {
+        StringBuilder orderOld = new StringBuilder();
+        for (ChannelBean bean : mChannels) {
+            orderOld.append(bean.getId());
+        }
+        ArrayList<ChannelBean> tempChannels = new ArrayList<>();
+        tempChannels.addAll(GsonUtils.getGsonInstance().fromJson(spu.getValue("mychannal"),
+                new TypeToken<List<ChannelBean>>() {
+                }.getType()));
+        StringBuilder orderNew = new StringBuilder();
+        for (ChannelBean bean : tempChannels) {
+            orderNew.append(bean.getId());
+        }
+
+        if (TextUtils.equals(orderNew, orderOld.subSequence(2,orderOld.length())))
+            return;
+
         String currentId = mChannels.get(vp.getCurrentItem()).getId();
         int currentIndex = 0;
 
@@ -135,16 +151,17 @@ public class NewsLazyFragment extends BaseLazyFragment {
 //        mFragments = new ArrayList<>();
         mFragments.clear();
 
-        mChannels.addAll(GsonUtils.getGsonInstance().fromJson(spu.getValue("mychannal"),
-                new TypeToken<List<ChannelBean>>() {
-                }.getType()));
+        mChannels.addAll(tempChannels);
+
+
 
         ChannelBean d1 = new ChannelBean("0", "推荐");
         ChannelBean d2 = new ChannelBean("3", "海南");
         mChannels.add(0, d2);
         mChannels.add(0, d1);
 
-//        for (ChannelBean bean : mChannels) {
+
+
         for (int i = 0; i < mChannels.size(); i++) {
             ChannelBean bean = mChannels.get(i);
 
@@ -160,22 +177,14 @@ public class NewsLazyFragment extends BaseLazyFragment {
             }
             mFragments.add(myFragment);
 
-//            NewsTypeLazyFragment myFragment = new NewsTypeLazyFragment();
-//            Bundle bundle = new Bundle();
-//            bundle.putString("type", bean.getId());
-//            myFragment.setArguments(bundle);
-//            mFragments.add(myFragment);
             if (TextUtils.equals(bean.getId(), currentId)) {
                 currentIndex = i;
             }
 
         }
-//        vp.removeAllViews();
 
         mAdapter = new NewsPagerAdapter(getChildFragmentManager(), mFragments, mChannels);
         vp.setAdapter(mAdapter);
-//        vp.setOffscreenPageLimit(mFragments.size());
-//        mAdapter.notifyDataSetChanged();
 
         mAdapter.recreateItems(mFragments, mChannels);
         vp.setCurrentItem(currentIndex);
@@ -183,21 +192,8 @@ public class NewsLazyFragment extends BaseLazyFragment {
         slidingTabLayout.notifyDataSetChanged();
 
         if (currentIndex == 0) {
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    EventBus.getDefault().post(new ReFreshNewsTypeEvent("0"));
-                }
-            }, 500);
+            new Handler().postDelayed(() -> EventBus.getDefault().post(new ReFreshNewsTypeEvent("0")), 500);
         }
-
-//        SlidingTabLayout slidingTabLayout = mRootView.findViewById(R.id.tablayout);
-//        slidingTabLayout.setViewPager(vp);
-
-
-//        slidingTabLayout.setCurrentTab(0);
-
-
     }
 
 }
