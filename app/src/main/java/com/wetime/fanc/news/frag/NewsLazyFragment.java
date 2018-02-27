@@ -1,6 +1,7 @@
 package com.wetime.fanc.news.frag;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -131,8 +132,8 @@ public class NewsLazyFragment extends BaseLazyFragment {
         int currentIndex = 0;
 
         mChannels.clear();
-        mFragments = new ArrayList<>();
-//        mFragments.clear();
+//        mFragments = new ArrayList<>();
+        mFragments.clear();
 
         mChannels.addAll(GsonUtils.getGsonInstance().fromJson(spu.getValue("mychannal"),
                 new TypeToken<List<ChannelBean>>() {
@@ -155,10 +156,10 @@ public class NewsLazyFragment extends BaseLazyFragment {
                 Bundle bundle = new Bundle();
                 bundle.putString("type", bean.getId());
                 myFragment.setArguments(bundle);
+                map.put(bean.getId(), myFragment);
             }
             mFragments.add(myFragment);
 
-//
 //            NewsTypeLazyFragment myFragment = new NewsTypeLazyFragment();
 //            Bundle bundle = new Bundle();
 //            bundle.putString("type", bean.getId());
@@ -181,6 +182,14 @@ public class NewsLazyFragment extends BaseLazyFragment {
         slidingTabLayout.setCurrentTab(currentIndex);
         slidingTabLayout.notifyDataSetChanged();
 
+        if (currentIndex == 0) {
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    EventBus.getDefault().post(new ReFreshNewsTypeEvent("0"));
+                }
+            }, 500);
+        }
 
 //        SlidingTabLayout slidingTabLayout = mRootView.findViewById(R.id.tablayout);
 //        slidingTabLayout.setViewPager(vp);

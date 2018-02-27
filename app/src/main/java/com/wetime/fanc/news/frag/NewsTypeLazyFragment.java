@@ -52,11 +52,16 @@ public class NewsTypeLazyFragment extends BaseLazyFragment implements IGetNewsTy
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        if (!EventBus.getDefault().isRegistered(this))
-            EventBus.getDefault().register(this);
         Bundle bundle = getArguments();
         type = bundle.getString("type");
         return super.onCreateView(inflater, container, savedInstanceState);
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (!EventBus.getDefault().isRegistered(this))
+            EventBus.getDefault().register(this);
     }
 
     @Override
