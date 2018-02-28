@@ -71,8 +71,6 @@ public class MyFragment extends BaseFragment implements IGetMyInfoView, IGetRedP
     Unbinder unbinder;
     @BindView(R.id.ll_call)
     LinearLayout llCall;
-    @BindView(R.id.ll_mystate)
-    LinearLayout llMystate;
     @BindView(R.id.ll_mynews)
     LinearLayout llMynews;
     @BindView(R.id.ll_mycomment)
@@ -106,6 +104,7 @@ public class MyFragment extends BaseFragment implements IGetMyInfoView, IGetRedP
         EventBus.getDefault().register(this);
         View v = inflater.inflate(R.layout.fragment_my, null);
         unbinder = ButterKnife.bind(this, v);
+
         qBadgeMsg = new QBadgeView(getContext());
         qBadgeMsg.setBadgeTextSize(11, true);
         qBadgeMsg.bindTarget(ivMsg);
@@ -126,12 +125,12 @@ public class MyFragment extends BaseFragment implements IGetMyInfoView, IGetRedP
     }
 
 
-    @OnClick({R.id.ll_mystate, R.id.ll_call, R.id.iv_setting, R.id.ll_login, R.id.tv_fanpiao, R.id.tv_youhuiquan, R.id.ll_mycomment,
-            R.id.iv_msg, R.id.tv_wallet, R.id.ll_invite, R.id.ll_beauthor, R.id.ll_mynews, R.id.tv_collect,R.id.tv_order,
+    @OnClick({R.id.ll_my_state, R.id.ll_call, R.id.iv_setting, R.id.ll_login, R.id.tv_fanpiao, R.id.tv_youhuiquan, R.id.ll_mycomment,
+            R.id.iv_msg, R.id.tv_wallet, R.id.ll_invite, R.id.ll_beauthor, R.id.ll_mynews, R.id.tv_collect, R.id.tv_order,
             R.id.ll_redpacket})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.ll_mystate:
+            case R.id.ll_my_state:
                 Intent goMyCard0 = new Intent(getContext(), MyCardActivity.class);
                 goMyCard0.putExtra("index", 0);
                 startActivity(goMyCard0);
