@@ -1,4 +1,4 @@
-package com.wetime.fanc.home.bean;
+package com.wetime.fanc.my.bean;
 
 /**
  * Created by zhoukang on 2018/1/19.

@@ -1,9 +1,8 @@
-package com.wetime.fanc.home.presenter;
+package com.wetime.fanc.my.presenter;
 
 
-import com.wetime.fanc.home.bean.RebPackageBean;
-import com.wetime.fanc.home.iviews.IGetRedPackageView;
-import com.wetime.fanc.main.model.BaseBean;
+import com.wetime.fanc.my.bean.RebPackageBean;
+import com.wetime.fanc.my.iviews.IGetRedPackageView;
 import com.wetime.fanc.utils.Const;
 import com.wetime.fanc.utils.DataStringCallback;
 import com.wetime.fanc.utils.GsonUtils;

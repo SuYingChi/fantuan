@@ -1,4 +1,4 @@
-package com.wetime.fanc.home.frag;
+package com.wetime.fanc.my.frag;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -20,18 +20,19 @@ import com.amap.api.location.AMapLocationListener;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.wetime.fanc.R;
-import com.wetime.fanc.my.bean.MyInfoBean;
-import com.wetime.fanc.my.bean.RebPackageBean;
 import com.wetime.fanc.home.event.BeInvaterSuccess;
 import com.wetime.fanc.home.event.RefreshRedNunEvent;
-import com.wetime.fanc.my.iviews.IGetMyInfoView;
-import com.wetime.fanc.my.iviews.IGetRedPackageView;
-import com.wetime.fanc.my.presenter.GetRedPackagePresenter;
-import com.wetime.fanc.my.presenter.GetUserInfoPresenter;
 import com.wetime.fanc.login.act.LoginActivity;
 import com.wetime.fanc.login.event.LoginEvent;
 import com.wetime.fanc.login.event.LogoutEvent;
 import com.wetime.fanc.main.frag.BaseFragment;
+import com.wetime.fanc.my.act.MyCardActivity;
+import com.wetime.fanc.my.bean.MyInfoBean;
+import com.wetime.fanc.my.bean.RebPackageBean;
+import com.wetime.fanc.my.iviews.IGetMyInfoView;
+import com.wetime.fanc.my.iviews.IGetRedPackageView;
+import com.wetime.fanc.my.presenter.GetRedPackagePresenter;
+import com.wetime.fanc.my.presenter.GetUserInfoPresenter;
 import com.wetime.fanc.setting.act.SettingActivity;
 import com.wetime.fanc.setting.event.ChangeUserInfoEvent;
 import com.wetime.fanc.utils.Tools;
@@ -70,6 +71,24 @@ public class MyFragment extends BaseFragment implements IGetMyInfoView, IGetRedP
     Unbinder unbinder;
     @BindView(R.id.ll_call)
     LinearLayout llCall;
+    @BindView(R.id.ll_mystate)
+    LinearLayout llMystate;
+    @BindView(R.id.ll_mynews)
+    LinearLayout llMynews;
+    @BindView(R.id.ll_mycomment)
+    LinearLayout llMycomment;
+    @BindView(R.id.tv_wallet)
+    TextView tvWallet;
+    @BindView(R.id.tv_collect)
+    TextView tvCollect;
+    @BindView(R.id.tv_order)
+    TextView tvOrder;
+    @BindView(R.id.ll_beauthor)
+    LinearLayout llBeauthor;
+    @BindView(R.id.ll_invite)
+    LinearLayout llInvite;
+    @BindView(R.id.ll_redpacket)
+    LinearLayout llRedpacket;
 
     private GetUserInfoPresenter getUserInfoPresenter;
     private MyInfoBean bean;
@@ -95,6 +114,7 @@ public class MyFragment extends BaseFragment implements IGetMyInfoView, IGetRedP
 
         getUserInfoPresenter = new GetUserInfoPresenter(this);
         getRedPackagePresenter = new GetRedPackagePresenter(this);
+
         return v;
     }
 
@@ -106,11 +126,32 @@ public class MyFragment extends BaseFragment implements IGetMyInfoView, IGetRedP
     }
 
 
-    @OnClick({R.id.ll_call, R.id.iv_setting, R.id.ll_login, R.id.tv_fanpiao, R.id.tv_youhuiquan,
-            R.id.iv_msg, R.id.tv_wallet, R.id.ll_invite, R.id.ll_beauthor,
+    @OnClick({R.id.ll_mystate, R.id.ll_call, R.id.iv_setting, R.id.ll_login, R.id.tv_fanpiao, R.id.tv_youhuiquan, R.id.ll_mycomment,
+            R.id.iv_msg, R.id.tv_wallet, R.id.ll_invite, R.id.ll_beauthor, R.id.ll_mynews, R.id.tv_collect,R.id.tv_order,
             R.id.ll_redpacket})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            case R.id.ll_mystate:
+                Intent goMyCard0 = new Intent(getContext(), MyCardActivity.class);
+                goMyCard0.putExtra("index", 0);
+                startActivity(goMyCard0);
+                break;
+            case R.id.tv_collect:
+                Tools.toastInBottom(getContext(), "asdfasdfasdf");
+                break;
+            case R.id.tv_order:
+                Tools.toastInBottom(getContext(), "asdfasdfasdf");
+                break;
+            case R.id.ll_mynews:
+                Intent goMyCard1 = new Intent(getContext(), MyCardActivity.class);
+                goMyCard1.putExtra("index", 1);
+                startActivity(goMyCard1);
+                break;
+            case R.id.ll_mycomment:
+                Intent goMyCard2 = new Intent(getContext(), MyCardActivity.class);
+                goMyCard2.putExtra("index", 2);
+                startActivity(goMyCard2);
+                break;
             case R.id.ll_call:
                 Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:400-3663-2552"));
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

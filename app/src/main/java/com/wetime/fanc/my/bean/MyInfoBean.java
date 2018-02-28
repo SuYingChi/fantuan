@@ -1,4 +1,4 @@
-package com.wetime.fanc.home.bean;
+package com.wetime.fanc.my.bean;
 
 /**
  * Created by zhoukang on 2017/11/3.
@@ -50,7 +50,7 @@ public class MyInfoBean {
 
         private UserBean user;
         private LinkBean link;
-        private String notice_num;
+
 
         public UserBean getUser() {
             return user;
@@ -68,13 +68,6 @@ public class MyInfoBean {
             this.link = link;
         }
 
-        public String getNotice_num() {
-            return notice_num;
-        }
-
-        public void setNotice_num(String notice_num) {
-            this.notice_num = notice_num;
-        }
 
         public static class UserBean {
             /**
@@ -86,6 +79,15 @@ public class MyInfoBean {
             private String username;
             private String phone;
             private String avatar;
+            private boolean has_news;
+
+            public boolean isHas_news() {
+                return has_news;
+            }
+
+            public void setHas_news(boolean has_news) {
+                this.has_news = has_news;
+            }
 
             public String getUsername() {
                 return username;
@@ -124,10 +126,15 @@ public class MyInfoBean {
 
             private RewardBean reward;
             private CouponBean coupon;
-            private FocusBean focus;
-            private NoticeBean notice;
-            private ReviewBean review;
-            private InviterBean inviter;
+            private NewsBean news;
+
+            public NewsBean getNews() {
+                return news;
+            }
+
+            public void setNews(NewsBean news) {
+                this.news = news;
+            }
 
             public RewardBean getReward() {
                 return reward;
@@ -145,37 +152,6 @@ public class MyInfoBean {
                 this.coupon = coupon;
             }
 
-            public FocusBean getFocus() {
-                return focus;
-            }
-
-            public void setFocus(FocusBean focus) {
-                this.focus = focus;
-            }
-
-            public NoticeBean getNotice() {
-                return notice;
-            }
-
-            public void setNotice(NoticeBean notice) {
-                this.notice = notice;
-            }
-
-            public ReviewBean getReview() {
-                return review;
-            }
-
-            public void setReview(ReviewBean review) {
-                this.review = review;
-            }
-
-            public InviterBean getInviter() {
-                return inviter;
-            }
-
-            public void setInviter(InviterBean inviter) {
-                this.inviter = inviter;
-            }
 
             public static class RewardBean {
                 /**
@@ -229,59 +205,8 @@ public class MyInfoBean {
                 }
             }
 
-            public static class FocusBean {
-                /**
-                 * name : 我的关注
-                 * url : https://fanttest.fantuanlife.com/index.html#/user/follow
-                 */
 
-                private String name;
-                private String url;
-
-                public String getName() {
-                    return name;
-                }
-
-                public void setName(String name) {
-                    this.name = name;
-                }
-
-                public String getUrl() {
-                    return url;
-                }
-
-                public void setUrl(String url) {
-                    this.url = url;
-                }
-            }
-
-            public static class NoticeBean {
-                /**
-                 * name : 我的消息
-                 * url : https://fanttest.fantuanlife.com/index.html#/user/message
-                 */
-
-                private String name;
-                private String url;
-
-                public String getName() {
-                    return name;
-                }
-
-                public void setName(String name) {
-                    this.name = name;
-                }
-
-                public String getUrl() {
-                    return url;
-                }
-
-                public void setUrl(String url) {
-                    this.url = url;
-                }
-            }
-
-            public static class ReviewBean {
+            public static class NewsBean {
                 /**
                  * name : 我的评价
                  * url : https://fanttest.fantuanlife.com/index.html#/user/comment
@@ -307,31 +232,6 @@ public class MyInfoBean {
                 }
             }
 
-            public static class InviterBean {
-                /**
-                 * name : 邀请有礼
-                 * url :
-                 */
-
-                private String name;
-                private String url;
-
-                public String getName() {
-                    return name;
-                }
-
-                public void setName(String name) {
-                    this.name = name;
-                }
-
-                public String getUrl() {
-                    return url;
-                }
-
-                public void setUrl(String url) {
-                    this.url = url;
-                }
-            }
         }
     }
 }
