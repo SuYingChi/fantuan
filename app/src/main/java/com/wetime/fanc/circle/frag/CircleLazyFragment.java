@@ -7,10 +7,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.flyco.tablayout.CommonTabLayout;
 import com.flyco.tablayout.listener.CustomTabEntity;
 import com.flyco.tablayout.listener.OnTabSelectListener;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.wetime.fanc.R;
 import com.wetime.fanc.home.adapter.TestAdapter;
 import com.wetime.fanc.home.bean.TabEntity;
@@ -26,7 +31,7 @@ import butterknife.Unbinder;
 import q.rorbin.badgeview.QBadgeView;
 
 
-public class CircleLazyFragment extends BaseLazyFragment {
+public class CircleLazyFragment extends BaseLazyFragment implements OnRefreshListener, OnLoadmoreListener {
 
 
     @BindView(R.id.iv_msg)
@@ -38,11 +43,18 @@ public class CircleLazyFragment extends BaseLazyFragment {
     @BindView(R.id.rcl_home)
     RecyclerView rclHome;
     Unbinder unbinder;
+    @BindView(R.id.ll_headinfo)
+    LinearLayout llHeadinfo;
+    @BindView(R.id.refreshLayout)
+    SmartRefreshLayout refreshLayout;
 
     private QBadgeView qBadgeMsg;
     private ArrayList<CustomTabEntity> mTabEntities = new ArrayList<>();
     private String[] mTitles = {"热门动态", "最新动态"};
+
+
     private int temp = 9;
+    private TestAdapter adapter;
 
     @Override
     protected int setLayoutId() {
@@ -72,8 +84,11 @@ public class CircleLazyFragment extends BaseLazyFragment {
 
             }
         });
+        refreshLayout.setOnRefreshListener(this);
+        refreshLayout.setOnLoadmoreListener(this);
+
         rclHome.setLayoutManager(new LinearLayoutManager(getContext()));
-        TestAdapter adapter = new TestAdapter(getContext());
+        adapter = new TestAdapter(getContext());
         rclHome.setAdapter(adapter);
         adapter.notifyDataSetChanged();
     }
@@ -109,5 +124,21 @@ public class CircleLazyFragment extends BaseLazyFragment {
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    @Override
+    public void onRefresh(RefreshLayout refreshlayout) {
+        adapter.reFresh();
+        adapter.notifyDataSetChanged();
+        refreshLayout.finishLoadmore();
+        refreshLayout.finishRefresh();
+    }
+
+    @Override
+    public void onLoadmore(RefreshLayout refreshlayout) {
+        adapter.loadMore();
+        adapter.notifyDataSetChanged();
+        refreshLayout.finishLoadmore();
+        refreshLayout.finishRefresh();
     }
 }
