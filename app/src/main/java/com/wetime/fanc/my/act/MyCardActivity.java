@@ -8,7 +8,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.flyco.tablayout.CommonTabLayout;
@@ -36,8 +35,6 @@ public class MyCardActivity extends BaseActivity implements OnLoadmoreListener {
     TextView tvTitle;
     @BindView(R.id.iv_back)
     ImageView ivBack;
-    @BindView(R.id.ll_headinfo)
-    LinearLayout llHeadinfo;
     @BindView(R.id.tablayout)
     CommonTabLayout commonTabLayout;
     @BindView(R.id.appbar)
@@ -52,6 +49,7 @@ public class MyCardActivity extends BaseActivity implements OnLoadmoreListener {
     private ArrayList<CustomTabEntity> mTabEntities = new ArrayList<>();
     private String[] mTitles = {"动态", "头条", "点评"};
     private TestAdapter adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,7 +60,7 @@ public class MyCardActivity extends BaseActivity implements OnLoadmoreListener {
             mTabEntities.add(new TabEntity(mTitle));
         }
         commonTabLayout.setTabData(mTabEntities);
-        commonTabLayout.setCurrentTab(getIntent().getIntExtra("index",0));
+        commonTabLayout.setCurrentTab(getIntent().getIntExtra("index", 0));
         commonTabLayout.setOnTabSelectListener(new OnTabSelectListener() {
             @Override
             public void onTabSelect(int position) {
@@ -98,7 +96,8 @@ public class MyCardActivity extends BaseActivity implements OnLoadmoreListener {
 
         }
     }
-    private Context getContext(){
+
+    private Context getContext() {
         return this;
     }
 
