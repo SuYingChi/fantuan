@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,7 +34,6 @@ import com.wetime.fanc.login.event.LogoutEvent;
 import com.wetime.fanc.main.frag.BaseFragment;
 import com.wetime.fanc.setting.act.SettingActivity;
 import com.wetime.fanc.setting.event.ChangeUserInfoEvent;
-import com.wetime.fanc.shop.act.ShopNewsHomeActivity;
 import com.wetime.fanc.utils.Tools;
 import com.wetime.fanc.wallet.act.InviteHomeActivity;
 import com.wetime.fanc.wallet.act.MyWalletActivity;
@@ -56,7 +54,8 @@ import q.rorbin.badgeview.QBadgeView;
 
 public class MyFragment extends BaseFragment implements IGetMyInfoView, IGetRedPackageView {
 
-
+    @BindView(R.id.iv_msg)
+    ImageView ivMsg;
     @BindView(R.id.iv_setting)
     ImageView ivSetting;
     @BindView(R.id.civ_head)
@@ -69,23 +68,13 @@ public class MyFragment extends BaseFragment implements IGetMyInfoView, IGetRedP
     TextView tvFanpiao;
     @BindView(R.id.tv_youhuiquan)
     TextView tvYouhuiquan;
-    @BindView(R.id.tv_guanzhu)
-    TextView tvGuanzhu;
-    @BindView(R.id.tv_message)
-    TextView tvMessage;
-    @BindView(R.id.tv_comment)
-    TextView tvComment;
-    @BindView(R.id.tv_waimai)
-    TextView tvWaimai;
     Unbinder unbinder;
-    @BindView(R.id.tv_rednum)
-    TextView tvRednum;
     @BindView(R.id.ll_call)
     LinearLayout llCall;
 
     private GetUserInfoPresenter getUserInfoPresenter;
     private MyInfoBean bean;
-    private QBadgeView QBred;
+    private QBadgeView qBadgeMsg;
 
     public AMapLocationClient mLocationClient = null;
     //声明定位回调监听器
@@ -99,11 +88,11 @@ public class MyFragment extends BaseFragment implements IGetMyInfoView, IGetRedP
         EventBus.getDefault().register(this);
         View v = inflater.inflate(R.layout.fragment_my, null);
         unbinder = ButterKnife.bind(this, v);
+        qBadgeMsg = new QBadgeView(getContext());
+        qBadgeMsg.setBadgeTextSize(11, true);
+        qBadgeMsg.bindTarget(ivMsg);
+        qBadgeMsg.setBadgeNumber(11);
 
-        QBred = new QBadgeView(getContext());
-        QBred.bindTarget(tvRednum).setBadgeBackgroundColor(0xffff3f53)
-                .setBadgeTextSize(11, true).setBadgeGravity(Gravity.CENTER);
-        QBred.setOnClickListener(v1 -> goMessage());
 
         getUserInfoPresenter = new GetUserInfoPresenter(this);
         getRedPackagePresenter = new GetRedPackagePresenter(this);
@@ -119,7 +108,7 @@ public class MyFragment extends BaseFragment implements IGetMyInfoView, IGetRedP
 
 
     @OnClick({R.id.ll_call, R.id.iv_setting, R.id.ll_login, R.id.tv_fanpiao, R.id.tv_youhuiquan,
-            R.id.tv_guanzhu, R.id.tv_message, R.id.tv_comment, R.id.tv_waimai, R.id.tv_wallet, R.id.ll_invite,
+             R.id.iv_msg,  R.id.tv_wallet, R.id.ll_invite,
             R.id.ll_redpacket})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -164,29 +153,11 @@ public class MyFragment extends BaseFragment implements IGetMyInfoView, IGetRedP
                     startActivity(goLogin);
                 }
                 break;
-            case R.id.tv_guanzhu:
-                if (bean != null)
-                    goWeb(bean.getData().getLink().getFocus().getUrl());
-                else {
-                    Tools.toastInBottom(getContext(), "请先登录");
-                    Intent goLogin = new Intent(getContext(), LoginActivity.class);
-                    startActivity(goLogin);
-                }
-                break;
-            case R.id.tv_message:
+
+            case R.id.iv_msg:
                 goMessage();
                 break;
-            case R.id.tv_comment:
-                if (bean != null)
-                    goWeb(bean.getData().getLink().getReview().getUrl());
-                else {
-                    Tools.toastInBottom(getContext(), "请先登录");
-                    Intent goLogin = new Intent(getContext(), LoginActivity.class);
-                    startActivity(goLogin);
-                }
-                break;
-            case R.id.tv_waimai:
-                break;
+
             case R.id.tv_wallet:
                 if (bean != null) {
                     Tools.goActivity(getContext(), MyWalletActivity.class);
@@ -264,7 +235,6 @@ public class MyFragment extends BaseFragment implements IGetMyInfoView, IGetRedP
         Glide.with(this).load(bean.getData().getUser().getAvatar()).into(civHead);
         tvName.setText(bean.getData().getUser().getUsername());
 
-        QBred.setBadgeNumber(Integer.valueOf(bean.getData().getNotice_num()));
     }
 
     @Override
@@ -304,7 +274,7 @@ public class MyFragment extends BaseFragment implements IGetMyInfoView, IGetRedP
         tvName.setText("登录/注册");
 //        civHead.setImageResource(R.drawable.ic_head_default);
         Glide.with(this).load(R.drawable.ic_head_default).apply(new RequestOptions().placeholder(R.drawable.ic_head_default)).into(civHead);
-        QBred.setBadgeNumber(0);
+
     }
 
     private void initLoaction() {

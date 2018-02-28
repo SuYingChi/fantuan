@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_all"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:id="@+id/tv_wallet"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/white"
+        android:drawableLeft="@drawable/ic_mywallet"
+        android:drawablePadding="10dp"
+        android:drawableRight="@drawable/ic_right"
+        android:gravity="center|left"
+        android:lineSpacingExtra="1sp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:text="我的钱包"
+        android:textColor="#333333"
+        android:textSize="15sp"
+        android:visibility="gone" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:background="#e1e1e1"
+        android:visibility="gone" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="@color/bg_all" />
+
+    <TextView
+        android:id="@+id/tv_collect"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/white"
+        android:drawableLeft="@drawable/ic_my_collect"
+        android:drawablePadding="10dp"
+        android:drawableRight="@drawable/ic_right"
+        android:gravity="center|left"
+        android:lineSpacingExtra="1sp"
+        android:paddingLeft="10dp"
+        android:paddingRight="15dp"
+        android:text="我的收藏"
+        android:textColor="#333333"
+        android:textSize="15sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="@color/bg_all" />
+
+    <TextView
+        android:id="@+id/tv_order"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/white"
+        android:drawableLeft="@drawable/ic_my_order"
+        android:drawablePadding="10dp"
+        android:drawableRight="@drawable/ic_right"
+        android:gravity="center|left"
+        android:lineSpacingExtra="1sp"
+        android:paddingLeft="10dp"
+        android:paddingRight="15dp"
+        android:text="我的订单"
+        android:textColor="#333333"
+        android:textSize="15sp" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:background="#e1e1e1" />
+    <TextView
+        android:id="@+id/tv_fanpiao"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/white"
+        android:drawableLeft="@drawable/ic_fanpiao"
+        android:drawablePadding="10dp"
+        android:drawableRight="@drawable/ic_right"
+        android:gravity="center|left"
+        android:lineSpacingExtra="1sp"
+        android:paddingLeft="10dp"
+        android:paddingRight="15dp"
+        android:text="范票"
+        android:textColor="#333333"
+        android:textSize="15sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:background="#e1e1e1" />
+
+    <TextView
+        android:id="@+id/tv_youhuiquan"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/white"
+        android:drawableLeft="@drawable/ic_youhuiquan"
+        android:drawablePadding="10dp"
+        android:drawableRight="@drawable/ic_right"
+        android:gravity="center|left"
+        android:lineSpacingExtra="1sp"
+        android:paddingLeft="10dp"
+        android:paddingRight="15dp"
+        android:text="优惠券"
+        android:textColor="#333333"
+        android:textSize="15sp" />
+    <LinearLayout
+        android:id="@+id/ll_beauthor"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:background="@color/bg_all" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/white"
+            android:drawableLeft="@drawable/ic_my_author"
+            android:drawablePadding="10dp"
+            android:drawableRight="@drawable/ic_right"
+            android:gravity="center|left"
+            android:lineSpacingExtra="1sp"
+            android:paddingLeft="10dp"
+            android:paddingRight="15dp"
+            android:text="申请成文头条号"
+            android:textColor="#333333"
+            android:textSize="15sp" />
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="@color/bg_all" />
+
+    <LinearLayout
+        android:id="@+id/ll_call"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:drawableLeft="@drawable/ic_kefu"
+            android:drawablePadding="10dp"
+            android:gravity="center|left"
+            android:paddingLeft="10dp"
+            android:paddingRight="15dp"
+            android:text="客服电话"
+            android:textColor="#333333"
+            android:textSize="15sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:lineSpacingExtra="1sp"
+            android:paddingRight="15dp"
+            android:text="400-3663-2552"
+            android:textColor="#333333"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:background="@color/bg_all" />
+
+
+
+
+
+    <LinearLayout
+        android:id="@+id/ll_invite"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:drawableLeft="@drawable/ic_invite"
+            android:drawablePadding="10dp"
+            android:gravity="center|left"
+            android:lineSpacingExtra="1sp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:text="邀请有礼"
+            android:textColor="#333333"
+            android:textSize="15sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawablePadding="5dp"
+            android:drawableRight="@drawable/ic_right"
+            android:gravity="end"
+            android:lineSpacingExtra="0sp"
+            android:paddingRight="15dp"
+            android:text="邀请好友获现金红包"
+            android:textColor="#999999"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_redpacket"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:background="#e1e1e1" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/white"
+            android:drawableLeft="@drawable/ic_redpacket"
+            android:drawablePadding="10dp"
+            android:drawableRight="@drawable/ic_right"
+            android:gravity="center|left"
+            android:lineSpacingExtra="1sp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:text="领取红包"
+            android:textColor="#333333"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+
+</LinearLayout>
+
