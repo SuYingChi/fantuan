@@ -56,6 +56,8 @@ public interface Const {
     String SHOP_POST_ARTICLE = BASEURL + "/shop/post/article";
     String SHOP_POST_LIST = BASEURL + "/shop/post/list";
 
+    String CIRCLE = BASEURL + "/circle";
+
 
 
 

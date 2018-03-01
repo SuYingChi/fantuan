@@ -1,7 +1,5 @@
 package com.wetime.fanc.home.bean;
 
-import com.wetime.fanc.news.bean.NewsListBean;
-
 import java.util.List;
 
 /**
