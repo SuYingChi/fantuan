@@ -3,18 +3,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
     android:background="@drawable/touch_bg"
-    android:paddingLeft="15dp"
-    android:paddingRight="15dp">
+    android:orientation="vertical">
 
+    <View
+        android:id="@+id/bigline"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:background="@color/biglinebg" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:layout_marginBottom="15dp"
         android:layout_marginTop="15dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp">
 
         <LinearLayout
             android:layout_width="0dp"
@@ -90,6 +95,12 @@
 
     </LinearLayout>
 
-    <include layout="@layout/item_my_line" />
+    <View
+        android:id="@+id/smallline"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:background="@color/linebg" />
 </LinearLayout>
 

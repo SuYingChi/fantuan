@@ -12,7 +12,7 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.wetime.fanc.R;
-import com.wetime.fanc.home.adapter.NewsAdapter;
+import com.wetime.fanc.home.adapter.HomeItemAdapter;
 import com.wetime.fanc.home.bean.HomeItemBean;
 import com.wetime.fanc.news.bean.NewsListBean;
 import com.wetime.fanc.main.act.BaseActivity;
@@ -42,7 +42,7 @@ public class ShopNewsHomeActivity extends BaseActivity implements OnRefreshListe
     private int page = 1;
 
     private List<HomeItemBean> list;
-    private NewsAdapter adapter;
+    private HomeItemAdapter adapter;
     private GetShopNewsPresenter getNewsTypePresenter;
 
     @Override
@@ -55,7 +55,7 @@ public class ShopNewsHomeActivity extends BaseActivity implements OnRefreshListe
         refreshLayout.setOnRefreshListener(this);
         refreshLayout.setOnLoadmoreListener(this);
         list = new ArrayList<>();
-        adapter = new NewsAdapter(list, this);
+        adapter = new HomeItemAdapter(list, this);
         rcl.setLayoutManager(new LinearLayoutManager(this));
         rcl.setAdapter(adapter);
         adapter.setOnItemClickLitener((view, position) -> Tools.goWeb(this, list.get(position).getArticle_url()));

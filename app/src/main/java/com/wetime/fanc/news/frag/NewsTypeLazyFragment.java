@@ -18,7 +18,7 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.wetime.fanc.R;
-import com.wetime.fanc.home.adapter.NewsAdapter;
+import com.wetime.fanc.home.adapter.HomeItemAdapter;
 import com.wetime.fanc.home.bean.HomeItemBean;
 import com.wetime.fanc.news.bean.NewsListBean;
 import com.wetime.fanc.home.event.ReFreshNewsTypeEvent;
@@ -45,7 +45,7 @@ public class NewsTypeLazyFragment extends BaseLazyFragment implements IGetNewsTy
     private int page = 1;
     private RecyclerView rcl;
     private List<HomeItemBean> list;
-    private NewsAdapter adapter;
+    private HomeItemAdapter adapter;
     private SmartRefreshLayout refreshLayout;
     private TextView tvRec;
 
@@ -88,7 +88,7 @@ public class NewsTypeLazyFragment extends BaseLazyFragment implements IGetNewsTy
         refreshLayout.setOnRefreshListener(this);
         refreshLayout.setOnLoadmoreListener(this);
         list = new ArrayList<>();
-        adapter = new NewsAdapter(list, getContext());
+        adapter = new HomeItemAdapter(list, getContext());
         rcl = mRootView.findViewById(R.id.rcl_news);
         rcl.setLayoutManager(new LinearLayoutManager(getContext()));
         rcl.setAdapter(adapter);

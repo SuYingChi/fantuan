@@ -13,7 +13,6 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.wetime.fanc.R;
 import com.wetime.fanc.home.bean.HomeItemBean;
-import com.wetime.fanc.news.bean.NewsListBean;
 import com.wetime.fanc.utils.Tools;
 
 import java.util.List;
@@ -25,17 +24,26 @@ import butterknife.ButterKnife;
  * Created by yuxun on 2017/4/15.
  */
 
-public class NewsAdapter extends RecyclerView.Adapter {
+public class HomeItemAdapter extends RecyclerView.Adapter {
     private List<HomeItemBean> list;
     private Context mContext;
     private LayoutInflater inflater;
     // 区分  0 默认样式  1  特殊 shopnews 带阴影  只有单图
     private int listtype = 0;
+    private boolean isBlod;
 
-    public NewsAdapter(List<HomeItemBean> list, Context mContext) {
+    public HomeItemAdapter(List<HomeItemBean> list, Context mContext) {
         this.list = list;
         this.mContext = mContext;
         this.inflater = LayoutInflater.from(mContext);
+        this.isBlod = false;
+    }
+
+    public HomeItemAdapter(List<HomeItemBean> list, Context mContext, boolean isBlod) {
+        this.list = list;
+        this.mContext = mContext;
+        this.inflater = LayoutInflater.from(mContext);
+        this.isBlod = isBlod;
     }
 
     public int getListtype() {
@@ -59,6 +67,7 @@ public class NewsAdapter extends RecyclerView.Adapter {
                 return new NewsHolder4(inflater.inflate(R.layout.item_news_type4, parent, false));
             }
         } else if (listtype == 1) {
+            //商家说  带阴影的 和正常的不一样 特殊处理
             return new NewsHolder1Shop(inflater.inflate(R.layout.item_news_type1_shop, parent, false));
         }
         return null;
@@ -101,6 +110,14 @@ public class NewsAdapter extends RecyclerView.Adapter {
                             .placeholder(R.drawable.iv_default_news_single_big)).into(((NewsHolder4) holder).ivBanner);
         }
         if (holder instanceof NewsHolder1) {
+            if (isBlod) {
+                ((NewsHolder1) holder).bigLine.setVisibility(View.VISIBLE);
+                ((NewsHolder1) holder).smallLine.setVisibility(View.GONE);
+            } else {
+                ((NewsHolder1) holder).bigLine.setVisibility(View.GONE);
+                ((NewsHolder1) holder).smallLine.setVisibility(View.VISIBLE);
+            }
+
             ((NewsHolder1) holder).tvName.setText(bean.getName());
             ((NewsHolder1) holder).tvAuthor.setText(bean.getNews_name());
             ((NewsHolder1) holder).tvTime.setText(bean.getTime());
@@ -149,6 +166,14 @@ public class NewsAdapter extends RecyclerView.Adapter {
                     .into(((NewsHolder1Shop) holder).ivCover);
         }
         if (holder instanceof NewsHolder3) {
+            if (isBlod) {
+                ((NewsHolder3) holder).bigLine.setVisibility(View.VISIBLE);
+                ((NewsHolder3) holder).smallLine.setVisibility(View.GONE);
+            } else {
+                ((NewsHolder3) holder).bigLine.setVisibility(View.GONE);
+                ((NewsHolder3) holder).smallLine.setVisibility(View.VISIBLE);
+            }
+
             ((NewsHolder3) holder).tvName.setText(bean.getName());
             ((NewsHolder3) holder).tvAuthor.setText(bean.getNews_name());
             ((NewsHolder3) holder).tvTime.setText(bean.getTime());
@@ -224,6 +249,10 @@ public class NewsAdapter extends RecyclerView.Adapter {
         TextView tvReadnum;
         @BindView(R.id.iv_cover)
         ImageView ivCover;
+        @BindView(R.id.bigline)
+        View bigLine;
+        @BindView(R.id.smallline)
+        View smallLine;
 
 
         NewsHolder1(View view) {
@@ -231,6 +260,7 @@ public class NewsAdapter extends RecyclerView.Adapter {
             ButterKnife.bind(this, view);
         }
     }// 小图加文字
+
     class NewsHolder1Shop extends RecyclerView.ViewHolder {
         @BindView(R.id.name)
         TextView tvName;
@@ -265,6 +295,10 @@ public class NewsAdapter extends RecyclerView.Adapter {
         ImageView ivCover1;
         @BindView(R.id.iv_cover2)
         ImageView ivCover2;
+        @BindView(R.id.bigline)
+        View bigLine;
+        @BindView(R.id.smallline)
+        View smallLine;
 
 
         NewsHolder3(View view) {
