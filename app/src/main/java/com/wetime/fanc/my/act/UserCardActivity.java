@@ -28,7 +28,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MyCardActivity extends BaseActivity implements OnLoadmoreListener {
+public class UserCardActivity extends BaseActivity implements OnLoadmoreListener {
 
 
     @BindView(R.id.tv_title)

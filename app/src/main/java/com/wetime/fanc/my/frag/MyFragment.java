@@ -26,7 +26,8 @@ import com.wetime.fanc.login.act.LoginActivity;
 import com.wetime.fanc.login.event.LoginEvent;
 import com.wetime.fanc.login.event.LogoutEvent;
 import com.wetime.fanc.main.frag.BaseFragment;
-import com.wetime.fanc.my.act.MyCardActivity;
+import com.wetime.fanc.my.act.MyCollectActivity;
+import com.wetime.fanc.my.act.UserCardActivity;
 import com.wetime.fanc.my.bean.MyInfoBean;
 import com.wetime.fanc.my.bean.RebPackageBean;
 import com.wetime.fanc.my.iviews.IGetMyInfoView;
@@ -131,23 +132,24 @@ public class MyFragment extends BaseFragment implements IGetMyInfoView, IGetRedP
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ll_my_state:
-                Intent goMyCard0 = new Intent(getContext(), MyCardActivity.class);
+                Intent goMyCard0 = new Intent(getContext(), UserCardActivity.class);
                 goMyCard0.putExtra("index", 0);
                 startActivity(goMyCard0);
                 break;
             case R.id.tv_collect:
-                Tools.toastInBottom(getContext(), "asdfasdfasdf");
+                Intent goMyCollect = new Intent(getContext(), MyCollectActivity.class);
+                startActivity(goMyCollect);
                 break;
             case R.id.tv_order:
                 Tools.toastInBottom(getContext(), "asdfasdfasdf");
                 break;
             case R.id.ll_mynews:
-                Intent goMyCard1 = new Intent(getContext(), MyCardActivity.class);
+                Intent goMyCard1 = new Intent(getContext(), UserCardActivity.class);
                 goMyCard1.putExtra("index", 1);
                 startActivity(goMyCard1);
                 break;
             case R.id.ll_mycomment:
-                Intent goMyCard2 = new Intent(getContext(), MyCardActivity.class);
+                Intent goMyCard2 = new Intent(getContext(), UserCardActivity.class);
                 goMyCard2.putExtra("index", 2);
                 startActivity(goMyCard2);
                 break;
