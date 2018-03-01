@@ -1,7 +1,7 @@
 package com.wetime.fanc.shop.presenter;
 
 
-import com.wetime.fanc.home.bean.NewsListBean;
+import com.wetime.fanc.news.bean.NewsListBean;
 import com.wetime.fanc.shop.iviews.IGetShopNewsView;
 import com.wetime.fanc.utils.Const;
 import com.wetime.fanc.utils.DataStringCallback;

@@ -1,6 +1,5 @@
 package com.wetime.fanc.shop.act;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,7 +13,8 @@ import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.wetime.fanc.R;
 import com.wetime.fanc.home.adapter.NewsAdapter;
-import com.wetime.fanc.home.bean.NewsListBean;
+import com.wetime.fanc.home.bean.HomeItemBean;
+import com.wetime.fanc.news.bean.NewsListBean;
 import com.wetime.fanc.main.act.BaseActivity;
 import com.wetime.fanc.shop.iviews.IGetShopNewsView;
 import com.wetime.fanc.shop.presenter.GetShopNewsPresenter;
@@ -41,7 +41,7 @@ public class ShopNewsHomeActivity extends BaseActivity implements OnRefreshListe
 
     private int page = 1;
 
-    private List<NewsListBean.DataBean.ListBean> list;
+    private List<HomeItemBean> list;
     private NewsAdapter adapter;
     private GetShopNewsPresenter getNewsTypePresenter;
 

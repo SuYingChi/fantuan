@@ -12,7 +12,8 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
 import com.wetime.fanc.R;
 import com.wetime.fanc.home.adapter.NewsAdapter;
-import com.wetime.fanc.home.bean.NewsListBean;
+import com.wetime.fanc.home.bean.HomeItemBean;
+import com.wetime.fanc.news.bean.NewsListBean;
 import com.wetime.fanc.home.iviews.IGetShopNewsTypeView;
 import com.wetime.fanc.home.presenter.GetShopNewsTypePresenter;
 import com.wetime.fanc.main.frag.BaseLazyFragment;
@@ -34,7 +35,7 @@ public class ShopNewsLazyFragment extends BaseLazyFragment implements OnLoadmore
     @BindView(R.id.rl_no)
     RelativeLayout rlNo;
 
-    private List<NewsListBean.DataBean.ListBean> list;
+    private List<HomeItemBean> list;
     private NewsAdapter adapter;
     private GetShopNewsTypePresenter getNewsTypePresenter;
     private int page = 1;

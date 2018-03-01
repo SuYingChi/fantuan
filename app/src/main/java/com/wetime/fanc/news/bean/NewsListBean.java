@@ -1,4 +1,6 @@
-package com.wetime.fanc.home.bean;
+package com.wetime.fanc.news.bean;
+
+import com.wetime.fanc.home.bean.HomeItemBean;
 
 import java.util.List;
 
@@ -51,7 +53,7 @@ public class NewsListBean {
 
         private String update_num;
         private PagingBean paging;
-        private List<ListBean> list;
+        private List<HomeItemBean> list;
 
         public String getUpdate_num() {
             return update_num;
@@ -69,11 +71,11 @@ public class NewsListBean {
             this.paging = paging;
         }
 
-        public List<ListBean> getList() {
+        public List<HomeItemBean> getList() {
             return list;
         }
 
-        public void setList(List<ListBean> list) {
+        public void setList(List<HomeItemBean> list) {
             this.list = list;
         }
 
@@ -133,127 +135,6 @@ public class NewsListBean {
             }
         }
 
-        public static class ListBean {
-            /**
-             * id : 87
-             * name : 震惊！吃货团编辑部引发内部大战，竟是因吃饭问题！
-             * cover : ["https://staticcdntest.fantuanlife.com/uimage/dd/20/af/82/dd20af82ca287f4b6df6606f60b0aa83.jpg","https://staticcdntest.fantuanlife.com/uimage/c8/40/9f/36/c8409f360807fc916a4ce67b608405ff.jpg","https://staticcdntest.fantuanlife.com/uimage/f1/82/1e/2f/f1821e2fb202870799ce5d4ffae499fd.jpg"]
-             * author : 大白菜
-             * time : 01-24
-             * read_num : 0次浏览
-             * article_url : www.baidu.com
-             * type : 3
-             */
 
-            private String id;
-            private String name;
-            private String news_name;
-            private String time;
-            private String read_num;
-            private String article_url;
-            private int type;
-            private List<String> cover;
-            private List<BannerBean> banner;
-
-            public List<BannerBean> getBanner() {
-                return banner;
-            }
-
-            public void setBanner(List<BannerBean> banner) {
-                this.banner = banner;
-            }
-
-            public String getNews_name() {
-                return news_name;
-            }
-
-            public void setNews_name(String news_name) {
-                this.news_name = news_name;
-            }
-
-            public static class BannerBean {
-                /**
-                 * url :
-                 * img : https://staticcdntest.fantuanlife.com/image/fant/news_banner.png
-                 */
-
-                private String url;
-                private String img;
-
-                public String getUrl() {
-                    return url;
-                }
-
-                public void setUrl(String url) {
-                    this.url = url;
-                }
-
-                public String getImg() {
-                    return img;
-                }
-
-                public void setImg(String img) {
-                    this.img = img;
-                }
-            }
-
-            public String getId() {
-                return id;
-            }
-
-            public void setId(String id) {
-                this.id = id;
-            }
-
-            public String getName() {
-                return name;
-            }
-
-            public void setName(String name) {
-                this.name = name;
-            }
-
-
-
-            public String getTime() {
-                return time;
-            }
-
-            public void setTime(String time) {
-                this.time = time;
-            }
-
-            public String getRead_num() {
-                return read_num;
-            }
-
-            public void setRead_num(String read_num) {
-                this.read_num = read_num;
-            }
-
-            public String getArticle_url() {
-                return article_url;
-            }
-
-            public void setArticle_url(String article_url) {
-                this.article_url = article_url;
-            }
-
-            public int getType() {
-                return type;
-            }
-
-            public void setType(int type) {
-                this.type = type;
-            }
-
-            public List<String> getCover() {
-                return cover;
-            }
-
-            public void setCover(List<String> cover) {
-                this.cover = cover;
-            }
-        }
     }
 }

@@ -12,7 +12,8 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.wetime.fanc.R;
-import com.wetime.fanc.home.bean.NewsListBean;
+import com.wetime.fanc.home.bean.HomeItemBean;
+import com.wetime.fanc.news.bean.NewsListBean;
 import com.wetime.fanc.utils.Tools;
 
 import java.util.List;
@@ -25,13 +26,13 @@ import butterknife.ButterKnife;
  */
 
 public class NewsAdapter extends RecyclerView.Adapter {
-    private List<NewsListBean.DataBean.ListBean> list;
+    private List<HomeItemBean> list;
     private Context mContext;
     private LayoutInflater inflater;
     // 区分  0 默认样式  1  特殊 shopnews 带阴影  只有单图
     private int listtype = 0;
 
-    public NewsAdapter(List<NewsListBean.DataBean.ListBean> list, Context mContext) {
+    public NewsAdapter(List<HomeItemBean> list, Context mContext) {
         this.list = list;
         this.mContext = mContext;
         this.inflater = LayoutInflater.from(mContext);
@@ -68,7 +69,7 @@ public class NewsAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
-        NewsListBean.DataBean.ListBean bean = list.get(position);
+        HomeItemBean bean = list.get(position);
 
         if (mOnItemClickLitener != null) {
             holder.itemView.setOnClickListener(view -> mOnItemClickLitener.onItemClick(view, position));

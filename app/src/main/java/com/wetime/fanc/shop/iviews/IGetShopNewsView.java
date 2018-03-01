@@ -1,7 +1,7 @@
 package com.wetime.fanc.shop.iviews;
 
 
-import com.wetime.fanc.home.bean.NewsListBean;
+import com.wetime.fanc.news.bean.NewsListBean;
 import com.wetime.fanc.main.ivews.IBaseVIew;
 
 /**
