@@ -36,15 +36,10 @@
 
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:id="@+id/refreshLayout"
-
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:srlEnableAutoLoadmore="true"
-
-        app:srlEnableFooterFollowWhenLoadFinished="true"
         app:srlEnableHeaderTranslationContent="true"
-        app:srlEnableOverScrollBounce="false"
-        app:srlEnableScrollContentWhenLoaded="true">
+        app:srlEnableOverScrollBounce="false">
 
         <RelativeLayout
             android:layout_width="match_parent"

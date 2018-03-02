@@ -32,4 +32,8 @@
     <string name="str_buy">购买</string>
     <string name="str_rmb">¥</string>
 
+    <string name="auto_loadmore_loading">Loading…</string>
+    <string name="auto_loadmore_load_finish">All data is loaded</string>
+    <string name="auto_loadmore_load_failed">Loading failed, please click me to try again.</string>
+
 </resources>

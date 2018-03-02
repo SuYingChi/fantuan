@@ -1,6 +1,5 @@
 package com.wetime.fanc.circle.frag;
 
-import android.os.Handler;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,7 +14,6 @@ import com.flyco.tablayout.listener.CustomTabEntity;
 import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.wetime.fanc.R;
 import com.wetime.fanc.circle.act.PublishCircleActivity;
@@ -34,10 +32,11 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import loadmore.AutoLoadMoreAdapter;
 import q.rorbin.badgeview.QBadgeView;
 
 
-public class CircleLazyFragment extends BaseLazyFragment implements OnRefreshListener, OnLoadmoreListener, IGetCircleHomeView {
+public class CircleLazyFragment extends BaseLazyFragment implements OnRefreshListener, IGetCircleHomeView {
 
 
     @BindView(R.id.iv_msg)
@@ -79,6 +78,8 @@ public class CircleLazyFragment extends BaseLazyFragment implements OnRefreshLis
     private List<CircleHomeListBean.DataBean.CirclesBean> circllist = new ArrayList<>();
     private HeadCircleAdapter circleAdapter;
 
+    private AutoLoadMoreAdapter mAutoLoadMoreAdapter;
+
     @Override
     protected int setLayoutId() {
         return R.layout.fragment_circle;
@@ -101,8 +102,7 @@ public class CircleLazyFragment extends BaseLazyFragment implements OnRefreshLis
                 sortPos = position;
 //                mList.clear();
 //                adapter.notifyDataSetChanged();
-                page = 1;
-                getCircleHomePresenter.getCircleHome();
+                onRefresh(refreshLayout);
 
             }
 
@@ -112,7 +112,7 @@ public class CircleLazyFragment extends BaseLazyFragment implements OnRefreshLis
             }
         });
         refreshLayout.setOnRefreshListener(this);
-        refreshLayout.setOnLoadmoreListener(this);
+        refreshLayout.setEnableLoadmore(false);
         //头部
         GridLayoutManager manager = new GridLayoutManager(getContext(), 4);
         rclCircle.setLayoutManager(manager);
@@ -128,8 +128,25 @@ public class CircleLazyFragment extends BaseLazyFragment implements OnRefreshLis
         //列表
         rclHome.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new HomeItemAdapter(mList, getContext(), true);
-        rclHome.setAdapter(adapter);
+
+        mAutoLoadMoreAdapter = new AutoLoadMoreAdapter(getContext(), adapter);
+        mAutoLoadMoreAdapter.setOnLoadListener(new AutoLoadMoreAdapter.OnLoadListener() {
+            @Override
+            public void onRetry() {
+
+            }
+
+            @Override
+            public void onLoadMore() {
+                page++;
+                getCircleHomePresenter.getCircleHome();
+            }
+        });
+
+        rclHome.setAdapter(mAutoLoadMoreAdapter);
         adapter.notifyDataSetChanged();
+
+
     }
 
     @Override
@@ -158,18 +175,19 @@ public class CircleLazyFragment extends BaseLazyFragment implements OnRefreshLis
     public void onRefresh(RefreshLayout refreshlayout) {
         page = 1;
         getCircleHomePresenter.getCircleHome();
+        mAutoLoadMoreAdapter.enable();
     }
 
-    @Override
-    public void onLoadmore(RefreshLayout refreshlayout) {
-        page++;
-        getCircleHomePresenter.getCircleHome();
-
-    }
+//    @Override
+//    public void onLoadmore(RefreshLayout refreshlayout) {
+//        page++;
+//        getCircleHomePresenter.getCircleHome();
+//
+//    }
 
     @Override
     public void onGetCircleHome(CircleHomeListBean bean) {
-        refreshLayout.finishLoadmore();
+//        refreshLayout.finishLoadmore();
         refreshLayout.finishRefresh();
 
         if (page == 1) {
@@ -178,12 +196,19 @@ public class CircleLazyFragment extends BaseLazyFragment implements OnRefreshLis
             circllist.addAll(bean.getData().getCircles());
             circleAdapter.notifyDataSetChanged();
         }
-        refreshLayout.setEnableLoadmore(!bean.getData().getPaging().isIs_end());
+//        refreshLayout.setEnableLoadmore(!bean.getData().getPaging().isIs_end());
+        if (bean.getData().getPaging().isIs_end()) {
+            mAutoLoadMoreAdapter.disable();
+        }
         mList.addAll(bean.getData().getList());
-        adapter.notifyDataSetChanged();
+        mAutoLoadMoreAdapter.notifyDataSetChanged();
 
 
         rlEmpty.setVisibility(View.GONE);
+        if (page > 1) {
+            mAutoLoadMoreAdapter.finishLoading();
+        }
+
 
     }
 
