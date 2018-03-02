@@ -8,7 +8,10 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.wetime.fanc.R;
+import com.wetime.fanc.home.adapter.HomeItemAdapter;
+import com.wetime.fanc.utils.Tools;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,8 +59,16 @@ public class ImageGridListAdapter extends BaseAdapter {
         } else {
             holder = (Holder) convertView.getTag();
         }
+        int sw = Tools.getScreenW(mContext);
+        int w = (sw - Tools.dip2px(mContext, 15 + 15 + 6 + 6)) / 3;
+        Double rate = 80.0 / 110;
 
+        int h = (int) (w * rate);
         Glide.with(mContext).load(mlist.get(position))
+                .apply(new RequestOptions()
+                        .override(w, h)
+                        .centerCrop()
+                        .placeholder(R.drawable.iv_default_news_small))
                 .into(holder.iv);
 
 
