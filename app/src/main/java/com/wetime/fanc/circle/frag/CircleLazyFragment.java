@@ -1,6 +1,6 @@
 package com.wetime.fanc.circle.frag;
 
-import android.content.Intent;
+import android.os.Handler;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -24,7 +24,6 @@ import com.wetime.fanc.circle.bean.CircleHomeListBean;
 import com.wetime.fanc.circle.iviews.IGetCircleHomeView;
 import com.wetime.fanc.circle.presenter.GetCircleHomePresenter;
 import com.wetime.fanc.home.adapter.HomeItemAdapter;
-import com.wetime.fanc.home.adapter.TestAdapter;
 import com.wetime.fanc.home.bean.HomeItemBean;
 import com.wetime.fanc.home.bean.TabEntity;
 import com.wetime.fanc.main.frag.BaseLazyFragment;
@@ -123,7 +122,7 @@ public class CircleLazyFragment extends BaseLazyFragment implements OnRefreshLis
 
         //列表
         rclHome.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new HomeItemAdapter(mList,getContext(),true);
+        adapter = new HomeItemAdapter(mList, getContext(), true);
         rclHome.setAdapter(adapter);
         adapter.notifyDataSetChanged();
     }
@@ -160,6 +159,7 @@ public class CircleLazyFragment extends BaseLazyFragment implements OnRefreshLis
     public void onLoadmore(RefreshLayout refreshlayout) {
         page++;
         getCircleHomePresenter.getCircleHome();
+
     }
 
     @Override
@@ -173,12 +173,13 @@ public class CircleLazyFragment extends BaseLazyFragment implements OnRefreshLis
             circllist.addAll(bean.getData().getCircles());
             circleAdapter.notifyDataSetChanged();
         }
-
+        refreshLayout.setEnableLoadmore(!bean.getData().getPaging().isIs_end());
         mList.addAll(bean.getData().getList());
-//        adapter.notifyDataSetChanged();
+        adapter.notifyDataSetChanged();
 
 
         rlEmpty.setVisibility(View.GONE);
+
     }
 
     @Override

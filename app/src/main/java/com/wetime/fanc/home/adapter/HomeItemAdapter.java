@@ -13,9 +13,9 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.wetime.fanc.R;
+import com.wetime.fanc.circle.adapter.NineImageGridListAdapter;
 import com.wetime.fanc.customview.GridViewForScrollView;
 import com.wetime.fanc.home.bean.HomeItemBean;
-import com.wetime.fanc.shop.adapter.ImageGridListAdapter;
 import com.wetime.fanc.utils.Tools;
 
 import java.util.List;
@@ -70,10 +70,12 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
             } else if (viewType == 4) {
                 return new NewsHolder4(inflater.inflate(R.layout.item_news_type4, parent, false));
             } else if (viewType == 10) {
-                return new NewsHolder11(inflater.inflate(R.layout.item_news_type11, parent, false));
+                return new NewsHolder19(inflater.inflate(R.layout.item_news_type19, parent, false));
             } else if (viewType == 11) {
-                return new NewsHolder11(inflater.inflate(R.layout.item_news_type11, parent, false));
+                return new NewsHolder19(inflater.inflate(R.layout.item_news_type19, parent, false));
             } else if (viewType == 19) {
+                return new NewsHolder19(inflater.inflate(R.layout.item_news_type19, parent, false));
+            } else if (viewType == 14) {
                 return new NewsHolder19(inflater.inflate(R.layout.item_news_type19, parent, false));
             }
 
@@ -224,29 +226,7 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
                             .placeholder(R.drawable.iv_default_news_small))
                     .into(((NewsHolder3) holder).ivCover2);
         }
-        if (holder instanceof NewsHolder11) {
-            Glide.with(mContext).load(bean.getAvatar()).into(((NewsHolder11) holder).ivHead);
-            ((NewsHolder11) holder).tvName.setText(bean.getUsername());
-            ((NewsHolder11) holder).tvTime.setText(bean.getTime());
 
-            //变蓝色 需求
-            ((NewsHolder11) holder).tvContent.setText(bean.getContent());
-            if (bean.getCover().size() != 0) {
-                Glide.with(mContext).load(bean.getCover().get(0)).into(((NewsHolder11) holder).ivCover);
-            } else {
-                ((NewsHolder11) holder).ivCover.setVisibility(View.GONE);
-            }
-            ((NewsHolder11) holder).tvSee.setText(bean.getRead_num());
-            ((NewsHolder11) holder).tvCirclename.setText(bean.getCircle_name());
-
-            if (bean.isHas_like()) {
-                ((NewsHolder11) holder).ivZan.setImageResource(R.drawable.ic_homeitem_zan_off_on);
-            } else {
-                ((NewsHolder11) holder).ivZan.setImageResource(R.drawable.ic_homeitem_zan_off_off);
-            }
-            ((NewsHolder11) holder).tvCommentnum.setText(bean.getComment_num());
-
-        }
         if (holder instanceof NewsHolder19) {
             Glide.with(mContext).load(bean.getAvatar()).into(((NewsHolder19) holder).ivHead);
             ((NewsHolder19) holder).tvName.setText(bean.getUsername());
@@ -255,7 +235,7 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
             //变蓝色 需求
             ((NewsHolder19) holder).tvContent.setText(bean.getContent());
 
-            ImageGridListAdapter gvadapter = new ImageGridListAdapter(mContext, list.get(position).getCover());
+            NineImageGridListAdapter gvadapter = new NineImageGridListAdapter(mContext, list.get(position).getCover());
             ((NewsHolder19) holder).gv.setAdapter(gvadapter);
 
 
@@ -266,10 +246,12 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
             if (bean.getType() == 19) {
                 ((NewsHolder19) holder).gv.setNumColumns(3);
                 params.width = sw - Tools.dip2px(mContext, 15 + 15);
-            } else {//四宫格
+            } else if (bean.getType() == 14) {//四宫格
                 ((NewsHolder19) holder).gv.setNumColumns(2);
                 int w = (sw - Tools.dip2px(mContext, 15 + 15 + 6 + 6)) / 3;
                 params.width = w * 2 + Tools.dip2px(mContext, 6);//设置当前控件布局的高度
+            } else {//单图
+                params.width = sw - Tools.dip2px(mContext, 6 + 6);
             }
 
 
@@ -279,6 +261,7 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
 
 
             ((NewsHolder19) holder).tvSee.setText(bean.getRead_num());
+            ((NewsHolder19) holder).tvZannum.setText(bean.getLike_num());
             ((NewsHolder19) holder).tvCirclename.setText(bean.getCircle_name());
 
             if (bean.isHas_like()) {
@@ -410,34 +393,7 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
         }
     }
 
-    //圈子 一张 或者 没有
-    class NewsHolder11 extends RecyclerView.ViewHolder {
-        @BindView(R.id.tv_name)
-        TextView tvName;
-        @BindView(R.id.tv_time)
-        TextView tvTime;
-        @BindView(R.id.tv_content)
-        TextView tvContent;
-        @BindView(R.id.iv_cover)
-        ImageView ivCover;
-        @BindView(R.id.tv_see)
-        TextView tvSee;
-        @BindView(R.id.tv_circlename)
-        TextView tvCirclename;
-        @BindView(R.id.tv_commentnum)
-        TextView tvCommentnum;
-        @BindView(R.id.iv_zan)
-        ImageView ivZan;
-        @BindView(R.id.tv_zannum)
-        TextView tvZannum;
-        @BindView(R.id.iv_head)
-        CircleImageView ivHead;
 
-        NewsHolder11(View view) {
-            super(view);
-            ButterKnife.bind(this, view);
-        }
-    }
     // 九宫格
 
     class NewsHolder19 extends RecyclerView.ViewHolder {

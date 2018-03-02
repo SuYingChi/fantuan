@@ -36,12 +36,15 @@
 
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:id="@+id/refreshLayout"
+
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:srlEnableAutoLoadmore="false"
+        app:srlEnableAutoLoadmore="true"
+
+        app:srlEnableFooterFollowWhenLoadFinished="true"
         app:srlEnableHeaderTranslationContent="true"
-        app:srlEnableNestedScrolling="true"
-        app:srlEnableOverScrollBounce="false">
+        app:srlEnableOverScrollBounce="false"
+        app:srlEnableScrollContentWhenLoaded="true">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -98,6 +101,11 @@
                     android:id="@+id/rcl_home"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:fadingEdge="none"
+                    android:overScrollMode="always"
+                    android:requiresFadingEdge="none"
+                    android:scrollbarStyle="insideInset"
+                    android:scrollbars="vertical"
                     app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
 

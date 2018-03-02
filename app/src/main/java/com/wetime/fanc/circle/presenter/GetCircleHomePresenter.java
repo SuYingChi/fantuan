@@ -3,8 +3,6 @@ package com.wetime.fanc.circle.presenter;
 
 import com.wetime.fanc.circle.bean.CircleHomeListBean;
 import com.wetime.fanc.circle.iviews.IGetCircleHomeView;
-import com.wetime.fanc.my.bean.MyInfoBean;
-import com.wetime.fanc.my.iviews.IGetMyInfoView;
 import com.wetime.fanc.utils.Const;
 import com.wetime.fanc.utils.DataStringCallback;
 import com.wetime.fanc.utils.GsonUtils;
@@ -26,6 +24,8 @@ public class GetCircleHomePresenter {
                 .post()
                 .url(Const.CIRCLE)
                 .addParams("token", iView.getToken())
+                .addParams("sort", iView.getSort())
+                .addParams("pn", iView.getPage() + "")
                 .build()
                 .execute(new DataStringCallback(iView, false) {
                     @Override
