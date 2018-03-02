@@ -1,5 +1,6 @@
 package com.wetime.fanc.circle.frag;
 
+import android.content.Intent;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,6 +18,7 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.wetime.fanc.R;
+import com.wetime.fanc.circle.act.PublishCircleActivity;
 import com.wetime.fanc.circle.adapter.HeadCircleAdapter;
 import com.wetime.fanc.circle.bean.CircleHomeListBean;
 import com.wetime.fanc.circle.iviews.IGetCircleHomeView;
@@ -144,6 +146,7 @@ public class CircleLazyFragment extends BaseLazyFragment implements OnRefreshLis
                 break;
             case R.id.iv_edit:
                 qBadgeMsg.setBadgeNumber(temp + 100);
+                Tools.goActivity(getContext(), PublishCircleActivity.class);
                 break;
         }
     }
