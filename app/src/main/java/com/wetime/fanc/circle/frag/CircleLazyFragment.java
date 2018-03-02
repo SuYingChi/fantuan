@@ -23,7 +23,9 @@ import com.wetime.fanc.circle.adapter.HeadCircleAdapter;
 import com.wetime.fanc.circle.bean.CircleHomeListBean;
 import com.wetime.fanc.circle.iviews.IGetCircleHomeView;
 import com.wetime.fanc.circle.presenter.GetCircleHomePresenter;
+import com.wetime.fanc.home.adapter.HomeItemAdapter;
 import com.wetime.fanc.home.adapter.TestAdapter;
+import com.wetime.fanc.home.bean.HomeItemBean;
 import com.wetime.fanc.home.bean.TabEntity;
 import com.wetime.fanc.main.frag.BaseLazyFragment;
 import com.wetime.fanc.utils.Tools;
@@ -59,16 +61,17 @@ public class CircleLazyFragment extends BaseLazyFragment implements OnRefreshLis
     @BindView(R.id.rl_empty)
     RelativeLayout rlEmpty;
 
+    private int temp = 9;
 
 
+    private HomeItemAdapter adapter;
+    private List<HomeItemBean> mList = new ArrayList<>();
 
     private QBadgeView qBadgeMsg;
     private ArrayList<CustomTabEntity> mTabEntities = new ArrayList<>();
     private String[] mTitles = {"热门动态", "最新动态"};
 
 
-    private int temp = 9;
-    private TestAdapter adapter;
     private String[] sort = {"1", "2"};//    ort : 1 = 按热度排序， 2 = 按发布时间排序
     private int sortPos = 0;
     private GetCircleHomePresenter getCircleHomePresenter;
@@ -114,24 +117,19 @@ public class CircleLazyFragment extends BaseLazyFragment implements OnRefreshLis
         circleAdapter.setOnItemClickLitener(new HeadCircleAdapter.OnItemClickLitener() {
             @Override
             public void onItemClick(View view, int position) {
-                Tools.toastInBottom(getContext(),circllist.get(position).getId());
+                Tools.toastInBottom(getContext(), circllist.get(position).getId());
             }
         });
 
-
+        //列表
         rclHome.setLayoutManager(new LinearLayoutManager(getContext()));
-
-        adapter = new TestAdapter(getContext());
+        adapter = new HomeItemAdapter(mList,getContext(),true);
         rclHome.setAdapter(adapter);
-
-
         adapter.notifyDataSetChanged();
     }
 
     @Override
     protected void initData() {
-
-
         getCircleHomePresenter = new GetCircleHomePresenter(this);
         refreshLayout.autoRefresh();
     }
@@ -154,31 +152,32 @@ public class CircleLazyFragment extends BaseLazyFragment implements OnRefreshLis
 
     @Override
     public void onRefresh(RefreshLayout refreshlayout) {
+        page = 1;
         getCircleHomePresenter.getCircleHome();
-
-
-        adapter.reFresh();
-        adapter.notifyDataSetChanged();
-        refreshLayout.finishLoadmore();
-        refreshLayout.finishRefresh();
     }
 
     @Override
     public void onLoadmore(RefreshLayout refreshlayout) {
-        adapter.loadMore();
-        adapter.notifyDataSetChanged();
-        refreshLayout.finishLoadmore();
-        refreshLayout.finishRefresh();
+        page++;
+        getCircleHomePresenter.getCircleHome();
     }
 
     @Override
     public void onGetCircleHome(CircleHomeListBean bean) {
+        refreshLayout.finishLoadmore();
+        refreshLayout.finishRefresh();
 
         if (page == 1) {
+            mList.clear();
             circllist.clear();
             circllist.addAll(bean.getData().getCircles());
             circleAdapter.notifyDataSetChanged();
         }
+
+        mList.addAll(bean.getData().getList());
+//        adapter.notifyDataSetChanged();
+
+
         rlEmpty.setVisibility(View.GONE);
     }
 

@@ -93,7 +93,7 @@ public class CircleHomeListBean {
             private int total_page;
             private int limit;
             private int pn;
-            private int is_end;
+            private boolean is_end;
 
             public int getTotal() {
                 return total;
@@ -127,11 +127,11 @@ public class CircleHomeListBean {
                 this.pn = pn;
             }
 
-            public int getIs_end() {
+            public boolean isIs_end() {
                 return is_end;
             }
 
-            public void setIs_end(int is_end) {
+            public void setIs_end(boolean is_end) {
                 this.is_end = is_end;
             }
         }

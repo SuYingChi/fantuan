@@ -19,6 +19,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by yuxun on 2017/4/15.
@@ -65,12 +66,17 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
                 return new NewsHolder3(inflater.inflate(R.layout.item_news_type3, parent, false));
             } else if (viewType == 4) {
                 return new NewsHolder4(inflater.inflate(R.layout.item_news_type4, parent, false));
+            } else if (viewType == 10) {
+                return new NewsHolder11(inflater.inflate(R.layout.item_news_type11, parent, false));
+            } else if (viewType == 11) {
+                return new NewsHolder11(inflater.inflate(R.layout.item_news_type11, parent, false));
             }
+
         } else if (listtype == 1) {
             //商家说  带阴影的 和正常的不一样 特殊处理
             return new NewsHolder1Shop(inflater.inflate(R.layout.item_news_type1_shop, parent, false));
         }
-        return null;
+        return new NewsHolderTemp(inflater.inflate(R.layout.item_news_type_temp, parent, false));
 
 
     }
@@ -213,6 +219,25 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
                             .placeholder(R.drawable.iv_default_news_small))
                     .into(((NewsHolder3) holder).ivCover2);
         }
+        if (holder instanceof NewsHolder11) {
+            Glide.with(mContext).load(bean.getAvatar()).into(((NewsHolder11) holder).ivHead);
+            ((NewsHolder11) holder).tvName.setText(bean.getUsername());
+            ((NewsHolder11) holder).tvTime.setText(bean.getTime());
+            //变蓝色 需求
+            ((NewsHolder11) holder).tvContent.setText(bean.getContent());
+            if (bean.getCover().size() != 0) {
+                Glide.with(mContext).load(bean.getCover().get(0)).into(((NewsHolder11) holder).ivCover);
+            } else {
+                ((NewsHolder11) holder).ivCover.setVisibility(View.GONE);
+            }
+            if (bean.isHas_like()) {
+                ((NewsHolder11) holder).ivZan.setImageResource(R.drawable.ic_homeitem_zan_off_on);
+            } else {
+                ((NewsHolder11) holder).ivZan.setImageResource(R.drawable.ic_homeitem_zan_off_off);
+            }
+            ((NewsHolder11) holder).tvCommentnum.setText(bean.getComment_num());
+
+        }
     }
 
     @Override
@@ -223,6 +248,19 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
     @Override
     public int getItemViewType(int position) {
         return list.get(position).getType();
+    }
+
+
+    // 一张小图
+    class NewsHolderTemp extends RecyclerView.ViewHolder {
+        @BindView(R.id.iv_banner)
+        ImageView ivBanner;
+
+
+        NewsHolderTemp(View view) {
+            super(view);
+            ButterKnife.bind(this, view);
+        }
     }
 
     // 一张小图
@@ -320,6 +358,36 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
         }
     }
 
+    // 一张小图
+    class NewsHolder11 extends RecyclerView.ViewHolder {
+        @BindView(R.id.tv_name)
+        TextView tvName;
+        @BindView(R.id.tv_time)
+        TextView tvTime;
+        @BindView(R.id.tv_content)
+        TextView tvContent;
+        @BindView(R.id.iv_cover)
+        ImageView ivCover;
+        @BindView(R.id.tv_see)
+        TextView tvSee;
+        @BindView(R.id.tv_circlename)
+        TextView tvCirclename;
+        @BindView(R.id.tv_commentnum)
+        TextView tvCommentnum;
+        @BindView(R.id.iv_zan)
+        ImageView ivZan;
+        @BindView(R.id.tv_zannum)
+        TextView tvZannum;
+        @BindView(R.id.iv_head)
+        CircleImageView ivHead;
+
+        NewsHolder11(View view) {
+            super(view);
+            ButterKnife.bind(this, view);
+        }
+    }
+
+
     public interface OnItemClickLitener {
         void onItemClick(View view, int position);
     }
@@ -331,4 +399,5 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
     public void setOnItemClickLitener(OnItemClickLitener mOnItemClickLitener) {
         this.mOnItemClickLitener = mOnItemClickLitener;
     }
+
 }
