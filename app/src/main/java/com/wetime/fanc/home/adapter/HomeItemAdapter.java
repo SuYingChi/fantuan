@@ -230,6 +230,9 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
             } else {
                 ((NewsHolder11) holder).ivCover.setVisibility(View.GONE);
             }
+            ((NewsHolder11) holder).tvSee.setText(bean.getRead_num());
+            ((NewsHolder11) holder).tvCirclename.setText(bean.getCircle_name());
+
             if (bean.isHas_like()) {
                 ((NewsHolder11) holder).ivZan.setImageResource(R.drawable.ic_homeitem_zan_off_on);
             } else {
