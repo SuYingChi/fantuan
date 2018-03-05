@@ -94,7 +94,8 @@ public class FApp extends Application {
         SmartRefreshLayout.setDefaultRefreshFooterCreater((context, layout) -> {
             ClassicsFooter footer = new ClassicsFooter(context).setSpinnerStyle(SpinnerStyle.Translate);
             footer.setDrawableArrowSize(14);//设置箭头的大小（dp单位）
-            footer.setDrawableProgressSize(14);//设置图片的大小（dp单位）
+            footer.setDrawableProgressSize(14);//设置图片的大小（dp单位）、
+            footer.setProgressDrawable(context.getResources().getDrawable(R.drawable.loading_32dp));
             footer.setAccentColor(context.getResources().getColor(R.color.text_hint));//设置强调颜色
             footer.setTextSizeTitle(14);
             footer.setFinishDuration(0);
