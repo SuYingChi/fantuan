@@ -1,6 +1,6 @@
 package com.wetime.fanc.home.adapter;
 
-import android.content.Context;
+import android.app.Activity;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.text.SpannableString;
@@ -10,6 +10,7 @@ import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -34,23 +35,23 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class HomeItemAdapter extends RecyclerView.Adapter {
     private List<HomeItemBean> list;
-    private Context mContext;
+    private Activity mActivity;
     private LayoutInflater inflater;
     // 区分  0 默认样式  1  特殊 shopnews 带阴影  只有单图
     private int listtype = 0;
     private boolean isBlod;
 
-    public HomeItemAdapter(List<HomeItemBean> list, Context mContext) {
+    public HomeItemAdapter(List<HomeItemBean> list, Activity mActivity) {
         this.list = list;
-        this.mContext = mContext;
-        this.inflater = LayoutInflater.from(mContext);
+        this.mActivity = mActivity;
+        this.inflater = LayoutInflater.from(mActivity);
         this.isBlod = false;
     }
 
-    public HomeItemAdapter(List<HomeItemBean> list, Context mContext, boolean isBlod) {
+    public HomeItemAdapter(List<HomeItemBean> list, Activity mActivity, boolean isBlod) {
         this.list = list;
-        this.mContext = mContext;
-        this.inflater = LayoutInflater.from(mContext);
+        this.mActivity = mActivity;
+        this.inflater = LayoutInflater.from(mActivity);
         this.isBlod = isBlod;
     }
 
@@ -101,26 +102,26 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
             holder.itemView.setOnClickListener(view -> mOnItemClickLitener.onItemClick(view, position));
         }
         if (holder instanceof NewsHolder0) {
-            int sw = Tools.getScreenW(mContext);
-            int w = (sw - Tools.dip2px(mContext, 15 + 15));
+            int sw = Tools.getScreenW(mActivity);
+            int w = (sw - Tools.dip2px(mActivity, 15 + 15));
             Double rate = 80.0 / 345;
 
             int h = (int) (w * rate);
 
-            Glide.with(mContext).load(bean.getBanner().get(0).getImg()).apply(
+            Glide.with(mActivity).load(bean.getBanner().get(0).getImg()).apply(
                     new RequestOptions()
                             .override(w, h)
                             .centerCrop()
                             .placeholder(R.drawable.iv_default_news_small)).into(((NewsHolder0) holder).ivBanner);
         }
         if (holder instanceof NewsHolder4) {
-            int sw = Tools.getScreenW(mContext);
-            int w = (sw - Tools.dip2px(mContext, 15 + 15));
+            int sw = Tools.getScreenW(mActivity);
+            int w = (sw - Tools.dip2px(mActivity, 15 + 15));
             Double rate = 135.0 / 345;
 
             int h = (int) (w * rate);
             ((NewsHolder4) holder).tvName.setText(bean.getName());
-            Glide.with(mContext).load(bean.getCover().get(0)).apply(
+            Glide.with(mActivity).load(bean.getCover().get(0)).apply(
                     new RequestOptions()
                             .override(w, h)
                             .centerCrop()
@@ -144,13 +145,13 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
             } else {
                 ((NewsHolder1) holder).tvAuthor.setVisibility(View.VISIBLE);
             }
-            int sw = Tools.getScreenW(mContext);
-            int w = (sw - Tools.dip2px(mContext, 15 + 15 + 6 + 6)) / 3;
+            int sw = Tools.getScreenW(mActivity);
+            int w = (sw - Tools.dip2px(mActivity, 15 + 15 + 6 + 6)) / 3;
 
             Double rate = 80.0 / 110;
 
             int h = (int) (w * rate);
-            Glide.with(mContext).load(bean.getCover().get(0)).apply(
+            Glide.with(mActivity).load(bean.getCover().get(0)).apply(
                     new RequestOptions()
                             .override(w, h)
                             .centerCrop()
@@ -169,13 +170,13 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
             } else {
                 ((NewsHolder1Shop) holder).tvAuthor.setVisibility(View.VISIBLE);
             }
-            int sw = Tools.getScreenW(mContext);
-            int w = (sw - Tools.dip2px(mContext, 15 + 15 + 6 + 6)) / 3;
+            int sw = Tools.getScreenW(mActivity);
+            int w = (sw - Tools.dip2px(mActivity, 15 + 15 + 6 + 6)) / 3;
 
             Double rate = 80.0 / 110;
 
             int h = (int) (w * rate);
-            Glide.with(mContext).load(bean.getCover().get(0)).apply(
+            Glide.with(mActivity).load(bean.getCover().get(0)).apply(
                     new RequestOptions()
                             .override(w, h)
                             .centerCrop()
@@ -202,28 +203,28 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
                 ((NewsHolder3) holder).tvAuthor.setVisibility(View.VISIBLE);
             }
 
-            int sw = Tools.getScreenW(mContext);
-            int w = (sw - Tools.dip2px(mContext, 15 + 15 + 6 + 6)) / 3;
+            int sw = Tools.getScreenW(mActivity);
+            int w = (sw - Tools.dip2px(mActivity, 15 + 15 + 6 + 6)) / 3;
             Double rate = 80.0 / 110;
 
             int h = (int) (w * rate);
 
 
-            Glide.with(mContext).load(bean.getCover().get(0)).apply(
+            Glide.with(mActivity).load(bean.getCover().get(0)).apply(
                     new RequestOptions()
                             .override(w, h)
                             .centerCrop()
                             .placeholder(R.drawable.iv_default_news_small))
                     .into(((NewsHolder3) holder).ivCover0);
 
-            Glide.with(mContext).load(bean.getCover().get(1)).apply(
+            Glide.with(mActivity).load(bean.getCover().get(1)).apply(
                     new RequestOptions()
                             .override(w, h)
                             .centerCrop()
                             .placeholder(R.drawable.iv_default_news_small))
                     .into(((NewsHolder3) holder).ivCover1);
 
-            Glide.with(mContext).load(bean.getCover().get(2)).apply(
+            Glide.with(mActivity).load(bean.getCover().get(2)).apply(
                     new RequestOptions()
                             .override(w, h)
                             .centerCrop()
@@ -232,43 +233,48 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
         }
 
         if (holder instanceof NewsHolder19) {
-            Glide.with(mContext).load(bean.getAvatar()).into(((NewsHolder19) holder).ivHead);
+            Glide.with(mActivity).load(bean.getAvatar()).into(((NewsHolder19) holder).ivHead);
             ((NewsHolder19) holder).tvName.setText(bean.getUsername());
             ((NewsHolder19) holder).tvTime.setText(bean.getTime());
             int max = 100;
             //变蓝色 需求
             if (bean.getContent().length() > max) {
                 SpannableString ss = new SpannableString(bean.getContent().substring(0, max) + "...全文");
-                ss.setSpan(new ForegroundColorSpan(ContextCompat.getColor(mContext, R.color.text_blue)),
+                ss.setSpan(new ForegroundColorSpan(ContextCompat.getColor(mActivity, R.color.text_blue)),
                         max + 3, max + 5, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                 ((NewsHolder19) holder).tvContent.setText(ss);
             } else {
                 ((NewsHolder19) holder).tvContent.setText(bean.getContent());
             }
 
-            NineImageGridListAdapter gvadapter = new NineImageGridListAdapter(mContext, list.get(position).getCover());
+            NineImageGridListAdapter gvadapter = new NineImageGridListAdapter(mActivity, list.get(position).getCover());
             ((NewsHolder19) holder).gv.setAdapter(gvadapter);
 
 
             //九宫格
             LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) ((NewsHolder19) holder).gv.getLayoutParams();
             //获取当前控件的布局对象
-            int sw = Tools.getScreenW(mContext);
+            int sw = Tools.getScreenW(mActivity);
             if (bean.getType() == 19) {
                 ((NewsHolder19) holder).gv.setNumColumns(3);
-                params.width = sw - Tools.dip2px(mContext, 15 + 15);
+                params.width = sw - Tools.dip2px(mActivity, 15 + 15);
             } else if (bean.getType() == 14) {//四宫格
                 ((NewsHolder19) holder).gv.setNumColumns(2);
-                int w = (sw - Tools.dip2px(mContext, 15 + 15 + 6 + 6)) / 3;
-                params.width = w * 2 + Tools.dip2px(mContext, 6);//设置当前控件布局的高度
+                int w = (sw - Tools.dip2px(mActivity, 15 + 15 + 6 + 6)) / 3;
+                params.width = w * 2 + Tools.dip2px(mActivity, 6);//设置当前控件布局的高度
             } else {//单图
-                params.width = sw - Tools.dip2px(mContext, 6 + 6);
+                params.width = sw - Tools.dip2px(mActivity, 6 + 6);
             }
 
 
             ((NewsHolder19) holder).gv.setLayoutParams(params);
-
             gvadapter.notifyDataSetChanged();
+            ((NewsHolder19) holder).gv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    Tools.goPicGallery(mActivity, bean.getCover(), i);
+                }
+            });
 
 
             ((NewsHolder19) holder).tvSee.setText(bean.getRead_num());

@@ -127,7 +127,7 @@ public class CircleLazyFragment extends BaseLazyFragment implements OnRefreshLis
 
         //列表
         rclHome.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new HomeItemAdapter(mList, getContext(), true);
+        adapter = new HomeItemAdapter(mList, getActivity(), true);
 
         mAutoLoadMoreAdapter = new AutoLoadMoreAdapter(getContext(), adapter);
         mAutoLoadMoreAdapter.setOnLoadListener(new AutoLoadMoreAdapter.OnLoadListener() {

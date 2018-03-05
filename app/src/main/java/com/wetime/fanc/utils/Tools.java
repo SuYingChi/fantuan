@@ -2,7 +2,6 @@ package com.wetime.fanc.utils;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -11,7 +10,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.IBinder;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -36,13 +34,14 @@ import com.wetime.fanc.R;
 import com.wetime.fanc.application.FApp;
 import com.wetime.fanc.customview.multiimageselector.MultiImageSelectorActivity;
 import com.wetime.fanc.login.act.LoginActivity;
+import com.wetime.fanc.main.act.PictureActivity;
 import com.wetime.fanc.web.WebActivity;
 
 import java.io.ByteArrayOutputStream;
+import java.io.Serializable;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import me.shaohui.bottomdialog.BottomDialog;
 
 import static android.content.Context.INPUT_METHOD_SERVICE;
 
@@ -359,12 +358,13 @@ public class Tools {
         Intent go = new Intent(mContext, cls);
         mContext.startActivity(go);
     }
+
     public static void goLogin(Context mContext) {
         Intent go = new Intent(mContext, LoginActivity.class);
         mContext.startActivity(go);
     }
 
-    public static void shareWx(Context mContext,String url, int type,String title,String des) {
+    public static void shareWx(Context mContext, String url, int type, String title, String des) {
 
         if (!FApp.mWxApi.isWXAppInstalled()) {
             Tools.toastInBottom(mContext, "您没有安装微信");
@@ -374,7 +374,7 @@ public class Tools {
         webpage.webpageUrl = url;
 
         WXMediaMessage msg = new WXMediaMessage(webpage);
-        msg.title =title;
+        msg.title = title;
         msg.description = des;
 
         Bitmap thumb = BitmapFactory.decodeResource(mContext.getResources(), R.mipmap.ic_launcher);
@@ -387,9 +387,11 @@ public class Tools {
         mWxApi.sendReq(req);
 
     }
+
     public static String buildTransaction(final String type) {
         return (type == null) ? String.valueOf(System.currentTimeMillis()) : type + System.currentTimeMillis();
     }
+
     public static byte[] bmpToByteArray(final Bitmap bmp, final boolean needRecycle) {
         ByteArrayOutputStream output = new ByteArrayOutputStream();
         bmp.compress(Bitmap.CompressFormat.PNG, 100, output);
@@ -404,5 +406,14 @@ public class Tools {
             e.printStackTrace();
         }
         return result;
+    }
+
+    public static void goPicGallery(Activity mActivity, List<String> list, int index) {
+        Intent pic = new Intent(mActivity, PictureActivity.class);
+        pic.putExtra("big_photo", (Serializable) list);
+        pic.putExtra("page", index);
+        mActivity.startActivity(pic);
+        mActivity.overridePendingTransition(android.R.anim.fade_in,
+                android.R.anim.fade_out);
     }
 }

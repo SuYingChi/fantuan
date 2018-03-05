@@ -51,7 +51,7 @@ public class ShopNewsLazyFragment extends BaseLazyFragment implements OnLoadmore
         refreshLayout.setEnableRefresh(false);
         refreshLayout.setOnLoadmoreListener(this);
         list = new ArrayList<>();
-        adapter = new HomeItemAdapter(list, getContext());
+        adapter = new HomeItemAdapter(list, getActivity());
         adapter.setListtype(1);
         rcl.setLayoutManager(new LinearLayoutManager(getContext()));
         rcl.setAdapter(adapter);

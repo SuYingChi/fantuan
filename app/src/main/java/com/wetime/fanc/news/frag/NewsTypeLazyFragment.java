@@ -88,7 +88,7 @@ public class NewsTypeLazyFragment extends BaseLazyFragment implements IGetNewsTy
         refreshLayout.setOnRefreshListener(this);
         refreshLayout.setOnLoadmoreListener(this);
         list = new ArrayList<>();
-        adapter = new HomeItemAdapter(list, getContext());
+        adapter = new HomeItemAdapter(list, getActivity());
         rcl = mRootView.findViewById(R.id.rcl_news);
         rcl.setLayoutManager(new LinearLayoutManager(getContext()));
         rcl.setAdapter(adapter);
