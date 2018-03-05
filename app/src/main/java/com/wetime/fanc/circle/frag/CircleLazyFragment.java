@@ -1,5 +1,6 @@
 package com.wetime.fanc.circle.frag;
 
+import android.content.Intent;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,6 +17,7 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.wetime.fanc.R;
+import com.wetime.fanc.circle.act.CircleDetailActivity;
 import com.wetime.fanc.circle.act.PublishCircleActivity;
 import com.wetime.fanc.circle.adapter.HeadCircleAdapter;
 import com.wetime.fanc.circle.bean.CircleHomeListBean;
@@ -118,11 +120,10 @@ public class CircleLazyFragment extends BaseLazyFragment implements OnRefreshLis
         rclCircle.setLayoutManager(manager);
         circleAdapter = new HeadCircleAdapter(circllist, getContext());
         rclCircle.setAdapter(circleAdapter);
-        circleAdapter.setOnItemClickLitener(new HeadCircleAdapter.OnItemClickLitener() {
-            @Override
-            public void onItemClick(View view, int position) {
-                Tools.toastInBottom(getContext(), circllist.get(position).getId());
-            }
+        circleAdapter.setOnItemClickLitener((view, position) -> {
+            Intent goCircle = new Intent(getContext(), CircleDetailActivity.class);
+            goCircle.putExtra("id",circllist.get(position).getId());
+            startActivity(goCircle);
         });
 
         //列表

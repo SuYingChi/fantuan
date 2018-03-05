@@ -158,6 +158,7 @@
         <activity android:name=".my.act.MyCollectActivity" />
         <activity android:name=".circle.act.PublishCircleActivity" />
         <activity android:name=".main.act.PictureActivity" />
+        <activity android:name=".circle.act.CircleDetailActivity" />
 
     </application>
 </manifest>

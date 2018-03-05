@@ -1,6 +1,7 @@
 package com.wetime.fanc.home.adapter;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.text.SpannableString;
@@ -18,6 +19,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.wetime.fanc.R;
+import com.wetime.fanc.circle.act.CircleDetailActivity;
 import com.wetime.fanc.circle.adapter.NineImageGridListAdapter;
 import com.wetime.fanc.customview.GridViewForScrollView;
 import com.wetime.fanc.home.bean.HomeItemBean;
@@ -280,6 +282,14 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
             ((NewsHolder19) holder).tvSee.setText(bean.getRead_num());
             ((NewsHolder19) holder).tvZannum.setText(bean.getLike_num());
             ((NewsHolder19) holder).tvCirclename.setText(bean.getCircle_name());
+            ((NewsHolder19) holder).tvCirclename.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent goCircle = new Intent(mActivity, CircleDetailActivity.class);
+                    goCircle.putExtra("id", bean.getCircle_id());
+                    mActivity.startActivity(goCircle);
+                }
+            });
 
             if (bean.isHas_like()) {
                 ((NewsHolder19) holder).ivZan.setImageResource(R.drawable.ic_homeitem_zan_off_on);
