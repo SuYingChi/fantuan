@@ -114,7 +114,7 @@ public class PublishCircleActivity extends BaseActivity implements IPostMultiFil
                 onBackPressed();
                 break;
             case R.id.tv_publish:
-                if (!TextUtils.isEmpty(etContent.getText().toString()) && defaultDataArray.size() > 0) {
+                if (!TextUtils.isEmpty(etContent.getText().toString()) || defaultDataArray.size() > 0) {
                     PostMultiFilePresenter postMultiFilePresenter = new PostMultiFilePresenter(this);
                     postMultiFilePresenter.PostMultiFile(defaultDataArray);
                 } else {
