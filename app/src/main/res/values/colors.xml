@@ -7,6 +7,7 @@
     <color name="bg_all">#f5f5f5</color>
     <color name="bg_weixin">#19cf73</color>
     <color name="bg_phone">#00a4ff</color>
+    <color name="text_blue">#05a4be</color>
 
 
     <color name="colorPrimary_lib">#ff5f61</color>

@@ -1,8 +1,12 @@
 package com.wetime.fanc.home.adapter;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
+import android.text.SpannableString;
+import android.text.Spanned;
 import android.text.TextUtils;
+import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -231,9 +235,16 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
             Glide.with(mContext).load(bean.getAvatar()).into(((NewsHolder19) holder).ivHead);
             ((NewsHolder19) holder).tvName.setText(bean.getUsername());
             ((NewsHolder19) holder).tvTime.setText(bean.getTime());
-
+            int max = 100;
             //变蓝色 需求
-            ((NewsHolder19) holder).tvContent.setText(bean.getContent());
+            if (bean.getContent().length() > max) {
+                SpannableString ss = new SpannableString(bean.getContent().substring(0, max) + "...全文");
+                ss.setSpan(new ForegroundColorSpan(ContextCompat.getColor(mContext, R.color.text_blue)),
+                        max + 3, max + 5, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                ((NewsHolder19) holder).tvContent.setText(ss);
+            } else {
+                ((NewsHolder19) holder).tvContent.setText(bean.getContent());
+            }
 
             NineImageGridListAdapter gvadapter = new NineImageGridListAdapter(mContext, list.get(position).getCover());
             ((NewsHolder19) holder).gv.setAdapter(gvadapter);
