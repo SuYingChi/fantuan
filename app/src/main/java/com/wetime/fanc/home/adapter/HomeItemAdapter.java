@@ -23,6 +23,7 @@ import com.wetime.fanc.circle.act.CircleDetailActivity;
 import com.wetime.fanc.circle.adapter.NineImageGridListAdapter;
 import com.wetime.fanc.customview.GridViewForScrollView;
 import com.wetime.fanc.home.bean.HomeItemBean;
+import com.wetime.fanc.my.act.UserCardActivity;
 import com.wetime.fanc.utils.Tools;
 
 import java.util.List;
@@ -297,6 +298,14 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
                 ((NewsHolder19) holder).ivZan.setImageResource(R.drawable.ic_homeitem_zan_off_off);
             }
             ((NewsHolder19) holder).tvCommentnum.setText(bean.getComment_num());
+            ((NewsHolder19) holder).ivHead.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent go = new Intent(mActivity, UserCardActivity.class);
+                    go.putExtra("index", 0);
+                    mActivity.startActivity(go);
+                }
+            });
 
         }
 

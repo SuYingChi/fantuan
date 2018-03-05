@@ -17,6 +17,7 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.wetime.fanc.R;
+import com.wetime.fanc.circle.act.AllCircleActivity;
 import com.wetime.fanc.circle.act.CircleDetailActivity;
 import com.wetime.fanc.circle.act.PublishCircleActivity;
 import com.wetime.fanc.circle.adapter.HeadCircleAdapter;
@@ -121,9 +122,15 @@ public class CircleLazyFragment extends BaseLazyFragment implements OnRefreshLis
         circleAdapter = new HeadCircleAdapter(circllist, getContext());
         rclCircle.setAdapter(circleAdapter);
         circleAdapter.setOnItemClickLitener((view, position) -> {
-            Intent goCircle = new Intent(getContext(), CircleDetailActivity.class);
-            goCircle.putExtra("id",circllist.get(position).getId());
-            startActivity(goCircle);
+            if(circllist.get(position).getId().equals("0")){
+                Intent goAll =  new Intent(getContext(), AllCircleActivity.class);
+                startActivity(goAll);
+            }else{
+                Intent goCircle = new Intent(getContext(), CircleDetailActivity.class);
+                goCircle.putExtra("id",circllist.get(position).getId());
+                startActivity(goCircle);
+            }
+
         });
 
         //列表

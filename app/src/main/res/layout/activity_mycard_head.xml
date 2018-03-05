@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
@@ -18,8 +17,10 @@
 
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="280dp"
-                android:background="#3a3a3a" />
+                android:layout_height="wrap_content"
+                android:background="#3a3a3a"
+                android:scaleType="centerCrop"
+                android:src="@drawable/bg_user_head" />
 
             <View
                 android:layout_width="match_parent"
@@ -50,10 +51,10 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="曾半仙儿啊"
             android:textColor="#333333"
             android:textSize="21sp"
-            android:textStyle="bold"
-            android:text="曾半仙儿啊" />
+            android:textStyle="bold" />
 
         <ImageView
             android:layout_width="wrap_content"
