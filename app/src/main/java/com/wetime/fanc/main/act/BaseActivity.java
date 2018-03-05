@@ -31,11 +31,14 @@ public class BaseActivity extends AppCompatActivity implements IBaseVIew {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+        setSoftInPutMode();
         spu = Tools.getSpu(this);
         initStateBar();
         addToActManager();
         mContext = this;
+    }
+    protected void setSoftInPutMode(){
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
     }
     protected void addToActManager(){
         FApp.getInstance().addActivity(this);
