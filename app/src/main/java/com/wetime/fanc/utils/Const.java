@@ -57,6 +57,9 @@ public interface Const {
     String SHOP_POST_LIST = BASEURL + "/shop/post/list";
 
     String CIRCLE = BASEURL + "/circle";
+    String DYNAMIC_PUBLISH_INITFORM = BASEURL + "/dynamic/publish/initform";
+    String DYNAMIC_PUBLISH_SAVE = BASEURL + "/dynamic/publish/save";
+    String DYNAMIC_PUBLISH_LIST = BASEURL + "/dynamic/publish/list";
 
 
 

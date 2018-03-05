@@ -166,7 +166,8 @@ public class CircleLazyFragment extends BaseLazyFragment implements OnRefreshLis
                 break;
             case R.id.iv_edit:
                 qBadgeMsg.setBadgeNumber(temp + 100);
-                Tools.goActivity(getContext(), PublishCircleActivity.class);
+                Intent goPublish = new Intent(getContext(),PublishCircleActivity.class);
+                startActivity(goPublish);
                 break;
         }
     }

@@ -159,6 +159,7 @@
         <activity android:name=".circle.act.PublishCircleActivity"/>
         <activity android:name=".main.act.PictureActivity" />
         <activity android:name=".circle.act.CircleDetailActivity" />
+        <activity android:name=".circle.act.SelectCircleActivity" />
 
     </application>
 </manifest>
