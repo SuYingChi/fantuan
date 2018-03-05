@@ -35,5 +35,7 @@
     <string name="auto_loadmore_loading">Loading…</string>
     <string name="auto_loadmore_load_finish">All data is loaded</string>
     <string name="auto_loadmore_load_failed">Loading failed, please click me to try again.</string>
+    <string name="hint_publish_circle">此刻，我想说......</string>
+    <string name="str_reselect_circle">重新选择圈子</string>
 
 </resources>

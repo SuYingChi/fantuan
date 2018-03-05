@@ -315,10 +315,10 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, IGe
                 }
 
                 getHomePagePresenter = new GetHomePagePresenter(HomeFragment.this);
-                getHomePagePresenter.getHomePage();
-                llloc.setVisibility(View.GONE);
-                time.cancel();
-                tk.cancel();
+//                getHomePagePresenter.getHomePage();
+//                llloc.setVisibility(View.GONE);
+//                time.cancel();
+//                tk.cancel();
                 mLocationClient.stopLocation();
             }
         };
@@ -344,57 +344,4 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, IGe
         Log.d(TAG, "onDestroyView: ");
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        Log.d(TAG, "onStart: ");
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        Log.d(TAG, "onResume: ");
-    }
-
-    @Override
-    public void onHiddenChanged(boolean hidden) {
-        super.onHiddenChanged(hidden);
-        Log.d(TAG, "onHiddenChanged: " + hidden);
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        Log.d(TAG, "onPause: ");
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        Log.d(TAG, "onStop: ");
-    }
-
-    @Override
-    public void onLowMemory() {
-        super.onLowMemory();
-        Log.d(TAG, "onLowMemory: ");
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        Log.d(TAG, "onDestroy: ");
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        Log.d(TAG, "onDetach: ");
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        Log.d(TAG, "onAttach: ");
-    }
 }

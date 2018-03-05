@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@color/white"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -37,7 +38,7 @@
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
             android:text="发布"
-            android:textColor="#c8c8c8"
+            android:textColor="@color/text_blue"
             android:textSize="16sp" />
     </RelativeLayout>
 
@@ -49,24 +50,52 @@
         <LinearLayout
             android:id="@+id/llbo"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:layout_alignParentBottom="true"
-            android:orientation="vertical">
+            android:background="#f9f9f9"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp">
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:background="@drawable/bg_download_yellow"
-                android:gravity="center"
-                android:text="asdfasd" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:lineSpacingExtra="0sp"
+                android:text="已选择："
+                android:textColor="#999999"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/tv_circlename"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ellipsize="end"
+                android:lineSpacingExtra="0sp"
+                android:maxLines="1"
+                android:textColor="#05a4be"
+                android:textSize="15sp"
+                tools:text="老爸茶馆" />
+
+            <TextView
+                android:id="@+id/tv_select_circle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawablePadding="10dp"
+                android:drawableRight="@drawable/ic_right"
+                android:gravity="end"
+                android:lineSpacingExtra="0sp"
+                android:text="@string/str_reselect_circle"
+                android:textColor="#999999"
+                android:textSize="12sp" />
         </LinearLayout>
 
         <ScrollView
-            android:id="@+id/sc"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@id/llbo"
-            android:background="@color/black">
+            android:layout_above="@id/llbo">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -74,20 +103,30 @@
                 android:orientation="vertical">
 
                 <EditText
+                    android:id="@+id/et_content"
                     android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:layout_alignParentTop="true"
-                    android:layout_weight="1"
-                    android:background="@color/warning_red" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/white"
+                    android:gravity="left|top"
+                    android:hint="@string/hint_publish_circle"
+                    android:minLines="5"
+                    android:textColor="#333333"
+                    android:textColorHint="#999999"
+                    android:textSize="17sp" />
 
-                <TextView
+                <com.wetime.fanc.customview.GridViewForScrollView
+                    android:id="@+id/appraise_img_gv"
                     android:layout_width="match_parent"
-                    android:layout_height="120dp"
-                    android:layout_alignParentBottom="true"
-                    android:background="@color/green"
-                    android:gravity="center"
-                    android:text="asdfasd" />
-
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:background="@color/white"
+                    android:horizontalSpacing="@dimen/space_size"
+                    android:numColumns="3"
+                    android:scrollbars="none"
+                    android:verticalSpacing="@dimen/space_size" />
             </LinearLayout>
         </ScrollView>
 

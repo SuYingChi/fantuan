@@ -118,7 +118,6 @@
                 android:background="@color/white"
                 android:horizontalSpacing="@dimen/space_size"
                 android:numColumns="4"
-
                 android:scrollbars="none"
                 android:verticalSpacing="@dimen/space_size" />
 

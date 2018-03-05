@@ -88,7 +88,7 @@ public class ImageGridAdapter extends BaseAdapter {
         }
 
         if (position == mlist.size()) {
-            Glide.with(mContext).load(R.drawable.icon_addpic_unfocused)
+            Glide.with(mContext).load(R.drawable.ic_addpic)
                     .apply(new RequestOptions() .centerCrop())
                     .into(holder.iv);
             holder.ivDelete.setVisibility(View.GONE);

@@ -46,4 +46,5 @@
     <color name="none_color">#00000000</color>
     <color name="text_hint">#999999</color>
     <color name="auto_loadmore_text">#000000</color>
+    <color name="text_enable_gray">#c8c8c8</color>
 </resources>
