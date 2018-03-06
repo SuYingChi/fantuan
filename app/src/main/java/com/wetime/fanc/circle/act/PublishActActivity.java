@@ -37,7 +37,7 @@ import butterknife.OnClick;
 
 import static com.wetime.fanc.utils.Tools.REQUEST_IMAGE;
 
-public class PublishCircleActivity extends BaseActivity implements IPostMultiFileView, AdapterView.OnItemClickListener, IGetDefaultCircleView, IPublishCircleView {
+public class PublishActActivity extends BaseActivity implements IPostMultiFileView, AdapterView.OnItemClickListener, IGetDefaultCircleView, IPublishCircleView {
 
 
     @BindView(R.id.tv_title)

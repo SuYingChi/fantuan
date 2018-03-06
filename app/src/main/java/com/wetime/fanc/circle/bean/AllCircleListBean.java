@@ -12,7 +12,7 @@ public class AllCircleListBean {
     /**
      * error : 0
      * msg :
-     * data : {"circle_list":[{"id":"10","name":"测试7","intro":"7777","cover_url":"https://staticcdntest.fantuanlife.com/uimage/00/00/8d/03/00008d03f4117803248945a19d98402d.jpg"},{"id":"9","name":"测试6","intro":"666","cover_url":"https://staticcdntest.fantuanlife.com/uimage/00/00/8d/03/00008d03f4117803248945a19d98402d.jpg"},{"id":"8","name":"测试5","intro":"555","cover_url":"https://staticcdntest.fantuanlife.com/uimage/00/00/8d/03/00008d03f4117803248945a19d98402d.jpg"},{"id":"7","name":"测试4","intro":"444","cover_url":"https://staticcdntest.fantuanlife.com/uimage/00/00/8d/03/00008d03f4117803248945a19d98402d.jpg"},{"id":"6","name":"测试3","intro":"333","cover_url":"https://staticcdntest.fantuanlife.com/uimage/00/00/8d/03/00008d03f4117803248945a19d98402d.jpg"},{"id":"5","name":"测试2","intro":"2222","cover_url":"https://staticcdntest.fantuanlife.com/uimage/00/00/8d/03/00008d03f4117803248945a19d98402d.jpg"},{"id":"4","name":"测试1","intro":"1111","cover_url":"https://staticcdntest.fantuanlife.com/uimage/00/00/8d/03/00008d03f4117803248945a19d98402d.jpg"},{"id":"3","name":"吃喝拉撒","intro":"胖慰的圈子","cover_url":"https://staticcdntest.fantuanlife.com/uimage/37/d1/1b/0d/37d11b0db407ce7ecc5b635cf21ca225.jpg"}],"page":{"total":8,"total_page":1,"limit":10,"pn":1,"is_end":1}}
+     * data : {"circle_list":[{"id":"17","name":"测试14","intro":"3333","cover_url":"https://staticcdntest.fantuanlife.com/uimage/00/00/8d/03/00008d03f4117803248945a19d98402d.jpg"},{"id":"16","name":"测试13","intro":"3333","cover_url":"https://staticcdntest.fantuanlife.com/uimage/00/00/8d/03/00008d03f4117803248945a19d98402d.jpg"},{"id":"15","name":"测试12","intro":"3333","cover_url":"https://staticcdntest.fantuanlife.com/uimage/00/00/8d/03/00008d03f4117803248945a19d98402d.jpg"},{"id":"14","name":"测试11","intro":"3333","cover_url":"https://staticcdntest.fantuanlife.com/uimage/00/00/8d/03/00008d03f4117803248945a19d98402d.jpg"},{"id":"13","name":"测试10","intro":"3333","cover_url":"https://staticcdntest.fantuanlife.com/uimage/00/00/8d/03/00008d03f4117803248945a19d98402d.jpg"},{"id":"12","name":"测试9","intro":"3333","cover_url":"https://staticcdntest.fantuanlife.com/uimage/00/00/8d/03/00008d03f4117803248945a19d98402d.jpg"},{"id":"11","name":"测试8","intro":"3333","cover_url":"https://staticcdntest.fantuanlife.com/uimage/00/00/8d/03/00008d03f4117803248945a19d98402d.jpg"},{"id":"10","name":"测试7","intro":"7777","cover_url":"https://staticcdntest.fantuanlife.com/uimage/00/00/8d/03/00008d03f4117803248945a19d98402d.jpg"},{"id":"9","name":"测试6","intro":"666","cover_url":"https://staticcdntest.fantuanlife.com/uimage/00/00/8d/03/00008d03f4117803248945a19d98402d.jpg"},{"id":"8","name":"测试5","intro":"555","cover_url":"https://staticcdntest.fantuanlife.com/uimage/00/00/8d/03/00008d03f4117803248945a19d98402d.jpg"}],"paging":{"total":15,"total_page":2,"limit":10,"pn":1,"is_end":false}}
      */
 
     private int error;
@@ -45,19 +45,19 @@ public class AllCircleListBean {
 
     public static class DataBean {
         /**
-         * circle_list : [{"id":"10","name":"测试7","intro":"7777","cover_url":"https://staticcdntest.fantuanlife.com/uimage/00/00/8d/03/00008d03f4117803248945a19d98402d.jpg"},{"id":"9","name":"测试6","intro":"666","cover_url":"https://staticcdntest.fantuanlife.com/uimage/00/00/8d/03/00008d03f4117803248945a19d98402d.jpg"},{"id":"8","name":"测试5","intro":"555","cover_url":"https://staticcdntest.fantuanlife.com/uimage/00/00/8d/03/00008d03f4117803248945a19d98402d.jpg"},{"id":"7","name":"测试4","intro":"444","cover_url":"https://staticcdntest.fantuanlife.com/uimage/00/00/8d/03/00008d03f4117803248945a19d98402d.jpg"},{"id":"6","name":"测试3","intro":"333","cover_url":"https://staticcdntest.fantuanlife.com/uimage/00/00/8d/03/00008d03f4117803248945a19d98402d.jpg"},{"id":"5","name":"测试2","intro":"2222","cover_url":"https://staticcdntest.fantuanlife.com/uimage/00/00/8d/03/00008d03f4117803248945a19d98402d.jpg"},{"id":"4","name":"测试1","intro":"1111","cover_url":"https://staticcdntest.fantuanlife.com/uimage/00/00/8d/03/00008d03f4117803248945a19d98402d.jpg"},{"id":"3","name":"吃喝拉撒","intro":"胖慰的圈子","cover_url":"https://staticcdntest.fantuanlife.com/uimage/37/d1/1b/0d/37d11b0db407ce7ecc5b635cf21ca225.jpg"}]
-         * page : {"total":8,"total_page":1,"limit":10,"pn":1,"is_end":1}
+         * circle_list : [{"id":"17","name":"测试14","intro":"3333","cover_url":"https://staticcdntest.fantuanlife.com/uimage/00/00/8d/03/00008d03f4117803248945a19d98402d.jpg"},{"id":"16","name":"测试13","intro":"3333","cover_url":"https://staticcdntest.fantuanlife.com/uimage/00/00/8d/03/00008d03f4117803248945a19d98402d.jpg"},{"id":"15","name":"测试12","intro":"3333","cover_url":"https://staticcdntest.fantuanlife.com/uimage/00/00/8d/03/00008d03f4117803248945a19d98402d.jpg"},{"id":"14","name":"测试11","intro":"3333","cover_url":"https://staticcdntest.fantuanlife.com/uimage/00/00/8d/03/00008d03f4117803248945a19d98402d.jpg"},{"id":"13","name":"测试10","intro":"3333","cover_url":"https://staticcdntest.fantuanlife.com/uimage/00/00/8d/03/00008d03f4117803248945a19d98402d.jpg"},{"id":"12","name":"测试9","intro":"3333","cover_url":"https://staticcdntest.fantuanlife.com/uimage/00/00/8d/03/00008d03f4117803248945a19d98402d.jpg"},{"id":"11","name":"测试8","intro":"3333","cover_url":"https://staticcdntest.fantuanlife.com/uimage/00/00/8d/03/00008d03f4117803248945a19d98402d.jpg"},{"id":"10","name":"测试7","intro":"7777","cover_url":"https://staticcdntest.fantuanlife.com/uimage/00/00/8d/03/00008d03f4117803248945a19d98402d.jpg"},{"id":"9","name":"测试6","intro":"666","cover_url":"https://staticcdntest.fantuanlife.com/uimage/00/00/8d/03/00008d03f4117803248945a19d98402d.jpg"},{"id":"8","name":"测试5","intro":"555","cover_url":"https://staticcdntest.fantuanlife.com/uimage/00/00/8d/03/00008d03f4117803248945a19d98402d.jpg"}]
+         * paging : {"total":15,"total_page":2,"limit":10,"pn":1,"is_end":false}
          */
 
-        private PageBean page;
+        private PagingBean paging;
         private List<CircleListBean> circle_list;
 
-        public PageBean getPage() {
-            return page;
+        public PagingBean getPaging() {
+            return paging;
         }
 
-        public void setPage(PageBean page) {
-            this.page = page;
+        public void setPaging(PagingBean paging) {
+            this.paging = paging;
         }
 
         public List<CircleListBean> getCircle_list() {
@@ -68,20 +68,20 @@ public class AllCircleListBean {
             this.circle_list = circle_list;
         }
 
-        public static class PageBean {
+        public static class PagingBean {
             /**
-             * total : 8
-             * total_page : 1
+             * total : 15
+             * total_page : 2
              * limit : 10
              * pn : 1
-             * is_end : 1
+             * is_end : false
              */
 
             private int total;
             private int total_page;
             private int limit;
             private int pn;
-            private int is_end;
+            private boolean is_end;
 
             public int getTotal() {
                 return total;
@@ -115,20 +115,20 @@ public class AllCircleListBean {
                 this.pn = pn;
             }
 
-            public int getIs_end() {
+            public boolean isIs_end() {
                 return is_end;
             }
 
-            public void setIs_end(int is_end) {
+            public void setIs_end(boolean is_end) {
                 this.is_end = is_end;
             }
         }
 
         public static class CircleListBean {
             /**
-             * id : 10
-             * name : 测试7
-             * intro : 7777
+             * id : 17
+             * name : 测试14
+             * intro : 3333
              * cover_url : https://staticcdntest.fantuanlife.com/uimage/00/00/8d/03/00008d03f4117803248945a19d98402d.jpg
              */
 

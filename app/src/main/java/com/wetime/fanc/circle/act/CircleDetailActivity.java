@@ -1,12 +1,15 @@
 package com.wetime.fanc.circle.act;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -22,6 +25,7 @@ import com.wetime.fanc.circle.presenter.GetCircleHeadPresenter;
 import com.wetime.fanc.home.adapter.NormalTitlePagerAdapter;
 import com.wetime.fanc.main.act.BaseActivity;
 import com.wetime.fanc.utils.GlideRoundTransform;
+import com.wetime.fanc.utils.Tools;
 
 import java.util.ArrayList;
 
@@ -51,6 +55,8 @@ public class CircleDetailActivity extends BaseActivity implements IGetCircleHead
     TextView tvCirclename;
     @BindView(R.id.tv_circleinfo)
     TextView tvCircleinfo;
+    @BindView(R.id.tv_title)
+    TextView tvTitle;
 
     private ArrayList<Fragment> mFragments = new ArrayList<>();
 
@@ -81,7 +87,7 @@ public class CircleDetailActivity extends BaseActivity implements IGetCircleHead
                 startActivity(go);
                 break;
             case R.id.iv_edit:
-                Intent goPublish = new Intent(this, PublishCircleActivity.class);
+                Intent goPublish = new Intent(this, PublishActActivity.class);
                 goPublish.putExtra("id", getCircleId());
                 startActivity(goPublish);
                 break;
@@ -93,25 +99,35 @@ public class CircleDetailActivity extends BaseActivity implements IGetCircleHead
 
         String[] mTitles = {"热门动态", "最新动态", "最新回复"};
 
-        Bundle bundle = new Bundle();
-        bundle.putString("mid", getIntent().getStringExtra("mid"));
+        Bundle b1 = new Bundle();
+        b1.putString("type", "1");
+        b1.putString("id", getCircleId());
 
         CircleDetailLazyFragment c1 = new CircleDetailLazyFragment();
-        c1.setArguments(bundle);
+        c1.setArguments(b1);
         mFragments.add(c1);
 
+        Bundle b2 = new Bundle();
+        b2.putString("type", "2");
+        b2.putString("id", getCircleId());
+
         CircleDetailLazyFragment c2 = new CircleDetailLazyFragment();
-        c1.setArguments(bundle);
+        c2.setArguments(b2);
         mFragments.add(c2);
 
+        Bundle b3 = new Bundle();
+        b3.putString("type", "3");
+        b3.putString("id", getCircleId());
+
         CircleDetailLazyFragment c3 = new CircleDetailLazyFragment();
-        c1.setArguments(bundle);
+        c3.setArguments(b3);
         mFragments.add(c3);
 
 
         NormalTitlePagerAdapter mAdapter = new NormalTitlePagerAdapter(getSupportFragmentManager(), mFragments, mTitles);
         vp.setAdapter(mAdapter);
         slidingTabLayout.setViewPager(vp, mTitles);
+
     }
 
     @Override

@@ -59,7 +59,7 @@ public class AllCircleActivity extends BaseActivity implements OnLoadmoreListene
 
         allCircleAdapter.setOnItemClickLitener((view, position) -> {
             Intent goCircle = new Intent(mContext, CircleDetailActivity.class);
-            goCircle.putExtra("id",list.get(position).getId());
+            goCircle.putExtra("id", list.get(position).getId());
             startActivity(goCircle);
         });
         allCircleAdapter.notifyDataSetChanged();
@@ -94,6 +94,8 @@ public class AllCircleActivity extends BaseActivity implements OnLoadmoreListene
     public void onGetAllCircle(AllCircleListBean bean) {
         list.addAll(bean.getData().getCircle_list());
         allCircleAdapter.notifyDataSetChanged();
+        refreshLayout.finishLoadmore();
+        refreshLayout.setEnableLoadmore(!bean.getData().getPaging().isIs_end());
     }
 
     @Override

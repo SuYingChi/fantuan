@@ -282,14 +282,17 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
 
             ((NewsHolder19) holder).tvSee.setText(bean.getRead_num());
             ((NewsHolder19) holder).tvZannum.setText(bean.getLike_num());
-            ((NewsHolder19) holder).tvCirclename.setText(bean.getCircle_name());
-            ((NewsHolder19) holder).tvCirclename.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent goCircle = new Intent(mActivity, CircleDetailActivity.class);
-                    goCircle.putExtra("id", bean.getCircle_id());
-                    mActivity.startActivity(goCircle);
-                }
+            if (TextUtils.isEmpty(bean.getCircle_name())) {
+                ((NewsHolder19) holder).tvPubTitle.setVisibility(View.GONE);
+            } else {
+                ((NewsHolder19) holder).tvPubTitle.setVisibility(View.VISIBLE);
+                ((NewsHolder19) holder).tvCirclename.setText(bean.getCircle_name());
+            }
+
+            ((NewsHolder19) holder).tvCirclename.setOnClickListener(view -> {
+                Intent goCircle = new Intent(mActivity, CircleDetailActivity.class);
+                goCircle.putExtra("id", bean.getCircle_id());
+                mActivity.startActivity(goCircle);
             });
 
             if (bean.isHas_like()) {
@@ -298,14 +301,16 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
                 ((NewsHolder19) holder).ivZan.setImageResource(R.drawable.ic_homeitem_zan_off_off);
             }
             ((NewsHolder19) holder).tvCommentnum.setText(bean.getComment_num());
-            ((NewsHolder19) holder).ivHead.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent go = new Intent(mActivity, UserCardActivity.class);
-                    go.putExtra("index", 0);
-                    mActivity.startActivity(go);
-                }
+            ((NewsHolder19) holder).ivHead.setOnClickListener(view -> {
+                Intent go = new Intent(mActivity, UserCardActivity.class);
+                go.putExtra("index", 0);
+                mActivity.startActivity(go);
             });
+            if (bean.isCircle_owner()) {
+                ((NewsHolder19) holder).ivOnwer.setVisibility(View.VISIBLE);
+            } else {
+                ((NewsHolder19) holder).ivOnwer.setVisibility(View.GONE);
+            }
 
         }
 
@@ -447,8 +452,12 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
         TextView tvCirclename;
         @BindView(R.id.tv_commentnum)
         TextView tvCommentnum;
+        @BindView(R.id.tv_publishtitle)
+        TextView tvPubTitle;
         @BindView(R.id.iv_zan)
         ImageView ivZan;
+        @BindView(R.id.iv_onwer)
+        ImageView ivOnwer;
         @BindView(R.id.tv_zannum)
         TextView tvZannum;
         @BindView(R.id.iv_head)

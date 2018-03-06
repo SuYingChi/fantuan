@@ -96,6 +96,8 @@ public class SelectCircleActivity extends BaseActivity implements OnLoadmoreList
     public void onGetAllCircle(AllCircleListBean bean) {
         list.addAll(bean.getData().getCircle_list());
         allCircleAdapter.notifyDataSetChanged();
+        refreshLayout.finishLoadmore();
+        refreshLayout.setEnableLoadmore(!bean.getData().getPaging().isIs_end());
     }
 
     @Override

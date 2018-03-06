@@ -19,7 +19,7 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.wetime.fanc.R;
 import com.wetime.fanc.circle.act.AllCircleActivity;
 import com.wetime.fanc.circle.act.CircleDetailActivity;
-import com.wetime.fanc.circle.act.PublishCircleActivity;
+import com.wetime.fanc.circle.act.PublishActActivity;
 import com.wetime.fanc.circle.adapter.HeadCircleAdapter;
 import com.wetime.fanc.circle.bean.CircleHomeListBean;
 import com.wetime.fanc.circle.iviews.IGetCircleHomeView;
@@ -173,7 +173,7 @@ public class CircleLazyFragment extends BaseLazyFragment implements OnRefreshLis
                 break;
             case R.id.iv_edit:
                 qBadgeMsg.setBadgeNumber(temp + 100);
-                Intent goPublish = new Intent(getContext(),PublishCircleActivity.class);
+                Intent goPublish = new Intent(getContext(),PublishActActivity.class);
                 startActivity(goPublish);
                 break;
         }

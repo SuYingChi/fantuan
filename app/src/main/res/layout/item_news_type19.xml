@@ -38,16 +38,31 @@
                 android:orientation="vertical"
                 android:paddingLeft="15dp">
 
-                <TextView
-                    android:id="@+id/tv_name"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="1dp"
-                    android:lineSpacingExtra="0sp"
-                    android:textColor="#333333"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    tools:text="西门吹雪西门吹雪" />
+                    android:gravity="center|left"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="1dp"
+                        android:lineSpacingExtra="0sp"
+                        android:textColor="#333333"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        tools:text="西门吹雪西门吹雪" />
+
+                    <ImageView
+                        android:id="@+id/iv_onwer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="16dp"
+                        android:layout_marginLeft="5dp"
+                        android:src="@drawable/bg_circle_onwer" />
+                </LinearLayout>
+
 
                 <TextView
                     android:id="@+id/tv_time"
