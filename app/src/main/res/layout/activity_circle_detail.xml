@@ -1,142 +1,132 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tl="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical">
 
-    <include layout="@layout/item_header" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
 
-    <ScrollView
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/icon_back" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text=""
+            android:textColor="#333333"
+            android:textSize="17sp" />
+
+        <ImageView
+            android:id="@+id/iv_edit"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_circle_edit" />
+    </LinearLayout>
+
+    <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/main_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
-        <LinearLayout
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/appbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp">
+            android:background="@color/white"
+            app:elevation="0dp">
 
             <LinearLayout
-                android:layout_marginBottom="25dp"
+                android:id="@+id/ll_headinfo"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="25dp"
-                android:orientation="horizontal">
-
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/iv_circle"
-                    android:scaleType="centerCrop"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/ic_default" />
+                android:layout_height="wrap_content"
+                android:background="#f6f6f6"
+                app:layout_scrollFlags="scroll|enterAlways">
 
                 <LinearLayout
-
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:paddingLeft="15dp">
-
-                    <TextView
-                        android:id="@+id/tv_circlename"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:lineSpacingExtra="-3sp"
-                        android:textColor="#333333"
-                        android:textSize="19sp"
-                        tools:text="舌尖上的海口" />
-
-                    <TextView
-                        android:id="@+id/tv_time"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:lineSpacingExtra="4sp"
-                        android:textColor="#999999"
-                        android:textSize="12sp"
-                        tools:text="创建于2017-12-30" />
-                </LinearLayout>
-            </LinearLayout>
-
-            <include layout="@layout/item_my_line" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
-                android:lineSpacingExtra="0sp"
-                android:text="圈主："
-                android:textColor="#333333"
-                android:textSize="19sp"
-                android:textStyle="bold" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginTop="20dp"
-                android:gravity="center">
-
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:scaleType="centerCrop"
-                    android:id="@+id/iv_user"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/ic_head_default" />
-
-                <TextView
-                    android:id="@+id/tv_username"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="#333333"
-                    android:textSize="16sp"
-                    tools:text="曾半仙儿啊" />
+                    android:layout_height="130dp"
+                    android:background="#f6f6f6"
+                    android:orientation="horizontal"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:paddingTop="30dp"
+                    app:layout_scrollFlags="scroll|enterAlways">
+
+                    <ImageView
+                        android:id="@+id/iv_cover"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:src="@drawable/ic_default" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:paddingLeft="15dp">
+
+                        <TextView
+                            android:id="@+id/tv_circlename"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:lineSpacingExtra="0sp"
+                            android:textColor="#333333"
+                            android:textSize="21sp"
+                            android:textStyle="bold"
+                            tools:text="舌尖上的海口" />
+
+                        <TextView
+                            android:id="@+id/tv_circleinfo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:lineSpacingExtra="4sp"
+                            android:textColor="#999999"
+                            android:textSize="12sp"
+                            tools:text="海南有趣、有料、有温度的生活圈，分分钟带你吃 遍全海南~" />
+                    </LinearLayout>
+                </LinearLayout>
+
             </LinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
-                android:lineSpacingExtra="0sp"
-                android:text="圈子规矩："
-                android:textColor="#333333"
-                android:textSize="19sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/tv_des"
+            <com.flyco.tablayout.SlidingTabLayout
+                android:id="@+id/tablayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:textColor="#333333"
-                android:textSize="14sp"
-                tools:text="海南有趣、有料、有适度的生活圈，分分钟带你吃遍全海南~" />
+                android:layout_height="44dp"
+                android:background="@color/white"
+                tl:tl_iconVisible="false"
+                tl:tl_indicator_color="#ff3f53"
+                tl:tl_indicator_height="3dp"
+                tl:tl_indicator_width="36dp"
+                tl:tl_tab_padding="2dp"
+                tl:tl_tab_space_equal="true"
+                tl:tl_textBold="SELECT"
+                tl:tl_textSelectColor="#333333"
+                tl:tl_textUnselectColor="#666666"
+                tl:tl_textsize="16sp"
+                tl:tl_underline_color="#e5e5e5"
+                tl:tl_underline_height="0.5dp" />
+        </android.support.design.widget.AppBarLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
-                android:lineSpacingExtra="0sp"
-                android:text="圈子简介："
-                android:textColor="#333333"
-                android:textSize="19sp"
-                android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/tv_rule"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:textColor="#333333"
-                android:textSize="14sp"
-                tools:text="一、群内尽量避免与政治有关的言论，杜绝反政府言论和图片。
-二、文明聊天，友善待人，懂得尊重他人以及自己。
-群内杜绝有损群形象的言论和图片，杜绝进行人身攻击 ，杜绝脏话、粗言。" />
-        </LinearLayout>
-    </ScrollView>
+        <android.support.v4.view.ViewPager
+            android:id="@+id/vp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+    </android.support.design.widget.CoordinatorLayout>
+
+
 </LinearLayout>
-

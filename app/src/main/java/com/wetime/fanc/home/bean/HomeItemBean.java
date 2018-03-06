@@ -37,6 +37,7 @@ public class HomeItemBean {
     private String circle_name;
     private int type;
     private boolean has_like;
+    private boolean circle_owner = false;
     private List<String> cover;
 
 
@@ -61,6 +62,13 @@ public class HomeItemBean {
 //    private List<String> cover;
     private List<BannerBean> banner;
 
+    public boolean isCircle_owner() {
+        return circle_owner;
+    }
+
+    public void setCircle_owner(boolean circle_owner) {
+        this.circle_owner = circle_owner;
+    }
 
     public String getName() {
         return name;

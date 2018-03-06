@@ -61,6 +61,7 @@ public interface Const {
     String DYNAMIC_PUBLISH_SAVE = BASEURL + "/dynamic/publish/save";
     String DYNAMIC_PUBLISH_LIST = BASEURL + "/dynamic/publish/list";
     String CIRCLE_INFO = BASEURL + "/circle/info";
+    String DYNAMIC_LIST_CIRCLE = BASEURL + "/dynamic/list/circle";
 
 
 
