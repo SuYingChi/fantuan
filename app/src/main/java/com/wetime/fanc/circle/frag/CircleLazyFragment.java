@@ -103,10 +103,7 @@ public class CircleLazyFragment extends BaseLazyFragment implements OnRefreshLis
             @Override
             public void onTabSelect(int position) {
                 sortPos = position;
-//                mList.clear();
-//                adapter.notifyDataSetChanged();
                 onRefresh(refreshLayout);
-
             }
 
             @Override

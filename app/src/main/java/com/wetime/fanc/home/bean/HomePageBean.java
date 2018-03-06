@@ -12,7 +12,7 @@ public class HomePageBean {
     /**
      * error : 0
      * msg :
-     * data : {"bigcates":[{"id":"1","name":"美食","icon":"http://shoptest.weishike.net/image/fant/bigcate/food.png","url":"http://www.baidu.com"},{"id":"21","name":"休闲娱乐","icon":"http://shoptest.weishike.net/image/fant/bigcate/leisure.png","url":"http://www.baidu.com"},{"id":"35","name":"丽人","icon":"http://shoptest.weishike.net/image/fant/bigcate/beauty.png","url":"http://www.baidu.com"},{"id":"45","name":"运动健身","icon":"http://shoptest.weishike.net/image/fant/bigcate/sport.png","url":"http://www.baidu.com"},{"id":"53","name":"母婴亲子","icon":"http://shoptest.weishike.net/image/fant/bigcate/baby.png","url":"http://www.baidu.com"},{"id":"60","name":"学习培训","icon":"http://shoptest.weishike.net/image/fant/bigcate/educate.png","url":"http://www.baidu.com"},{"id":"76","name":"生活服务","icon":"http://shoptest.weishike.net/image/fant/bigcate/life.png","url":"http://www.baidu.com"},{"id":"94","name":"汽车服务","icon":"http://shoptest.weishike.net/image/fant/bigcate/car.png","url":"http://www.baidu.com"},{"id":"102","name":"摄影写真","icon":"http://shoptest.weishike.net/image/fant/bigcate/photo.png","url":"http://www.baidu.com"},{"id":"107","name":"结婚","icon":"http://shoptest.weishike.net/image/fant/bigcate/marry.png","url":"http://www.baidu.com"}],"promotion_area":{"url":"http://www.baidu.com","banner":"http://shoptest.weishike.net/uimage/cf/46/8c/f4/cf468cf4e2fe0557b2bb20f72c266c43.jpg"},"malls":[{"id":"11","name":"京华城","logo":"http://uimg.weishike.net/uimage/7b/88/e8/dc/7b88e8dc1a1f7298d26e3c86cf0516a8.jpg?x-oss-process=image/resize,m_fill,h_80,w_140/format,jpg/interlace,1/quality,Q_70","distance":"距100m","url":"http://www.baidu.com"},{"id":"4","name":"宜欣城","logo":"http://uimg.weishike.net/uimage/7b/88/e8/dc/7b88e8dc1a1f7298d26e3c86cf0516a8.jpg?x-oss-process=image/resize,m_fill,h_80,w_140/format,jpg/interlace,1/quality,Q_70","distance":"距628m","url":"http://www.baidu.com"},{"id":"9","name":"上邦百汇城","logo":"http://uimg.weishike.net/uimage/2a/9d/bc/e0/2a9dbce085bb36f694e618b8241ff4c3.jpg?x-oss-process=image/resize,m_fill,h_80,w_140/format,jpg/interlace,1/quality,Q_70","distance":"距925m","url":"http://www.baidu.com"},{"id":"24","name":"海秀890广场","logo":"http://uimg.weishike.net/uimage/77/ce/21/0a/77ce210a553e47d1bae9bef853194dee.jpg?x-oss-process=image/resize,m_fill,h_80,w_140/format,jpg/interlace,1/quality,Q_70","distance":"距1.85km","url":"http://www.baidu.com"},{"id":"16","name":"亿圣和广场","logo":"http://uimg.weishike.net/uimage/56/43/fe/3e/5643fe3e15fada59f4e1de8a39fbd5ce.jpg?x-oss-process=image/resize,m_fill,h_80,w_140/format,jpg/interlace,1/quality,Q_70","distance":"距2.23km","url":"http://www.baidu.com"}],"merchants":[{"id":"35","name":"秘汁道小龙虾(世贸店)","logo":"http://shoptest.weishike.net/uimage/94/58/57/a1/945857a1c29b49090c54fdab78a59145.jpg?x-oss-process=image/resize,m_fill,h_80,w_80/format,jpg/interlace,1/quality,Q_70","mall_name":"","category_name":"","score":"0","average_spend":"","sales":"月销量21","business":"0","spider":"0","distance":"距0m","promotion_list":["团购套餐299元起","100元代金券仅售88.9元","实付满100元返10元优惠券"]},{"id":"271","name":"椰语堂（京华城店）","logo":"http://shoptest.weishike.net/uimage/2d/83/bd/ba/2d83bdba54852de30d98d86533921f0f.jpg?x-oss-process=image/resize,m_fill,h_80,w_80/format,jpg/interlace,1/quality,Q_70","mall_name":"京华城","category_name":"甜点饮品","score":"50","average_spend":"","sales":"","business":"0","spider":"0","distance":"距0m","promotion_list":["团购套餐299元起","100元代金券仅售88.9元","实付满100元返10元优惠券"]},{"id":"457","name":"印度尼泊尔菜","logo":"http://shoptest.weishike.net/uimage/29/e8/80/2c/29e8802c3282b8de9521fd2ebbd267fc.jpg?x-oss-process=image/resize,m_fill,h_80,w_80/format,jpg/interlace,1/quality,Q_70","mall_name":"京华城","category_name":"东南亚菜","score":"50","average_spend":"¥66/人","sales":"","business":"0","spider":"0","distance":"距0m","promotion_list":["团购套餐299元起","100元代金券仅售88.9元","实付满100元返10元优惠券"]},{"id":"544","name":"探鱼（京华城店）","logo":"http://shoptest.weishike.net/uimage/15/8f/a7/a8/158fa7a82204272c890ed900121ebacc.jpg?x-oss-process=image/resize,m_fill,h_80,w_80/format,jpg/interlace,1/quality,Q_70","mall_name":"京华城","category_name":"川湘菜","score":"50","average_spend":"¥73/人","sales":"","business":"0","spider":"0","distance":"距0m","promotion_list":["团购套餐299元起","100元代金券仅售88.9元","实付满100元返10元优惠券"]},{"id":"1621","name":"the Piece贝絲","logo":"http://shoptest.weishike.net/uimage/56/43/fe/3e/5643fe3e15fada59f4e1de8a39fbd5ce.jpg?x-oss-process=image/resize,m_fill,h_80,w_80/format,jpg/interlace,1/quality,Q_70","mall_name":"京华城","category_name":"","score":"50","average_spend":"¥7/人","sales":"","business":"0","spider":"0","distance":"距0m","promotion_list":["团购套餐299元起","100元代金券仅售88.9元","实付满100元返10元优惠券"]},{"id":"1749","name":"哈根达斯（海口京华城店）","logo":"http://shoptest.weishike.net/uimage/e8/eb/d9/c8/e8ebd9c83ee5718e207fd7638b1d70a4.jpg?x-oss-process=image/resize,m_fill,h_80,w_80/format,jpg/interlace,1/quality,Q_70","mall_name":"京华城","category_name":"","score":"40","average_spend":"¥94/人","sales":"","business":"0","spider":"0","distance":"距0m","promotion_list":["团购套餐299元起","100元代金券仅售88.9元","实付满100元返10元优惠券"]},{"id":"1906","name":"德奈斯汉堡","logo":"http://shoptest.weishike.net/uimage/2a/9d/bc/e0/2a9dbce085bb36f694e618b8241ff4c3.jpg?x-oss-process=image/resize,m_fill,h_80,w_80/format,jpg/interlace,1/quality,Q_70","mall_name":"京华城","category_name":"","score":"35","average_spend":"¥34/人","sales":"","business":"0","spider":"0","distance":"距0m","promotion_list":["团购套餐299元起","100元代金券仅售88.9元","实付满100元返10元优惠券"]},{"id":"2529","name":"必胜客（玉沙店）","logo":"http://shoptest.weishike.net/uimage/cf/46/8c/f4/cf468cf4e2fe0557b2bb20f72c266c43.jpg?x-oss-process=image/resize,m_fill,h_80,w_80/format,jpg/interlace,1/quality,Q_70","mall_name":"京华城","category_name":"西餐","score":"41","average_spend":"¥9/人","sales":"","business":"0","spider":"0","distance":"距0m","promotion_list":["团购套餐299元起","100元代金券仅售88.9元","实付满100元返10元优惠券"]},{"id":"2534","name":"沸爱哥意大利餐厅","logo":"http://shoptest.weishike.net/uimage/7b/88/e8/dc/7b88e8dc1a1f7298d26e3c86cf0516a8.jpg?x-oss-process=image/resize,m_fill,h_80,w_80/format,jpg/interlace,1/quality,Q_70","mall_name":"京华城","category_name":"西餐","score":"38","average_spend":"¥78/人","sales":"","business":"0","spider":"0","distance":"距0m","promotion_list":["团购套餐299元起","100元代金券仅售88.9元","实付满100元返10元优惠券"]},{"id":"2999","name":"七三指弹吉他工作室","logo":"http://shoptest.weishike.net/uimage/77/ce/21/0a/77ce210a553e47d1bae9bef853194dee.jpg?x-oss-process=image/resize,m_fill,h_80,w_80/format,jpg/interlace,1/quality,Q_70","mall_name":"京华城","category_name":"音乐培训","score":"46","average_spend":"","sales":"","business":"0","spider":"0","distance":"距0m","promotion_list":["团购套餐299元起","100元代金券仅售88.9元","实付满100元返10元优惠券"]}]}
+     * data : {"bigcates":[{"id":"1","name":"美食","icon":"https://staticcdntest.fantuanlife.com/image/fant/bigcates/food.png","url":"https://fanttest.fantuanlife.com/index.html#/category/subcate?cate=1"},{"id":"21","name":"休闲娱乐","icon":"https://staticcdntest.fantuanlife.com/image/fant/bigcates/leisure.png","url":"https://fanttest.fantuanlife.com/index.html#/category/subcate?cate=21"},{"id":"35","name":"丽人","icon":"https://staticcdntest.fantuanlife.com/image/fant/bigcates/beauty.png","url":"https://fanttest.fantuanlife.com/index.html#/category/subcate?cate=35"},{"id":"45","name":"运动健身","icon":"https://staticcdntest.fantuanlife.com/image/fant/bigcates/sport.png","url":"https://fanttest.fantuanlife.com/index.html#/category/subcate?cate=45"},{"id":"53","name":"母婴亲子","icon":"https://staticcdntest.fantuanlife.com/image/fant/bigcates/baby.png","url":"https://fanttest.fantuanlife.com/index.html#/category/subcate?cate=53"},{"id":"60","name":"学习培训","icon":"https://staticcdntest.fantuanlife.com/image/fant/bigcates/educate.png","url":"https://fanttest.fantuanlife.com/index.html#/category/subcate?cate=60"},{"id":"76","name":"生活服务","icon":"https://staticcdntest.fantuanlife.com/image/fant/bigcates/life.png","url":"https://fanttest.fantuanlife.com/index.html#/category/subcate?cate=76"},{"id":"94","name":"汽车服务","icon":"https://staticcdntest.fantuanlife.com/image/fant/bigcates/car.png","url":"https://fanttest.fantuanlife.com/index.html#/category/subcate?cate=94"},{"id":"-1","name":"附近商圈","icon":"https://staticcdntest.fantuanlife.com/image/fant/bigcates/news.png","url":"https://fanttest.fantuanlife.com/index.html#/category/subcate?cate=-1"},{"id":"-2","name":"全部分类","icon":"https://staticcdntest.fantuanlife.com/image/fant/bigcates/category.png","url":"https://fanttest.fantuanlife.com/index.html#/category/subcate?cate=-2"}],"list":[{"id":"7440","news_id":"51","cid":"5","name":"送给各位要考试的同学们","cover":["https://staticcdntest.fantuanlife.com/uimage/f7/ef/d5/8a/f7efd58a03f99740966d0bd43d9b8ed8.jpg","https://staticcdntest.fantuanlife.com/uimage/77/ec/ae/60/77ecae606129433fa76c615f4d28e220.jpg","https://staticcdntest.fantuanlife.com/uimage/52/fc/cd/6c/52fccd6c7fd40448aa7b8f02113c2c16.jpg"],"author":"我真的叫直直啊","read_num":"0次浏览","like_num":"0","comment_num":"0","cause":"","recommend":"0","state":"1","time":"01-04","origin_time":"2018-01-04 10:39:07","spider_time":"2018-03-06 14:37:54","type":"3","score":"0","article_url":"https://fanttest.fantuanlife.com/index.html#/article/detail?article_id=7440","news_name":"我真的叫直直啊"},{"id":"7439","news_id":"51","cid":"5","name":"我的女朋友是这个世界上最优秀的女人！","cover":["https://staticcdntest.fantuanlife.com/uimage/a2/e8/a1/55/a2e8a155c22a384a51b3e6d7720205ca.jpg","https://staticcdntest.fantuanlife.com/uimage/09/e5/46/6d/09e5466d5f1d15072abc530f8b69f8cf.jpg","https://staticcdntest.fantuanlife.com/uimage/b4/00/55/13/b4005513fbbdf4acd08a02863eaca6b6.jpg"],"author":"我真的叫直直啊","read_num":"0次浏览","like_num":"0","comment_num":"0","cause":"","recommend":"0","state":"1","time":"01-09","origin_time":"2018-01-09 20:19:26","spider_time":"2018-03-06 14:37:38","type":"3","score":"0","article_url":"https://fanttest.fantuanlife.com/index.html#/article/detail?article_id=7439","news_name":"我真的叫直直啊"},{"id":"2","uid":"18","circle_id":"1","content":"这是一条很棒很棒的动态哦····不堵车了耶！！！","read_num":"10次浏览","like_num":"3","comment_num":"24","time":"02月26日","username":"王荣慰","avatar":"https://staticcdntest.fantuanlife.com/uimage/56/30/c1/8f/5630c18fdd3f4ffd2f65c59325cb93c7.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70","circle_name":"吃喝玩乐","cover":["https://staticcdntest.fantuanlife.com/uimage/00/01/a1/5c/0001a15ccc4f3aa227220a94f20c29d3.jpg","https://staticcdntest.fantuanlife.com/uimage/00/01/a5/9f/0001a59f2b1e5babff2852ec8813593d.jpg"],"type":"19","has_like":false},{"id":"47","uid":"38","circle_id":"4","content":"11111111111","read_num":"0次浏览","like_num":"0","comment_num":"0","time":"刚刚","username":"起点","avatar":"https://staticcdntest.fantuanlife.com/uimage/77/c8/5c/17/77c85c17ea1dbafadba34123f143da55.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70","circle_name":"测试1","cover":[],"type":"11","has_like":false},{"id":"7438","news_id":"51","cid":"5","name":"没对象眼光还高，整天就想着吃，是我本人没错了！","cover":["https://staticcdntest.fantuanlife.com/uimage/fe/92/f1/c0/fe92f1c0be186db7fe4102f9da47bf7c.jpg","https://staticcdntest.fantuanlife.com/uimage/e9/b7/34/3a/e9b7343aab938ba2c4572dbd97af7cb9.jpg","https://staticcdntest.fantuanlife.com/uimage/dd/33/4d/2a/dd334d2addd275ecdbd201d9ea9c779b.jpg"],"author":"我真的叫直直啊","read_num":"0次浏览","like_num":"0","comment_num":"0","cause":"","recommend":"0","state":"1","time":"03-03","origin_time":"2018-03-03 00:05:47","spider_time":"2018-03-06 14:37:25","type":"3","score":"0","article_url":"https://fanttest.fantuanlife.com/index.html#/article/detail?article_id=7438","news_name":"我真的叫直直啊"},{"id":"7437","news_id":"51","cid":"5","name":"贫穷影响了我的睡眠","cover":["https://staticcdntest.fantuanlife.com/uimage/84/b0/f9/55/84b0f9558a6644f9ca717ed46f3c3c88.jpg","https://staticcdntest.fantuanlife.com/uimage/c8/f4/39/bf/c8f439bfdc10b34f92cb835b09c529df.jpg","https://staticcdntest.fantuanlife.com/uimage/cb/fd/5a/d6/cbfd5ad62bae040c33e03db124d7930e.jpg"],"author":"我真的叫直直啊","read_num":"0次浏览","like_num":"0","comment_num":"0","cause":"","recommend":"0","state":"1","time":"01-10","origin_time":"2018-01-10 13:19:33","spider_time":"2018-03-06 14:37:18","type":"3","score":"0","article_url":"https://fanttest.fantuanlife.com/index.html#/article/detail?article_id=7437","news_name":"我真的叫直直啊"},{"id":"46","uid":"38","circle_id":"16","content":"from Android and  select one circle  ","read_num":"0次浏览","like_num":"0","comment_num":"0","time":"昨天 ","username":"起点","avatar":"https://staticcdntest.fantuanlife.com/uimage/77/c8/5c/17/77c85c17ea1dbafadba34123f143da55.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70","circle_name":"测试13","cover":["https://staticcdntest.fantuanlife.com/uimage/32/2e/bd/fb/322ebdfbc298aa36e020467d65246e88.jpg"],"type":"11","has_like":false},{"id":"45","uid":"18","circle_id":"4","content":"","read_num":"0次浏览","like_num":"0","comment_num":"0","time":"昨天 ","username":"王荣慰","avatar":"https://staticcdntest.fantuanlife.com/uimage/56/30/c1/8f/5630c18fdd3f4ffd2f65c59325cb93c7.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70","circle_name":"测试1","cover":["https://staticcdntest.fantuanlife.com/uimage/aa/48/cf/fe/aa48cffe2cac19a8d945260db051cbf5.jpg","https://staticcdntest.fantuanlife.com/uimage/77/c8/5c/17/77c85c17ea1dbafadba34123f143da55.jpg"],"type":"19","has_like":false},{"id":"7436","news_id":"51","cid":"5","name":"寒假在家，我和我妈的日常！","cover":["https://staticcdntest.fantuanlife.com/uimage/93/d5/79/ef/93d579ef0d59d50c02879b53428e2f9c.jpg","https://staticcdntest.fantuanlife.com/uimage/70/44/14/d4/704414d4fc3a538370441de7bad89e5e.jpg","https://staticcdntest.fantuanlife.com/uimage/e6/2d/de/3b/e62dde3ba7332f8c87328e3f16d0a534.jpg"],"author":"我真的叫直直啊","read_num":"0次浏览","like_num":"0","comment_num":"0","cause":"","recommend":"0","state":"1","time":"02-09","origin_time":"2018-02-09 01:01:28","spider_time":"2018-03-06 14:37:10","type":"3","score":"0","article_url":"https://fanttest.fantuanlife.com/index.html#/article/detail?article_id=7436","news_name":"我真的叫直直啊"},{"id":"7435","news_id":"51","cid":"5","name":"依赖性人格的九大特征，是你本人没错了！","cover":["https://staticcdntest.fantuanlife.com/uimage/b5/13/71/6e/b513716e79793ebd8d232ec1951f7e4c.jpg","https://staticcdntest.fantuanlife.com/uimage/6a/65/fa/00/6a65fa00bf04b1dbe7000a88c101613b.jpg","https://staticcdntest.fantuanlife.com/uimage/52/de/35/db/52de35dbeedac7b9a9b9d86390b2280d.jpg"],"author":"我真的叫直直啊","read_num":"0次浏览","like_num":"0","comment_num":"0","cause":"","recommend":"0","state":"1","time":"02-11","origin_time":"2018-02-11 00:40:45","spider_time":"2018-03-06 14:37:02","type":"3","score":"0","article_url":"https://fanttest.fantuanlife.com/index.html#/article/detail?article_id=7435","news_name":"我真的叫直直啊"},{"id":"44","uid":"38","circle_id":"4","content":"from android  only one picture","read_num":"0次浏览","like_num":"0","comment_num":"0","time":"昨天 ","username":"起点","avatar":"https://staticcdntest.fantuanlife.com/uimage/77/c8/5c/17/77c85c17ea1dbafadba34123f143da55.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70","circle_name":"测试1","cover":["https://staticcdntest.fantuanlife.com/uimage/41/fe/c9/ac/41fec9ac9382484068244bc1a504b779.jpg"],"type":"11","has_like":false},{"id":"43","uid":"18","circle_id":"4","content":"","read_num":"0次浏览","like_num":"0","comment_num":"0","time":"昨天 ","username":"王荣慰","avatar":"https://staticcdntest.fantuanlife.com/uimage/56/30/c1/8f/5630c18fdd3f4ffd2f65c59325cb93c7.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70","circle_name":"测试1","cover":["https://staticcdntest.fantuanlife.com/uimage/aa/48/cf/fe/aa48cffe2cac19a8d945260db051cbf5.jpg","https://staticcdntest.fantuanlife.com/uimage/77/c8/5c/17/77c85c17ea1dbafadba34123f143da55.jpg"],"type":"19","has_like":false},{"id":"7434","news_id":"51","cid":"5","name":"集五福活动又开始啦！今年你们还缺敬业福吗？","cover":["https://staticcdntest.fantuanlife.com/uimage/1e/fc/14/49/1efc144986b57cd39810c506cc5f25bf.jpg","https://staticcdntest.fantuanlife.com/uimage/d1/13/4a/56/d1134a5629c3300648b381c4a6c1cd3e.jpg","https://staticcdntest.fantuanlife.com/uimage/ab/b3/e0/88/abb3e08897eb2888bd0c6fa027b37f14.jpg"],"author":"我真的叫直直啊","read_num":"0次浏览","like_num":"0","comment_num":"0","cause":"","recommend":"0","state":"1","time":"02-06","origin_time":"2018-02-06 17:02:45","spider_time":"2018-03-06 14:36:44","type":"3","score":"0","article_url":"https://fanttest.fantuanlife.com/index.html#/article/detail?article_id=7434","news_name":"我真的叫直直啊"},{"id":"7433","news_id":"51","cid":"5","name":"爱你的人忙完手头的事就会联系你，但是不爱你的人\u2026\u2026","cover":["https://staticcdntest.fantuanlife.com/uimage/fa/b6/51/8a/fab6518ae7c92c7dca6bd52afeeb0412.jpg","https://staticcdntest.fantuanlife.com/uimage/99/96/9f/4a/99969f4ae27aa3781bcaba86687c14aa.jpg","https://staticcdntest.fantuanlife.com/uimage/fe/90/16/29/fe90162961e0db5f462d931e6635eb69.jpg"],"author":"我真的叫直直啊","read_num":"0次浏览","like_num":"0","comment_num":"0","cause":"","recommend":"0","state":"1","time":"01-16","origin_time":"2018-01-16 18:55:13","spider_time":"2018-03-06 14:36:36","type":"3","score":"0","article_url":"https://fanttest.fantuanlife.com/index.html#/article/detail?article_id=7433","news_name":"我真的叫直直啊"},{"id":"42","uid":"38","circle_id":"4","content":"ssssghghghghghghghghghghghg","read_num":"0次浏览","like_num":"0","comment_num":"0","time":"昨天 ","username":"起点","avatar":"https://staticcdntest.fantuanlife.com/uimage/77/c8/5c/17/77c85c17ea1dbafadba34123f143da55.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70","circle_name":"测试1","cover":["https://staticcdntest.fantuanlife.com/uimage/32/2e/bd/fb/322ebdfbc298aa36e020467d65246e88.jpg"],"type":"11","has_like":false},{"id":"41","uid":"38","circle_id":"4","content":"from Android go go","read_num":"0次浏览","like_num":"0","comment_num":"0","time":"昨天 ","username":"起点","avatar":"https://staticcdntest.fantuanlife.com/uimage/77/c8/5c/17/77c85c17ea1dbafadba34123f143da55.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70","circle_name":"测试1","cover":["https://staticcdntest.fantuanlife.com/uimage/41/fe/c9/ac/41fec9ac9382484068244bc1a504b779.jpg","https://staticcdntest.fantuanlife.com/uimage/32/2e/bd/fb/322ebdfbc298aa36e020467d65246e88.jpg","https://staticcdntest.fantuanlife.com/uimage/03/45/2d/1e/03452d1e22253ab9f633dc578a4b0650.jpg","https://staticcdntest.fantuanlife.com/uimage/c6/db/cb/43/c6dbcb430522739904e9dac00d94c570.jpg"],"type":"14","has_like":false},{"id":"7432","news_id":"51","cid":"5","name":"佛系减肥、养生、恋爱的我","cover":["https://staticcdntest.fantuanlife.com/uimage/3c/dc/95/05/3cdc95055f9c5f081624bafb0b62ce59.jpg","https://staticcdntest.fantuanlife.com/uimage/19/77/d7/a4/1977d7a489d341708af95f87e2dff8dd.jpg","https://staticcdntest.fantuanlife.com/uimage/04/a5/c4/0e/04a5c40ea0f00a8dcac8f102bc923841.jpg"],"author":"我真的叫直直啊","read_num":"0次浏览","like_num":"0","comment_num":"0","cause":"","recommend":"0","state":"1","time":"03-05","origin_time":"2018-03-05 18:48:03","spider_time":"2018-03-06 14:36:28","type":"3","score":"0","article_url":"https://fanttest.fantuanlife.com/index.html#/article/detail?article_id=7432","news_name":"我真的叫直直啊"},{"id":"7431","news_id":"51","cid":"5","name":"解救你的职场焦虑症，上班族必看！","cover":["https://staticcdntest.fantuanlife.com/uimage/85/9f/a7/e9/859fa7e98f6f5bd12992519bc5d3f7d8.jpg","https://staticcdntest.fantuanlife.com/uimage/5d/1c/1a/3d/5d1c1a3d8dd738a9e3cb90a9a4051c60.jpg"],"author":"我真的叫直直啊","read_num":"0次浏览","like_num":"0","comment_num":"0","cause":"","recommend":"0","state":"1","time":"11-21","origin_time":"2017-11-21 17:08:01","spider_time":"2018-03-06 14:36:22","type":"1","score":"0","article_url":"https://fanttest.fantuanlife.com/index.html#/article/detail?article_id=7431","news_name":"我真的叫直直啊"},{"id":"40","uid":"18","circle_id":"4","content":"dgsfhsht这是一条需要删除的动态啊！","read_num":"0次浏览","like_num":"0","comment_num":"0","time":"昨天 ","username":"王荣慰","avatar":"https://staticcdntest.fantuanlife.com/uimage/56/30/c1/8f/5630c18fdd3f4ffd2f65c59325cb93c7.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70","circle_name":"测试1","cover":["https://staticcdntest.fantuanlife.com/uimage/aa/48/cf/fe/aa48cffe2cac19a8d945260db051cbf5.jpg","https://staticcdntest.fantuanlife.com/uimage/77/c8/5c/17/77c85c17ea1dbafadba34123f143da55.jpg"],"type":"19","has_like":false},{"id":"39","uid":"18","circle_id":"4","content":"dgsfhsht这是一条需要删除的动态啊！","read_num":"0次浏览","like_num":"0","comment_num":"0","time":"昨天 ","username":"王荣慰","avatar":"https://staticcdntest.fantuanlife.com/uimage/56/30/c1/8f/5630c18fdd3f4ffd2f65c59325cb93c7.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70","circle_name":"测试1","cover":[],"type":"11","has_like":false}],"paging":{"total":"4657","total_page":466,"limit":10,"pn":1,"is_end":0}}
      */
 
     private int error;
@@ -45,17 +45,14 @@ public class HomePageBean {
 
     public static class DataBean {
         /**
-         * bigcates : [{"id":"1","name":"美食","icon":"http://shoptest.weishike.net/image/fant/bigcate/food.png","url":"http://www.baidu.com"},{"id":"21","name":"休闲娱乐","icon":"http://shoptest.weishike.net/image/fant/bigcate/leisure.png","url":"http://www.baidu.com"},{"id":"35","name":"丽人","icon":"http://shoptest.weishike.net/image/fant/bigcate/beauty.png","url":"http://www.baidu.com"},{"id":"45","name":"运动健身","icon":"http://shoptest.weishike.net/image/fant/bigcate/sport.png","url":"http://www.baidu.com"},{"id":"53","name":"母婴亲子","icon":"http://shoptest.weishike.net/image/fant/bigcate/baby.png","url":"http://www.baidu.com"},{"id":"60","name":"学习培训","icon":"http://shoptest.weishike.net/image/fant/bigcate/educate.png","url":"http://www.baidu.com"},{"id":"76","name":"生活服务","icon":"http://shoptest.weishike.net/image/fant/bigcate/life.png","url":"http://www.baidu.com"},{"id":"94","name":"汽车服务","icon":"http://shoptest.weishike.net/image/fant/bigcate/car.png","url":"http://www.baidu.com"},{"id":"102","name":"摄影写真","icon":"http://shoptest.weishike.net/image/fant/bigcate/photo.png","url":"http://www.baidu.com"},{"id":"107","name":"结婚","icon":"http://shoptest.weishike.net/image/fant/bigcate/marry.png","url":"http://www.baidu.com"}]
-         * promotion_area : {"url":"http://www.baidu.com","banner":"http://shoptest.weishike.net/uimage/cf/46/8c/f4/cf468cf4e2fe0557b2bb20f72c266c43.jpg"}
-         * malls : [{"id":"11","name":"京华城","logo":"http://uimg.weishike.net/uimage/7b/88/e8/dc/7b88e8dc1a1f7298d26e3c86cf0516a8.jpg?x-oss-process=image/resize,m_fill,h_80,w_140/format,jpg/interlace,1/quality,Q_70","distance":"距100m","url":"http://www.baidu.com"},{"id":"4","name":"宜欣城","logo":"http://uimg.weishike.net/uimage/7b/88/e8/dc/7b88e8dc1a1f7298d26e3c86cf0516a8.jpg?x-oss-process=image/resize,m_fill,h_80,w_140/format,jpg/interlace,1/quality,Q_70","distance":"距628m","url":"http://www.baidu.com"},{"id":"9","name":"上邦百汇城","logo":"http://uimg.weishike.net/uimage/2a/9d/bc/e0/2a9dbce085bb36f694e618b8241ff4c3.jpg?x-oss-process=image/resize,m_fill,h_80,w_140/format,jpg/interlace,1/quality,Q_70","distance":"距925m","url":"http://www.baidu.com"},{"id":"24","name":"海秀890广场","logo":"http://uimg.weishike.net/uimage/77/ce/21/0a/77ce210a553e47d1bae9bef853194dee.jpg?x-oss-process=image/resize,m_fill,h_80,w_140/format,jpg/interlace,1/quality,Q_70","distance":"距1.85km","url":"http://www.baidu.com"},{"id":"16","name":"亿圣和广场","logo":"http://uimg.weishike.net/uimage/56/43/fe/3e/5643fe3e15fada59f4e1de8a39fbd5ce.jpg?x-oss-process=image/resize,m_fill,h_80,w_140/format,jpg/interlace,1/quality,Q_70","distance":"距2.23km","url":"http://www.baidu.com"}]
-         * merchants : [{"id":"35","name":"秘汁道小龙虾(世贸店)","logo":"http://shoptest.weishike.net/uimage/94/58/57/a1/945857a1c29b49090c54fdab78a59145.jpg?x-oss-process=image/resize,m_fill,h_80,w_80/format,jpg/interlace,1/quality,Q_70","mall_name":"","category_name":"","score":"0","average_spend":"","sales":"月销量21","business":"0","spider":"0","distance":"距0m","promotion_list":["团购套餐299元起","100元代金券仅售88.9元","实付满100元返10元优惠券"]},{"id":"271","name":"椰语堂（京华城店）","logo":"http://shoptest.weishike.net/uimage/2d/83/bd/ba/2d83bdba54852de30d98d86533921f0f.jpg?x-oss-process=image/resize,m_fill,h_80,w_80/format,jpg/interlace,1/quality,Q_70","mall_name":"京华城","category_name":"甜点饮品","score":"50","average_spend":"","sales":"","business":"0","spider":"0","distance":"距0m","promotion_list":["团购套餐299元起","100元代金券仅售88.9元","实付满100元返10元优惠券"]},{"id":"457","name":"印度尼泊尔菜","logo":"http://shoptest.weishike.net/uimage/29/e8/80/2c/29e8802c3282b8de9521fd2ebbd267fc.jpg?x-oss-process=image/resize,m_fill,h_80,w_80/format,jpg/interlace,1/quality,Q_70","mall_name":"京华城","category_name":"东南亚菜","score":"50","average_spend":"¥66/人","sales":"","business":"0","spider":"0","distance":"距0m","promotion_list":["团购套餐299元起","100元代金券仅售88.9元","实付满100元返10元优惠券"]},{"id":"544","name":"探鱼（京华城店）","logo":"http://shoptest.weishike.net/uimage/15/8f/a7/a8/158fa7a82204272c890ed900121ebacc.jpg?x-oss-process=image/resize,m_fill,h_80,w_80/format,jpg/interlace,1/quality,Q_70","mall_name":"京华城","category_name":"川湘菜","score":"50","average_spend":"¥73/人","sales":"","business":"0","spider":"0","distance":"距0m","promotion_list":["团购套餐299元起","100元代金券仅售88.9元","实付满100元返10元优惠券"]},{"id":"1621","name":"the Piece贝絲","logo":"http://shoptest.weishike.net/uimage/56/43/fe/3e/5643fe3e15fada59f4e1de8a39fbd5ce.jpg?x-oss-process=image/resize,m_fill,h_80,w_80/format,jpg/interlace,1/quality,Q_70","mall_name":"京华城","category_name":"","score":"50","average_spend":"¥7/人","sales":"","business":"0","spider":"0","distance":"距0m","promotion_list":["团购套餐299元起","100元代金券仅售88.9元","实付满100元返10元优惠券"]},{"id":"1749","name":"哈根达斯（海口京华城店）","logo":"http://shoptest.weishike.net/uimage/e8/eb/d9/c8/e8ebd9c83ee5718e207fd7638b1d70a4.jpg?x-oss-process=image/resize,m_fill,h_80,w_80/format,jpg/interlace,1/quality,Q_70","mall_name":"京华城","category_name":"","score":"40","average_spend":"¥94/人","sales":"","business":"0","spider":"0","distance":"距0m","promotion_list":["团购套餐299元起","100元代金券仅售88.9元","实付满100元返10元优惠券"]},{"id":"1906","name":"德奈斯汉堡","logo":"http://shoptest.weishike.net/uimage/2a/9d/bc/e0/2a9dbce085bb36f694e618b8241ff4c3.jpg?x-oss-process=image/resize,m_fill,h_80,w_80/format,jpg/interlace,1/quality,Q_70","mall_name":"京华城","category_name":"","score":"35","average_spend":"¥34/人","sales":"","business":"0","spider":"0","distance":"距0m","promotion_list":["团购套餐299元起","100元代金券仅售88.9元","实付满100元返10元优惠券"]},{"id":"2529","name":"必胜客（玉沙店）","logo":"http://shoptest.weishike.net/uimage/cf/46/8c/f4/cf468cf4e2fe0557b2bb20f72c266c43.jpg?x-oss-process=image/resize,m_fill,h_80,w_80/format,jpg/interlace,1/quality,Q_70","mall_name":"京华城","category_name":"西餐","score":"41","average_spend":"¥9/人","sales":"","business":"0","spider":"0","distance":"距0m","promotion_list":["团购套餐299元起","100元代金券仅售88.9元","实付满100元返10元优惠券"]},{"id":"2534","name":"沸爱哥意大利餐厅","logo":"http://shoptest.weishike.net/uimage/7b/88/e8/dc/7b88e8dc1a1f7298d26e3c86cf0516a8.jpg?x-oss-process=image/resize,m_fill,h_80,w_80/format,jpg/interlace,1/quality,Q_70","mall_name":"京华城","category_name":"西餐","score":"38","average_spend":"¥78/人","sales":"","business":"0","spider":"0","distance":"距0m","promotion_list":["团购套餐299元起","100元代金券仅售88.9元","实付满100元返10元优惠券"]},{"id":"2999","name":"七三指弹吉他工作室","logo":"http://shoptest.weishike.net/uimage/77/ce/21/0a/77ce210a553e47d1bae9bef853194dee.jpg?x-oss-process=image/resize,m_fill,h_80,w_80/format,jpg/interlace,1/quality,Q_70","mall_name":"京华城","category_name":"音乐培训","score":"46","average_spend":"","sales":"","business":"0","spider":"0","distance":"距0m","promotion_list":["团购套餐299元起","100元代金券仅售88.9元","实付满100元返10元优惠券"]}]
+         * bigcates : [{"id":"1","name":"美食","icon":"https://staticcdntest.fantuanlife.com/image/fant/bigcates/food.png","url":"https://fanttest.fantuanlife.com/index.html#/category/subcate?cate=1"},{"id":"21","name":"休闲娱乐","icon":"https://staticcdntest.fantuanlife.com/image/fant/bigcates/leisure.png","url":"https://fanttest.fantuanlife.com/index.html#/category/subcate?cate=21"},{"id":"35","name":"丽人","icon":"https://staticcdntest.fantuanlife.com/image/fant/bigcates/beauty.png","url":"https://fanttest.fantuanlife.com/index.html#/category/subcate?cate=35"},{"id":"45","name":"运动健身","icon":"https://staticcdntest.fantuanlife.com/image/fant/bigcates/sport.png","url":"https://fanttest.fantuanlife.com/index.html#/category/subcate?cate=45"},{"id":"53","name":"母婴亲子","icon":"https://staticcdntest.fantuanlife.com/image/fant/bigcates/baby.png","url":"https://fanttest.fantuanlife.com/index.html#/category/subcate?cate=53"},{"id":"60","name":"学习培训","icon":"https://staticcdntest.fantuanlife.com/image/fant/bigcates/educate.png","url":"https://fanttest.fantuanlife.com/index.html#/category/subcate?cate=60"},{"id":"76","name":"生活服务","icon":"https://staticcdntest.fantuanlife.com/image/fant/bigcates/life.png","url":"https://fanttest.fantuanlife.com/index.html#/category/subcate?cate=76"},{"id":"94","name":"汽车服务","icon":"https://staticcdntest.fantuanlife.com/image/fant/bigcates/car.png","url":"https://fanttest.fantuanlife.com/index.html#/category/subcate?cate=94"},{"id":"-1","name":"附近商圈","icon":"https://staticcdntest.fantuanlife.com/image/fant/bigcates/news.png","url":"https://fanttest.fantuanlife.com/index.html#/category/subcate?cate=-1"},{"id":"-2","name":"全部分类","icon":"https://staticcdntest.fantuanlife.com/image/fant/bigcates/category.png","url":"https://fanttest.fantuanlife.com/index.html#/category/subcate?cate=-2"}]
+         * list : [{"id":"7440","news_id":"51","cid":"5","name":"送给各位要考试的同学们","cover":["https://staticcdntest.fantuanlife.com/uimage/f7/ef/d5/8a/f7efd58a03f99740966d0bd43d9b8ed8.jpg","https://staticcdntest.fantuanlife.com/uimage/77/ec/ae/60/77ecae606129433fa76c615f4d28e220.jpg","https://staticcdntest.fantuanlife.com/uimage/52/fc/cd/6c/52fccd6c7fd40448aa7b8f02113c2c16.jpg"],"author":"我真的叫直直啊","read_num":"0次浏览","like_num":"0","comment_num":"0","cause":"","recommend":"0","state":"1","time":"01-04","origin_time":"2018-01-04 10:39:07","spider_time":"2018-03-06 14:37:54","type":"3","score":"0","article_url":"https://fanttest.fantuanlife.com/index.html#/article/detail?article_id=7440","news_name":"我真的叫直直啊"},{"id":"7439","news_id":"51","cid":"5","name":"我的女朋友是这个世界上最优秀的女人！","cover":["https://staticcdntest.fantuanlife.com/uimage/a2/e8/a1/55/a2e8a155c22a384a51b3e6d7720205ca.jpg","https://staticcdntest.fantuanlife.com/uimage/09/e5/46/6d/09e5466d5f1d15072abc530f8b69f8cf.jpg","https://staticcdntest.fantuanlife.com/uimage/b4/00/55/13/b4005513fbbdf4acd08a02863eaca6b6.jpg"],"author":"我真的叫直直啊","read_num":"0次浏览","like_num":"0","comment_num":"0","cause":"","recommend":"0","state":"1","time":"01-09","origin_time":"2018-01-09 20:19:26","spider_time":"2018-03-06 14:37:38","type":"3","score":"0","article_url":"https://fanttest.fantuanlife.com/index.html#/article/detail?article_id=7439","news_name":"我真的叫直直啊"},{"id":"2","uid":"18","circle_id":"1","content":"这是一条很棒很棒的动态哦····不堵车了耶！！！","read_num":"10次浏览","like_num":"3","comment_num":"24","time":"02月26日","username":"王荣慰","avatar":"https://staticcdntest.fantuanlife.com/uimage/56/30/c1/8f/5630c18fdd3f4ffd2f65c59325cb93c7.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70","circle_name":"吃喝玩乐","cover":["https://staticcdntest.fantuanlife.com/uimage/00/01/a1/5c/0001a15ccc4f3aa227220a94f20c29d3.jpg","https://staticcdntest.fantuanlife.com/uimage/00/01/a5/9f/0001a59f2b1e5babff2852ec8813593d.jpg"],"type":"19","has_like":false},{"id":"47","uid":"38","circle_id":"4","content":"11111111111","read_num":"0次浏览","like_num":"0","comment_num":"0","time":"刚刚","username":"起点","avatar":"https://staticcdntest.fantuanlife.com/uimage/77/c8/5c/17/77c85c17ea1dbafadba34123f143da55.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70","circle_name":"测试1","cover":[],"type":"11","has_like":false},{"id":"7438","news_id":"51","cid":"5","name":"没对象眼光还高，整天就想着吃，是我本人没错了！","cover":["https://staticcdntest.fantuanlife.com/uimage/fe/92/f1/c0/fe92f1c0be186db7fe4102f9da47bf7c.jpg","https://staticcdntest.fantuanlife.com/uimage/e9/b7/34/3a/e9b7343aab938ba2c4572dbd97af7cb9.jpg","https://staticcdntest.fantuanlife.com/uimage/dd/33/4d/2a/dd334d2addd275ecdbd201d9ea9c779b.jpg"],"author":"我真的叫直直啊","read_num":"0次浏览","like_num":"0","comment_num":"0","cause":"","recommend":"0","state":"1","time":"03-03","origin_time":"2018-03-03 00:05:47","spider_time":"2018-03-06 14:37:25","type":"3","score":"0","article_url":"https://fanttest.fantuanlife.com/index.html#/article/detail?article_id=7438","news_name":"我真的叫直直啊"},{"id":"7437","news_id":"51","cid":"5","name":"贫穷影响了我的睡眠","cover":["https://staticcdntest.fantuanlife.com/uimage/84/b0/f9/55/84b0f9558a6644f9ca717ed46f3c3c88.jpg","https://staticcdntest.fantuanlife.com/uimage/c8/f4/39/bf/c8f439bfdc10b34f92cb835b09c529df.jpg","https://staticcdntest.fantuanlife.com/uimage/cb/fd/5a/d6/cbfd5ad62bae040c33e03db124d7930e.jpg"],"author":"我真的叫直直啊","read_num":"0次浏览","like_num":"0","comment_num":"0","cause":"","recommend":"0","state":"1","time":"01-10","origin_time":"2018-01-10 13:19:33","spider_time":"2018-03-06 14:37:18","type":"3","score":"0","article_url":"https://fanttest.fantuanlife.com/index.html#/article/detail?article_id=7437","news_name":"我真的叫直直啊"},{"id":"46","uid":"38","circle_id":"16","content":"from Android and  select one circle  ","read_num":"0次浏览","like_num":"0","comment_num":"0","time":"昨天 ","username":"起点","avatar":"https://staticcdntest.fantuanlife.com/uimage/77/c8/5c/17/77c85c17ea1dbafadba34123f143da55.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70","circle_name":"测试13","cover":["https://staticcdntest.fantuanlife.com/uimage/32/2e/bd/fb/322ebdfbc298aa36e020467d65246e88.jpg"],"type":"11","has_like":false},{"id":"45","uid":"18","circle_id":"4","content":"","read_num":"0次浏览","like_num":"0","comment_num":"0","time":"昨天 ","username":"王荣慰","avatar":"https://staticcdntest.fantuanlife.com/uimage/56/30/c1/8f/5630c18fdd3f4ffd2f65c59325cb93c7.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70","circle_name":"测试1","cover":["https://staticcdntest.fantuanlife.com/uimage/aa/48/cf/fe/aa48cffe2cac19a8d945260db051cbf5.jpg","https://staticcdntest.fantuanlife.com/uimage/77/c8/5c/17/77c85c17ea1dbafadba34123f143da55.jpg"],"type":"19","has_like":false},{"id":"7436","news_id":"51","cid":"5","name":"寒假在家，我和我妈的日常！","cover":["https://staticcdntest.fantuanlife.com/uimage/93/d5/79/ef/93d579ef0d59d50c02879b53428e2f9c.jpg","https://staticcdntest.fantuanlife.com/uimage/70/44/14/d4/704414d4fc3a538370441de7bad89e5e.jpg","https://staticcdntest.fantuanlife.com/uimage/e6/2d/de/3b/e62dde3ba7332f8c87328e3f16d0a534.jpg"],"author":"我真的叫直直啊","read_num":"0次浏览","like_num":"0","comment_num":"0","cause":"","recommend":"0","state":"1","time":"02-09","origin_time":"2018-02-09 01:01:28","spider_time":"2018-03-06 14:37:10","type":"3","score":"0","article_url":"https://fanttest.fantuanlife.com/index.html#/article/detail?article_id=7436","news_name":"我真的叫直直啊"},{"id":"7435","news_id":"51","cid":"5","name":"依赖性人格的九大特征，是你本人没错了！","cover":["https://staticcdntest.fantuanlife.com/uimage/b5/13/71/6e/b513716e79793ebd8d232ec1951f7e4c.jpg","https://staticcdntest.fantuanlife.com/uimage/6a/65/fa/00/6a65fa00bf04b1dbe7000a88c101613b.jpg","https://staticcdntest.fantuanlife.com/uimage/52/de/35/db/52de35dbeedac7b9a9b9d86390b2280d.jpg"],"author":"我真的叫直直啊","read_num":"0次浏览","like_num":"0","comment_num":"0","cause":"","recommend":"0","state":"1","time":"02-11","origin_time":"2018-02-11 00:40:45","spider_time":"2018-03-06 14:37:02","type":"3","score":"0","article_url":"https://fanttest.fantuanlife.com/index.html#/article/detail?article_id=7435","news_name":"我真的叫直直啊"},{"id":"44","uid":"38","circle_id":"4","content":"from android  only one picture","read_num":"0次浏览","like_num":"0","comment_num":"0","time":"昨天 ","username":"起点","avatar":"https://staticcdntest.fantuanlife.com/uimage/77/c8/5c/17/77c85c17ea1dbafadba34123f143da55.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70","circle_name":"测试1","cover":["https://staticcdntest.fantuanlife.com/uimage/41/fe/c9/ac/41fec9ac9382484068244bc1a504b779.jpg"],"type":"11","has_like":false},{"id":"43","uid":"18","circle_id":"4","content":"","read_num":"0次浏览","like_num":"0","comment_num":"0","time":"昨天 ","username":"王荣慰","avatar":"https://staticcdntest.fantuanlife.com/uimage/56/30/c1/8f/5630c18fdd3f4ffd2f65c59325cb93c7.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70","circle_name":"测试1","cover":["https://staticcdntest.fantuanlife.com/uimage/aa/48/cf/fe/aa48cffe2cac19a8d945260db051cbf5.jpg","https://staticcdntest.fantuanlife.com/uimage/77/c8/5c/17/77c85c17ea1dbafadba34123f143da55.jpg"],"type":"19","has_like":false},{"id":"7434","news_id":"51","cid":"5","name":"集五福活动又开始啦！今年你们还缺敬业福吗？","cover":["https://staticcdntest.fantuanlife.com/uimage/1e/fc/14/49/1efc144986b57cd39810c506cc5f25bf.jpg","https://staticcdntest.fantuanlife.com/uimage/d1/13/4a/56/d1134a5629c3300648b381c4a6c1cd3e.jpg","https://staticcdntest.fantuanlife.com/uimage/ab/b3/e0/88/abb3e08897eb2888bd0c6fa027b37f14.jpg"],"author":"我真的叫直直啊","read_num":"0次浏览","like_num":"0","comment_num":"0","cause":"","recommend":"0","state":"1","time":"02-06","origin_time":"2018-02-06 17:02:45","spider_time":"2018-03-06 14:36:44","type":"3","score":"0","article_url":"https://fanttest.fantuanlife.com/index.html#/article/detail?article_id=7434","news_name":"我真的叫直直啊"},{"id":"7433","news_id":"51","cid":"5","name":"爱你的人忙完手头的事就会联系你，但是不爱你的人\u2026\u2026","cover":["https://staticcdntest.fantuanlife.com/uimage/fa/b6/51/8a/fab6518ae7c92c7dca6bd52afeeb0412.jpg","https://staticcdntest.fantuanlife.com/uimage/99/96/9f/4a/99969f4ae27aa3781bcaba86687c14aa.jpg","https://staticcdntest.fantuanlife.com/uimage/fe/90/16/29/fe90162961e0db5f462d931e6635eb69.jpg"],"author":"我真的叫直直啊","read_num":"0次浏览","like_num":"0","comment_num":"0","cause":"","recommend":"0","state":"1","time":"01-16","origin_time":"2018-01-16 18:55:13","spider_time":"2018-03-06 14:36:36","type":"3","score":"0","article_url":"https://fanttest.fantuanlife.com/index.html#/article/detail?article_id=7433","news_name":"我真的叫直直啊"},{"id":"42","uid":"38","circle_id":"4","content":"ssssghghghghghghghghghghghg","read_num":"0次浏览","like_num":"0","comment_num":"0","time":"昨天 ","username":"起点","avatar":"https://staticcdntest.fantuanlife.com/uimage/77/c8/5c/17/77c85c17ea1dbafadba34123f143da55.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70","circle_name":"测试1","cover":["https://staticcdntest.fantuanlife.com/uimage/32/2e/bd/fb/322ebdfbc298aa36e020467d65246e88.jpg"],"type":"11","has_like":false},{"id":"41","uid":"38","circle_id":"4","content":"from Android go go","read_num":"0次浏览","like_num":"0","comment_num":"0","time":"昨天 ","username":"起点","avatar":"https://staticcdntest.fantuanlife.com/uimage/77/c8/5c/17/77c85c17ea1dbafadba34123f143da55.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70","circle_name":"测试1","cover":["https://staticcdntest.fantuanlife.com/uimage/41/fe/c9/ac/41fec9ac9382484068244bc1a504b779.jpg","https://staticcdntest.fantuanlife.com/uimage/32/2e/bd/fb/322ebdfbc298aa36e020467d65246e88.jpg","https://staticcdntest.fantuanlife.com/uimage/03/45/2d/1e/03452d1e22253ab9f633dc578a4b0650.jpg","https://staticcdntest.fantuanlife.com/uimage/c6/db/cb/43/c6dbcb430522739904e9dac00d94c570.jpg"],"type":"14","has_like":false},{"id":"7432","news_id":"51","cid":"5","name":"佛系减肥、养生、恋爱的我","cover":["https://staticcdntest.fantuanlife.com/uimage/3c/dc/95/05/3cdc95055f9c5f081624bafb0b62ce59.jpg","https://staticcdntest.fantuanlife.com/uimage/19/77/d7/a4/1977d7a489d341708af95f87e2dff8dd.jpg","https://staticcdntest.fantuanlife.com/uimage/04/a5/c4/0e/04a5c40ea0f00a8dcac8f102bc923841.jpg"],"author":"我真的叫直直啊","read_num":"0次浏览","like_num":"0","comment_num":"0","cause":"","recommend":"0","state":"1","time":"03-05","origin_time":"2018-03-05 18:48:03","spider_time":"2018-03-06 14:36:28","type":"3","score":"0","article_url":"https://fanttest.fantuanlife.com/index.html#/article/detail?article_id=7432","news_name":"我真的叫直直啊"},{"id":"7431","news_id":"51","cid":"5","name":"解救你的职场焦虑症，上班族必看！","cover":["https://staticcdntest.fantuanlife.com/uimage/85/9f/a7/e9/859fa7e98f6f5bd12992519bc5d3f7d8.jpg","https://staticcdntest.fantuanlife.com/uimage/5d/1c/1a/3d/5d1c1a3d8dd738a9e3cb90a9a4051c60.jpg"],"author":"我真的叫直直啊","read_num":"0次浏览","like_num":"0","comment_num":"0","cause":"","recommend":"0","state":"1","time":"11-21","origin_time":"2017-11-21 17:08:01","spider_time":"2018-03-06 14:36:22","type":"1","score":"0","article_url":"https://fanttest.fantuanlife.com/index.html#/article/detail?article_id=7431","news_name":"我真的叫直直啊"},{"id":"40","uid":"18","circle_id":"4","content":"dgsfhsht这是一条需要删除的动态啊！","read_num":"0次浏览","like_num":"0","comment_num":"0","time":"昨天 ","username":"王荣慰","avatar":"https://staticcdntest.fantuanlife.com/uimage/56/30/c1/8f/5630c18fdd3f4ffd2f65c59325cb93c7.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70","circle_name":"测试1","cover":["https://staticcdntest.fantuanlife.com/uimage/aa/48/cf/fe/aa48cffe2cac19a8d945260db051cbf5.jpg","https://staticcdntest.fantuanlife.com/uimage/77/c8/5c/17/77c85c17ea1dbafadba34123f143da55.jpg"],"type":"19","has_like":false},{"id":"39","uid":"18","circle_id":"4","content":"dgsfhsht这是一条需要删除的动态啊！","read_num":"0次浏览","like_num":"0","comment_num":"0","time":"昨天 ","username":"王荣慰","avatar":"https://staticcdntest.fantuanlife.com/uimage/56/30/c1/8f/5630c18fdd3f4ffd2f65c59325cb93c7.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70","circle_name":"测试1","cover":[],"type":"11","has_like":false}]
+         * paging : {"total":"4657","total_page":466,"limit":10,"pn":1,"is_end":0}
          */
 
-        private PromotionAreaBean promotion_area;
-        private List<BigcatesBean> bigcates;
-        private List<MallsBean> malls;
-        private List<MerchantsBean> merchants;
         private PagingBean paging;
+        private List<BigcatesBean> bigcates;
+        private List<HomeItemBean> list;
 
         public PagingBean getPaging() {
             return paging;
@@ -63,14 +60,6 @@ public class HomePageBean {
 
         public void setPaging(PagingBean paging) {
             this.paging = paging;
-        }
-
-        public PromotionAreaBean getPromotion_area() {
-            return promotion_area;
-        }
-
-        public void setPromotion_area(PromotionAreaBean promotion_area) {
-            this.promotion_area = promotion_area;
         }
 
         public List<BigcatesBean> getBigcates() {
@@ -81,80 +70,66 @@ public class HomePageBean {
             this.bigcates = bigcates;
         }
 
-        public List<MallsBean> getMalls() {
-            return malls;
+        public List<HomeItemBean> getList() {
+            return list;
         }
 
-        public void setMalls(List<MallsBean> malls) {
-            this.malls = malls;
-        }
-
-        public List<MerchantsBean> getMerchants() {
-            return merchants;
-        }
-
-        public void setMerchants(List<MerchantsBean> merchants) {
-            this.merchants = merchants;
-        }
-
-        public static class PromotionAreaBean {
-            /**
-             * url : http://www.baidu.com
-             * banner : http://shoptest.weishike.net/uimage/cf/46/8c/f4/cf468cf4e2fe0557b2bb20f72c266c43.jpg
-             */
-
-            private String url;
-            private String banner;
-
-            public String getUrl() {
-                return url;
-            }
-
-            public void setUrl(String url) {
-                this.url = url;
-            }
-
-            public String getBanner() {
-                return banner;
-            }
-
-            public void setBanner(String banner) {
-                this.banner = banner;
-            }
+        public void setList(List<HomeItemBean> list) {
+            this.list = list;
         }
 
         public static class PagingBean {
             /**
-             * totals : 1
-             * current : 1
-             * is_end : true
+             * total : 4657
+             * total_page : 466
+             * limit : 10
+             * pn : 1
+             * is_end : 0
              */
 
-            private int totals;
-            private int current;
-            private boolean is_end;
+            private String total;
+            private int total_page;
+            private int limit;
+            private int pn;
+            private int is_end;
 
-            public int getTotals() {
-                return totals;
+            public String getTotal() {
+                return total;
             }
 
-            public void setTotals(int totals) {
-                this.totals = totals;
+            public void setTotal(String total) {
+                this.total = total;
             }
 
-            public int getCurrent() {
-                return current;
+            public int getTotal_page() {
+                return total_page;
             }
 
-            public void setCurrent(int current) {
-                this.current = current;
+            public void setTotal_page(int total_page) {
+                this.total_page = total_page;
             }
 
-            public boolean isIs_end() {
+            public int getLimit() {
+                return limit;
+            }
+
+            public void setLimit(int limit) {
+                this.limit = limit;
+            }
+
+            public int getPn() {
+                return pn;
+            }
+
+            public void setPn(int pn) {
+                this.pn = pn;
+            }
+
+            public int getIs_end() {
                 return is_end;
             }
 
-            public void setIs_end(boolean is_end) {
+            public void setIs_end(int is_end) {
                 this.is_end = is_end;
             }
         }
@@ -163,8 +138,8 @@ public class HomePageBean {
             /**
              * id : 1
              * name : 美食
-             * icon : http://shoptest.weishike.net/image/fant/bigcate/food.png
-             * url : http://www.baidu.com
+             * icon : https://staticcdntest.fantuanlife.com/image/fant/bigcates/food.png
+             * url : https://fanttest.fantuanlife.com/index.html#/category/subcate?cate=1
              */
 
             private String id;
@@ -205,261 +180,7 @@ public class HomePageBean {
             }
         }
 
-        public static class MallsBean {
-            /**
-             * id : 11
-             * name : 京华城
-             * logo : http://uimg.weishike.net/uimage/7b/88/e8/dc/7b88e8dc1a1f7298d26e3c86cf0516a8.jpg?x-oss-process=image/resize,m_fill,h_80,w_140/format,jpg/interlace,1/quality,Q_70
-             * distance : 距100m
-             * url : http://www.baidu.com
-             */
 
-            private String id;
-            private String name;
-            private String logo;
-            private String distance;
-            private String url;
-
-            public String getId() {
-                return id;
-            }
-
-            public void setId(String id) {
-                this.id = id;
-            }
-
-            public String getName() {
-                return name;
-            }
-
-            public void setName(String name) {
-                this.name = name;
-            }
-
-            public String getLogo() {
-                return logo;
-            }
-
-            public void setLogo(String logo) {
-                this.logo = logo;
-            }
-
-            public String getDistance() {
-                return distance;
-            }
-
-            public void setDistance(String distance) {
-                this.distance = distance;
-            }
-
-            public String getUrl() {
-                return url;
-            }
-
-            public void setUrl(String url) {
-                this.url = url;
-            }
-        }
-
-        public static class MerchantsBean {
-            /**
-             * id : 35
-             * name : 秘汁道小龙虾(世贸店)
-             * logo : http://shoptest.weishike.net/uimage/94/58/57/a1/945857a1c29b49090c54fdab78a59145.jpg?x-oss-process=image/resize,m_fill,h_80,w_80/format,jpg/interlace,1/quality,Q_70
-             * mall_name :
-             * category_name :
-             * score : 0
-             * average_spend :
-             * sales : 月销量21
-             * business : 0
-             * spider : 0
-             * distance : 距0m
-             * promotion_list : ["团购套餐299元起","100元代金券仅售88.9元","实付满100元返10元优惠券"]
-             */
-
-            private String id;
-            private String name;
-            private String logo;
-            private String mall_name;
-            private String category_name;
-            private Float score;
-            private String average_spend;
-            private String sales;
-            private String business;
-            private String spider;
-            private String distance;
-            private List<String> promotion_list;
-            private List<MerchantPromotionListBean> merchant_promotion_list;
-            private String mall_url;
-            private String detail_url;
-
-            public List<MerchantPromotionListBean> getMerchant_promotion_list() {
-                return merchant_promotion_list;
-            }
-
-            public void setMerchant_promotion_list(List<MerchantPromotionListBean> merchant_promotion_list) {
-                this.merchant_promotion_list = merchant_promotion_list;
-            }
-
-            public String getDetail_url() {
-                return detail_url;
-            }
-
-            public void setDetail_url(String detail_url) {
-                this.detail_url = detail_url;
-            }
-
-            public String getMall_url() {
-                return mall_url;
-            }
-
-            public void setMall_url(String mall_url) {
-                this.mall_url = mall_url;
-            }
-
-//            private boolean zhe = true;
-
-//            public boolean isZhe() {
-//                return zhe;
-//            }
-//
-//            public void setZhe(boolean zhe) {
-//                this.zhe = zhe;
-//            }
-
-            public String getId() {
-                return id;
-            }
-
-            public void setId(String id) {
-                this.id = id;
-            }
-
-            public String getName() {
-                return name;
-            }
-
-            public void setName(String name) {
-                this.name = name;
-            }
-
-            public String getLogo() {
-                return logo;
-            }
-
-            public void setLogo(String logo) {
-                this.logo = logo;
-            }
-
-            public String getMall_name() {
-                return mall_name;
-            }
-
-            public void setMall_name(String mall_name) {
-                this.mall_name = mall_name;
-            }
-
-            public String getCategory_name() {
-                return category_name;
-            }
-
-            public void setCategory_name(String category_name) {
-                this.category_name = category_name;
-            }
-
-            public Float getScore() {
-                return score;
-            }
-
-            public void setScore(Float score) {
-                this.score = score;
-            }
-
-            public String getAverage_spend() {
-                return average_spend;
-            }
-
-            public void setAverage_spend(String average_spend) {
-                this.average_spend = average_spend;
-            }
-
-            public String getSales() {
-                return sales;
-            }
-
-            public void setSales(String sales) {
-                this.sales = sales;
-            }
-
-            public String getBusiness() {
-                return business;
-            }
-
-            public void setBusiness(String business) {
-                this.business = business;
-            }
-
-            public String getSpider() {
-                return spider;
-            }
-
-            public void setSpider(String spider) {
-                this.spider = spider;
-            }
-
-            public String getDistance() {
-                return distance;
-            }
-
-            public void setDistance(String distance) {
-                this.distance = distance;
-            }
-
-            public List<String> getPromotion_list() {
-                return promotion_list;
-            }
-
-            public void setPromotion_list(List<String> promotion_list) {
-                this.promotion_list = promotion_list;
-            }
-
-
-            public static class MerchantPromotionListBean {
-                /**
-                 * content : 买单立享0.90折优惠
-                 * type : 7
-                 * ico : https://staticcdntest.fantuanlife.com/image/fant/promotion/payDiscount.png
-                 */
-
-                private String content;
-                private int type;
-                private String ico;
-
-                public String getContent() {
-                    return content;
-                }
-
-                public void setContent(String content) {
-                    this.content = content;
-                }
-
-                public int getType() {
-                    return type;
-                }
-
-                public void setType(int type) {
-                    this.type = type;
-                }
-
-                public String getIco() {
-                    return ico;
-                }
-
-                public void setIco(String ico) {
-                    this.ico = ico;
-                }
-            }
-        }
     }
 }
 

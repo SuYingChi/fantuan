@@ -1,9 +1,11 @@
 package com.wetime.fanc.home.frag;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -11,37 +13,35 @@ import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
-import com.bumptech.glide.Glide;
+import com.flyco.tablayout.CommonTabLayout;
+import com.flyco.tablayout.listener.CustomTabEntity;
+import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.wetime.fanc.R;
-import com.wetime.fanc.customview.GridViewForScrollView;
+import com.wetime.fanc.circle.adapter.HeadHomeAdapter;
 import com.wetime.fanc.home.act.HomeSearchActivity;
-import com.wetime.fanc.home.adapter.CenterAdapter;
-import com.wetime.fanc.home.adapter.HomeGridAdapter;
-import com.wetime.fanc.home.adapter.HomeShopListAdapter;
+import com.wetime.fanc.home.adapter.HomeItemAdapter;
+import com.wetime.fanc.home.bean.HomeItemBean;
 import com.wetime.fanc.home.bean.HomePageBean;
+import com.wetime.fanc.home.bean.TabEntity;
 import com.wetime.fanc.home.iviews.IGetHomePageView;
 import com.wetime.fanc.home.presenter.GetHomePagePresenter;
 import com.wetime.fanc.main.frag.BaseFragment;
 import com.wetime.fanc.qr.ScanActivity;
-import com.wetime.fanc.shop.act.ShopDetailActivity;
-import com.wetime.fanc.shopcenter.act.ShopCenterActivity;
 import com.wetime.fanc.utils.Tools;
 import com.wetime.fanc.web.WebActivity;
-import com.zhy.adapter.recyclerview.MultiItemTypeAdapter;
-import com.zhy.adapter.recyclerview.wrapper.HeaderAndFooterWrapper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,17 +62,28 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, IGe
     SmartRefreshLayout refreshLayout;
     @BindView(R.id.ll_search)
     LinearLayout llSearch;
-    @BindView(R.id.lv_shop)
-    RecyclerView lvShop;
+    @BindView(R.id.rcl_home)
+    RecyclerView rclHome;
     @BindView(R.id.ll_loc)
     LinearLayout llloc;
     Unbinder unbinder;
     @BindView(R.id.tv_loc)
     TextView tvLoc;
+    @BindView(R.id.rcl_circle)
+    RecyclerView rclCircle;
+    @BindView(R.id.ll_headinfo)
+    LinearLayout llHeadinfo;
+    @BindView(R.id.tablayout)
+    CommonTabLayout commonTabLayout;
+    @BindView(R.id.appbar)
+    AppBarLayout appbar;
+    @BindView(R.id.main_content)
+    CoordinatorLayout mainContent;
+    @BindView(R.id.rl_empty)
+    RelativeLayout rlEmpty;
 
-    private View hView;
     private String TAG = "zkhomefrag";
-    private HeaderAndFooterWrapper mHeadWrapper;
+
 
     private int REQUEST_CODE = 10000;
     private GetHomePagePresenter getHomePagePresenter;
@@ -84,14 +95,19 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, IGe
     public AMapLocationClientOption mLocationOption = null;
 
     private int page = 1;
-    private HomeShopListAdapter homeShopListAdapter;
-    private List<HomePageBean.DataBean.MerchantsBean> mMerchanetlist = new ArrayList<>();
 
     private Timer time;
     private TimerTask tk;
     private int i = 0;
     private Handler mHandler;
-
+    private ArrayList<CustomTabEntity> mTabEntities = new ArrayList<>();
+    private String[] mTitles = {"热门", "最新"};
+    private String[] sort = {"1", "2"};//    ort : 1 = 按热度排序， 2 = 按发布时间排序
+    private int sortPos = 0;
+    private HeadHomeAdapter headAdapter;
+    private List<HomePageBean.DataBean.BigcatesBean> headlist = new ArrayList<>();
+    private List<HomeItemBean> list = new ArrayList<>();
+    private HomeItemAdapter adapter;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -100,18 +116,36 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, IGe
         mHandler = new Handler();
         View v = inflater.inflate(R.layout.fragment_home, null);
         unbinder = ButterKnife.bind(this, v);
-        homeShopListAdapter = new HomeShopListAdapter(getContext(), mMerchanetlist);
-        lvShop.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
-        homeShopListAdapter.setOnItemClickLitener((view, position) -> {
-            Intent goShop = new Intent(getContext(), ShopDetailActivity.class);
-            goShop.putExtra("mid", mMerchanetlist.get(position).getId());
-            startActivity(goShop);
-        });
+        getHomePagePresenter = new GetHomePagePresenter(HomeFragment.this);
 
+        rclHome.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
+        adapter = new HomeItemAdapter(list,getActivity(),true);
+        rclHome.setAdapter(adapter);
         refreshLayout.setOnLoadmoreListener(this);
         refreshLayout.setOnRefreshListener(this);
         initlocview();
+        initView();
         return v;
+    }
+
+    private void initView() {
+        for (String mTitle : mTitles) {
+            mTabEntities.add(new TabEntity(mTitle));
+        }
+        commonTabLayout.setTabData(mTabEntities);
+        commonTabLayout.setCurrentTab(0);
+        commonTabLayout.setOnTabSelectListener(new OnTabSelectListener() {
+            @Override
+            public void onTabSelect(int position) {
+                sortPos = position;
+                onRefresh(refreshLayout);
+            }
+
+            @Override
+            public void onTabReselect(int position) {
+
+            }
+        });
     }
 
     @Override
@@ -158,7 +192,7 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, IGe
 
             }
         };
-        time.schedule(tk, 0,500);
+        time.schedule(tk, 0, 500);
 
     }
 
@@ -183,89 +217,33 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, IGe
     }
 
     @Override
-    public void onGetHomePage(final HomePageBean bean) {
-        refreshLayout.setEnableLoadmore(true);
-
-        if (hView == null) {
-            LayoutInflater inflater = LayoutInflater.from(getContext());
-            hView = inflater.inflate(R.layout.item_home_content, null);
-
-            GridViewForScrollView gv = hView.findViewById(R.id.gv);
-            HomeGridAdapter homeGridAdapter = new HomeGridAdapter(getContext(), bean.getData().getBigcates());
-            gv.setAdapter(homeGridAdapter);
-            homeGridAdapter.notifyDataSetChanged();
-            gv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    goWeb(bean.getData().getBigcates().get(i).getUrl());
-                }
-            });
-
-            RecyclerView rcvCenter = hView.findViewById(R.id.rcv_center);
-            CenterAdapter adapter = new CenterAdapter(getContext(), R.layout.item_home_shopcenter, bean.getData().getMalls());
-            rcvCenter.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
-            adapter.notifyDataSetChanged();
-            adapter.setOnItemClickListener(new MultiItemTypeAdapter.OnItemClickListener() {
-                @Override
-                public void onItemClick(View view, RecyclerView.ViewHolder holder, int position) {
-                    goWeb(bean.getData().getMalls().get(position).getUrl());
-                }
-
-                @Override
-                public boolean onItemLongClick(View view, RecyclerView.ViewHolder holder, int position) {
-                    return false;
-                }
-            });
+    public void onGetHomePage(HomePageBean bean) {
+        if (headAdapter == null) {
+            GridLayoutManager manager = new GridLayoutManager(getContext(), 5);
+            rclCircle.setLayoutManager(manager);
 
 
-            HeaderAndFooterWrapper mHeaderAndFooterWrapper = new HeaderAndFooterWrapper(adapter);
-            View footer = LayoutInflater.from(getContext()).inflate(R.layout.item_seemore, null);
-            footer.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent gomore = new Intent(getContext(), ShopCenterActivity.class);
-                    startActivity(gomore);
-                }
-            });
-            mHeaderAndFooterWrapper.addFootView(footer);
-            rcvCenter.setAdapter(mHeaderAndFooterWrapper);
-            mHeaderAndFooterWrapper.notifyDataSetChanged();
-
-
-            ImageView ivBanner = hView.findViewById(R.id.iv_banner);
-            Glide.with(this).load(bean.getData().getPromotion_area().getBanner()).into(ivBanner);
-            ivBanner.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    goWeb(bean.getData().getPromotion_area().getUrl());
-                }
-            });
+            headlist.addAll(bean.getData().getBigcates());
+            headAdapter = new HeadHomeAdapter(headlist, getContext());
+            rclCircle.setAdapter(headAdapter);
+            headAdapter.notifyDataSetChanged();
+            rlEmpty.setVisibility(View.GONE);
         }
-        mMerchanetlist.clear();
-        mMerchanetlist.addAll(bean.getData().getMerchants());
-
-//        homeShopListAdapter.notifyDataSetChanged();
-
-        if (mHeadWrapper == null) {
-            mHeadWrapper = new HeaderAndFooterWrapper(homeShopListAdapter);
-            mHeadWrapper.addHeaderView(hView);
-            lvShop.setAdapter(mHeadWrapper);
+        if(page==1){
+            list.clear();
         }
+        list.addAll(bean.getData().getList());
+        adapter.notifyDataSetChanged();
 
-        mHeadWrapper.notifyDataSetChanged();
-        refreshLayout.finishRefresh(1000);
+        refreshLayout.finishLoadmore();
+        refreshLayout.finishRefresh();
     }
 
     @Override
-    public void onLoadMoreHomePage(HomePageBean bean) {
-
-        mMerchanetlist.addAll(bean.getData().getMerchants());
-        mHeadWrapper.notifyDataSetChanged();
-        if (bean.getData().getPaging().isIs_end()) {
-            refreshLayout.setEnableLoadmore(false);
-        }
-        refreshLayout.finishLoadmore(1500);
+    public String getSort() {
+        return sort[sortPos];
     }
+
 
     private void goWeb(String url) {
         Intent goweb = new Intent(getContext(), WebActivity.class);
@@ -314,11 +292,11 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, IGe
                     }
                 }
 
-                getHomePagePresenter = new GetHomePagePresenter(HomeFragment.this);
-//                getHomePagePresenter.getHomePage();
-//                llloc.setVisibility(View.GONE);
-//                time.cancel();
-//                tk.cancel();
+
+                getHomePagePresenter.getHomePage();
+                llloc.setVisibility(View.GONE);
+                time.cancel();
+                tk.cancel();
                 mLocationClient.stopLocation();
             }
         };
@@ -340,8 +318,6 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, IGe
         super.onDestroyView();
         unbinder.unbind();
         mLocationClient.onDestroy();
-
-        Log.d(TAG, "onDestroyView: ");
     }
 
 }

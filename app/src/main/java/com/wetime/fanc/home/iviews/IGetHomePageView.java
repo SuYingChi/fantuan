@@ -10,8 +10,10 @@ import com.wetime.fanc.home.bean.HomePageBean;
 
 public interface IGetHomePageView extends IBaseVIew {
     String getPage();
+
     void onGetHomePage(HomePageBean bean);
-    void onLoadMoreHomePage(HomePageBean bean);
+
+    String getSort();
 
 
 }

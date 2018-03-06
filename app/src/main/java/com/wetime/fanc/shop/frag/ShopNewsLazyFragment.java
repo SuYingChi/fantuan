@@ -55,14 +55,14 @@ public class ShopNewsLazyFragment extends BaseLazyFragment implements OnLoadmore
         adapter.setListtype(1);
         rcl.setLayoutManager(new LinearLayoutManager(getContext()));
         rcl.setAdapter(adapter);
-        adapter.setOnItemClickLitener((view, position) -> {
-            if (TextUtils.isEmpty(list.get(position).getArticle_url()))
-                return;
-            Intent goweb = new Intent(getContext(), WebActivity.class);
-            goweb.putExtra("url", list.get(position).getArticle_url());
-            goweb.putExtra("type", "2");
-            startActivity(goweb);
-        });
+//        adapter.setOnItemClickLitener((view, position) -> {
+//            if (TextUtils.isEmpty(list.get(position).getArticle_url()))
+//                return;
+//            Intent goweb = new Intent(getContext(), WebActivity.class);
+//            goweb.putExtra("url", list.get(position).getArticle_url());
+//            goweb.putExtra("type", "2");
+//            startActivity(goweb);
+//        });
     }
 
     @Override

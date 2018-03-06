@@ -25,6 +25,7 @@ import com.wetime.fanc.customview.GridViewForScrollView;
 import com.wetime.fanc.home.bean.HomeItemBean;
 import com.wetime.fanc.my.act.UserCardActivity;
 import com.wetime.fanc.utils.Tools;
+import com.wetime.fanc.web.WebActivity;
 
 import java.util.List;
 
@@ -101,9 +102,31 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         HomeItemBean bean = list.get(position);
 
-        if (mOnItemClickLitener != null) {
-            holder.itemView.setOnClickListener(view -> mOnItemClickLitener.onItemClick(view, position));
-        }
+//        if (mOnItemClickLitener != null) {
+//            holder.itemView.setOnClickListener(view -> mOnItemClickLitener.onItemClick(view, position));
+//        }
+
+        holder.itemView.setOnClickListener(view -> {
+            switch (bean.getType()){
+                case 1:
+                case 3:
+                    if (TextUtils.isEmpty(list.get(position).getArticle_url()))
+                        return;
+                    Intent goweb = new Intent(mActivity, WebActivity.class);
+                    goweb.putExtra("url", list.get(position).getArticle_url());
+                    goweb.putExtra("type", "2");
+                    goweb.putExtra("title", list.get(position).getNews_name());
+                    mActivity.startActivity(goweb);
+                    break;
+                case 10:
+                case 11:
+                case 14:
+                case 19:
+                    break;
+            }
+        });
+
+
         if (holder instanceof NewsHolder0) {
             int sw = Tools.getScreenW(mActivity);
             int w = (sw - Tools.dip2px(mActivity, 15 + 15));
@@ -470,16 +493,16 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
     }
 
 
-    public interface OnItemClickLitener {
-        void onItemClick(View view, int position);
-    }
-
-
-    private OnItemClickLitener mOnItemClickLitener;
-
-
-    public void setOnItemClickLitener(OnItemClickLitener mOnItemClickLitener) {
-        this.mOnItemClickLitener = mOnItemClickLitener;
-    }
+//    public interface OnItemClickLitener {
+//        void onItemClick(View view, int position);
+//    }
+//
+//
+//    private OnItemClickLitener mOnItemClickLitener;
+//
+//
+//    public void setOnItemClickLitener(OnItemClickLitener mOnItemClickLitener) {
+//        this.mOnItemClickLitener = mOnItemClickLitener;
+//    }
 
 }

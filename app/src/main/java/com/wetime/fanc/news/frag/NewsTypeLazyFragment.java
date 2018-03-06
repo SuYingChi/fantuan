@@ -92,13 +92,13 @@ public class NewsTypeLazyFragment extends BaseLazyFragment implements IGetNewsTy
         rcl = mRootView.findViewById(R.id.rcl_news);
         rcl.setLayoutManager(new LinearLayoutManager(getContext()));
         rcl.setAdapter(adapter);
-        adapter.setOnItemClickLitener((view, position) -> {
-            Intent goweb = new Intent(getContext(), WebActivity.class);
-            goweb.putExtra("url", list.get(position).getArticle_url());
-            goweb.putExtra("type", "2");
-            goweb.putExtra("title", list.get(position).getNews_name());
-            startActivity(goweb);
-        });
+//        adapter.setOnItemClickLitener((view, position) -> {
+//            Intent goweb = new Intent(getContext(), WebActivity.class);
+//            goweb.putExtra("url", list.get(position).getArticle_url());
+//            goweb.putExtra("type", "2");
+//            goweb.putExtra("title", list.get(position).getNews_name());
+//            startActivity(goweb);
+//        });
         getNewsTypePresenter = new GetNewsTypePresenter(this);
     }
 

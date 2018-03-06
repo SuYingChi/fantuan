@@ -58,7 +58,7 @@ public class ShopNewsHomeActivity extends BaseActivity implements OnRefreshListe
         adapter = new HomeItemAdapter(list, this);
         rcl.setLayoutManager(new LinearLayoutManager(this));
         rcl.setAdapter(adapter);
-        adapter.setOnItemClickLitener((view, position) -> Tools.goWeb(this, list.get(position).getArticle_url()));
+//        adapter.setOnItemClickLitener((view, position) -> Tools.goWeb(this, list.get(position).getArticle_url()));
         getNewsTypePresenter = new GetShopNewsPresenter(this);
         getNewsTypePresenter.getNews();
     }

@@ -1,11 +1,11 @@
 package com.wetime.fanc.home.presenter;
 
 
-import com.wetime.fanc.utils.DataStringCallback;
-import com.wetime.fanc.utils.GsonUtils;
 import com.wetime.fanc.home.bean.HomePageBean;
 import com.wetime.fanc.home.iviews.IGetHomePageView;
 import com.wetime.fanc.utils.Const;
+import com.wetime.fanc.utils.DataStringCallback;
+import com.wetime.fanc.utils.GsonUtils;
 import com.zhy.http.okhttp.OkHttpUtils;
 
 /**
@@ -20,15 +20,13 @@ public class GetHomePagePresenter {
     }
 
     public void getHomePage() {
-        final int page = Integer.valueOf(iView.getPage());
         OkHttpUtils
                 .post()
                 .url(Const.HOMEPAGE)
                 .addParams("lng", iView.getJd())
                 .addParams("lat", iView.getWd())
-//                .addParams("lng", "0")
-//                .addParams("lat", "0")
                 .addParams("pn", iView.getPage())
+                .addParams("sort", iView.getSort())
                 .build()
                 .execute(new DataStringCallback(iView, false) {
                     @Override
@@ -36,11 +34,7 @@ public class GetHomePagePresenter {
                         super.onResponse(s, i);
                         HomePageBean bean = GsonUtils.getGsonInstance().fromJson(s, HomePageBean.class);
                         if (bean.getError() == 0) {
-                            if (page > 1) {
-                                iView.onLoadMoreHomePage(bean);
-                            } else {
-                                iView.onGetHomePage(bean);
-                            }
+                            iView.onGetHomePage(bean);
                         }
 
                     }
