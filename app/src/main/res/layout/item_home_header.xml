@@ -10,9 +10,9 @@
     android:paddingRight="12dp">
 
     <ImageView
-        android:layout_marginTop="11dp"
         android:layout_width="45dp"
         android:layout_height="22dp"
+        android:layout_marginTop="11dp"
         app:srcCompat="@drawable/ic_logo" />
 
     <TextView
@@ -44,10 +44,11 @@
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/ic_search"
             android:drawablePadding="3dp"
-            android:lineSpacingExtra="0sp"
-            android:text="可搜索商家、购物中心"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:text="可搜文章、动态、用户、商家"
             android:textColor="#999999"
-            android:textSize="14sp" />
+            android:textSize="12sp" />
     </LinearLayout>
 
     <ImageView
@@ -56,5 +57,12 @@
         android:layout_height="match_parent"
         android:layout_marginLeft="10dp"
         android:src="@drawable/ic_scan" />
+
+    <ImageView
+        android:id="@+id/iv_msg"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/ic_bar_msg" />
 </LinearLayout>
 

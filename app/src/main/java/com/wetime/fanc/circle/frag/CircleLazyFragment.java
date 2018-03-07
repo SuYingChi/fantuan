@@ -164,7 +164,6 @@ public class CircleLazyFragment extends BaseLazyFragment implements OnRefreshLis
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_msg:
-                Tools.toastInBottom(getContext(), "aaaaa");
 //                qBadgeMsg.setVisibility(View.VISIBLE);
                 qBadgeMsg.setBadgeNumber(temp++);
                 break;

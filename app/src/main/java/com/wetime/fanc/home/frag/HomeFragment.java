@@ -55,6 +55,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import loadmore.AutoLoadMoreAdapter;
+import q.rorbin.badgeview.QBadgeView;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -82,6 +83,8 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, IGe
     AppBarLayout appbar;
     @BindView(R.id.main_content)
     CoordinatorLayout mainContent;
+    @BindView(R.id.iv_msg)
+    ImageView ivMsg;
     @BindView(R.id.rl_empty)
     RelativeLayout rlEmpty;
 
@@ -112,7 +115,7 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, IGe
     private List<HomeItemBean> list = new ArrayList<>();
     private HomeItemAdapter adapter;
     private AutoLoadMoreAdapter mAutoLoadMoreAdapter;
-
+    private QBadgeView qBadgeMsg;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -136,6 +139,10 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, IGe
     }
 
     private void initView() {
+        qBadgeMsg = new QBadgeView(getContext());
+        qBadgeMsg.setBadgeTextSize(11, true);
+        qBadgeMsg.bindTarget(ivMsg);
+
         for (String mTitle : mTitles) {
             mTabEntities.add(new TabEntity(mTitle));
         }
@@ -220,7 +227,7 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, IGe
 
     }
 
-    @OnClick({R.id.iv_scan, R.id.ll_search})
+    @OnClick({R.id.iv_scan, R.id.ll_search,R.id.iv_msg})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_scan:
@@ -230,6 +237,9 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, IGe
             case R.id.ll_search:
                 Intent gosearch = new Intent(getContext(), HomeSearchActivity.class);
                 startActivity(gosearch);
+                break;
+            case R.id.iv_msg:
+                qBadgeMsg.setBadgeNumber(10);
                 break;
         }
     }
