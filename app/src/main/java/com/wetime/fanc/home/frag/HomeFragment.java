@@ -52,10 +52,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import loadmore.AutoLoadMoreAdapter;
 
 import static android.app.Activity.RESULT_OK;
 
-public class HomeFragment extends BaseFragment implements OnRefreshListener, IGetHomePageView, OnLoadmoreListener {
+public class HomeFragment extends BaseFragment implements OnRefreshListener, IGetHomePageView {
     @BindView(R.id.iv_scan)
     ImageView ivScan;
     @BindView(R.id.refreshLayout)
@@ -108,6 +109,7 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, IGe
     private List<HomePageBean.DataBean.BigcatesBean> headlist = new ArrayList<>();
     private List<HomeItemBean> list = new ArrayList<>();
     private HomeItemAdapter adapter;
+    private AutoLoadMoreAdapter mAutoLoadMoreAdapter;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -121,10 +123,12 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, IGe
         rclHome.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
         adapter = new HomeItemAdapter(list,getActivity(),true);
         rclHome.setAdapter(adapter);
-        refreshLayout.setOnLoadmoreListener(this);
+        refreshLayout.setEnableLoadmore(false);
         refreshLayout.setOnRefreshListener(this);
         initlocview();
         initView();
+
+        getHomePagePresenter.getHomePage();
         return v;
     }
 
@@ -146,6 +150,23 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, IGe
 
             }
         });
+        mAutoLoadMoreAdapter = new AutoLoadMoreAdapter(getContext(), adapter);
+        mAutoLoadMoreAdapter.setOnLoadListener(new AutoLoadMoreAdapter.OnLoadListener() {
+            @Override
+            public void onRetry() {
+
+            }
+
+            @Override
+            public void onLoadMore() {
+                page++;
+                getHomePagePresenter.getHomePage();
+            }
+        });
+
+        rclHome.setAdapter(mAutoLoadMoreAdapter);
+        adapter.notifyDataSetChanged();
+
     }
 
     @Override
@@ -232,11 +253,21 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, IGe
         if(page==1){
             list.clear();
         }
+        if (bean.getData().getPaging().isIs_end()) {
+            mAutoLoadMoreAdapter.disable();
+        }
         list.addAll(bean.getData().getList());
-        adapter.notifyDataSetChanged();
+        mAutoLoadMoreAdapter.notifyDataSetChanged();
+
+
+        rlEmpty.setVisibility(View.GONE);
+        if (page > 1) {
+            mAutoLoadMoreAdapter.finishLoading();
+        }
 
         refreshLayout.finishLoadmore();
         refreshLayout.finishRefresh();
+
     }
 
     @Override
@@ -293,7 +324,7 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, IGe
                 }
 
 
-                getHomePagePresenter.getHomePage();
+
                 llloc.setVisibility(View.GONE);
                 time.cancel();
                 tk.cancel();
@@ -306,11 +337,7 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, IGe
 
     }
 
-    @Override
-    public void onLoadmore(RefreshLayout refreshlayout) {
-        page++;
-        getHomePagePresenter.getHomePage();
-    }
+
 
 
     @Override

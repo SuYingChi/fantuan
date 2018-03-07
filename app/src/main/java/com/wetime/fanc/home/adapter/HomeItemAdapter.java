@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.wetime.fanc.R;
+import com.wetime.fanc.circle.act.ActDetailActivity;
 import com.wetime.fanc.circle.act.CircleDetailActivity;
 import com.wetime.fanc.circle.adapter.NineImageGridListAdapter;
 import com.wetime.fanc.customview.GridViewForScrollView;
@@ -122,6 +123,9 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
                 case 11:
                 case 14:
                 case 19:
+                    Intent goDet = new Intent(mActivity, ActDetailActivity.class);
+                    goDet.putExtra("id",bean.getId());
+                    mActivity.startActivity(goDet);
                     break;
             }
         });

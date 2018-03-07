@@ -162,6 +162,7 @@
         <activity android:name=".circle.act.SelectCircleActivity" />
         <activity android:name=".circle.act.AllCircleActivity" />
         <activity android:name=".circle.act.CircleInfoActivity" />
+        <activity android:name=".circle.act.ActDetailActivity" />
 
     </application>
 </manifest>

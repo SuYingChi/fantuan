@@ -91,7 +91,7 @@ public class HomePageBean {
             private int total_page;
             private int limit;
             private int pn;
-            private int is_end;
+            private boolean is_end;
 
             public String getTotal() {
                 return total;
@@ -125,11 +125,11 @@ public class HomePageBean {
                 this.pn = pn;
             }
 
-            public int getIs_end() {
+            public boolean isIs_end() {
                 return is_end;
             }
 
-            public void setIs_end(int is_end) {
+            public void setIs_end(boolean is_end) {
                 this.is_end = is_end;
             }
         }
