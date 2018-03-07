@@ -164,6 +164,7 @@
         <activity android:name=".circle.act.CircleInfoActivity" />
         <activity android:name=".circle.act.ActDetailActivity" />
         <activity android:name=".home.act.SortActivity" />
+        <activity android:name=".order.act.MyOrderActivity" />
 
     </application>
 </manifest>

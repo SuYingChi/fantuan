@@ -1,4 +1,4 @@
-package com.wetime.fanc.home.frag;
+package com.wetime.fanc.order.frag;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -110,7 +110,7 @@ public class OrderFragment extends BaseFragment implements IGetOrderListView, On
         EventBus.getDefault().unregister(this);
     }
 
-    @OnClick({R.id.tv_login, R.id.tv_title, R.id.rl_type})
+    @OnClick({R.id.tv_login, R.id.tv_title, R.id.rl_type,R.id.iv_back})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_login:
@@ -120,6 +120,9 @@ public class OrderFragment extends BaseFragment implements IGetOrderListView, On
             case R.id.tv_title:
             case R.id.rl_type:
                 changeTileState();
+                break;
+            case R.id.iv_back:
+                getActivity().onBackPressed();
                 break;
 
         }

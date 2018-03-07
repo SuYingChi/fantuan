@@ -7,17 +7,31 @@
     android:gravity="center_horizontal"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/tv_title"
-        android:layout_width="wrap_content"
-        android:layout_height="45dp"
-        android:drawablePadding="5dp"
-        android:drawableRight="@drawable/ic_head_down"
-        android:gravity="center"
-        android:lineSpacingExtra="0sp"
-        android:text="全部订单"
-        android:textColor="#333333"
-        android:textSize="17sp" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#FFFFFF">
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/icon_back" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:drawablePadding="5dp"
+            android:drawableRight="@drawable/ic_head_down"
+            android:gravity="center_horizontal"
+            android:lineSpacingExtra="0sp"
+            android:text="全部订单"
+            android:textColor="#333333"
+            android:textSize="17sp" />
+    </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -70,10 +84,10 @@
             <include layout="@layout/item_my_line" />
 
             <com.scwang.smartrefresh.layout.SmartRefreshLayout
-                android:background="@color/bg_dark"
                 android:id="@+id/refreshLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="@color/bg_dark"
                 app:srlEnableAutoLoadmore="false"
                 app:srlEnableHeaderTranslationContent="true"
                 app:srlEnableOverScrollBounce="false">

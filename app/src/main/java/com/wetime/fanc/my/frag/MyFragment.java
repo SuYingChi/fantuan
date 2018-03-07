@@ -34,6 +34,7 @@ import com.wetime.fanc.my.iviews.IGetMyInfoView;
 import com.wetime.fanc.my.iviews.IGetRedPackageView;
 import com.wetime.fanc.my.presenter.GetRedPackagePresenter;
 import com.wetime.fanc.my.presenter.GetUserInfoPresenter;
+import com.wetime.fanc.order.act.MyOrderActivity;
 import com.wetime.fanc.setting.act.SettingActivity;
 import com.wetime.fanc.setting.event.ChangeUserInfoEvent;
 import com.wetime.fanc.utils.Tools;
@@ -141,7 +142,8 @@ public class MyFragment extends BaseFragment implements IGetMyInfoView, IGetRedP
                 startActivity(goMyCollect);
                 break;
             case R.id.tv_order:
-                Tools.toastInBottom(getContext(), "asdfasdfasdf");
+                Intent goOrder = new Intent(getContext(), MyOrderActivity.class);
+                startActivity(goOrder);
                 break;
             case R.id.ll_mynews:
                 Intent goMyCard1 = new Intent(getContext(), UserCardActivity.class);
