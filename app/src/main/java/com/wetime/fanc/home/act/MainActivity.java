@@ -78,7 +78,7 @@ public class MainActivity extends BaseActivity implements IBindPushView {
     private int mOffId = R.drawable.bot_3_off;
     private HomeFragment f0;
     private NewsLazyFragment f1;
-    //    private SortFragment f1;
+    //    private SortActivity f1;
     private CircleLazyFragment f2;
     private MyFragment f3;
 
@@ -132,7 +132,7 @@ public class MainActivity extends BaseActivity implements IBindPushView {
 
     private void initView() {
         f0 = new HomeFragment();
-//        f1 = new SortFragment();
+//        f1 = new SortActivity();
         f1 = new NewsLazyFragment();
         f2 = new CircleLazyFragment();
         f3 = new MyFragment();

@@ -7,26 +7,39 @@
     android:background="@color/white"
     android:orientation="vertical">
 
-
-    <TextView
-        android:id="@+id/tv_search"
+    <LinearLayout
+        android:gravity="center"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:layout_centerInParent="true"
-        android:layout_marginBottom="8dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/bg_search_gray_corner"
-        android:drawableLeft="@drawable/ic_search"
-        android:drawablePadding="5dp"
-        android:gravity="center|left"
-        android:lineSpacingExtra="0sp"
-        android:paddingLeft="10dp"
-        android:text="可搜索商家、购物中心"
-        android:textColor="#999999"
-        android:textSize="14sp"
-        />
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/icon_back" />
+        <TextView
+            android:layout_weight="1"
+            android:id="@+id/tv_search"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_centerInParent="true"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/bg_search_gray_corner"
+            android:drawableLeft="@drawable/ic_search"
+            android:drawablePadding="5dp"
+            android:gravity="center|left"
+            android:lineSpacingExtra="0sp"
+            android:paddingLeft="10dp"
+            android:text="可搜索商家、购物中心"
+            android:textColor="#999999"
+            android:textSize="14sp"
+            />
+    </LinearLayout>
+
 
     <LinearLayout
         android:layout_width="match_parent"

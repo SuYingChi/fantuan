@@ -32,6 +32,7 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.wetime.fanc.R;
 import com.wetime.fanc.circle.adapter.HeadHomeAdapter;
 import com.wetime.fanc.home.act.HomeSearchActivity;
+import com.wetime.fanc.home.act.SortActivity;
 import com.wetime.fanc.home.adapter.HomeItemAdapter;
 import com.wetime.fanc.home.bean.HomeItemBean;
 import com.wetime.fanc.home.bean.HomePageBean;
@@ -40,6 +41,7 @@ import com.wetime.fanc.home.iviews.IGetHomePageView;
 import com.wetime.fanc.home.presenter.GetHomePagePresenter;
 import com.wetime.fanc.main.frag.BaseFragment;
 import com.wetime.fanc.qr.ScanActivity;
+import com.wetime.fanc.shopcenter.act.ShopCenterActivity;
 import com.wetime.fanc.utils.Tools;
 import com.wetime.fanc.web.WebActivity;
 
@@ -97,9 +99,9 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, IGe
 
     private int page = 1;
 
-    private Timer time;
-    private TimerTask tk;
-    private int i = 0;
+//    private Timer time;
+//    private TimerTask tk;
+//    private int i = 0;
     private Handler mHandler;
     private ArrayList<CustomTabEntity> mTabEntities = new ArrayList<>();
     private String[] mTitles = {"热门", "最新"};
@@ -110,6 +112,7 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, IGe
     private List<HomeItemBean> list = new ArrayList<>();
     private HomeItemAdapter adapter;
     private AutoLoadMoreAdapter mAutoLoadMoreAdapter;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -121,7 +124,7 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, IGe
         getHomePagePresenter = new GetHomePagePresenter(HomeFragment.this);
 
         rclHome.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
-        adapter = new HomeItemAdapter(list,getActivity(),true);
+        adapter = new HomeItemAdapter(list, getActivity(), true);
         rclHome.setAdapter(adapter);
         refreshLayout.setEnableLoadmore(false);
         refreshLayout.setOnRefreshListener(this);
@@ -195,25 +198,25 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, IGe
     }
 
     private void initlocview() {
-        time = new Timer();
-        tk = new TimerTask() {
-            @Override
-            public void run() {
-                // TODO Auto-generated method stub
-                mHandler.post(() -> {
-                    if (i % 3 == 0) {
-                        tvLoc.setText(".");
-                    } else if (i % 3 == 1) {
-                        tvLoc.setText("..");
-                    } else if (i % 3 == 2) {
-                        tvLoc.setText("...");
-                    }
-                    i++;
-                });
-
-            }
-        };
-        time.schedule(tk, 0, 500);
+//        time = new Timer();
+//        tk = new TimerTask() {
+//            @Override
+//            public void run() {
+//                // TODO Auto-generated method stub
+//                mHandler.post(() -> {
+//                    if (i % 3 == 0) {
+//                        tvLoc.setText(".");
+//                    } else if (i % 3 == 1) {
+//                        tvLoc.setText("..");
+//                    } else if (i % 3 == 2) {
+//                        tvLoc.setText("...");
+//                    }
+//                    i++;
+//                });
+//
+//            }
+//        };
+//        time.schedule(tk, 0, 500);
 
     }
 
@@ -249,8 +252,22 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, IGe
             rclCircle.setAdapter(headAdapter);
             headAdapter.notifyDataSetChanged();
             rlEmpty.setVisibility(View.GONE);
+            headAdapter.setOnItemClickLitener((view, position) -> {
+                HomePageBean.DataBean.BigcatesBean bigcatesBean = bean.getData().getBigcates().get(position);
+                if (bigcatesBean.getId().equals("-1")) {
+                    Intent gomore = new Intent(getContext(), ShopCenterActivity.class);
+                    startActivity(gomore);
+                    return;
+                }
+                if (bigcatesBean.getId().equals("-2")) {
+                    Intent goSort =  new Intent(getContext(), SortActivity.class);
+                    startActivity(goSort);
+                    return;
+                }
+                Tools.goWeb(getContext(), bigcatesBean.getUrl());
+            });
         }
-        if(page==1){
+        if (page == 1) {
             list.clear();
         }
         if (bean.getData().getPaging().isIs_end()) {
@@ -260,7 +277,7 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, IGe
         mAutoLoadMoreAdapter.notifyDataSetChanged();
 
 
-        rlEmpty.setVisibility(View.GONE);
+        llloc.setVisibility(View.GONE);
         if (page > 1) {
             mAutoLoadMoreAdapter.finishLoading();
         }
@@ -324,10 +341,9 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, IGe
                 }
 
 
-
                 llloc.setVisibility(View.GONE);
-                time.cancel();
-                tk.cancel();
+//                time.cancel();
+//                tk.cancel();
                 mLocationClient.stopLocation();
             }
         };
@@ -336,8 +352,6 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, IGe
         mLocationClient.startLocation();
 
     }
-
-
 
 
     @Override
