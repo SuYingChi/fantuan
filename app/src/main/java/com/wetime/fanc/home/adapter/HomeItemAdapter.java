@@ -24,7 +24,9 @@ import com.wetime.fanc.circle.act.CircleDetailActivity;
 import com.wetime.fanc.circle.adapter.NineImageGridListAdapter;
 import com.wetime.fanc.customview.GridViewForScrollView;
 import com.wetime.fanc.home.bean.HomeItemBean;
+import com.wetime.fanc.main.ivews.IBaseVIew;
 import com.wetime.fanc.my.act.UserCardActivity;
+import com.wetime.fanc.my.presenter.DeleteMyNewsPresenter;
 import com.wetime.fanc.utils.Tools;
 import com.wetime.fanc.web.WebActivity;
 
@@ -87,6 +89,8 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
                 return new NewsHolder19(inflater.inflate(R.layout.item_news_type19, parent, false));
             } else if (viewType == 14) {
                 return new NewsHolder19(inflater.inflate(R.layout.item_news_type19, parent, false));
+            } else if (viewType == -1) {
+                return new NewsHolderDelete(inflater.inflate(R.layout.item_news_delete, parent, false));
             }
 
         } else if (listtype == 1) {
@@ -94,7 +98,6 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
             return new NewsHolder1Shop(inflater.inflate(R.layout.item_news_type1_shop, parent, false));
         }
         return new NewsHolderTemp(inflater.inflate(R.layout.item_news_type_temp, parent, false));
-
 
     }
 
@@ -108,7 +111,7 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
 //        }
 
         holder.itemView.setOnClickListener(view -> {
-            switch (bean.getType()){
+            switch (bean.getType()) {
                 case 1:
                 case 3:
                     if (TextUtils.isEmpty(list.get(position).getArticle_url()))
@@ -124,12 +127,23 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
                 case 14:
                 case 19:
                     Intent goDet = new Intent(mActivity, ActDetailActivity.class);
-                    goDet.putExtra("id",bean.getId());
+                    goDet.putExtra("id", bean.getId());
                     mActivity.startActivity(goDet);
                     break;
             }
         });
-
+        if (holder instanceof NewsHolderDelete) {
+            ((NewsHolderDelete) holder).tvTitle.setText(String.format("抱歉，您收藏的文章《%s》已被删除。", bean.getNews_name()));
+            ((NewsHolderDelete) holder).ivNewsDelete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    list.remove(position);
+                    notifyItemRemoved(position);
+                    DeleteMyNewsPresenter deleteMyNewsPresenter = new DeleteMyNewsPresenter();
+                    deleteMyNewsPresenter.detDleteMyNews(bean.getId(),Tools.getSpu(mActivity).getToken());
+                }
+            });
+        }
 
         if (holder instanceof NewsHolder0) {
             int sw = Tools.getScreenW(mActivity);
@@ -456,6 +470,19 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
         TextView tvName;
 
         NewsHolder4(View view) {
+            super(view);
+            ButterKnife.bind(this, view);
+        }
+    }
+
+    // 新闻 收藏删除
+    class NewsHolderDelete extends RecyclerView.ViewHolder {
+        @BindView(R.id.tv_title)
+        TextView tvTitle;
+        @BindView(R.id.iv_news_delete)
+        ImageView ivNewsDelete;
+
+        NewsHolderDelete(View view) {
             super(view);
             ButterKnife.bind(this, view);
         }
