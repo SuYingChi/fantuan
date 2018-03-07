@@ -83,15 +83,17 @@ public class MyCollectNewsLazyFragment extends BaseLazyFragment
     public void onGetMyNews(MyNewsListBean bean) {
         if (page == 1) {
             list.clear();
-            if (bean.getData().getPaging().getTotal() != 0) {
-                rlEmpty.setVisibility(View.GONE);
-            }
         }
         list.addAll(bean.getData().getList());
         adapter.notifyDataSetChanged();
         refreshLayout.finishRefresh();
         refreshLayout.finishLoadmore();
         refreshLayout.setEnableLoadmore(!bean.getData().getPaging().isIs_end());
+        if (bean.getData().getPaging().getTotal() != 0) {
+            rlEmpty.setVisibility(View.GONE);
+        } else {
+            rlEmpty.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
