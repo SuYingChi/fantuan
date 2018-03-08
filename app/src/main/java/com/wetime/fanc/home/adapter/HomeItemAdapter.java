@@ -23,7 +23,7 @@ import com.wetime.fanc.circle.act.ActDetailActivity;
 import com.wetime.fanc.circle.act.CircleDetailActivity;
 import com.wetime.fanc.circle.adapter.NineImageGridListAdapter;
 import com.wetime.fanc.circle.adapter.NineImageGridListAdapterCard;
-import com.wetime.fanc.customview.GridViewForScrollView;
+import com.wetime.fanc.customview.CanDoBlankGridView;
 import com.wetime.fanc.home.bean.HomeItemBean;
 import com.wetime.fanc.my.act.UserCardActivity;
 import com.wetime.fanc.my.presenter.DeleteMyNewsPresenter;
@@ -326,12 +326,8 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
             ((NewsHolder39) holder).gv.setAdapter(gvadapter);
             ((NewsHolder39) holder).gv.setLayoutParams(params);
             gvadapter.notifyDataSetChanged();
-            ((NewsHolder39) holder).gv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    Tools.goPicGallery(mActivity, bean.getCover(), i);
-                }
-            });
+            ((NewsHolder39) holder).gv.setOnTouchInvalidPositionListener(motionEvent -> false);
+            ((NewsHolder39) holder).gv.setOnItemClickListener((adapterView, view, i, l) -> Tools.goPicGallery(mActivity, bean.getCover(), i));
             ((NewsHolder39) holder).tvCirclename.setOnClickListener(view -> {
                 Intent goCircle = new Intent(mActivity, CircleDetailActivity.class);
                 goCircle.putExtra("id", bean.getCircle_id());
@@ -375,12 +371,8 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
 
             ((NewsHolder19) holder).gv.setLayoutParams(params);
             gvadapter.notifyDataSetChanged();
-            ((NewsHolder19) holder).gv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    Tools.goPicGallery(mActivity, bean.getCover(), i);
-                }
-            });
+            ((NewsHolder19) holder).gv.setOnItemClickListener((adapterView, view, i, l) -> Tools.goPicGallery(mActivity, bean.getCover(), i));
+            ((NewsHolder19) holder).gv.setOnTouchInvalidPositionListener(motionEvent -> false);
 
 
             ((NewsHolder19) holder).tvSee.setText(bean.getRead_num());
@@ -566,7 +558,7 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
         @BindView(R.id.tv_content)
         TextView tvContent;
         @BindView(R.id.gv)
-        GridViewForScrollView gv;
+        CanDoBlankGridView gv;
         @BindView(R.id.tv_see)
         TextView tvSee;
         @BindView(R.id.tv_circlename)
@@ -594,7 +586,7 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
         @BindView(R.id.tv_content)
         TextView tvContent;
         @BindView(R.id.gv)
-        GridViewForScrollView gv;
+        CanDoBlankGridView gv;
         @BindView(R.id.tv_see)
         TextView tvSee;
         @BindView(R.id.tv_commentnum)

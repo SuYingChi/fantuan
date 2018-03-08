@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -59,6 +60,12 @@ public class UserCardActivity extends BaseActivity implements OnLoadmoreListener
     ImageView ivNews;
     @BindView(R.id.tv_des)
     TextView tvDes;
+    @BindView(R.id.iv_empty)
+    ImageView ivEmpty;
+    @BindView(R.id.tv_empty)
+    TextView tvEmpty;
+    @BindView(R.id.rl_empty)
+    RelativeLayout rlEmpty;
 
     private ArrayList<CustomTabEntity> mTabEntities = new ArrayList<>();
     private String[] mTitles3 = {"动态", "头条", "点评"};
@@ -164,6 +171,22 @@ public class UserCardActivity extends BaseActivity implements OnLoadmoreListener
         adapter.notifyDataSetChanged();
         refreshLayout.finishLoadmore();
         refreshLayout.setEnableLoadmore(!bean.getData().getPaging().isIs_end());
+        if (list.size() == 0) {
+            rlEmpty.setVisibility(View.VISIBLE);
+            if (getType().equals("1")) {
+                tvEmpty.setText("暂无动态");
+                ivEmpty.setImageResource(R.drawable.iv_empty_card_act);
+            } else if (getType().equals("2")) {
+                tvEmpty.setText("暂无头条");
+                ivEmpty.setImageResource(R.drawable.iv_empty_card_news);
+            } else if (getType().equals("3")) {
+                tvEmpty.setText("暂无点评");
+                ivEmpty.setImageResource(R.drawable.iv_empty_card_comment);
+            }
+
+        } else {
+            rlEmpty.setVisibility(View.GONE);
+        }
     }
 
     @Override
