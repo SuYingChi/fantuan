@@ -135,6 +135,8 @@ public class MyFragment extends BaseFragment implements IGetMyInfoView, IGetRedP
             case R.id.ll_my_state:
                 Intent goMyCard0 = new Intent(getContext(), UserCardActivity.class);
                 goMyCard0.putExtra("index", 0);
+                goMyCard0.putExtra("id", bean.getData().getUser().getUid());
+                goMyCard0.putExtra("num", bean.getData().getUser().isHas_news() ? "3" : "2");
                 startActivity(goMyCard0);
                 break;
             case R.id.tv_collect:
@@ -148,11 +150,15 @@ public class MyFragment extends BaseFragment implements IGetMyInfoView, IGetRedP
             case R.id.ll_mynews:
                 Intent goMyCard1 = new Intent(getContext(), UserCardActivity.class);
                 goMyCard1.putExtra("index", 1);
+                goMyCard1.putExtra("id", bean.getData().getUser().getUid());
+                goMyCard1.putExtra("num", bean.getData().getUser().isHas_news() ? "3" : "2");
                 startActivity(goMyCard1);
                 break;
             case R.id.ll_mycomment:
                 Intent goMyCard2 = new Intent(getContext(), UserCardActivity.class);
                 goMyCard2.putExtra("index", 2);
+                goMyCard2.putExtra("id", bean.getData().getUser().getUid());
+                goMyCard2.putExtra("num", bean.getData().getUser().isHas_news() ? "3" : "2");
                 startActivity(goMyCard2);
                 break;
             case R.id.ll_call:
@@ -284,7 +290,10 @@ public class MyFragment extends BaseFragment implements IGetMyInfoView, IGetRedP
     @Override
     public void onGetUserInfo(MyInfoBean bean) {
         this.bean = bean;
-        Glide.with(this).load(bean.getData().getUser().getAvatar()).into(civHead);
+        if(getContext()!=null){
+            Glide.with(getContext()).load(bean.getData().getUser().getAvatar()).into(civHead);
+        }
+
         tvName.setText(bean.getData().getUser().getUsername());
 
     }

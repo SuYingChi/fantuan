@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
@@ -49,14 +50,16 @@
         android:paddingTop="10dp">
 
         <TextView
+            android:id="@+id/tv_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="曾半仙儿啊"
             android:textColor="#333333"
             android:textSize="21sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            tools:text="曾半仙儿啊" />
 
         <ImageView
+            android:id="@+id/iv_news"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="4dp"
@@ -65,14 +68,15 @@
     </LinearLayout>
 
     <TextView
+        android:id="@+id/tv_des"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:lineSpacingExtra="4.5sp"
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
         android:paddingTop="10dp"
-        android:text="海南有趣、有料、有温度的生活圈，分分钟带你吃遍全海南"
         android:textColor="#999999"
-        android:textSize="14sp" />
+        android:textSize="14sp"
+        tools:text="海南有趣、有料、有温度的生活圈，分分钟带你吃遍全海南" />
 </LinearLayout>
 

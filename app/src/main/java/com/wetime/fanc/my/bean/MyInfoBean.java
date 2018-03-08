@@ -79,7 +79,16 @@ public class MyInfoBean {
             private String username;
             private String phone;
             private String avatar;
+            private String uid;
             private boolean has_news;
+
+            public String getUid() {
+                return uid;
+            }
+
+            public void setUid(String uid) {
+                this.uid = uid;
+            }
 
             public boolean isHas_news() {
                 return has_news;

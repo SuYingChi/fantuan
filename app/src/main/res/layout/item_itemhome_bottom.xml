@@ -14,6 +14,7 @@
 
 
         <TextView
+            android:visibility="gone"
             android:id="@+id/tv_see"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -26,7 +27,6 @@
             android:id="@+id/tv_publishtitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
             android:lineSpacingExtra="0sp"
             android:text="发布于圈子： "
             android:textColor="#999999"

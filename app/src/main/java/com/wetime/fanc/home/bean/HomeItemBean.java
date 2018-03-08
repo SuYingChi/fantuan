@@ -37,9 +37,19 @@ public class HomeItemBean {
     private String circle_name;
     private int type;
     private boolean has_like;
+    private boolean is_news;
     private boolean circle_owner = false;
     private List<String> cover;
 
+
+    //热评
+    private String mid;
+    private String merchant_name;
+    private String score;
+    private String reply;
+    private String year;
+    private String month;
+    private String day;
 
     /**
      * id : 87
@@ -61,6 +71,70 @@ public class HomeItemBean {
     //    private int type;
 //    private List<String> cover;
     private List<BannerBean> banner;
+
+    public boolean isIs_news() {
+        return is_news;
+    }
+
+    public void setIs_news(boolean is_news) {
+        this.is_news = is_news;
+    }
+
+    public String getMid() {
+        return mid;
+    }
+
+    public void setMid(String mid) {
+        this.mid = mid;
+    }
+
+    public String getMerchant_name() {
+        return merchant_name;
+    }
+
+    public void setMerchant_name(String merchant_name) {
+        this.merchant_name = merchant_name;
+    }
+
+    public String getScore() {
+        return score;
+    }
+
+    public void setScore(String score) {
+        this.score = score;
+    }
+
+    public String getReply() {
+        return reply;
+    }
+
+    public void setReply(String reply) {
+        this.reply = reply;
+    }
+
+    public String getYear() {
+        return year;
+    }
+
+    public void setYear(String year) {
+        this.year = year;
+    }
+
+    public String getMonth() {
+        return month;
+    }
+
+    public void setMonth(String month) {
+        this.month = month;
+    }
+
+    public String getDay() {
+        return day;
+    }
+
+    public void setDay(String day) {
+        this.day = day;
+    }
 
     public boolean isCircle_owner() {
         return circle_owner;

@@ -7,6 +7,7 @@
     android:orientation="vertical">
 
     <View
+        android:id="@+id/view_bigline"
         android:layout_width="match_parent"
         android:layout_height="5dp"
         android:background="@color/bg_all" />
@@ -20,6 +21,7 @@
 
 
         <LinearLayout
+            android:id="@+id/ll_head_circle"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginTop="20dp"

@@ -15,13 +15,13 @@ import com.wetime.fanc.utils.Tools;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NineImageGridListAdapter extends BaseAdapter {
+public class NineImageGridListAdapterCard extends BaseAdapter {
     private Context mContext;
     private List<String> mlist = new ArrayList<String>();
     private LayoutInflater inflater = null;
 //    private final int mGridWidth;
 
-    public NineImageGridListAdapter(Context mContext, List<String> list) {
+    public NineImageGridListAdapterCard(Context mContext, List<String> list) {
         this.mContext = mContext;
         this.mlist = list;
         inflater = LayoutInflater.from(mContext);
@@ -60,8 +60,8 @@ public class NineImageGridListAdapter extends BaseAdapter {
         }
         if (mlist.size() > 1) {
             int sw = Tools.getScreenW(mContext);
-            int w = (sw - Tools.dip2px(mContext, 15 + 15 + 6 + 6)) / 3;
-            Double rate = 80.0 / 110;
+            int w = (sw - Tools.dip2px(mContext, 15 + 15 + 60 + 6 + 6)) / 3;
+            Double rate = 66.0 / 92;
 
             int h = (int) (w * rate);
             Glide.with(mContext).load(mlist.get(position))
@@ -72,8 +72,8 @@ public class NineImageGridListAdapter extends BaseAdapter {
                     .into(holder.iv);
         } else {
             int sw = Tools.getScreenW(mContext);
-            int w = sw - Tools.dip2px(mContext, 15 + 15);
-            Double rate = 160.0 / 345;
+            int w = sw - Tools.dip2px(mContext, 15 + 15 + 60);
+            Double rate = 132.5 / 285;
 
             int h = (int) (w * rate);
             Glide.with(mContext).load(mlist.get(position))

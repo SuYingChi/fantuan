@@ -66,6 +66,7 @@ public interface Const {
     String USER_COLLECT_LIST = BASEURL + "/user/collect/list";
     String NEWS_COLLECT_CANCEL = BASEURL + "/news/collect/cancel";
     String USER_FOCUS_LIST = BASEURL + "/user/focus/list";
+    String SOCIAL = BASEURL + "/social";
 
 
 
