@@ -411,6 +411,7 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
                 Intent go = new Intent(mActivity, UserCardActivity.class);
                 go.putExtra("num", bean.isIs_news() ? "3" : "2");
                 go.putExtra("index", 0);
+                go.putExtra("id", bean.getUid());
                 mActivity.startActivity(go);
             });
             if (bean.isCircle_owner()) {

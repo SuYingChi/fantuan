@@ -56,16 +56,11 @@ public class CircleInfoActivity extends BaseActivity implements IGetCircleDetail
         super.onBackPressed();
     }
 
-    @OnClick({R.id.iv_back, R.id.iv_user})
+    @OnClick({R.id.iv_back})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
                 onBackPressed();
-                break;
-            case R.id.iv_user:
-                Intent go = new Intent(mContext, UserCardActivity.class);
-                go.putExtra("index", 0);
-                startActivity(go);
                 break;
         }
     }
@@ -79,6 +74,13 @@ public class CircleInfoActivity extends BaseActivity implements IGetCircleDetail
         tvUsername.setText(bean.getData().getUsername());
         tvDes.setText(bean.getData().getIntro());
         tvRule.setText(bean.getData().getRule());
+        ivUser.setOnClickListener(view -> {
+            Intent go = new Intent(mContext, UserCardActivity.class);
+            go.putExtra("index", 0);
+            go.putExtra("id", bean.getData().getUid());
+            go.putExtra("num", bean.getData().isIs_news() ? "3" : "2");
+            startActivity(go);
+        });
     }
 
     @Override
