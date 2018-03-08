@@ -11,7 +11,6 @@ import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -27,6 +26,8 @@ import com.wetime.fanc.customview.CanDoBlankGridView;
 import com.wetime.fanc.home.bean.HomeItemBean;
 import com.wetime.fanc.my.act.UserCardActivity;
 import com.wetime.fanc.my.presenter.DeleteMyNewsPresenter;
+import com.wetime.fanc.order.MyRatingBar;
+import com.wetime.fanc.shop.act.ShopDetailActivity;
 import com.wetime.fanc.utils.Tools;
 import com.wetime.fanc.web.WebActivity;
 
@@ -85,6 +86,8 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
                 return new NewsHolder19(inflater.inflate(R.layout.item_news_type19, parent, false));
             } else if (viewType == 30 || viewType == 31 || viewType == 39 || viewType == 34) {
                 return new NewsHolder39(inflater.inflate(R.layout.item_news_type39, parent, false));
+            } else if (viewType == 29) {
+                return new NewsHolder29(inflater.inflate(R.layout.item_news_type29, parent, false));
             } else if (viewType == -1) {
                 return new NewsHolderDelete(inflater.inflate(R.layout.item_news_delete, parent, false));
             }
@@ -153,7 +156,8 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
                     new RequestOptions()
                             .override(w, h)
                             .centerCrop()
-                            .placeholder(R.drawable.iv_default_news_small)).into(((NewsHolder0) holder).ivBanner);
+                            .placeholder(R.drawable.iv_default_news_small))
+                    .into(((NewsHolder0) holder).ivBanner);
         }
         if (holder instanceof NewsHolder4) {
             int sw = Tools.getScreenW(mActivity);
@@ -166,7 +170,8 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
                     new RequestOptions()
                             .override(w, h)
                             .centerCrop()
-                            .placeholder(R.drawable.iv_default_news_single_big)).into(((NewsHolder4) holder).ivBanner);
+                            .placeholder(R.drawable.iv_default_news_single_big))
+                    .into(((NewsHolder4) holder).ivBanner);
         }
         if (holder instanceof NewsHolder1) {
             if (isBlod) {
@@ -272,6 +277,51 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
                             .placeholder(R.drawable.iv_default_news_small))
                     .into(((NewsHolder3) holder).ivCover2);
         }
+        if (holder instanceof NewsHolder29) {
+            if (TextUtils.isEmpty(bean.getYear())) {
+                ((NewsHolder29) holder).tvYear.setVisibility(View.GONE);
+            } else {
+                ((NewsHolder29) holder).tvYear.setVisibility(View.VISIBLE);
+                ((NewsHolder29) holder).tvYear.setText(bean.getYear());
+            }
+            ((NewsHolder29) holder).tvDay.setText(bean.getDay());
+            ((NewsHolder29) holder).tvMonth.setText(String.format("%s月", bean.getMonth()));
+            ((NewsHolder29) holder).tvContent.setText(bean.getContent());
+            ((NewsHolder29) holder).rbSocre.setStar(Float.valueOf(bean.getScore()));
+
+            NineImageGridListAdapterCard gvadapter = new NineImageGridListAdapterCard(mActivity, list.get(position).getCover());
+            ((NewsHolder29) holder).gv.setAdapter(gvadapter);
+
+
+            //九宫格
+            LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) ((NewsHolder29) holder).gv.getLayoutParams();
+
+            ((NewsHolder29) holder).gv.setNumColumns(3);
+
+            ((NewsHolder29) holder).gv.setLayoutParams(params);
+            gvadapter.notifyDataSetChanged();
+            ((NewsHolder29) holder).gv.setOnItemClickListener((adapterView, view, i, l) -> Tools.goPicGallery(mActivity, bean.getCover(), i));
+//            ((NewsHolder29) holder).gv.setOnTouchInvalidPositionListener(motionEvent -> false);
+            if (TextUtils.isEmpty(bean.getReply())) {
+                ((NewsHolder29) holder).tvShopsay.setVisibility(View.GONE);
+            } else {
+                ((NewsHolder29) holder).tvShopsay.setVisibility(View.VISIBLE);
+                SpannableString s1 = new SpannableString("商家回复：" + bean.getReply());
+                s1.setSpan(new ForegroundColorSpan(ContextCompat.getColor(mActivity, R.color.textcolor)),
+                        0, 5, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                ((NewsHolder29) holder).tvShopsay.setText(s1);
+            }
+            SpannableString s2 = new SpannableString("点评了店铺 " + bean.getMerchant_name());
+            s2.setSpan(new ForegroundColorSpan(ContextCompat.getColor(mActivity, R.color.textcolor)),
+                    0, 5, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            ((NewsHolder29) holder).tvShopname.setText(s2);
+            ((NewsHolder29) holder).tvShopname.setOnClickListener(view -> {
+                Intent go = new Intent(mActivity, ShopDetailActivity.class);
+                go.putExtra("mid", list.get(position).getMid());
+                mActivity.startActivity(go);
+            });
+
+        }
         if (holder instanceof NewsHolder39) {
             if (TextUtils.isEmpty(bean.getYear())) {
                 ((NewsHolder39) holder).tvYear.setVisibility(View.GONE);
@@ -323,8 +373,10 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
             }
 
             NineImageGridListAdapterCard gvadapter = new NineImageGridListAdapterCard(mActivity, list.get(position).getCover());
-            ((NewsHolder39) holder).gv.setAdapter(gvadapter);
             ((NewsHolder39) holder).gv.setLayoutParams(params);
+            ((NewsHolder39) holder).gv.setAdapter(gvadapter);
+
+
             gvadapter.notifyDataSetChanged();
             ((NewsHolder39) holder).gv.setOnTouchInvalidPositionListener(motionEvent -> false);
             ((NewsHolder39) holder).gv.setOnItemClickListener((adapterView, view, i, l) -> Tools.goPicGallery(mActivity, bean.getCover(), i));
@@ -607,6 +659,30 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
         TextView tvCirclename;
 
         NewsHolder39(View view) {
+            super(view);
+            ButterKnife.bind(this, view);
+        }
+    }
+
+    class NewsHolder29 extends RecyclerView.ViewHolder {
+        @BindView(R.id.tv_year)
+        TextView tvYear;
+        @BindView(R.id.tv_day)
+        TextView tvDay;
+        @BindView(R.id.tv_month)
+        TextView tvMonth;
+        @BindView(R.id.rb_socre)
+        MyRatingBar rbSocre;
+        @BindView(R.id.tv_content)
+        TextView tvContent;
+        @BindView(R.id.gv)
+        CanDoBlankGridView gv;
+        @BindView(R.id.tv_shopname)
+        TextView tvShopname;
+        @BindView(R.id.tv_shopsay)
+        TextView tvShopsay;
+
+        NewsHolder29(View view) {
             super(view);
             ButterKnife.bind(this, view);
         }

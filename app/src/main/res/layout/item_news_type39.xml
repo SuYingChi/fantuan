@@ -58,7 +58,7 @@
                     tools:text="认为，老爸茶其实是应为那里聚集着许多中老" />
                 <com.wetime.fanc.customview.CanDoBlankGridView
                     android:id="@+id/gv"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:horizontalSpacing="6dp"

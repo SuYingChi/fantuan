@@ -121,7 +121,7 @@ public class UserCardActivity extends BaseActivity implements OnLoadmoreListener
 
         adapter = new HomeItemAdapter(list, this);
         rclHome.setAdapter(adapter);
-
+        adapter.notifyDataSetChanged();
 
         getUserCardPresenter = new GetUserCardPresenter(this);
         getUserCardPresenter.getUserInfo();

@@ -64,7 +64,7 @@ public class NineImageGridListAdapterCard extends BaseAdapter {
             Double rate = 66.0 / 92;
 
             int h = (int) (w * rate);
-            Glide.with(mContext).load(mlist.get(position))
+            Glide.with(mContext.getApplicationContext()).load(mlist.get(position))
                     .apply(new RequestOptions()
                             .override(w, h)
                             .centerCrop()
@@ -76,7 +76,7 @@ public class NineImageGridListAdapterCard extends BaseAdapter {
             Double rate = 132.5 / 285;
 
             int h = (int) (w * rate);
-            Glide.with(mContext).load(mlist.get(position))
+            Glide.with(mContext.getApplicationContext()).load(mlist.get(position))
                     .apply(new RequestOptions()
                             .override(w, h)
                             .centerCrop()
