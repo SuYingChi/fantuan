@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -90,6 +91,8 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
                 return new NewsHolder29(inflater.inflate(R.layout.item_news_type29, parent, false));
             } else if (viewType == -1) {
                 return new NewsHolderDelete(inflater.inflate(R.layout.item_news_delete, parent, false));
+            } else if (viewType == 1000) {
+                return new NewsHolder1000(inflater.inflate(R.layout.item_usercard_empty, parent, false));
             }
 
         } else if (listtype == 1) {
@@ -135,6 +138,19 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
                     break;
             }
         });
+        if (holder instanceof NewsHolder1000) {
+            if (bean.getEmptyType().equals("1")) {
+                ((NewsHolder1000) holder).tvEmpty.setText("暂无动态");
+                ((NewsHolder1000) holder).ivEmpty.setImageResource(R.drawable.iv_empty_card_act);
+            } else if (bean.getEmptyType().equals("2")) {
+                ((NewsHolder1000) holder).tvEmpty.setText("暂无头条");
+                ((NewsHolder1000) holder).ivEmpty.setImageResource(R.drawable.iv_empty_card_news);
+            } else if (bean.getEmptyType().equals("3")) {
+                ((NewsHolder1000) holder).tvEmpty.setText("暂无点评");
+                ((NewsHolder1000) holder).ivEmpty.setImageResource(R.drawable.iv_empty_card_comment);
+            }
+
+        }
         if (holder instanceof NewsHolderDelete) {
             ((NewsHolderDelete) holder).tvTitle.setText(String.format("抱歉，您收藏的文章《%s》已被删除。", bean.getNews_name()));
             ((NewsHolderDelete) holder).ivNewsDelete.setOnClickListener(view -> {
@@ -143,6 +159,7 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
                 DeleteMyNewsPresenter deleteMyNewsPresenter = new DeleteMyNewsPresenter();
                 deleteMyNewsPresenter.detDleteMyNews(bean.getId(), Tools.getSpu(mActivity).getToken());
             });
+
         }
 
         if (holder instanceof NewsHolder0) {
@@ -683,6 +700,20 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
         TextView tvShopsay;
 
         NewsHolder29(View view) {
+            super(view);
+            ButterKnife.bind(this, view);
+        }
+    }
+
+    class NewsHolder1000 extends RecyclerView.ViewHolder {
+        @BindView(R.id.iv_empty)
+        ImageView ivEmpty;
+        @BindView(R.id.tv_empty)
+        TextView tvEmpty;
+        @BindView(R.id.rl_empty)
+        RelativeLayout rlEmpty;
+
+        NewsHolder1000(View view) {
             super(view);
             ButterKnife.bind(this, view);
         }

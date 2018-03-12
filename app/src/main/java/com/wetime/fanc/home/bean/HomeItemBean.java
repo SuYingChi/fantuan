@@ -71,6 +71,15 @@ public class HomeItemBean {
     //    private int type;
 //    private List<String> cover;
     private List<BannerBean> banner;
+    private  String emptyType;
+
+    public String getEmptyType() {
+        return emptyType;
+    }
+
+    public void setEmptyType(String emptyType) {
+        this.emptyType = emptyType;
+    }
 
     public boolean isIs_news() {
         return is_news;

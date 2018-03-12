@@ -12,7 +12,7 @@
         android:id="@+id/tv_year"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="30dp"
+        android:paddingTop="25dp"
         android:textColor="#333333"
         android:textSize="24sp"
         tools:text="2018年" />
@@ -20,7 +20,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="25dp"
         android:orientation="horizontal">
 
         <LinearLayout
@@ -111,6 +111,7 @@
                 tools:text="点评了店铺 楚记烧烤（宜新店）" />
 
             <TextView
+                android:layout_marginBottom="10dp"
                 android:id="@+id/tv_shopsay"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
