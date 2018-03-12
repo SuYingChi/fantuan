@@ -123,12 +123,12 @@ public class ActDetailAdapter extends RecyclerView.Adapter {
             if (TextUtils.isEmpty(bean.getTo_username())) {
                 ((ViewHolder2) holder).tvContent.setText(bean.getContent());
             } else {
-                SpannableString s1 = new SpannableString("回复" + bean.getTo_username());
-                s1.setSpan(new ForegroundColorSpan(ContextCompat.getColor(mActivity, R.color.textcolor)),
+                SpannableString s1 = new SpannableString("回复" + bean.getTo_username()+": "+bean.getContent());
+                s1.setSpan(new ForegroundColorSpan(ContextCompat.getColor(mActivity, R.color.text_blue)),
                         2, 2 + bean.getTo_username().length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                 ((ViewHolder2) holder).tvContent.setText(s1);
             }
-
+            Glide.with(mActivity).load(bean.getAvatar()).into(((ViewHolder2) holder).ivHead);
 
         }
 
@@ -197,6 +197,8 @@ public class ActDetailAdapter extends RecyclerView.Adapter {
         TextView tvContent;
         @BindView(R.id.tv_time)
         TextView tvTime;
+        @BindView(R.id.iv_head)
+        CircleImageView ivHead;
 
         ViewHolder2(View view) {
             super(view);

@@ -23,18 +23,17 @@
         android:id="@+id/gv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="15dp"
         android:background="@color/white"
-        android:horizontalSpacing="@dimen/space_size"
+        android:horizontalSpacing="10dp"
         android:numColumns="10"
         android:scrollbars="none"
-        android:verticalSpacing="@dimen/space_size" />
+        android:verticalSpacing="10dp" />
 
     <TextView
+        android:layout_marginTop="40dp"
         android:id="@+id/tv_commentnum"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:lineSpacingExtra="0sp"
         android:textColor="#333333"
         android:textSize="18sp"
         android:textStyle="bold"

@@ -157,7 +157,7 @@ public class CircleLazyFragment extends BaseLazyFragment implements OnRefreshLis
     @Override
     protected void initData() {
         getCircleHomePresenter = new GetCircleHomePresenter(this);
-        refreshLayout.autoRefresh();
+        getCircleHomePresenter.getCircleHome();
     }
 
     @OnClick({R.id.iv_msg, R.id.iv_edit})

@@ -10,6 +10,7 @@
     android:paddingTop="30dp">
 
     <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/iv_head"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:src="@drawable/ic_head_default" />
@@ -44,7 +45,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
-            android:lineSpacingExtra="0sp"
             android:textColor="#999999"
             android:textSize="12sp"
             tools:text="刚刚" />
