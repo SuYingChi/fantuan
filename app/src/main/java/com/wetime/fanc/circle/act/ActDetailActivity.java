@@ -1,11 +1,18 @@
 package com.wetime.fanc.circle.act;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.gyf.barlibrary.ImmersionBar;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
@@ -29,6 +36,18 @@ public class ActDetailActivity extends BaseActivity implements IGetActDetailView
     RecyclerView rclCircle;
     @BindView(R.id.refreshLayout)
     SmartRefreshLayout refreshLayout;
+    @BindView(R.id.iv_back)
+    ImageView ivBack;
+    @BindView(R.id.tv_gocomment)
+    TextView tvGocomment;
+    @BindView(R.id.tv_zan)
+    TextView tvZan;
+    @BindView(R.id.et_content)
+    EditText etContent;
+    @BindView(R.id.tv_send)
+    TextView tvSend;
+    @BindView(R.id.rl_bottom)
+    RelativeLayout rlBottom;
 
 
     private GetActDetailPresenter getActDetailPresenter;
@@ -39,6 +58,7 @@ public class ActDetailActivity extends BaseActivity implements IGetActDetailView
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setSoftInPutMode();
         setContentView(R.layout.activity_actdetail);
         ButterKnife.bind(this);
         tvTitle.setText("动态详情");
@@ -49,18 +69,31 @@ public class ActDetailActivity extends BaseActivity implements IGetActDetailView
 
         getActDetailPresenter.getActDetail();
     }
-
+    @Override
+    protected void setSoftInPutMode() {
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE | WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+    }
     @Override
     public void onBackPressed() {
         super.onBackPressed();
     }
 
-    @OnClick({R.id.iv_back})
+    @OnClick({R.id.iv_back, R.id.tv_gocomment, R.id.tv_zan, R.id.rl_bottom})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
                 onBackPressed();
                 break;
+            case R.id.tv_gocomment:
+                showKeyborad();
+                break;
+            case R.id.tv_zan:
+
+                break;
+            case R.id.rl_bottom:
+                hideKeyboard();
+                break;
+
         }
     }
 
@@ -94,5 +127,25 @@ public class ActDetailActivity extends BaseActivity implements IGetActDetailView
     public void onLoadmore(RefreshLayout refreshlayout) {
         page++;
         getActDetailPresenter.getActDetail();
+    }
+    protected void initStateBar() {
+        ImmersionBar.with(this)
+                .statusBarColor(R.color.white_lib)
+                .statusBarDarkFont(true, 0.2f)
+                .fitsSystemWindows(true)
+                .keyboardEnable(true)
+                .init();
+    }
+    private void showKeyborad() {
+        rlBottom.setVisibility(View.VISIBLE);
+        etContent.requestFocus();
+        InputMethodManager imm = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.showSoftInput(etContent, InputMethodManager.SHOW_FORCED);
+    }
+
+    private void hideKeyboard() {
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(etContent.getWindowToken(), 0); //强制隐藏键盘
+        rlBottom.setVisibility(View.GONE);
     }
 }
