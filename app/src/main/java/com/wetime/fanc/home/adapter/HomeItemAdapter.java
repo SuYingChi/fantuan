@@ -418,6 +418,11 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
             } else {
                 ((NewsHolder19) holder).tvContent.setText(bean.getContent());
             }
+            if(TextUtils.isEmpty(bean.getContent())){
+                ((NewsHolder19) holder).tvContent.setVisibility(View.GONE);
+            }else{
+                ((NewsHolder19) holder).tvContent.setVisibility(View.VISIBLE);
+            }
 
             NineImageGridListAdapter gvadapter = new NineImageGridListAdapter(mActivity, list.get(position).getCover());
             ((NewsHolder19) holder).gv.setAdapter(gvadapter);

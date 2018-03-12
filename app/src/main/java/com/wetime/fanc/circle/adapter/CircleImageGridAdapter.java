@@ -10,18 +10,18 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.wetime.fanc.R;
-import com.wetime.fanc.utils.Tools;
+import com.wetime.fanc.circle.bean.ActDetailBean;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class NineImageGridListAdapter extends BaseAdapter {
+public class CircleImageGridAdapter extends BaseAdapter {
     private Context mContext;
-    private List<String> mlist = new ArrayList<String>();
+    private List<ActDetailBean.DataBean.LikeListBean> mlist = new ArrayList<>();
     private LayoutInflater inflater = null;
 //    private final int mGridWidth;
 
-    public NineImageGridListAdapter(Context mContext, List<String> list) {
+    public CircleImageGridAdapter(Context mContext, List<ActDetailBean.DataBean.LikeListBean> list) {
         this.mContext = mContext;
         this.mlist = list;
         inflater = LayoutInflater.from(mContext);
@@ -51,38 +51,18 @@ public class NineImageGridListAdapter extends BaseAdapter {
         final Holder holder;
 
         if (convertView == null) {
-            convertView = inflater.inflate(R.layout.img_item_list, null);
+            convertView = inflater.inflate(R.layout.circle_img_item_list, null);
             holder = new Holder();
             holder.iv = convertView.findViewById(R.id.img);
             convertView.setTag(holder);
         } else {
             holder = (Holder) convertView.getTag();
         }
-        if (mlist.size() > 1) {
-            int sw = Tools.getScreenW(mContext);
-            int w = (sw - Tools.dip2px(mContext, 15 + 15 + 6 + 6)) / 3;
-            Double rate = 80.0 / 110;
 
-            int h = (int) (w * rate);
-            Glide.with(mContext.getApplicationContext()).load(mlist.get(position))
-                    .apply(new RequestOptions()
-                            .override(w, h)
-                            .centerCrop()
-                            .placeholder(R.drawable.iv_default_news_small))
-                    .into(holder.iv);
-        } else {
-            int sw = Tools.getScreenW(mContext);
-            int w = sw - Tools.dip2px(mContext, 15 + 15);
-            Double rate = 160.0 / 345;
-
-            int h = (int) (w * rate);
-            Glide.with(mContext.getApplicationContext()).load(mlist.get(position))
-                    .apply(new RequestOptions()
-                            .override(w, h)
-                            .centerCrop()
-                            .placeholder(R.drawable.iv_default_news_single_big))
-                    .into(holder.iv);
-        }
+        Glide.with(mContext.getApplicationContext()).load(mlist.get(position).getAvatar())
+                .apply(new RequestOptions()
+                        .placeholder(R.drawable.ic_head_default))
+                .into(holder.iv);
 
 
         return convertView;

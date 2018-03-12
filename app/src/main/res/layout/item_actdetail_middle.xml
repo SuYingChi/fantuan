@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:paddingLeft="15dp"
+    android:paddingRight="15dp"
+    android:paddingTop="30dp">
+
+    <TextView
+        android:id="@+id/tv_zannum"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:lineSpacingExtra="0sp"
+        android:textColor="#333333"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        tools:text="12人点赞" />
+
+    <com.wetime.fanc.customview.GridViewForScrollView
+        android:id="@+id/gv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:background="@color/white"
+        android:horizontalSpacing="@dimen/space_size"
+        android:numColumns="10"
+        android:scrollbars="none"
+        android:verticalSpacing="@dimen/space_size" />
+
+    <TextView
+        android:id="@+id/tv_commentnum"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:lineSpacingExtra="0sp"
+        android:textColor="#333333"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        tools:text="5条评论" />
+</LinearLayout>
+
