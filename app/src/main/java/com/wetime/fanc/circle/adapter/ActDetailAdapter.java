@@ -24,6 +24,8 @@ import com.wetime.fanc.customview.GridViewForScrollView;
 import com.wetime.fanc.my.act.UserCardActivity;
 import com.wetime.fanc.utils.Tools;
 
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -59,8 +61,8 @@ public class ActDetailAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (mOnItemClickLitener != null) {
             holder.itemView.setOnClickListener(view -> {
-                if (holder.getAdapterPosition() > 1)
-                    mOnItemClickLitener.onItemClick(view, holder.getAdapterPosition());
+                if (position > 1)
+                    mOnItemClickLitener.onItemClick(view,position);
             });
         }
         if (holder instanceof ViewHolder0) {
@@ -126,7 +128,7 @@ public class ActDetailAdapter extends RecyclerView.Adapter {
 
         }
         if (holder instanceof ViewHolder2) {
-            ActDetailBean.DataBean.CommentListBean bean = actDetailBean.getData().getComment_list().get(holder.getAdapterPosition() - 2);
+            ActDetailBean.DataBean.CommentListBean bean = actDetailBean.getData().getComment_list().get(position - 2);
             ((ViewHolder2) holder).tvName.setText(bean.getUsername());
             ((ViewHolder2) holder).tvTime.setText(bean.getTime());
             if (TextUtils.isEmpty(bean.getTo_username())) {
@@ -141,6 +143,11 @@ public class ActDetailAdapter extends RecyclerView.Adapter {
 
         }
 
+    }
+
+    @Override
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position, List payloads) {
+        super.onBindViewHolder(holder, position, payloads);
     }
 
     @Override
@@ -200,6 +207,7 @@ public class ActDetailAdapter extends RecyclerView.Adapter {
             ButterKnife.bind(this, view);
         }
     }
+
 
     class ViewHolder2 extends RecyclerView.ViewHolder {
         @BindView(R.id.tv_name)

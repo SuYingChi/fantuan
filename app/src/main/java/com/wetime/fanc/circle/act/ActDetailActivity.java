@@ -22,8 +22,10 @@ import com.wetime.fanc.R;
 import com.wetime.fanc.circle.adapter.ActDetailAdapter;
 import com.wetime.fanc.circle.bean.ActDetailBean;
 import com.wetime.fanc.circle.iviews.ICommentActView;
+import com.wetime.fanc.circle.iviews.IDeleteCommentView;
 import com.wetime.fanc.circle.iviews.IGetActDetailView;
 import com.wetime.fanc.circle.presenter.CommentActPresenter;
+import com.wetime.fanc.circle.presenter.DeleteCommentPresenter;
 import com.wetime.fanc.circle.presenter.GetActDetailPresenter;
 import com.wetime.fanc.main.act.BaseActivity;
 import com.wetime.fanc.main.model.BaseBean;
@@ -35,7 +37,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import me.shaohui.bottomdialog.BottomDialog;
 
-public class ActDetailActivity extends BaseActivity implements IGetActDetailView, OnLoadmoreListener, KeyboardChangeListener.KeyBoardListener, ICommentActView {
+public class ActDetailActivity extends BaseActivity implements IGetActDetailView, OnLoadmoreListener, KeyboardChangeListener.KeyBoardListener, ICommentActView, IDeleteCommentView {
 
 
     @BindView(R.id.tv_title)
@@ -65,6 +67,7 @@ public class ActDetailActivity extends BaseActivity implements IGetActDetailView
     private CommentActPresenter commentActPresenter;
     private String toId = "";
     private BottomDialog mCommentBottomDialog;
+    private DeleteCommentPresenter deleteCommentPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +84,7 @@ public class ActDetailActivity extends BaseActivity implements IGetActDetailView
         mKeyboardChangeListener.setKeyBoardListener(this);
         getActDetailPresenter.getActDetail();
         commentActPresenter = new CommentActPresenter(this);
+        deleteCommentPresenter = new DeleteCommentPresenter(this);
     }
 
     @Override
@@ -136,7 +140,7 @@ public class ActDetailActivity extends BaseActivity implements IGetActDetailView
             actDetailAdapter.setOnItemClickLitener((view, position) -> {
                 ActDetailBean.DataBean.CommentListBean b = actbean.getData().getComment_list().get(position - 2);
                 if (b.isIs_owner()) {
-                    if (mCommentBottomDialog == null) {
+
                         mCommentBottomDialog = BottomDialog.create(getSupportFragmentManager());
                         mCommentBottomDialog.setLayoutRes(R.layout.item_delete_comment);
                         mCommentBottomDialog.setViewListener(v -> {
@@ -151,12 +155,15 @@ public class ActDetailActivity extends BaseActivity implements IGetActDetailView
                             });
                             v.findViewById(R.id.tv_delete).setOnClickListener(v12 -> {
                                 mCommentBottomDialog.dismiss();
+                                deleteCommentPresenter.deleteComment(b.getId());
                                 actbean.getData().getComment_list().remove(position - 2);
-//                                actDetailAdapter.notifyDataSetChanged();
                                 actbean.getData().setComment_num(actbean.getData().getComment_num() - 1);
-                                actDetailAdapter.notifyItemChanged(1);
 
+                                actDetailAdapter.notifyItemChanged(1);
                                 actDetailAdapter.notifyItemRemoved(position);
+                                actDetailAdapter.notifyItemRangeChanged(2,
+                                        actbean.getData().getComment_list().size());
+//                                actDetailAdapter.notifyDataSetChanged();
 
 
                             });
@@ -166,7 +173,7 @@ public class ActDetailActivity extends BaseActivity implements IGetActDetailView
                                 etContent.setHint("评论动态");
                             });
                         });
-                    }
+
                     mCommentBottomDialog.show();
                 } else {
                     toId = b.getUid();
@@ -244,5 +251,11 @@ public class ActDetailActivity extends BaseActivity implements IGetActDetailView
     @Override
     public String getContent() {
         return etContent.getText().toString();
+    }
+
+    @Override
+    public void onDeleteResult(BaseBean bean) {
+        Tools.toastInBottom(this,"删除成功");
+
     }
 }
