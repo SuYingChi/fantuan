@@ -2,8 +2,10 @@ package com.wetime.fanc.circle.act;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
@@ -19,16 +21,21 @@ import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
 import com.wetime.fanc.R;
 import com.wetime.fanc.circle.adapter.ActDetailAdapter;
 import com.wetime.fanc.circle.bean.ActDetailBean;
+import com.wetime.fanc.circle.iviews.ICommentActView;
 import com.wetime.fanc.circle.iviews.IGetActDetailView;
+import com.wetime.fanc.circle.presenter.CommentActPresenter;
 import com.wetime.fanc.circle.presenter.GetActDetailPresenter;
 import com.wetime.fanc.main.act.BaseActivity;
+import com.wetime.fanc.main.model.BaseBean;
 import com.wetime.fanc.utils.KeyboardChangeListener;
+import com.wetime.fanc.utils.Tools;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import me.shaohui.bottomdialog.BottomDialog;
 
-public class ActDetailActivity extends BaseActivity implements IGetActDetailView, OnLoadmoreListener, KeyboardChangeListener.KeyBoardListener {
+public class ActDetailActivity extends BaseActivity implements IGetActDetailView, OnLoadmoreListener, KeyboardChangeListener.KeyBoardListener, ICommentActView {
 
 
     @BindView(R.id.tv_title)
@@ -55,7 +62,9 @@ public class ActDetailActivity extends BaseActivity implements IGetActDetailView
     private int page = 1;
     private ActDetailAdapter actDetailAdapter;
     private ActDetailBean actbean;
-    private KeyboardChangeListener mKeyboardChangeListener;
+    private CommentActPresenter commentActPresenter;
+    private String toId = "";
+    private BottomDialog mCommentBottomDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,26 +77,30 @@ public class ActDetailActivity extends BaseActivity implements IGetActDetailView
         refreshLayout.setOnLoadmoreListener(this);
         refreshLayout.setEnableRefresh(false);
         rclCircle.setLayoutManager(new LinearLayoutManager(this));
-        mKeyboardChangeListener = new KeyboardChangeListener(this);
+        KeyboardChangeListener mKeyboardChangeListener = new KeyboardChangeListener(this);
         mKeyboardChangeListener.setKeyBoardListener(this);
         getActDetailPresenter.getActDetail();
+        commentActPresenter = new CommentActPresenter(this);
     }
+
     @Override
     protected void setSoftInPutMode() {
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE | WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
     }
+
     @Override
     public void onKeyboardChange(boolean isShow, int keyboardHeight) {
         if (!isShow) {
             rlBottom.setVisibility(View.GONE);
         }
     }
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();
     }
 
-    @OnClick({R.id.iv_back, R.id.tv_gocomment, R.id.tv_zan, R.id.rl_bottom})
+    @OnClick({R.id.iv_back, R.id.tv_gocomment, R.id.tv_zan, R.id.rl_bottom, R.id.tv_send})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
@@ -98,6 +111,14 @@ public class ActDetailActivity extends BaseActivity implements IGetActDetailView
                 break;
             case R.id.tv_zan:
 
+                break;
+            case R.id.tv_send:
+                if (TextUtils.isEmpty(etContent.getText().toString())) {
+                    Tools.toastInBottom(mContext, "请填写评论内容");
+                    return;
+                }
+
+                commentActPresenter.commnetAct();
                 break;
             case R.id.rl_bottom:
                 hideKeyboard();
@@ -110,10 +131,51 @@ public class ActDetailActivity extends BaseActivity implements IGetActDetailView
     public void onGetActDetail(ActDetailBean bean) {
         if (page == 1) {
             actbean = bean;
-            if (actDetailAdapter == null) {
-                actDetailAdapter = new ActDetailAdapter(this, actbean);
-                rclCircle.setAdapter(actDetailAdapter);
-            }
+            actDetailAdapter = new ActDetailAdapter(this, actbean);
+            rclCircle.setAdapter(actDetailAdapter);
+            actDetailAdapter.setOnItemClickLitener((view, position) -> {
+                ActDetailBean.DataBean.CommentListBean b = actbean.getData().getComment_list().get(position - 2);
+                if (b.isIs_owner()) {
+                    if (mCommentBottomDialog == null) {
+                        mCommentBottomDialog = BottomDialog.create(getSupportFragmentManager());
+                        mCommentBottomDialog.setLayoutRes(R.layout.item_delete_comment);
+                        mCommentBottomDialog.setViewListener(v -> {
+                            v.findViewById(R.id.tv_reply).setOnClickListener(v1 -> {
+                                mCommentBottomDialog.dismiss();
+                                new Handler().postDelayed(() -> {
+                                    toId = b.getUid();
+                                    etContent.setHint("回复 " + b.getUsername());
+                                    showKeyborad();
+                                }, 500);
+
+                            });
+                            v.findViewById(R.id.tv_delete).setOnClickListener(v12 -> {
+                                mCommentBottomDialog.dismiss();
+                                actbean.getData().getComment_list().remove(position - 2);
+//                                actDetailAdapter.notifyDataSetChanged();
+                                actbean.getData().setComment_num(actbean.getData().getComment_num() - 1);
+                                actDetailAdapter.notifyItemChanged(1);
+
+                                actDetailAdapter.notifyItemRemoved(position);
+
+
+                            });
+                            v.findViewById(R.id.tv_cancel).setOnClickListener(v14 -> {
+                                mCommentBottomDialog.dismiss();
+                                toId = "";
+                                etContent.setHint("评论动态");
+                            });
+                        });
+                    }
+                    mCommentBottomDialog.show();
+                } else {
+                    toId = b.getUid();
+                    etContent.setHint("回复 " + b.getUsername());
+                    showKeyborad();
+                }
+
+
+            });
         } else {
             actbean.getData().getComment_list().addAll(bean.getData().getComment_list());
         }
@@ -138,6 +200,7 @@ public class ActDetailActivity extends BaseActivity implements IGetActDetailView
         page++;
         getActDetailPresenter.getActDetail();
     }
+
     protected void initStateBar() {
         ImmersionBar.with(this)
                 .statusBarColor(R.color.white_lib)
@@ -146,6 +209,7 @@ public class ActDetailActivity extends BaseActivity implements IGetActDetailView
                 .keyboardEnable(true)
                 .init();
     }
+
     private void showKeyborad() {
         rlBottom.setVisibility(View.VISIBLE);
         etContent.requestFocus();
@@ -157,5 +221,28 @@ public class ActDetailActivity extends BaseActivity implements IGetActDetailView
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(etContent.getWindowToken(), 0); //强制隐藏键盘
         rlBottom.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onCommentAct(BaseBean bean) {
+        Tools.toastInBottom(this, "评论成功");
+        etContent.setText("");
+        hideKeyboard();
+        getActDetailPresenter.getActDetail();
+    }
+
+    @Override
+    public String getDyId() {
+        return getIntent().getStringExtra("id");
+    }
+
+    @Override
+    public String getToUid() {
+        return toId;
+    }
+
+    @Override
+    public String getContent() {
+        return etContent.getText().toString();
     }
 }

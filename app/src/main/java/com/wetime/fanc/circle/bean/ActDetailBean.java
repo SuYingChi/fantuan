@@ -76,7 +76,7 @@ public class ActDetailBean {
         private int type;
         private String read_num;
         private String like_num;
-        private String comment_num;
+        private int comment_num;
         private boolean dynamic_owner;
         private boolean has_like;
         private boolean is_news;
@@ -173,11 +173,11 @@ public class ActDetailBean {
             this.like_num = like_num;
         }
 
-        public String getComment_num() {
+        public int getComment_num() {
             return comment_num;
         }
 
-        public void setComment_num(String comment_num) {
+        public void setComment_num(int comment_num) {
             this.comment_num = comment_num;
         }
 
@@ -341,6 +341,15 @@ public class ActDetailBean {
             private String to_uid;
             private String to_username;
             private boolean is_news;
+            private boolean is_owner;
+
+            public boolean isIs_owner() {
+                return is_owner;
+            }
+
+            public void setIs_owner(boolean is_owner) {
+                this.is_owner = is_owner;
+            }
 
             public String getId() {
                 return id;

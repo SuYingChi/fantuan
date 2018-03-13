@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_reply"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:lineSpacingExtra="0sp"
+        android:text="回复"
+        android:textColor="#388ae5"
+        android:textSize="15sp" />
+
+    <include layout="@layout/item_my_line" />
+
+    <TextView
+        android:id="@+id/tv_delete"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:lineSpacingExtra="0sp"
+        android:text="删除"
+        android:textColor="#ff3b30"
+        android:textSize="15sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="@color/linebg" />
+
+    <TextView
+        android:id="@+id/tv_cancel"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:lineSpacingExtra="0sp"
+        android:text="取消"
+        android:textColor="#388ae5"
+        android:textSize="15sp" />
+</LinearLayout>
+
+
+

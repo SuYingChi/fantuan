@@ -27,6 +27,7 @@ import com.wetime.fanc.utils.Tools;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
+import me.shaohui.bottomdialog.BottomDialog;
 
 /**
  * Created by zhoukang on 2018/3/12.
@@ -56,6 +57,12 @@ public class ActDetailAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        if (mOnItemClickLitener != null) {
+            holder.itemView.setOnClickListener(view -> {
+                if (holder.getAdapterPosition() > 1)
+                    mOnItemClickLitener.onItemClick(view, holder.getAdapterPosition());
+            });
+        }
         if (holder instanceof ViewHolder0) {
             Glide.with(mActivity).load(actDetailBean.getData().getAvatar()).into(((ViewHolder0) holder).ivHead);
             ((ViewHolder0) holder).tvName.setText(actDetailBean.getData().getUsername());
@@ -109,7 +116,7 @@ public class ActDetailAdapter extends RecyclerView.Adapter {
             CircleImageGridAdapter adapter = new CircleImageGridAdapter(mActivity, actDetailBean.getData().getLike_list());
             ((ViewHolder1) holder).gv.setAdapter(adapter);
             adapter.notifyDataSetChanged();
-            if (TextUtils.equals("0", actDetailBean.getData().getComment_num())) {
+            if (actDetailBean.getData().getComment_num() == 0) {
                 ((ViewHolder1) holder).tvComm.setText("暂无评论");
                 ((ViewHolder1) holder).llEmpty.setVisibility(View.VISIBLE);
             } else {
@@ -119,7 +126,7 @@ public class ActDetailAdapter extends RecyclerView.Adapter {
 
         }
         if (holder instanceof ViewHolder2) {
-            ActDetailBean.DataBean.CommentListBean bean = actDetailBean.getData().getComment_list().get(position - 2);
+            ActDetailBean.DataBean.CommentListBean bean = actDetailBean.getData().getComment_list().get(holder.getAdapterPosition() - 2);
             ((ViewHolder2) holder).tvName.setText(bean.getUsername());
             ((ViewHolder2) holder).tvTime.setText(bean.getTime());
             if (TextUtils.isEmpty(bean.getTo_username())) {
@@ -208,5 +215,17 @@ public class ActDetailAdapter extends RecyclerView.Adapter {
             super(view);
             ButterKnife.bind(this, view);
         }
+    }
+
+    public interface OnItemClickLitener {
+        void onItemClick(View view, int position);
+    }
+
+
+    private OnItemClickLitener mOnItemClickLitener;
+
+
+    public void setOnItemClickLitener(OnItemClickLitener mOnItemClickLitener) {
+        this.mOnItemClickLitener = mOnItemClickLitener;
     }
 }
