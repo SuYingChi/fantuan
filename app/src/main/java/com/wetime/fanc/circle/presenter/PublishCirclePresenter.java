@@ -2,6 +2,7 @@ package com.wetime.fanc.circle.presenter;
 
 
 import com.wetime.fanc.circle.bean.DefaultCircleBean;
+import com.wetime.fanc.circle.bean.PublishResultBean;
 import com.wetime.fanc.circle.iviews.IGetDefaultCircleView;
 import com.wetime.fanc.circle.iviews.IPublishCircleView;
 import com.wetime.fanc.main.model.BaseBean;
@@ -34,7 +35,7 @@ public class PublishCirclePresenter {
                     @Override
                     public void onResponse(String s, int i) {
                         super.onResponse(s, i);
-                        BaseBean bean = GsonUtils.getGsonInstance().fromJson(s, BaseBean.class);
+                        PublishResultBean bean = GsonUtils.getGsonInstance().fromJson(s, PublishResultBean.class);
                         if (bean.getError() == 0)
                             iView.onPublisResultCircle(bean);
                     }

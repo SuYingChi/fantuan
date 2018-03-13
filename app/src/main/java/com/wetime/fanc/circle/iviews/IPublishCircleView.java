@@ -1,6 +1,7 @@
 package com.wetime.fanc.circle.iviews;
 
 
+import com.wetime.fanc.circle.bean.PublishResultBean;
 import com.wetime.fanc.main.ivews.IBaseVIew;
 import com.wetime.fanc.main.model.BaseBean;
 
@@ -9,7 +10,7 @@ import com.wetime.fanc.main.model.BaseBean;
  */
 
 public interface IPublishCircleView extends IBaseVIew {
-    void onPublisResultCircle(BaseBean bean);
+    void onPublisResultCircle(PublishResultBean bean);
 
     String getCircleId();
 

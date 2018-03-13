@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.gyf.barlibrary.ImmersionBar;
 import com.wetime.fanc.R;
 import com.wetime.fanc.circle.bean.DefaultCircleBean;
+import com.wetime.fanc.circle.bean.PublishResultBean;
 import com.wetime.fanc.circle.iviews.IGetDefaultCircleView;
 import com.wetime.fanc.circle.iviews.IPublishCircleView;
 import com.wetime.fanc.circle.presenter.GetDefaultCirclePresenter;
@@ -23,7 +24,6 @@ import com.wetime.fanc.customview.multiimageselector.MultiImageSelectorActivity;
 import com.wetime.fanc.main.act.BaseActivity;
 import com.wetime.fanc.main.bean.PostFileResultBean;
 import com.wetime.fanc.main.ivews.IPostMultiFileView;
-import com.wetime.fanc.main.model.BaseBean;
 import com.wetime.fanc.main.presenter.PostMultiFilePresenter;
 import com.wetime.fanc.order.adapter.ImageGridAdapter;
 import com.wetime.fanc.utils.GsonUtils;
@@ -198,8 +198,11 @@ public class PublishActActivity extends BaseActivity implements IPostMultiFileVi
 
 
     @Override
-    public void onPublisResultCircle(BaseBean bean) {
+    public void onPublisResultCircle(PublishResultBean bean) {
         onBackPressed();
+        Intent go = new Intent(mContext, ActDetailActivity.class);
+        go.putExtra("id", bean.getData().getId());
+        startActivity(go);
     }
 
     @Override
