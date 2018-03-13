@@ -4,9 +4,13 @@ import android.app.Activity;
 import android.content.Intent;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
+import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.Spanned;
+import android.text.TextPaint;
 import android.text.TextUtils;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
 import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -62,7 +66,7 @@ public class ActDetailAdapter extends RecyclerView.Adapter {
         if (mOnItemClickLitener != null) {
             holder.itemView.setOnClickListener(view -> {
                 if (position > 1)
-                    mOnItemClickLitener.onItemClick(view,position);
+                    mOnItemClickLitener.onItemClick(view, position);
             });
         }
         if (holder instanceof ViewHolder0) {
@@ -111,6 +115,13 @@ public class ActDetailAdapter extends RecyclerView.Adapter {
                 go.putExtra("id", actDetailBean.getData().getUid());
                 mActivity.startActivity(go);
             });
+            ((ViewHolder0) holder).tvName.setOnClickListener(view -> {
+                Intent go = new Intent(mActivity, UserCardActivity.class);
+                go.putExtra("num", actDetailBean.getData().isIs_news() ? "3" : "2");
+                go.putExtra("index", 0);
+                go.putExtra("id", actDetailBean.getData().getUid());
+                mActivity.startActivity(go);
+            });
 
         }
         if (holder instanceof ViewHolder1) {
@@ -137,10 +148,43 @@ public class ActDetailAdapter extends RecyclerView.Adapter {
                 SpannableString s1 = new SpannableString("回复" + bean.getTo_username() + ": " + bean.getContent());
                 s1.setSpan(new ForegroundColorSpan(ContextCompat.getColor(mActivity, R.color.text_blue)),
                         2, 2 + bean.getTo_username().length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+                s1.setSpan(new ClickableSpan() {
+                    @Override
+                    public void onClick(View arg0) {
+                        // TODO Auto-generated method stub
+                        Intent go = new Intent(mActivity, UserCardActivity.class);
+                        go.putExtra("num", bean.isTo_news() ? "3" : "2");
+                        go.putExtra("index", 0);
+                        go.putExtra("id", bean.getTo_uid());
+                        mActivity.startActivity(go);
+                    }
+                    @Override
+                    public void updateDrawState(TextPaint ds) {
+                        ds.setColor(ContextCompat.getColor(mActivity, R.color.text_blue));//设置颜色
+                        ds.setUnderlineText(false);//去掉下划线
+                    }
+
+                }, 2, 2 + bean.getTo_username().length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                ((ViewHolder2) holder).tvContent.setMovementMethod(LinkMovementMethod.getInstance());
+
                 ((ViewHolder2) holder).tvContent.setText(s1);
             }
             Glide.with(mActivity).load(bean.getAvatar()).into(((ViewHolder2) holder).ivHead);
-
+            ((ViewHolder2) holder).ivHead.setOnClickListener(view -> {
+                Intent go = new Intent(mActivity, UserCardActivity.class);
+                go.putExtra("num", actDetailBean.getData().isIs_news() ? "3" : "2");
+                go.putExtra("index", 0);
+                go.putExtra("id", actDetailBean.getData().getUid());
+                mActivity.startActivity(go);
+            });
+            ((ViewHolder2) holder).tvName.setOnClickListener(view -> {
+                Intent go = new Intent(mActivity, UserCardActivity.class);
+                go.putExtra("num", actDetailBean.getData().isIs_news() ? "3" : "2");
+                go.putExtra("index", 0);
+                go.putExtra("id", actDetailBean.getData().getUid());
+                mActivity.startActivity(go);
+            });
         }
 
     }

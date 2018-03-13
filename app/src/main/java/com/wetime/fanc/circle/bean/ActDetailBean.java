@@ -80,10 +80,19 @@ public class ActDetailBean {
         private boolean dynamic_owner;
         private boolean has_like;
         private boolean is_news;
+        private boolean is_owner;
         private PagingBean paging;
         private List<String> cover;
         private List<LikeListBean> like_list;
         private List<CommentListBean> comment_list;
+
+        public boolean isIs_owner() {
+            return is_owner;
+        }
+
+        public void setIs_owner(boolean is_owner) {
+            this.is_owner = is_owner;
+        }
 
         public String getId() {
             return id;
@@ -342,6 +351,15 @@ public class ActDetailBean {
             private String to_username;
             private boolean is_news;
             private boolean is_owner;
+            private boolean to_news;
+
+            public boolean isTo_news() {
+                return to_news;
+            }
+
+            public void setTo_news(boolean to_news) {
+                this.to_news = to_news;
+            }
 
             public boolean isIs_owner() {
                 return is_owner;

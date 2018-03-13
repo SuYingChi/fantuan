@@ -121,13 +121,11 @@ public class ActDetailActivity extends BaseActivity implements IGetActDetailView
                     Tools.toastInBottom(mContext, "请填写评论内容");
                     return;
                 }
-
                 commentActPresenter.commnetAct();
                 break;
             case R.id.rl_bottom:
                 hideKeyboard();
                 break;
-
         }
     }
 

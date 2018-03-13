@@ -69,7 +69,7 @@ public class UserCardActivity extends BaseActivity implements OnLoadmoreListener
     private ArrayList<CustomTabEntity> mTabEntities = new ArrayList<>();
     private String[] mTitles3 = {"动态", "头条", "点评"};
     private String[] type3 = {"1", "2", "3"};
-    private String[] mTitles2 = {"动态", "头条", "点评"};
+    private String[] mTitles2 = {"动态", "点评"};
     private String[] type2 = {"1", "3"};
 
     private GetUserCardPresenter getUserCardPresenter;
