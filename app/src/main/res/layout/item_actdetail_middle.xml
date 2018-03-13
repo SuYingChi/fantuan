@@ -30,13 +30,37 @@
         android:verticalSpacing="10dp" />
 
     <TextView
-        android:layout_marginTop="40dp"
         android:id="@+id/tv_commentnum"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
         android:textColor="#333333"
         android:textSize="18sp"
         android:textStyle="bold"
         tools:text="5条评论" />
+
+    <LinearLayout
+        android:id="@+id/ll_empty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_marginTop="30dp"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:src="@drawable/bg_empty_nocomment" />
+
+        <TextView
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp"
+            android:lineSpacingExtra="0sp"
+            android:text="沙发已经为你准备好了，请入座~"
+            android:textColor="#999999"
+            android:textSize="14sp" />
+    </LinearLayout>
 </LinearLayout>
 

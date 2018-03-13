@@ -22,12 +22,13 @@ import com.wetime.fanc.circle.bean.ActDetailBean;
 import com.wetime.fanc.circle.iviews.IGetActDetailView;
 import com.wetime.fanc.circle.presenter.GetActDetailPresenter;
 import com.wetime.fanc.main.act.BaseActivity;
+import com.wetime.fanc.utils.KeyboardChangeListener;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class ActDetailActivity extends BaseActivity implements IGetActDetailView, OnLoadmoreListener {
+public class ActDetailActivity extends BaseActivity implements IGetActDetailView, OnLoadmoreListener, KeyboardChangeListener.KeyBoardListener {
 
 
     @BindView(R.id.tv_title)
@@ -54,6 +55,7 @@ public class ActDetailActivity extends BaseActivity implements IGetActDetailView
     private int page = 1;
     private ActDetailAdapter actDetailAdapter;
     private ActDetailBean actbean;
+    private KeyboardChangeListener mKeyboardChangeListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,12 +68,19 @@ public class ActDetailActivity extends BaseActivity implements IGetActDetailView
         refreshLayout.setOnLoadmoreListener(this);
         refreshLayout.setEnableRefresh(false);
         rclCircle.setLayoutManager(new LinearLayoutManager(this));
-
+        mKeyboardChangeListener = new KeyboardChangeListener(this);
+        mKeyboardChangeListener.setKeyBoardListener(this);
         getActDetailPresenter.getActDetail();
     }
     @Override
     protected void setSoftInPutMode() {
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE | WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+    }
+    @Override
+    public void onKeyboardChange(boolean isShow, int keyboardHeight) {
+        if (!isShow) {
+            rlBottom.setVisibility(View.GONE);
+        }
     }
     @Override
     public void onBackPressed() {
@@ -108,6 +117,7 @@ public class ActDetailActivity extends BaseActivity implements IGetActDetailView
         } else {
             actbean.getData().getComment_list().addAll(bean.getData().getComment_list());
         }
+        tvZan.setText(bean.getData().getLike_num());
         actDetailAdapter.notifyDataSetChanged();
         refreshLayout.setEnableLoadmore(!bean.getData().getPaging().isIs_end());
         refreshLayout.finishLoadmore();

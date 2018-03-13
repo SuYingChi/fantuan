@@ -111,8 +111,10 @@ public class ActDetailAdapter extends RecyclerView.Adapter {
             adapter.notifyDataSetChanged();
             if (TextUtils.equals("0", actDetailBean.getData().getComment_num())) {
                 ((ViewHolder1) holder).tvComm.setText("暂无评论");
+                ((ViewHolder1) holder).llEmpty.setVisibility(View.VISIBLE);
             } else {
                 ((ViewHolder1) holder).tvComm.setText(String.format("%s条评论", actDetailBean.getData().getComment_num()));
+                ((ViewHolder1) holder).llEmpty.setVisibility(View.GONE);
             }
 
         }
@@ -123,7 +125,7 @@ public class ActDetailAdapter extends RecyclerView.Adapter {
             if (TextUtils.isEmpty(bean.getTo_username())) {
                 ((ViewHolder2) holder).tvContent.setText(bean.getContent());
             } else {
-                SpannableString s1 = new SpannableString("回复" + bean.getTo_username()+": "+bean.getContent());
+                SpannableString s1 = new SpannableString("回复" + bean.getTo_username() + ": " + bean.getContent());
                 s1.setSpan(new ForegroundColorSpan(ContextCompat.getColor(mActivity, R.color.text_blue)),
                         2, 2 + bean.getTo_username().length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                 ((ViewHolder2) holder).tvContent.setText(s1);
@@ -183,6 +185,8 @@ public class ActDetailAdapter extends RecyclerView.Adapter {
         TextView tvComm;
         @BindView(R.id.gv)
         GridViewForScrollView gv;
+        @BindView(R.id.ll_empty)
+        LinearLayout llEmpty;
 
         ViewHolder1(View view) {
             super(view);
