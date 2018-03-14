@@ -22,9 +22,11 @@ import com.wetime.fanc.R;
 import com.wetime.fanc.circle.adapter.ActDetailAdapter;
 import com.wetime.fanc.circle.bean.ActDetailBean;
 import com.wetime.fanc.circle.iviews.ICommentActView;
+import com.wetime.fanc.circle.iviews.IDeleteActView;
 import com.wetime.fanc.circle.iviews.IDeleteCommentView;
 import com.wetime.fanc.circle.iviews.IGetActDetailView;
 import com.wetime.fanc.circle.presenter.CommentActPresenter;
+import com.wetime.fanc.circle.presenter.DeleteActPresenter;
 import com.wetime.fanc.circle.presenter.DeleteCommentPresenter;
 import com.wetime.fanc.circle.presenter.GetActDetailPresenter;
 import com.wetime.fanc.main.act.BaseActivity;
@@ -37,7 +39,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import me.shaohui.bottomdialog.BottomDialog;
 
-public class ActDetailActivity extends BaseActivity implements IGetActDetailView, OnLoadmoreListener, KeyboardChangeListener.KeyBoardListener, ICommentActView, IDeleteCommentView {
+public class ActDetailActivity extends BaseActivity implements IGetActDetailView, OnLoadmoreListener, KeyboardChangeListener.KeyBoardListener, ICommentActView, IDeleteCommentView, IDeleteActView {
 
 
     @BindView(R.id.tv_title)
@@ -58,6 +60,8 @@ public class ActDetailActivity extends BaseActivity implements IGetActDetailView
     TextView tvSend;
     @BindView(R.id.rl_bottom)
     RelativeLayout rlBottom;
+    @BindView(R.id.iv_memu)
+    ImageView ivMemu;
 
 
     private GetActDetailPresenter getActDetailPresenter;
@@ -67,6 +71,7 @@ public class ActDetailActivity extends BaseActivity implements IGetActDetailView
     private CommentActPresenter commentActPresenter;
     private String toId = "";
     private BottomDialog mCommentBottomDialog;
+    private BottomDialog mDeleteBottomDialog;
     private DeleteCommentPresenter deleteCommentPresenter;
 
     @Override
@@ -85,6 +90,7 @@ public class ActDetailActivity extends BaseActivity implements IGetActDetailView
         getActDetailPresenter.getActDetail();
         commentActPresenter = new CommentActPresenter(this);
         deleteCommentPresenter = new DeleteCommentPresenter(this);
+
     }
 
     @Override
@@ -104,7 +110,7 @@ public class ActDetailActivity extends BaseActivity implements IGetActDetailView
         super.onBackPressed();
     }
 
-    @OnClick({R.id.iv_back, R.id.tv_gocomment, R.id.tv_zan, R.id.rl_bottom, R.id.tv_send})
+    @OnClick({R.id.iv_back, R.id.tv_gocomment, R.id.tv_zan, R.id.rl_bottom, R.id.tv_send,R.id.iv_memu})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
@@ -125,52 +131,63 @@ public class ActDetailActivity extends BaseActivity implements IGetActDetailView
                 break;
             case R.id.rl_bottom:
                 hideKeyboard();
+            case R.id.iv_memu:
+                showDeleteAct();
                 break;
         }
     }
 
     @Override
     public void onGetActDetail(ActDetailBean bean) {
+        if (bean.getError() != 0){
+            onBackPressed();
+            return;
+        }
+
+
         if (page == 1) {
+            if (bean.getData().isIs_owner()) {
+                ivMemu.setVisibility(View.VISIBLE);
+            }
             actbean = bean;
             actDetailAdapter = new ActDetailAdapter(this, actbean);
             rclCircle.setAdapter(actDetailAdapter);
             actDetailAdapter.setOnItemClickLitener((view, position) -> {
                 ActDetailBean.DataBean.CommentListBean b = actbean.getData().getComment_list().get(position - 2);
                 if (b.isIs_owner()) {
+                    mCommentBottomDialog = BottomDialog.create(getSupportFragmentManager());
+                    mCommentBottomDialog.setDimAmount(0.5f);
+                    mCommentBottomDialog.setLayoutRes(R.layout.item_delete_comment);
+                    mCommentBottomDialog.setViewListener(v -> {
+                        v.findViewById(R.id.tv_reply).setOnClickListener(v1 -> {
+                            mCommentBottomDialog.dismiss();
+                            new Handler().postDelayed(() -> {
+                                toId = b.getUid();
+                                etContent.setHint("回复 " + b.getUsername());
+                                showKeyborad();
+                            }, 500);
 
-                        mCommentBottomDialog = BottomDialog.create(getSupportFragmentManager());
-                        mCommentBottomDialog.setLayoutRes(R.layout.item_delete_comment);
-                        mCommentBottomDialog.setViewListener(v -> {
-                            v.findViewById(R.id.tv_reply).setOnClickListener(v1 -> {
-                                mCommentBottomDialog.dismiss();
-                                new Handler().postDelayed(() -> {
-                                    toId = b.getUid();
-                                    etContent.setHint("回复 " + b.getUsername());
-                                    showKeyborad();
-                                }, 500);
+                        });
+                        v.findViewById(R.id.tv_delete).setOnClickListener(v12 -> {
+                            mCommentBottomDialog.dismiss();
+                            deleteCommentPresenter.deleteComment(b.getId());
+                            actbean.getData().getComment_list().remove(position - 2);
+                            actbean.getData().setComment_num(actbean.getData().getComment_num() - 1);
 
-                            });
-                            v.findViewById(R.id.tv_delete).setOnClickListener(v12 -> {
-                                mCommentBottomDialog.dismiss();
-                                deleteCommentPresenter.deleteComment(b.getId());
-                                actbean.getData().getComment_list().remove(position - 2);
-                                actbean.getData().setComment_num(actbean.getData().getComment_num() - 1);
-
-                                actDetailAdapter.notifyItemChanged(1);
-                                actDetailAdapter.notifyItemRemoved(position);
-                                actDetailAdapter.notifyItemRangeChanged(2,
-                                        actbean.getData().getComment_list().size());
+                            actDetailAdapter.notifyItemChanged(1);
+                            actDetailAdapter.notifyItemRemoved(position);
+                            actDetailAdapter.notifyItemRangeChanged(2,
+                                    actbean.getData().getComment_list().size());
 //                                actDetailAdapter.notifyDataSetChanged();
 
 
-                            });
-                            v.findViewById(R.id.tv_cancel).setOnClickListener(v14 -> {
-                                mCommentBottomDialog.dismiss();
-                                toId = "";
-                                etContent.setHint("评论动态");
-                            });
                         });
+                        v.findViewById(R.id.tv_cancel).setOnClickListener(v14 -> {
+                            mCommentBottomDialog.dismiss();
+                            toId = "";
+                            etContent.setHint("评论动态");
+                        });
+                    });
 
                     mCommentBottomDialog.show();
                 } else {
@@ -237,6 +254,11 @@ public class ActDetailActivity extends BaseActivity implements IGetActDetailView
     }
 
     @Override
+    public void onDeleteActtResult(BaseBean bean) {
+        onBackPressed();
+    }
+
+    @Override
     public String getDyId() {
         return getIntent().getStringExtra("id");
     }
@@ -253,7 +275,28 @@ public class ActDetailActivity extends BaseActivity implements IGetActDetailView
 
     @Override
     public void onDeleteResult(BaseBean bean) {
-        Tools.toastInBottom(this,"删除成功");
+        Tools.toastInBottom(this, "删除成功");
 
+    }
+
+    private void showDeleteAct() {
+        mDeleteBottomDialog = BottomDialog.create(getSupportFragmentManager());
+        mDeleteBottomDialog.setDimAmount(0.5f);
+        mDeleteBottomDialog.setLayoutRes(R.layout.item_delete_act);
+        mDeleteBottomDialog.setViewListener(v -> {
+
+            v.findViewById(R.id.tv_delete).setOnClickListener(v12 -> {
+                mDeleteBottomDialog.dismiss();
+                DeleteActPresenter deleteActPresenter = new DeleteActPresenter(this);
+                deleteActPresenter.deleteAct();
+
+            });
+            v.findViewById(R.id.tv_cancel).setOnClickListener(v14 -> {
+                mDeleteBottomDialog.dismiss();
+
+            });
+        });
+
+        mDeleteBottomDialog.show();
     }
 }
