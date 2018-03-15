@@ -1,4 +1,4 @@
-package com.wetime.fanc.my.presenter;
+package com.wetime.fanc.circle.presenter;
 
 
 import com.wetime.fanc.utils.Const;
@@ -11,14 +11,15 @@ import okhttp3.Call;
  * Created by zhoukang on 2017/5/19.
  */
 
-public class DeleteMyNewsPresenter {
+public class ZanActPresenter {
 
-    public void detDleteMyNews(String id, String token) {
+    public void zanAct(String id, String token, String like) {
         OkHttpUtils
                 .post()
-                .url(Const.NEWS_COLLECT_CANCEL)
+                .url(Const.DYNAMIC_LIKE)
                 .addParams("token", token)
-                .addParams("article_id", id)
+                .addParams("like", like)
+                .addParams("dy_id", id)
                 .build()
                 .execute(new StringCallback() {
                     @Override

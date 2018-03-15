@@ -39,6 +39,6 @@
             android:lineSpacingExtra="4sp"
             android:textColor="#999999"
             android:textSize="12sp"
-            tools:text="海南有趣、有料、有温度的生活圈，分分钟带你吃遍 全海南全海南全海南全海南全海南全海南全海南全..." />¬
+            tools:text="海南有趣、有料、有温度的生活圈，分分钟带你吃遍 全海南全海南全海南全海南全海南全海南全海南全..." />
     </LinearLayout>
 </LinearLayout>

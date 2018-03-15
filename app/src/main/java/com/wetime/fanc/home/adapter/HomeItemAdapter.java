@@ -23,6 +23,7 @@ import com.wetime.fanc.circle.act.ActDetailActivity;
 import com.wetime.fanc.circle.act.CircleDetailActivity;
 import com.wetime.fanc.circle.adapter.NineImageGridListAdapter;
 import com.wetime.fanc.circle.adapter.NineImageGridListAdapterCard;
+import com.wetime.fanc.circle.presenter.ZanActPresenter;
 import com.wetime.fanc.customview.CanDoBlankGridView;
 import com.wetime.fanc.home.bean.HomeItemBean;
 import com.wetime.fanc.my.act.UserCardActivity;
@@ -367,6 +368,23 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
             } else {
                 ((NewsHolder39) holder).ivZan.setImageResource(R.drawable.ic_homeitem_zan_off_off);
             }
+            ((NewsHolder39) holder).ivZan.setOnClickListener(view -> {
+                ZanActPresenter presenter = new ZanActPresenter();
+                if (bean.isHas_like()) {
+                    ((NewsHolder39) holder).ivZan.setImageResource(R.drawable.ic_homeitem_zan_off_off);
+                    presenter.zanAct(bean.getId(), Tools.getSpu(mActivity).getToken(), "0");
+                    bean.setHas_like(false);
+                    int num = Integer.valueOf(((NewsHolder39) holder).tvZannum.getText().toString()) - 1;
+                    ((NewsHolder39) holder).tvZannum.setText(String.format("%d", num));
+                } else {
+                    ((NewsHolder39) holder).ivZan.setImageResource(R.drawable.ic_homeitem_zan_off_on);
+                    presenter.zanAct(bean.getId(), Tools.getSpu(mActivity).getToken(), "1");
+                    bean.setHas_like(true);
+                    int num = Integer.valueOf(((NewsHolder39) holder).tvZannum.getText().toString()) + 1;
+                    ((NewsHolder39) holder).tvZannum.setText(String.format("%d", num));
+                }
+            });
+
             if (TextUtils.isEmpty(bean.getCircle_name())) {
                 ((NewsHolder39) holder).tvPubTitle.setVisibility(View.GONE);
             } else {
@@ -418,9 +436,9 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
             } else {
                 ((NewsHolder19) holder).tvContent.setText(bean.getContent());
             }
-            if(TextUtils.isEmpty(bean.getContent())){
+            if (TextUtils.isEmpty(bean.getContent())) {
                 ((NewsHolder19) holder).tvContent.setVisibility(View.GONE);
-            }else{
+            } else {
                 ((NewsHolder19) holder).tvContent.setVisibility(View.VISIBLE);
             }
 
@@ -456,7 +474,22 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
             } else {
                 ((NewsHolder19) holder).ivZan.setImageResource(R.drawable.ic_homeitem_zan_off_off);
             }
-
+            ((NewsHolder19) holder).ivZan.setOnClickListener(view -> {
+                ZanActPresenter presenter = new ZanActPresenter();
+                if (bean.isHas_like()) {
+                    ((NewsHolder19) holder).ivZan.setImageResource(R.drawable.ic_homeitem_zan_off_off);
+                    presenter.zanAct(bean.getId(), Tools.getSpu(mActivity).getToken(), "0");
+                    bean.setHas_like(false);
+                    int num = Integer.valueOf(((NewsHolder19) holder).tvZannum.getText().toString()) - 1;
+                    ((NewsHolder19) holder).tvZannum.setText(String.format("%d", num));
+                } else {
+                    ((NewsHolder19) holder).ivZan.setImageResource(R.drawable.ic_homeitem_zan_off_on);
+                    presenter.zanAct(bean.getId(), Tools.getSpu(mActivity).getToken(), "1");
+                    bean.setHas_like(true);
+                    int num = Integer.valueOf(((NewsHolder19) holder).tvZannum.getText().toString()) + 1;
+                    ((NewsHolder19) holder).tvZannum.setText(String.format("%d", num));
+                }
+            });
 
             if (TextUtils.isEmpty(bean.getCircle_name())) {
                 ((NewsHolder19) holder).tvPubTitle.setVisibility(View.GONE);

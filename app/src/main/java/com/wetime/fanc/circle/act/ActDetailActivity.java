@@ -1,6 +1,7 @@
 package com.wetime.fanc.circle.act;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
@@ -29,6 +30,7 @@ import com.wetime.fanc.circle.presenter.CommentActPresenter;
 import com.wetime.fanc.circle.presenter.DeleteActPresenter;
 import com.wetime.fanc.circle.presenter.DeleteCommentPresenter;
 import com.wetime.fanc.circle.presenter.GetActDetailPresenter;
+import com.wetime.fanc.circle.presenter.ZanActPresenter;
 import com.wetime.fanc.main.act.BaseActivity;
 import com.wetime.fanc.main.model.BaseBean;
 import com.wetime.fanc.utils.KeyboardChangeListener;
@@ -110,7 +112,7 @@ public class ActDetailActivity extends BaseActivity implements IGetActDetailView
         super.onBackPressed();
     }
 
-    @OnClick({R.id.iv_back, R.id.tv_gocomment, R.id.tv_zan, R.id.rl_bottom, R.id.tv_send,R.id.iv_memu})
+    @OnClick({R.id.iv_back, R.id.tv_gocomment, R.id.tv_zan, R.id.rl_bottom, R.id.tv_send, R.id.iv_memu})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
@@ -120,6 +122,24 @@ public class ActDetailActivity extends BaseActivity implements IGetActDetailView
                 showKeyborad();
                 break;
             case R.id.tv_zan:
+                ZanActPresenter presenter = new ZanActPresenter();
+                if (actbean.getData().isHas_like()) {
+                    Drawable drawable = getResources().getDrawable(R.drawable.ic_homeitem_zan_off_off);
+                    drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getMinimumHeight());
+                    tvZan.setCompoundDrawables(drawable, null, null, null);
+                    presenter.zanAct(actbean.getData().getId(), Tools.getSpu(mContext).getToken(), "0");
+                    actbean.getData().setHas_like(false);
+                    int num = Integer.valueOf(tvZan.getText().toString()) - 1;
+                    tvZan.setText(String.format("%d", num));
+                } else {
+                    Drawable drawable = getResources().getDrawable(R.drawable.ic_homeitem_zan_off_on);
+                    drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getMinimumHeight());
+                    tvZan.setCompoundDrawables(drawable, null, null, null);
+                    presenter.zanAct(actbean.getData().getId(), Tools.getSpu(mContext).getToken(), "1");
+                    actbean.getData().setHas_like(true);
+                    int num = Integer.valueOf(tvZan.getText().toString()) + 1;
+                    tvZan.setText(String.format("%d", num));
+                }
 
                 break;
             case R.id.tv_send:
@@ -131,6 +151,7 @@ public class ActDetailActivity extends BaseActivity implements IGetActDetailView
                 break;
             case R.id.rl_bottom:
                 hideKeyboard();
+                break;
             case R.id.iv_memu:
                 showDeleteAct();
                 break;
@@ -139,7 +160,7 @@ public class ActDetailActivity extends BaseActivity implements IGetActDetailView
 
     @Override
     public void onGetActDetail(ActDetailBean bean) {
-        if (bean.getError() != 0){
+        if (bean.getError() != 0) {
             onBackPressed();
             return;
         }
@@ -202,6 +223,15 @@ public class ActDetailActivity extends BaseActivity implements IGetActDetailView
             actbean.getData().getComment_list().addAll(bean.getData().getComment_list());
         }
         tvZan.setText(bean.getData().getLike_num());
+        if (actbean.getData().isHas_like()) {
+            Drawable drawable = getResources().getDrawable(R.drawable.ic_homeitem_zan_off_on);
+            drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getMinimumHeight());
+            tvZan.setCompoundDrawables(drawable, null, null, null);
+        } else {
+            Drawable drawable = getResources().getDrawable(R.drawable.ic_homeitem_zan_off_off);
+            drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getMinimumHeight());
+            tvZan.setCompoundDrawables(drawable, null, null, null);
+        }
         actDetailAdapter.notifyDataSetChanged();
         refreshLayout.setEnableLoadmore(!bean.getData().getPaging().isIs_end());
         refreshLayout.finishLoadmore();
