@@ -16,12 +16,15 @@ import com.wetime.fanc.R;
 import com.wetime.fanc.circle.frag.CircleLazyFragment;
 import com.wetime.fanc.customview.CustomViewPager;
 import com.wetime.fanc.home.adapter.HomeFragmentPagerAdapter;
+import com.wetime.fanc.home.bean.RedNumBean;
 import com.wetime.fanc.home.event.ReFreshNewsEvent;
-import com.wetime.fanc.home.event.RefreshRedNunEvent;
+import com.wetime.fanc.home.event.RefreshRedNumEvent;
 import com.wetime.fanc.home.event.SwichFragEvent;
 import com.wetime.fanc.home.frag.HomeFragment;
 import com.wetime.fanc.home.iviews.IBindPushView;
+import com.wetime.fanc.home.iviews.IGetRedNumView;
 import com.wetime.fanc.home.presenter.BindPushPresenter;
+import com.wetime.fanc.home.presenter.GetRedNumPresenter;
 import com.wetime.fanc.login.event.LoginEvent;
 import com.wetime.fanc.main.act.BaseActivity;
 import com.wetime.fanc.my.frag.MyFragment;
@@ -42,7 +45,7 @@ import butterknife.OnClick;
 import cn.jpush.android.api.JPushInterface;
 
 
-public class MainActivity extends BaseActivity implements IBindPushView {
+public class MainActivity extends BaseActivity implements IBindPushView, IGetRedNumView {
     @BindView(R.id.vp)
     CustomViewPager vp;
     @BindView(R.id.content)
@@ -81,7 +84,7 @@ public class MainActivity extends BaseActivity implements IBindPushView {
     //    private SortActivity f1;
     private CircleLazyFragment f2;
     private MyFragment f3;
-
+    private GetRedNumPresenter getRedNumPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,6 +108,9 @@ public class MainActivity extends BaseActivity implements IBindPushView {
             BindPushPresenter pushPresenter = new BindPushPresenter(MainActivity.this);
             pushPresenter.bindPush(JPushInterface.getRegistrationID(this));
         }
+        getRedNumPresenter = new GetRedNumPresenter(this);
+        if (!TextUtils.isEmpty(spu.getToken()))
+            getRedNumPresenter.getRedNum();
     }
 
     @Override
@@ -161,6 +167,8 @@ public class MainActivity extends BaseActivity implements IBindPushView {
                     vp.setCurrentItem(0, false);
                     ImmersionBar.with(this).statusBarColor(R.color.white).statusBarDarkFont(true, 0.2f).fitsSystemWindows(true).init();
                     spu.setValue("citem", "0");
+                    if (!TextUtils.isEmpty(spu.getToken()))
+                        getRedNumPresenter.getRedNum();
                 }
                 break;
             case R.id.ll_tab1:
@@ -179,6 +187,8 @@ public class MainActivity extends BaseActivity implements IBindPushView {
                     initBottom(2);
                     ImmersionBar.with(this).statusBarColor(R.color.white).statusBarDarkFont(true, 0.2f).fitsSystemWindows(true).init();
                     spu.setValue("citem", "2");
+                    if (!TextUtils.isEmpty(spu.getToken()))
+                        getRedNumPresenter.getRedNum();
                 }
                 break;
             case R.id.ll_tab3:
@@ -189,7 +199,10 @@ public class MainActivity extends BaseActivity implements IBindPushView {
                             .transparentStatusBar()
                             .statusBarDarkFont(false)
                             .fitsSystemWindows(false).init();
+
                     spu.setValue("citem", "3");
+                    if (!TextUtils.isEmpty(spu.getToken()))
+                        getRedNumPresenter.getRedNum();
                 }
                 break;
         }
@@ -230,7 +243,7 @@ public class MainActivity extends BaseActivity implements IBindPushView {
             tvTab3.setTextColor(ContextCompat.getColor(this, R.color.bot_gray));
         }
         if (item == 3) {
-            EventBus.getDefault().post(new RefreshRedNunEvent());
+
             ivTab0.setImageResource(R.drawable.bot_0_off);
             ivTab1.setImageResource(R.drawable.bot_1_off);
             ivTab2.setImageResource(R.drawable.bot_2_off);
@@ -263,6 +276,12 @@ public class MainActivity extends BaseActivity implements IBindPushView {
             BindPushPresenter pushPresenter = new BindPushPresenter(MainActivity.this);
             pushPresenter.bindPush(JPushInterface.getRegistrationID(this));
         }
+    }
+
+    @Override
+    public void onGetRedNum(RedNumBean bean) {
+        EventBus.getDefault().post(new RefreshRedNumEvent(bean.getData().getNum()));
+
     }
 //    @Subscribe(threadMode = ThreadMode.MAIN)
 //    public void onMessageEvent(LogoutEvent event) {

@@ -72,6 +72,8 @@ public interface Const {
     String DYNAMIC_COMMENT_DELETE = BASEURL + "/dynamic/comment/delete";
     String DYNAMIC_DELETE = BASEURL + "/dynamic/delete";
     String DYNAMIC_LIKE = BASEURL + "/dynamic/like";
+    String USER_NOTICE_UNREAD = BASEURL + "/user/notice/unread";
+    String MSG_URL = BASEURL + "/index.html#/user/message";
 
 
 

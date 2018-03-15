@@ -37,13 +37,19 @@ import com.wetime.fanc.home.adapter.HomeItemAdapter;
 import com.wetime.fanc.home.bean.HomeItemBean;
 import com.wetime.fanc.home.bean.HomePageBean;
 import com.wetime.fanc.home.bean.TabEntity;
+import com.wetime.fanc.home.event.RefreshRedNumEvent;
 import com.wetime.fanc.home.iviews.IGetHomePageView;
 import com.wetime.fanc.home.presenter.GetHomePagePresenter;
 import com.wetime.fanc.main.frag.BaseFragment;
 import com.wetime.fanc.qr.ScanActivity;
 import com.wetime.fanc.shopcenter.act.ShopCenterActivity;
+import com.wetime.fanc.utils.Const;
 import com.wetime.fanc.utils.Tools;
 import com.wetime.fanc.web.WebActivity;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -120,6 +126,7 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, IGe
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         Log.d(TAG, "onCreateView: ");
+        EventBus.getDefault().register(this);
         initLoaction();
         mHandler = new Handler();
         View v = inflater.inflate(R.layout.fragment_home, null);
@@ -239,7 +246,7 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, IGe
                 startActivity(gosearch);
                 break;
             case R.id.iv_msg:
-                qBadgeMsg.setBadgeNumber(10);
+                Tools.goWeb(getContext(), Const.MSG_URL);
                 break;
         }
     }
@@ -362,13 +369,17 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, IGe
         mLocationClient.startLocation();
 
     }
-
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(RefreshRedNumEvent event) {
+        qBadgeMsg.setBadgeNumber(event.getNum());
+    }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
         mLocationClient.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 
 }

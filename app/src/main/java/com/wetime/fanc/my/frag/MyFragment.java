@@ -21,7 +21,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.wetime.fanc.R;
 import com.wetime.fanc.home.event.BeInvaterSuccess;
-import com.wetime.fanc.home.event.RefreshRedNunEvent;
+import com.wetime.fanc.home.event.RefreshRedNumEvent;
 import com.wetime.fanc.login.act.LoginActivity;
 import com.wetime.fanc.login.event.LoginEvent;
 import com.wetime.fanc.login.event.LogoutEvent;
@@ -37,6 +37,7 @@ import com.wetime.fanc.my.presenter.GetUserInfoPresenter;
 import com.wetime.fanc.order.act.MyOrderActivity;
 import com.wetime.fanc.setting.act.SettingActivity;
 import com.wetime.fanc.setting.event.ChangeUserInfoEvent;
+import com.wetime.fanc.utils.Const;
 import com.wetime.fanc.utils.Tools;
 import com.wetime.fanc.wallet.act.MyWalletActivity;
 import com.wetime.fanc.wallet.act.RedPackActivity;
@@ -110,7 +111,7 @@ public class MyFragment extends BaseFragment implements IGetMyInfoView, IGetRedP
         qBadgeMsg = new QBadgeView(getContext());
         qBadgeMsg.setBadgeTextSize(11, true);
         qBadgeMsg.bindTarget(ivMsg);
-        qBadgeMsg.setBadgeNumber(110);
+
 
 
         getUserInfoPresenter = new GetUserInfoPresenter(this);
@@ -259,7 +260,7 @@ public class MyFragment extends BaseFragment implements IGetMyInfoView, IGetRedP
 
     private void goMessage() {
         if (bean != null)
-            goWeb("https://www.baidu.com");
+            Tools.goWeb(getContext(), Const.MSG_URL);
         else {
             Tools.toastInBottom(getContext(), "请先登录");
             Intent goLogin = new Intent(getContext(), LoginActivity.class);
@@ -290,7 +291,7 @@ public class MyFragment extends BaseFragment implements IGetMyInfoView, IGetRedP
     @Override
     public void onGetUserInfo(MyInfoBean bean) {
         this.bean = bean;
-        if(getContext()!=null){
+        if (getContext() != null) {
             Glide.with(getContext()).load(bean.getData().getUser().getAvatar()).into(civHead);
         }
 
@@ -318,15 +319,20 @@ public class MyFragment extends BaseFragment implements IGetMyInfoView, IGetRedP
             getUserInfoPresenter.getUserInfo();
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMessageEvent(RefreshRedNunEvent event) {
-        if (!spu.getToken().equals(""))
-            getUserInfoPresenter.getUserInfo();
-    }
+//    @Subscribe(threadMode = ThreadMode.MAIN)
+//    public void onMessageEvent(RefreshRedNunEvent event) {
+//        if (!spu.getToken().equals(""))
+//            getUserInfoPresenter.getUserInfo();
+//    }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(ChangeUserInfoEvent event) {
         getUserInfoPresenter.getUserInfo();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(RefreshRedNumEvent event) {
+        qBadgeMsg.setBadgeNumber(event.getNum());
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

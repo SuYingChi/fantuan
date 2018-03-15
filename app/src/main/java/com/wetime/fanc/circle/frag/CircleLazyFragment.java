@@ -27,8 +27,14 @@ import com.wetime.fanc.circle.presenter.GetCircleHomePresenter;
 import com.wetime.fanc.home.adapter.HomeItemAdapter;
 import com.wetime.fanc.home.bean.HomeItemBean;
 import com.wetime.fanc.home.bean.TabEntity;
+import com.wetime.fanc.home.event.RefreshRedNumEvent;
 import com.wetime.fanc.main.frag.BaseLazyFragment;
+import com.wetime.fanc.utils.Const;
 import com.wetime.fanc.utils.Tools;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -90,6 +96,7 @@ public class CircleLazyFragment extends BaseLazyFragment implements OnRefreshLis
 
     @Override
     protected void initView() {
+        EventBus.getDefault().register(this);
         qBadgeMsg = new QBadgeView(getContext());
         qBadgeMsg.setBadgeTextSize(11, true);
         qBadgeMsg.bindTarget(ivMsg);
@@ -159,13 +166,17 @@ public class CircleLazyFragment extends BaseLazyFragment implements OnRefreshLis
         getCircleHomePresenter = new GetCircleHomePresenter(this);
         getCircleHomePresenter.getCircleHome();
     }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(RefreshRedNumEvent event) {
+        qBadgeMsg.setBadgeNumber(event.getNum());
+    }
 
     @OnClick({R.id.iv_msg, R.id.iv_edit})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_msg:
 //                qBadgeMsg.setVisibility(View.VISIBLE);
-                qBadgeMsg.setBadgeNumber(temp++);
+              Tools.goWeb(getContext(), Const.MSG_URL);
                 break;
             case R.id.iv_edit:
                 qBadgeMsg.setBadgeNumber(temp + 100);
