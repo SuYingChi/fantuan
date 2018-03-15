@@ -87,6 +87,7 @@ public class ActDetailActivity extends BaseActivity implements IGetActDetailView
         refreshLayout.setOnLoadmoreListener(this);
         refreshLayout.setEnableRefresh(false);
         rclCircle.setLayoutManager(new LinearLayoutManager(this));
+        rclCircle.setFocusableInTouchMode(false);
         KeyboardChangeListener mKeyboardChangeListener = new KeyboardChangeListener(this);
         mKeyboardChangeListener.setKeyBoardListener(this);
         getActDetailPresenter.getActDetail();
@@ -235,6 +236,7 @@ public class ActDetailActivity extends BaseActivity implements IGetActDetailView
         actDetailAdapter.notifyDataSetChanged();
         refreshLayout.setEnableLoadmore(!bean.getData().getPaging().isIs_end());
         refreshLayout.finishLoadmore();
+
     }
 
     @Override

@@ -100,7 +100,8 @@ public class ActDetailAdapter extends RecyclerView.Adapter {
 
             ((ViewHolder0) holder).gv.setLayoutParams(params);
             ((ViewHolder0) holder).gv.setAdapter(gvadapter);
-            gvadapter.notifyDataSetChanged();
+//            gvadapter.notifyDataSetChanged();
+
             ((ViewHolder0) holder).gv.setOnItemClickListener((adapterView, view, i, l) -> Tools.goPicGallery(mActivity, actDetailBean.getData().getCover(), i));
             ((ViewHolder0) holder).tvCirclename.setOnClickListener(view -> {
                 Intent goCircle = new Intent(mActivity, CircleDetailActivity.class);
@@ -221,7 +222,7 @@ public class ActDetailAdapter extends RecyclerView.Adapter {
         @BindView(R.id.tv_content)
         TextView tvContent;
         @BindView(R.id.gv)
-        CanDoBlankGridView gv;
+        GridViewForScrollView gv;
         @BindView(R.id.tv_see)
         TextView tvSee;
         @BindView(R.id.tv_publishtitle)
