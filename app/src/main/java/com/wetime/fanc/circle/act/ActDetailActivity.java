@@ -129,17 +129,34 @@ public class ActDetailActivity extends BaseActivity implements IGetActDetailView
                     drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getMinimumHeight());
                     tvZan.setCompoundDrawables(drawable, null, null, null);
                     presenter.zanAct(actbean.getData().getId(), Tools.getSpu(mContext).getToken(), "0");
-                    actbean.getData().setHas_like(false);
+
                     int num = Integer.valueOf(tvZan.getText().toString()) - 1;
                     tvZan.setText(String.format("%d", num));
+                    actbean.getData().setLike_num(String.format("%d", num));
+                    for (int i = 0; i < actbean.getData().getLike_list().size(); i++) {
+                        if (TextUtils.equals(actbean.getData().getLike_list().get(i).getUid(), actbean.getData().getCurrent_uid())) {
+                            actbean.getData().getLike_list().remove(i);
+                        }
+
+                    }
+                    actDetailAdapter.notifyItemChanged(1);
+                    actbean.getData().setHas_like(false);
                 } else {
                     Drawable drawable = getResources().getDrawable(R.drawable.ic_homeitem_zan_off_on);
                     drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getMinimumHeight());
                     tvZan.setCompoundDrawables(drawable, null, null, null);
                     presenter.zanAct(actbean.getData().getId(), Tools.getSpu(mContext).getToken(), "1");
-                    actbean.getData().setHas_like(true);
+
                     int num = Integer.valueOf(tvZan.getText().toString()) + 1;
                     tvZan.setText(String.format("%d", num));
+                    actbean.getData().setLike_num(String.format("%d", num));
+                    actDetailAdapter.notifyItemChanged(1);
+                    ActDetailBean.DataBean.LikeListBean b = new ActDetailBean.DataBean.LikeListBean();
+                    b.setAvatar(actbean.getData().getCurrent_avatar());
+                    b.setUid(actbean.getData().getCurrent_uid());
+                    actbean.getData().getLike_list().add(0, b);
+                    actDetailAdapter.notifyItemChanged(1);
+                    actbean.getData().setHas_like(true);
                 }
 
                 break;
@@ -157,6 +174,7 @@ public class ActDetailActivity extends BaseActivity implements IGetActDetailView
                 showDeleteAct();
                 break;
         }
+
     }
 
     @Override

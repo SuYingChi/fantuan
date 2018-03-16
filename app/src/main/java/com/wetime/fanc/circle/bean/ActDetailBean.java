@@ -67,6 +67,8 @@ public class ActDetailBean {
 
         private String id;
         private String uid;
+        private String current_uid;
+        private String current_avatar;
         private String username;
         private String avatar;
         private String circle_id;
@@ -85,6 +87,22 @@ public class ActDetailBean {
         private List<String> cover;
         private List<LikeListBean> like_list;
         private List<CommentListBean> comment_list;
+
+        public String getCurrent_uid() {
+            return current_uid;
+        }
+
+        public void setCurrent_uid(String current_uid) {
+            this.current_uid = current_uid;
+        }
+
+        public String getCurrent_avatar() {
+            return current_avatar;
+        }
+
+        public void setCurrent_avatar(String current_avatar) {
+            this.current_avatar = current_avatar;
+        }
 
         public boolean isIs_owner() {
             return is_owner;
