@@ -80,6 +80,7 @@ allprojects {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation(name: 'pay', ext: 'aar')// 支付
+    implementation(name: 'fanbaseaar', ext: 'aar')// 支付
     implementation 'cn.jiguang.sdk:jpush:3.0.9'  // 此处以JPush 3.0.9 版本为例。
     implementation 'cn.jiguang.sdk:jcore:1.1.7'  // 此处以JCore 1.1.7 版本为例。
     implementation 'com.wang.avi:library:2.1.3'
