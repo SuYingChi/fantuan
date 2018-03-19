@@ -26,6 +26,8 @@ import com.secure.pay.PayService;
 import com.tencent.mm.opensdk.modelmsg.SendMessageToWX;
 import com.wetime.fanc.R;
 import com.wetime.fanc.application.FApp;
+import com.wetime.fanc.circle.act.ActDetailActivity;
+import com.wetime.fanc.customview.multiimageselector.MultiImageSelectorActivity;
 import com.wetime.fanc.home.act.HomeSearchActivity;
 import com.wetime.fanc.home.event.BeInvaterSuccess;
 import com.wetime.fanc.home.event.SwichFragEvent;
@@ -34,6 +36,10 @@ import com.wetime.fanc.login.event.LoginEvent;
 import com.wetime.fanc.login.event.LogoutEvent;
 import com.wetime.fanc.login.event.WXBindPhoneEvent;
 import com.wetime.fanc.main.act.BaseActivity;
+import com.wetime.fanc.main.bean.PostFileResultBean;
+import com.wetime.fanc.main.ivews.IPostMultiFileView;
+import com.wetime.fanc.main.presenter.PostMultiFilePresenter;
+import com.wetime.fanc.my.act.UserCardActivity;
 import com.wetime.fanc.order.act.CommentOrderActivity;
 import com.wetime.fanc.order.event.RefreshOrderEvent;
 import com.wetime.fanc.shop.act.ShopDetailActivity;
@@ -41,6 +47,7 @@ import com.wetime.fanc.shop.act.ShopNewsHomeActivity;
 import com.wetime.fanc.shop.act.ShopSayActivity;
 import com.wetime.fanc.shopcenter.act.ShopListActivity;
 import com.wetime.fanc.shopcenter.act.ShopSearchActivity;
+import com.wetime.fanc.utils.GsonUtils;
 import com.wetime.fanc.utils.Tools;
 import com.wetime.fanc.wallet.act.InviteHomeActivity;
 import com.wetime.fanc.wallet.act.MyWalletActivity;
@@ -52,13 +59,17 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import me.shaohui.bottomdialog.BottomDialog;
 
+import static com.wetime.fanc.utils.Tools.REQUEST_IMAGE;
 
-public class WebActivity extends BaseActivity {
+
+public class WebActivity extends BaseActivity implements IPostMultiFileView {
 
     @BindView(R.id.tv_title)
     TextView tvTitle;
@@ -80,6 +91,8 @@ public class WebActivity extends BaseActivity {
 
     private BottomDialog mBottomDialog;
     private Intent intent;
+    private ArrayList<String> defaultDataArray = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,6 +141,22 @@ public class WebActivity extends BaseActivity {
     }
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // TODO Auto-generated method stub
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_IMAGE) {
+            if (resultCode == RESULT_OK) {
+                // 获取返回的图片列表
+                defaultDataArray = data
+                        .getStringArrayListExtra(MultiImageSelectorActivity.EXTRA_RESULT);
+
+            }
+            if (defaultDataArray.size() > 0)
+                new PostMultiFilePresenter(this).PostMultiFile(defaultDataArray);
+        }
+    }
+
+    @Override
     protected void onDestroy() {
         EventBus.getDefault().unregister(this);
 //        mWebViewContainer.removeView(web);
@@ -170,9 +199,9 @@ public class WebActivity extends BaseActivity {
             @Override
             public void onReceivedTitle(WebView view, String title) {
                 super.onReceivedTitle(view, title);
-                    if (!type.equals("2")) {
-                        tvTitle.setText(view.getTitle());
-                    }
+                if (!type.equals("2")) {
+                    tvTitle.setText(view.getTitle());
+                }
             }
 
             @Override
@@ -354,7 +383,6 @@ public class WebActivity extends BaseActivity {
     private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-
             //商户需将同步返回的报文送至服务器端验签
             if (msg.what == PayService.PAY) {
                 if (msg.obj == null || ((JSONObject) msg.obj).length() == 0) {
@@ -409,12 +437,7 @@ public class WebActivity extends BaseActivity {
 
     @JavascriptInterface
     public void showTipsDialog(final String tips, final String left, final String right, final String leftm, final String rightm) {
-        web.post(() -> Tools.showTipsDialog(mContext, "", tips, left, right, new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                web.post(() -> web.loadUrl("javascript:" + leftm + "();"));
-            }
-        }, v -> web.post(() -> web.loadUrl("javascript:" + rightm + "();"))));
+        web.post(() -> Tools.showTipsDialog(mContext, "", tips, left, right, v -> web.post(() -> web.loadUrl("javascript:" + leftm + "();")), v -> web.post(() -> web.loadUrl("javascript:" + rightm + "();"))));
     }
 
     @JavascriptInterface
@@ -496,6 +519,91 @@ public class WebActivity extends BaseActivity {
     }
 
     @JavascriptInterface
+    public void goUserCard(String uid, boolean isNews) {
+        web.post(() -> {
+            Intent go = new Intent(mContext, UserCardActivity.class);
+            go.putExtra("num", isNews ? "3" : "2");
+            go.putExtra("index", 0);
+            go.putExtra("id", uid);
+            startActivity(go);
+        });
+    }
+
+    @JavascriptInterface
+    public void goActDetail(String id) {
+        web.post(() -> {
+            Intent goDet = new Intent(mContext, ActDetailActivity.class);
+            goDet.putExtra("id", id);
+            startActivity(goDet);
+        });
+    }
+
+    @JavascriptInterface
+    public void shareWXFriends(String url, String title, String des) {
+        web.post(() -> {
+            Tools.shareWx(mContext, url, SendMessageToWX.Req.WXSceneSession, title, des);
+        });
+    }
+
+    @JavascriptInterface
+    public void shareWXTimeline(String url, String title, String des) {
+        web.post(() -> {
+            Tools.shareWx(mContext, url, SendMessageToWX.Req.WXSceneTimeline, title, des);
+        });
+    }
+
+    @JavascriptInterface
+    public void copyUrl(String url) {
+        web.post(() -> {
+            ClipboardManager cm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+            // 将文本内容放到系统剪贴板里。
+            cm.setPrimaryClip(ClipData.newPlainText("text", url));
+            Tools.toastInBottom(mContext, "复制成功");
+        });
+    }
+
+    @Override
+    public void onPostResult(PostFileResultBean bean) {
+        final String ss = GsonUtils.getGsonInstance().toJson(bean.getData());
+        web.post(() -> web.loadUrl("javascript:returnPicData('" + ss + "');"));
+    }
+
+
+    private void gotoSelectPic(String num) {
+        int n = Integer.valueOf(num);
+        if (n <= 0)
+            return;
+
+        Intent intent = new Intent(mContext, MultiImageSelectorActivity.class);
+        // 是否显示调用相机拍照
+        intent.putExtra(MultiImageSelectorActivity.EXTRA_SHOW_CAMERA, true);
+        // 最大图片选择数量
+        intent.putExtra(MultiImageSelectorActivity.EXTRA_SELECT_COUNT, n);
+        // 设置模式 (支持 单选/MultiImageSelectorActivity.MODE_SINGLE 或者
+        // 多选/MultiImageSelectorActivity.MODE_MULTI)
+        intent.putExtra(MultiImageSelectorActivity.EXTRA_SELECT_MODE,
+                MultiImageSelectorActivity.MODE_MULTI);
+        // 默认选择图片,回填选项(支持String ArrayList)
+        // ArrayList<String> temp = new ArrayList<String>();
+        // for (int i = 0; i < defaultDataArray.size(); i++) {
+        // temp.add(defaultDataArray.get(i));
+        // }
+        intent.putStringArrayListExtra(
+                MultiImageSelectorActivity.EXTRA_DEFAULT_SELECTED_LIST,
+                defaultDataArray);
+        startActivityForResult(intent, REQUEST_IMAGE);
+    }
+
+    @JavascriptInterface
+    public void goSelectPic(final String num) {
+        web.post(() -> {
+            defaultDataArray.clear();
+            gotoSelectPic(num);
+        });
+
+    }
+
+    @JavascriptInterface
     public void shareView(String title, String des) {
         web.post(() -> {
             if (mBottomDialog == null) {
@@ -534,6 +642,8 @@ public class WebActivity extends BaseActivity {
                     startActivity(intent);
                 }));
     }
+
+
 }
 
 
