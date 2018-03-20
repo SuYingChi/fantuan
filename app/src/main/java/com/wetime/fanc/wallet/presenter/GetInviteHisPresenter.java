@@ -8,7 +8,7 @@ import com.wetime.fanc.wallet.bean.BalanceDetailListBean;
 import com.wetime.fanc.wallet.bean.InviteHisBean;
 import com.wetime.fanc.wallet.iviews.IGetBalanceDetailListView;
 import com.wetime.fanc.wallet.iviews.IGetInviteHisView;
-import com.zhy.http.okhttp.OkHttpUtils;
+import com.fan.http.okhttp.OkHttpUtils;
 
 /**
  * Created by zhoukang on 2017/5/19.

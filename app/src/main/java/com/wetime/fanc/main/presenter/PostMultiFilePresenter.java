@@ -5,8 +5,8 @@ import com.wetime.fanc.utils.DataStringCallback;
 import com.wetime.fanc.main.bean.PostFileResultBean;
 import com.wetime.fanc.main.ivews.IPostMultiFileView;
 import com.wetime.fanc.utils.Const;
-import com.zhy.http.okhttp.OkHttpUtils;
-import com.zhy.http.okhttp.builder.PostFormBuilder;
+import com.fan.http.okhttp.OkHttpUtils;
+import com.fan.http.okhttp.builder.PostFormBuilder;
 
 import java.io.File;
 import java.util.List;

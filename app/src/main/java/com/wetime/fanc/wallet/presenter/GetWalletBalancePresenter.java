@@ -8,7 +8,7 @@ import com.wetime.fanc.utils.DataStringCallback;
 import com.wetime.fanc.utils.GsonUtils;
 import com.wetime.fanc.wallet.bean.WalletBalanceBean;
 import com.wetime.fanc.wallet.iviews.IGetWalletBalanceView;
-import com.zhy.http.okhttp.OkHttpUtils;
+import com.fan.http.okhttp.OkHttpUtils;
 
 /**
  * Created by zhoukang on 2017/5/19.

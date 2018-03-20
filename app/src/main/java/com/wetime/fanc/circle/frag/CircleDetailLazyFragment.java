@@ -49,11 +49,8 @@ public class CircleDetailLazyFragment extends BaseLazyFragment implements IGetCi
 
     @Override
     protected void initData() {
-
         getCircleDetailListPresenter = new GetCircleDetailListPresenter(this);
         getCircleDetailListPresenter.getCircleDetailList();
-
-
     }
 
     @Override

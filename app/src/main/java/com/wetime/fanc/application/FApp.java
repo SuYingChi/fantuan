@@ -15,7 +15,7 @@ import com.wetime.fanc.R;
 import com.wetime.fanc.utils.MLoggerInterceptor;
 import com.wetime.fanc.utils.SharePreferenceUtil;
 import com.wetime.fanc.utils.Tools;
-import com.zhy.http.okhttp.OkHttpUtils;
+import com.fan.http.okhttp.OkHttpUtils;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -8,7 +8,7 @@ import com.wetime.fanc.utils.GsonUtils;
 import com.wetime.fanc.wallet.bean.InviteHomeBean;
 import com.wetime.fanc.wallet.iviews.IGetInviteHomeView;
 import com.wetime.fanc.wallet.iviews.ISetPayPwdView;
-import com.zhy.http.okhttp.OkHttpUtils;
+import com.fan.http.okhttp.OkHttpUtils;
 
 /**
  * Created by zhoukang on 2017/5/19.

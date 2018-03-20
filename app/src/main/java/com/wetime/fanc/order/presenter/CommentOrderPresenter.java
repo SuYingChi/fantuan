@@ -5,7 +5,7 @@ import com.wetime.fanc.main.model.BaseBean;
 import com.wetime.fanc.utils.DataStringCallback;
 import com.wetime.fanc.order.iviews.ICommentOrderView;
 import com.wetime.fanc.utils.Const;
-import com.zhy.http.okhttp.OkHttpUtils;
+import com.fan.http.okhttp.OkHttpUtils;
 
 import static com.wetime.fanc.utils.GsonUtils.getGsonInstance;
 

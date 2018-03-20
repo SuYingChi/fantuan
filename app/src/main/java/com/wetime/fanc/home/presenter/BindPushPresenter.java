@@ -8,7 +8,7 @@ import com.wetime.fanc.utils.GsonUtils;
 import com.wetime.fanc.utils.MyStringCallback;
 import com.wetime.fanc.home.iviews.IBindPushView;
 import com.wetime.fanc.utils.Const;
-import com.zhy.http.okhttp.OkHttpUtils;
+import com.fan.http.okhttp.OkHttpUtils;
 
 /**
  * Created by zhoukang on 2017/5/19.

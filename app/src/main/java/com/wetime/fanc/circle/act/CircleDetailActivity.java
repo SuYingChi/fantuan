@@ -1,15 +1,12 @@
 package com.wetime.fanc.circle.act;
 
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -25,7 +22,6 @@ import com.wetime.fanc.circle.presenter.GetCircleHeadPresenter;
 import com.wetime.fanc.home.adapter.NormalTitlePagerAdapter;
 import com.wetime.fanc.main.act.BaseActivity;
 import com.wetime.fanc.utils.GlideRoundTransform;
-import com.wetime.fanc.utils.Tools;
 
 import java.util.ArrayList;
 
@@ -96,7 +92,6 @@ public class CircleDetailActivity extends BaseActivity implements IGetCircleHead
 
     private void initView() {
 
-
         String[] mTitles = {"热门动态", "最新动态", "最新回复"};
 
         Bundle b1 = new Bundle();
@@ -140,6 +135,7 @@ public class CircleDetailActivity extends BaseActivity implements IGetCircleHead
                 .into(ivCover);
         tvCirclename.setText(bean.getData().getName());
         tvCircleinfo.setText(bean.getData().getIntro());
+        tvTitle.setText(bean.getData().getName());
     }
 
     @Override

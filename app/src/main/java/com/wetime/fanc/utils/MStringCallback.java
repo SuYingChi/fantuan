@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.wetime.fanc.main.model.BaseBean;
 import com.wetime.fanc.main.model.ErrorBean;
-import com.zhy.http.okhttp.callback.StringCallback;
+import com.fan.http.okhttp.callback.StringCallback;
 
 import okhttp3.Call;
 import okhttp3.Request;

@@ -5,7 +5,7 @@ import com.wetime.fanc.utils.DataStringCallback;
 import com.wetime.fanc.login.bean.LoginResultBean;
 import com.wetime.fanc.login.iviews.IWXLoginView;
 import com.wetime.fanc.utils.Const;
-import com.zhy.http.okhttp.OkHttpUtils;
+import com.fan.http.okhttp.OkHttpUtils;
 
 import static com.wetime.fanc.utils.GsonUtils.getGsonInstance;
 

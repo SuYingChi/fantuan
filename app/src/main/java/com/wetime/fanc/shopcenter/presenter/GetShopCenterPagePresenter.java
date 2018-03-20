@@ -6,7 +6,7 @@ import com.wetime.fanc.utils.GsonUtils;
 import com.wetime.fanc.shopcenter.bean.ShopCenterPageBean;
 import com.wetime.fanc.shopcenter.iviews.IGetShopCenterPageView;
 import com.wetime.fanc.utils.Const;
-import com.zhy.http.okhttp.OkHttpUtils;
+import com.fan.http.okhttp.OkHttpUtils;
 
 /**
  * Created by zhoukang on 2017/5/19.

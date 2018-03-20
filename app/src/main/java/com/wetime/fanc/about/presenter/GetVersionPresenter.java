@@ -5,7 +5,7 @@ import com.wetime.fanc.utils.DataStringCallback;
 import com.wetime.fanc.about.bean.VersionPageBean;
 import com.wetime.fanc.about.iviews.IGetVersionPageView;
 import com.wetime.fanc.utils.Const;
-import com.zhy.http.okhttp.OkHttpUtils;
+import com.fan.http.okhttp.OkHttpUtils;
 
 import static com.wetime.fanc.utils.GsonUtils.getGsonInstance;
 
