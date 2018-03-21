@@ -50,7 +50,7 @@ public class ShopSayActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_shopsay_nes);
+        setContentView(R.layout.activity_shopsay);
         ButterKnife.bind(this);
         initHead();
 
