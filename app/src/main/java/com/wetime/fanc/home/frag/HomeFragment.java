@@ -298,10 +298,7 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, IGe
         if (page > 1) {
             mAutoLoadMoreAdapter.finishLoading();
         }
-
-        refreshLayout.finishLoadmore();
         refreshLayout.finishRefresh();
-
     }
 
     @Override

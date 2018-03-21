@@ -1,6 +1,5 @@
 package com.wetime.fanc.news.frag;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,19 +12,18 @@ import android.view.animation.AnimationSet;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
+import com.fan.baselib.loadmore.AutoLoadMoreAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.wetime.fanc.R;
 import com.wetime.fanc.home.adapter.HomeItemAdapter;
 import com.wetime.fanc.home.bean.HomeItemBean;
-import com.wetime.fanc.news.bean.NewsListBean;
 import com.wetime.fanc.home.event.ReFreshNewsTypeEvent;
 import com.wetime.fanc.home.iviews.IGetNewsTypeView;
 import com.wetime.fanc.home.presenter.GetNewsTypePresenter;
 import com.wetime.fanc.main.frag.BaseLazyFragment;
-import com.wetime.fanc.web.WebActivity;
+import com.wetime.fanc.news.bean.NewsListBean;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -38,7 +36,7 @@ import java.util.List;
  * Created by zhoukang on 2018/1/29.
  */
 
-public class NewsTypeLazyFragment extends BaseLazyFragment implements IGetNewsTypeView, OnRefreshListener, OnLoadmoreListener {
+public class NewsTypeLazyFragment extends BaseLazyFragment implements IGetNewsTypeView, OnRefreshListener {
     private String type;
     private GetNewsTypePresenter getNewsTypePresenter;
     private String total = "";
@@ -48,7 +46,7 @@ public class NewsTypeLazyFragment extends BaseLazyFragment implements IGetNewsTy
     private HomeItemAdapter adapter;
     private SmartRefreshLayout refreshLayout;
     private TextView tvRec;
-
+    private AutoLoadMoreAdapter mAutoLoadMoreAdapter;
 
     @Nullable
     @Override
@@ -85,13 +83,32 @@ public class NewsTypeLazyFragment extends BaseLazyFragment implements IGetNewsTy
     protected void initView() {
         tvRec = mRootView.findViewById(R.id.tv_recoment);
         refreshLayout = mRootView.findViewById(R.id.refreshLayout);
+        refreshLayout.setEnableLoadmore(false);
         refreshLayout.setOnRefreshListener(this);
-        refreshLayout.setOnLoadmoreListener(this);
+
         list = new ArrayList<>();
         adapter = new HomeItemAdapter(list, getActivity());
         rcl = mRootView.findViewById(R.id.rcl_news);
         rcl.setLayoutManager(new LinearLayoutManager(getContext()));
-        rcl.setAdapter(adapter);
+
+        mAutoLoadMoreAdapter = new AutoLoadMoreAdapter(getContext(), adapter);
+        mAutoLoadMoreAdapter.setOnLoadListener(new AutoLoadMoreAdapter.OnLoadListener() {
+            @Override
+            public void onRetry() {
+
+            }
+
+            @Override
+            public void onLoadMore() {
+                page++;
+                getNewsTypePresenter.getNews();
+            }
+        });
+
+        rcl.setAdapter(mAutoLoadMoreAdapter);
+        adapter.notifyDataSetChanged();
+
+//        rcl.setAdapter(adapter);
 //        adapter.setOnItemClickLitener((view, position) -> {
 //            Intent goweb = new Intent(getContext(), WebActivity.class);
 //            goweb.putExtra("url", list.get(position).getArticle_url());
@@ -105,23 +122,24 @@ public class NewsTypeLazyFragment extends BaseLazyFragment implements IGetNewsTy
 
     @Override
     protected void initData() {
-
         refreshLayout.autoRefresh();
     }
 
     @Override
     public void onGetNews(NewsListBean bean) {
-        refreshLayout.finishLoadmore();
         refreshLayout.finishRefresh();
-
         if (page == 1) {
             list.clear();
         }
-        page++;
         total = bean.getData().getPaging().getTotal();
-        refreshLayout.setEnableLoadmore(!bean.getData().getPaging().isIs_end());
         list.addAll(bean.getData().getList());
-        adapter.notifyDataSetChanged();
+        if (page > 1) {
+            mAutoLoadMoreAdapter.finishLoading();
+        }
+        if (bean.getData().getPaging().isIs_end()) {
+            mAutoLoadMoreAdapter.disable();
+        }
+        mAutoLoadMoreAdapter.notifyDataSetChanged();
 
 
         if (bean.getData().getUpdate_num().equals("0"))
@@ -173,14 +191,9 @@ public class NewsTypeLazyFragment extends BaseLazyFragment implements IGetNewsTy
     @Override
     public void onNetError() {
         super.onNetError();
-        refreshLayout.finishLoadmore();
         refreshLayout.finishRefresh();
     }
 
-    @Override
-    public void onLoadmore(RefreshLayout refreshlayout) {
-        getNewsTypePresenter.getNews();
-    }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(ReFreshNewsTypeEvent event) {
