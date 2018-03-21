@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.wetime.fanc.R;
 import com.wetime.fanc.circle.adapter.AllCircleAdapter;
 import com.wetime.fanc.circle.bean.AllCircleListBean;
@@ -25,7 +25,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class SelectCircleActivity extends BaseActivity implements OnLoadmoreListener, IGetAllCircleView {
+public class SelectCircleActivity extends BaseActivity implements OnLoadMoreListener, IGetAllCircleView {
 
 
     @BindView(R.id.tv_title)
@@ -49,7 +49,7 @@ public class SelectCircleActivity extends BaseActivity implements OnLoadmoreList
         ButterKnife.bind(this);
         tvTitle.setText("全部圈子");
 
-        refreshLayout.setOnLoadmoreListener(this);
+        refreshLayout.setOnLoadMoreListener(this);
         refreshLayout.setEnableRefresh(false);
         getAllCirclePresenter = new GetAllCirclePresenter(this);
 
@@ -86,7 +86,7 @@ public class SelectCircleActivity extends BaseActivity implements OnLoadmoreList
     }
 
     @Override
-    public void onLoadmore(RefreshLayout refreshlayout) {
+    public void onLoadMore(RefreshLayout refreshlayout) {
         page++;
         getAllCirclePresenter.getDefaultCircle();
 
@@ -96,8 +96,8 @@ public class SelectCircleActivity extends BaseActivity implements OnLoadmoreList
     public void onGetAllCircle(AllCircleListBean bean) {
         list.addAll(bean.getData().getCircle_list());
         allCircleAdapter.notifyDataSetChanged();
-        refreshLayout.finishLoadmore();
-        refreshLayout.setEnableLoadmore(!bean.getData().getPaging().isIs_end());
+        refreshLayout.finishLoadMore();
+        refreshLayout.setEnableLoadMore(!bean.getData().getPaging().isIs_end());
     }
 
     @Override

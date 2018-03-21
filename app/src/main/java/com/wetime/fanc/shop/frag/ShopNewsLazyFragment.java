@@ -9,7 +9,7 @@ import android.widget.RelativeLayout;
 
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.wetime.fanc.R;
 import com.wetime.fanc.home.adapter.HomeItemAdapter;
 import com.wetime.fanc.home.bean.HomeItemBean;
@@ -25,7 +25,7 @@ import java.util.List;
 import butterknife.BindView;
 
 
-public class ShopNewsLazyFragment extends BaseLazyFragment implements OnLoadmoreListener, IGetShopNewsTypeView {
+public class ShopNewsLazyFragment extends BaseLazyFragment implements OnLoadMoreListener, IGetShopNewsTypeView {
 
 
     @BindView(R.id.rcl_news)
@@ -49,7 +49,7 @@ public class ShopNewsLazyFragment extends BaseLazyFragment implements OnLoadmore
     protected void initView() {
         refreshLayout = mRootView.findViewById(R.id.refreshLayout);
         refreshLayout.setEnableRefresh(false);
-        refreshLayout.setOnLoadmoreListener(this);
+        refreshLayout.setOnLoadMoreListener(this);
         list = new ArrayList<>();
         adapter = new HomeItemAdapter(list, getActivity());
         adapter.setListtype(1);
@@ -78,15 +78,15 @@ public class ShopNewsLazyFragment extends BaseLazyFragment implements OnLoadmore
 
 
     @Override
-    public void onLoadmore(RefreshLayout refreshlayout) {
+    public void onLoadMore(RefreshLayout refreshlayout) {
         page++;
         getNewsTypePresenter.getNews();
     }
 
     @Override
     public void onGetNews(NewsListBean bean) {
-        refreshLayout.finishLoadmore();
-        refreshLayout.setEnableLoadmore(!bean.getData().getPaging().isIs_end());
+        refreshLayout.finishLoadMore();
+        refreshLayout.setEnableLoadMore(!bean.getData().getPaging().isIs_end());
         list.addAll(bean.getData().getList());
         adapter.notifyDataSetChanged();
         if (list.size() > 0)

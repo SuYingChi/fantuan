@@ -18,7 +18,7 @@ import android.widget.TextView;
 import com.wetime.fanc.main.act.BaseActivity;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.wetime.fanc.R;
 import com.wetime.fanc.shop.act.ShopDetailActivity;
@@ -40,7 +40,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class ShopListActivity extends BaseActivity implements IGetShopCenterListView, OnRefreshListener, OnLoadmoreListener, SearchShopListAdapter.OnItemClickLitener {
+public class ShopListActivity extends BaseActivity implements IGetShopCenterListView, OnRefreshListener, OnLoadMoreListener, SearchShopListAdapter.OnItemClickLitener {
 
 
     @BindView(R.id.tv_title)
@@ -116,7 +116,7 @@ public class ShopListActivity extends BaseActivity implements IGetShopCenterList
         rcvLsit.setAdapter(adapter);
         adapter.notifyDataSetChanged();
 
-        refreshLayout.setOnLoadmoreListener(this);
+        refreshLayout.setOnLoadMoreListener(this);
         refreshLayout.setOnRefreshListener(this);
 
 
@@ -390,7 +390,7 @@ public class ShopListActivity extends BaseActivity implements IGetShopCenterList
 
 
         refreshLayout.finishRefresh();
-        refreshLayout.finishLoadmore();
+        refreshLayout.finishLoadMore();
     }
 
     @Override
@@ -401,7 +401,7 @@ public class ShopListActivity extends BaseActivity implements IGetShopCenterList
     }
 
     @Override
-    public void onLoadmore(RefreshLayout refreshlayout) {
+    public void onLoadMore(RefreshLayout refreshlayout) {
         page++;
         getShopCenterListPresenter.getShopCenterList();
     }

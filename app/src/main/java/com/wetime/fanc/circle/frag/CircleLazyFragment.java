@@ -120,7 +120,7 @@ public class CircleLazyFragment extends BaseLazyFragment implements OnRefreshLis
             }
         });
         refreshLayout.setOnRefreshListener(this);
-        refreshLayout.setEnableLoadmore(false);
+        refreshLayout.setEnableLoadMore(false);
         //头部
         GridLayoutManager manager = new GridLayoutManager(getContext(), 4);
         rclCircle.setLayoutManager(manager);
@@ -208,7 +208,7 @@ public class CircleLazyFragment extends BaseLazyFragment implements OnRefreshLis
 
     @Override
     public void onGetCircleHome(CircleHomeListBean bean) {
-//        refreshLayout.finishLoadmore();
+//        refreshLayout.finishLoadMore();
         refreshLayout.finishRefresh();
 
         if (page == 1) {
@@ -217,7 +217,7 @@ public class CircleLazyFragment extends BaseLazyFragment implements OnRefreshLis
             circllist.addAll(bean.getData().getCircles());
             circleAdapter.notifyDataSetChanged();
         }
-//        refreshLayout.setEnableLoadmore(!bean.getData().getPaging().isIs_end());
+//        refreshLayout.setEnableLoadMore(!bean.getData().getPaging().isIs_end());
         if (bean.getData().getPaging().isIs_end()) {
             mAutoLoadMoreAdapter.disable();
         }

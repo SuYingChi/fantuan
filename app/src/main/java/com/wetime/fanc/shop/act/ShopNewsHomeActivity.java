@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.wetime.fanc.R;
 import com.wetime.fanc.home.adapter.HomeItemAdapter;
@@ -27,7 +27,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class ShopNewsHomeActivity extends BaseActivity implements OnRefreshListener, OnLoadmoreListener, IGetShopNewsView {
+public class ShopNewsHomeActivity extends BaseActivity implements OnRefreshListener, OnLoadMoreListener, IGetShopNewsView {
 
 
     @BindView(R.id.tv_title)
@@ -53,7 +53,7 @@ public class ShopNewsHomeActivity extends BaseActivity implements OnRefreshListe
         tvTitle.setText("商圈头条");
 
         refreshLayout.setOnRefreshListener(this);
-        refreshLayout.setOnLoadmoreListener(this);
+        refreshLayout.setOnLoadMoreListener(this);
         list = new ArrayList<>();
         adapter = new HomeItemAdapter(list, this);
         rcl.setLayoutManager(new LinearLayoutManager(this));
@@ -86,13 +86,13 @@ public class ShopNewsHomeActivity extends BaseActivity implements OnRefreshListe
     }
 
     @Override
-    public void onLoadmore(RefreshLayout refreshlayout) {
+    public void onLoadMore(RefreshLayout refreshlayout) {
         getNewsTypePresenter.getNews();
     }
 
     @Override
     public void onGetNews(NewsListBean bean) {
-        refreshLayout.finishLoadmore();
+        refreshLayout.finishLoadMore();
         refreshLayout.finishRefresh();
 
         if (page == 1) {
@@ -100,7 +100,7 @@ public class ShopNewsHomeActivity extends BaseActivity implements OnRefreshListe
         }
         page++;
         
-        refreshLayout.setEnableLoadmore(!bean.getData().getPaging().isIs_end());
+        refreshLayout.setEnableLoadMore(!bean.getData().getPaging().isIs_end());
         list.addAll(bean.getData().getList());
         adapter.notifyDataSetChanged();
     }

@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.wetime.fanc.R;
 import com.wetime.fanc.main.act.BaseActivity;
 import com.wetime.fanc.wallet.adapter.InviteHisAdapter;
@@ -25,7 +25,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class InviteHistoryActivity extends BaseActivity implements IGetInviteHisView, OnLoadmoreListener {
+public class InviteHistoryActivity extends BaseActivity implements IGetInviteHisView, OnLoadMoreListener {
     @BindView(R.id.tv_title)
     TextView tvTitle;
     @BindView(R.id.iv_back)
@@ -54,7 +54,7 @@ public class InviteHistoryActivity extends BaseActivity implements IGetInviteHis
         getBalanceDetailListPresenter = new GetInviteHisPresenter(this);
         getBalanceDetailListPresenter.getbalancelist();
 
-        refreshLayout.setOnLoadmoreListener(this);
+        refreshLayout.setOnLoadMoreListener(this);
         refreshLayout.setEnableRefresh(false);
     }
 
@@ -92,11 +92,11 @@ public class InviteHistoryActivity extends BaseActivity implements IGetInviteHis
         }
         list.addAll(bean.getData().getList());
         adapter.notifyDataSetChanged();
-        refreshLayout.setEnableLoadmore(!bean.getData().getPage().isIs_end());
+        refreshLayout.setEnableLoadMore(!bean.getData().getPage().isIs_end());
     }
 
     @Override
-    public void onLoadmore(RefreshLayout refreshlayout) {
+    public void onLoadMore(RefreshLayout refreshlayout) {
         page++;
         getBalanceDetailListPresenter.getbalancelist();
     }

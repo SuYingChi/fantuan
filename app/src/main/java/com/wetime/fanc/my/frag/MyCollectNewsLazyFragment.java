@@ -7,7 +7,7 @@ import android.widget.RelativeLayout;
 
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.wetime.fanc.R;
 import com.wetime.fanc.home.adapter.HomeItemAdapter;
@@ -24,7 +24,7 @@ import butterknife.BindView;
 
 
 public class MyCollectNewsLazyFragment extends BaseLazyFragment
-        implements OnLoadmoreListener, OnRefreshListener, IGetMyNewsView {
+        implements OnLoadMoreListener, OnRefreshListener, IGetMyNewsView {
     @BindView(R.id.rcl_circle)
     RecyclerView rclCircle;
     @BindView(R.id.refreshLayout)
@@ -45,7 +45,7 @@ public class MyCollectNewsLazyFragment extends BaseLazyFragment
 
     @Override
     protected void initView() {
-        refreshLayout.setOnLoadmoreListener(this);
+        refreshLayout.setOnLoadMoreListener(this);
         refreshLayout.setOnRefreshListener(this);
 
     }
@@ -68,7 +68,7 @@ public class MyCollectNewsLazyFragment extends BaseLazyFragment
     }
 
     @Override
-    public void onLoadmore(RefreshLayout refreshlayout) {
+    public void onLoadMore(RefreshLayout refreshlayout) {
         page++;
         getMyNewsPresenter.getMyNews();
     }
@@ -87,8 +87,8 @@ public class MyCollectNewsLazyFragment extends BaseLazyFragment
         list.addAll(bean.getData().getList());
         adapter.notifyDataSetChanged();
         refreshLayout.finishRefresh();
-        refreshLayout.finishLoadmore();
-        refreshLayout.setEnableLoadmore(!bean.getData().getPaging().isIs_end());
+        refreshLayout.finishLoadMore();
+        refreshLayout.setEnableLoadMore(!bean.getData().getPaging().isIs_end());
         if (bean.getData().getPaging().getTotal() != 0) {
             rlEmpty.setVisibility(View.GONE);
         } else {

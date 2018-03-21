@@ -5,7 +5,7 @@ import android.support.v7.widget.RecyclerView;
 
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.wetime.fanc.R;
 import com.wetime.fanc.circle.bean.CircleDetailListBean;
@@ -21,7 +21,7 @@ import java.util.List;
 import butterknife.BindView;
 
 
-public class CircleDetailLazyFragment extends BaseLazyFragment implements IGetCircleDetailListView, OnLoadmoreListener, OnRefreshListener {
+public class CircleDetailLazyFragment extends BaseLazyFragment implements IGetCircleDetailListView, OnLoadMoreListener, OnRefreshListener {
     @BindView(R.id.rcl_circle)
     RecyclerView rclCircle;
     @BindView(R.id.refreshLayout)
@@ -43,7 +43,7 @@ public class CircleDetailLazyFragment extends BaseLazyFragment implements IGetCi
         rclCircle.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new HomeItemAdapter(list, getActivity(), true);
         rclCircle.setAdapter(adapter);
-        refreshLayout.setOnLoadmoreListener(this);
+        refreshLayout.setOnLoadMoreListener(this);
         refreshLayout.setOnRefreshListener(this);
     }
 
@@ -60,14 +60,14 @@ public class CircleDetailLazyFragment extends BaseLazyFragment implements IGetCi
 
     @Override
     public void onGetCircleList(CircleDetailListBean bean) {
-        refreshLayout.setEnableLoadmore(!bean.getData().getPaging().isIs_end());
+        refreshLayout.setEnableLoadMore(!bean.getData().getPaging().isIs_end());
         if (page == 1) {
             list.clear();
         }
         list.addAll(bean.getData().getList());
         adapter.notifyDataSetChanged();
         refreshLayout.finishRefresh();
-        refreshLayout.finishLoadmore();
+        refreshLayout.finishLoadMore();
     }
 
     @Override
@@ -86,7 +86,7 @@ public class CircleDetailLazyFragment extends BaseLazyFragment implements IGetCi
     }
 
     @Override
-    public void onLoadmore(RefreshLayout refreshlayout) {
+    public void onLoadMore(RefreshLayout refreshlayout) {
         page++;
         getCircleDetailListPresenter.getCircleDetailList();
     }

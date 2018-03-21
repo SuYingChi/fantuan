@@ -16,7 +16,7 @@ import com.flyco.tablayout.listener.CustomTabEntity;
 import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.wetime.fanc.R;
 import com.wetime.fanc.home.adapter.HomeItemAdapter;
 import com.wetime.fanc.home.bean.HomeItemBean;
@@ -34,7 +34,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class UserCardActivity extends BaseActivity implements OnLoadmoreListener, IGetUserCardView {
+public class UserCardActivity extends BaseActivity implements OnLoadMoreListener, IGetUserCardView {
 
 
     @BindView(R.id.tv_title)
@@ -114,7 +114,7 @@ public class UserCardActivity extends BaseActivity implements OnLoadmoreListener
             }
         });
         refreshLayout.setEnableRefresh(false);
-        refreshLayout.setOnLoadmoreListener(this);
+        refreshLayout.setOnLoadMoreListener(this);
 
         rclHome.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -147,11 +147,11 @@ public class UserCardActivity extends BaseActivity implements OnLoadmoreListener
     }
 
     @Override
-    public void onLoadmore(RefreshLayout refreshlayout) {
+    public void onLoadMore(RefreshLayout refreshlayout) {
         page++;
         getUserCardPresenter.getUserInfo();
         adapter.notifyDataSetChanged();
-        refreshLayout.finishLoadmore();
+        refreshLayout.finishLoadMore();
 
     }
 
@@ -175,8 +175,8 @@ public class UserCardActivity extends BaseActivity implements OnLoadmoreListener
             list.add(emptybean);
         }
         adapter.notifyDataSetChanged();
-        refreshLayout.finishLoadmore();
-        refreshLayout.setEnableLoadmore(!bean.getData().getPaging().isIs_end());
+        refreshLayout.finishLoadMore();
+        refreshLayout.setEnableLoadMore(!bean.getData().getPaging().isIs_end());
     }
 
     @Override

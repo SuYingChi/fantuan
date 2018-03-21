@@ -19,7 +19,7 @@ import android.widget.TextView;
 import com.gyf.barlibrary.ImmersionBar;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.wetime.fanc.R;
 import com.wetime.fanc.circle.adapter.ActDetailAdapter;
 import com.wetime.fanc.circle.bean.ActDetailBean;
@@ -43,7 +43,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import me.shaohui.bottomdialog.BottomDialog;
 
-public class ActDetailActivity extends BaseActivity implements IGetActDetailView, OnLoadmoreListener, KeyboardChangeListener.KeyBoardListener, ICommentActView, IDeleteCommentView, IDeleteActView {
+public class ActDetailActivity extends BaseActivity implements IGetActDetailView, OnLoadMoreListener, KeyboardChangeListener.KeyBoardListener, ICommentActView, IDeleteCommentView, IDeleteActView {
 
 
     @BindView(R.id.tv_title)
@@ -86,7 +86,7 @@ public class ActDetailActivity extends BaseActivity implements IGetActDetailView
         ButterKnife.bind(this);
         tvTitle.setText("动态详情");
         getActDetailPresenter = new GetActDetailPresenter(this);
-        refreshLayout.setOnLoadmoreListener(this);
+        refreshLayout.setOnLoadMoreListener(this);
         refreshLayout.setEnableRefresh(false);
         rclCircle.setLayoutManager(new LinearLayoutManager(this));
         rclCircle.setFocusableInTouchMode(false);
@@ -264,8 +264,8 @@ public class ActDetailActivity extends BaseActivity implements IGetActDetailView
             tvZan.setCompoundDrawables(drawable, null, null, null);
         }
         actDetailAdapter.notifyDataSetChanged();
-        refreshLayout.setEnableLoadmore(!bean.getData().getPaging().isIs_end());
-        refreshLayout.finishLoadmore();
+        refreshLayout.setEnableLoadMore(!bean.getData().getPaging().isIs_end());
+        refreshLayout.finishLoadMore();
 
     }
 
@@ -280,7 +280,7 @@ public class ActDetailActivity extends BaseActivity implements IGetActDetailView
     }
 
     @Override
-    public void onLoadmore(RefreshLayout refreshlayout) {
+    public void onLoadMore(RefreshLayout refreshlayout) {
         page++;
         getActDetailPresenter.getActDetail();
     }

@@ -83,7 +83,7 @@ public class NewsTypeLazyFragment extends BaseLazyFragment implements IGetNewsTy
     protected void initView() {
         tvRec = mRootView.findViewById(R.id.tv_recoment);
         refreshLayout = mRootView.findViewById(R.id.refreshLayout);
-        refreshLayout.setEnableLoadmore(false);
+        refreshLayout.setEnableLoadMore(false);
         refreshLayout.setOnRefreshListener(this);
 
         list = new ArrayList<>();

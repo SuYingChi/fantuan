@@ -82,7 +82,8 @@ public class FApp extends Application {
     static {
 
 //        SmartRefreshLayout.setDefaultRefreshHeaderCreater((context, layout) -> new MyMaterialHeader(context));
-        SmartRefreshLayout.setDefaultRefreshHeaderCreater((context, layout) -> {
+
+        SmartRefreshLayout.setDefaultRefreshHeaderCreator((context, layout) -> {
             ClassicsHeader header = new ClassicsHeader(context);
             header.setDrawableArrowSize(14);//设置箭头的大小（dp单位）
             header.setDrawableProgressSize(14);//设置图片的大小（dp单位）
@@ -91,7 +92,9 @@ public class FApp extends Application {
             return header;
         });
 
-        SmartRefreshLayout.setDefaultRefreshFooterCreater((context, layout) -> {
+
+
+        SmartRefreshLayout.setDefaultRefreshFooterCreator((context, layout) -> {
             ClassicsFooter footer = new ClassicsFooter(context).setSpinnerStyle(SpinnerStyle.Translate);
             footer.setDrawableArrowSize(14);//设置箭头的大小（dp单位）
             footer.setDrawableProgressSize(14);//设置图片的大小（dp单位）、

@@ -7,7 +7,7 @@ import android.widget.RelativeLayout;
 
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.wetime.fanc.R;
 import com.wetime.fanc.main.frag.BaseLazyFragment;
 import com.wetime.fanc.shop.adapter.ShopSayActAdapter;
@@ -21,7 +21,7 @@ import java.util.List;
 import butterknife.BindView;
 
 
-public class ShopActLazyFragment extends BaseLazyFragment implements OnLoadmoreListener, IGetShopActTypeView {
+public class ShopActLazyFragment extends BaseLazyFragment implements OnLoadMoreListener, IGetShopActTypeView {
 
     @BindView(R.id.rcl_news)
     RecyclerView rcl;
@@ -44,7 +44,7 @@ public class ShopActLazyFragment extends BaseLazyFragment implements OnLoadmoreL
     protected void initView() {
         refreshLayout = mRootView.findViewById(R.id.refreshLayout);
         refreshLayout.setEnableRefresh(false);
-        refreshLayout.setOnLoadmoreListener(this);
+        refreshLayout.setOnLoadMoreListener(this);
         list = new ArrayList<>();
         adapter = new ShopSayActAdapter(list, getContext());
 
@@ -65,8 +65,8 @@ public class ShopActLazyFragment extends BaseLazyFragment implements OnLoadmoreL
 
     @Override
     public void onGetACt(ShopActListBean bean) {
-        refreshLayout.finishLoadmore();
-        refreshLayout.setEnableLoadmore(!bean.getData().getPaging().isIs_end());
+        refreshLayout.finishLoadMore();
+        refreshLayout.setEnableLoadMore(!bean.getData().getPaging().isIs_end());
         list.addAll(bean.getData().getList());
         adapter.notifyDataSetChanged();
         if (list.size() > 0)
@@ -85,7 +85,7 @@ public class ShopActLazyFragment extends BaseLazyFragment implements OnLoadmoreL
     }
 
     @Override
-    public void onLoadmore(RefreshLayout refreshlayout) {
+    public void onLoadMore(RefreshLayout refreshlayout) {
         page++;
         getShopActPresenter.getShopAct();
     }

@@ -21,7 +21,7 @@ import com.wetime.fanc.main.model.BaseBean;
 import com.wetime.fanc.utils.Tools;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.wetime.fanc.R;
 import com.wetime.fanc.home.adapter.OrderAdapter;
@@ -52,7 +52,7 @@ import butterknife.Unbinder;
 import q.rorbin.badgeview.QBadgeView;
 
 
-public class OrderFragment extends BaseFragment implements IGetOrderListView, OnLoadmoreListener, OnRefreshListener, IDeleteOrderView {
+public class OrderFragment extends BaseFragment implements IGetOrderListView, OnLoadMoreListener, OnRefreshListener, IDeleteOrderView {
     @BindView(R.id.tv_login)
     TextView tvLogin;
     @BindView(R.id.rl_empty)
@@ -92,7 +92,7 @@ public class OrderFragment extends BaseFragment implements IGetOrderListView, On
         EventBus.getDefault().register(this);
         View v = inflater.inflate(R.layout.fragment_order, null);
         unbinder = ButterKnife.bind(this, v);
-        refreshLayout.setOnLoadmoreListener(this);
+        refreshLayout.setOnLoadMoreListener(this);
         refreshLayout.setOnRefreshListener(this);
         adapter = new OrderAdapter(ordelist, getContext());
         rclOrder.setAdapter(adapter);
@@ -217,15 +217,15 @@ public class OrderFragment extends BaseFragment implements IGetOrderListView, On
         rclOrder.scrollTo(0, 0);
 
         refreshLayout.finishRefresh();
-        refreshLayout.finishLoadmore();
-        refreshLayout.setEnableLoadmore(!bean.getData().getPaging().isIs_end());
+        refreshLayout.finishLoadMore();
+        refreshLayout.setEnableLoadMore(!bean.getData().getPaging().isIs_end());
     }
 
     @Override
     public void onNetError() {
         super.onNetError();
         refreshLayout.finishRefresh();
-        refreshLayout.finishLoadmore();
+        refreshLayout.finishLoadMore();
     }
 
     private void initView() {
@@ -355,7 +355,7 @@ public class OrderFragment extends BaseFragment implements IGetOrderListView, On
     }
 
     @Override
-    public void onLoadmore(RefreshLayout refreshlayout) {
+    public void onLoadMore(RefreshLayout refreshlayout) {
         page++;
         getOrderPagePresenter.getOrderList();
     }

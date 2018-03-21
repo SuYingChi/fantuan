@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.wetime.fanc.R;
 import com.wetime.fanc.main.act.BaseActivity;
 import com.wetime.fanc.utils.Tools;
@@ -27,7 +27,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class BalanceDetailActivity extends BaseActivity implements IGetBalanceDetailListView, OnLoadmoreListener {
+public class BalanceDetailActivity extends BaseActivity implements IGetBalanceDetailListView, OnLoadMoreListener {
 
 
     @BindView(R.id.tv_title)
@@ -57,7 +57,7 @@ public class BalanceDetailActivity extends BaseActivity implements IGetBalanceDe
         getBalanceDetailListPresenter = new GetBalanceDetailListPresenter(this);
         getBalanceDetailListPresenter.getbalancelist();
 
-        refreshLayout.setOnLoadmoreListener(this);
+        refreshLayout.setOnLoadMoreListener(this);
         refreshLayout.setEnableRefresh(false);
         lvbalance.setOnItemClickListener((parent, view, position, id) -> Tools.goWeb(mContext,list.get(position-1).getUrl()));
     }
@@ -95,11 +95,11 @@ public class BalanceDetailActivity extends BaseActivity implements IGetBalanceDe
         }
         list.addAll(bean.getData().getList());
         adapter.notifyDataSetChanged();
-        refreshLayout.setEnableLoadmore(!bean.getData().getPage().isIs_end());
+        refreshLayout.setEnableLoadMore(!bean.getData().getPage().isIs_end());
     }
 
     @Override
-    public void onLoadmore(RefreshLayout refreshlayout) {
+    public void onLoadMore(RefreshLayout refreshlayout) {
         page++;
         getBalanceDetailListPresenter.getbalancelist();
     }

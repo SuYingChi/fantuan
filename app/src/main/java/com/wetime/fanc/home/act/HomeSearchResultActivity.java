@@ -19,7 +19,7 @@ import android.widget.TextView;
 
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.wetime.fanc.R;
 import com.wetime.fanc.home.bean.HomeSearchResult;
@@ -46,7 +46,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class HomeSearchResultActivity extends BaseActivity implements IGetHomeSearchResultView, OnRefreshListener, OnLoadmoreListener {
+public class HomeSearchResultActivity extends BaseActivity implements IGetHomeSearchResultView, OnRefreshListener, OnLoadMoreListener {
 
 
     @BindView(R.id.iv_back)
@@ -125,7 +125,7 @@ public class HomeSearchResultActivity extends BaseActivity implements IGetHomeSe
         rcvLsit.setAdapter(adapter);
         adapter.notifyDataSetChanged();
 
-        refreshLayout.setOnLoadmoreListener(this);
+        refreshLayout.setOnLoadMoreListener(this);
         refreshLayout.setOnRefreshListener(this);
 
 
@@ -169,7 +169,7 @@ public class HomeSearchResultActivity extends BaseActivity implements IGetHomeSe
 //                .build()
 //                .addTo(rcvLsit);
 
-        refreshLayout.setOnLoadmoreListener(this);
+        refreshLayout.setOnLoadMoreListener(this);
         refreshLayout.setOnRefreshListener(this);
 
 
@@ -345,7 +345,7 @@ public class HomeSearchResultActivity extends BaseActivity implements IGetHomeSe
             rlEmpty.setVisibility(View.GONE);
         }
         refreshLayout.finishRefresh();
-        refreshLayout.finishLoadmore();
+        refreshLayout.finishLoadMore();
 
         adapter21 = new CategoryItemAdapter(mContext, bean.getData().getCategory());
         adapter21.setSelectedId(cid);
@@ -521,7 +521,7 @@ public class HomeSearchResultActivity extends BaseActivity implements IGetHomeSe
     }
 
     @Override
-    public void onLoadmore(RefreshLayout refreshlayout) {
+    public void onLoadMore(RefreshLayout refreshlayout) {
         page++;
         getHomeSearchResultPresenter.getShopCenterList();
     }
