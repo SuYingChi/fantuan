@@ -29,6 +29,7 @@ import com.wetime.fanc.home.adapter.HomeItemAdapter;
 import com.wetime.fanc.home.bean.HomeItemBean;
 import com.wetime.fanc.home.bean.TabEntity;
 import com.wetime.fanc.home.event.RefreshRedNumEvent;
+import com.wetime.fanc.login.act.LoginActivity;
 import com.wetime.fanc.main.frag.BaseLazyFragment;
 import com.wetime.fanc.utils.Const;
 import com.wetime.fanc.utils.Tools;
@@ -126,12 +127,12 @@ public class CircleLazyFragment extends BaseLazyFragment implements OnRefreshLis
         circleAdapter = new HeadCircleAdapter(circllist, getContext());
         rclCircle.setAdapter(circleAdapter);
         circleAdapter.setOnItemClickLitener((view, position) -> {
-            if(circllist.get(position).getId().equals("0")){
-                Intent goAll =  new Intent(getContext(), AllCircleActivity.class);
+            if (circllist.get(position).getId().equals("0")) {
+                Intent goAll = new Intent(getContext(), AllCircleActivity.class);
                 startActivity(goAll);
-            }else{
+            } else {
                 Intent goCircle = new Intent(getContext(), CircleDetailActivity.class);
-                goCircle.putExtra("id",circllist.get(position).getId());
+                goCircle.putExtra("id", circllist.get(position).getId());
                 startActivity(goCircle);
             }
 
@@ -166,6 +167,7 @@ public class CircleLazyFragment extends BaseLazyFragment implements OnRefreshLis
         getCircleHomePresenter = new GetCircleHomePresenter(this);
         getCircleHomePresenter.getCircleHome();
     }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(RefreshRedNumEvent event) {
         qBadgeMsg.setBadgeNumber(event.getNum());
@@ -175,13 +177,16 @@ public class CircleLazyFragment extends BaseLazyFragment implements OnRefreshLis
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_msg:
-//                qBadgeMsg.setVisibility(View.VISIBLE);
-              Tools.goWeb(getContext(), Const.MSG_URL);
+                Tools.goWeb(getContext(), Const.MSG_URL);
                 break;
             case R.id.iv_edit:
-                qBadgeMsg.setBadgeNumber(temp + 100);
-                Intent goPublish = new Intent(getContext(),PublishActActivity.class);
-                startActivity(goPublish);
+                if (spu.getToken().equals("")) {
+                    Intent gologin = new Intent(getContext(), LoginActivity.class);
+                    startActivity(gologin);
+                } else {
+                    Intent goPublish = new Intent(getContext(), PublishActActivity.class);
+                    startActivity(goPublish);
+                }
                 break;
         }
     }

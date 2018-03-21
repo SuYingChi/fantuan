@@ -1,6 +1,7 @@
 package com.wetime.fanc.circle.act;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
@@ -31,6 +32,7 @@ import com.wetime.fanc.circle.presenter.DeleteActPresenter;
 import com.wetime.fanc.circle.presenter.DeleteCommentPresenter;
 import com.wetime.fanc.circle.presenter.GetActDetailPresenter;
 import com.wetime.fanc.circle.presenter.ZanActPresenter;
+import com.wetime.fanc.login.act.LoginActivity;
 import com.wetime.fanc.main.act.BaseActivity;
 import com.wetime.fanc.main.model.BaseBean;
 import com.wetime.fanc.utils.KeyboardChangeListener;
@@ -120,45 +122,55 @@ public class ActDetailActivity extends BaseActivity implements IGetActDetailView
                 onBackPressed();
                 break;
             case R.id.tv_gocomment:
-                showKeyborad();
+                if (spu.getToken().equals("")) {
+                    Intent gologin = new Intent(this, LoginActivity.class);
+                    startActivity(gologin);
+                } else {
+                    showKeyborad();
+                }
                 break;
             case R.id.tv_zan:
-                ZanActPresenter presenter = new ZanActPresenter();
-                if (actbean.getData().isHas_like()) {
-                    Drawable drawable = getResources().getDrawable(R.drawable.ic_homeitem_zan_off_off);
-                    drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getMinimumHeight());
-                    tvZan.setCompoundDrawables(drawable, null, null, null);
-                    presenter.zanAct(actbean.getData().getId(), Tools.getSpu(mContext).getToken(), "0");
-
-                    int num = Integer.valueOf(tvZan.getText().toString()) - 1;
-                    tvZan.setText(String.format("%d", num));
-                    actbean.getData().setLike_num(String.format("%d", num));
-                    for (int i = 0; i < actbean.getData().getLike_list().size(); i++) {
-                        if (TextUtils.equals(actbean.getData().getLike_list().get(i).getUid(), actbean.getData().getCurrent_uid())) {
-                            actbean.getData().getLike_list().remove(i);
-                        }
-
-                    }
-                    actDetailAdapter.notifyItemChanged(1);
-                    actbean.getData().setHas_like(false);
+                if (spu.getToken().equals("")) {
+                    Intent gologin = new Intent(this, LoginActivity.class);
+                    startActivity(gologin);
                 } else {
-                    Drawable drawable = getResources().getDrawable(R.drawable.ic_homeitem_zan_off_on);
-                    drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getMinimumHeight());
-                    tvZan.setCompoundDrawables(drawable, null, null, null);
-                    presenter.zanAct(actbean.getData().getId(), Tools.getSpu(mContext).getToken(), "1");
+                    ZanActPresenter presenter = new ZanActPresenter();
+                    if (actbean.getData().isHas_like()) {
+                        Drawable drawable = getResources().getDrawable(R.drawable.ic_homeitem_zan_off_off);
+                        drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getMinimumHeight());
+                        tvZan.setCompoundDrawables(drawable, null, null, null);
+                        presenter.zanAct(actbean.getData().getId(), Tools.getSpu(mContext).getToken(), "0");
 
-                    int num = Integer.valueOf(tvZan.getText().toString()) + 1;
-                    tvZan.setText(String.format("%d", num));
-                    actbean.getData().setLike_num(String.format("%d", num));
-                    actDetailAdapter.notifyItemChanged(1);
-                    ActDetailBean.DataBean.LikeListBean b = new ActDetailBean.DataBean.LikeListBean();
-                    b.setAvatar(actbean.getData().getCurrent_avatar());
-                    b.setUid(actbean.getData().getCurrent_uid());
-                    actbean.getData().getLike_list().add(0, b);
-                    actDetailAdapter.notifyItemChanged(1);
-                    actbean.getData().setHas_like(true);
+                        int num = Integer.valueOf(tvZan.getText().toString()) - 1;
+                        tvZan.setText(String.format("%d", num));
+                        actbean.getData().setLike_num(String.format("%d", num));
+                        for (int i = 0; i < actbean.getData().getLike_list().size(); i++) {
+                            if (TextUtils.equals(actbean.getData().getLike_list().get(i).getUid(), actbean.getData().getCurrent_uid())) {
+                                actbean.getData().getLike_list().remove(i);
+                            }
+
+                        }
+                        actDetailAdapter.notifyItemChanged(1);
+                        actbean.getData().setHas_like(false);
+                    } else {
+                        Drawable drawable = getResources().getDrawable(R.drawable.ic_homeitem_zan_off_on);
+                        drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getMinimumHeight());
+                        tvZan.setCompoundDrawables(drawable, null, null, null);
+                        presenter.zanAct(actbean.getData().getId(), Tools.getSpu(mContext).getToken(), "1");
+
+                        int num = Integer.valueOf(tvZan.getText().toString()) + 1;
+                        tvZan.setText(String.format("%d", num));
+                        actbean.getData().setLike_num(String.format("%d", num));
+                        actDetailAdapter.notifyItemChanged(1);
+                        ActDetailBean.DataBean.LikeListBean b = new ActDetailBean.DataBean.LikeListBean();
+                        b.setAvatar(actbean.getData().getCurrent_avatar());
+                        b.setUid(actbean.getData().getCurrent_uid());
+                        actbean.getData().getLike_list().add(0, b);
+                        actDetailAdapter.notifyItemChanged(1);
+                        actbean.getData().setHas_like(true);
+                    }
+
                 }
-
                 break;
             case R.id.tv_send:
                 if (TextUtils.isEmpty(etContent.getText().toString())) {

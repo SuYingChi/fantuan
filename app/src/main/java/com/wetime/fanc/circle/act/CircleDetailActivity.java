@@ -20,6 +20,7 @@ import com.wetime.fanc.circle.frag.CircleDetailLazyFragment;
 import com.wetime.fanc.circle.iviews.IGetCircleHeadView;
 import com.wetime.fanc.circle.presenter.GetCircleHeadPresenter;
 import com.wetime.fanc.home.adapter.NormalTitlePagerAdapter;
+import com.wetime.fanc.login.act.LoginActivity;
 import com.wetime.fanc.main.act.BaseActivity;
 import com.wetime.fanc.utils.GlideRoundTransform;
 
@@ -83,11 +84,17 @@ public class CircleDetailActivity extends BaseActivity implements IGetCircleHead
                 startActivity(go);
                 break;
             case R.id.iv_edit:
-                Intent goPublish = new Intent(this, PublishActActivity.class);
-                goPublish.putExtra("id", getCircleId());
-                startActivity(goPublish);
+                if (spu.getToken().equals("")) {
+                    Intent gologin = new Intent(mContext, LoginActivity.class);
+                    startActivity(gologin);
+                } else {
+                    Intent goPublish = new Intent(this, PublishActActivity.class);
+                    goPublish.putExtra("id", getCircleId());
+                    startActivity(goPublish);
+                }
                 break;
         }
+
     }
 
     private void initView() {

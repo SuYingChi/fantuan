@@ -128,39 +128,69 @@ public class MyFragment extends BaseFragment implements IGetMyInfoView, IGetRedP
     }
 
 
-    @OnClick({R.id.ll_my_state, R.id.ll_call, R.id.iv_setting, R.id.ll_login, R.id.tv_fanpiao, R.id.tv_youhuiquan, R.id.ll_mycomment,
+    @OnClick({R.id.civ_head,R.id.ll_my_state, R.id.ll_call, R.id.iv_setting, R.id.ll_login, R.id.tv_fanpiao, R.id.tv_youhuiquan, R.id.ll_mycomment,
             R.id.iv_msg, R.id.tv_wallet, R.id.ll_invite, R.id.ll_beauthor, R.id.ll_mynews, R.id.tv_collect, R.id.tv_order,
             R.id.ll_redpacket})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ll_my_state:
-                Intent goMyCard0 = new Intent(getContext(), UserCardActivity.class);
-                goMyCard0.putExtra("index", 0);
-                goMyCard0.putExtra("id", bean.getData().getUser().getUid());
-                goMyCard0.putExtra("num", bean.getData().getUser().isHas_news() ? "3" : "2");
-                startActivity(goMyCard0);
+                if (bean != null) {
+                    Intent goMyCard0 = new Intent(getContext(), UserCardActivity.class);
+                    goMyCard0.putExtra("index", 0);
+                    goMyCard0.putExtra("id", bean.getData().getUser().getUid());
+                    goMyCard0.putExtra("num", bean.getData().getUser().isHas_news() ? "3" : "2");
+                    startActivity(goMyCard0);
+                } else {
+                    Tools.toastInBottom(getContext(), "请先登录");
+                    Intent goLogin = new Intent(getContext(), LoginActivity.class);
+                    startActivity(goLogin);
+                }
                 break;
             case R.id.tv_collect:
-                Intent goMyCollect = new Intent(getContext(), MyCollectActivity.class);
-                startActivity(goMyCollect);
+                if (bean != null) {
+                    Intent goMyCollect = new Intent(getContext(), MyCollectActivity.class);
+                    startActivity(goMyCollect);
+                } else {
+                    Tools.toastInBottom(getContext(), "请先登录");
+                    Intent goLogin = new Intent(getContext(), LoginActivity.class);
+                    startActivity(goLogin);
+                }
                 break;
             case R.id.tv_order:
-                Intent goOrder = new Intent(getContext(), MyOrderActivity.class);
-                startActivity(goOrder);
+                if (bean != null) {
+                    Intent goOrder = new Intent(getContext(), MyOrderActivity.class);
+                    startActivity(goOrder);
+                } else {
+                    Tools.toastInBottom(getContext(), "请先登录");
+                    Intent goLogin = new Intent(getContext(), LoginActivity.class);
+                    startActivity(goLogin);
+                }
                 break;
             case R.id.ll_mynews:
-                Intent goMyCard1 = new Intent(getContext(), UserCardActivity.class);
-                goMyCard1.putExtra("index", 1);
-                goMyCard1.putExtra("id", bean.getData().getUser().getUid());
-                goMyCard1.putExtra("num", bean.getData().getUser().isHas_news() ? "3" : "2");
-                startActivity(goMyCard1);
+                if (bean != null) {
+                    Intent goMyCard1 = new Intent(getContext(), UserCardActivity.class);
+                    goMyCard1.putExtra("index", 1);
+                    goMyCard1.putExtra("id", bean.getData().getUser().getUid());
+                    goMyCard1.putExtra("num", bean.getData().getUser().isHas_news() ? "3" : "2");
+                    startActivity(goMyCard1);
+                } else {
+                    Tools.toastInBottom(getContext(), "请先登录");
+                    Intent goLogin = new Intent(getContext(), LoginActivity.class);
+                    startActivity(goLogin);
+                }
                 break;
             case R.id.ll_mycomment:
-                Intent goMyCard2 = new Intent(getContext(), UserCardActivity.class);
-                goMyCard2.putExtra("index", 2);
-                goMyCard2.putExtra("id", bean.getData().getUser().getUid());
-                goMyCard2.putExtra("num", bean.getData().getUser().isHas_news() ? "3" : "2");
-                startActivity(goMyCard2);
+                if (bean != null) {
+                    Intent goMyCard2 = new Intent(getContext(), UserCardActivity.class);
+                    goMyCard2.putExtra("index", 2);
+                    goMyCard2.putExtra("id", bean.getData().getUser().getUid());
+                    goMyCard2.putExtra("num", bean.getData().getUser().isHas_news() ? "3" : "2");
+                    startActivity(goMyCard2);
+                } else {
+                    Tools.toastInBottom(getContext(), "请先登录");
+                    Intent goLogin = new Intent(getContext(), LoginActivity.class);
+                    startActivity(goLogin);
+                }
                 break;
             case R.id.ll_call:
                 Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:400-3663-2552"));
@@ -178,12 +208,12 @@ public class MyFragment extends BaseFragment implements IGetMyInfoView, IGetRedP
                 }
 
                 break;
+            case R.id.civ_head:
             case R.id.ll_login:
                 if (spu.getToken().equals("")) {
                     Intent go = new Intent(getContext(), LoginActivity.class);
                     startActivity(go);
                 }
-
                 break;
             case R.id.tv_fanpiao:
                 if (bean != null)

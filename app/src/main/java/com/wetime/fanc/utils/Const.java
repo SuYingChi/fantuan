@@ -76,9 +76,7 @@ public interface Const {
     String MSG_URL = BASEURL + "/index.html#/user/message";
 
 
-
-
-    String PROTOCOL = "http://fant.fantuanlife.com/index.html#/user/agreement";
+    String PROTOCOL = BASEURL + "/index.html#/user/agreement";
 
 
 }

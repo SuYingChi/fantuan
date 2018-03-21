@@ -41,6 +41,8 @@
 
 
             <LinearLayout
+                android:focusable="true"
+                android:clickable="true"
                 android:id="@+id/ll_login"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -60,7 +62,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:gravity="center_horizontal"
-                    android:lineSpacingExtra="0sp"
                     android:text="登录/注册"
                     android:textColor="#ffffff"
                     android:textSize="17sp" />
