@@ -447,31 +447,31 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
             } else {
                 ((NewsHolder19) holder).tvContent.setVisibility(View.VISIBLE);
             }
+            if (list.get(position).getCover().size() == 0) {
+                ((NewsHolder19) holder).gv.setVisibility(View.GONE);
+            } else {
+                NineImageGridListAdapter gvadapter = new NineImageGridListAdapter(mActivity, list.get(position).getCover());
+                ((NewsHolder19) holder).gv.setAdapter(gvadapter);
+                //九宫格
+                LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) ((NewsHolder19) holder).gv.getLayoutParams();
+                //获取当前控件的布局对象
+                int sw = Tools.getScreenW(mActivity);
+                if (bean.getType() == 19) {
+                    ((NewsHolder19) holder).gv.setNumColumns(3);
+                    params.width = sw - Tools.dip2px(mActivity, 15 + 15);
+                } else if (bean.getType() == 14) {//四宫格
+                    ((NewsHolder19) holder).gv.setNumColumns(2);
+                    int w = (sw - Tools.dip2px(mActivity, 15 + 15 + 6 + 6)) / 3;
+                    params.width = w * 2 + Tools.dip2px(mActivity, 6);//设置当前控件布局的高度
+                } else {//单图
+                    params.width = sw - Tools.dip2px(mActivity, 6 + 6);
+                }
 
-            NineImageGridListAdapter gvadapter = new NineImageGridListAdapter(mActivity, list.get(position).getCover());
-            ((NewsHolder19) holder).gv.setAdapter(gvadapter);
-
-
-            //九宫格
-            LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) ((NewsHolder19) holder).gv.getLayoutParams();
-            //获取当前控件的布局对象
-            int sw = Tools.getScreenW(mActivity);
-            if (bean.getType() == 19) {
-                ((NewsHolder19) holder).gv.setNumColumns(3);
-                params.width = sw - Tools.dip2px(mActivity, 15 + 15);
-            } else if (bean.getType() == 14) {//四宫格
-                ((NewsHolder19) holder).gv.setNumColumns(2);
-                int w = (sw - Tools.dip2px(mActivity, 15 + 15 + 6 + 6)) / 3;
-                params.width = w * 2 + Tools.dip2px(mActivity, 6);//设置当前控件布局的高度
-            } else {//单图
-                params.width = sw - Tools.dip2px(mActivity, 6 + 6);
+                ((NewsHolder19) holder).gv.setLayoutParams(params);
+                gvadapter.notifyDataSetChanged();
+                ((NewsHolder19) holder).gv.setOnItemClickListener((adapterView, view, i, l) -> Tools.goPicGallery(mActivity, bean.getCover(), i));
+                ((NewsHolder19) holder).gv.setOnTouchInvalidPositionListener(motionEvent -> false);
             }
-
-            ((NewsHolder19) holder).gv.setLayoutParams(params);
-            gvadapter.notifyDataSetChanged();
-            ((NewsHolder19) holder).gv.setOnItemClickListener((adapterView, view, i, l) -> Tools.goPicGallery(mActivity, bean.getCover(), i));
-            ((NewsHolder19) holder).gv.setOnTouchInvalidPositionListener(motionEvent -> false);
-
 
             ((NewsHolder19) holder).tvSee.setText(bean.getRead_num());
             ((NewsHolder19) holder).tvZannum.setText(bean.getLike_num());
