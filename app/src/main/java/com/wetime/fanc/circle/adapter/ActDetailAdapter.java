@@ -23,7 +23,6 @@ import com.bumptech.glide.Glide;
 import com.wetime.fanc.R;
 import com.wetime.fanc.circle.act.CircleDetailActivity;
 import com.wetime.fanc.circle.bean.ActDetailBean;
-import com.wetime.fanc.customview.CanDoBlankGridView;
 import com.wetime.fanc.customview.GridViewForScrollView;
 import com.wetime.fanc.my.act.UserCardActivity;
 import com.wetime.fanc.utils.Tools;
@@ -33,7 +32,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
-import me.shaohui.bottomdialog.BottomDialog;
 
 /**
  * Created by zhoukang on 2018/3/12.
@@ -80,29 +78,30 @@ public class ActDetailAdapter extends RecyclerView.Adapter {
             if (TextUtils.isEmpty(actDetailBean.getData().getContent())) {
                 ((ViewHolder0) holder).tvContent.setVisibility(View.GONE);
             }
+            if (actDetailBean.getData().getCover().size() == 0) {
+                ((ViewHolder0) holder).gv.setVisibility(View.GONE);
+            } else {
+                NineImageGridListAdapter gvadapter = new NineImageGridListAdapter(mActivity, actDetailBean.getData().getCover());
+                //九宫格
+                LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) ((ViewHolder0) holder).gv.getLayoutParams();
+                //获取当前控件的布局对象
+                int sw = Tools.getScreenW(mActivity);
+                if (actDetailBean.getData().getType() == 19) {
+                    ((ViewHolder0) holder).gv.setNumColumns(3);
+                    params.width = sw - Tools.dip2px(mActivity, 15 + 15);
+                } else if (actDetailBean.getData().getType() == 14) {//四宫格
+                    ((ViewHolder0) holder).gv.setNumColumns(2);
+                    int w = (sw - Tools.dip2px(mActivity, 15 + 15 + 6 + 6)) / 3;
+                    params.width = w * 2 + Tools.dip2px(mActivity, 6);//设置当前控件布局的高度
+                } else {//单图
+                    params.width = sw - Tools.dip2px(mActivity, 6 + 6);
+                }
 
-
-            NineImageGridListAdapter gvadapter = new NineImageGridListAdapter(mActivity, actDetailBean.getData().getCover());
-            //九宫格
-            LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) ((ViewHolder0) holder).gv.getLayoutParams();
-            //获取当前控件的布局对象
-            int sw = Tools.getScreenW(mActivity);
-            if (actDetailBean.getData().getType() == 19) {
-                ((ViewHolder0) holder).gv.setNumColumns(3);
-                params.width = sw - Tools.dip2px(mActivity, 15 + 15);
-            } else if (actDetailBean.getData().getType() == 14) {//四宫格
-                ((ViewHolder0) holder).gv.setNumColumns(2);
-                int w = (sw - Tools.dip2px(mActivity, 15 + 15 + 6 + 6)) / 3;
-                params.width = w * 2 + Tools.dip2px(mActivity, 6);//设置当前控件布局的高度
-            } else {//单图
-                params.width = sw - Tools.dip2px(mActivity, 6 + 6);
-            }
-
-            ((ViewHolder0) holder).gv.setLayoutParams(params);
-            ((ViewHolder0) holder).gv.setAdapter(gvadapter);
+                ((ViewHolder0) holder).gv.setLayoutParams(params);
+                ((ViewHolder0) holder).gv.setAdapter(gvadapter);
 //            gvadapter.notifyDataSetChanged();
-
-            ((ViewHolder0) holder).gv.setOnItemClickListener((adapterView, view, i, l) -> Tools.goPicGallery(mActivity, actDetailBean.getData().getCover(), i));
+                ((ViewHolder0) holder).gv.setOnItemClickListener((adapterView, view, i, l) -> Tools.goPicGallery(mActivity, actDetailBean.getData().getCover(), i));
+            }
             ((ViewHolder0) holder).tvCirclename.setOnClickListener(view -> {
                 Intent goCircle = new Intent(mActivity, CircleDetailActivity.class);
                 goCircle.putExtra("id", actDetailBean.getData().getCircle_id());
@@ -160,6 +159,7 @@ public class ActDetailAdapter extends RecyclerView.Adapter {
                         go.putExtra("id", bean.getTo_uid());
                         mActivity.startActivity(go);
                     }
+
                     @Override
                     public void updateDrawState(TextPaint ds) {
                         ds.setColor(ContextCompat.getColor(mActivity, R.color.text_blue));//设置颜色

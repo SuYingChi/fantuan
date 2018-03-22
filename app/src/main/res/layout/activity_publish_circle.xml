@@ -115,6 +115,7 @@
                     android:gravity="left|top"
                     android:hint="@string/hint_publish_circle"
                     android:minLines="5"
+                    android:maxLength="500"
                     android:textColor="#333333"
                     android:textColorHint="#999999"
                     android:textSize="17sp" />

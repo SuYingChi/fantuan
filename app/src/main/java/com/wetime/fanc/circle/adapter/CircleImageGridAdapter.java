@@ -59,9 +59,10 @@ public class CircleImageGridAdapter extends BaseAdapter {
             holder = (Holder) convertView.getTag();
         }
 
-        Glide.with(mContext.getApplicationContext()).load(mlist.get(position).getAvatar())
+        Glide.with(mContext.getApplicationContext())
+                .load(mlist.get(position).getAvatar())
                 .apply(new RequestOptions()
-                        .placeholder(R.drawable.ic_head_default))
+                        .placeholder(R.drawable.ic_head_default).centerCrop())
                 .into(holder.iv);
 
 

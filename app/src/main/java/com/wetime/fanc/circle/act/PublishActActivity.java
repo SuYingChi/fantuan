@@ -81,8 +81,6 @@ public class PublishActActivity extends BaseActivity implements IPostMultiFileVi
     private void initView() {
         tvTitle.setText("发动态");
         mPicGridAdapter = new ImageGridAdapter(mContext, defaultDataArray);
-
-
         gv.setAdapter(mPicGridAdapter);
         gv.setOnItemClickListener(this);
     }
@@ -114,11 +112,11 @@ public class PublishActActivity extends BaseActivity implements IPostMultiFileVi
                 onBackPressed();
                 break;
             case R.id.tv_publish:
-                if (!TextUtils.isEmpty(etContent.getText().toString()) || defaultDataArray.size() > 0) {
+                if (etContent.getText().toString().length() >= 10 || defaultDataArray.size() > 0) {
                     PostMultiFilePresenter postMultiFilePresenter = new PostMultiFilePresenter(this);
                     postMultiFilePresenter.PostMultiFile(defaultDataArray);
                 } else {
-                    Tools.toastInBottom(mContext, "还没有输入任何内容");
+                    Tools.toastInBottom(mContext, "内容还不够10个字~");
                 }
                 break;
             case R.id.tv_select_circle:

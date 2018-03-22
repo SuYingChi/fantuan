@@ -21,17 +21,17 @@
             android:paddingRight="15dp">
 
             <LinearLayout
-                android:layout_marginBottom="25dp"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
+                android:layout_marginBottom="25dp"
                 android:layout_marginTop="25dp"
                 android:orientation="horizontal">
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/iv_circle"
-                    android:scaleType="centerCrop"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
                     android:src="@drawable/ic_default" />
 
                 <LinearLayout
@@ -82,10 +82,10 @@
                 android:gravity="center">
 
                 <de.hdodenhof.circleimageview.CircleImageView
-                    android:scaleType="centerCrop"
                     android:id="@+id/iv_user"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
                     android:src="@drawable/ic_head_default" />
 
                 <TextView
@@ -102,7 +102,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
                 android:lineSpacingExtra="0sp"
-                android:text="圈子规矩："
+                android:text="圈子简介："
                 android:textColor="#333333"
                 android:textSize="19sp"
                 android:textStyle="bold" />
@@ -121,7 +121,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
                 android:lineSpacingExtra="0sp"
-                android:text="圈子简介："
+                android:text="圈子规矩："
                 android:textColor="#333333"
                 android:textSize="19sp"
                 android:textStyle="bold" />
