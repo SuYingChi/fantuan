@@ -117,7 +117,7 @@ public class UserCardActivity extends BaseActivity implements OnLoadMoreListener
         refreshLayout.setOnLoadMoreListener(this);
 
         rclHome.setLayoutManager(new LinearLayoutManager(getContext()));
-
+        rclHome.setFocusableInTouchMode(false);
         adapter = new HomeItemAdapter(list, this);
         rclHome.setAdapter(adapter);
         adapter.notifyDataSetChanged();
