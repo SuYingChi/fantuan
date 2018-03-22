@@ -72,6 +72,7 @@
 
                     <com.flyco.tablayout.CommonTabLayout
                         android:id="@+id/tablayout"
+                        tl:tl_indicator_bounce_enable="false"
                         android:layout_width="match_parent"
                         android:layout_height="44dp"
                         android:background="@color/white"

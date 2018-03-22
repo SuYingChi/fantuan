@@ -83,8 +83,6 @@ public class UserCardActivity extends BaseActivity implements OnLoadMoreListener
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mycard);
         ButterKnife.bind(this);
-        tvTitle.setText("名片");
-
         // 区分几个头部
         if (getIntent().getStringExtra("num").equals("2")) {
             for (String mTitle : mTitles2) {
@@ -95,8 +93,6 @@ public class UserCardActivity extends BaseActivity implements OnLoadMoreListener
                 mTabEntities.add(new TabEntity(mTitle));
             }
         }
-
-
         commonTabLayout.setTabData(mTabEntities);
         index = getIntent().getIntExtra("index", 0);
         commonTabLayout.setCurrentTab(index);
@@ -152,7 +148,6 @@ public class UserCardActivity extends BaseActivity implements OnLoadMoreListener
         getUserCardPresenter.getUserInfo();
         adapter.notifyDataSetChanged();
         refreshLayout.finishLoadMore();
-
     }
 
     @Override
@@ -160,6 +155,7 @@ public class UserCardActivity extends BaseActivity implements OnLoadMoreListener
         if (page == 1) {
             list.clear();
             tvName.setText(bean.getData().getUser().getUsername());
+            tvTitle.setText(bean.getData().getUser().getUsername());
             Glide.with(this).load(bean.getData().getUser().getAvatar()).into(ivHead);
             tvDes.setText(bean.getData().getUser().getIntro());
             if (!bean.getData().getUser().isIs_new()) {
