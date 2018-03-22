@@ -74,7 +74,7 @@ public class UserCardActivity extends BaseActivity implements OnLoadMoreListener
 
     private GetUserCardPresenter getUserCardPresenter;
     private int page = 1;
-    private int index =     0;
+    private int index = 0;
     private List<HomeItemBean> list = new ArrayList<>();
     private HomeItemAdapter adapter;
 
@@ -164,6 +164,8 @@ public class UserCardActivity extends BaseActivity implements OnLoadMoreListener
             tvDes.setText(bean.getData().getUser().getIntro());
             if (!bean.getData().getUser().isIs_new()) {
                 ivNews.setVisibility(View.GONE);
+            } else {
+                ivNews.setVisibility(View.VISIBLE);
             }
         }
         list.addAll(bean.getData().getList());

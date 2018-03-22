@@ -113,7 +113,6 @@ public class MyFragment extends BaseFragment implements IGetMyInfoView, IGetRedP
         qBadgeMsg.bindTarget(ivMsg);
 
 
-
         getUserInfoPresenter = new GetUserInfoPresenter(this);
         getRedPackagePresenter = new GetRedPackagePresenter(this);
 
@@ -128,7 +127,7 @@ public class MyFragment extends BaseFragment implements IGetMyInfoView, IGetRedP
     }
 
 
-    @OnClick({R.id.civ_head,R.id.ll_my_state, R.id.ll_call, R.id.iv_setting, R.id.ll_login, R.id.tv_fanpiao, R.id.tv_youhuiquan, R.id.ll_mycomment,
+    @OnClick({R.id.civ_head, R.id.ll_my_state, R.id.ll_call, R.id.iv_setting, R.id.ll_login, R.id.tv_fanpiao, R.id.tv_youhuiquan, R.id.ll_mycomment,
             R.id.iv_msg, R.id.tv_wallet, R.id.ll_invite, R.id.ll_beauthor, R.id.ll_mynews, R.id.tv_collect, R.id.tv_order,
             R.id.ll_redpacket})
     public void onViewClicked(View view) {
@@ -168,11 +167,19 @@ public class MyFragment extends BaseFragment implements IGetMyInfoView, IGetRedP
                 break;
             case R.id.ll_mynews:
                 if (bean != null) {
-                    Intent goMyCard1 = new Intent(getContext(), UserCardActivity.class);
-                    goMyCard1.putExtra("index", 1);
-                    goMyCard1.putExtra("id", bean.getData().getUser().getUid());
-                    goMyCard1.putExtra("num", bean.getData().getUser().isHas_news() ? "3" : "2");
-                    startActivity(goMyCard1);
+                    if (bean.getData().getUser().isHas_news()) {
+                        Intent goMyCard1 = new Intent(getContext(), UserCardActivity.class);
+                        goMyCard1.putExtra("index", 1);
+                        goMyCard1.putExtra("id", bean.getData().getUser().getUid());
+                        goMyCard1.putExtra("num", bean.getData().getUser().isHas_news() ? "3" : "2");
+                        startActivity(goMyCard1);
+                    } else {
+                        Tools.showTipsDialog(getContext(),
+                                "",
+                                "你尚未开通头条哦，请点击“申请成为头条号”开通吧",
+                                "取消", "去申请", null,
+                                view1 -> goWeb(bean.getData().getLink().getNews().getUrl()));
+                    }
                 } else {
                     Tools.toastInBottom(getContext(), "请先登录");
                     Intent goLogin = new Intent(getContext(), LoginActivity.class);
@@ -182,7 +189,7 @@ public class MyFragment extends BaseFragment implements IGetMyInfoView, IGetRedP
             case R.id.ll_mycomment:
                 if (bean != null) {
                     Intent goMyCard2 = new Intent(getContext(), UserCardActivity.class);
-                    goMyCard2.putExtra("index", 2);
+                    goMyCard2.putExtra("index", bean.getData().getUser().isHas_news() ? 2 : 1);
                     goMyCard2.putExtra("id", bean.getData().getUser().getUid());
                     goMyCard2.putExtra("num", bean.getData().getUser().isHas_news() ? "3" : "2");
                     startActivity(goMyCard2);

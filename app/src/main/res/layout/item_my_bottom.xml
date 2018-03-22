@@ -137,7 +137,7 @@
             android:lineSpacingExtra="1sp"
             android:paddingLeft="10dp"
             android:paddingRight="15dp"
-            android:text="申请成文头条号"
+            android:text="申请成为头条号"
             android:textColor="#333333"
             android:textSize="15sp" />
     </LinearLayout>
