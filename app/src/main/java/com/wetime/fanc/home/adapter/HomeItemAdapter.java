@@ -450,6 +450,7 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
             if (list.get(position).getCover().size() == 0) {
                 ((NewsHolder19) holder).gv.setVisibility(View.GONE);
             } else {
+                ((NewsHolder19) holder).gv.setVisibility(View.VISIBLE);
                 NineImageGridListAdapter gvadapter = new NineImageGridListAdapter(mActivity, list.get(position).getCover());
                 ((NewsHolder19) holder).gv.setAdapter(gvadapter);
                 //九宫格

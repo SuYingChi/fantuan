@@ -333,6 +333,11 @@ public class MyFragment extends BaseFragment implements IGetMyInfoView, IGetRedP
         }
 
         tvName.setText(bean.getData().getUser().getUsername());
+        if(bean.getData().getUser().isHas_news()){
+            llBeauthor.setVisibility(View.GONE);
+        }else{
+            llBeauthor.setVisibility(View.VISIBLE);
+        }
 
     }
 
