@@ -207,6 +207,12 @@ public class CircleLazyFragment extends BaseLazyFragment implements OnRefreshLis
 //    }
 
     @Override
+    public void onNetError() {
+        super.onNetError();
+        refreshLayout.finishRefresh();
+    }
+
+    @Override
     public void onGetCircleHome(CircleHomeListBean bean) {
 //        refreshLayout.finishLoadMore();
         refreshLayout.finishRefresh();
