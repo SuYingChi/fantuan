@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg_all"
+    android:background="@color/white"
     android:orientation="vertical">
 
 
@@ -41,7 +41,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@color/white"
-        android:drawableLeft="@drawable/ic_my_collect"
+        android:drawableLeft="@drawable/ic_my_friends"
         android:drawablePadding="10dp"
         android:drawableRight="@drawable/ic_right"
         android:gravity="center|left"
@@ -77,10 +77,8 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:background="#e1e1e1" />
+        android:layout_height="10dp"
+        android:background="@color/bg_all" />
 
     <TextView
         android:id="@+id/tv_order"

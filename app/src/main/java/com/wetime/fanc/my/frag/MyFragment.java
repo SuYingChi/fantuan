@@ -91,6 +91,16 @@ public class MyFragment extends BaseFragment implements IGetMyInfoView, IGetRedP
     LinearLayout llInvite;
     @BindView(R.id.ll_redpacket)
     LinearLayout llRedpacket;
+    @BindView(R.id.tv_actnum)
+    TextView tvActnum;
+    @BindView(R.id.ll_my_state)
+    LinearLayout llMyState;
+    @BindView(R.id.tv_newsnum)
+    TextView tvNewsnum;
+    @BindView(R.id.tv_commentnum)
+    TextView tvCommentnum;
+    @BindView(R.id.tv_myfriend)
+    TextView tvMyfriend;
 
     private GetUserInfoPresenter getUserInfoPresenter;
     private MyInfoBean bean;
@@ -134,8 +144,14 @@ public class MyFragment extends BaseFragment implements IGetMyInfoView, IGetRedP
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_myfriend:
-                Intent goMyFri = new Intent(getContext(), MyFriendsActivity.class);
-                startActivity(goMyFri);
+                if (bean != null) {
+                    Intent goMyFri = new Intent(getContext(), MyFriendsActivity.class);
+                    startActivity(goMyFri);
+                } else {
+                    Tools.toastInBottom(getContext(), "请先登录");
+                    Intent goLogin = new Intent(getContext(), LoginActivity.class);
+                    startActivity(goLogin);
+                }
                 break;
             case R.id.ll_my_state:
                 if (bean != null) {
@@ -344,6 +360,10 @@ public class MyFragment extends BaseFragment implements IGetMyInfoView, IGetRedP
             llBeauthor.setVisibility(View.VISIBLE);
         }
 
+        tvActnum.setText("11");
+        tvNewsnum.setText("111");
+        tvCommentnum.setText("9");
+
     }
 
     @Override
@@ -388,7 +408,9 @@ public class MyFragment extends BaseFragment implements IGetMyInfoView, IGetRedP
         tvName.setText("登录/注册");
 //        civHead.setImageResource(R.drawable.ic_head_default);
         Glide.with(this).load(R.drawable.ic_head_default).apply(new RequestOptions().placeholder(R.drawable.ic_head_default)).into(civHead);
-
+        tvActnum.setText("0");
+        tvNewsnum.setText("0");
+        tvCommentnum.setText("0");
     }
 
     private void initLoaction() {

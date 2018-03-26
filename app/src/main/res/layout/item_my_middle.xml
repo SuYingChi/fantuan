@@ -24,16 +24,21 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <ImageView
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:src="@drawable/ic_my_state" />
+            <TextView
+                android:id="@+id/tv_actnum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="0"
+                android:textStyle="bold"
+                android:textColor="#333333"
+                android:textSize="18sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="我的动态"
+                android:text="动态"
                 android:textColor="#333333"
                 android:textSize="14sp" />
         </LinearLayout>
@@ -46,17 +51,22 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <ImageView
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:src="@drawable/ic_my_news" />
+            <TextView
+                android:id="@+id/tv_newsnum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="0"
+                android:textStyle="bold"
+                android:textColor="#333333"
+                android:textSize="18sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:lineSpacingExtra="0sp"
-                android:text="我的头条"
+                android:text="头条"
                 android:textColor="#333333"
                 android:textSize="14sp" />
         </LinearLayout>
@@ -69,17 +79,22 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <ImageView
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:src="@drawable/ic_my_comment" />
+            <TextView
+                android:id="@+id/tv_commentnum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="0"
+                android:textStyle="bold"
+                android:textColor="#333333"
+                android:textSize="18sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:lineSpacingExtra="0sp"
-                android:text="我的点评"
+                android:text="点评"
                 android:textColor="#333333"
                 android:textSize="14sp" />
         </LinearLayout>
