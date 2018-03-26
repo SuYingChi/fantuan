@@ -27,6 +27,7 @@ import com.wetime.fanc.login.event.LoginEvent;
 import com.wetime.fanc.login.event.LogoutEvent;
 import com.wetime.fanc.main.frag.BaseFragment;
 import com.wetime.fanc.my.act.MyCollectActivity;
+import com.wetime.fanc.my.act.MyFriendsActivity;
 import com.wetime.fanc.my.act.UserCardActivity;
 import com.wetime.fanc.my.bean.MyInfoBean;
 import com.wetime.fanc.my.bean.RebPackageBean;
@@ -127,11 +128,15 @@ public class MyFragment extends BaseFragment implements IGetMyInfoView, IGetRedP
     }
 
 
-    @OnClick({R.id.civ_head, R.id.ll_my_state, R.id.ll_call, R.id.iv_setting, R.id.ll_login, R.id.tv_fanpiao, R.id.tv_youhuiquan, R.id.ll_mycomment,
+    @OnClick({R.id.tv_myfriend, R.id.civ_head, R.id.ll_my_state, R.id.ll_call, R.id.iv_setting, R.id.ll_login, R.id.tv_fanpiao, R.id.tv_youhuiquan, R.id.ll_mycomment,
             R.id.iv_msg, R.id.tv_wallet, R.id.ll_invite, R.id.ll_beauthor, R.id.ll_mynews, R.id.tv_collect, R.id.tv_order,
             R.id.ll_redpacket})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            case R.id.tv_myfriend:
+                Intent goMyFri = new Intent(getContext(), MyFriendsActivity.class);
+                startActivity(goMyFri);
+                break;
             case R.id.ll_my_state:
                 if (bean != null) {
                     Intent goMyCard0 = new Intent(getContext(), UserCardActivity.class);
@@ -333,9 +338,9 @@ public class MyFragment extends BaseFragment implements IGetMyInfoView, IGetRedP
         }
 
         tvName.setText(bean.getData().getUser().getUsername());
-        if(bean.getData().getUser().isHas_news()){
+        if (bean.getData().getUser().isHas_news()) {
             llBeauthor.setVisibility(View.GONE);
-        }else{
+        } else {
             llBeauthor.setVisibility(View.VISIBLE);
         }
 
