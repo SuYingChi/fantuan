@@ -9,9 +9,9 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:background="#FFFFFF"
         android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:background="#FFFFFF">
+        android:focusableInTouchMode="true">
 
         <ImageView
             android:id="@+id/iv_back"
@@ -52,47 +52,73 @@
         <LinearLayout
             android:id="@+id/llbo"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
+            android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:background="#f9f9f9"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp">
+            android:orientation="vertical">
+            <LinearLayout
+                android:orientation="horizontal"
+                android:background="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:drawablePadding="2dp"
+                    android:drawableLeft="@drawable/ic_loc_off"
+                    android:padding="6dp"
+                    android:background="@drawable/bg_etit_gray_corner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="13sp"
+                    android:textColor="#999999"
+                    android:text="你在哪里？"
+                    />
+            </LinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="end"
-                android:lineSpacingExtra="0sp"
-                android:text="已选择："
-                android:textColor="#999999"
-                android:textSize="15sp" />
+            <LinearLayout
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="#f9f9f9"
+                android:gravity="center"
+                android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/tv_circlename"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:ellipsize="end"
-                android:lineSpacingExtra="0sp"
-                android:maxLines="1"
-                android:textColor="#05a4be"
-                android:textSize="15sp"
-                tools:text="老爸茶馆" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:lineSpacingExtra="0sp"
+                    android:text="已选择："
+                    android:textColor="#999999"
+                    android:textSize="15sp" />
 
-            <TextView
-                android:id="@+id/tv_select_circle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:drawablePadding="10dp"
-                android:drawableRight="@drawable/ic_right"
-                android:gravity="end"
-                android:lineSpacingExtra="0sp"
-                android:text="@string/str_reselect_circle"
-                android:textColor="#999999"
-                android:textSize="12sp" />
+                <TextView
+                    android:id="@+id/tv_circlename"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ellipsize="end"
+                    android:lineSpacingExtra="0sp"
+                    android:maxLines="1"
+                    android:textColor="#05a4be"
+                    android:textSize="15sp"
+                    tools:text="老爸茶馆" />
+
+                <TextView
+                    android:id="@+id/tv_select_circle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="10dp"
+                    android:drawableRight="@drawable/ic_right"
+                    android:gravity="end"
+                    android:lineSpacingExtra="0sp"
+                    android:text="@string/str_reselect_circle"
+                    android:textColor="#999999"
+                    android:textSize="12sp" />
+            </LinearLayout>
         </LinearLayout>
+
 
         <ScrollView
             android:layout_width="match_parent"
@@ -114,8 +140,8 @@
                     android:background="@color/white"
                     android:gravity="left|top"
                     android:hint="@string/hint_publish_circle"
-                    android:minLines="5"
                     android:maxLength="500"
+                    android:minLines="5"
                     android:textColor="#333333"
                     android:textColorHint="#999999"
                     android:textSize="17sp" />
