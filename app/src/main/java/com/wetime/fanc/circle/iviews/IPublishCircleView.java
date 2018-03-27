@@ -16,4 +16,10 @@ public interface IPublishCircleView extends IBaseVIew {
 
     String getContent();
 
+
+    String getCJd();
+
+    String getCWd();
+
+    String getLoc();
 }

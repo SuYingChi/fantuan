@@ -23,6 +23,9 @@ public class PublishCirclePresenter {
     }
 
     public void publishCircle(String ids) {
+//        "lng":"110.3196",
+//                "lat":"20.02862",
+//                "location":"百方"
         OkHttpUtils
                 .post()
                 .url(Const.DYNAMIC_PUBLISH_SAVE)
@@ -30,6 +33,9 @@ public class PublishCirclePresenter {
                 .addParams("circle_id", iView.getCircleId())
                 .addParams("content", iView.getContent())
                 .addParams("image_ids", ids)
+                .addParams("lng", iView.getCJd())
+                .addParams("lat", iView.getCWd())
+                .addParams("location", iView.getLoc())
                 .build()
                 .execute(new DataStringCallback(iView, false) {
                     @Override

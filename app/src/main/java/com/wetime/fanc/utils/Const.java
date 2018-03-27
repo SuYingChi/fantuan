@@ -74,6 +74,7 @@ public interface Const {
     String DYNAMIC_LIKE = BASEURL + "/dynamic/like";
     String USER_NOTICE_UNREAD = BASEURL + "/user/notice/unread";
     String MSG_URL = BASEURL + "/index.html#/user/message";
+    String DYNAMIC_ADDRESS = BASEURL + "/dynamic/address";
 
 
     String PROTOCOL = BASEURL + "/index.html#/user/agreement";

@@ -22,11 +22,17 @@ public class HomeItemBean {
      * cover : ["https://staticcdntest.fantuanlife.com/uimage/00/01/a1/5c/0001a15ccc4f3aa227220a94f20c29d3.jpg","https://staticcdntest.fantuanlife.com/uimage/00/01/a5/9f/0001a59f2b1e5babff2852ec8813593d.jpg"]
      * type : 19
      * has_like : true
+     *  "longitude": "0",
+     "latitude": "0",
+     "location": "",
      */
 
     private String id;
     private String uid;
     private String circle_id;
+    private String longitude;
+    private String latitude;
+    private String location;
     private String content;
     private String read_num;
     private String like_num;
@@ -72,6 +78,30 @@ public class HomeItemBean {
 //    private List<String> cover;
     private List<BannerBean> banner;
     private  String emptyType;
+
+    public String getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
+    }
+
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
 
     public String getEmptyType() {
         return emptyType;

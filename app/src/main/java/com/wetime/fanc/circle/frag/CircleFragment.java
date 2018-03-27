@@ -1,32 +1,20 @@
 package com.wetime.fanc.circle.frag;
 
-import android.content.Intent;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.fan.baselib.loadmore.AutoLoadMoreAdapter;
-import com.flyco.tablayout.CommonTabLayout;
-import com.flyco.tablayout.listener.CustomTabEntity;
-import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.wetime.fanc.R;
-import com.wetime.fanc.circle.act.AllCircleActivity;
-import com.wetime.fanc.circle.act.CircleDetailActivity;
 import com.wetime.fanc.circle.adapter.CircleHomeAdapter;
-import com.wetime.fanc.circle.adapter.HeadCircleAdapter;
 import com.wetime.fanc.circle.bean.CircleHomeListBean;
 import com.wetime.fanc.circle.iviews.IGetCircleHomeView;
 import com.wetime.fanc.circle.presenter.GetCircleHomePresenter;
-import com.wetime.fanc.home.adapter.HomeItemAdapter;
 import com.wetime.fanc.home.bean.HomeItemBean;
-import com.wetime.fanc.home.bean.TabEntity;
 import com.wetime.fanc.home.event.ReFreshCircleEvent;
 import com.wetime.fanc.home.event.RefreshRedNumEvent;
 import com.wetime.fanc.main.frag.BaseLazyFragment;
@@ -47,7 +35,6 @@ public class CircleFragment extends BaseLazyFragment implements OnRefreshListene
     RecyclerView rclHome;
 
 
-
     @BindView(R.id.refreshLayout)
     SmartRefreshLayout refreshLayout;
     @BindView(R.id.rl_empty)
@@ -62,8 +49,6 @@ public class CircleFragment extends BaseLazyFragment implements OnRefreshListene
     private int sortPos = 0;
     private GetCircleHomePresenter getCircleHomePresenter;
     private int page = 1;
-
-
 
 
     private AutoLoadMoreAdapter mAutoLoadMoreAdapter;
@@ -117,7 +102,7 @@ public class CircleFragment extends BaseLazyFragment implements OnRefreshListene
         if (adapter == null) {
             //列表
             rclHome.setLayoutManager(new LinearLayoutManager(getContext()));
-            adapter = new CircleHomeAdapter(bean.getData().getCircles(),mList, getActivity());
+            adapter = new CircleHomeAdapter(bean.getData().getCircles(), mList, getActivity());
             mAutoLoadMoreAdapter = new AutoLoadMoreAdapter(getContext(), adapter);
             mAutoLoadMoreAdapter.setOnLoadListener(new AutoLoadMoreAdapter.OnLoadListener() {
                 @Override
@@ -132,6 +117,10 @@ public class CircleFragment extends BaseLazyFragment implements OnRefreshListene
                 }
             });
             rclHome.setAdapter(mAutoLoadMoreAdapter);
+            adapter.setOnTabClickLitener(position -> {
+                sortPos = position;
+                onRefresh(refreshLayout);
+            });
 //            adapter.notifyDataSetChanged();
         }
 

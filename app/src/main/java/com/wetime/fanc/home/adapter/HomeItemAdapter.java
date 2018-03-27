@@ -21,6 +21,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.wetime.fanc.R;
 import com.wetime.fanc.circle.act.ActDetailActivity;
 import com.wetime.fanc.circle.act.CircleDetailActivity;
+import com.wetime.fanc.circle.adapter.CircleHomeAdapter;
 import com.wetime.fanc.circle.adapter.NineImageGridListAdapter;
 import com.wetime.fanc.circle.adapter.NineImageGridListAdapterCard;
 import com.wetime.fanc.circle.presenter.ZanActPresenter;
@@ -530,6 +531,12 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
             } else {
                 ((NewsHolder19) holder).ivOnwer.setVisibility(View.GONE);
             }
+            if (TextUtils.isEmpty(bean.getLocation())) {
+                ((NewsHolder19) holder).tvAddres.setVisibility(View.GONE);
+            } else {
+                ((NewsHolder19) holder).tvAddres.setVisibility(View.VISIBLE);
+                ((NewsHolder19) holder).tvAddres.setText(bean.getLocation());
+            }
 
         }
 
@@ -670,6 +677,8 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
     // 九宫格
 
     class NewsHolder19 extends RecyclerView.ViewHolder {
+        @BindView(R.id.tv_addres)
+        TextView tvAddres;
         @BindView(R.id.tv_name)
         TextView tvName;
         @BindView(R.id.tv_time)

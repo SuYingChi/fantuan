@@ -74,19 +74,12 @@ public class CircleHomeAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
-        HomeItemBean bean = list.get(position);
+
 
 //        if (mOnItemClickLitener != null) {
 //            holder.itemView.setOnClickListener(view -> mOnItemClickLitener.onItemClick(view, position));
 //        }
 
-        holder.itemView.setOnClickListener(view -> {
-            if (bean.getType() != -1) {
-                Intent goDet = new Intent(mActivity, ActDetailActivity.class);
-                goDet.putExtra("id", bean.getId());
-                mActivity.startActivity(goDet);
-            }
-        });
 
         if (holder instanceof CircleHeadViewHolder) {
             if (circleAdapter == null) {
@@ -100,8 +93,9 @@ public class CircleHomeAdapter extends RecyclerView.Adapter {
                 ((CircleHeadViewHolder) holder).commonTabLayout.setOnTabSelectListener(new OnTabSelectListener() {
                     @Override
                     public void onTabSelect(int position) {
-//                    sortPos = position;
-//                    onRefresh(refreshLayout);
+                        if (mOnTabClickLitener != null) {
+                            mOnTabClickLitener.onTabClick(position);
+                        }
                     }
 
                     @Override
@@ -128,6 +122,14 @@ public class CircleHomeAdapter extends RecyclerView.Adapter {
             }
         }
         if (holder instanceof NewsHolder19) {
+            HomeItemBean bean = list.get(position - 1);
+            holder.itemView.setOnClickListener(view -> {
+                if (bean.getType() != -1) {
+                    Intent goDet = new Intent(mActivity, ActDetailActivity.class);
+                    goDet.putExtra("id", bean.getId());
+                    mActivity.startActivity(goDet);
+                }
+            });
             Glide.with(mActivity).load(bean.getAvatar()).into(((NewsHolder19) holder).ivHead);
             ((NewsHolder19) holder).tvName.setText(bean.getUsername());
             ((NewsHolder19) holder).tvTime.setText(bean.getTime());
@@ -146,11 +148,11 @@ public class CircleHomeAdapter extends RecyclerView.Adapter {
             } else {
                 ((NewsHolder19) holder).tvContent.setVisibility(View.VISIBLE);
             }
-            if (list.get(position).getCover().size() == 0) {
+            if (bean.getCover().size() == 0) {
                 ((NewsHolder19) holder).gv.setVisibility(View.GONE);
             } else {
                 ((NewsHolder19) holder).gv.setVisibility(View.VISIBLE);
-                NineImageGridListAdapter gvadapter = new NineImageGridListAdapter(mActivity, list.get(position).getCover());
+                NineImageGridListAdapter gvadapter = new NineImageGridListAdapter(mActivity, bean.getCover());
                 ((NewsHolder19) holder).gv.setAdapter(gvadapter);
                 //九宫格
                 LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) ((NewsHolder19) holder).gv.getLayoutParams();
@@ -229,7 +231,12 @@ public class CircleHomeAdapter extends RecyclerView.Adapter {
             } else {
                 ((NewsHolder19) holder).ivOnwer.setVisibility(View.GONE);
             }
-
+            if (TextUtils.isEmpty(bean.getLocation())) {
+                ((NewsHolder19) holder).tvAddres.setVisibility(View.GONE);
+            } else {
+                ((NewsHolder19) holder).tvAddres.setVisibility(View.VISIBLE);
+                ((NewsHolder19) holder).tvAddres.setText(bean.getLocation());
+            }
         }
 
     }
@@ -243,7 +250,7 @@ public class CircleHomeAdapter extends RecyclerView.Adapter {
     public int getItemViewType(int position) {
         if (position == 0)
             return -1;
-        return list.get(position).getType();
+        return list.get(position - 1).getType();
     }
 
     // 一张小图
@@ -263,6 +270,8 @@ public class CircleHomeAdapter extends RecyclerView.Adapter {
     class NewsHolder19 extends RecyclerView.ViewHolder {
         @BindView(R.id.tv_name)
         TextView tvName;
+        @BindView(R.id.tv_addres)
+        TextView tvAddres;
         @BindView(R.id.tv_time)
         TextView tvTime;
         @BindView(R.id.tv_content)
@@ -307,7 +316,7 @@ public class CircleHomeAdapter extends RecyclerView.Adapter {
     }
 
 
-//    public interface OnItemClickLitener {
+    //    public interface OnItemClickLitener {
 //        void onItemClick(View view, int position);
 //    }
 //
@@ -318,5 +327,17 @@ public class CircleHomeAdapter extends RecyclerView.Adapter {
 //    public void setOnItemClickLitener(OnItemClickLitener mOnItemClickLitener) {
 //        this.mOnItemClickLitener = mOnItemClickLitener;
 //    }
+
+    public interface OnTabClickLitener {
+        void onTabClick(int position);
+    }
+
+
+    private OnTabClickLitener mOnTabClickLitener;
+
+
+    public void setOnTabClickLitener(OnTabClickLitener mOnTabClickLitener) {
+        this.mOnTabClickLitener = mOnTabClickLitener;
+    }
 
 }

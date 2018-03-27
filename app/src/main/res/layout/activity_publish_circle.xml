@@ -55,34 +55,38 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:orientation="vertical">
+
             <LinearLayout
-                android:orientation="horizontal"
-                android:background="@color/white"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="horizontal"
+                android:padding="15dp">
+
                 <TextView
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginBottom="15dp"
-                    android:drawablePadding="2dp"
-                    android:drawableLeft="@drawable/ic_loc_off"
-                    android:padding="6dp"
-                    android:background="@drawable/bg_etit_gray_corner"
+                    android:id="@+id/tv_addres"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="13sp"
+                    android:layout_height="28dp"
+                    android:background="@drawable/bg_publish_circle_loc"
+                    android:drawableLeft="@drawable/ic_loc_off"
+                    android:drawablePadding="3dp"
+                    android:gravity="center_vertical"
+                    android:maxLines="1"
+                    android:paddingLeft="3dp"
+                    android:paddingRight="5dp"
+                    android:text="@string/str_where_are_you"
                     android:textColor="#999999"
-                    android:text="你在哪里？"
-                    />
+                    android:textSize="13sp" />
             </LinearLayout>
 
             <LinearLayout
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:background="#f9f9f9"
                 android:gravity="center"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp">
 
                 <TextView
                     android:layout_width="wrap_content"
