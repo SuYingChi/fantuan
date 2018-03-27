@@ -84,7 +84,7 @@ public class CircleHomeAdapter extends RecyclerView.Adapter {
             if (bean.getType() != -1) {
                 Intent goDet = new Intent(mActivity, ActDetailActivity.class);
                 goDet.putExtra("id", bean.getId());
-                mActivity.getApplication().startActivity(goDet);
+                mActivity.startActivity(goDet);
             }
         });
 
