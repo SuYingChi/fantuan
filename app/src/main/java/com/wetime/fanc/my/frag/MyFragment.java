@@ -360,9 +360,9 @@ public class MyFragment extends BaseFragment implements IGetMyInfoView, IGetRedP
             llBeauthor.setVisibility(View.VISIBLE);
         }
 
-        tvActnum.setText("11");
-        tvNewsnum.setText("111");
-        tvCommentnum.setText("9");
+        tvActnum.setText(bean.getData().getUser().getDynamic_num());
+        tvNewsnum.setText(bean.getData().getUser().getNews_article_num());
+        tvCommentnum.setText(bean.getData().getUser().getOrder_review_num());
 
     }
 
