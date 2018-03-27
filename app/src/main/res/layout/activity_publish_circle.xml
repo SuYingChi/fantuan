@@ -77,6 +77,16 @@
                     android:text="@string/str_where_are_you"
                     android:textColor="#999999"
                     android:textSize="13sp" />
+
+                <ImageView
+                    android:visibility="gone"
+                    android:background="@drawable/bg_publish_circle_loc"
+                    android:id="@+id/iv_close"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:layout_marginLeft="1dp"
+                    android:padding="3dp"
+                    android:src="@drawable/ic_loc_close" />
             </LinearLayout>
 
             <LinearLayout

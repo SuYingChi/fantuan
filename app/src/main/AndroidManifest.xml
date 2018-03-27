@@ -166,6 +166,7 @@
         <activity android:name=".home.act.SortActivity" />
         <activity android:name=".order.act.MyOrderActivity" />
         <activity android:name=".my.act.MyFriendsActivity" />
+        <activity android:name=".circle.act.SelectLocActivity" />
 
     </application>
 </manifest>

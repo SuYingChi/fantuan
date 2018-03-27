@@ -24,6 +24,7 @@ public class GetDefaultCirclePresenter {
                 .post()
                 .url(Const.DYNAMIC_PUBLISH_INITFORM)
                 .addParams("circle_id", iView.getCircleId())
+                .addParams("token", iView.getToken())
                 .build()
                 .execute(new DataStringCallback(iView, false) {
                     @Override

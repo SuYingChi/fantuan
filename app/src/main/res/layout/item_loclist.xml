@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/touch_bg"
+    android:gravity="center"
+    android:orientation="horizontal"
+    android:paddingBottom="15dp"
+    android:paddingLeft="15dp"
+    android:paddingRight="15dp"
+    android:paddingTop="15dp">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:paddingRight="10dp">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:lineSpacingExtra="0sp"
+            android:textColor="#333333"
+            android:textSize="17sp"
+            tools:text="百方大厦隔壁的希尔顿酒店" />
+
+        <TextView
+            android:id="@+id/tv_addres"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:ellipsize="end"
+            android:lineSpacingExtra="0sp"
+            android:maxLines="1"
+            android:textColor="#666666"
+            android:textSize="13sp"
+            tools:text="龙华区金贸中路梦缘小区1号别墅" />
+
+        <TextView
+            android:visibility="gone"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:id="@+id/tv_noloc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:lineSpacingExtra="0sp"
+            android:text="不显示位置"
+            android:textColor="#05a4be"
+            android:textSize="17sp" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/iv_check"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_right_green"
+        android:visibility="gone" />
+</LinearLayout>

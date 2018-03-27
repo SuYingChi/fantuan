@@ -427,6 +427,12 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
                 goCircle.putExtra("id", bean.getCircle_id());
                 mActivity.startActivity(goCircle);
             });
+            if (TextUtils.isEmpty(bean.getLocation())) {
+                ((NewsHolder39) holder).tvAddres.setVisibility(View.GONE);
+            } else {
+                ((NewsHolder39) holder).tvAddres.setVisibility(View.VISIBLE);
+                ((NewsHolder39) holder).tvAddres.setText(bean.getLocation());
+            }
 
         }
         if (holder instanceof NewsHolder19) {
@@ -711,6 +717,8 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
     }
 
     class NewsHolder39 extends RecyclerView.ViewHolder {
+        @BindView(R.id.tv_addres)
+        TextView tvAddres;
         @BindView(R.id.tv_content)
         TextView tvContent;
         @BindView(R.id.gv)
