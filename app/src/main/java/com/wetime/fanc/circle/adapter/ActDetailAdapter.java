@@ -122,7 +122,12 @@ public class ActDetailAdapter extends RecyclerView.Adapter {
                 go.putExtra("id", actDetailBean.getData().getUid());
                 mActivity.startActivity(go);
             });
-
+            if (TextUtils.isEmpty(actDetailBean.getData().getLocation())) {
+                ((ViewHolder0) holder).tvAddres.setVisibility(View.GONE);
+            } else {
+                ((ViewHolder0) holder).tvAddres.setVisibility(View.VISIBLE);
+                ((ViewHolder0) holder).tvAddres.setText(actDetailBean.getData().getLocation());
+            }
         }
         if (holder instanceof ViewHolder1) {
             ((ViewHolder1) holder).tvZannum.setText(String.format("%s人点赞", actDetailBean.getData().getLike_num()));
@@ -213,6 +218,8 @@ public class ActDetailAdapter extends RecyclerView.Adapter {
         CircleImageView ivHead;
         @BindView(R.id.tv_name)
         TextView tvName;
+        @BindView(R.id.tv_addres)
+        TextView tvAddres;
         @BindView(R.id.iv_onwer)
         ImageView ivOnwer;
         @BindView(R.id.tv_time)

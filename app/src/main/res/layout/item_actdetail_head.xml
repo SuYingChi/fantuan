@@ -89,6 +89,19 @@
         android:scrollbars="none"
         android:verticalSpacing="6dp" />
 
+    <TextView
+        android:id="@+id/tv_addres"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/ic_loc_off"
+        android:drawablePadding="2dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:paddingTop="15dp"
+        android:textColor="#999999"
+        android:textSize="13sp"
+        tools:text="世贸北路一号海岸一二三四五六七八号C栋综合楼1003..." />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -97,11 +110,11 @@
 
 
         <TextView
-            android:paddingRight="10dp"
             android:id="@+id/tv_see"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:lineSpacingExtra="0sp"
+            android:paddingRight="10dp"
             android:textColor="#999999"
             android:textSize="14sp"
             tools:text="456次浏览" />
