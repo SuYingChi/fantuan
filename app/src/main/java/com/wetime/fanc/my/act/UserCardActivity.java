@@ -1,13 +1,16 @@
 package com.wetime.fanc.my.act;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -18,6 +21,7 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.wetime.fanc.R;
+import com.wetime.fanc.circle.presenter.FocusPresenter;
 import com.wetime.fanc.home.adapter.HomeItemAdapter;
 import com.wetime.fanc.home.bean.HomeItemBean;
 import com.wetime.fanc.home.bean.TabEntity;
@@ -59,6 +63,14 @@ public class UserCardActivity extends BaseActivity implements OnLoadMoreListener
     ImageView ivNews;
     @BindView(R.id.tv_des)
     TextView tvDes;
+    @BindView(R.id.tv_focus)
+    TextView tvFocus;
+    @BindView(R.id.ll_focus)
+    LinearLayout llFocus;
+    @BindView(R.id.tv_follow_num)
+    TextView tvFollowNum;
+    @BindView(R.id.tv_fans_num)
+    TextView tvFansNum;
 //    @BindView(R.id.iv_empty)
 //    ImageView ivEmpty;
 //    @BindView(R.id.tv_empty)
@@ -163,6 +175,47 @@ public class UserCardActivity extends BaseActivity implements OnLoadMoreListener
             } else {
                 ivNews.setVisibility(View.VISIBLE);
             }
+            if (!bean.getData().getUser().isOwner()) {
+                llFocus.setVisibility(View.VISIBLE);
+            }
+            if (bean.getData().getUser().isFollow()) {
+                tvFocus.setTextColor(ContextCompat.getColor(mContext, R.color.text_hint));
+                tvFocus.setText("已关注");
+                Drawable drawable = getResources().getDrawable(R.drawable.ic_focus_bottom_off);
+                drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getMinimumHeight());
+                tvFocus.setCompoundDrawables(drawable, null, null, null);
+            } else {
+                tvFocus.setTextColor(ContextCompat.getColor(mContext, R.color.text_commen));
+                tvFocus.setText("加关注");
+                Drawable drawable = getResources().getDrawable(R.drawable.ic_focus_bottom_on);
+                drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getMinimumHeight());
+                tvFocus.setCompoundDrawables(drawable, null, null, null);
+            }
+            tvFocus.setOnClickListener(v -> {
+                bean.getData().getUser().setFollow(!bean.getData().getUser().isFollow());
+
+                FocusPresenter focusPresenter = new FocusPresenter();
+                focusPresenter.focusUser(getToken(),
+                        bean.getData().getUser().isFollow() ? "1" : "0",
+                        bean.getData().getUser().getId());
+                if (bean.getData().getUser().isFollow()) {
+                    tvFocus.setTextColor(ContextCompat.getColor(mContext, R.color.text_hint));
+                    tvFocus.setText("已关注");
+                    Drawable drawable = getResources().getDrawable(R.drawable.ic_focus_bottom_off);
+                    drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getMinimumHeight());
+                    tvFocus.setCompoundDrawables(drawable, null, null, null);
+                } else {
+                    tvFocus.setTextColor(ContextCompat.getColor(mContext, R.color.text_commen));
+                    tvFocus.setText("加关注");
+                    Drawable drawable = getResources().getDrawable(R.drawable.ic_focus_bottom_on);
+                    drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getMinimumHeight());
+                    tvFocus.setCompoundDrawables(drawable, null, null, null);
+                }
+
+            });
+            tvFansNum.setText(bean.getData().getUser().getFans_num());
+            tvFollowNum.setText(bean.getData().getUser().getFollow_num());
+
         }
         list.addAll(bean.getData().getList());
 

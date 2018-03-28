@@ -59,13 +59,13 @@
             tools:text="曾半仙儿啊" />
 
         <ImageView
-            android:visibility="gone"
             android:id="@+id/iv_news"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="4dp"
             android:layout_marginLeft="5dp"
-            android:src="@drawable/bg_news_author" />
+            android:src="@drawable/bg_news_author"
+            android:visibility="gone" />
     </LinearLayout>
 
     <TextView
@@ -79,5 +79,61 @@
         android:textColor="#999999"
         android:textSize="14sp"
         tools:text="海南有趣、有料、有温度的生活圈，分分钟带你吃遍全海南" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="16dp"
+        android:layout_marginTop="12dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:lineSpacingExtra="0sp"
+            android:text="关注"
+            android:textColor="#666666"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tv_follow_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="7dp"
+            android:lineSpacingExtra="0sp"
+            android:textColor="#333333"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            tools:text="0" />
+
+        <View
+            android:layout_marginTop="3dp"
+            android:layout_marginLeft="12dp"
+            android:layout_width="0.5dp"
+            android:layout_height="10dp"
+            android:background="#999999" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:lineSpacingExtra="0sp"
+            android:text="粉丝"
+            android:textColor="#666666"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tv_fans_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="7dp"
+            android:lineSpacingExtra="0sp"
+            android:textColor="#333333"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            tools:text="0" />
+    </LinearLayout>
 </LinearLayout>
 
