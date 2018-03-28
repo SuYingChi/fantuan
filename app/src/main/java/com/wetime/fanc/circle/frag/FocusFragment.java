@@ -3,6 +3,7 @@ package com.wetime.fanc.circle.frag;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.RelativeLayout;
 
 import com.fan.baselib.loadmore.AutoLoadMoreAdapter;
@@ -10,7 +11,6 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.wetime.fanc.R;
-import com.wetime.fanc.circle.adapter.CircleHomeAdapter;
 import com.wetime.fanc.circle.bean.FocusListBean;
 import com.wetime.fanc.circle.iviews.IGetMyFocusView;
 import com.wetime.fanc.circle.presenter.GetMyFocusPresenter;
@@ -76,6 +76,7 @@ public class FocusFragment extends BaseLazyFragment implements OnRefreshListener
         super.onNetError();
         refreshLayout.finishRefresh();
     }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(ReFreshCircleEvent event) {
         if (mIsVisible) {
@@ -83,6 +84,7 @@ public class FocusFragment extends BaseLazyFragment implements OnRefreshListener
             refreshLayout.autoRefresh();
         }
     }
+
     @Override
     public void onMyFocus(FocusListBean bean) {
         refreshLayout.finishRefresh();
@@ -108,15 +110,19 @@ public class FocusFragment extends BaseLazyFragment implements OnRefreshListener
 
         if (page == 1) {
             list.clear();
-        }else{
+        } else {
             mAutoLoadMoreAdapter.finishLoading();
         }
 
         list.addAll(bean.getData().getList());
-        if(bean.getData().getPaging().isIs_end()){
+        if (bean.getData().getPaging().isIs_end()) {
             mAutoLoadMoreAdapter.disable();
         }
-
+        if (list.size() > 0) {
+            rlEmpty.setVisibility(View.GONE);
+        } else {
+            rlEmpty.setVisibility(View.VISIBLE);
+        }
         mAutoLoadMoreAdapter.notifyDataSetChanged();
 
     }

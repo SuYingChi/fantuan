@@ -31,9 +31,8 @@
                 android:id="@+id/rl_empty"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/white"
-                android:visibility="gone">
-
+                android:background="@color/white">
+                <include layout="@layout/item_no_focus_empty"/>
             </RelativeLayout>
         </RelativeLayout>
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>
