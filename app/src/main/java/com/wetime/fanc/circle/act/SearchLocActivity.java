@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.fan.baselib.loadmore.AutoLoadMoreAdapter;
@@ -42,6 +43,8 @@ public class SearchLocActivity extends BaseActivity implements TextWatcher, IGet
     TextView tvCancel;
     @BindView(R.id.rcl_loc)
     RecyclerView rclLoc;
+    @BindView(R.id.ll_empty)
+    LinearLayout llEmpty;
 
     private GetLocListPresenter getLocListPresenter;
     private int page = 1;
@@ -88,8 +91,9 @@ public class SearchLocActivity extends BaseActivity implements TextWatcher, IGet
 
     @Override
     protected void setSoftInPutMode() {
-        
+
     }
+
     @Override
     protected void initStateBar() {
         ImmersionBar.with(this)
@@ -98,9 +102,10 @@ public class SearchLocActivity extends BaseActivity implements TextWatcher, IGet
                 .fitsSystemWindows(true)
                 .keyboardEnable(true)
                 .keyboardEnable(true, WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE
-                                                | WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
+                        | WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
                 .init();
     }
+
     @Override
     public void onBackPressed() {
         setResult(RESULT_CANCELED);
@@ -108,13 +113,16 @@ public class SearchLocActivity extends BaseActivity implements TextWatcher, IGet
         finish();
     }
 
-    @OnClick({R.id.iv_back})
+    @OnClick({R.id.iv_back,R.id.iv_close})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
                 onBackPressed();
                 break;
-
+            case R.id.iv_close:
+                etSearch.setText("");
+                llEmpty.setVisibility(View.GONE);
+                break;
         }
     }
 
@@ -147,6 +155,12 @@ public class SearchLocActivity extends BaseActivity implements TextWatcher, IGet
             list.clear();
         }
         list.addAll(bean.getData().getList());
+        if(page==1&&bean.getData().getList().size()==0){
+            llEmpty.setVisibility(View.VISIBLE);
+        }else {
+            llEmpty.setVisibility(View.GONE);
+        }
+
         mAutoLoadMoreAdapter.notifyDataSetChanged();
         mAutoLoadMoreAdapter.finishLoading();
         if (bean.getData().getList().size() == 0)

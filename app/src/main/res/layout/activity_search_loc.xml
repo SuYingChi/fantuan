@@ -41,8 +41,8 @@
                 android:background="@color/translucent_background"
                 android:drawableLeft="@drawable/ic_search_black"
                 android:drawablePadding="5dp"
-                android:gravity="center|left"
                 android:focusable="true"
+                android:gravity="center|left"
                 android:hint="@string/str_where_are_you"
                 android:paddingLeft="10dp"
                 android:singleLine="true"
@@ -71,14 +71,36 @@
             android:visibility="gone" />
     </LinearLayout>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rcl_loc"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fadingEdge="none"
-        android:overScrollMode="always"
-        android:requiresFadingEdge="none"
-        android:scrollbarStyle="insideInset"
-        android:scrollbars="vertical" />
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rcl_loc"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fadingEdge="none"
+            android:overScrollMode="always"
+            android:requiresFadingEdge="none"
+            android:scrollbarStyle="insideInset"
+            android:scrollbars="vertical" />
+
+        <LinearLayout
+            android:id="@+id/ll_empty"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="200dp"
+                android:gravity="center_horizontal"
+                android:lineSpacingExtra="0sp"
+                android:text="未找到相关数据"
+                android:textColor="#999999"
+                android:textSize="14sp" />
+        </LinearLayout>
+    </RelativeLayout>
 </LinearLayout>
 
