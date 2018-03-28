@@ -94,6 +94,7 @@ public class UserCardBean {
             private String username;
             private String avatar;
             private String uid;
+            private String cover;
             private boolean is_new;
             private String intro;
             private String follow_num;
@@ -104,6 +105,14 @@ public class UserCardBean {
 //                    "fans_num": "1",
 //                    "is_follow": false,
 //                    "is_owner": true
+
+            public String getCover() {
+                return cover;
+            }
+
+            public void setCover(String cover) {
+                this.cover = cover;
+            }
 
             public String getFollow_num() {
                 return follow_num;

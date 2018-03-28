@@ -8,12 +8,14 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.flyco.tablayout.CommonTabLayout;
 import com.flyco.tablayout.listener.CustomTabEntity;
 import com.flyco.tablayout.listener.OnTabSelectListener;
@@ -29,6 +31,7 @@ import com.wetime.fanc.main.act.BaseActivity;
 import com.wetime.fanc.my.bean.UserCardBean;
 import com.wetime.fanc.my.iviews.IGetUserCardView;
 import com.wetime.fanc.my.presenter.GetUserCardPresenter;
+import com.wetime.fanc.utils.Tools;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -71,6 +74,8 @@ public class UserCardActivity extends BaseActivity implements OnLoadMoreListener
     TextView tvFollowNum;
     @BindView(R.id.tv_fans_num)
     TextView tvFansNum;
+    @BindView(R.id.iv_cover)
+    ImageView ivCover;
 //    @BindView(R.id.iv_empty)
 //    ImageView ivEmpty;
 //    @BindView(R.id.tv_empty)
@@ -89,12 +94,22 @@ public class UserCardActivity extends BaseActivity implements OnLoadMoreListener
     private int index = 0;
     private List<HomeItemBean> list = new ArrayList<>();
     private HomeItemAdapter adapter;
-
+    private RequestOptions mRequestOptions;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mycard);
         ButterKnife.bind(this);
+        int sw = Tools.getScreenW(this);
+        int w = (sw - Tools.dip2px(this, 15 + 15));
+        Double rate = 281.5 / 374.5;
+        int h = (int) (w * rate);
+        mRequestOptions = new RequestOptions()
+                .override(w, h);
+        Glide.with(this).load(R.drawable.bg_user_head)
+                .apply(mRequestOptions)
+                .into(ivCover);
+
         // 区分几个头部
         if (getIntent().getStringExtra("num").equals("2")) {
             for (String mTitle : mTitles2) {
@@ -165,6 +180,11 @@ public class UserCardActivity extends BaseActivity implements OnLoadMoreListener
     @Override
     public void onGetUserCard(UserCardBean bean) {
         if (page == 1) {
+            if(!TextUtils.isEmpty(bean.getData().getUser().getCover())){
+                Glide.with(this).load(bean.getData().getUser().getCover())
+                        .apply(mRequestOptions)
+                        .into(ivCover);
+            }
             list.clear();
             tvName.setText(bean.getData().getUser().getUsername());
             tvTitle.setText(bean.getData().getUser().getUsername());
