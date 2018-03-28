@@ -33,8 +33,6 @@ public class CircleFragment extends BaseLazyFragment implements OnRefreshListene
 
     @BindView(R.id.rcl_home)
     RecyclerView rclHome;
-
-
     @BindView(R.id.refreshLayout)
     SmartRefreshLayout refreshLayout;
     @BindView(R.id.rl_empty)
