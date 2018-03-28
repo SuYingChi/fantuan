@@ -21,7 +21,7 @@ public class EmptyActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_empty);
+        setContentView(R.layout.activity_friends);
         ButterKnife.bind(this);
         tvTitle.setText("手动输入券码");
 

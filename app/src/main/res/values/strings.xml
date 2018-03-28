@@ -38,4 +38,10 @@
     <string name="hint_publish_circle">此刻，我想说......</string>
     <string name="str_reselect_circle">重新选择圈子</string>
 
+    <string name="gallery_image_retry">加载失败，点击重试</string>
+    <string name="save_str">保存</string>
+    <string name="save_image_succ">保存成功</string>
+    <string name="save_image_fail">保存失败</string>
+    <string name="permission_denied">权限拒绝</string>
+
 </resources>

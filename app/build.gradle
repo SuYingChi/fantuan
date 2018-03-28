@@ -90,6 +90,7 @@ dependencies {
     implementation 'com.android.support:recyclerview-v7:27.1.0'
     implementation 'com.android.support:appcompat-v7:27.1.0'
     implementation 'com.jakewharton:butterknife:8.8.1'
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     implementation 'com.squareup.okhttp3:okhttp:3.9.1'
     implementation 'com.squareup.okio:okio:1.13.0'
@@ -113,4 +114,7 @@ dependencies {
     implementation 'me.shaohui:bottomdialog:1.1.9'
     implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.2.20'
     implementation 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'
+    implementation 'com.zhy:base-rvadapter:3.0.3'
 }
+
+apply plugin: 'kotlin-android-extensions'
