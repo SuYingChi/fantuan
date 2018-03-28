@@ -50,8 +50,8 @@
         <item name="android:paddingTop">8dp</item>
         <item name="android:paddingBottom">8dp</item>
     </style>
-
-    <style name="translucent" parent="Theme.AppCompat.Light.NoActionBar">
+    <!--Theme.AppCompat.Light.NoActionBar-->
+    <style name="translucent" parent="android:Theme.DeviceDefault.NoActionBar">
         <item name="android:windowBackground">@color/translucent_background</item>
         <item name="android:windowIsTranslucent">true</item>
     </style>
@@ -59,8 +59,8 @@
 
 
 
-
-    <style name="loading_dialog" parent="Theme.AppCompat.Dialog">
+    <!--Theme.AppCompat.Dialog-->
+    <style name="loading_dialog" parent="android:Theme.DeviceDefault.Dialog">
         <item name="android:windowFrame">@null</item>
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowBackground">@color/none_color_lib</item>
@@ -70,7 +70,7 @@
         <item name="android:backgroundDimEnabled">false</item>
     </style>
 
-    <style name="ButtonRoundCorner" parent="Widget.AppCompat.Button">
+    <style name="ButtonRoundCorner" parent="@android:style/Widget.Button">
         <item name="android:background">@drawable/lib_bg_btn_primay</item>
         <item name="android:textColor">#FFFFFF</item>
         <item name="android:textSize">17sp</item>
@@ -78,7 +78,7 @@
         <item name="android:layout_width">match_parent</item>
     </style>
 
-    <style name="ButtonNOCorner" parent="Widget.AppCompat.Button">
+    <style name="ButtonNOCorner" parent="@android:style/Widget.Button">
         <item name="android:background">@drawable/lib_bg_btn_primay</item>
         <item name="android:textColor">#FFFFFF</item>
         <item name="android:textSize">17sp</item>
@@ -86,7 +86,7 @@
         <item name="android:layout_width">match_parent</item>
     </style>
 
-    <style name="ButtonRoundCornerWhite" parent="Widget.AppCompat.Button">
+    <style name="ButtonRoundCornerWhite" parent="@android:style/Widget.Button">
         <item name="android:background">@drawable/lib_bg_btn_white</item>
         <item name="android:textColor">@color/colorPrimary_lib</item>
         <item name="android:textSize">17sp</item>
@@ -94,14 +94,14 @@
         <item name="android:layout_width">match_parent</item>
     </style>
 
-    <style name="ButtonRoundCornerWhiteBGTextBlack" parent="Widget.AppCompat.Button">
+    <style name="ButtonRoundCornerWhiteBGTextBlack" parent="@android:style/Widget.Button">
         <item name="android:background">@drawable/lib_bg_btn_white</item>
         <item name="android:textColor">@color/text_commen_lib</item>
         <item name="android:textSize">17sp</item>
         <item name="android:layout_height">40dp</item>
         <item name="android:layout_width">match_parent</item>
     </style>
-    <style name="ButtonRoundCornerWhiteBGTextBlackDark" parent="Widget.AppCompat.Button">
+    <style name="ButtonRoundCornerWhiteBGTextBlackDark" parent="@android:style/Widget.Button">
         <item name="android:background">@drawable/lib_bg_btn_white_dark</item>
         <item name="android:textColor">@color/text_commen_lib</item>
         <item name="android:textSize">17sp</item>
@@ -116,7 +116,7 @@
         <item name="android:maxHeight">14dp</item>
     </style>
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme" parent="android:Theme.DeviceDefault.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="android:overScrollMode">never</item>
