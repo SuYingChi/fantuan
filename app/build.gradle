@@ -1,5 +1,4 @@
 apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
 
 android {
     compileSdkVersion 27
@@ -112,9 +111,8 @@ dependencies {
     implementation 'com.gyf.barlibrary:barlibrary:2.3.0'
     implementation 'com.amap.api:location:3.6.1'
     implementation 'me.shaohui:bottomdialog:1.1.9'
-    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.2.20'
     implementation 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'
     implementation 'com.zhy:base-rvadapter:3.0.3'
 }
 
-apply plugin: 'kotlin-android-extensions'
+

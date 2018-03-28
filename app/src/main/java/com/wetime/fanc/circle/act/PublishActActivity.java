@@ -1,7 +1,9 @@
 package com.wetime.fanc.circle.act;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.WindowManager;
@@ -14,10 +16,14 @@ import android.widget.TextView;
 import com.gyf.barlibrary.ImmersionBar;
 import com.wetime.fanc.R;
 import com.wetime.fanc.circle.bean.DefaultCircleBean;
+import com.wetime.fanc.circle.bean.LocItemBean;
+import com.wetime.fanc.circle.bean.LocStrBean;
 import com.wetime.fanc.circle.bean.PublishResultBean;
 import com.wetime.fanc.circle.iviews.IGetDefaultCircleView;
+import com.wetime.fanc.circle.iviews.IGetLocStrView;
 import com.wetime.fanc.circle.iviews.IPublishCircleView;
 import com.wetime.fanc.circle.presenter.GetDefaultCirclePresenter;
+import com.wetime.fanc.circle.presenter.GetLocStrPresenter;
 import com.wetime.fanc.circle.presenter.PublishCirclePresenter;
 import com.wetime.fanc.customview.GridViewForScrollView;
 import com.wetime.fanc.customview.multiimageselector.MultiImageSelectorActivity;
@@ -37,7 +43,7 @@ import butterknife.OnClick;
 
 import static com.wetime.fanc.utils.Tools.REQUEST_IMAGE;
 
-public class PublishActActivity extends BaseActivity implements IPostMultiFileView, AdapterView.OnItemClickListener, IGetDefaultCircleView, IPublishCircleView {
+public class PublishActActivity extends BaseActivity implements IPostMultiFileView, AdapterView.OnItemClickListener, IGetDefaultCircleView, IPublishCircleView, IGetLocStrView {
 
 
     @BindView(R.id.tv_title)
@@ -56,12 +62,18 @@ public class PublishActActivity extends BaseActivity implements IPostMultiFileVi
     EditText etContent;
     @BindView(R.id.appraise_img_gv)
     GridViewForScrollView gv;
+    @BindView(R.id.tv_addres)
+    TextView tvAddres;
+    @BindView(R.id.iv_close)
+    ImageView ivClose;
 
 
     private ArrayList<String> defaultDataArray = new ArrayList<>();
     private ImageGridAdapter mPicGridAdapter;
     private String mCircleID;
+    private LocItemBean locBean = new LocItemBean();
     public static final int REQUEST_CIRCLE = 1008;
+    public static final int REQUEST_LOC = 1009;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,11 +117,19 @@ public class PublishActActivity extends BaseActivity implements IPostMultiFileVi
         super.onBackPressed();
     }
 
-    @OnClick({R.id.iv_back, R.id.tv_publish, R.id.tv_select_circle})
+    @OnClick({R.id.iv_close, R.id.iv_back, R.id.tv_publish, R.id.tv_select_circle, R.id.tv_addres})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
                 onBackPressed();
+                break;
+            case R.id.iv_close:
+                tvAddres.setText(getString(R.string.str_where_are_you));
+                ivClose.setVisibility(View.GONE);
+                Drawable drawable = getResources().getDrawable(R.drawable.ic_loc_off);
+                drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getMinimumHeight());
+                tvAddres.setCompoundDrawables(drawable, null, null, null);
+                tvAddres.setTextColor(ContextCompat.getColor(mContext, R.color.text_hint));
                 break;
             case R.id.tv_publish:
                 if (etContent.getText().toString().length() >= 10 || defaultDataArray.size() > 0) {
@@ -122,6 +142,12 @@ public class PublishActActivity extends BaseActivity implements IPostMultiFileVi
             case R.id.tv_select_circle:
                 Intent goSelect = new Intent(mContext, SelectCircleActivity.class);
                 startActivityForResult(goSelect, REQUEST_CIRCLE);
+                break;
+            case R.id.tv_addres:
+                Intent goloc = new Intent(mContext, SelectLocActivity.class);
+                locBean.setSelected(true);
+                goloc.putExtra("loc", locBean);
+                startActivityForResult(goloc, REQUEST_LOC);
                 break;
         }
     }
@@ -158,6 +184,31 @@ public class PublishActActivity extends BaseActivity implements IPostMultiFileVi
                 mCircleID = data.getStringExtra("id");
             }
         }
+        if (requestCode == REQUEST_LOC) {
+            if (resultCode == RESULT_OK) {
+                locBean = (LocItemBean) data.getSerializableExtra("loc");
+                if (TextUtils.isEmpty(locBean.getTitle())) {
+                    tvAddres.setText(getString(R.string.str_where_are_you));
+                    ivClose.setVisibility(View.GONE);
+                    Drawable drawable = getResources().getDrawable(R.drawable.ic_loc_off);
+                    drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getMinimumHeight());
+                    tvAddres.setCompoundDrawables(drawable, null, null, null);
+                    tvAddres.setTextColor(ContextCompat.getColor(mContext, R.color.text_hint));
+                } else {
+                    if (locBean.getTitle().length() > 8) {
+                        tvAddres.setText(String.format("%s...", locBean.getTitle().substring(0, 8)));
+                    } else {
+                        tvAddres.setText(locBean.getTitle());
+                    }
+                    Drawable drawable = getResources().getDrawable(R.drawable.ic_loc_on);
+                    drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getMinimumHeight());
+                    tvAddres.setCompoundDrawables(drawable, null, null, null);
+                    tvAddres.setTextColor(ContextCompat.getColor(mContext, R.color.text_blue));
+                    ivClose.setVisibility(View.VISIBLE);
+                }
+
+            }
+        }
     }
 
     private void gotoSelectPic() {
@@ -192,8 +243,11 @@ public class PublishActActivity extends BaseActivity implements IPostMultiFileVi
     public void onGetDefaultCircle(DefaultCircleBean bean) {
         mCircleID = bean.getData().getId();
         tvCirclename.setText(bean.getData().getName());
+        if (bean.getData().isLast_position()) {
+            GetLocStrPresenter getLocStrPresenter = new GetLocStrPresenter(this);
+            getLocStrPresenter.getLocStr();
+        }
     }
-
 
     @Override
     public void onPublisResultCircle(PublishResultBean bean) {
@@ -211,5 +265,47 @@ public class PublishActActivity extends BaseActivity implements IPostMultiFileVi
     @Override
     public String getContent() {
         return etContent.getText().toString();
+    }
+
+    @Override
+    public String getCJd() {
+        if (locBean == null
+                || TextUtils.equals(getString(R.string.str_where_are_you), tvAddres.getText().toString())) {
+            return "";
+        }
+        return locBean.getLng();
+    }
+
+    @Override
+    public String getCWd() {
+        if (locBean == null
+                || TextUtils.equals(getString(R.string.str_where_are_you), tvAddres.getText().toString())) {
+            return "";
+        }
+        return locBean.getLat();
+    }
+
+    @Override
+    public String getLoc() {
+        if (locBean == null
+                || TextUtils.equals(getString(R.string.str_where_are_you), tvAddres.getText().toString())) {
+            return "";
+        }
+        return locBean.getTitle();
+    }
+
+    @Override
+    public void onGetLocStr(LocStrBean bean) {
+        this.locBean = bean.getData();
+        if (bean.getData().getTitle().length() > 8) {
+            tvAddres.setText(String.format("%s...", bean.getData().getTitle().substring(0, 8)));
+        } else {
+            tvAddres.setText(bean.getData().getTitle());
+        }
+        Drawable drawable = getResources().getDrawable(R.drawable.ic_loc_on);
+        drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getMinimumHeight());
+        tvAddres.setCompoundDrawables(drawable, null, null, null);
+        tvAddres.setTextColor(ContextCompat.getColor(mContext, R.color.text_blue));
+        ivClose.setVisibility(View.VISIBLE);
     }
 }

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tl="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <ImageView
+            android:id="@+id/iv_msg"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_bar_msg" />
+
+        <com.flyco.tablayout.SlidingTabLayout
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_weight="1"
+            android:id="@+id/tablayout"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:background="@color/white"
+            tl:tl_indicator_color="#ff3f53"
+            tl:tl_indicator_height="3dp"
+            tl:tl_tab_padding="2dp"
+            tl:tl_indicator_width="40dp"
+            tl:tl_textBold="SELECT"
+            tl:tl_textsize="17sp"
+            tl:tl_tab_space_equal="true"
+            tl:tl_textSelectColor="#333333"
+            tl:tl_textUnselectColor="#666666" />
+
+        <ImageView
+            android:id="@+id/iv_edit"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_circle_edit" />
+    </LinearLayout>
+
+
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</LinearLayout>

@@ -74,13 +74,43 @@ public class MyInfoBean {
              * username : Yun'''。
              * phone : 18689789691
              * avatar : https://staticcdntest.fantuanlife.com/uimage/55/5e/8c/12/555e8c12849a191cc42cfab16f904c54.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70
-             */
+             * "news_article_num": "75",
+             " dynamic_num": "6",
+             " order_review_num": "0"
+             **/
 
+            private String news_article_num;
+            private String dynamic_num;
+            private String order_review_num;
             private String username;
             private String phone;
             private String avatar;
             private String uid;
             private boolean has_news;
+
+            public String getNews_article_num() {
+                return news_article_num;
+            }
+
+            public void setNews_article_num(String news_article_num) {
+                this.news_article_num = news_article_num;
+            }
+
+            public String getDynamic_num() {
+                return dynamic_num;
+            }
+
+            public void setDynamic_num(String dynamic_num) {
+                this.dynamic_num = dynamic_num;
+            }
+
+            public String getOrder_review_num() {
+                return order_review_num;
+            }
+
+            public void setOrder_review_num(String order_review_num) {
+                this.order_review_num = order_review_num;
+            }
 
             public String getUid() {
                 return uid;

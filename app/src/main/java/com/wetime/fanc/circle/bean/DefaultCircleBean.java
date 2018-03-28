@@ -48,6 +48,15 @@ public class DefaultCircleBean {
 
         private String id;
         private String name;
+        private boolean last_position;
+
+        public boolean isLast_position() {
+            return last_position;
+        }
+
+        public void setLast_position(boolean last_position) {
+            this.last_position = last_position;
+        }
 
         public String getId() {
             return id;

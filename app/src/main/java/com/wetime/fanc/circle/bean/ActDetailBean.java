@@ -75,6 +75,7 @@ public class ActDetailBean {
         private String circle_name;
         private String time;
         private String content;
+        private String location;
         private int type;
         private String read_num;
         private String like_num;
@@ -87,6 +88,14 @@ public class ActDetailBean {
         private List<String> cover;
         private List<LikeListBean> like_list;
         private List<CommentListBean> comment_list;
+
+        public String getLocation() {
+            return location;
+        }
+
+        public void setLocation(String location) {
+            this.location = location;
+        }
 
         public String getCurrent_uid() {
             return current_uid;

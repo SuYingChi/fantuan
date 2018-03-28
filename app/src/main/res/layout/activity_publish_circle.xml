@@ -9,9 +9,9 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:background="#FFFFFF"
         android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:background="#FFFFFF">
+        android:focusableInTouchMode="true">
 
         <ImageView
             android:id="@+id/iv_back"
@@ -52,47 +52,87 @@
         <LinearLayout
             android:id="@+id/llbo"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
+            android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:background="#f9f9f9"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp">
+            android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="end"
-                android:lineSpacingExtra="0sp"
-                android:text="已选择："
-                android:textColor="#999999"
-                android:textSize="15sp" />
+                android:background="@color/white"
+                android:orientation="horizontal"
+                android:padding="15dp">
 
-            <TextView
-                android:id="@+id/tv_circlename"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:ellipsize="end"
-                android:lineSpacingExtra="0sp"
-                android:maxLines="1"
-                android:textColor="#05a4be"
-                android:textSize="15sp"
-                tools:text="老爸茶馆" />
+                <TextView
+                    android:id="@+id/tv_addres"
+                    android:layout_width="wrap_content"
+                    android:layout_height="28dp"
+                    android:background="@drawable/bg_publish_circle_loc"
+                    android:drawableLeft="@drawable/ic_loc_off"
+                    android:drawablePadding="3dp"
+                    android:gravity="center_vertical"
+                    android:maxLines="1"
+                    android:paddingLeft="3dp"
+                    android:paddingRight="5dp"
+                    android:text="@string/str_where_are_you"
+                    android:textColor="#999999"
+                    android:textSize="13sp" />
 
-            <TextView
-                android:id="@+id/tv_select_circle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:drawablePadding="10dp"
-                android:drawableRight="@drawable/ic_right"
-                android:gravity="end"
-                android:lineSpacingExtra="0sp"
-                android:text="@string/str_reselect_circle"
-                android:textColor="#999999"
-                android:textSize="12sp" />
+                <ImageView
+                    android:visibility="gone"
+                    android:background="@drawable/bg_publish_circle_loc"
+                    android:id="@+id/iv_close"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:layout_marginLeft="1dp"
+                    android:padding="3dp"
+                    android:src="@drawable/ic_loc_close" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="#f9f9f9"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:lineSpacingExtra="0sp"
+                    android:text="已选择："
+                    android:textColor="#999999"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/tv_circlename"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ellipsize="end"
+                    android:lineSpacingExtra="0sp"
+                    android:maxLines="1"
+                    android:textColor="#05a4be"
+                    android:textSize="15sp"
+                    tools:text="老爸茶馆" />
+
+                <TextView
+                    android:id="@+id/tv_select_circle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="10dp"
+                    android:drawableRight="@drawable/ic_right"
+                    android:gravity="end"
+                    android:lineSpacingExtra="0sp"
+                    android:text="@string/str_reselect_circle"
+                    android:textColor="#999999"
+                    android:textSize="12sp" />
+            </LinearLayout>
         </LinearLayout>
+
 
         <ScrollView
             android:layout_width="match_parent"
@@ -114,8 +154,8 @@
                     android:background="@color/white"
                     android:gravity="left|top"
                     android:hint="@string/hint_publish_circle"
-                    android:minLines="5"
                     android:maxLength="500"
+                    android:minLines="5"
                     android:textColor="#333333"
                     android:textColorHint="#999999"
                     android:textSize="17sp" />
