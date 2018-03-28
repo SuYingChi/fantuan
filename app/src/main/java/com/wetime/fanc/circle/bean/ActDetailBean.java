@@ -61,6 +61,7 @@ public class ActDetailBean {
          * like_list : [{"uid":"18","avatar":"https://staticcdntest.fantuanlife.com/uimage/56/30/c1/8f/5630c18fdd3f4ffd2f65c59325cb93c7.jpg"},{"uid":"22","avatar":"https://staticcdntest.fantuanlife.com/uimage/78/b9/23/43/78b9234394368dd0e4b4c88c30b1e11f.jpg"},{"uid":"23","avatar":"https://staticcdntest.fantuanlife.com/uimage/84/57/36/c4/845736c4a0febc922c22b5e4fca24806.jpg"}]
          * has_like : true
          * is_news : true
+         * is_follow
          * comment_list : [{"id":"33","uid":"66","username":"188****8545","avatar":"https://staticcdntest.fantuanlife.com/uimage/09/b7/15/48/09b715489e902d79c76a9509b50685de.jpg","time":"03月09日","content":"我是真的没有","to_uid":"22","to_username":"爱吃土豆的小豆豆","is_news":false},{"id":"32","uid":"22","username":"爱吃土豆的小豆豆","avatar":"https://staticcdntest.fantuanlife.com/uimage/78/b9/23/43/78b9234394368dd0e4b4c88c30b1e11f.jpg","time":"03月09日","content":"晓明看到了吗，这是回复哦~~","to_uid":"22","to_username":"爱吃土豆的小豆豆","is_news":false},{"id":"31","uid":"22","username":"爱吃土豆的小豆豆","avatar":"https://staticcdntest.fantuanlife.com/uimage/78/b9/23/43/78b9234394368dd0e4b4c88c30b1e11f.jpg","time":"03月09日","content":"晓明看到了吗，这是评论哦~~","to_uid":"","to_username":"","is_news":false},{"id":"30","uid":"22","username":"爱吃土豆的小豆豆","avatar":"https://staticcdntest.fantuanlife.com/uimage/78/b9/23/43/78b9234394368dd0e4b4c88c30b1e11f.jpg","time":"03月09日","content":"说得什么鬼话，看不懂~~","to_uid":"21","to_username":"peggy","is_news":false},{"id":"29","uid":"66","username":"188****8545","avatar":"https://staticcdntest.fantuanlife.com/uimage/09/b7/15/48/09b715489e902d79c76a9509b50685de.jpg","time":"03月09日","content":"我就试试","to_uid":"18","to_username":"王荣慰","is_news":false},{"id":"28","uid":"66","username":"188****8545","avatar":"https://staticcdntest.fantuanlife.com/uimage/09/b7/15/48/09b715489e902d79c76a9509b50685de.jpg","time":"03月09日","content":"我就想睡觉","to_uid":"18","to_username":"王荣慰","is_news":false},{"id":"27","uid":"22","username":"爱吃土豆的小豆豆","avatar":"https://staticcdntest.fantuanlife.com/uimage/78/b9/23/43/78b9234394368dd0e4b4c88c30b1e11f.jpg","time":"03月02日","content":"说得什么鬼话，看不懂~~","to_uid":"21","to_username":"peggy","is_news":false},{"id":"26","uid":"21","username":"peggy","avatar":"https://staticcdntest.fantuanlife.com/uimage/34/a8/96/f1/34a896f13692732b061f0eb850c1537e.jpg","time":"03月02日","content":"你才是卖土豆的呢啊~~","to_uid":"21","to_username":"peggy","is_news":false},{"id":"25","uid":"21","username":"peggy","avatar":"https://staticcdntest.fantuanlife.com/uimage/34/a8/96/f1/34a896f13692732b061f0eb850c1537e.jpg","time":"03月02日","content":"楼上是卖加土豆的啊~~","to_uid":"22","to_username":"爱吃土豆的小豆豆","is_news":false},{"id":"24","uid":"21","username":"peggy","avatar":"https://staticcdntest.fantuanlife.com/uimage/34/a8/96/f1/34a896f13692732b061f0eb850c1537e.jpg","time":"03月02日","content":"楼上是卖土豆的吗？还是卖薯条的~~","to_uid":"","to_username":"","is_news":false}]
          * paging : {"total":26,"total_page":3,"limit":10,"pn":1,"is_end":false}
          */
@@ -84,10 +85,19 @@ public class ActDetailBean {
         private boolean has_like;
         private boolean is_news;
         private boolean is_owner;
+        private boolean is_follow;
         private PagingBean paging;
         private List<String> cover;
         private List<LikeListBean> like_list;
         private List<CommentListBean> comment_list;
+
+        public boolean isIs_follow() {
+            return is_follow;
+        }
+
+        public void setIs_follow(boolean is_follow) {
+            this.is_follow = is_follow;
+        }
 
         public String getLocation() {
             return location;
