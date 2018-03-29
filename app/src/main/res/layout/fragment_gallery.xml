@@ -71,6 +71,7 @@
             android:src="@drawable/icon_comment" />
 
         <EditText
+            android:id="@+id/gallery_editText"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginLeft="11dp"
@@ -83,12 +84,14 @@
             android:textColorHint="#999999" />
 
         <ImageView
+            android:id="@+id/gallery_imageview"
             android:layout_width="24dp"
             android:layout_height="match_parent"
             android:layout_marginLeft="15dp"
             android:src="@drawable/icon_message" />
 
         <TextView
+            android:id="@+id/gallery_text"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginLeft="5dp"
@@ -99,12 +102,14 @@
             android:textSize="14sp" />
 
         <ImageView
+            android:id="@+id/gallery_collect"
             android:layout_width="24dp"
             android:layout_height="match_parent"
             android:layout_marginLeft="15dp"
             android:src="@drawable/star_2" />
 
         <ImageView
+            android:id="@+id/gallery_share"
             android:layout_width="24dp"
             android:layout_height="match_parent"
             android:layout_marginLeft="15dp"

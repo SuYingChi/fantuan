@@ -92,7 +92,23 @@ public class WebActivity extends BaseActivity implements IPostMultiFileView {
     private BottomDialog mBottomDialog;
     private Intent intent;
     private ArrayList<String> defaultDataArray = new ArrayList<>();
+    @SuppressLint("HandlerLeak")
+    private Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            //商户需将同步返回的报文送至服务器端验签
+            if (msg.what == PayService.PAY) {
+                if (msg.obj == null || ((JSONObject) msg.obj).length() == 0) {
+//                    mEtResult.setText("返回空");
+//                    Tools.toastInBottom(mContext, "返回空");
+                } else {
+                    final String result = msg.obj.toString();
+                    web.post(() -> web.loadUrl("javascript:receivePayResult('" + result + "');"));
 
+                }
+            }
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -167,7 +183,6 @@ public class WebActivity extends BaseActivity implements IPostMultiFileView {
 //        web.destroy();
         super.onDestroy();
     }
-
 
     @OnClick({R.id.btn_back, R.id.tv_right})
     public void onViewClicked(View view) {
@@ -268,7 +283,6 @@ public class WebActivity extends BaseActivity implements IPostMultiFileView {
 
     }
 
-
     @JavascriptInterface
     public String getToken() {
         return spu.getValue("token");
@@ -338,7 +352,6 @@ public class WebActivity extends BaseActivity implements IPostMultiFileView {
         });
     }
 
-
     // 评价订单
     @JavascriptInterface
     public void goReview(final String orderId) {
@@ -378,24 +391,6 @@ public class WebActivity extends BaseActivity implements IPostMultiFileView {
         web.post(() -> PayService.pay(WebActivity.this, mHandler, str, PayService.TYPE_NORMAL, 1));
 
     }
-
-    @SuppressLint("HandlerLeak")
-    private Handler mHandler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            //商户需将同步返回的报文送至服务器端验签
-            if (msg.what == PayService.PAY) {
-                if (msg.obj == null || ((JSONObject) msg.obj).length() == 0) {
-//                    mEtResult.setText("返回空");
-//                    Tools.toastInBottom(mContext, "返回空");
-                } else {
-                    final String result = msg.obj.toString();
-                    web.post(() -> web.loadUrl("javascript:receivePayResult('" + result + "');"));
-
-                }
-            }
-        }
-    };
 
     @JavascriptInterface
     public void pastToken() {

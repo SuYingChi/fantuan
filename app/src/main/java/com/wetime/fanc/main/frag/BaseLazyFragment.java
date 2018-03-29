@@ -3,18 +3,17 @@ package com.wetime.fanc.main.frag;
 /**
  * Created by zhoukang on 2018/1/29.
  */
+
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.gyf.barlibrary.ImmersionBar;
-import com.wetime.fanc.main.frag.BaseFragment;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -45,11 +44,13 @@ public abstract class BaseLazyFragment extends BaseFragment {
 
     protected ImmersionBar mImmersionBar;
     private Unbinder unbinder;
+    private boolean isFriend = true;
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         mActivity = (Activity) context;
+        if (mActivity.getClass().getSimpleName().equals("MyFriendsActivity")) isFriend = false;
     }
 
     @Nullable
@@ -64,7 +65,7 @@ public abstract class BaseLazyFragment extends BaseFragment {
         super.onViewCreated(view, savedInstanceState);
         unbinder = ButterKnife.bind(this, mRootView);
         initView();
-        if (isLazyLoad()) {
+        if (isLazyLoad() && isFriend) {
             mIsPrepare = true;
             mIsImmersion = true;
             onLazyLoad();

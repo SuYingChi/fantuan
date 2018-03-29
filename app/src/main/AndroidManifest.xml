@@ -54,29 +54,31 @@
             android:name=".news.act.GalleryActivity"
             android:fitsSystemWindows="true"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan|stateHidden|adjustResize|adjustUnspecified|stateHidden" />
+            android:windowSoftInputMode="adjustPan|stateHidden|adjustResize|adjustUnspecified|stateHidden">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
         <activity
             android:name=".news.act.CommentActivity"
             android:fitsSystemWindows="true"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden|adjustResize|adjustUnspecified|stateHidden">
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
-
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
 
         </activity>
 
         <activity android:name=".home.act.LoadingActivity">
 
-             <intent-filter>
-             <action android:name="android.intent.action.MAIN" />
+            <!--<intent-filter>-->
+            <!--<action android:name="android.intent.action.MAIN" />-->
 
 
-             <category android:name="android.intent.category.LAUNCHER" />
-             </intent-filter>
+            <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 

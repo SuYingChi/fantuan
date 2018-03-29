@@ -4,7 +4,6 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Rect;
 import android.os.Bundle;
@@ -26,6 +25,7 @@ import com.wetime.fanc.R;
 import com.wetime.fanc.customview.photoview.MyViewPager;
 import com.wetime.fanc.handler.CommonHandler;
 import com.wetime.fanc.handler.IHandlerMessage;
+import com.wetime.fanc.news.act.CommentActivity;
 import com.wetime.fanc.news.adapter.GalleryAdapter;
 import com.wetime.fanc.news.bean.gallerybean.GalleryItem;
 import com.wetime.fanc.news.bean.gallerybean.ImageItem;
@@ -40,17 +40,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-/**
- * Author:    SuS
- * Version    V1.0
- * Date:      17/2/14
- * Description:  图集
- * Modification  History:
- * Date         	Author        		Version        	Description
- * -----------------------------------------------------------------------------------
- * 17/2/14          SuS                 1.0               1.0
- * Why & What is modified:
- */
 public class GalleryFragment extends Fragment implements IHandlerMessage, View.OnClickListener, DialogInterface.OnShowListener, DialogInterface.OnDismissListener,
         ViewPager.OnPageChangeListener, GalleryAdapter.OnGalleryAdapterCallback {
 
@@ -87,6 +76,7 @@ public class GalleryFragment extends Fragment implements IHandlerMessage, View.O
     private int loadState = LOAD_STATE_LOADING;
     private int fini_rate;//0-100
     private int diffTest = 0;
+    private String galleryId = "";
 
     public static GalleryFragment newInstance(@Nullable Bundle bundle) {
         GalleryFragment fragment = new GalleryFragment();
@@ -106,6 +96,7 @@ public class GalleryFragment extends Fragment implements IHandlerMessage, View.O
             rootView = inflater.inflate(R.layout.fragment_gallery, container, false);
             initView(rootView);
         }
+        initLisner();
         return rootView;
     }
 
@@ -121,6 +112,16 @@ public class GalleryFragment extends Fragment implements IHandlerMessage, View.O
         }
     }
 
+    public void initLisner() {
+        mDescParent.setOnClickListener(this);
+        mSaveBtn.setOnClickListener(this);
+        viewPager.addOnPageChangeListener(this);
+        rootView.findViewById(R.id.gallery_imageview).setOnClickListener(this);
+        rootView.findViewById(R.id.gallery_text).setOnClickListener(this);
+        rootView.findViewById(R.id.gallery_collect).setOnClickListener(this);
+        rootView.findViewById(R.id.gallery_share).setOnClickListener(this);
+    }
+
     private void initView(View rootView) {
         handler = new CommonHandler<GalleryFragment>(this);
         mSaveCurrPos = (TextView) rootView.findViewById(R.id.gallery_curr_pos);
@@ -132,9 +133,7 @@ public class GalleryFragment extends Fragment implements IHandlerMessage, View.O
         mDescTitle = (TextView) rootView.findViewById(R.id.tv_desc_title);
         mDescNumber = (TextView) rootView.findViewById(R.id.tv_desc_number);
         mDescParent = rootView.findViewById(R.id.gallery_desc_layout);
-        mDescParent.setOnClickListener(this);
-        mSaveBtn.setOnClickListener(this);
-        viewPager.addOnPageChangeListener(this);
+
         viewPager.setCurrentItem(0);
         viewPager.setOffscreenPageLimit(3);
         adapter = new GalleryAdapter(this.getContext(), this);
@@ -159,27 +158,16 @@ public class GalleryFragment extends Fragment implements IHandlerMessage, View.O
                 int height = decorView.getContext().getResources().getDisplayMetrics().heightPixels;
                 int diff = height - r.bottom;
 
-                Log.e("xi", "Frg onGlobalLayout:diff " + diff);
-                Log.e("xi", "Frg onGlobalLayout:r.bottom " + r.bottom);
-
                 if (diff != 0) {
-//                        contentView.setPadding(0, 0, 0, diff);
                     RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) contentView.getLayoutParams();
                     lp.setMargins(0, 0, 0, diff);
                     contentView.setLayoutParams(lp);
-
                 } else {
-
                     if (diffTest != 0) {
                         RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) contentView.getLayoutParams();
                         lp.setMargins(0, diffTest, 0, 0);
                         contentView.setLayoutParams(lp);
                     }
-//                        contentView.setPadding(0, 0, 0, 0);
-//                        RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) contentView.getLayoutParams();
-//
-//                        contentView.setLayoutParams(lp);
-
                 }
                 diffTest = diff;
             }
@@ -187,7 +175,6 @@ public class GalleryFragment extends Fragment implements IHandlerMessage, View.O
 
                 ;
     }
-
 
     private void requestData() {
         String data = "{\n" +
@@ -352,12 +339,21 @@ public class GalleryFragment extends Fragment implements IHandlerMessage, View.O
 
     @Override
     public void onClick(View v) {
+        Log.e("xi", "onClick: ");
         switch (v.getId()) {
             case R.id.gallery_desc_layout:
                 onPhotoTap(null);
                 break;
             case R.id.gallery_save_btn:
                 verifyStoragePermissions(getActivity());
+                break;
+            case R.id.gallery_imageview:
+            case R.id.gallery_text:
+                CommentActivity.startToComment(getActivity(), galleryId);
+                break;
+            case R.id.gallery_collect:
+                break;
+            case R.id.gallery_share:
                 break;
         }
     }

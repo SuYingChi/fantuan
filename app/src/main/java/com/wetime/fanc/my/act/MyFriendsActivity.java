@@ -8,13 +8,11 @@ import android.widget.TextView;
 
 import com.flyco.tablayout.SlidingTabLayout;
 import com.wetime.fanc.R;
-import com.wetime.fanc.home.adapter.NewsPagerAdapter;
 import com.wetime.fanc.main.act.BaseActivity;
 import com.wetime.fanc.my.adapter.MyFriendsPagerAdapter;
 import com.wetime.fanc.my.frag.MyFriendsConcernLazyFragment;
 import com.wetime.fanc.my.frag.MyFriendsFansLazyFragment;
 import com.wetime.fanc.my.frag.MyFriendsLazyFragment;
-import com.wetime.fanc.news.bean.ChannelBean;
 
 import java.util.ArrayList;
 
@@ -57,8 +55,9 @@ public class MyFriendsActivity extends BaseActivity {
         mFragments.add(new MyFriendsFansLazyFragment());
 
         mAdapter = new MyFriendsPagerAdapter(getSupportFragmentManager(), mFragments, mChannels);
+        vp.setOffscreenPageLimit(4);
         vp.setAdapter(mAdapter);
-//        vp.setOffscreenPageLimit(20);
+        vp.setCurrentItem(1);
         tablayout.setViewPager(vp);
     }
 

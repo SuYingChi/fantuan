@@ -6,21 +6,19 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.TypedValue;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import com.gyf.barlibrary.ImmersionBar;
+import com.umeng.analytics.MobclickAgent;
+import com.wetime.fanc.R;
 import com.wetime.fanc.application.FApp;
 import com.wetime.fanc.login.event.LogoutEvent;
 import com.wetime.fanc.main.ivews.IBaseVIew;
-import com.wetime.fanc.utils.LogUtils;
 import com.wetime.fanc.utils.SharePreferenceUtil;
 import com.wetime.fanc.utils.Tools;
-import com.umeng.analytics.MobclickAgent;
-import com.wetime.fanc.R;
 
 import org.greenrobot.eventbus.EventBus;
-
 
 
 public class BaseActivity extends AppCompatActivity implements IBaseVIew {
@@ -37,12 +35,15 @@ public class BaseActivity extends AppCompatActivity implements IBaseVIew {
         addToActManager();
         mContext = this;
     }
-    protected void setSoftInPutMode(){
+
+    protected void setSoftInPutMode() {
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
     }
-    protected void addToActManager(){
+
+    protected void addToActManager() {
         FApp.getInstance().addActivity(this);
     }
+
     @Override
     public Resources getResources() {
         Resources res = super.getResources();
@@ -132,6 +133,7 @@ public class BaseActivity extends AppCompatActivity implements IBaseVIew {
 
     @Override
     public void onError(String s) {
-        Tools.toastInBottom(this, s);
+//        Tools.toastInBottom(this, s);
+        Toast.makeText(mContext, s, Toast.LENGTH_SHORT).show();
     }
 }

@@ -5,29 +5,33 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.wetime.fanc.R;
-import com.wetime.fanc.home.adapter.HomeItemAdapter;
-import com.wetime.fanc.home.bean.HomeItemBean;
 import com.wetime.fanc.main.frag.BaseLazyFragment;
 import com.wetime.fanc.my.adapter.MyFriendsAdapter;
+import com.wetime.fanc.my.bean.AttentionBean;
 import com.wetime.fanc.my.bean.MyFriendsBaseBean;
-import com.wetime.fanc.my.bean.MyNewsListBean;
-import com.wetime.fanc.my.iviews.IGetMyNewsView;
-import com.wetime.fanc.my.presenter.GetMyNewsPresenter;
+import com.wetime.fanc.my.event.AttentionEvent;
+import com.wetime.fanc.my.event.AttentionFansEvent;
+import com.wetime.fanc.my.iviews.IGetMyFriendsView;
+import com.wetime.fanc.my.presenter.GetMyFriendPresenter;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 
 
 public abstract class MyFriendsBaseLazyFragment extends BaseLazyFragment
-        implements OnLoadMoreListener, OnRefreshListener, IGetMyNewsView {
+        implements OnLoadMoreListener, OnRefreshListener, IGetMyFriendsView {
     @BindView(R.id.rcl_circle)
     RecyclerView rclCircle;
     @BindView(R.id.refreshLayout)
@@ -36,14 +40,13 @@ public abstract class MyFriendsBaseLazyFragment extends BaseLazyFragment
     RelativeLayout rlEmpty;
     @BindView(R.id.myfriend_base_textview)
     TextView baseTextview;
+    private ArrayList<MyFriendsBaseBean.DataBean.ListBean> data = new ArrayList<>();
+    private MyFriendsAdapter adapter;
+    private boolean isRefresh = true;
+    private GetMyFriendPresenter getMyFriendPresenter;
+    private int page = 1;
 
     protected abstract int getType();
-
-
-    private int page = 1;
-    private GetMyNewsPresenter getMyNewsPresenter;
-    private List<HomeItemBean> list;
-    private MyFriendsAdapter adapter;
 
     @Override
     protected int setLayoutId() {
@@ -52,23 +55,12 @@ public abstract class MyFriendsBaseLazyFragment extends BaseLazyFragment
 
     @Override
     protected void initView() {
-//        refreshLayout.setOnLoadMoreListener(this);
-//        refreshLayout.setOnRefreshListener(this);
 
-    }
-
-    @Override
-    protected boolean isImmersionBarEnabled() {
-        return false;
-    }
-
-    @Override
-    protected void initData() {
-        rclCircle.setLayoutManager(new LinearLayoutManager(getContext()));
-        list = new ArrayList<>();
-        adapter = new MyFriendsAdapter(getContext(), R.layout.item_myfriendsbase, getData());
-        rclCircle.setAdapter(adapter);
+        refreshLayout.setOnLoadMoreListener(this);
+        refreshLayout.setOnRefreshListener(this);
         rlEmpty.setVisibility(View.GONE);
+        rclCircle.setLayoutManager(new LinearLayoutManager(getContext()));
+
         switch (getType()) {
             case 0:
                 baseTextview.setText("还没有互相关注的好友哦~");
@@ -80,58 +72,57 @@ public abstract class MyFriendsBaseLazyFragment extends BaseLazyFragment
                 baseTextview.setText("你还没有粉丝，快去发动态吸粉吧~");
                 break;
         }
+    }
+
+    @Override
+    protected boolean isImmersionBarEnabled() {
+        return false;
+    }
+
+    @Override
+    protected void initData() {
+        getMyFriendPresenter = new GetMyFriendPresenter(this);
+        getMyFriendPresenter.getFriends(page);
 
     }
 
     @Override
     public void onLoadMore(RefreshLayout refreshlayout) {
+        isRefresh = false;
         page++;
-        getMyNewsPresenter.getMyNews();
+        getMyFriendPresenter.getFriends(page);
     }
 
     @Override
     public void onRefresh(RefreshLayout refreshlayout) {
+        isRefresh = true;
         page = 1;
-        getMyNewsPresenter.getMyNews();
+        getMyFriendPresenter.getFriends(page);
     }
 
     @Override
-    public void onGetMyNews(MyNewsListBean bean) {
-        if (page == 1) {
-            list.clear();
-        }
-        list.addAll(bean.getData().getList());
-        adapter.notifyDataSetChanged();
-        refreshLayout.finishRefresh();
-        refreshLayout.finishLoadMore();
-        refreshLayout.setEnableLoadMore(!bean.getData().getPaging().isIs_end());
-        if (bean.getData().getPaging().getTotal() != 0) {
-            rlEmpty.setVisibility(View.GONE);
+    public void onGetUserFriend(MyFriendsBaseBean bean) {
+        if (isRefresh) {
+            data = new ArrayList<>();
+            data.addAll(bean.getData().getList());
+            refreshLayout.finishRefresh();
         } else {
-            rlEmpty.setVisibility(View.VISIBLE);
-
+            data.addAll(bean.getData().getList());
+            refreshLayout.finishLoadMore();
         }
+        adapter = new MyFriendsAdapter(getContext(), R.layout.item_myfriendsbase, data, getType(),getMyFriendPresenter);
+        rclCircle.setAdapter(adapter);
     }
 
     @Override
-    public String getPage() {
-        return String.valueOf(page);
+    public void onAttention(AttentionBean bean) {
+        Toast.makeText(mActivity, bean.getMsg(), Toast.LENGTH_SHORT).show();
+        onRefresh(refreshLayout);
     }
 
-    public List<MyFriendsBaseBean> getData() {
-        List<MyFriendsBaseBean> data = new ArrayList<>();
-        MyFriendsBaseBean e = new MyFriendsBaseBean();
-        e.setName("猴子请来的逗比 1");
-        e.setType(0);
-        data.add(e);
-        MyFriendsBaseBean e1 = new MyFriendsBaseBean();
-        e1.setName("猴子请来的逗比 2");
-        e1.setType(1);
-        data.add(e1);
-        MyFriendsBaseBean e2 = new MyFriendsBaseBean();
-        e2.setName("猴子请来的逗比 3");
-        e2.setType(2);
-        data.add(e2);
-        return data;
+    @Override
+    public String onGetType() {
+        return String.valueOf(getType() + 1);
     }
+
 }
