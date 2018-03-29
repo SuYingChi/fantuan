@@ -49,6 +49,7 @@ public class FocusFragment extends BaseLazyFragment implements OnRefreshListener
     @Override
     protected void initView() {
         EventBus.getDefault().register(this);
+//        rclHome.setFocusableInTouchMode(false);
         refreshLayout.setOnRefreshListener(this);
         refreshLayout.setEnableLoadMore(false);
         getMyFocusPresenter = new GetMyFocusPresenter(this);
