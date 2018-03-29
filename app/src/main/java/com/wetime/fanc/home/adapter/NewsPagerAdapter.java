@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import com.wetime.fanc.news.bean.ChannelBean;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by zhoukang on 2018/1/29.
@@ -21,11 +22,11 @@ import java.util.ArrayList;
 public class NewsPagerAdapter extends FragmentStatePagerAdapter {
 
     private ArrayList<Fragment> mFragments;
-    private ArrayList<ChannelBean> mChannels;
+    private List<ChannelBean> mChannels;
     //    ArrayList<ChannelBean> mChannels = new ArrayList<>();
     private FragmentManager fm;
 
-    public NewsPagerAdapter(FragmentManager fm, ArrayList<Fragment> mFragments, ArrayList<ChannelBean> mChannels) {
+    public NewsPagerAdapter(FragmentManager fm, ArrayList<Fragment> mFragments, List<ChannelBean> mChannels) {
         super(fm);
         this.fm = fm;
         this.mFragments = mFragments;
