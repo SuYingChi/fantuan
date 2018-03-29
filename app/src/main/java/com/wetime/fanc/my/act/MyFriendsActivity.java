@@ -58,7 +58,9 @@ public class MyFriendsActivity extends BaseActivity {
         vp.setOffscreenPageLimit(4);
         vp.setAdapter(mAdapter);
         vp.setCurrentItem(1);
+
         tablayout.setViewPager(vp);
+        tablayout.setCurrentTab(1,true);
     }
 
     @Override

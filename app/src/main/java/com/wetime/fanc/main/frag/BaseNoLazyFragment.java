@@ -21,7 +21,7 @@ import butterknife.Unbinder;
 /**
  * 当使用viewpager加载Fragment，沉浸式的使用，原理懒加载
  */
-public abstract class BaseLazyFragment extends BaseFragment {
+public abstract class BaseNoLazyFragment extends BaseFragment {
 
     protected Activity mActivity;
     protected View mRootView;
@@ -63,7 +63,7 @@ public abstract class BaseLazyFragment extends BaseFragment {
         super.onViewCreated(view, savedInstanceState);
         unbinder = ButterKnife.bind(this, mRootView);
         initView();
-        if (isLazyLoad()) {
+        if (isLazyLoad() ) {
             mIsPrepare = true;
             mIsImmersion = true;
             onLazyLoad();
@@ -103,7 +103,7 @@ public abstract class BaseLazyFragment extends BaseFragment {
      * @return the boolean
      */
     protected boolean isLazyLoad() {
-        return true;
+        return false;
     }
 
     /**

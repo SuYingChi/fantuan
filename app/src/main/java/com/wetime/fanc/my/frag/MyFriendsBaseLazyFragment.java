@@ -13,6 +13,7 @@ import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.wetime.fanc.R;
 import com.wetime.fanc.main.frag.BaseLazyFragment;
+import com.wetime.fanc.main.frag.BaseNoLazyFragment;
 import com.wetime.fanc.my.adapter.MyFriendsAdapter;
 import com.wetime.fanc.my.bean.AttentionBean;
 import com.wetime.fanc.my.bean.MyFriendsBaseBean;
@@ -30,7 +31,7 @@ import java.util.ArrayList;
 import butterknife.BindView;
 
 
-public abstract class MyFriendsBaseLazyFragment extends BaseLazyFragment
+public abstract class MyFriendsBaseLazyFragment extends BaseNoLazyFragment
         implements OnLoadMoreListener, OnRefreshListener, IGetMyFriendsView {
     @BindView(R.id.rcl_circle)
     RecyclerView rclCircle;
