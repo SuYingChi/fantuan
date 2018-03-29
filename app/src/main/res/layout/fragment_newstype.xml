@@ -19,7 +19,7 @@
             android:fadingEdge="none"
             android:overScrollMode="always"
             android:requiresFadingEdge="none"
-            android:scrollbarStyle="insideInset"
+            android:scrollbarStyle="insideOverlay"
             android:scrollbars="vertical" />
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 

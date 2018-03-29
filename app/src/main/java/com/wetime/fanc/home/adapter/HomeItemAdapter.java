@@ -21,7 +21,6 @@ import com.bumptech.glide.request.RequestOptions;
 import com.wetime.fanc.R;
 import com.wetime.fanc.circle.act.ActDetailActivity;
 import com.wetime.fanc.circle.act.CircleDetailActivity;
-import com.wetime.fanc.circle.adapter.CircleHomeAdapter;
 import com.wetime.fanc.circle.adapter.NineImageGridListAdapter;
 import com.wetime.fanc.circle.adapter.NineImageGridListAdapterCard;
 import com.wetime.fanc.circle.presenter.ZanActPresenter;
@@ -96,6 +95,8 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
                 return new NewsHolderDelete(inflater.inflate(R.layout.item_news_delete, parent, false));
             } else if (viewType == 1000) {
                 return new NewsHolder1000(inflater.inflate(R.layout.item_usercard_empty, parent, false));
+            } else if (viewType == 2) {//图集
+                return new NewsHolder2(inflater.inflate(R.layout.item_news_type2, parent, false));
             }
 
         } else if (listtype == 1) {
@@ -117,6 +118,9 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
 
         holder.itemView.setOnClickListener(view -> {
             switch (bean.getType()) {
+                case 2:
+
+                    break;
                 case 1:
                 case 3:
                     if (TextUtils.isEmpty(list.get(position).getArticle_url()))
@@ -142,15 +146,19 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
             }
         });
         if (holder instanceof NewsHolder1000) {
-            if (bean.getEmptyType().equals("1")) {
-                ((NewsHolder1000) holder).tvEmpty.setText("暂无动态");
-                ((NewsHolder1000) holder).ivEmpty.setImageResource(R.drawable.iv_empty_card_act);
-            } else if (bean.getEmptyType().equals("2")) {
-                ((NewsHolder1000) holder).tvEmpty.setText("暂无头条");
-                ((NewsHolder1000) holder).ivEmpty.setImageResource(R.drawable.iv_empty_card_news);
-            } else if (bean.getEmptyType().equals("3")) {
-                ((NewsHolder1000) holder).tvEmpty.setText("暂无点评");
-                ((NewsHolder1000) holder).ivEmpty.setImageResource(R.drawable.iv_empty_card_comment);
+            switch (bean.getEmptyType()) {
+                case "1":
+                    ((NewsHolder1000) holder).tvEmpty.setText("暂无动态");
+                    ((NewsHolder1000) holder).ivEmpty.setImageResource(R.drawable.iv_empty_card_act);
+                    break;
+                case "2":
+                    ((NewsHolder1000) holder).tvEmpty.setText("暂无头条");
+                    ((NewsHolder1000) holder).ivEmpty.setImageResource(R.drawable.iv_empty_card_news);
+                    break;
+                case "3":
+                    ((NewsHolder1000) holder).tvEmpty.setText("暂无点评");
+                    ((NewsHolder1000) holder).ivEmpty.setImageResource(R.drawable.iv_empty_card_comment);
+                    break;
             }
 
         }
@@ -224,6 +232,44 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
                             .placeholder(R.drawable.iv_default_news_small))
 
                     .into(((NewsHolder1) holder).ivCover);
+        }
+        if (holder instanceof NewsHolder2) {
+            if (isBlod) {
+                ((NewsHolder2) holder).bigLine.setVisibility(View.VISIBLE);
+                ((NewsHolder2) holder).smallLine.setVisibility(View.GONE);
+            } else {
+                ((NewsHolder2) holder).bigLine.setVisibility(View.GONE);
+                ((NewsHolder2) holder).smallLine.setVisibility(View.VISIBLE);
+            }
+
+            ((NewsHolder2) holder).tvName.setText(bean.getName());
+            ((NewsHolder2) holder).tvAuthor.setText(bean.getNews_name());
+            ((NewsHolder2) holder).tvTime.setText(bean.getTime());
+            ((NewsHolder2) holder).tvReadnum.setText(bean.getRead_num());
+            ((NewsHolder2) holder).tvCoverNum.setText(String.format("%d图", bean.getCover().size()));
+            if (TextUtils.isEmpty(bean.getNews_name())) {
+                ((NewsHolder2) holder).tvAuthor.setVisibility(View.GONE);
+            } else {
+                ((NewsHolder2) holder).tvAuthor.setVisibility(View.VISIBLE);
+            }
+            int sw = Tools.getScreenW(mActivity);
+            int w = sw - Tools.dip2px(mActivity, 15 + 15);
+
+            Double rate = 160.0 / 345;
+            int h = (int) (w * rate);
+
+            ViewGroup.LayoutParams params = ((NewsHolder2) holder).rlIv.getLayoutParams();
+            params.height = h;
+            params.width = w;
+            ((NewsHolder2) holder).rlIv.setLayoutParams(params);
+
+            Glide.with(mActivity).load(bean.getCover().get(0)).apply(
+                    new RequestOptions()
+                            .override(w, h)
+                            .centerCrop()
+                            .placeholder(R.drawable.iv_default_news_small))
+
+                    .into(((NewsHolder2) holder).ivCover);
         }
 
         if (holder instanceof NewsHolder1Shop) {
@@ -605,7 +651,35 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
             super(view);
             ButterKnife.bind(this, view);
         }
-    }// 小图加文字
+    }
+
+    // 图集
+    class NewsHolder2 extends RecyclerView.ViewHolder {
+        @BindView(R.id.name)
+        TextView tvName;
+        @BindView(R.id.rl_iv)
+        RelativeLayout rlIv;
+        @BindView(R.id.tv_covernum)
+        TextView tvCoverNum;
+        @BindView(R.id.tv_author)
+        TextView tvAuthor;
+        @BindView(R.id.tv_time)
+        TextView tvTime;
+        @BindView(R.id.tv_readnum)
+        TextView tvReadnum;
+        @BindView(R.id.iv_cover)
+        ImageView ivCover;
+        @BindView(R.id.bigline)
+        View bigLine;
+        @BindView(R.id.smallline)
+        View smallLine;
+
+
+        NewsHolder2(View view) {
+            super(view);
+            ButterKnife.bind(this, view);
+        }
+    }
 
     class NewsHolder1Shop extends RecyclerView.ViewHolder {
         @BindView(R.id.name)
