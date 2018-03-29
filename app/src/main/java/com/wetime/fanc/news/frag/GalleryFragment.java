@@ -339,7 +339,6 @@ public class GalleryFragment extends Fragment implements IHandlerMessage, View.O
 
     @Override
     public void onClick(View v) {
-        Log.e("xi", "onClick: ");
         switch (v.getId()) {
             case R.id.gallery_desc_layout:
                 onPhotoTap(null);
