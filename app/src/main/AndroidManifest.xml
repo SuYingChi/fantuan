@@ -177,6 +177,8 @@
         <activity android:name=".my.act.MyFriendsActivity" />
         <activity android:name=".circle.act.SelectLocActivity" />
         <activity android:name=".circle.act.SearchLocActivity" />
-
+        <activity
+            android:name="com.yalantis.ucrop.UCropActivity"
+            android:screenOrientation="portrait"/>
     </application>
 </manifest>

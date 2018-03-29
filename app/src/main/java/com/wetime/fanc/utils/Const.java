@@ -78,6 +78,7 @@ public interface Const {
     String DYNAMIC_ADDRESS_SEARCH = BASEURL + "/dynamic/address/search";
     String USER_FOLLOW = BASEURL + "/user/follow";
     String CIRCLE_FOLLOW = BASEURL + "/circle/follow";
+    String USER_PROFILE_UPDATECOVER = BASEURL + "/user/profile/updatecover";
 
 
     String PROTOCOL = BASEURL + "/index.html#/user/agreement";

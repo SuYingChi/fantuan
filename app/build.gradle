@@ -111,4 +111,5 @@ dependencies {
     implementation 'com.amap.api:location:3.6.1'
     implementation 'me.shaohui:bottomdialog:1.1.9'
     implementation 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'
+    implementation 'com.github.yalantis:ucrop:2.2.1'
 }
