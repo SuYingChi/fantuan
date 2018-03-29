@@ -28,7 +28,7 @@
         android:layout_width="match_parent"
         android:layout_height="?android:attr/actionBarSize"
         android:layout_alignParentBottom="true"
-        android:background="@drawable/title_bg_top"
+        android:background="@color/white"
         android:clickable="true" >
 
         <Button

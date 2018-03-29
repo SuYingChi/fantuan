@@ -113,6 +113,7 @@ dependencies {
     implementation 'me.shaohui:bottomdialog:1.1.9'
     implementation 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'
     implementation 'com.zhy:base-rvadapter:3.0.3'
+    implementation 'com.github.yalantis:ucrop:2.2.1'
 }
 
 

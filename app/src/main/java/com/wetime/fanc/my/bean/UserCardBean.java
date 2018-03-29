@@ -80,7 +80,6 @@ public class UserCardBean {
         }
 
 
-
         public static class UserBean {
             /**
              * id : 18
@@ -95,8 +94,57 @@ public class UserCardBean {
             private String username;
             private String avatar;
             private String uid;
+            private String cover;
             private boolean is_new;
             private String intro;
+            private String follow_num;
+            private String fans_num;
+            private boolean is_follow;
+            private boolean is_owner;
+//            "follow_num": "5",
+//                    "fans_num": "1",
+//                    "is_follow": false,
+//                    "is_owner": true
+
+            public String getCover() {
+                return cover;
+            }
+
+            public void setCover(String cover) {
+                this.cover = cover;
+            }
+
+            public String getFollow_num() {
+                return follow_num;
+            }
+
+            public void setFollow_num(String follow_num) {
+                this.follow_num = follow_num;
+            }
+
+            public String getFans_num() {
+                return fans_num;
+            }
+
+            public void setFans_num(String fans_num) {
+                this.fans_num = fans_num;
+            }
+
+            public boolean isFollow() {
+                return is_follow;
+            }
+
+            public void setFollow(boolean follow) {
+                this.is_follow = follow;
+            }
+
+            public boolean isOwner() {
+                return is_owner;
+            }
+
+            public void setOwner(boolean owner) {
+                this.is_owner = owner;
+            }
 
             public String getId() {
                 return id;

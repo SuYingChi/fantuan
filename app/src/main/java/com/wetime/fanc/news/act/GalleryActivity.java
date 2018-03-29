@@ -2,16 +2,11 @@ package com.wetime.fanc.news.act;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.View;
-import android.view.ViewTreeObserver;
 import android.widget.ImageView;
-
 
 import com.wetime.fanc.R;
 import com.wetime.fanc.customview.photoview.MyViewPager;
@@ -47,9 +42,9 @@ public class GalleryActivity extends BaseActivity implements View.OnClickListene
     private boolean isHideView;
     private Fragment mCurrFragment;
 
-    public static void startToGallery(Context context, GalleryItem gallery) {
+    public static void startToGallery(Context context, String galleryId) {
         Intent intent = new Intent(context, GalleryActivity.class);
-        intent.putExtra("gallery", gallery);
+        intent.putExtra("gallery", galleryId);
         context.startActivity(intent);
     }
 
@@ -61,7 +56,6 @@ public class GalleryActivity extends BaseActivity implements View.OnClickListene
         initView();
         initData();
     }
-
 
 
     private void initView() {
@@ -92,13 +86,6 @@ public class GalleryActivity extends BaseActivity implements View.OnClickListene
     }
 
     private void refresh() {
-      /*  if(getIntent() == null){
-            return;
-        }
-        gallery = (GalleryItem) getIntent().getSerializableExtra("gallery");
-        if (gallery == null) {
-            return;
-        }*/
         createFragmentList();
         updateViewPager();
     }

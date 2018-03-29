@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/title_bg_top"
+    android:background="@color/white"
     android:orientation="vertical" >
 
     <ImageView
@@ -12,7 +12,7 @@
         android:layout_centerVertical="true"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
-        android:src="@drawable/title_btnbg_back" />
+        android:src="@drawable/icon_back" />
 
     <TextView
         android:layout_centerInParent="true"

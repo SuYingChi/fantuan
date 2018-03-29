@@ -23,11 +23,10 @@ import com.bumptech.glide.Glide;
 import com.wetime.fanc.R;
 import com.wetime.fanc.circle.act.CircleDetailActivity;
 import com.wetime.fanc.circle.bean.ActDetailBean;
+import com.wetime.fanc.circle.presenter.FocusPresenter;
 import com.wetime.fanc.customview.GridViewForScrollView;
 import com.wetime.fanc.my.act.UserCardActivity;
 import com.wetime.fanc.utils.Tools;
-
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -78,6 +77,38 @@ public class ActDetailAdapter extends RecyclerView.Adapter {
             if (TextUtils.isEmpty(actDetailBean.getData().getContent())) {
                 ((ViewHolder0) holder).tvContent.setVisibility(View.GONE);
             }
+            if (actDetailBean.getData().isIs_owner()) {
+                ((ViewHolder0) holder).tvFocus.setVisibility(View.GONE);
+            } else {
+                ((ViewHolder0) holder).tvFocus.setVisibility(View.VISIBLE);
+            }
+
+            if (actDetailBean.getData().isIs_follow()) {
+                ((ViewHolder0) holder).tvFocus.setText("已关注");
+                ((ViewHolder0) holder).tvFocus.setTextColor(ContextCompat.getColor(mActivity, R.color.text_hint));
+                ((ViewHolder0) holder).tvFocus.setBackgroundResource(R.drawable.bg_btn_gray_circle);
+            } else {
+                ((ViewHolder0) holder).tvFocus.setText("关注");
+                ((ViewHolder0) holder).tvFocus.setTextColor(ContextCompat.getColor(mActivity, R.color.white));
+                ((ViewHolder0) holder).tvFocus.setBackgroundResource(R.drawable.bg_btn_red_corner);
+            }
+            ((ViewHolder0) holder).tvFocus.setOnClickListener(v -> {
+                actDetailBean.getData().setIs_follow(!actDetailBean.getData().isIs_follow());
+                FocusPresenter focusPresenter = new FocusPresenter();
+                focusPresenter.focusUser(Tools.getSpu(mActivity).getToken(),
+                        actDetailBean.getData().isIs_follow() ? "1" : "0",
+                        actDetailBean.getData().getUid());
+                if (actDetailBean.getData().isIs_follow()) {
+                    ((ViewHolder0) holder).tvFocus.setText("已关注");
+                    ((ViewHolder0) holder).tvFocus.setTextColor(ContextCompat.getColor(mActivity, R.color.text_hint));
+                    ((ViewHolder0) holder).tvFocus.setBackgroundResource(R.drawable.bg_btn_gray_circle);
+                } else {
+                    ((ViewHolder0) holder).tvFocus.setText("关注");
+                    ((ViewHolder0) holder).tvFocus.setTextColor(ContextCompat.getColor(mActivity, R.color.white));
+                    ((ViewHolder0) holder).tvFocus.setBackgroundResource(R.drawable.bg_btn_red_corner);
+                }
+            });
+
             if (actDetailBean.getData().getCover().size() == 0) {
                 ((ViewHolder0) holder).gv.setVisibility(View.GONE);
             } else {
@@ -195,10 +226,6 @@ public class ActDetailAdapter extends RecyclerView.Adapter {
 
     }
 
-    @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position, List payloads) {
-        super.onBindViewHolder(holder, position, payloads);
-    }
 
     @Override
     public int getItemCount() {
@@ -218,6 +245,8 @@ public class ActDetailAdapter extends RecyclerView.Adapter {
         CircleImageView ivHead;
         @BindView(R.id.tv_name)
         TextView tvName;
+        @BindView(R.id.tv_focus)
+        TextView tvFocus;
         @BindView(R.id.tv_addres)
         TextView tvAddres;
         @BindView(R.id.iv_onwer)
