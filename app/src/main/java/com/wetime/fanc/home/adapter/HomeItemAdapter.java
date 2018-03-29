@@ -29,6 +29,7 @@ import com.wetime.fanc.home.bean.HomeItemBean;
 import com.wetime.fanc.login.act.LoginActivity;
 import com.wetime.fanc.my.act.UserCardActivity;
 import com.wetime.fanc.my.presenter.DeleteMyNewsPresenter;
+import com.wetime.fanc.news.act.GalleryActivity;
 import com.wetime.fanc.order.MyRatingBar;
 import com.wetime.fanc.shop.act.ShopDetailActivity;
 import com.wetime.fanc.utils.Tools;
@@ -119,7 +120,7 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
         holder.itemView.setOnClickListener(view -> {
             switch (bean.getType()) {
                 case 2:
-
+                 GalleryActivity.startToGallery(mActivity,bean.getCircle_id());
                     break;
                 case 1:
                 case 3:
