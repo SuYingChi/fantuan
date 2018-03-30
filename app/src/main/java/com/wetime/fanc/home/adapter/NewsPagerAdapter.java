@@ -78,7 +78,7 @@ public class NewsPagerAdapter extends FragmentStatePagerAdapter {
         return PagerAdapter.POSITION_NONE;
     }
 
-    public void recreateItems(ArrayList<Fragment> mFragments, ArrayList<ChannelBean> mChannels) {
+    public void recreateItems(ArrayList<Fragment> mFragments, List<ChannelBean> mChannels) {
 //        if (this.mFragments != null) {
 //            FragmentTransaction ft = fm.beginTransaction();
 //            for (Fragment f : this.mFragments) {

@@ -6,7 +6,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,6 +45,7 @@ public class NewsLazyFragment extends BaseLazyFragment implements IGetAllChannel
     private SlidingTabLayout slidingTabLayout;
 
     private Map<String, Fragment> map = new HashMap<>();
+    private int currentIndex = 0;
 
     @Nullable
     @Override
@@ -75,9 +75,19 @@ public class NewsLazyFragment extends BaseLazyFragment implements IGetAllChannel
 
     @Override
     protected void initData() {
+        //每次进来都有刷新一个所有频道，有可能会更新
+        GetAllChannelPresenter getAllChannelPresenter = new GetAllChannelPresenter(this);
+        getAllChannelPresenter.getCommentResult();
+
+        // 未登录状态
         if (TextUtils.isEmpty(spu.getToken())) {
-            GetAllChannelPresenter getAllChannelPresenter = new GetAllChannelPresenter(this);
-            getAllChannelPresenter.getCommentResult();
+            //判断本地有没有数据， 有数据拿本地数据
+            if (!TextUtils.isEmpty(spu.getValue(ChannelActivity.LOCALCHANNAL))) {
+                initFromLocal(false);
+            }
+            //已登录状态 拿
+        } else {
+
         }
 
 
@@ -135,8 +145,21 @@ public class NewsLazyFragment extends BaseLazyFragment implements IGetAllChannel
         EventBus.getDefault().post(new ReFreshNewsTypeEvent(mIndex[vp.getCurrentItem()]));
     }
 
+    private void initFromLocal(boolean isRefresh) {
+        ArrayList<ChannelBean> localChannels = new ArrayList<>();
+        localChannels.addAll(GsonUtils.getGsonInstance().fromJson(spu.getValue(ChannelActivity.LOCALCHANNAL),
+                new TypeToken<List<ChannelBean>>() {
+                }.getType()));
+        initTab(localChannels, isRefresh);
+    }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(ChannelChangeEvent event) {
+        currentIndex = vp.getCurrentItem();
+        initFromLocal(true);
+        if (currentIndex == 0) {
+            new Handler().postDelayed(() -> EventBus.getDefault().post(new ReFreshNewsTypeEvent("0")), 500);
+        }
 //        StringBuilder orderOld = new StringBuilder();
 //        for (ChannelBean bean : mChannels) {
 //            orderOld.append(bean.getId());
@@ -205,17 +228,23 @@ public class NewsLazyFragment extends BaseLazyFragment implements IGetAllChannel
 
     @Override
     public void onGetAllChannel(AllChannelListBean bean) {
+        spu.setValue(ChannelActivity.ALLCHANNAL, GsonUtils.getGsonInstance().toJson(bean.getData()));
         ArrayList<ChannelBean> myChannels = new ArrayList<>();
+
         for (ChannelBean c : bean.getData()) {
-            if (TextUtils.equals(c.getIs_default(),"1"))
+            if (TextUtils.equals(c.getIs_default(), "1"))
                 myChannels.add(c);
 
         }
+        //没有登录 并且 本地没有数据 存到本地
+        if (TextUtils.isEmpty(spu.getToken()) && TextUtils.isEmpty(spu.getValue(ChannelActivity.LOCALCHANNAL))) {
+            spu.setValue(ChannelActivity.LOCALCHANNAL, GsonUtils.getGsonInstance().toJson(myChannels));
+            initTab(myChannels, false);
+        }
 
-        initTab(myChannels);
     }
 
-    private void initTab(List<ChannelBean> mChannels) {
+    private void initTab(List<ChannelBean> mChannels, boolean isRefresh) {
 //        关注-1
 //        推荐0
 //                海南3
@@ -246,5 +275,13 @@ public class NewsLazyFragment extends BaseLazyFragment implements IGetAllChannel
 
         slidingTabLayout = mRootView.findViewById(R.id.tablayout);
         slidingTabLayout.setViewPager(vp);
+
+        if (isRefresh) {
+            mAdapter.recreateItems(mFragments, mChannels);
+            vp.setCurrentItem(currentIndex);
+            slidingTabLayout.setCurrentTab(currentIndex);
+            slidingTabLayout.notifyDataSetChanged();
+        }
+
     }
 }

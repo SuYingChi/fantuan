@@ -120,7 +120,7 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
         holder.itemView.setOnClickListener(view -> {
             switch (bean.getType()) {
                 case 2:
-                 GalleryActivity.startToGallery(mActivity,bean.getCircle_id());
+                 GalleryActivity.startToGallery(mActivity,bean.getId());
                     break;
                 case 1:
                 case 3:
