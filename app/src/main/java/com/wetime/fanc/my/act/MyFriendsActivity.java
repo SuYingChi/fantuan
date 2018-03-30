@@ -57,7 +57,7 @@ public class MyFriendsActivity extends BaseActivity {
         mAdapter = new MyFriendsPagerAdapter(getSupportFragmentManager(), mFragments, mChannels);
         vp.setOffscreenPageLimit(4);
         vp.setAdapter(mAdapter);
-        vp.setCurrentItem(1);
+//        vp.setCurrentItem(1);
 
         tablayout.setViewPager(vp);
         tablayout.setCurrentTab(1,true);

@@ -46,12 +46,19 @@ public class MyFriendsAdapter extends CommonAdapter<MyFriendsBaseBean.DataBean.L
         Glide.with(context).load(myFriendsBaseBean.getAvatar()).into((CircleImageView) holder.getView(R.id.friend_base_head));
         if (type == 0) return;
         holder.setOnClickListener(R.id.friend_base_image, v -> {//0、取消1、关注
-            if (myFriendsBaseBean.isIs_mutual()) {
-                getMyFriendPresenter.setAttention(String.valueOf(0), myFriendsBaseBean.getId());
-            } else {
-                if (type == 1) return;
-                getMyFriendPresenter.setAttention(String.valueOf(1), myFriendsBaseBean.getId());
+            switch (type) {
+                case 1:
+                    getMyFriendPresenter.setAttention(String.valueOf(0), myFriendsBaseBean.getId());
+                    break;
+                case 2:
+                    if (myFriendsBaseBean.isIs_mutual()) {
+                        getMyFriendPresenter.setAttention(String.valueOf(0), myFriendsBaseBean.getId());
+                    } else {
+                        getMyFriendPresenter.setAttention(String.valueOf(1), myFriendsBaseBean.getId());
+                    }
+                    break;
             }
+
         });
 
     }

@@ -43,7 +43,7 @@
 
             <TextView
                 android:id="@+id/friend_base_title"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:lineSpacingExtra="0sp"
@@ -53,7 +53,7 @@
 
             <TextView
                 android:id="@+id/friend_base_text"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="3.5dp"
@@ -65,6 +65,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/friend_base_LinearLayout"
             android:layout_width="52dp"
             android:layout_height="25dp"
             android:layout_marginRight="15dp"
@@ -74,6 +75,7 @@
 
 
             <TextView
+                android:id="@+id/friend_base_TextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:lineSpacingExtra="0sp"

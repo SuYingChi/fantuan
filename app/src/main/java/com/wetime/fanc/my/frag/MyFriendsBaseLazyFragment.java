@@ -12,19 +12,12 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.wetime.fanc.R;
-import com.wetime.fanc.main.frag.BaseLazyFragment;
 import com.wetime.fanc.main.frag.BaseNoLazyFragment;
 import com.wetime.fanc.my.adapter.MyFriendsAdapter;
 import com.wetime.fanc.my.bean.AttentionBean;
 import com.wetime.fanc.my.bean.MyFriendsBaseBean;
-import com.wetime.fanc.my.event.AttentionEvent;
-import com.wetime.fanc.my.event.AttentionFansEvent;
 import com.wetime.fanc.my.iviews.IGetMyFriendsView;
 import com.wetime.fanc.my.presenter.GetMyFriendPresenter;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 
@@ -103,6 +96,13 @@ public abstract class MyFriendsBaseLazyFragment extends BaseNoLazyFragment
 
     @Override
     public void onGetUserFriend(MyFriendsBaseBean bean) {
+
+        if (bean.getData().getList().size() == 0) {
+            rlEmpty.setVisibility(View.VISIBLE);
+        } else {
+            rlEmpty.setVisibility(View.GONE);
+        }
+
         if (isRefresh) {
             data = new ArrayList<>();
             data.addAll(bean.getData().getList());
@@ -111,7 +111,7 @@ public abstract class MyFriendsBaseLazyFragment extends BaseNoLazyFragment
             data.addAll(bean.getData().getList());
             refreshLayout.finishLoadMore();
         }
-        adapter = new MyFriendsAdapter(getContext(), R.layout.item_myfriendsbase, data, getType(),getMyFriendPresenter);
+        adapter = new MyFriendsAdapter(getContext(), R.layout.item_myfriendsbase, data, getType(), getMyFriendPresenter);
         rclCircle.setAdapter(adapter);
     }
 

@@ -84,6 +84,8 @@ public interface Const {
     String PROTOCOL = BASEURL + "/index.html#/user/agreement";
     String GTT_MY_FRIENDS = BASEURL + "/user/follow/list";
     String ATTENTION = BASEURL + "/user/follow";
+    String GET_NEWS_DETAIL = BASEURL + "/news/detail";
+    String ATTENTION_FRIENDS = BASEURL + "/user/follow";
 
 
 }

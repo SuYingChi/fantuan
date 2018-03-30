@@ -21,7 +21,7 @@ public class GetMyFriendPresenter {
 
     public void getFriends(int page) {
         OkHttpUtils.post().url(Const.GTT_MY_FRIENDS)
-                .addParams("token", "f_p0tkc2_64rOSV_R5G03Snt2VXzRY6Q")
+                .addParams("token", iGetMyFriendsView.getToken())
                 .addParams("type", iGetMyFriendsView.onGetType())
                 .addParams("pn", String.valueOf(page))
                 .build()
@@ -37,7 +37,7 @@ public class GetMyFriendPresenter {
 
     public void setAttention(String follow, String following_id) {
         OkHttpUtils.post().url(Const.ATTENTION)
-                .addParams("token", "YlUhGvfphqft7DmirjYxbYVu_gqLuHLc")
+                .addParams("token", iGetMyFriendsView.getToken())
                 .addParams("follow", follow)
                 .addParams("following_id", following_id)
                 .build()

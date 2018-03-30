@@ -2,17 +2,25 @@ package com.wetime.fanc.news.act;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.view.ViewStub;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.githang.statusbar.StatusBarCompat;
 import com.wetime.fanc.R;
 import com.wetime.fanc.customview.photoview.MyViewPager;
 import com.wetime.fanc.main.act.BaseActivity;
+import com.wetime.fanc.my.act.UserCardActivity;
+import com.wetime.fanc.my.bean.AttentionBean;
 import com.wetime.fanc.news.adapter.TabHomeAdapter;
-import com.wetime.fanc.news.bean.gallerybean.GalleryItem;
+import com.wetime.fanc.news.bean.GalleryItemBean;
 import com.wetime.fanc.news.frag.GalleryFragment;
 
 import java.util.ArrayList;
@@ -20,6 +28,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Description:  图集
@@ -35,12 +44,25 @@ public class GalleryActivity extends BaseActivity implements View.OnClickListene
     ImageView mBackBtn;
     @BindView(R.id.activity_gallery_root)
     View mRootView;
+    @BindView(R.id.friend_base_head)
+    CircleImageView friendBaseHead;
+    @BindView(R.id.friend_base_title)
+    TextView friendBaseTitle;
+    @BindView(R.id.friend_base_text)
+    TextView friendBaseText;
+    @BindView(R.id.friend_base_TextView)
+    TextView friendBaseTextView;
+    @BindView(R.id.friend_base_LinearLayout)
+    LinearLayout friendBaseLinearLayout;
+    @BindView(R.id.activity_net_error_stub)
+    ViewStub activityNetErrorStub;
 
     private List<Fragment> fragments;
     private TabHomeAdapter adapter;
-    private GalleryItem gallery;
+    private GalleryItemBean gallery;
     private boolean isHideView;
     private Fragment mCurrFragment;
+    private GalleryItemBean bean;
 
     public static void startToGallery(Context context, String galleryId) {
         Intent intent = new Intent(context, GalleryActivity.class);
@@ -52,14 +74,18 @@ public class GalleryActivity extends BaseActivity implements View.OnClickListene
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gallery);
+        StatusBarCompat.setStatusBarColor(this, Color.parseColor("#1b1b1b"), false);
         ButterKnife.bind(this);
         initView();
         initData();
     }
 
-
     private void initView() {
         mBackBtn.setOnClickListener(this);
+        friendBaseLinearLayout.setOnClickListener(this);
+        friendBaseHead.setOnClickListener(this);
+        friendBaseTitle.setOnClickListener(this);
+        friendBaseText.setOnClickListener(this);
         viewPager.setOffscreenPageLimit(2);
         viewPager.setOnNeedScrollListener(this);
         viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -92,20 +118,13 @@ public class GalleryActivity extends BaseActivity implements View.OnClickListene
 
     private void createFragmentList() {
         fragments = new ArrayList<>();
-
         Bundle bundlePhotos = new Bundle();
-        bundlePhotos.putSerializable("gallery", gallery);
+        bundlePhotos.putString("galleryId", getIntent().getStringExtra("gallery"));
         GalleryFragment galleryFragment = GalleryFragment.newInstance(bundlePhotos);
         galleryFragment.setOnPhotoTapListener(this);
         fragments.add(galleryFragment);
-
-       /* Bundle bundleRecommendation = new Bundle();
-        bundleRecommendation.putLong("id", gallery.getId());*/
-//        fragments.add(GalleryRelatedFragment.newInstance("", ""));
-
         mCurrFragment = fragments.get(0);
     }
-
 
     private void updateViewPager() {
         adapter = new TabHomeAdapter(getSupportFragmentManager(), fragments);
@@ -135,14 +154,45 @@ public class GalleryActivity extends BaseActivity implements View.OnClickListene
             case R.id.iv_back:
                 finish();
                 break;
+            case R.id.friend_base_head:
+            case R.id.friend_base_title:
+            case R.id.friend_base_text:
+                Intent go = new Intent(this, UserCardActivity.class);
+                go.putExtra("num", "3");
+                go.putExtra("index", 0);
+                go.putExtra("id", bean.getData().getUid());
+                this.startActivity(go);
+                break;
+            case R.id.friend_base_LinearLayout:
+                ((GalleryFragment) mCurrFragment).AttentionFriends();
+                break;
         }
+    }
+
+    public void drawingView(GalleryItemBean bean) {
+        this.bean = bean;
+        Glide.with(this).load(bean.getData().getAvatar()).into(friendBaseHead);
+        friendBaseTitle.setText(bean.getData().getNews_name());
+        friendBaseText.setText(bean.getData().getFollower_num() + "粉丝");
+        if (bean.getData().isIs_following()) {
+            friendBaseLinearLayout.setBackground(getResources().getDrawable(R.drawable.icon_attention));
+            friendBaseTextView.setText("已关注");
+            friendBaseTextView.setVisibility(View.GONE);
+        } else {
+            friendBaseLinearLayout.setBackground(getResources().getDrawable(R.drawable.bg_circle_gallery));
+            friendBaseTextView.setText("关注");
+            friendBaseTextView.setVisibility(View.VISIBLE);
+        }
+    }
+
+    public String getTextString() {
+        return String.valueOf(friendBaseTextView.getText());
     }
 
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        //ButterKnife.unbind(this);
     }
 
     @Override
@@ -150,12 +200,6 @@ public class GalleryActivity extends BaseActivity implements View.OnClickListene
         if (mCurrFragment instanceof GalleryFragment) {
             if (!((GalleryFragment) mCurrFragment).isLastItem()) {
                 return false;
-            } else {
-                //当图集滑动到最后一个时，如果图集推荐没有内容，则禁止滑动
-//                GalleryRelatedFragment relatedFragment = (GalleryRelatedFragment) fragments.get(1);
-//                if (!relatedFragment.isHasData()) {
-//                    return false;
-//                }
             }
         }
         return true;
@@ -171,5 +215,17 @@ public class GalleryActivity extends BaseActivity implements View.OnClickListene
     public void onDismissView() {
         isHideView = true;
         backLl.setVisibility(View.INVISIBLE);
+    }
+
+    public void drawingAttring(AttentionBean bean) {
+        if (String.valueOf(friendBaseTextView.getText()).equals("关注")) {
+            friendBaseLinearLayout.setBackground(getResources().getDrawable(R.drawable.icon_attention));
+            friendBaseTextView.setText("已关注");
+            friendBaseTextView.setVisibility(View.GONE);
+        } else {
+            friendBaseLinearLayout.setBackground(getResources().getDrawable(R.drawable.bg_circle_gallery));
+            friendBaseTextView.setText("关注");
+            friendBaseTextView.setVisibility(View.VISIBLE);
+        }
     }
 }
