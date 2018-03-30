@@ -121,7 +121,7 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
         holder.itemView.setOnClickListener(view -> {
             switch (bean.getType()) {
                 case 2:
-                 GalleryActivity.startToGallery(mActivity,bean.getCircle_id());
+                 GalleryActivity.startToGallery(mActivity,bean.getId());
                     break;
                 case 1:
                 case 3:
@@ -248,7 +248,7 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
             ((NewsHolder2) holder).tvAuthor.setText(bean.getNews_name());
             ((NewsHolder2) holder).tvTime.setText(bean.getTime());
             ((NewsHolder2) holder).tvReadnum.setText(bean.getRead_num());
-            ((NewsHolder2) holder).tvCoverNum.setText(String.format("%d图", bean.getCover().size()));
+            ((NewsHolder2) holder).tvCoverNum.setText(bean.getAtlas_num());
             if (TextUtils.isEmpty(bean.getNews_name())) {
                 ((NewsHolder2) holder).tvAuthor.setVisibility(View.GONE);
             } else {

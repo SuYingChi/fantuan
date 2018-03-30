@@ -25,6 +25,7 @@ public class HomeItemBean {
      *  "longitude": "0",
      "latitude": "0",
      "location": "",
+     atlas_num":"3图"
      */
 
     private String id;
@@ -40,6 +41,7 @@ public class HomeItemBean {
     private String time;
     private String username;
     private String avatar;
+    private String atlas_num;
     private String circle_name;
     private int type;
     private boolean has_like;
@@ -78,6 +80,15 @@ public class HomeItemBean {
 //    private List<String> cover;
     private List<BannerBean> banner;
     private  String emptyType;
+
+
+    public String getAtlas_num() {
+        return atlas_num;
+    }
+
+    public void setAtlas_num(String atlas_num) {
+        this.atlas_num = atlas_num;
+    }
 
     public String getLongitude() {
         return longitude;
