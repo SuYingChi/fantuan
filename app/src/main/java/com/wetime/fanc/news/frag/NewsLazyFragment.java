@@ -14,7 +14,6 @@ import com.flyco.tablayout.SlidingTabLayout;
 import com.google.gson.reflect.TypeToken;
 import com.wetime.fanc.R;
 import com.wetime.fanc.home.adapter.NewsPagerAdapter;
-import com.wetime.fanc.home.event.ReFreshNewsEvent;
 import com.wetime.fanc.home.event.ReFreshNewsTypeEvent;
 import com.wetime.fanc.login.event.LoginEvent;
 import com.wetime.fanc.main.frag.BaseLazyFragment;
@@ -22,10 +21,9 @@ import com.wetime.fanc.news.act.ChannelActivity;
 import com.wetime.fanc.news.bean.AllChannelListBean;
 import com.wetime.fanc.news.bean.ChannelBean;
 import com.wetime.fanc.news.event.ChannelChangeEvent;
-import com.wetime.fanc.news.iviews.IGetAllChannelView;
 import com.wetime.fanc.news.iviews.IGetMyChannelView;
-import com.wetime.fanc.news.presenter.GetAllChannelPresenter;
 import com.wetime.fanc.news.presenter.GetMyChannelPresenter;
+import com.wetime.fanc.news.presenter.SaveMyChannelPresenter;
 import com.wetime.fanc.utils.GsonUtils;
 import com.wetime.fanc.utils.Tools;
 
@@ -39,7 +37,7 @@ import java.util.List;
 import java.util.Map;
 
 
-public class NewsLazyFragment extends BaseLazyFragment implements IGetAllChannelView, IGetMyChannelView {
+public class NewsLazyFragment extends BaseLazyFragment implements IGetMyChannelView {
 
     private ArrayList<Fragment> mFragments = new ArrayList<>();
     private ArrayList<ChannelBean> mChannels = new ArrayList<>();
@@ -76,26 +74,16 @@ public class NewsLazyFragment extends BaseLazyFragment implements IGetAllChannel
         });
         vp = mRootView.findViewById(R.id.vp);
 
+
+        GetMyChannelPresenter getMyChannelPresenter = new GetMyChannelPresenter(this);
+        getMyChannelPresenter.getMyChannelResult();
+
     }
 
     @Override
     protected void initData() {
-        //每次进来都有刷新一个所有频道，有可能会更新
-        GetAllChannelPresenter getAllChannelPresenter = new GetAllChannelPresenter(this);
-        getAllChannelPresenter.getAllChannelResult();
 
-
-        if (!TextUtils.isEmpty(spu.getValue(ChannelActivity.LOCALCHANNAL))) {
-            initFromLocal();
-        } else {
-            //已登录状态 拿
-            if (!TextUtils.isEmpty(spu.getToken())) {
-                GetMyChannelPresenter getMyChannelPresenter = new GetMyChannelPresenter(this);
-                getMyChannelPresenter.getMyChannelResult();
-            }
-        }
     }
-
 //    @Subscribe(threadMode = ThreadMode.MAIN)
 //    public void onMessageEvent(ReFreshNewsEvent event) {
 //        String[] mIndex = getResources().getStringArray(R.array.newstypeindex);
@@ -117,37 +105,45 @@ public class NewsLazyFragment extends BaseLazyFragment implements IGetAllChannel
         initFromLocal();
     }
 
-    @Override
-    public void onGetAllChannel(AllChannelListBean bean) {
-        spu.setValue(ChannelActivity.ALLCHANNAL, GsonUtils.getGsonInstance().toJson(bean.getData()));
-        mChannels.clear();
-
-        for (ChannelBean c : bean.getData()) {
-            if (TextUtils.equals(c.getIs_default(), "1"))
-                mChannels.add(c);
-        }
-        //没有登录 并且 本地没有数据 存到本地
-        if (TextUtils.isEmpty(spu.getToken()) && TextUtils.isEmpty(spu.getValue(ChannelActivity.LOCALCHANNAL))) {
-            spu.setValue(ChannelActivity.LOCALCHANNAL, GsonUtils.getGsonInstance().toJson(mChannels));
-            initTab();
-        }
-
-    }
 
     @Override
     public void onGetMyChannel(AllChannelListBean bean) {
-        if (bean.getData().size() == 0) {
-            Tools.toastInBottom(getContext(), "上传本地数据");
-            //上传本地数据
+        spu.setValue(ChannelActivity.ALLCHANNAL, GsonUtils.getGsonInstance().toJson(bean.getData().getAll_news_category()));
 
+        // 登陆状态
+        if (!TextUtils.isEmpty(spu.getToken())) {
+            if (bean.getData().getUser_news_category().size() == 0) {
+                initFromLocal();
+
+                Tools.toastInBottom(getContext(), "上传本地数据");
+                //上传本地数据
+                SaveMyChannelPresenter saveMyChannelPresenter = new SaveMyChannelPresenter();
+                String saveStr = spu.getValue(ChannelActivity.LOCALCHANNAL);
+                saveMyChannelPresenter.saveMyChannel(spu.getToken(), saveStr);
+
+
+            } else {
+                mChannels.clear();
+                mChannels.addAll(bean.getData().getUser_news_category());
+                // 存到本地
+                spu.setValue(ChannelActivity.LOCALCHANNAL, GsonUtils.getGsonInstance().toJson(mChannels));
+                initTab();
+            }
         } else {
-            mChannels.clear();
-            mChannels.addAll(bean.getData());
-            // 存到本地
-            spu.setValue(ChannelActivity.LOCALCHANNAL, GsonUtils.getGsonInstance().toJson(mChannels));
-
-            initTab();
+            //未登录状态
+            // 本地有 那本地数据
+            if (!TextUtils.isEmpty(spu.getValue(ChannelActivity.LOCALCHANNAL))) {
+                initFromLocal();
+            } else {
+                mChannels.clear();
+                mChannels.addAll(bean.getData().getUser_news_category());
+                // 存到本地
+                spu.setValue(ChannelActivity.LOCALCHANNAL, GsonUtils.getGsonInstance().toJson(mChannels));
+                initTab();
+            }
         }
+
+
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

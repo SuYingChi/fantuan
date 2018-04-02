@@ -256,7 +256,7 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
             int sw = Tools.getScreenW(mActivity);
             int w = sw - Tools.dip2px(mActivity, 15 + 15);
 
-            Double rate = 160.0 / 345;
+            Double rate = 194.0 / 345;
             int h = (int) (w * rate);
 
             ViewGroup.LayoutParams params = ((NewsHolder2) holder).rlIv.getLayoutParams();

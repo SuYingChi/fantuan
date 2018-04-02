@@ -8,12 +8,12 @@ public class AllChannelListBean {
     /**
      * error : 0
      * msg :
-     * data : [{"id":"1","name":"美食","is_default":"1","is_show":"1","order":"1"},{"id":"4","name":"体育","is_default":"1","is_show":"1","order":"1"},{"id":"6","name":"八卦","is_default":"1","is_show":"1","order":"1"},{"id":"5","name":"搞笑","is_default":"1","is_show":"1","order":"1"},{"id":"7","name":"科技","is_default":"1","is_show":"1","order":"1"},{"id":"8","name":"汽车","is_default":"0","is_show":"1","order":"0"},{"id":"9","name":"萌宠","is_default":"0","is_show":"1","order":"0"},{"id":"10","name":"影视","is_default":"0","is_show":"1","order":"0"},{"id":"11","name":"彩票","is_default":"0","is_show":"1","order":"0"},{"id":"12","name":"游戏","is_default":"0","is_show":"1","order":"0"},{"id":"13","name":"星座","is_default":"0","is_show":"1","order":"0"},{"id":"14","name":"健身","is_default":"0","is_show":"1","order":"0"},{"id":"15","name":"时尚","is_default":"0","is_show":"1","order":"0"}]
+     * data : {"user_news_category":[{"id":"1","name":"美食"},{"id":"4","name":"体育"},{"id":"5","name":"搞笑"},{"id":"6","name":"八卦"},{"id":"7","name":"科技"}],"all_news_category":[{"id":"4","name":"体育"},{"id":"14","name":"健身"},{"id":"6","name":"八卦"},{"id":"11","name":"彩票"},{"id":"10","name":"影视"},{"id":"5","name":"搞笑"},{"id":"15","name":"时尚"},{"id":"13","name":"星座"},{"id":"8","name":"汽车"},{"id":"2","name":"活动"},{"id":"3","name":"海口"},{"id":"12","name":"游戏"},{"id":"7","name":"科技"},{"id":"1","name":"美食"},{"id":"9","name":"萌宠"}]}
      */
 
     private int error;
     private String msg;
-    private List<ChannelBean> data;
+    private DataBean data;
 
     public int getError() {
         return error;
@@ -31,13 +31,34 @@ public class AllChannelListBean {
         this.msg = msg;
     }
 
-    public List<ChannelBean> getData() {
+    public DataBean getData() {
         return data;
     }
 
-    public void setData(List<ChannelBean> data) {
+    public void setData(DataBean data) {
         this.data = data;
     }
 
+    public static class DataBean {
+        private List<ChannelBean> user_news_category;
+        private List<ChannelBean> all_news_category;
 
+        public List<ChannelBean> getUser_news_category() {
+            return user_news_category;
+        }
+
+        public void setUser_news_category(List<ChannelBean> user_news_category) {
+            this.user_news_category = user_news_category;
+        }
+
+        public List<ChannelBean> getAll_news_category() {
+            return all_news_category;
+        }
+
+        public void setAll_news_category(List<ChannelBean> all_news_category) {
+            this.all_news_category = all_news_category;
+        }
+
+
+    }
 }
