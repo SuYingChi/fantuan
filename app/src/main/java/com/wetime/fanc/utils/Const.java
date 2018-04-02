@@ -80,6 +80,7 @@ public interface Const {
     String CIRCLE_FOLLOW = BASEURL + "/circle/follow";
     String USER_PROFILE_UPDATECOVER = BASEURL + "/user/profile/updatecover";
     String NEWS_CATEGORY_LIST = BASEURL + "/news/category/list";
+    String NEWS_CATEGORY_LOAD = BASEURL + "/news/category/load";
 
 
     String PROTOCOL = BASEURL + "/index.html#/user/agreement";

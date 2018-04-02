@@ -19,6 +19,7 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.wetime.fanc.R;
 import com.wetime.fanc.home.adapter.HomeItemAdapter;
 import com.wetime.fanc.home.bean.HomeItemBean;
+import com.wetime.fanc.home.event.ReFreshNewsEvent;
 import com.wetime.fanc.home.event.ReFreshNewsTypeEvent;
 import com.wetime.fanc.home.iviews.IGetNewsTypeView;
 import com.wetime.fanc.home.presenter.GetNewsTypePresenter;
@@ -196,8 +197,8 @@ public class NewsTypeLazyFragment extends BaseLazyFragment implements IGetNewsTy
 
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMessageEvent(ReFreshNewsTypeEvent event) {
-        if (event.getType().equals(type)) {
+    public void onMessageEvent(ReFreshNewsEvent event) {
+        if (mIsVisible) {
             rcl.scrollToPosition(0);
             refreshLayout.autoRefresh();
         }
