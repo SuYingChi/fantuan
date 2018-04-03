@@ -45,7 +45,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
                 android:lineSpacingExtra="0sp"
-                android:text="暂无收藏文章"
+                android:text="暂无收藏商家"
                 android:textColor="#999999"
                 android:textSize="14sp" />
         </LinearLayout>

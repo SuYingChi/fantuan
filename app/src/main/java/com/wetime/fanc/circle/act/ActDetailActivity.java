@@ -107,6 +107,7 @@ public class ActDetailActivity extends BaseActivity implements IGetActDetailView
     public void onKeyboardChange(boolean isShow, int keyboardHeight) {
         if (!isShow) {
             rlBottom.setVisibility(View.GONE);
+            etContent.setHint("评论动态");
         }
     }
 
