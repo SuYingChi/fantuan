@@ -11,18 +11,24 @@
         android:layout_height="match_parent"
         app:srlEnableHeaderTranslationContent="true"
         app:srlEnableOverScrollBounce="false">
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rcl_news"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fadingEdge="none"
-            android:overScrollMode="always"
-            android:requiresFadingEdge="none"
-            android:scrollbarStyle="insideOverlay"
-            android:scrollbars="vertical" />
-    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+            android:layout_height="match_parent">
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rcl_news"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fadingEdge="none"
+                android:overScrollMode="always"
+                android:requiresFadingEdge="none"
+                android:scrollbarStyle="insideOverlay"
+                android:scrollbars="vertical" />
+            <include layout="@layout/item_no_focus_news_empty"/>
 
+        </RelativeLayout>
+
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+    <include layout="@layout/item_no_login_news_empty"/>
     <TextView
         android:id="@+id/tv_recoment"
         android:layout_width="match_parent"

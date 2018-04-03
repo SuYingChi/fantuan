@@ -22,10 +22,10 @@ public class HomeItemBean {
      * cover : ["https://staticcdntest.fantuanlife.com/uimage/00/01/a1/5c/0001a15ccc4f3aa227220a94f20c29d3.jpg","https://staticcdntest.fantuanlife.com/uimage/00/01/a5/9f/0001a59f2b1e5babff2852ec8813593d.jpg"]
      * type : 19
      * has_like : true
-     *  "longitude": "0",
-     "latitude": "0",
-     "location": "",
-     atlas_num":"3图"
+     * "longitude": "0",
+     * "latitude": "0",
+     * "location": "",
+     * atlas_num":"3图"
      */
 
     private String id;
@@ -79,7 +79,8 @@ public class HomeItemBean {
     //    private int type;
 //    private List<String> cover;
     private List<BannerBean> banner;
-    private  String emptyType;
+    private String emptyType;
+
 
 
     public String getAtlas_num() {

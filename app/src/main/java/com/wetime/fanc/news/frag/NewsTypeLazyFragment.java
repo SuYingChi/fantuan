@@ -1,15 +1,18 @@
 package com.wetime.fanc.news.frag;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
 import android.view.animation.AnimationUtils;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.fan.baselib.loadmore.AutoLoadMoreAdapter;
@@ -20,10 +23,13 @@ import com.wetime.fanc.R;
 import com.wetime.fanc.home.adapter.HomeItemAdapter;
 import com.wetime.fanc.home.bean.HomeItemBean;
 import com.wetime.fanc.home.event.ReFreshNewsEvent;
-import com.wetime.fanc.home.event.ReFreshNewsTypeEvent;
 import com.wetime.fanc.home.iviews.IGetNewsTypeView;
 import com.wetime.fanc.home.presenter.GetNewsTypePresenter;
+import com.wetime.fanc.login.act.LoginActivity;
+import com.wetime.fanc.login.event.LoginEvent;
+import com.wetime.fanc.login.event.LogoutEvent;
 import com.wetime.fanc.main.frag.BaseLazyFragment;
+import com.wetime.fanc.news.act.RecomentFocusActivity;
 import com.wetime.fanc.news.bean.NewsListBean;
 
 import org.greenrobot.eventbus.EventBus;
@@ -33,11 +39,20 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
+
 /**
  * Created by zhoukang on 2018/1/29.
  */
 
 public class NewsTypeLazyFragment extends BaseLazyFragment implements IGetNewsTypeView, OnRefreshListener {
+    @BindView(R.id.rl_no_focus)
+    RelativeLayout rlNoFocus;
+    Unbinder unbinder;
+    @BindView(R.id.rl_no_login)
+    RelativeLayout rlNoLogin;
     private String type;
     private GetNewsTypePresenter getNewsTypePresenter;
     private String total = "";
@@ -54,6 +69,7 @@ public class NewsTypeLazyFragment extends BaseLazyFragment implements IGetNewsTy
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         Bundle bundle = getArguments();
         type = bundle.getString("type");
+        unbinder = ButterKnife.bind(this, super.onCreateView(inflater, container, savedInstanceState));
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
@@ -118,19 +134,50 @@ public class NewsTypeLazyFragment extends BaseLazyFragment implements IGetNewsTy
 //            startActivity(goweb);
 //        });
         getNewsTypePresenter = new GetNewsTypePresenter(this);
+
     }
 
 
     @Override
     protected void initData() {
-        refreshLayout.autoRefresh();
+        if (type.equals("-1") && TextUtils.isEmpty(spu.getToken())) {
+            rlNoLogin.setVisibility(View.VISIBLE);
+            mRootView.findViewById(R.id.tv_gologin).setOnClickListener(v -> {
+                Intent go = new Intent(getContext(), LoginActivity.class);
+                startActivity(go);
+            });
+        } else {
+            refreshLayout.autoRefresh();
+        }
+
     }
 
     @Override
     public void onGetNews(NewsListBean bean) {
+        // 推荐空页面
+        if (type.equals("-1")) {
+            rlNoLogin.setVisibility(View.GONE);
+            if (bean.getData().getList().size() == 0) {
+                rlNoFocus.setVisibility(View.VISIBLE);
+                mRootView.findViewById(R.id.tv_gofocus).setOnClickListener(v -> {
+                    Intent goFocus = new Intent(getContext(), RecomentFocusActivity.class);
+                    startActivity(goFocus);
+                });
+            } else {
+                rlNoFocus.setVisibility(View.GONE);
+            }
+        }
+
         refreshLayout.finishRefresh();
+
         if (page == 1) {
             list.clear();
+            //推荐 特殊的头部
+            if (type.equals("-1")) {
+                HomeItemBean headbean = new HomeItemBean();
+                headbean.setType(9000);
+                list.add(headbean);
+            }
         }
         total = bean.getData().getPaging().getTotal();
         list.addAll(bean.getData().getList());
@@ -202,5 +249,24 @@ public class NewsTypeLazyFragment extends BaseLazyFragment implements IGetNewsTy
             rcl.scrollToPosition(0);
             refreshLayout.autoRefresh();
         }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(LoginEvent event) {
+        if (type.equals("-1"))
+            refreshLayout.autoRefresh();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(LogoutEvent event) {
+        if (type.equals("-1")) {
+            rlNoLogin.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
     }
 }

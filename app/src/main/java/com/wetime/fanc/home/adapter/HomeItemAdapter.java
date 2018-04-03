@@ -30,6 +30,7 @@ import com.wetime.fanc.login.act.LoginActivity;
 import com.wetime.fanc.my.act.UserCardActivity;
 import com.wetime.fanc.my.presenter.DeleteMyNewsPresenter;
 import com.wetime.fanc.news.act.GalleryActivity;
+import com.wetime.fanc.news.act.RecomentFocusActivity;
 import com.wetime.fanc.order.MyRatingBar;
 import com.wetime.fanc.shop.act.ShopDetailActivity;
 import com.wetime.fanc.utils.Tools;
@@ -98,6 +99,8 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
                 return new NewsHolder1000(inflater.inflate(R.layout.item_usercard_empty, parent, false));
             } else if (viewType == 2) {//图集
                 return new NewsHolder2(inflater.inflate(R.layout.item_news_type2, parent, false));
+            }else if (viewType == 9000) {//头条 推荐 头部
+                return new NewsHolder9000(inflater.inflate(R.layout.item_news_type9000, parent, false));
             }
 
         } else if (listtype == 1) {
@@ -116,7 +119,7 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
 //        if (mOnItemClickLitener != null) {
 //            holder.itemView.setOnClickListener(view -> mOnItemClickLitener.onItemClick(view, position));
 //        }
-
+        //点击
         holder.itemView.setOnClickListener(view -> {
             switch (bean.getType()) {
                 case 2:
@@ -143,6 +146,10 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
                     Intent goDet = new Intent(mActivity, ActDetailActivity.class);
                     goDet.putExtra("id", bean.getId());
                     mActivity.startActivity(goDet);
+                    break;
+                case 9000:
+                    Intent goFocus = new Intent(mActivity, RecomentFocusActivity.class);
+                    mActivity.startActivity(goFocus);
                     break;
             }
         });
@@ -677,6 +684,13 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
 
 
         NewsHolder2(View view) {
+            super(view);
+            ButterKnife.bind(this, view);
+        }
+    }// 图集
+    class NewsHolder9000 extends RecyclerView.ViewHolder {
+
+        NewsHolder9000(View view) {
             super(view);
             ButterKnife.bind(this, view);
         }

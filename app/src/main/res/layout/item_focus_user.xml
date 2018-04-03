@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingTop="15dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingLeft="10dp">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/iv_head"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_head_default" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:lineSpacingExtra="0sp"
+                android:maxLines="1"
+                android:textColor="#333333"
+                android:textSize="16sp"
+                tools:text="我是吃货" />
+
+            <TextView
+                android:id="@+id/tv_des"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:ellipsize="end"
+                android:lineSpacingExtra="0sp"
+                android:maxLines="2"
+                android:textColor="#999999"
+                android:textSize="11sp"
+                tools:text="这里是简介，字数限制在十到三十" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingLeft="10dp"
+            android:paddingRight="15dp"
+            android:paddingTop="8dp">
+
+            <TextView
+                android:id="@+id/tv_focus"
+                android:layout_width="52dp"
+                android:layout_height="26dp"
+                android:background="@drawable/bg_btn_gray_circle"
+                android:gravity="center"
+                android:lineSpacingExtra="0sp"
+                android:textColor="#999999"
+                android:textSize="14sp"
+                tools:text="已关注" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <include layout="@layout/item_my_line" />
+</LinearLayout>
+

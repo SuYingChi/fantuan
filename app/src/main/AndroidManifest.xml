@@ -200,6 +200,7 @@
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".news.act.RecomentFocusActivity" />
     </application>
 
 </manifest>
