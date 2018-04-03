@@ -91,6 +91,7 @@ public interface Const {
     String GET_NEWS_DETAIL = BASEURL + "/news/detail";
     String ATTENTION_FRIENDS = BASEURL + "/user/follow";
     String SEND_COMMONET = BASEURL + "/news/comment/issue";
+    String COLLECT_NEWS = BASEURL + "/news/collect";
     String GRT_ALL_COMMENT = BASEURL + "/news/detail/comment";
     String CLICK_LIKE = BASEURL + "/news/comment/like";
     String REPLY_CLICK_LIKE = BASEURL + "/news/reply/like";

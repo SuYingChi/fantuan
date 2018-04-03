@@ -83,7 +83,7 @@ public class CommentListAdapter extends CommonAdapter<CommentBean.DataBean.ListB
                 Intent go = new Intent(context, UserCardActivity.class);
                 go.putExtra("num", "3");
                 go.putExtra("index", 0);
-                go.putExtra("id", commentTestBean.getUser().getUsername());
+                go.putExtra("id", commentTestBean.getUser().getId());
                 context.startActivity(go);
             }
         });

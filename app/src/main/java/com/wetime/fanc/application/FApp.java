@@ -11,6 +11,7 @@ import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
+import com.tencent.tauth.Tencent;
 import com.wetime.fanc.R;
 import com.wetime.fanc.utils.MLoggerInterceptor;
 import com.wetime.fanc.utils.SharePreferenceUtil;
@@ -30,11 +31,13 @@ public class FApp extends Application {
     private SharePreferenceUtil spu;
     private static FApp instance;
     public static IWXAPI mWxApi;
+    public static Tencent mTencent ;
 
     @Override
     public void onCreate() {
         super.onCreate();
         registToWX();
+        registToTencent();
         JPushInterface.init(this);
         JPushInterface.stopCrashHandler(this);
 //        ArrayList<String> keys = new ArrayList<>();
@@ -68,6 +71,10 @@ public class FApp extends Application {
         instance = this;
 
 
+    }
+
+    private void registToTencent() {
+        mTencent = Tencent.createInstance("1106601878", this.getApplicationContext());
     }
 
     public static boolean isd(Context context) {

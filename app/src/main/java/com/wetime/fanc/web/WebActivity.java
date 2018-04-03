@@ -1,6 +1,7 @@
 package com.wetime.fanc.web;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -20,10 +21,13 @@ import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.gyf.barlibrary.ImmersionBar;
 import com.secure.pay.PayService;
 import com.tencent.mm.opensdk.modelmsg.SendMessageToWX;
+import com.tencent.tauth.IUiListener;
+import com.tencent.tauth.UiError;
 import com.wetime.fanc.R;
 import com.wetime.fanc.application.FApp;
 import com.wetime.fanc.circle.act.ActDetailActivity;
@@ -612,6 +616,48 @@ public class WebActivity extends BaseActivity implements IPostMultiFileView {
                     v.findViewById(R.id.ll_share_wxq).setOnClickListener(v12 -> {
                         mBottomDialog.dismiss();
                         Tools.shareWx(mContext, weburl, SendMessageToWX.Req.WXSceneTimeline, title, des);
+                    });
+                    v.findViewById(R.id.ll_share_wb).setOnClickListener(v12 -> {
+                        mBottomDialog.dismiss();
+                        Toast.makeText(mContext, "功能正在开发中!", Toast.LENGTH_SHORT).show();
+                    });
+                    v.findViewById(R.id.ll_share_qq).setOnClickListener(v12 -> {
+                        mBottomDialog.dismiss();
+                        Tools.shareQQ((Activity) mContext, weburl, title, des, new IUiListener() {
+                            @Override
+                            public void onComplete(Object o) {
+                                Toast.makeText(mContext, "分享成功!", Toast.LENGTH_SHORT).show();
+                            }
+
+                            @Override
+                            public void onError(UiError uiError) {
+                                Toast.makeText(mContext, "未知错误!", Toast.LENGTH_SHORT).show();
+                            }
+
+                            @Override
+                            public void onCancel() {
+                                Toast.makeText(mContext, "分享取消!", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    });
+                    v.findViewById(R.id.ll_share_qqkj).setOnClickListener(v12 -> {
+                        mBottomDialog.dismiss();
+                        Tools.shareToQzone((Activity) mContext, weburl, title, des, new IUiListener() {
+                            @Override
+                            public void onComplete(Object o) {
+                                Toast.makeText(mContext, "分享成功!", Toast.LENGTH_SHORT).show();
+                            }
+
+                            @Override
+                            public void onError(UiError uiError) {
+                                Toast.makeText(mContext, "未知错误!", Toast.LENGTH_SHORT).show();
+                            }
+
+                            @Override
+                            public void onCancel() {
+                                Toast.makeText(mContext, "分享取消!", Toast.LENGTH_SHORT).show();
+                            }
+                        });
                     });
                     v.findViewById(R.id.ll_share_copy).setOnClickListener(v13 -> {
                         mBottomDialog.dismiss();

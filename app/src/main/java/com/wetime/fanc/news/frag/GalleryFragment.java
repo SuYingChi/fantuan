@@ -1,24 +1,35 @@
 package com.wetime.fanc.news.frag;
 
 import android.Manifest;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Rect;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.tencent.mm.opensdk.modelmsg.SendMessageToWX;
+import com.tencent.tauth.IUiListener;
+import com.tencent.tauth.UiError;
 import com.wetime.fanc.R;
 import com.wetime.fanc.customview.photoview.MyViewPager;
 import com.wetime.fanc.handler.CommonHandler;
@@ -33,6 +44,7 @@ import com.wetime.fanc.news.bean.GalleryItemBean;
 import com.wetime.fanc.news.iviews.IGetNewsDetailView;
 import com.wetime.fanc.news.presenter.GetNewsDetailPresenter;
 import com.wetime.fanc.utils.ToastUtils;
+import com.wetime.fanc.utils.Tools;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,6 +66,7 @@ public class GalleryFragment extends BaseFragment implements IHandlerMessage, Vi
     private static String[] PERMISSIONS_STORAGE = {
             Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.WRITE_EXTERNAL_STORAGE};
+    public boolean isShowInput = false;
     private CommonHandler<GalleryFragment> handler;
     private View rootView;
     private MyViewPager viewPager;
@@ -80,7 +93,9 @@ public class GalleryFragment extends BaseFragment implements IHandlerMessage, Vi
     private LinearLayout mGalleryLinear;
     private EditText mGalleryCurrEdit;
     private TextView mGalleryTextView;
-    public boolean isShowInput = false;
+    private ImageView collertImage;
+    private View shareImage;
+    private PopupWindow pop;
 
     public static GalleryFragment newInstance(@Nullable Bundle bundle) {
         GalleryFragment fragment = new GalleryFragment();
@@ -114,7 +129,6 @@ public class GalleryFragment extends BaseFragment implements IHandlerMessage, Vi
 
     }
 
-
     public void initLisner() {
         mDescParent.setOnClickListener(this);
         mSaveBtn.setOnClickListener(this);
@@ -122,8 +136,10 @@ public class GalleryFragment extends BaseFragment implements IHandlerMessage, Vi
         rootView.findViewById(R.id.gallery_imageview).setOnClickListener(this);
         mGalleryText = rootView.findViewById(R.id.gallery_text);
         mGalleryText.setOnClickListener(this);
-        rootView.findViewById(R.id.gallery_collect).setOnClickListener(this);
-        rootView.findViewById(R.id.gallery_share).setOnClickListener(this);
+        collertImage = rootView.findViewById(R.id.gallery_collect);
+        collertImage.setOnClickListener(this);
+        shareImage = rootView.findViewById(R.id.gallery_share);
+        shareImage.setOnClickListener(this);
         mGalleryEdit.setOnClickListener(this);
         mGalleryTextView.setOnClickListener(this);
     }
@@ -265,11 +281,17 @@ public class GalleryFragment extends BaseFragment implements IHandlerMessage, Vi
                 break;
             case R.id.gallery_imageview:
             case R.id.gallery_text:
-                CommentActivity.startToComment(getActivity(),galleryId);
+                CommentActivity.startToComment(getActivity(), galleryId);
                 break;
             case R.id.gallery_collect:
+                if (gallery.getData().isIs_collect()) {
+                    getNewsDetailPresenter.collectNews(galleryId, "0");
+                } else {
+                    getNewsDetailPresenter.collectNews(galleryId, "1");
+                }
                 break;
             case R.id.gallery_share:
+                showPop();
                 break;
             case R.id.gallery_curr_TextView:
                 String s = String.valueOf(mGalleryCurrEdit.getText());
@@ -284,7 +306,101 @@ public class GalleryFragment extends BaseFragment implements IHandlerMessage, Vi
                 InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
                 break;
+            case R.id.ll_share_wx:
+                Tools.shareWx(getContext(), gallery.getData().getAtlas_url(), SendMessageToWX.Req.WXSceneSession, "Test", "Test");
+                break;
+            case R.id.ll_share_wxq:
+                Tools.shareWx(getContext(), gallery.getData().getAtlas_url(), SendMessageToWX.Req.WXSceneTimeline, "Test", "Test");
+                break;
+            case R.id.ll_share_wb:
+                Toast.makeText(mGalleryActivity, "功能正在开发中!", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.ll_share_qq:
+                Tools.shareQQ(getActivity(), gallery.getData().getAtlas_url(), "Test", "Test", new IUiListener() {
+                    @Override
+                    public void onComplete(Object o) {
+                        Toast.makeText(mGalleryActivity, "分享成功!", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onError(UiError uiError) {
+                        Log.e("xi", "onError: " + uiError.errorDetail);
+                        Log.e("xi", "onError: " + uiError.errorMessage);
+                        Toast.makeText(mGalleryActivity, "未知错误!", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onCancel() {
+                        Toast.makeText(mGalleryActivity, "分享取消!", Toast.LENGTH_SHORT).show();
+                    }
+                });
+                break;
+            case R.id.ll_share_qqkj:
+                Tools.shareToQzone(getActivity(), gallery.getData().getAtlas_url(), "Test", "Test", new IUiListener() {
+                    @Override
+                    public void onComplete(Object o) {
+                        Toast.makeText(mGalleryActivity, "分享成功!", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onError(UiError uiError) {
+                        Log.e("xi", "onError: " + uiError.errorDetail);
+                        Log.e("xi", "onError: " + uiError.errorMessage);
+                        Toast.makeText(mGalleryActivity, "未知错误!", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onCancel() {
+                        Toast.makeText(mGalleryActivity, "分享取消!", Toast.LENGTH_SHORT).show();
+                    }
+                });
+                break;
+            case R.id.ll_share_copy:
+                ClipboardManager cm = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
+                // 将文本内容放到系统剪贴板里。
+                cm.setPrimaryClip(ClipData.newPlainText("text", gallery.getData().getAtlas_url()));
+                Tools.toastInBottom(getContext(), "复制成功");
+                break;
+            case R.id.pop_cancel:
+                if (pop.isShowing()) {
+                    pop.dismiss();
+                }
+                break;
         }
+    }
+
+    private void showPop() {
+        View shareView = LayoutInflater.from(getActivity()).inflate(R.layout.view_popupwindow, null);
+
+        shareView.findViewById(R.id.ll_share_wx).setOnClickListener(this);
+        shareView.findViewById(R.id.ll_share_wxq).setOnClickListener(this);
+        shareView.findViewById(R.id.ll_share_wb).setOnClickListener(this);
+        shareView.findViewById(R.id.ll_share_qq).setOnClickListener(this);
+        shareView.findViewById(R.id.ll_share_qqkj).setOnClickListener(this);
+        shareView.findViewById(R.id.ll_share_copy).setOnClickListener(this);
+        shareView.findViewById(R.id.pop_cancel).setOnClickListener(this);
+
+        // 创建PopupWindow对象
+        pop = new PopupWindow(shareView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, false);
+        // 需要设置一下此参数，点击外边可消失
+        pop.setBackgroundDrawable(new ColorDrawable());
+        // 设置点击窗口外边窗口消失
+        pop.setOutsideTouchable(true);
+        // 设置此参数获得焦点，否则无法点击
+        pop.setFocusable(true);
+
+        WindowManager.LayoutParams lp = getActivity().getWindow().getAttributes();
+        lp.alpha = 0.5f;
+        getActivity().getWindow().setAttributes(lp);
+
+        pop.setOnDismissListener(() -> {
+            // popupWindow隐藏时恢复屏幕正常透明度
+            WindowManager.LayoutParams lp1 = getActivity().getWindow().getAttributes();
+            lp1.alpha = 1.0f;
+            getActivity().getWindow().setAttributes(lp1);
+        });
+
+        pop.showAtLocation(getActivity().getWindow().getDecorView(), Gravity.BOTTOM, 0, 0);
     }
 
     public void hideInput() {
@@ -394,6 +510,13 @@ public class GalleryFragment extends BaseFragment implements IHandlerMessage, Vi
             if (bean.getData().getAtlas_content().size() == 0) {
                 handler.obtainMessage(MSG_CALL_NO_DATA).sendToTarget();
             } else {
+
+                if (gallery.getData().isIs_collect()) {
+                    collertImage.setImageResource(R.drawable.icon_collert);
+                } else {
+                    collertImage.setImageResource(R.drawable.star_2);
+                }
+
                 data.addAll(bean.getData().getAtlas_content());
                 handler.obtainMessage(MSG_CALL_DATA_SUCC).sendToTarget();
             }
@@ -405,6 +528,17 @@ public class GalleryFragment extends BaseFragment implements IHandlerMessage, Vi
     @Override
     public void onAttentionFriends(AttentionBean bean) {
         if (bean.getError() == 0) mGalleryActivity.drawingAttring(bean);
+    }
+
+    @Override
+    public void onCollectNews() {
+        if (gallery.getData().isIs_collect()) {
+            collertImage.setImageResource(R.drawable.star_2);
+            gallery.getData().setIs_collect(false);
+        } else {
+            collertImage.setImageResource(R.drawable.icon_collert);
+            gallery.getData().setIs_collect(true);
+        }
     }
 
     @Override

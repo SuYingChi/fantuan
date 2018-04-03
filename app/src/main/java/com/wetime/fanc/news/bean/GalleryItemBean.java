@@ -1,17 +1,16 @@
 package com.wetime.fanc.news.bean;
 
-import com.google.gson.annotations.SerializedName;
-
 import java.io.Serializable;
 import java.util.List;
 
 
 public class GalleryItemBean implements Serializable{
 
+
     /**
      * error : 0
      * msg :
-     * data : {"id":"7241","news_id":"20","cid":"7","name":"冬季阳光体育大会：青少年亚布力切磋雪技 一同筑梦北京冬奥","author":"中国新闻网","read_num":"243","like_num":"2","comment_num":"0","recommend":"0","cause":"0","state":"1","time":"02-08","origin_time":"2018-02-08 21:53:28","spider_time":"2018-02-08 22:14:32","type":"0","score":"2335","content_type":"1","atlas_num":"2","atlas_content":[{"img_url":"https://www.baidu.com/img/bd_logo1.png","content":"百度"},{"img_url":"https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=2878042398,2115472320&fm=58&s=CFD77C9681A54D1118E7A556030000B3&bpow=121&bpoh=75","content":"腾讯"}],"is_like":false,"is_author":false,"is_collect":false,"is_following":false,"follower_num":"0","news_name":"中国新闻网","news_type":"1","uid":"250","avatar":"https://staticcdntest.fantuanlife.com/uimage/3e/83/42/ea/3e8342ea10a38fd2d911170cd5fb183b.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"}
+     * data : {"id":"7241","news_id":"20","cid":"7","name":"冬季阳光体育大会：青少年亚布力切磋雪技 一同筑梦北京冬奥","read_num":"553","like_num":"2","comment_num":"12","state":"1","time":"02-08","type":"0","content_type":"1","atlas_num":"2","atlas_content":[{"img_url":"https://www.baidu.com/img/bd_logo1.png","content":"百度"},{"img_url":"https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=2878042398,2115472320&fm=58&s=CFD77C9681A54D1118E7A556030000B3&bpow=121&bpoh=75","content":"腾讯"}],"atlas_url":"https://fanttest.fantuanlife.com/index.html#/article/detail?article_id=7241","is_like":false,"is_author":false,"is_collect":false,"is_following":false,"follower_num":"0","news_name":"中国新闻网","news_type":"1","uid":"250","avatar":"https://staticcdntest.fantuanlife.com/uimage/3e/83/42/ea/3e8342ea10a38fd2d911170cd5fb183b.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"}
      */
 
     private int error;
@@ -48,21 +47,16 @@ public class GalleryItemBean implements Serializable{
          * news_id : 20
          * cid : 7
          * name : 冬季阳光体育大会：青少年亚布力切磋雪技 一同筑梦北京冬奥
-         * author : 中国新闻网
-         * read_num : 243
+         * read_num : 553
          * like_num : 2
-         * comment_num : 0
-         * recommend : 0
-         * cause : 0
+         * comment_num : 12
          * state : 1
          * time : 02-08
-         * origin_time : 2018-02-08 21:53:28
-         * spider_time : 2018-02-08 22:14:32
          * type : 0
-         * score : 2335
          * content_type : 1
          * atlas_num : 2
          * atlas_content : [{"img_url":"https://www.baidu.com/img/bd_logo1.png","content":"百度"},{"img_url":"https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=2878042398,2115472320&fm=58&s=CFD77C9681A54D1118E7A556030000B3&bpow=121&bpoh=75","content":"腾讯"}]
+         * atlas_url : https://fanttest.fantuanlife.com/index.html#/article/detail?article_id=7241
          * is_like : false
          * is_author : false
          * is_collect : false
@@ -74,26 +68,19 @@ public class GalleryItemBean implements Serializable{
          * avatar : https://staticcdntest.fantuanlife.com/uimage/3e/83/42/ea/3e8342ea10a38fd2d911170cd5fb183b.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70
          */
 
-        @SerializedName("id")
-        private String idX;
+        private String id;
         private String news_id;
         private String cid;
         private String name;
-        private String author;
         private String read_num;
         private String like_num;
         private String comment_num;
-        private String recommend;
-        private String cause;
         private String state;
         private String time;
-        private String origin_time;
-        private String spider_time;
-        @SerializedName("type")
-        private String typeX;
-        private String score;
+        private String type;
         private String content_type;
         private String atlas_num;
+        private String atlas_url;
         private boolean is_like;
         private boolean is_author;
         private boolean is_collect;
@@ -105,12 +92,12 @@ public class GalleryItemBean implements Serializable{
         private String avatar;
         private List<AtlasContentBean> atlas_content;
 
-        public String getIdX() {
-            return idX;
+        public String getId() {
+            return id;
         }
 
-        public void setIdX(String idX) {
-            this.idX = idX;
+        public void setId(String id) {
+            this.id = id;
         }
 
         public String getNews_id() {
@@ -137,14 +124,6 @@ public class GalleryItemBean implements Serializable{
             this.name = name;
         }
 
-        public String getAuthor() {
-            return author;
-        }
-
-        public void setAuthor(String author) {
-            this.author = author;
-        }
-
         public String getRead_num() {
             return read_num;
         }
@@ -169,22 +148,6 @@ public class GalleryItemBean implements Serializable{
             this.comment_num = comment_num;
         }
 
-        public String getRecommend() {
-            return recommend;
-        }
-
-        public void setRecommend(String recommend) {
-            this.recommend = recommend;
-        }
-
-        public String getCause() {
-            return cause;
-        }
-
-        public void setCause(String cause) {
-            this.cause = cause;
-        }
-
         public String getState() {
             return state;
         }
@@ -201,36 +164,12 @@ public class GalleryItemBean implements Serializable{
             this.time = time;
         }
 
-        public String getOrigin_time() {
-            return origin_time;
+        public String getType() {
+            return type;
         }
 
-        public void setOrigin_time(String origin_time) {
-            this.origin_time = origin_time;
-        }
-
-        public String getSpider_time() {
-            return spider_time;
-        }
-
-        public void setSpider_time(String spider_time) {
-            this.spider_time = spider_time;
-        }
-
-        public String getTypeX() {
-            return typeX;
-        }
-
-        public void setTypeX(String typeX) {
-            this.typeX = typeX;
-        }
-
-        public String getScore() {
-            return score;
-        }
-
-        public void setScore(String score) {
-            this.score = score;
+        public void setType(String type) {
+            this.type = type;
         }
 
         public String getContent_type() {
@@ -247,6 +186,14 @@ public class GalleryItemBean implements Serializable{
 
         public void setAtlas_num(String atlas_num) {
             this.atlas_num = atlas_num;
+        }
+
+        public String getAtlas_url() {
+            return atlas_url;
+        }
+
+        public void setAtlas_url(String atlas_url) {
+            this.atlas_url = atlas_url;
         }
 
         public boolean isIs_like() {

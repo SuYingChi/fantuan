@@ -1,10 +1,8 @@
 package com.wetime.fanc.news.presenter;
 
 
-import android.util.Log;
-import android.widget.TextView;
-
 import com.fan.http.okhttp.OkHttpUtils;
+import com.wetime.fanc.main.model.ErrorBean;
 import com.wetime.fanc.my.bean.AttentionBean;
 import com.wetime.fanc.news.bean.GalleryCommentBean;
 import com.wetime.fanc.news.bean.GalleryItemBean;
@@ -45,7 +43,7 @@ public class GetNewsDetailPresenter {
                 .addParams("follow", follow)
                 .addParams("following_id", following_id)
                 .build()
-                .execute(new DataStringCallback(iView, false, false, false) {
+                .execute(new DataStringCallback(iView, false, false, true) {
                     @Override
                     public void onResponse(String s, int i) {
                         super.onResponse(s, i);
@@ -67,6 +65,22 @@ public class GetNewsDetailPresenter {
                         super.onResponse(s, i);
                         GalleryCommentBean galleryItemBean = GsonUtils.getGsonInstance().fromJson(s, GalleryCommentBean.class);
                         iView.onSendCommont(galleryItemBean);
+                    }
+                });
+    }
+
+    public void collectNews(String article_id, String collect) {
+        OkHttpUtils.post().url(Const.COLLECT_NEWS)
+                .addParams("token", iView.getToken())
+                .addParams("article_id", article_id)
+                .addParams("collect", collect)
+                .build()
+                .execute(new DataStringCallback(iView, false, false, true) {
+                    @Override
+                    public void onResponse(String s, int i) {
+                        super.onResponse(s, i);
+                        ErrorBean errorBean = GsonUtils.getGsonInstance().fromJson(s, ErrorBean.class);
+                        if (errorBean.getError()==0) iView.onCollectNews();
                     }
                 });
     }

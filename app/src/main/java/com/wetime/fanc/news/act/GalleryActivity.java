@@ -8,12 +8,15 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.ViewStub;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.githang.statusbar.StatusBarCompat;
+import com.gyf.barlibrary.BarHide;
+import com.gyf.barlibrary.ImmersionBar;
 import com.wetime.fanc.R;
 import com.wetime.fanc.customview.photoview.MyViewPager;
 import com.wetime.fanc.main.act.BaseActivity;
@@ -74,6 +77,7 @@ public class GalleryActivity extends BaseActivity implements View.OnClickListene
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gallery);
+//        ImmersionBar.with(this).statusBarColor(R.color._1b1b1b).navigationBarColor(R.color._1b1b1b).navigationBarAlpha(1f).fullScreen(true).statusBarDarkFont(true, 1f).fitsSystemWindows(true).init();
         StatusBarCompat.setStatusBarColor(this, Color.parseColor("#1b1b1b"), false);
         ButterKnife.bind(this);
         initView();
@@ -175,7 +179,6 @@ public class GalleryActivity extends BaseActivity implements View.OnClickListene
 
     public void drawingView(GalleryItemBean bean) {
         this.bean = bean;
-
         Glide.with(this).load(bean.getData().getAvatar()).into(friendBaseHead);
         friendBaseTitle.setText(bean.getData().getNews_name());
         friendBaseText.setText(bean.getData().getFollower_num() + "粉丝");
