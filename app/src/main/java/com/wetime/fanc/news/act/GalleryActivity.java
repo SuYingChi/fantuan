@@ -152,7 +152,11 @@ public class GalleryActivity extends BaseActivity implements View.OnClickListene
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.iv_back:
-                finish();
+                if (((GalleryFragment) mCurrFragment).isShowInput) {
+                    ((GalleryFragment) mCurrFragment).hideInput();
+                } else {
+                    finish();
+                }
                 break;
             case R.id.friend_base_head:
             case R.id.friend_base_title:
@@ -171,6 +175,7 @@ public class GalleryActivity extends BaseActivity implements View.OnClickListene
 
     public void drawingView(GalleryItemBean bean) {
         this.bean = bean;
+
         Glide.with(this).load(bean.getData().getAvatar()).into(friendBaseHead);
         friendBaseTitle.setText(bean.getData().getNews_name());
         friendBaseText.setText(bean.getData().getFollower_num() + "粉丝");
@@ -197,11 +202,7 @@ public class GalleryActivity extends BaseActivity implements View.OnClickListene
 
     @Override
     public boolean needScroll() {
-        if (mCurrFragment instanceof GalleryFragment) {
-            if (!((GalleryFragment) mCurrFragment).isLastItem()) {
-                return false;
-            }
-        }
+
         return true;
     }
 

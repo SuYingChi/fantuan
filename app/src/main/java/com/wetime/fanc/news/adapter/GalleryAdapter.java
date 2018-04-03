@@ -83,18 +83,19 @@ public class GalleryAdapter extends PagerAdapter {
                 showImage(retryBtn, item, photoView, progressStr, progressLayout);
             }
         });
+        photoView.setOnViewTapListener(new PhotoViewAttacher.OnViewTapListener() {
+            @Override
+            public void onViewTap(View view, float x, float y) {
+                callback.onPhotoTap(item);
+            }
+        });
         photoView.setOnPhotoTapListener(new PhotoViewAttacher.OnPhotoTapListener() {
             @Override
             public void onPhotoTap(View view, float x, float y) {
                 callback.onPhotoTap(item);
             }
         });
-        relativeLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                callback.onPhotoTap(item);
-            }
-        });
+
         ViewGroup parent = ((ViewGroup) view.getParent());
         if (parent != null) {
             parent.removeAllViews();

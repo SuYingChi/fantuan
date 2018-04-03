@@ -111,6 +111,11 @@ public abstract class MyFriendsBaseLazyFragment extends BaseNoLazyFragment
             data.addAll(bean.getData().getList());
             refreshLayout.finishLoadMore();
         }
+        if (page >= Integer.parseInt(bean.getData().getPaging().getTotal_page())) {
+            refreshLayout.setEnableLoadMore(false);
+        } else {
+            refreshLayout.setEnableLoadMore(true);
+        }
         adapter = new MyFriendsAdapter(getContext(), R.layout.item_myfriendsbase, data, getType(), getMyFriendPresenter);
         rclCircle.setAdapter(adapter);
     }

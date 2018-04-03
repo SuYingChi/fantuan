@@ -6,6 +6,7 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.flyco.tablayout.SlidingTabLayout;
 import com.wetime.fanc.R;
 import com.wetime.fanc.main.act.BaseActivity;
@@ -78,4 +79,8 @@ public class MyFriendsActivity extends BaseActivity {
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
 }

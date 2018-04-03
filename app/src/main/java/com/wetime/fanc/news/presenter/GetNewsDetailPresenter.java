@@ -2,9 +2,11 @@ package com.wetime.fanc.news.presenter;
 
 
 import android.util.Log;
+import android.widget.TextView;
 
 import com.fan.http.okhttp.OkHttpUtils;
 import com.wetime.fanc.my.bean.AttentionBean;
+import com.wetime.fanc.news.bean.GalleryCommentBean;
 import com.wetime.fanc.news.bean.GalleryItemBean;
 import com.wetime.fanc.news.iviews.IGetNewsDetailView;
 import com.wetime.fanc.utils.Const;
@@ -24,7 +26,8 @@ public class GetNewsDetailPresenter {
 
     public void getNewsDetail(String galleryId) {
         OkHttpUtils.post().url(Const.GET_NEWS_DETAIL)
-                .addParams("article_id", "7241")
+                .addParams("token", iView.getToken())
+                .addParams("article_id", galleryId)
                 .build()
                 .execute(new DataStringCallback(iView, false) {
                     @Override
@@ -37,9 +40,8 @@ public class GetNewsDetailPresenter {
     }
 
     public void attentionFriends(String follow, String following_id) {
-        Log.e("xi", "attentionFriends: "+follow );
         OkHttpUtils.post().url(Const.ATTENTION_FRIENDS)
-                .addParams("token", "YlUhGvfphqft7DmirjYxbYVu_gqLuHLc")
+                .addParams("token", iView.getToken())
                 .addParams("follow", follow)
                 .addParams("following_id", following_id)
                 .build()
@@ -49,6 +51,22 @@ public class GetNewsDetailPresenter {
                         super.onResponse(s, i);
                         AttentionBean galleryItemBean = GsonUtils.getGsonInstance().fromJson(s, AttentionBean.class);
                         iView.onAttentionFriends(galleryItemBean);
+                    }
+                });
+    }
+
+    public void sendCommonet(String article_id, String content) {
+        OkHttpUtils.post().url(Const.SEND_COMMONET)
+                .addParams("token", iView.getToken())
+                .addParams("article_id", article_id)
+                .addParams("content", content)
+                .build()
+                .execute(new DataStringCallback(iView, true, false, false) {
+                    @Override
+                    public void onResponse(String s, int i) {
+                        super.onResponse(s, i);
+                        GalleryCommentBean galleryItemBean = GsonUtils.getGsonInstance().fromJson(s, GalleryCommentBean.class);
+                        iView.onSendCommont(galleryItemBean);
                     }
                 });
     }

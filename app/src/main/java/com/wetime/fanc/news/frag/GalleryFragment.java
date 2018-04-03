@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.wetime.fanc.R;
 import com.wetime.fanc.customview.photoview.MyViewPager;
@@ -27,6 +28,7 @@ import com.wetime.fanc.my.bean.AttentionBean;
 import com.wetime.fanc.news.act.CommentActivity;
 import com.wetime.fanc.news.act.GalleryActivity;
 import com.wetime.fanc.news.adapter.GalleryAdapter;
+import com.wetime.fanc.news.bean.GalleryCommentBean;
 import com.wetime.fanc.news.bean.GalleryItemBean;
 import com.wetime.fanc.news.iviews.IGetNewsDetailView;
 import com.wetime.fanc.news.presenter.GetNewsDetailPresenter;
@@ -78,7 +80,7 @@ public class GalleryFragment extends BaseFragment implements IHandlerMessage, Vi
     private LinearLayout mGalleryLinear;
     private EditText mGalleryCurrEdit;
     private TextView mGalleryTextView;
-    private boolean isShowInput = false;
+    public boolean isShowInput = false;
 
     public static GalleryFragment newInstance(@Nullable Bundle bundle) {
         GalleryFragment fragment = new GalleryFragment();
@@ -99,6 +101,7 @@ public class GalleryFragment extends BaseFragment implements IHandlerMessage, Vi
             rootView = inflater.inflate(R.layout.fragment_gallery, container, false);
             initView(rootView);
         }
+        galleryId = this.getArguments().getString("galleryId");
         initLisner();
         return rootView;
     }
@@ -122,6 +125,7 @@ public class GalleryFragment extends BaseFragment implements IHandlerMessage, Vi
         rootView.findViewById(R.id.gallery_collect).setOnClickListener(this);
         rootView.findViewById(R.id.gallery_share).setOnClickListener(this);
         mGalleryEdit.setOnClickListener(this);
+        mGalleryTextView.setOnClickListener(this);
     }
 
     private void initView(View rootView) {
@@ -164,9 +168,20 @@ public class GalleryFragment extends BaseFragment implements IHandlerMessage, Vi
 
                 if (diff != 0) {
                     mGalleryLinear.setVisibility(View.VISIBLE);
-                    RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) contentView.getLayoutParams();
-                    lp.setMargins(0, 0, 0, diff);
-                    contentView.setLayoutParams(lp);
+                    ViewGroup.LayoutParams layoutParams = contentView.getLayoutParams();
+                    if (layoutParams instanceof LinearLayout.LayoutParams) {
+                        LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) layoutParams;
+                        lp.setMargins(0, 0, 0, diff);
+                        contentView.setLayoutParams(lp);
+                    } else if (layoutParams instanceof RelativeLayout.LayoutParams) {
+                        RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) layoutParams;
+                        lp.setMargins(0, 0, 0, diff);
+                        contentView.setLayoutParams(lp);
+                    }
+
+                    mGalleryCurrEdit.setFocusable(true);
+                    mGalleryCurrEdit.setFocusableInTouchMode(true);
+                    mGalleryCurrEdit.requestFocus();
                 } else {
                     mGalleryLinear.setVisibility(View.GONE);
                 }
@@ -179,13 +194,7 @@ public class GalleryFragment extends BaseFragment implements IHandlerMessage, Vi
 
     private void requestData() {
         getNewsDetailPresenter = new GetNewsDetailPresenter(this);
-        getNewsDetailPresenter.getNewsDetail(this.getArguments().getString("galleryId"));
-    }
-
-    private void sendFailureMsg() {
-        Message msg = new Message();
-        msg.what = MSG_CALL_DATA_FAIL;
-        handler.sendMessage(msg);
+        getNewsDetailPresenter.getNewsDetail(galleryId);
     }
 
     private void updateGalleryItems(List<GalleryItemBean.DataBean.AtlasContentBean> items) {
@@ -256,11 +265,19 @@ public class GalleryFragment extends BaseFragment implements IHandlerMessage, Vi
                 break;
             case R.id.gallery_imageview:
             case R.id.gallery_text:
-                CommentActivity.startToComment(getActivity(), galleryId);
+                CommentActivity.startToComment(getActivity(),galleryId);
                 break;
             case R.id.gallery_collect:
                 break;
             case R.id.gallery_share:
+                break;
+            case R.id.gallery_curr_TextView:
+                String s = String.valueOf(mGalleryCurrEdit.getText());
+                if (s.equals("null")) {
+                    Toast.makeText(mGalleryActivity, "请先填写您的评论", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                getNewsDetailPresenter.sendCommonet(galleryId, s);
                 break;
             case R.id.gallery_editText:
                 isShowInput = true;
@@ -352,10 +369,7 @@ public class GalleryFragment extends BaseFragment implements IHandlerMessage, Vi
     }
 
     public boolean isLastItem() {
-        if (data == null) {
-            return true;
-        }
-        return viewPager.getCurrentItem() == data.size() - 1;
+        return data == null || viewPager.getCurrentItem() == data.size() - 1;
     }
 
     @Override
@@ -391,6 +405,15 @@ public class GalleryFragment extends BaseFragment implements IHandlerMessage, Vi
     @Override
     public void onAttentionFriends(AttentionBean bean) {
         if (bean.getError() == 0) mGalleryActivity.drawingAttring(bean);
+    }
+
+    @Override
+    public void onSendCommont(GalleryCommentBean bean) {
+        if (bean.getError() == 0) {
+            Toast.makeText(mGalleryActivity, "评论成功", Toast.LENGTH_SHORT).show();
+            hideInput();
+            mGalleryCurrEdit.setText("");
+        }
     }
 
     public interface OnPhotoTapListener {

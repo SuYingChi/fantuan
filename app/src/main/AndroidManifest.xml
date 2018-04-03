@@ -55,27 +55,22 @@
             android:fitsSystemWindows="true"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden|adjustResize|adjustUnspecified|stateHidden">
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
-        </activity>
 
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
+        </activity>
         <activity
             android:name=".news.act.CommentActivity"
             android:fitsSystemWindows="true"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan|stateHidden|adjustResize|adjustUnspecified|stateHidden">
-
-        </activity>
-
+            android:windowSoftInputMode="adjustPan|stateHidden|adjustResize|adjustUnspecified|stateHidden"></activity>
         <activity android:name=".home.act.LoadingActivity">
-
             <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN" />
 
-
-            <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -199,7 +194,8 @@
         <activity android:name=".circle.act.SearchLocActivity" />
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
+        <activity android:name=".news.act.ReplyActivity"></activity>
     </application>
 
 </manifest>
