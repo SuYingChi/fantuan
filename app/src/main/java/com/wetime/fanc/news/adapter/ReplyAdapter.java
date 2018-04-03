@@ -1,6 +1,7 @@
 package com.wetime.fanc.news.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.wetime.fanc.R;
 import com.wetime.fanc.customview.GoodView;
+import com.wetime.fanc.my.act.UserCardActivity;
 import com.wetime.fanc.news.act.ReplyActivity;
 import com.wetime.fanc.news.bean.ReplyCommentBean;
 import com.zhy.adapter.recyclerview.CommonAdapter;
@@ -97,6 +99,15 @@ public class ReplyAdapter extends CommonAdapter<ReplyCommentBean.DataBean.ReplyB
             }
 
         });
+
+        holder.setOnClickListener(R.id.reply_item_head, v -> {
+            Intent go = new Intent(context, UserCardActivity.class);
+            go.putExtra("num", "3");
+            go.putExtra("index", 0);
+            go.putExtra("id", replyBean.getUser().getId());
+            context.startActivity(go);
+        });
+
     }
 
 

@@ -9,6 +9,7 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.IBinder;
 import android.support.v7.app.AlertDialog;
 import android.text.SpannableString;
@@ -25,11 +26,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.tencent.connect.share.QQShare;
+import com.tencent.connect.share.QzoneShare;
 import com.tencent.mm.opensdk.modelmsg.SendMessageToWX;
 import com.tencent.mm.opensdk.modelmsg.WXMediaMessage;
 import com.tencent.mm.opensdk.modelmsg.WXWebpageObject;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
+import com.tencent.tauth.IUiListener;
 import com.wetime.fanc.R;
 import com.wetime.fanc.application.FApp;
 import com.wetime.fanc.customview.multiimageselector.MultiImageSelectorActivity;
@@ -39,6 +43,7 @@ import com.wetime.fanc.web.WebActivity;
 
 import java.io.ByteArrayOutputStream;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -47,10 +52,10 @@ import static android.content.Context.INPUT_METHOD_SERVICE;
 
 
 public class Tools {
+    public static final int REQUEST_IMAGE = 1004;
     private static Toast toast;
     private static Dialog loadingDialog;
-
-    public static final int REQUEST_IMAGE = 1004;
+    private int shareType = QQShare.SHARE_TO_QQ_TYPE_DEFAULT;
 
     public static SharePreferenceUtil getSpu(Context mContext) {
         return new SharePreferenceUtil(mContext.getApplicationContext(), "wetime");
@@ -87,7 +92,6 @@ public class Tools {
             Log.e("zk", e.toString());
         }
     }
-
 
     public static void gotoSelectPic(Activity mActivity) {
         Intent intent = new Intent(mActivity, MultiImageSelectorActivity.class);
@@ -157,7 +161,6 @@ public class Tools {
         showWaitDialog(context, true);
     }
 
-
     public static boolean checkPrice(String price) {
         if (price.contains(".")) {
             if (price.substring(0, 1).equals(".")) {
@@ -170,7 +173,6 @@ public class Tools {
         }
         return true;
     }
-
 
     public static void hideWaitDialog() {
         if (loadingDialog != null)
@@ -218,7 +220,6 @@ public class Tools {
 
     }
 
-
     public static void showTipsDialog(Context mContext, String title, String tips, String left, String right,
                                       final View.OnClickListener onCancel,
                                       final View.OnClickListener onOK) {
@@ -262,7 +263,6 @@ public class Tools {
 
     }
 
-
     public static int getVerCode(Context context) {
         int verCode = -1;
         try {
@@ -284,7 +284,6 @@ public class Tools {
 
         return verName;
     }
-
 
     public static void goMarket(Context mContext) {
         try {
@@ -416,4 +415,69 @@ public class Tools {
         mActivity.overridePendingTransition(android.R.anim.fade_in,
                 android.R.anim.fade_out);
     }
+
+    public static void shareQQ(Activity mContext, String url, String title, String des, IUiListener iUiListener) {
+        Bundle bundle = new Bundle();
+//这条分享消息被好友点击后的跳转URL。
+        bundle.putString(QQShare.SHARE_TO_QQ_TARGET_URL, url);
+//分享的标题。注：PARAM_TITLE、PARAM_IMAGE_URL、PARAM_	SUMMARY不能全为空，最少必须有一个是有值的。
+        bundle.putString(QQShare.SHARE_TO_QQ_TITLE, title);
+//分享的消息摘要，最长50个字
+        bundle.putString(QQShare.SHARE_TO_QQ_SUMMARY, des);
+//手Q客户端顶部，替换“返回”按钮文字，如果为空，用返回代替
+//        bundle.putString(Constants.PARAM_APPNAME, "??我在测试");
+////标识该消息的来源应用，值为应用名称+AppId。
+//        bundle.putString(Constants.PARAM_APP_SOURCE, "星期几" + AppId);
+//                 /*QQ分享增加ARK end*/
+//
+//        //分享的图片URL
+//        bundle.putString(Constants.PARAM_IMAGE_URL, "http://img3.cache.netease.com/photo/0005/2013-03-07/8PBKS8G400BV0005.jpg");
+
+
+        FApp.mTencent.shareToQQ(mContext, bundle, iUiListener);
+    }
+
+    public static void shareToQzone(Activity mContext, String url, String imageUrl, String title, String des, IUiListener iUiListener) {
+//        Bundle bundle = new Bundle();
+////分享类型
+//        bundle.putInt(QzoneShare.SHARE_TO_QZONE_KEY_TYPE, QzoneShare.SHARE_TO_QZONE_TYPE_IMAGE_TEXT);
+//        bundle.putString(QzoneShare.SHARE_TO_QQ_TITLE, title);//必填
+//        bundle.putString(QzoneShare.SHARE_TO_QQ_SUMMARY, des);//选填
+//        bundle.putString(QzoneShare.SHARE_TO_QQ_TARGET_URL, url);//必填
+//        FApp.mTencent.shareToQzone(mContext, bundle, iUiListener);
+
+        Bundle params = new Bundle();
+        params.putInt(QzoneShare.SHARE_TO_QZONE_KEY_TYPE, QzoneShare.SHARE_TO_QZONE_TYPE_IMAGE_TEXT);//类型
+        params.putString(QzoneShare.SHARE_TO_QQ_TITLE, title);//标题
+        params.putString(QzoneShare.SHARE_TO_QQ_SUMMARY, des);//概要
+        params.putString(QzoneShare.SHARE_TO_QQ_TARGET_URL, url);
+        //下面这个必须加上  不然无法调动 qq空间
+        ArrayList<String> imageUrls = new ArrayList<String>();
+        imageUrls.add(imageUrl);
+        params.putStringArrayList(QzoneShare.SHARE_TO_QQ_IMAGE_URL, imageUrls);
+        FApp.mTencent.shareToQzone(mContext, params, iUiListener);
+    }
+
+    public static void shareToQzone(Activity mContext, String url, String title, String des, IUiListener iUiListener) {
+//        Bundle bundle = new Bundle();
+////分享类型
+//        bundle.putInt(QzoneShare.SHARE_TO_QZONE_KEY_TYPE, QzoneShare.SHARE_TO_QZONE_TYPE_IMAGE_TEXT);
+//        bundle.putString(QzoneShare.SHARE_TO_QQ_TITLE, title);//必填
+//        bundle.putString(QzoneShare.SHARE_TO_QQ_SUMMARY, des);//选填
+//        bundle.putString(QzoneShare.SHARE_TO_QQ_TARGET_URL, url);//必填
+//        FApp.mTencent.shareToQzone(mContext, bundle, iUiListener);
+
+        Bundle params = new Bundle();
+        params.putInt(QzoneShare.SHARE_TO_QZONE_KEY_TYPE, QzoneShare.SHARE_TO_QZONE_TYPE_IMAGE_TEXT);//类型
+        params.putString(QzoneShare.SHARE_TO_QQ_TITLE, title);//标题
+        params.putString(QzoneShare.SHARE_TO_QQ_SUMMARY, des);//概要
+        params.putString(QzoneShare.SHARE_TO_QQ_TARGET_URL, url);
+        //下面这个必须加上  不然无法调动 qq空间
+        ArrayList<String> imageUrls = new ArrayList<String>();
+        imageUrls.add("http://www.beehood.com/uploads/allimg/150310/2-150310142133.jpg");
+        params.putStringArrayList(QzoneShare.SHARE_TO_QQ_IMAGE_URL, imageUrls);
+        FApp.mTencent.shareToQzone(mContext, params, iUiListener);
+    }
+
+
 }

@@ -1,26 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:background="@color/white"
-    android:orientation="vertical"
-    android:paddingLeft="15dp"
-    android:paddingRight="15dp"
-    android:paddingTop="15dp">
+    android:orientation="vertical">
 
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:lineSpacingExtra="0sp"
-        android:text="分享到"
-        android:textColor="#333333"
-        android:textSize="14sp" />
+        android:layout_margin="10dp"
+        android:text="分享到" />
 
     <HorizontalScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
         android:scrollbars="none">
 
         <LinearLayout
@@ -170,18 +163,20 @@
         </LinearLayout>
     </HorizontalScrollView>
 
-    <include layout="@layout/item_my_line" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/line_color_lib" />
 
     <TextView
-        android:id="@+id/tv_cancel"
+        android:id="@+id/pop_cancel"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
+        android:layout_height="40dp"
         android:gravity="center"
         android:lineSpacingExtra="0sp"
         android:text="取消"
         android:textColor="#333333"
         android:textSize="17sp" />
+
 </LinearLayout>
-
-
-

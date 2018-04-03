@@ -26,6 +26,7 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.wetime.fanc.R;
 import com.wetime.fanc.customview.GoodView;
 import com.wetime.fanc.main.act.BaseActivity;
+import com.wetime.fanc.my.act.UserCardActivity;
 import com.wetime.fanc.news.adapter.ReplyAdapter;
 import com.wetime.fanc.news.bean.CommentBean;
 import com.wetime.fanc.news.bean.ReplyCommentBean;
@@ -158,7 +159,7 @@ public class ReplyActivity extends BaseActivity implements OnRefreshListener, IG
         return super.onTouchEvent(event);
     }
 
-    @OnClick({R.id.iv_back, R.id.reply_linear, R.id.gallery_linear, R.id.gallery_curr_TextView, R.id.reply_all_comment})
+    @OnClick({R.id.iv_back, R.id.reply_linear,R.id.reply_head, R.id.gallery_linear, R.id.gallery_curr_TextView, R.id.reply_all_comment})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
@@ -192,6 +193,13 @@ public class ReplyActivity extends BaseActivity implements OnRefreshListener, IG
                 isShowInput = true;
                 InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+                break;
+            case R.id.reply_head:
+                Intent go = new Intent(this, UserCardActivity.class);
+                go.putExtra("num", "3");
+                go.putExtra("index", 0);
+                go.putExtra("id", commentTestBean.getUser().getId());
+                startActivity(go);
                 break;
             case R.id.reply_all_comment:
                 sendReply("0", commentTestBean.getId(), commentTestBean.getUser().getUsername());

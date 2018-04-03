@@ -17,6 +17,8 @@ public interface IGetNewsDetailView extends IBaseVIew {
 
     void onAttentionFriends(AttentionBean bean);
 
+    void onCollectNews();
+
     void onSendCommont(GalleryCommentBean bean);
 
 }
