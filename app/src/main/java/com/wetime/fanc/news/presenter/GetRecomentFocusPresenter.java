@@ -2,10 +2,8 @@ package com.wetime.fanc.news.presenter;
 
 
 import com.fan.http.okhttp.OkHttpUtils;
-import com.wetime.fanc.main.model.BaseBean;
-import com.wetime.fanc.news.bean.AllChannelListBean;
-import com.wetime.fanc.news.iviews.IGetAllChannelView;
-import com.wetime.fanc.order.iviews.ICommentOrderView;
+import com.wetime.fanc.news.bean.FocusTitleList;
+import com.wetime.fanc.news.iviews.IGetRecomentFocusView;
 import com.wetime.fanc.utils.Const;
 import com.wetime.fanc.utils.DataStringCallback;
 
@@ -16,14 +14,14 @@ import static com.wetime.fanc.utils.GsonUtils.getGsonInstance;
  * Created by zhoukang on 2017/5/15.
  */
 
-public class GetAllChannelPresenter {
-    private IGetAllChannelView iview;
+public class GetRecomentFocusPresenter {
+    private IGetRecomentFocusView iview;
 
-    public GetAllChannelPresenter(IGetAllChannelView iview) {
+    public GetRecomentFocusPresenter(IGetRecomentFocusView iview) {
         this.iview = iview;
     }
 
-    public void getCommentResult() {
+    public void getRecomentFocus() {
 
         OkHttpUtils
                 .post()
@@ -33,9 +31,9 @@ public class GetAllChannelPresenter {
                     @Override
                     public void onResponse(String s, int i) {
                         super.onResponse(s, i);
-                        AllChannelListBean msg = getGsonInstance().fromJson(s, AllChannelListBean.class);
+                        FocusTitleList msg = getGsonInstance().fromJson(s, FocusTitleList.class);
                         if (msg.getError() == 0)
-                            iview.onGetAllChannel(msg);
+                            iview.onGetRecomentTitle(msg);
                     }
                 });
     }

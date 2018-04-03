@@ -1,12 +1,12 @@
 package com.wetime.fanc.home.presenter;
 
 
-import com.wetime.fanc.news.bean.NewsListBean;
+import com.fan.http.okhttp.OkHttpUtils;
 import com.wetime.fanc.home.iviews.IGetNewsTypeView;
+import com.wetime.fanc.news.bean.NewsListBean;
 import com.wetime.fanc.utils.Const;
 import com.wetime.fanc.utils.DataStringCallback;
 import com.wetime.fanc.utils.GsonUtils;
-import com.fan.http.okhttp.OkHttpUtils;
 
 /**
  * Created by zhoukang on 2017/5/19.
@@ -24,6 +24,7 @@ public class GetNewsTypePresenter {
                 .post()
                 .url(Const.NEWS)
                 .addParams("cid", iView.getCid())
+                .addParams("token", iView.getToken())
                 .addParams("total", iView.getTotal())
                 .addParams("pn", iView.getPage())
                 .build()

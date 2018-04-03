@@ -1,21 +1,14 @@
 package com.wetime.fanc.news.bean;
 
-/**
- * 频道实体类
- * Created by YoKeyword on 15/12/29.
- */
-public class ChannelBean {
-// "is_default": 1,
-//         "is_show": 1,
-//         "order": 1
+public class FocusTitleBean {
+    /**
+     * id : 0
+     * name : 推荐
+     */
 
     private String id;
     private String name;
 
-    public ChannelBean(String id, String name) {
-        this.id = id;
-        this.name = name;
-    }
 
 
     public String getId() {
@@ -33,4 +26,5 @@ public class ChannelBean {
     public void setName(String name) {
         this.name = name;
     }
+
 }

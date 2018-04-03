@@ -8,8 +8,8 @@ import com.wetime.fanc.news.bean.AllChannelListBean;
  * Created by zhoukang on 2017/5/19.
  */
 
-public interface IGetAllChannelView extends IBaseVIew {
+public interface IGetMyChannelView extends IBaseVIew {
 
-    void onGetAllChannel(AllChannelListBean bean);
+    void onGetMyChannel(AllChannelListBean bean);
 
 }

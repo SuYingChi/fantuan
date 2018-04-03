@@ -18,6 +18,7 @@ import com.wetime.fanc.news.adapter.ChannelAdapter;
 import com.wetime.fanc.news.bean.ChannelBean;
 import com.wetime.fanc.news.event.ChannelChangeEvent;
 import com.wetime.fanc.news.helper.ItemDragHelperCallback;
+import com.wetime.fanc.news.presenter.SaveMyChannelPresenter;
 import com.wetime.fanc.utils.GsonUtils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -47,7 +48,6 @@ public class ChannelActivity extends BaseActivity {
     RecyclerView mRecy;
     private List<ChannelBean> items;
     private List<ChannelBean> otherItems;
-    private List<ChannelBean> allItems;
 
 
     @Override
@@ -67,36 +67,39 @@ public class ChannelActivity extends BaseActivity {
         for (ChannelBean channelBean : otherItems) {
             Log.e("zkother", channelBean.getName());
         }
+        //判断有没有变化
+        boolean isChange = false;
+        List<ChannelBean> olditems = GsonUtils.getGsonInstance().fromJson(spu.getValue(LOCALCHANNAL),
+                new TypeToken<List<ChannelBean>>() {
+                }.getType());
 
-        spu.setValue(LOCALCHANNAL, GsonUtils.getGsonInstance().toJson(items));
+        if (items.size() != olditems.size()) {
+            isChange = true;
+        } else {
+            for (int i = 0; i < items.size(); i++) {
+                if (!TextUtils.equals(olditems.get(i).getId(), items.get(i).getId())) {
+                    isChange = true;
+                }
+            }
+        }
 
-        EventBus.getDefault().post(new ChannelChangeEvent());
+        if (isChange) {
+            spu.setValue(LOCALCHANNAL, GsonUtils.getGsonInstance().toJson(items));
+            SaveMyChannelPresenter saveMyChannelPresenter = new SaveMyChannelPresenter();
+            saveMyChannelPresenter.saveMyChannel(spu.getToken(), GsonUtils.getGsonInstance().toJson(items));
+            EventBus.getDefault().post(new ChannelChangeEvent());
+        }
+
         super.onBackPressed();
     }
 
     private void init() {
-//        String[] mTitles;
-//        String[] mIndex;
 
-        // 推荐和海口 固定 不进来  前两个
-//        final int fixed = 2;
-//        if (TextUtils.isEmpty(spu.getValue("mychannal"))) {
-//            mTitles = getResources().getStringArray(R.array.newstype_default);
-//            mIndex = getResources().getStringArray(R.array.newstypeindex_default);
-//            items = new ArrayList<>();
-//            for (int i = fixed; i < mTitles.length; i++) {
-//                ChannelBean entity = new ChannelBean();
-//                entity.setName(mTitles[i]);
-//                entity.setId(mIndex[i]);
-//                items.add(entity);
-//            }
-//
-//        } else {
         items = GsonUtils.getGsonInstance().fromJson(spu.getValue(LOCALCHANNAL),
                 new TypeToken<List<ChannelBean>>() {
                 }.getType());
-//        }
-        allItems = GsonUtils.getGsonInstance().fromJson(spu.getValue(ALLCHANNAL),
+
+        List<ChannelBean> allItems = GsonUtils.getGsonInstance().fromJson(spu.getValue(ALLCHANNAL),
                 new TypeToken<List<ChannelBean>>() {
                 }.getType());
         otherItems = new ArrayList<>();
@@ -112,27 +115,6 @@ public class ChannelActivity extends BaseActivity {
                 otherItems.add(channelBean);
             }
         }
-
-
-//        String[] mTitlesAll = getResources().getStringArray(R.array.newstype);
-//        String[] mIndexAll = getResources().getStringArray(R.array.newstypeindex);
-
-
-//        for (int i = fixed; i < mTitlesAll.length; i++) {
-//            boolean has = false;
-//            for (int ii = 0; ii < items.size(); ii++) {
-//                if (TextUtils.equals(mTitlesAll[i], items.get(ii).getName())) {
-//                    has = true;
-//                    break;
-//                }
-//            }
-//            if (!has) {
-//                ChannelBean entity = new ChannelBean();
-//                entity.setName(mTitlesAll[i]);
-//                entity.setId(mIndexAll[i]);
-//                otherItems.add(entity);
-//            }
-//        }
 
         GridLayoutManager manager = new GridLayoutManager(this, 4);
         mRecy.setLayoutManager(manager);

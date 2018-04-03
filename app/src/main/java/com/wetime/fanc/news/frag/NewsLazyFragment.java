@@ -14,15 +14,16 @@ import com.flyco.tablayout.SlidingTabLayout;
 import com.google.gson.reflect.TypeToken;
 import com.wetime.fanc.R;
 import com.wetime.fanc.home.adapter.NewsPagerAdapter;
-import com.wetime.fanc.home.event.ReFreshNewsEvent;
 import com.wetime.fanc.home.event.ReFreshNewsTypeEvent;
+import com.wetime.fanc.login.event.LoginEvent;
 import com.wetime.fanc.main.frag.BaseLazyFragment;
 import com.wetime.fanc.news.act.ChannelActivity;
 import com.wetime.fanc.news.bean.AllChannelListBean;
 import com.wetime.fanc.news.bean.ChannelBean;
 import com.wetime.fanc.news.event.ChannelChangeEvent;
-import com.wetime.fanc.news.iviews.IGetAllChannelView;
-import com.wetime.fanc.news.presenter.GetAllChannelPresenter;
+import com.wetime.fanc.news.iviews.IGetMyChannelView;
+import com.wetime.fanc.news.presenter.GetMyChannelPresenter;
+import com.wetime.fanc.news.presenter.SaveMyChannelPresenter;
 import com.wetime.fanc.utils.GsonUtils;
 import com.wetime.fanc.utils.Tools;
 
@@ -36,16 +37,17 @@ import java.util.List;
 import java.util.Map;
 
 
-public class NewsLazyFragment extends BaseLazyFragment implements IGetAllChannelView {
+public class NewsLazyFragment extends BaseLazyFragment implements IGetMyChannelView {
 
     private ArrayList<Fragment> mFragments = new ArrayList<>();
-    //    private ArrayList<ChannelBean> mChannels = new ArrayList<>();
+    private ArrayList<ChannelBean> mChannels = new ArrayList<>();
     private ViewPager vp;
     private NewsPagerAdapter mAdapter;
     private SlidingTabLayout slidingTabLayout;
 
     private Map<String, Fragment> map = new HashMap<>();
     private int currentIndex = 0;
+    private String currentId;
 
     @Nullable
     @Override
@@ -70,181 +72,88 @@ public class NewsLazyFragment extends BaseLazyFragment implements IGetAllChannel
         mRootView.findViewById(R.id.iv_edit).setOnClickListener(view -> {
             Tools.goActivity(getContext(), ChannelActivity.class);
         });
+        vp = mRootView.findViewById(R.id.vp);
+
+
+        GetMyChannelPresenter getMyChannelPresenter = new GetMyChannelPresenter(this);
+        getMyChannelPresenter.getMyChannelResult();
 
     }
 
     @Override
     protected void initData() {
-        //每次进来都有刷新一个所有频道，有可能会更新
-        GetAllChannelPresenter getAllChannelPresenter = new GetAllChannelPresenter(this);
-        getAllChannelPresenter.getCommentResult();
 
-        // 未登录状态
-        if (TextUtils.isEmpty(spu.getToken())) {
-            //判断本地有没有数据， 有数据拿本地数据
-            if (!TextUtils.isEmpty(spu.getValue(ChannelActivity.LOCALCHANNAL))) {
-                initFromLocal(false);
-            }
-            //已登录状态 拿
-        } else {
-
-        }
-
-
-//
-//        if (TextUtils.isEmpty(spu.getValue("mychannal"))) {
-//            String[] mTitles = getResources().getStringArray(R.array.newstype_default);
-//            String[] mIndex = getResources().getStringArray(R.array.newstypeindex_default);
-//            for (int i = 0; i < mTitles.length; i++) {
-//                NewsTypeLazyFragment myFragment = new NewsTypeLazyFragment();
-//                Bundle bundle = new Bundle();
-//                bundle.putString("type", mIndex[i]);
-//                myFragment.setArguments(bundle);
-//                mFragments.add(myFragment);
-//
-//                map.put(mIndex[i], myFragment);
-//
-//                ChannelBean entity = new ChannelBean();
-//                entity.setName(mTitles[i]);
-//                entity.setId(mIndex[i]);
-//                mChannels.add(entity);
-//
-//            }
-//        } else {
-//            mChannels.addAll(GsonUtils.getGsonInstance().fromJson(spu.getValue("mychannal"),
-//                    new TypeToken<List<ChannelBean>>() {
-//                    }.getType()));
-//
-//            ChannelBean d1 = new ChannelBean("0", "推荐");
-//            ChannelBean d2 = new ChannelBean("3", "海南");
-//            mChannels.add(0, d2);
-//            mChannels.add(0, d1);
-//            for (ChannelBean bean : mChannels) {
-//                NewsTypeLazyFragment myFragment = new NewsTypeLazyFragment();
-//                Bundle bundle = new Bundle();
-//                bundle.putString("type", bean.getId());
-//                myFragment.setArguments(bundle);
-//                mFragments.add(myFragment);
-//                map.put(bean.getId(), myFragment);
-//            }
-//        }
-//
-//
-//        vp = mRootView.findViewById(R.id.vp);
-//        mAdapter = new NewsPagerAdapter(getChildFragmentManager(), mFragments, mChannels);
-//        vp.setAdapter(mAdapter);
-//        vp.setOffscreenPageLimit(20);
-//
-//        slidingTabLayout = mRootView.findViewById(R.id.tablayout);
-//        slidingTabLayout.setViewPager(vp);
     }
+//    @Subscribe(threadMode = ThreadMode.MAIN)
+//    public void onMessageEvent(ReFreshNewsEvent event) {
+//        String[] mIndex = getResources().getStringArray(R.array.newstypeindex);
+//        EventBus.getDefault().post(new ReFreshNewsTypeEvent(mIndex[vp.getCurrentItem()]));
+//    }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMessageEvent(ReFreshNewsEvent event) {
-        String[] mIndex = getResources().getStringArray(R.array.newstypeindex);
-        EventBus.getDefault().post(new ReFreshNewsTypeEvent(mIndex[vp.getCurrentItem()]));
-    }
-
-    private void initFromLocal(boolean isRefresh) {
-        ArrayList<ChannelBean> localChannels = new ArrayList<>();
-        localChannels.addAll(GsonUtils.getGsonInstance().fromJson(spu.getValue(ChannelActivity.LOCALCHANNAL),
+    private void initFromLocal() {
+        mChannels.clear();
+        mChannels.addAll(GsonUtils.getGsonInstance().fromJson(spu.getValue(ChannelActivity.LOCALCHANNAL),
                 new TypeToken<List<ChannelBean>>() {
                 }.getType()));
-        initTab(localChannels, isRefresh);
+        initTab();
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(ChannelChangeEvent event) {
         currentIndex = vp.getCurrentItem();
-        initFromLocal(true);
-        if (currentIndex == 0) {
-            new Handler().postDelayed(() -> EventBus.getDefault().post(new ReFreshNewsTypeEvent("0")), 500);
-        }
-//        StringBuilder orderOld = new StringBuilder();
-//        for (ChannelBean bean : mChannels) {
-//            orderOld.append(bean.getId());
-//        }
-//        ArrayList<ChannelBean> tempChannels = new ArrayList<>();
-//        tempChannels.addAll(GsonUtils.getGsonInstance().fromJson(spu.getValue("mychannal"),
-//                new TypeToken<List<ChannelBean>>() {
-//                }.getType()));
-//        StringBuilder orderNew = new StringBuilder();
-//        for (ChannelBean bean : tempChannels) {
-//            orderNew.append(bean.getId());
-//        }
-//
-//        if (TextUtils.equals(orderNew, orderOld.subSequence(2, orderOld.length())))
-//            return;
-//
-//        String currentId = mChannels.get(vp.getCurrentItem()).getId();
-//        int currentIndex = 0;
-//
-//        mChannels.clear();
-////        mFragments = new ArrayList<>();
-//        mFragments.clear();
-//
-//        mChannels.addAll(tempChannels);
-//
-//
-//        ChannelBean d1 = new ChannelBean("0", "推荐");
-//        ChannelBean d2 = new ChannelBean("3", "海南");
-//        mChannels.add(0, d2);
-//        mChannels.add(0, d1);
-//
-//
-//        for (int i = 0; i < mChannels.size(); i++) {
-//            ChannelBean bean = mChannels.get(i);
-//
-//            NewsTypeLazyFragment myFragment;
-//            if (map.containsKey(bean.getId())) {
-//                myFragment = (NewsTypeLazyFragment) map.get(bean.getId());
-//            } else {
-//                myFragment = new NewsTypeLazyFragment();
-//                Bundle bundle = new Bundle();
-//                bundle.putString("type", bean.getId());
-//                myFragment.setArguments(bundle);
-//                map.put(bean.getId(), myFragment);
-//            }
-//            mFragments.add(myFragment);
-//
-//            if (TextUtils.equals(bean.getId(), currentId)) {
-//                currentIndex = i;
-//            }
-//
-//        }
-//
-//        mAdapter = new NewsPagerAdapter(getChildFragmentManager(), mFragments, mChannels);
-//        vp.setAdapter(mAdapter);
-//
-//        mAdapter.recreateItems(mFragments, mChannels);
-//        vp.setCurrentItem(currentIndex);
-//        slidingTabLayout.setCurrentTab(currentIndex);
-//        slidingTabLayout.notifyDataSetChanged();
-//
-//        if (currentIndex == 0) {
-//            new Handler().postDelayed(() -> EventBus.getDefault().post(new ReFreshNewsTypeEvent("0")), 500);
-//        }
+        currentId = mChannels.get(currentIndex).getId();
+        initFromLocal();
     }
+
 
     @Override
-    public void onGetAllChannel(AllChannelListBean bean) {
-        spu.setValue(ChannelActivity.ALLCHANNAL, GsonUtils.getGsonInstance().toJson(bean.getData()));
-        ArrayList<ChannelBean> myChannels = new ArrayList<>();
+    public void onGetMyChannel(AllChannelListBean bean) {
+        spu.setValue(ChannelActivity.ALLCHANNAL, GsonUtils.getGsonInstance().toJson(bean.getData().getAll_news_category()));
 
-        for (ChannelBean c : bean.getData()) {
-            if (TextUtils.equals(c.getIs_default(), "1"))
-                myChannels.add(c);
+        // 登陆状态
+        if (!TextUtils.isEmpty(spu.getToken())) {
+            if (bean.getData().getUser_news_category().size() == 0) {
+                initFromLocal();
 
+                Tools.toastInBottom(getContext(), "上传本地数据");
+                //上传本地数据
+                SaveMyChannelPresenter saveMyChannelPresenter = new SaveMyChannelPresenter();
+                String saveStr = spu.getValue(ChannelActivity.LOCALCHANNAL);
+                saveMyChannelPresenter.saveMyChannel(spu.getToken(), saveStr);
+
+
+            } else {
+                mChannels.clear();
+                mChannels.addAll(bean.getData().getUser_news_category());
+                // 存到本地
+                spu.setValue(ChannelActivity.LOCALCHANNAL, GsonUtils.getGsonInstance().toJson(mChannels));
+                initTab();
+            }
+        } else {
+            //未登录状态
+            // 本地有 那本地数据
+            if (!TextUtils.isEmpty(spu.getValue(ChannelActivity.LOCALCHANNAL))) {
+                initFromLocal();
+            } else {
+                mChannels.clear();
+                mChannels.addAll(bean.getData().getUser_news_category());
+                // 存到本地
+                spu.setValue(ChannelActivity.LOCALCHANNAL, GsonUtils.getGsonInstance().toJson(mChannels));
+                initTab();
+            }
         }
-        //没有登录 并且 本地没有数据 存到本地
-        if (TextUtils.isEmpty(spu.getToken()) && TextUtils.isEmpty(spu.getValue(ChannelActivity.LOCALCHANNAL))) {
-            spu.setValue(ChannelActivity.LOCALCHANNAL, GsonUtils.getGsonInstance().toJson(myChannels));
-            initTab(myChannels, false);
-        }
+
 
     }
 
-    private void initTab(List<ChannelBean> mChannels, boolean isRefresh) {
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(LoginEvent event) {
+        currentId = mChannels.get(currentIndex).getId();
+        GetMyChannelPresenter getMyChannelPresenter = new GetMyChannelPresenter(this);
+        getMyChannelPresenter.getMyChannelResult();
+    }
+
+    private void initTab() {
 //        关注-1
 //        推荐0
 //                海南3
@@ -258,6 +167,7 @@ public class NewsLazyFragment extends BaseLazyFragment implements IGetAllChannel
         ChannelBean c2 = new ChannelBean("-1", "关注");
         mChannels.add(0, c2);
 
+        boolean isRefresh = mFragments.size() > 0;
 
         mFragments.clear();
         for (ChannelBean b : mChannels) {
@@ -268,20 +178,32 @@ public class NewsLazyFragment extends BaseLazyFragment implements IGetAllChannel
             mFragments.add(myFragment);
         }
 
-        vp = mRootView.findViewById(R.id.vp);
-        mAdapter = new NewsPagerAdapter(getChildFragmentManager(), mFragments, mChannels);
-        vp.setAdapter(mAdapter);
-        vp.setOffscreenPageLimit(20);
-
-        slidingTabLayout = mRootView.findViewById(R.id.tablayout);
-        slidingTabLayout.setViewPager(vp);
 
         if (isRefresh) {
+            currentIndex = 0;
+            for (int i = 0; i < mChannels.size(); i++) {
+                if (currentId.equals(mChannels.get(i).getId()))
+                    currentIndex = i;
+            }
+
+            if (currentIndex == 0) {
+                new Handler().postDelayed(() -> EventBus.getDefault().post(new ReFreshNewsTypeEvent("0")), 500);
+            }
             mAdapter.recreateItems(mFragments, mChannels);
             vp.setCurrentItem(currentIndex);
             slidingTabLayout.setCurrentTab(currentIndex);
             slidingTabLayout.notifyDataSetChanged();
+        } else {
+
+            mAdapter = new NewsPagerAdapter(getChildFragmentManager(), mFragments, mChannels);
+            vp.setAdapter(mAdapter);
+            vp.setOffscreenPageLimit(20);
+
+            slidingTabLayout = mRootView.findViewById(R.id.tablayout);
+            slidingTabLayout.setViewPager(vp);
         }
 
     }
+
+
 }
