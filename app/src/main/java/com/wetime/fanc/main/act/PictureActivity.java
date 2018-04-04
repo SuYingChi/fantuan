@@ -8,6 +8,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 
+import com.gyf.barlibrary.ImmersionBar;
 import com.wetime.fanc.R;
 import com.wetime.fanc.main.adapter.ImageAdapter;
 
@@ -62,6 +63,11 @@ public class PictureActivity extends BaseActivity implements View.OnClickListene
 
             }
         });
+    }
+
+    @Override
+    protected void initStateBar() {
+        ImmersionBar.with(this).statusBarColor(R.color.black).fitsSystemWindows(true).init();
     }
 
     @Override
