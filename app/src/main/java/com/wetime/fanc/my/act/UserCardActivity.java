@@ -53,6 +53,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
+import me.shaohui.bottomdialog.BottomDialog;
 
 public class UserCardActivity extends BaseActivity implements OnLoadMoreListener, IGetUserCardView, IPostMultiFileView, ISetMyCoverView {
 
@@ -110,6 +111,7 @@ public class UserCardActivity extends BaseActivity implements OnLoadMoreListener
     private RequestOptions mRequestOptions;
     private PostMultiFilePresenter postMultiFilePresenter;
     private SetMyCoverPresenter setMyCoverPresenter;
+    private BottomDialog mDeleteBottomDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -294,7 +296,9 @@ public class UserCardActivity extends BaseActivity implements OnLoadMoreListener
             tvFansNum.setText(bean.getData().getUser().getFans_num());
             tvFollowNum.setText(bean.getData().getUser().getFollow_num());
             if (bean.getData().getUser().isOwner())
-                ivCover.setOnClickListener(v -> Tools.gotoSelectPic(UserCardActivity.this));
+                ivCover.setOnClickListener(v -> {
+                    showDeleteAct();
+                });
 
         }
         list.addAll(bean.getData().getList());
@@ -308,6 +312,24 @@ public class UserCardActivity extends BaseActivity implements OnLoadMoreListener
         adapter.notifyDataSetChanged();
         refreshLayout.finishLoadMore();
         refreshLayout.setEnableLoadMore(!bean.getData().getPaging().isIs_end());
+    }
+
+    private void showDeleteAct() {
+        mDeleteBottomDialog = BottomDialog.create(getSupportFragmentManager());
+        mDeleteBottomDialog.setDimAmount(0.5f);
+        mDeleteBottomDialog.setLayoutRes(R.layout.item_change_card_bg);
+        mDeleteBottomDialog.setViewListener(v -> {
+
+            v.findViewById(R.id.tv_delete).setOnClickListener(v12 -> {
+                mDeleteBottomDialog.dismiss();
+                Tools.gotoSelectPic(UserCardActivity.this);
+            });
+            v.findViewById(R.id.tv_cancel).setOnClickListener(v14 -> {
+                mDeleteBottomDialog.dismiss();
+            });
+        });
+
+        mDeleteBottomDialog.show();
     }
 
     @Override
