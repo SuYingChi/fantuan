@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,7 +35,6 @@ import com.wetime.fanc.R;
 import com.wetime.fanc.customview.photoview.MyViewPager;
 import com.wetime.fanc.handler.CommonHandler;
 import com.wetime.fanc.handler.IHandlerMessage;
-import com.wetime.fanc.main.frag.BaseFragment;
 import com.wetime.fanc.main.frag.BaseLazyFragment;
 import com.wetime.fanc.my.bean.AttentionBean;
 import com.wetime.fanc.news.act.CommentActivity;
@@ -202,8 +202,7 @@ public class GalleryFragment extends BaseLazyFragment implements IHandlerMessage
 
             int height = decorView.getContext().getResources().getDisplayMetrics().heightPixels;
             int diff = height - r.bottom;
-
-            if (diff != 0) {
+            if (diff > 0) {
                 mGalleryLinear.setVisibility(View.VISIBLE);
                 ViewGroup.LayoutParams layoutParams = contentView.getLayoutParams();
                 if (layoutParams instanceof LinearLayout.LayoutParams) {
