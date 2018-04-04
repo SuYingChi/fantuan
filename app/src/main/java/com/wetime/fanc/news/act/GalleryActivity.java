@@ -2,20 +2,16 @@ package com.wetime.fanc.news.act;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.ViewStub;
-import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.githang.statusbar.StatusBarCompat;
-import com.gyf.barlibrary.BarHide;
 import com.gyf.barlibrary.ImmersionBar;
 import com.wetime.fanc.R;
 import com.wetime.fanc.customview.photoview.MyViewPager;
@@ -78,10 +74,15 @@ public class GalleryActivity extends BaseActivity implements View.OnClickListene
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gallery);
 //        ImmersionBar.with(this).statusBarColor(R.color._1b1b1b).navigationBarColor(R.color._1b1b1b).navigationBarAlpha(1f).fullScreen(true).statusBarDarkFont(true, 1f).fitsSystemWindows(true).init();
-        StatusBarCompat.setStatusBarColor(this, Color.parseColor("#1b1b1b"), false);
+//        StatusBarCompat.setStatusBarColor(this, Color.parseColor("#1b1b1b"), false);
         ButterKnife.bind(this);
         initView();
         initData();
+    }
+
+    @Override
+    protected void initStateBar() {
+        ImmersionBar.with(this).statusBarColor(R.color.black).fitsSystemWindows(true).init();
     }
 
     private void initView() {
