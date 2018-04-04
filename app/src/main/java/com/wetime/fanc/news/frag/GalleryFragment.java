@@ -35,6 +35,7 @@ import com.wetime.fanc.customview.photoview.MyViewPager;
 import com.wetime.fanc.handler.CommonHandler;
 import com.wetime.fanc.handler.IHandlerMessage;
 import com.wetime.fanc.main.frag.BaseFragment;
+import com.wetime.fanc.main.frag.BaseLazyFragment;
 import com.wetime.fanc.my.bean.AttentionBean;
 import com.wetime.fanc.news.act.CommentActivity;
 import com.wetime.fanc.news.act.GalleryActivity;
@@ -50,7 +51,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class GalleryFragment extends BaseFragment implements IHandlerMessage, View.OnClickListener, DialogInterface.OnShowListener, DialogInterface.OnDismissListener,
+public class GalleryFragment extends BaseLazyFragment implements IHandlerMessage, View.OnClickListener, DialogInterface.OnShowListener, DialogInterface.OnDismissListener,
         ViewPager.OnPageChangeListener, GalleryAdapter.OnGalleryAdapterCallback, IGetNewsDetailView {
 
     private static final int LOAD_STATE_FAIL = 1;
@@ -168,8 +169,30 @@ public class GalleryFragment extends BaseFragment implements IHandlerMessage, Vi
 
     }
 
-    private void initData() {
+    @Override
+    protected int setLayoutId() {
+        return 0;
+    }
+
+    @Override
+    protected void initView() {
+        super.initView();
         requestData();
+    }
+
+    @Override
+    protected void initData() {
+        super.initData();
+    }
+
+    @Override
+    protected boolean isImmersionBarEnabled() {
+        return false;
+    }
+
+    @Override
+    protected boolean isLazyLoad() {
+        return super.isLazyLoad();
     }
 
     private ViewTreeObserver.OnGlobalLayoutListener getGlobalLayoutListener(final View decorView, final LinearLayout contentView) {
@@ -249,6 +272,7 @@ public class GalleryFragment extends BaseFragment implements IHandlerMessage, Vi
     public void onDestroy() {
         super.onDestroy();
     }
+
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
