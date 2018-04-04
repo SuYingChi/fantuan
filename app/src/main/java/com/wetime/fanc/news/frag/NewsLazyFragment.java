@@ -142,7 +142,7 @@ public class NewsLazyFragment extends BaseLazyFragment implements IGetMyChannelV
                 initTab();
             }
         }
-
+        vp.setCurrentItem(1);
 
     }
 
@@ -201,6 +201,7 @@ public class NewsLazyFragment extends BaseLazyFragment implements IGetMyChannelV
 
             slidingTabLayout = mRootView.findViewById(R.id.tablayout);
             slidingTabLayout.setViewPager(vp);
+
         }
 
     }
