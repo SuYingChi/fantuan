@@ -112,7 +112,7 @@ public class CommentActivity extends BaseActivity implements IGetAllCommentView,
             int height = decorView.getContext().getResources().getDisplayMetrics().heightPixels;
             int diff = height - r.bottom;
 
-            if (diff != 0) {
+            if (diff > 0) {
                 galleryCurrLinearLayout.setVisibility(View.VISIBLE);
                 ViewGroup.LayoutParams layoutParams = contentView.getLayoutParams();
                 if (layoutParams instanceof LinearLayout.LayoutParams) {

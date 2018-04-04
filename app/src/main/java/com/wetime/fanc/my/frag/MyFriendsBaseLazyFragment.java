@@ -1,8 +1,12 @@
 package com.wetime.fanc.my.frag;
 
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,6 +26,8 @@ import com.wetime.fanc.my.presenter.GetMyFriendPresenter;
 import java.util.ArrayList;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 
 public abstract class MyFriendsBaseLazyFragment extends BaseNoLazyFragment
@@ -34,6 +40,8 @@ public abstract class MyFriendsBaseLazyFragment extends BaseNoLazyFragment
     RelativeLayout rlEmpty;
     @BindView(R.id.myfriend_base_textview)
     TextView baseTextview;
+    @BindView(R.id.myfriend_base_imageView)
+    ImageView myfriendBaseImageView;
     private ArrayList<MyFriendsBaseBean.DataBean.ListBean> data = new ArrayList<>();
     private MyFriendsAdapter adapter;
     private boolean isRefresh = true;
@@ -57,12 +65,15 @@ public abstract class MyFriendsBaseLazyFragment extends BaseNoLazyFragment
 
         switch (getType()) {
             case 0:
+                myfriendBaseImageView.setImageResource(R.drawable.invalid_frinds);
                 baseTextview.setText("还没有互相关注的好友哦~");
                 break;
             case 1:
+                myfriendBaseImageView.setImageResource(R.drawable.invalid_attention);
                 baseTextview.setText("你还没有关注任何人");
                 break;
             case 2:
+                myfriendBaseImageView.setImageResource(R.drawable.invalid_fans);
                 baseTextview.setText("你还没有粉丝，快去发动态吸粉吧~");
                 break;
         }
@@ -130,5 +141,4 @@ public abstract class MyFriendsBaseLazyFragment extends BaseNoLazyFragment
     public String onGetType() {
         return String.valueOf(getType() + 1);
     }
-
 }

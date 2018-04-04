@@ -1,6 +1,7 @@
 package com.wetime.fanc.news.frag;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -34,7 +35,6 @@ import com.wetime.fanc.R;
 import com.wetime.fanc.customview.photoview.MyViewPager;
 import com.wetime.fanc.handler.CommonHandler;
 import com.wetime.fanc.handler.IHandlerMessage;
-import com.wetime.fanc.main.frag.BaseFragment;
 import com.wetime.fanc.main.frag.BaseLazyFragment;
 import com.wetime.fanc.my.bean.AttentionBean;
 import com.wetime.fanc.news.act.CommentActivity;
@@ -135,11 +135,8 @@ public class GalleryFragment extends BaseLazyFragment implements IHandlerMessage
         mSaveBtn.setOnClickListener(this);
         viewPager.addOnPageChangeListener(this);
         rootView.findViewById(R.id.gallery_imageview).setOnClickListener(this);
-        mGalleryText = rootView.findViewById(R.id.gallery_text);
         mGalleryText.setOnClickListener(this);
-        collertImage = rootView.findViewById(R.id.gallery_collect);
         collertImage.setOnClickListener(this);
-        shareImage = rootView.findViewById(R.id.gallery_share);
         shareImage.setOnClickListener(this);
         mGalleryEdit.setOnClickListener(this);
         mGalleryTextView.setOnClickListener(this);
@@ -150,6 +147,9 @@ public class GalleryFragment extends BaseLazyFragment implements IHandlerMessage
         mSaveCurrPos = (TextView) rootView.findViewById(R.id.gallery_curr_pos);
         mSaveBtn = rootView.findViewById(R.id.gallery_save_btn);
         mSavePicParent = rootView.findViewById(R.id.gallery_save_layout);
+        collertImage = rootView.findViewById(R.id.gallery_collect);
+        shareImage = rootView.findViewById(R.id.gallery_share);
+        mGalleryText = rootView.findViewById(R.id.gallery_text);
         mComment = rootView.findViewById(R.id.gallery_linear);
         viewPager = (MyViewPager) rootView.findViewById(R.id.fvp_gallery);
         mDescNumber = (TextView) rootView.findViewById(R.id.tv_desc_number);
@@ -196,36 +196,32 @@ public class GalleryFragment extends BaseLazyFragment implements IHandlerMessage
     }
 
     private ViewTreeObserver.OnGlobalLayoutListener getGlobalLayoutListener(final View decorView, final LinearLayout contentView) {
-        return new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                Rect r = new Rect();
-                decorView.getWindowVisibleDisplayFrame(r);
+        return () -> {
+            Rect r = new Rect();
+            decorView.getWindowVisibleDisplayFrame(r);
 
-                int height = decorView.getContext().getResources().getDisplayMetrics().heightPixels;
-                int diff = height - r.bottom;
-
-                if (diff != 0) {
-                    mGalleryLinear.setVisibility(View.VISIBLE);
-                    ViewGroup.LayoutParams layoutParams = contentView.getLayoutParams();
-                    if (layoutParams instanceof LinearLayout.LayoutParams) {
-                        LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) layoutParams;
-                        lp.setMargins(0, 0, 0, diff);
-                        contentView.setLayoutParams(lp);
-                    } else if (layoutParams instanceof RelativeLayout.LayoutParams) {
-                        RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) layoutParams;
-                        lp.setMargins(0, 0, 0, diff);
-                        contentView.setLayoutParams(lp);
-                    }
-
-                    mGalleryCurrEdit.setFocusable(true);
-                    mGalleryCurrEdit.setFocusableInTouchMode(true);
-                    mGalleryCurrEdit.requestFocus();
-                } else {
-                    mGalleryLinear.setVisibility(View.GONE);
+            int height = decorView.getContext().getResources().getDisplayMetrics().heightPixels;
+            int diff = height - r.bottom;
+            if (diff > 0) {
+                mGalleryLinear.setVisibility(View.VISIBLE);
+                ViewGroup.LayoutParams layoutParams = contentView.getLayoutParams();
+                if (layoutParams instanceof LinearLayout.LayoutParams) {
+                    LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) layoutParams;
+                    lp.setMargins(0, 0, 0, diff);
+                    contentView.setLayoutParams(lp);
+                } else if (layoutParams instanceof RelativeLayout.LayoutParams) {
+                    RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) layoutParams;
+                    lp.setMargins(0, 0, 0, diff);
+                    contentView.setLayoutParams(lp);
                 }
-                diffTest = diff;
+
+                mGalleryCurrEdit.setFocusable(true);
+                mGalleryCurrEdit.setFocusableInTouchMode(true);
+                mGalleryCurrEdit.requestFocus();
+            } else {
+                mGalleryLinear.setVisibility(View.GONE);
             }
+            diffTest = diff;
         }
 
                 ;
@@ -287,6 +283,7 @@ public class GalleryFragment extends BaseLazyFragment implements IHandlerMessage
 
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onPageSelected(int position) {
         mDescNumber.setText((position + 1) + "/" + data.size() + "   " + data.get(position).getContent());
@@ -348,8 +345,6 @@ public class GalleryFragment extends BaseLazyFragment implements IHandlerMessage
 
                     @Override
                     public void onError(UiError uiError) {
-                        Log.e("xi", "onError: " + uiError.errorDetail);
-                        Log.e("xi", "onError: " + uiError.errorMessage);
                         Toast.makeText(mGalleryActivity, "未知错误!", Toast.LENGTH_SHORT).show();
                     }
 
@@ -368,8 +363,6 @@ public class GalleryFragment extends BaseLazyFragment implements IHandlerMessage
 
                     @Override
                     public void onError(UiError uiError) {
-                        Log.e("xi", "onError: " + uiError.errorDetail);
-                        Log.e("xi", "onError: " + uiError.errorMessage);
                         Toast.makeText(mGalleryActivity, "未知错误!", Toast.LENGTH_SHORT).show();
                     }
 
@@ -396,13 +389,7 @@ public class GalleryFragment extends BaseLazyFragment implements IHandlerMessage
     private void showPop() {
         View shareView = LayoutInflater.from(getActivity()).inflate(R.layout.view_popupwindow, null);
 
-        shareView.findViewById(R.id.ll_share_wx).setOnClickListener(this);
-        shareView.findViewById(R.id.ll_share_wxq).setOnClickListener(this);
-        shareView.findViewById(R.id.ll_share_wb).setOnClickListener(this);
-        shareView.findViewById(R.id.ll_share_qq).setOnClickListener(this);
-        shareView.findViewById(R.id.ll_share_qqkj).setOnClickListener(this);
-        shareView.findViewById(R.id.ll_share_copy).setOnClickListener(this);
-        shareView.findViewById(R.id.pop_cancel).setOnClickListener(this);
+        initPopListener(shareView);
 
         // 创建PopupWindow对象
         pop = new PopupWindow(shareView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, false);
@@ -425,6 +412,16 @@ public class GalleryFragment extends BaseLazyFragment implements IHandlerMessage
         });
 
         pop.showAtLocation(getActivity().getWindow().getDecorView(), Gravity.BOTTOM, 0, 0);
+    }
+
+    private void initPopListener(View shareView) {
+        shareView.findViewById(R.id.ll_share_wx).setOnClickListener(this);
+        shareView.findViewById(R.id.ll_share_wxq).setOnClickListener(this);
+        shareView.findViewById(R.id.ll_share_wb).setOnClickListener(this);
+        shareView.findViewById(R.id.ll_share_qq).setOnClickListener(this);
+        shareView.findViewById(R.id.ll_share_qqkj).setOnClickListener(this);
+        shareView.findViewById(R.id.ll_share_copy).setOnClickListener(this);
+        shareView.findViewById(R.id.pop_cancel).setOnClickListener(this);
     }
 
     public void hideInput() {

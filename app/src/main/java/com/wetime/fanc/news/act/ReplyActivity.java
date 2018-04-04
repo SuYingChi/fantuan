@@ -97,6 +97,7 @@ public class ReplyActivity extends BaseActivity implements OnRefreshListener, IG
 
     private void initData() {
         commentTestBean = (CommentBean.DataBean.ListBean) getIntent().getSerializableExtra("commentTestBean");
+        sendReply("0", commentTestBean.getId(), commentTestBean.getUser().getUsername());
         tvTitle.setText(commentTestBean.getReply_num() + "条回复");
         replyName.setText(commentTestBean.getUser().getUsername());
         replyContent.setText(commentTestBean.getContent());
@@ -128,7 +129,7 @@ public class ReplyActivity extends BaseActivity implements OnRefreshListener, IG
             int height = decorView.getContext().getResources().getDisplayMetrics().heightPixels;
             int diff = height - r.bottom;
 
-            if (diff != 0) {
+            if (diff > 0) {
                 galleryCurrLinearLayout.setVisibility(View.VISIBLE);
                 galleryLinear.setVisibility(View.GONE);
                 ViewGroup.LayoutParams layoutParams = contentView.getLayoutParams();
