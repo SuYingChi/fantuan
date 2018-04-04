@@ -137,7 +137,6 @@ public class MyFragment extends BaseFragment implements IGetMyInfoView, IGetRedP
         EventBus.getDefault().unregister(this);
     }
 
-
     @OnClick({R.id.tv_myfriend, R.id.civ_head, R.id.ll_my_state, R.id.ll_call, R.id.iv_setting, R.id.ll_login, R.id.tv_fanpiao, R.id.tv_youhuiquan, R.id.ll_mycomment,
             R.id.iv_msg, R.id.tv_wallet, R.id.ll_invite, R.id.ll_beauthor, R.id.ll_mynews, R.id.tv_collect, R.id.tv_order,
             R.id.ll_redpacket})
@@ -411,6 +410,7 @@ public class MyFragment extends BaseFragment implements IGetMyInfoView, IGetRedP
         tvActnum.setText("0");
         tvNewsnum.setText("0");
         tvCommentnum.setText("0");
+        qBadgeMsg.setBadgeNumber(0);
     }
 
     private void initLoaction() {
