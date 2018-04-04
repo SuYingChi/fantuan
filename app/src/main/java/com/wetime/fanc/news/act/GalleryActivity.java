@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide;
 import com.gyf.barlibrary.ImmersionBar;
 import com.wetime.fanc.R;
 import com.wetime.fanc.customview.photoview.MyViewPager;
+import com.wetime.fanc.login.act.LoginActivity;
 import com.wetime.fanc.main.act.BaseActivity;
 import com.wetime.fanc.my.act.UserCardActivity;
 import com.wetime.fanc.my.bean.AttentionBean;
@@ -173,7 +174,13 @@ public class GalleryActivity extends BaseActivity implements View.OnClickListene
                 this.startActivity(go);
                 break;
             case R.id.friend_base_LinearLayout:
-                ((GalleryFragment) mCurrFragment).AttentionFriends();
+                if (spu.getToken().equals("")) {
+                    Intent go1 = new Intent(this, LoginActivity.class);
+                    startActivity(go1);
+                }else{
+                    ((GalleryFragment) mCurrFragment).AttentionFriends();
+                }
+
                 break;
         }
     }

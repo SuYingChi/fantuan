@@ -45,7 +45,7 @@ public class MyFriendsActivity extends BaseActivity {
     }
 
     private void initView() {
-        tvTitle.setText("我的朋友");
+        tvTitle.setText("我的好友");
 
         mChannels.add("好友");
         mChannels.add("关注");

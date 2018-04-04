@@ -134,7 +134,7 @@ public abstract class MyFriendsBaseLazyFragment extends BaseNoLazyFragment
     @Override
     public void onAttention(AttentionBean bean) {
         Toast.makeText(mActivity, bean.getMsg(), Toast.LENGTH_SHORT).show();
-        onRefresh(refreshLayout);
+//        onRefresh(refreshLayout);
     }
 
     @Override

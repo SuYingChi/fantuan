@@ -6,13 +6,13 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,6 +35,7 @@ import com.wetime.fanc.R;
 import com.wetime.fanc.customview.photoview.MyViewPager;
 import com.wetime.fanc.handler.CommonHandler;
 import com.wetime.fanc.handler.IHandlerMessage;
+import com.wetime.fanc.login.act.LoginActivity;
 import com.wetime.fanc.main.frag.BaseLazyFragment;
 import com.wetime.fanc.my.bean.AttentionBean;
 import com.wetime.fanc.news.act.CommentActivity;
@@ -305,22 +306,33 @@ public class GalleryFragment extends BaseLazyFragment implements IHandlerMessage
                 CommentActivity.startToComment(getActivity(), galleryId);
                 break;
             case R.id.gallery_collect:
-                if (gallery.getData().isIs_collect()) {
-                    getNewsDetailPresenter.collectNews(galleryId, "0");
+                if (spu.getToken().equals("")) {
+                    Intent go1 = new Intent(getActivity(), LoginActivity.class);
+                    startActivity(go1);
                 } else {
-                    getNewsDetailPresenter.collectNews(galleryId, "1");
+                    if (gallery.getData().isIs_collect()) {
+                        getNewsDetailPresenter.collectNews(galleryId, "0");
+                    } else {
+                        getNewsDetailPresenter.collectNews(galleryId, "1");
+                    }
                 }
+
                 break;
             case R.id.gallery_share:
                 showPop();
                 break;
             case R.id.gallery_curr_TextView:
-                String s = String.valueOf(mGalleryCurrEdit.getText());
-                if (s.equals("null")) {
-                    Toast.makeText(mGalleryActivity, "请先填写您的评论", Toast.LENGTH_SHORT).show();
-                    return;
+                if (spu.getToken().equals("")) {
+                    Intent go1 = new Intent(getActivity(), LoginActivity.class);
+                    startActivity(go1);
+                } else {
+                    String s = String.valueOf(mGalleryCurrEdit.getText());
+                    if (s.equals("null")) {
+                        Toast.makeText(mGalleryActivity, "请先填写您的评论", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    getNewsDetailPresenter.sendCommonet(galleryId, s);
                 }
-                getNewsDetailPresenter.sendCommonet(galleryId, s);
                 break;
             case R.id.gallery_editText:
                 isShowInput = true;
