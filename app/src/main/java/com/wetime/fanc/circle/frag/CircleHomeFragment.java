@@ -3,6 +3,7 @@ package com.wetime.fanc.circle.frag;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -13,6 +14,7 @@ import com.wetime.fanc.circle.act.PublishActActivity;
 import com.wetime.fanc.home.adapter.NormalTitlePagerAdapter;
 import com.wetime.fanc.home.event.RefreshRedNumEvent;
 import com.wetime.fanc.login.act.LoginActivity;
+import com.wetime.fanc.login.event.LogoutEvent;
 import com.wetime.fanc.main.frag.BaseLazyFragment;
 import com.wetime.fanc.my.frag.MyCollectNewsLazyFragment;
 import com.wetime.fanc.my.frag.MyCollectShopLazyFragment;
@@ -76,6 +78,11 @@ public class CircleHomeFragment extends BaseLazyFragment {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(LogoutEvent event) {
+        qBadgeMsg.setBadgeNumber(0);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(RefreshRedNumEvent event) {
         qBadgeMsg.setBadgeNumber(event.getNum());
     }
@@ -84,7 +91,13 @@ public class CircleHomeFragment extends BaseLazyFragment {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_msg:
-                Tools.goWeb(getContext(), Const.MSG_URL);
+                if (!TextUtils.isEmpty(spu.getToken()))
+                    Tools.goWeb(getContext(), Const.MSG_URL);
+                else {
+                    Tools.toastInBottom(getContext(), "请先登录");
+                    Intent goLogin = new Intent(getContext(), LoginActivity.class);
+                    startActivity(goLogin);
+                }
                 break;
             case R.id.iv_edit:
                 if (spu.getToken().equals("")) {

@@ -32,6 +32,7 @@ import com.wetime.fanc.customview.multiimageselector.MultiImageSelectorActivity;
 import com.wetime.fanc.home.adapter.HomeItemAdapter;
 import com.wetime.fanc.home.bean.HomeItemBean;
 import com.wetime.fanc.home.bean.TabEntity;
+import com.wetime.fanc.login.act.LoginActivity;
 import com.wetime.fanc.main.act.BaseActivity;
 import com.wetime.fanc.main.bean.PostFileResultBean;
 import com.wetime.fanc.main.ivews.IPostMultiFileView;
@@ -53,6 +54,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
+import me.shaohui.bottomdialog.BottomDialog;
 
 public class UserCardActivity extends BaseActivity implements OnLoadMoreListener, IGetUserCardView, IPostMultiFileView, ISetMyCoverView {
 
@@ -110,6 +112,7 @@ public class UserCardActivity extends BaseActivity implements OnLoadMoreListener
     private RequestOptions mRequestOptions;
     private PostMultiFilePresenter postMultiFilePresenter;
     private SetMyCoverPresenter setMyCoverPresenter;
+    private BottomDialog mDeleteBottomDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -259,42 +262,52 @@ public class UserCardActivity extends BaseActivity implements OnLoadMoreListener
             if (bean.getData().getUser().isFollow()) {
                 tvFocus.setTextColor(ContextCompat.getColor(mContext, R.color.text_hint));
                 tvFocus.setText("已关注");
+
                 Drawable drawable = getResources().getDrawable(R.drawable.ic_focus_bottom_off);
                 drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getMinimumHeight());
                 tvFocus.setCompoundDrawables(drawable, null, null, null);
             } else {
                 tvFocus.setTextColor(ContextCompat.getColor(mContext, R.color.text_commen));
                 tvFocus.setText("加关注");
+
                 Drawable drawable = getResources().getDrawable(R.drawable.ic_focus_bottom_on);
                 drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getMinimumHeight());
                 tvFocus.setCompoundDrawables(drawable, null, null, null);
             }
             tvFocus.setOnClickListener(v -> {
-                bean.getData().getUser().setFollow(!bean.getData().getUser().isFollow());
-
-                FocusPresenter focusPresenter = new FocusPresenter();
-                focusPresenter.focusUser(getToken(),
-                        bean.getData().getUser().isFollow() ? "1" : "0",
-                        bean.getData().getUser().getId());
-                if (bean.getData().getUser().isFollow()) {
-                    tvFocus.setTextColor(ContextCompat.getColor(mContext, R.color.text_hint));
-                    tvFocus.setText("已关注");
-                    Drawable drawable = getResources().getDrawable(R.drawable.ic_focus_bottom_off);
-                    drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getMinimumHeight());
-                    tvFocus.setCompoundDrawables(drawable, null, null, null);
-                } else {
-                    tvFocus.setTextColor(ContextCompat.getColor(mContext, R.color.text_commen));
-                    tvFocus.setText("加关注");
-                    Drawable drawable = getResources().getDrawable(R.drawable.ic_focus_bottom_on);
-                    drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getMinimumHeight());
-                    tvFocus.setCompoundDrawables(drawable, null, null, null);
+                if(TextUtils.isEmpty(spu.getToken())){
+                    Tools.toastInBottom(getContext(), "请先登录");
+                    Intent goLogin = new Intent(getContext(), LoginActivity.class);
+                    startActivity(goLogin);
+                }else{
+                    bean.getData().getUser().setFollow(!bean.getData().getUser().isFollow());
+                    FocusPresenter focusPresenter = new FocusPresenter();
+                    focusPresenter.focusUser(getToken(),
+                            bean.getData().getUser().isFollow() ? "1" : "0",
+                            bean.getData().getUser().getId());
+                    if (bean.getData().getUser().isFollow()) {
+                        tvFocus.setTextColor(ContextCompat.getColor(mContext, R.color.text_hint));
+                        tvFocus.setText("已关注");
+                        Tools.toastInBottom(mContext,"已关注");
+                        Drawable drawable = getResources().getDrawable(R.drawable.ic_focus_bottom_off);
+                        drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getMinimumHeight());
+                        tvFocus.setCompoundDrawables(drawable, null, null, null);
+                    } else {
+                        tvFocus.setTextColor(ContextCompat.getColor(mContext, R.color.text_commen));
+                        tvFocus.setText("加关注");
+                        Tools.toastInBottom(mContext,"已取消关注");
+                        Drawable drawable = getResources().getDrawable(R.drawable.ic_focus_bottom_on);
+                        drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getMinimumHeight());
+                        tvFocus.setCompoundDrawables(drawable, null, null, null);
+                    }
                 }
-
             });
             tvFansNum.setText(bean.getData().getUser().getFans_num());
             tvFollowNum.setText(bean.getData().getUser().getFollow_num());
             if (bean.getData().getUser().isOwner())
-                ivCover.setOnClickListener(v -> Tools.gotoSelectPic(UserCardActivity.this));
+                ivCover.setOnClickListener(v -> {
+                    showDeleteAct();
+                });
 
         }
         list.addAll(bean.getData().getList());
@@ -308,6 +321,24 @@ public class UserCardActivity extends BaseActivity implements OnLoadMoreListener
         adapter.notifyDataSetChanged();
         refreshLayout.finishLoadMore();
         refreshLayout.setEnableLoadMore(!bean.getData().getPaging().isIs_end());
+    }
+
+    private void showDeleteAct() {
+        mDeleteBottomDialog = BottomDialog.create(getSupportFragmentManager());
+        mDeleteBottomDialog.setDimAmount(0.5f);
+        mDeleteBottomDialog.setLayoutRes(R.layout.item_change_card_bg);
+        mDeleteBottomDialog.setViewListener(v -> {
+
+            v.findViewById(R.id.tv_delete).setOnClickListener(v12 -> {
+                mDeleteBottomDialog.dismiss();
+                Tools.gotoSelectPic(UserCardActivity.this);
+            });
+            v.findViewById(R.id.tv_cancel).setOnClickListener(v14 -> {
+                mDeleteBottomDialog.dismiss();
+            });
+        });
+
+        mDeleteBottomDialog.show();
     }
 
     @Override

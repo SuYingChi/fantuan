@@ -8,6 +8,7 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
@@ -41,6 +42,8 @@ import com.wetime.fanc.home.bean.TabEntity;
 import com.wetime.fanc.home.event.RefreshRedNumEvent;
 import com.wetime.fanc.home.iviews.IGetHomePageView;
 import com.wetime.fanc.home.presenter.GetHomePagePresenter;
+import com.wetime.fanc.login.act.LoginActivity;
+import com.wetime.fanc.login.event.LogoutEvent;
 import com.wetime.fanc.main.frag.BaseFragment;
 import com.wetime.fanc.qr.ScanActivity;
 import com.wetime.fanc.shopcenter.act.ShopCenterActivity;
@@ -246,7 +249,13 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, IGe
                 startActivity(gosearch);
                 break;
             case R.id.iv_msg:
-                Tools.goWeb(getContext(), Const.MSG_URL);
+                if (!TextUtils.isEmpty(spu.getToken()))
+                    Tools.goWeb(getContext(), Const.MSG_URL);
+                else {
+                    Tools.toastInBottom(getContext(), "请先登录");
+                    Intent goLogin = new Intent(getContext(), LoginActivity.class);
+                    startActivity(goLogin);
+                }
                 break;
         }
     }
@@ -369,6 +378,10 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, IGe
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(RefreshRedNumEvent event) {
         qBadgeMsg.setBadgeNumber(event.getNum());
+    }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(LogoutEvent event) {
+        qBadgeMsg.setBadgeNumber(0);
     }
 
     @Override

@@ -142,7 +142,7 @@ public class NewsLazyFragment extends BaseLazyFragment implements IGetMyChannelV
                 initTab();
             }
         }
-
+        vp.setCurrentItem(1);
 
     }
 
@@ -160,7 +160,7 @@ public class NewsLazyFragment extends BaseLazyFragment implements IGetMyChannelV
         /**
          * 架构师要求写到本地 不写活tmd
          */
-        ChannelBean c0 = new ChannelBean("3", "海南");
+        ChannelBean c0 = new ChannelBean("3", "海口");
         mChannels.add(0, c0);
         ChannelBean c1 = new ChannelBean("0", "推荐");
         mChannels.add(0, c1);
@@ -201,6 +201,7 @@ public class NewsLazyFragment extends BaseLazyFragment implements IGetMyChannelV
 
             slidingTabLayout = mRootView.findViewById(R.id.tablayout);
             slidingTabLayout.setViewPager(vp);
+
         }
 
     }
