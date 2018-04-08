@@ -21,10 +21,12 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.wetime.fanc.R;
+import com.wetime.fanc.circle.act.ActDetailActivity;
 import com.wetime.fanc.circle.act.CircleDetailActivity;
 import com.wetime.fanc.circle.bean.ActDetailBean;
 import com.wetime.fanc.circle.presenter.FocusPresenter;
 import com.wetime.fanc.customview.GridViewForScrollView;
+import com.wetime.fanc.login.act.LoginActivity;
 import com.wetime.fanc.my.act.UserCardActivity;
 import com.wetime.fanc.utils.Tools;
 
@@ -40,6 +42,7 @@ public class ActDetailAdapter extends RecyclerView.Adapter {
 
     private ActDetailBean actDetailBean;
     private Activity mActivity;
+    private OnItemClickLitener mOnItemClickLitener;
 
     public ActDetailAdapter(Activity mActivity, ActDetailBean actDetailBean) {
         this.mActivity = mActivity;
@@ -93,9 +96,15 @@ public class ActDetailAdapter extends RecyclerView.Adapter {
                 ((ViewHolder0) holder).tvFocus.setBackgroundResource(R.drawable.bg_btn_red_corner);
             }
             ((ViewHolder0) holder).tvFocus.setOnClickListener(v -> {
-                actDetailBean.getData().setIs_follow(!actDetailBean.getData().isIs_follow());
                 FocusPresenter focusPresenter = new FocusPresenter();
-                focusPresenter.focusUser(Tools.getSpu(mActivity).getToken(),
+                if (((ActDetailActivity) mActivity).getToken().isEmpty()) {
+                    Tools.toastInBottom(mActivity, "请先登录");
+                    Intent goLogin = new Intent(mActivity, LoginActivity.class);
+                    mActivity.startActivity(goLogin);
+                    return;
+                }
+                actDetailBean.getData().setIs_follow(!actDetailBean.getData().isIs_follow());
+                focusPresenter.focusUser(mActivity, Tools.getSpu(mActivity).getToken(),
                         actDetailBean.getData().isIs_follow() ? "1" : "0",
                         actDetailBean.getData().getUid());
                 if (actDetailBean.getData().isIs_follow()) {
@@ -226,7 +235,6 @@ public class ActDetailAdapter extends RecyclerView.Adapter {
 
     }
 
-
     @Override
     public int getItemCount() {
         return 2 + actDetailBean.getData().getComment_list().size();
@@ -238,6 +246,15 @@ public class ActDetailAdapter extends RecyclerView.Adapter {
             return 2;
         else
             return position;
+    }
+
+    public void setOnItemClickLitener(OnItemClickLitener mOnItemClickLitener) {
+        this.mOnItemClickLitener = mOnItemClickLitener;
+    }
+
+
+    public interface OnItemClickLitener {
+        void onItemClick(View view, int position);
     }
 
     class ViewHolder0 extends RecyclerView.ViewHolder {
@@ -289,7 +306,6 @@ public class ActDetailAdapter extends RecyclerView.Adapter {
         }
     }
 
-
     class ViewHolder2 extends RecyclerView.ViewHolder {
         @BindView(R.id.tv_name)
         TextView tvName;
@@ -304,17 +320,5 @@ public class ActDetailAdapter extends RecyclerView.Adapter {
             super(view);
             ButterKnife.bind(this, view);
         }
-    }
-
-    public interface OnItemClickLitener {
-        void onItemClick(View view, int position);
-    }
-
-
-    private OnItemClickLitener mOnItemClickLitener;
-
-
-    public void setOnItemClickLitener(OnItemClickLitener mOnItemClickLitener) {
-        this.mOnItemClickLitener = mOnItemClickLitener;
     }
 }

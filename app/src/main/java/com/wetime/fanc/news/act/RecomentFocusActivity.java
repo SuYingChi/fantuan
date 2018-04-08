@@ -1,5 +1,6 @@
 package com.wetime.fanc.news.act;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -9,7 +10,9 @@ import android.widget.TextView;
 
 import com.fan.baselib.loadmore.AutoLoadMoreAdapter;
 import com.wetime.fanc.R;
+import com.wetime.fanc.circle.act.ActDetailActivity;
 import com.wetime.fanc.circle.presenter.FocusPresenter;
+import com.wetime.fanc.login.act.LoginActivity;
 import com.wetime.fanc.main.act.BaseActivity;
 import com.wetime.fanc.news.adapter.FcousTitleAdapter;
 import com.wetime.fanc.news.adapter.FcousUserAdapter;
@@ -20,6 +23,7 @@ import com.wetime.fanc.news.iviews.IGetRecomentFocusUserView;
 import com.wetime.fanc.news.iviews.IGetRecomentFocusView;
 import com.wetime.fanc.news.presenter.GetRecomentFocusPresenter;
 import com.wetime.fanc.news.presenter.GetRecomentFocusUserPresenter;
+import com.wetime.fanc.utils.Tools;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -77,9 +81,15 @@ public class RecomentFocusActivity extends BaseActivity implements IGetRecomentF
         rclFcous.setAdapter(mAutoLoadMoreAdapter);
 
         userAdapter.setOnItemClickLitener((view, position) -> {
+            if (this.getToken().isEmpty()) {
+                Tools.toastInBottom(this, "请先登录");
+                Intent goLogin = new Intent(this, LoginActivity.class);
+                this.startActivity(goLogin);
+                return;
+            }
             userList.get(position).setIs_follow(!userList.get(position).isIs_follow());
             mAutoLoadMoreAdapter.notifyDataSetChanged();
-            focusPresenter.focusUser(getToken(),
+            focusPresenter.focusUser(this,getToken(),
                     userList.get(position).isIs_follow() ? "1" : "0",
                     userList.get(position).getUid());
         });

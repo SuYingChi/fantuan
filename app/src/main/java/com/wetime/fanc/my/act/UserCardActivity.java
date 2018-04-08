@@ -282,7 +282,7 @@ public class UserCardActivity extends BaseActivity implements OnLoadMoreListener
                 }else{
                     bean.getData().getUser().setFollow(!bean.getData().getUser().isFollow());
                     FocusPresenter focusPresenter = new FocusPresenter();
-                    focusPresenter.focusUser(getToken(),
+                    focusPresenter.focusUser(this,getToken(),
                             bean.getData().getUser().isFollow() ? "1" : "0",
                             bean.getData().getUser().getId());
                     if (bean.getData().getUser().isFollow()) {

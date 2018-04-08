@@ -48,7 +48,7 @@
         android:lineSpacingExtra="1sp"
         android:paddingLeft="10dp"
         android:paddingRight="15dp"
-        android:text="我的朋友"
+        android:text="我的好友"
         android:textColor="#333333"
         android:textSize="15sp" />
 
