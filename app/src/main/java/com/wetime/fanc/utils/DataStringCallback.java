@@ -1,10 +1,11 @@
 package com.wetime.fanc.utils;
 
 import android.text.TextUtils;
+import android.util.Log;
 
+import com.fan.http.okhttp.callback.StringCallback;
 import com.wetime.fanc.main.ivews.IBaseVIew;
 import com.wetime.fanc.main.model.ErrorBean;
-import com.fan.http.okhttp.callback.StringCallback;
 
 import okhttp3.Call;
 import okhttp3.Request;
@@ -83,6 +84,8 @@ public class DataStringCallback extends StringCallback {
 
     @Override
     public void onError(Call call, Exception e, int i) {
+        Log.e("xi", "onError: " + e.getCause());
+        Log.e("xi", "onError: " + e.getMessage());
         if (showDialog) {
             iview.dismissLoading();
         }

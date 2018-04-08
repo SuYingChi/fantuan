@@ -26,12 +26,14 @@ public class PublishCirclePresenter {
 //        "lng":"110.3196",
 //                "lat":"20.02862",
 //                "location":"百方"
+        String content = iView.getContent();
+        content=content.replace("\n"," ");
         OkHttpUtils
                 .post()
                 .url(Const.DYNAMIC_PUBLISH_SAVE)
                 .addParams("token", iView.getToken())
                 .addParams("circle_id", iView.getCircleId())
-                .addParams("content", iView.getContent())
+                .addParams("content", content)
                 .addParams("image_ids", ids)
                 .addParams("lng", iView.getCJd())
                 .addParams("lat", iView.getCWd())

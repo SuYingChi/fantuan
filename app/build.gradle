@@ -119,6 +119,7 @@ dependencies {
     implementation 'com.zhy:base-rvadapter:3.0.3'
     implementation 'com.github.yalantis:ucrop:2.2.1'
     implementation files('libs/open_sdk_r5990_lite.jar')
+    implementation 'com.sina.weibo.sdk:core:4.2.7:openDefaultRelease@aar'
 }
 
 

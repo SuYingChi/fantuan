@@ -26,6 +26,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.sina.weibo.sdk.WbSdk;
+import com.sina.weibo.sdk.api.TextObject;
+import com.sina.weibo.sdk.api.WebpageObject;
+import com.sina.weibo.sdk.api.WeiboMultiMessage;
+import com.sina.weibo.sdk.auth.AuthInfo;
+import com.sina.weibo.sdk.share.WbShareHandler;
 import com.tencent.connect.share.QQShare;
 import com.tencent.connect.share.QzoneShare;
 import com.tencent.mm.opensdk.modelmsg.SendMessageToWX;
@@ -40,6 +46,7 @@ import com.wetime.fanc.customview.multiimageselector.MultiImageSelectorActivity;
 import com.wetime.fanc.login.act.LoginActivity;
 import com.wetime.fanc.main.act.PictureActivity;
 import com.wetime.fanc.web.WebActivity;
+import com.wetime.fanc.weibo.Constants;
 
 import java.io.ByteArrayOutputStream;
 import java.io.Serializable;
@@ -384,6 +391,62 @@ public class Tools {
         req.scene = type;
         IWXAPI mWxApi = WXAPIFactory.createWXAPI(mContext, "wx2fbcb61b6e5b1384", true);
         mWxApi.sendReq(req);
+
+    }
+
+    public static void shareWb(Context mContext, String url, String title, String des) {
+
+
+        WbSdk.install(mContext, new AuthInfo(mContext, Constants.APP_KEY, url, Constants.SCOPE));
+
+//注册你的ShareHandler：
+
+        WbShareHandler shareHandler;
+
+
+        shareHandler = new WbShareHandler((Activity) mContext);
+
+
+        shareHandler.registerApp();
+
+        WebpageObject mediaObj = new WebpageObject();
+
+        //创建文本消息对象
+
+        TextObject textObject = new TextObject();
+
+        textObject.text = "你分享内容的描述";
+
+        //创建图片消息对象，如果只分享文字和网页就不用加图片
+
+        WeiboMultiMessage message = new WeiboMultiMessage();
+
+//        ImageObject imageObject =new ImageObject();
+
+        // 设置 Bitmap 类型的图片到视频对象里        设置缩略图。 注意：最终压缩过的缩略图大小 不得超过 32kb。
+
+//        Bitmap bitmap = BitmapFactory.decodeResource(getResources() , R.drawable.test);
+
+//        imageObject.setImageObject(bitmap);
+
+        message.textObject = textObject;
+
+//        message.imageObject= imageObject;
+
+        message.mediaObject = mediaObj;
+
+        shareHandler.shareMessage(message, false);
+
+
+//        WeiboMessage weiboMessage = new WeiboMessage();
+//        ImageObject imageObject = new ImageObject();
+//        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
+//        imageObject.setImageObject(bitmap);
+//        weiboMessage.mediaObject = imageObject;
+//        SendMessageToWeiboRequest request = new SendMessageToWeiboRequest();
+//        request.transaction = String.valueOf(System.currentTimeMillis());
+//        request.message = weiboMessage;
+//        mWeiboShareAPI.sendRequest(SinaActivity.this, request);
 
     }
 

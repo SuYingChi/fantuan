@@ -327,6 +327,7 @@ public class GalleryFragment extends BaseLazyFragment implements IHandlerMessage
                     startActivity(go1);
                 } else {
                     String s = String.valueOf(mGalleryCurrEdit.getText());
+                    s = s.replace("\n", " ");
                     if (s.equals("null")) {
                         Toast.makeText(mGalleryActivity, "请先填写您的评论", Toast.LENGTH_SHORT).show();
                         return;
@@ -346,7 +347,8 @@ public class GalleryFragment extends BaseLazyFragment implements IHandlerMessage
                 Tools.shareWx(getContext(), gallery.getData().getAtlas_url(), SendMessageToWX.Req.WXSceneTimeline, "Test", "Test");
                 break;
             case R.id.ll_share_wb:
-                Toast.makeText(mGalleryActivity, "功能正在开发中!", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(mGalleryActivity, "功能正在开发中!", Toast.LENGTH_SHORT).show();
+                Tools.shareWb(getActivity(), gallery.getData().getAtlas_url(),  "Test", "Test");
                 break;
             case R.id.ll_share_qq:
                 Tools.shareQQ(getActivity(), gallery.getData().getAtlas_url(), "Test", "Test", new IUiListener() {

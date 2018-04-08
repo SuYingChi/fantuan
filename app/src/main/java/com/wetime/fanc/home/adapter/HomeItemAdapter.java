@@ -8,7 +8,6 @@ import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -100,7 +99,7 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
                 return new NewsHolder1000(inflater.inflate(R.layout.item_usercard_empty, parent, false));
             } else if (viewType == 2) {//图集
                 return new NewsHolder2(inflater.inflate(R.layout.item_news_type2, parent, false));
-            }else if (viewType == 9000) {//头条 推荐 头部
+            } else if (viewType == 9000) {//头条 推荐 头部
                 return new NewsHolder9000(inflater.inflate(R.layout.item_news_type9000, parent, false));
             }
 
@@ -124,7 +123,7 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
         holder.itemView.setOnClickListener(view -> {
             switch (bean.getType()) {
                 case 2:
-                 GalleryActivity.startToGallery(mActivity,bean.getId());
+                    GalleryActivity.startToGallery(mActivity, bean.getId());
                     break;
                 case 1:
                 case 3:
@@ -435,7 +434,10 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
                         ((NewsHolder39) holder).ivZan.setImageResource(R.drawable.ic_homeitem_zan_off_off);
                         presenter.zanAct(bean.getId(), Tools.getSpu(mActivity).getToken(), "0");
                         bean.setHas_like(false);
-                        int num = Integer.valueOf(((NewsHolder39) holder).tvZannum.getText().toString()) - 1;
+                        int num = 0;
+                        if (Integer.valueOf(((NewsHolder39) holder).tvZannum.getText().toString()) != 0) {
+                            num = Integer.valueOf(((NewsHolder39) holder).tvZannum.getText().toString()) - 1;
+                        }
                         ((NewsHolder39) holder).tvZannum.setText(String.format("%d", num));
                     } else {
                         ((NewsHolder39) holder).ivZan.setImageResource(R.drawable.ic_homeitem_zan_off_on);
@@ -553,7 +555,10 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
                         ((NewsHolder19) holder).ivZan.setImageResource(R.drawable.ic_homeitem_zan_off_off);
                         presenter.zanAct(bean.getId(), Tools.getSpu(mActivity).getToken(), "0");
                         bean.setHas_like(false);
-                        int num = Integer.valueOf(((NewsHolder19) holder).tvZannum.getText().toString()) - 1;
+                        int num = 0;
+                        if (Integer.valueOf(((NewsHolder19) holder).tvZannum.getText().toString()) != 0) {
+                            num = Integer.valueOf(((NewsHolder19) holder).tvZannum.getText().toString()) - 1;
+                        }
                         ((NewsHolder19) holder).tvZannum.setText(String.format("%d", num));
                     } else {
                         ((NewsHolder19) holder).ivZan.setImageResource(R.drawable.ic_homeitem_zan_off_on);
@@ -689,6 +694,7 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
             ButterKnife.bind(this, view);
         }
     }// 图集
+
     class NewsHolder9000 extends RecyclerView.ViewHolder {
 
         NewsHolder9000(View view) {

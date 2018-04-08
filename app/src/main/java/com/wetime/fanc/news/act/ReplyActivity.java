@@ -25,6 +25,7 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.wetime.fanc.R;
 import com.wetime.fanc.customview.GoodView;
+import com.wetime.fanc.login.act.LoginActivity;
 import com.wetime.fanc.main.act.BaseActivity;
 import com.wetime.fanc.my.act.UserCardActivity;
 import com.wetime.fanc.news.adapter.ReplyAdapter;
@@ -160,7 +161,7 @@ public class ReplyActivity extends BaseActivity implements OnRefreshListener, IG
         return super.onTouchEvent(event);
     }
 
-    @OnClick({R.id.iv_back, R.id.reply_linear,R.id.reply_head, R.id.gallery_linear, R.id.gallery_curr_TextView, R.id.reply_all_comment})
+    @OnClick({R.id.iv_back, R.id.reply_linear, R.id.reply_head, R.id.gallery_linear, R.id.gallery_curr_TextView, R.id.reply_all_comment})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
@@ -206,12 +207,19 @@ public class ReplyActivity extends BaseActivity implements OnRefreshListener, IG
                 sendReply("0", commentTestBean.getId(), commentTestBean.getUser().getUsername());
                 break;
             case R.id.gallery_curr_TextView:
-                String s = String.valueOf(galleryCurrEditText.getText());
-                if (s.equals("null")) {
-                    Toast.makeText(this, "评论不能为空哦~", Toast.LENGTH_SHORT).show();
-                    return;
+                if (spu.getToken().equals("")) {
+                    Intent go1 = new Intent(this, LoginActivity.class);
+                    startActivity(go1);
+                } else {
+                    String s = String.valueOf(galleryCurrEditText.getText());
+                    s = s.replace("\n", " ");
+                    if (s.equals("null")) {
+                        Toast.makeText(this, "评论不能为空哦~", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    getCommentReplyPresenter.sendCommentReply(pid, commentId, s);
                 }
-                getCommentReplyPresenter.sendCommentReply(pid, commentId, s);
+
                 break;
         }
     }
