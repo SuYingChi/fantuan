@@ -307,7 +307,7 @@ public class WebActivity extends BaseActivity implements IPostMultiFileView, WbS
 
     @JavascriptInterface
     public String getToken() {
-        return spu.getValue("token");
+        return spu.getToken();
     }
 
     @JavascriptInterface
