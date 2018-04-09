@@ -73,7 +73,7 @@ public class NineImageGridListAdapter extends BaseAdapter {
         } else {
             int sw = Tools.getScreenW(mContext);
             int w = sw - Tools.dip2px(mContext, 15 + 15);
-            Double rate = 160.0 / 345;
+            Double rate = 9.0 / 16;
 
             int h = (int) (w * rate);
             Glide.with(mContext.getApplicationContext()).load(mlist.get(position))

@@ -113,8 +113,15 @@ public class PublishActActivity extends BaseActivity implements IPostMultiFileVi
 
     @Override
     public void onBackPressed() {
-        Tools.hideSoftInput(this);
-        super.onBackPressed();
+        if (etContent.getText().toString().length() == 0) {
+            Tools.hideSoftInput(this);
+            super.onBackPressed();
+        } else {
+            Tools.showTipsDialog(mContext, "", "确定要退出编辑?", null, v -> {
+                Tools.hideSoftInput(PublishActActivity.this);
+                finish();
+            });
+        }
     }
 
     @OnClick({R.id.iv_close, R.id.iv_back, R.id.tv_publish, R.id.tv_select_circle, R.id.tv_addres})
