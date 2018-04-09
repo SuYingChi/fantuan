@@ -2,6 +2,7 @@ package com.wetime.fanc.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 
 public class SharePreferenceUtil {
     private static final String LOGINMSG = "loginmsg";
@@ -21,13 +22,13 @@ public class SharePreferenceUtil {
     private static final String USERTYPE = "usertype";
     private SharedPreferences sp;
     private SharedPreferences.Editor editor;
+    private Context mContext;
 
     public SharePreferenceUtil(Context context, String file) {
         sp = context.getApplicationContext().getSharedPreferences(file, Context.MODE_PRIVATE);
         editor = sp.edit();
+        mContext = context;
     }
-
-
 
 
     //用户角色
@@ -158,6 +159,16 @@ public class SharePreferenceUtil {
     }
 
     public String getToken() {
+        if (Tools.isAppInstalled(mContext, "com.wetime.ftools")) {
+            try {
+                Context sharedAppContext = mContext.createPackageContext("com.wetime.ftools", 0);
+                SharedPreferences sharedPreferences = sharedAppContext.getSharedPreferences("wetime", Context.MODE_WORLD_READABLE);
+                return sharedPreferences.getString(TOKEN, "读取失败");
+            } catch (PackageManager.NameNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+
         return getValue(TOKEN);
     }
 
