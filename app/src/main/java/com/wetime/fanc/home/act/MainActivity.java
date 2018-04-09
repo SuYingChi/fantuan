@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -207,7 +208,7 @@ public class MainActivity extends BaseActivity implements IBindPushView, IGetRed
                     spu.setValue("citem", "2");
                     if (!TextUtils.isEmpty(spu.getToken()))
                         getRedNumPresenter.getRedNum();
-                }else {
+                } else {
                     EventBus.getDefault().post(new ReFreshCircleEvent());
                 }
                 break;
@@ -283,6 +284,13 @@ public class MainActivity extends BaseActivity implements IBindPushView, IGetRed
         pushPresenter.bindPush(event.getId());
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.e("zk home","onResume");
+        if (!TextUtils.isEmpty(spu.getToken()))
+            getRedNumPresenter.getRedNum();
+    }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(SwichFragEvent event) {
