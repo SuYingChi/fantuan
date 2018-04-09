@@ -99,8 +99,12 @@ public class ReplyActivity extends BaseActivity implements OnRefreshListener, IG
     private void initData() {
         commentTestBean = (CommentBean.DataBean.ListBean) getIntent().getSerializableExtra("commentTestBean");
         sendReply("0", commentTestBean.getId(), commentTestBean.getUser().getUsername());
+        if (commentTestBean.isIs_author()) {
+            replyName.setText("我");
+        } else {
+            replyName.setText(commentTestBean.getUser().getUsername());
+        }
         tvTitle.setText(commentTestBean.getReply_num() + "条回复");
-        replyName.setText(commentTestBean.getUser().getUsername());
         replyContent.setText(commentTestBean.getContent());
         replyGood.setText(commentTestBean.getLike_num());
         replyTime.setText(commentTestBean.getTime());

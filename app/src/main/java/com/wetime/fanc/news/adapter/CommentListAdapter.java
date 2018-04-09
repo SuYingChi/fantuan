@@ -35,7 +35,11 @@ public class CommentListAdapter extends CommonAdapter<CommentBean.DataBean.ListB
 
     @Override
     protected void convert(ViewHolder holder, CommentBean.DataBean.ListBean commentTestBean, int position) {
-        holder.setText(R.id.comment_name, commentTestBean.getUser().getUsername());
+        if (commentTestBean.isIs_author()) {
+            holder.setText(R.id.comment_name, "我");
+        } else {
+            holder.setText(R.id.comment_name, commentTestBean.getUser().getUsername());
+        }
         holder.setText(R.id.comment_content, commentTestBean.getContent());
         holder.setText(R.id.comment_number, commentTestBean.getReply_num() + "条回复");
         holder.setText(R.id.comment_good, commentTestBean.getLike_num());

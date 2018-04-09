@@ -150,7 +150,7 @@
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
             android:singleLine="true"
-            android:textColor="#999999"
+            android:textColor="#333"
             android:textColorHint="#999999" />
 
 
