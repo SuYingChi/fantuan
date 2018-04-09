@@ -10,9 +10,11 @@ import android.view.ViewStub;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.gyf.barlibrary.ImmersionBar;
+import com.sina.weibo.sdk.share.WbShareCallback;
 import com.wetime.fanc.R;
 import com.wetime.fanc.customview.photoview.MyViewPager;
 import com.wetime.fanc.login.act.LoginActivity;
@@ -34,7 +36,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * Description:  图集
  */
 public class GalleryActivity extends BaseActivity implements View.OnClickListener,
-        MyViewPager.OnNeedScrollListener, GalleryFragment.OnPhotoTapListener {
+        MyViewPager.OnNeedScrollListener, GalleryFragment.OnPhotoTapListener, WbShareCallback {
 
     @BindView(R.id.viewpager_photos)
     MyViewPager viewPager;
@@ -177,12 +179,18 @@ public class GalleryActivity extends BaseActivity implements View.OnClickListene
                 if (spu.getToken().equals("")) {
                     Intent go1 = new Intent(this, LoginActivity.class);
                     startActivity(go1);
-                }else{
+                } else {
                     ((GalleryFragment) mCurrFragment).AttentionFriends();
                 }
 
                 break;
         }
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        ((GalleryFragment) mCurrFragment).onNewIntent(intent);
     }
 
     public void drawingView(GalleryItemBean bean) {
@@ -239,5 +247,24 @@ public class GalleryActivity extends BaseActivity implements View.OnClickListene
             friendBaseTextView.setText("关注");
             friendBaseTextView.setVisibility(View.VISIBLE);
         }
+    }
+
+    @Override
+    public void onWbShareSuccess() {
+        Toast.makeText(this, R.string.weibosdk_demo_toast_share_success, Toast.LENGTH_LONG).show();
+        ((GalleryFragment) mCurrFragment).hidePop();
+    }
+
+    @Override
+    public void onWbShareCancel() {
+        Toast.makeText(this, R.string.weibosdk_demo_toast_share_canceled, Toast.LENGTH_LONG).show();
+        ((GalleryFragment) mCurrFragment).hidePop();
+    }
+
+
+    @Override
+    public void onWbShareFail() {
+        Toast.makeText(this, getString(R.string.weibosdk_demo_toast_share_failed) + "Error Message: ", Toast.LENGTH_LONG).show();
+        ((GalleryFragment) mCurrFragment).hidePop();
     }
 }

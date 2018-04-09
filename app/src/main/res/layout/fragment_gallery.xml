@@ -8,7 +8,6 @@
         android:id="@+id/fvp_gallery"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="50dp"
         android:persistentDrawingCache="animation"
         android:scrollbars="none" />
 
@@ -36,7 +35,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
-        android:background="@color/_1b1b1b"
+        android:background="@color/_33000000"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 

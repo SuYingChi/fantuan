@@ -6,11 +6,17 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.PixelFormat;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.Settings;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
 import android.webkit.JavascriptInterface;
@@ -23,8 +29,15 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.gyf.barlibrary.ImmersionBar;
 import com.secure.pay.PayService;
+import com.sina.weibo.sdk.WbSdk;
+import com.sina.weibo.sdk.auth.AuthInfo;
+import com.sina.weibo.sdk.share.WbShareCallback;
+import com.sina.weibo.sdk.share.WbShareHandler;
 import com.tencent.mm.opensdk.modelmsg.SendMessageToWX;
 import com.tencent.tauth.IUiListener;
 import com.tencent.tauth.UiError;
@@ -57,6 +70,7 @@ import com.wetime.fanc.wallet.act.InviteHomeActivity;
 import com.wetime.fanc.wallet.act.MyWalletActivity;
 import com.wetime.fanc.wallet.act.VerfyPhoneNumActivity;
 import com.wetime.fanc.web.event.FinishWebEvent;
+import com.wetime.fanc.weibo.Constants;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -73,7 +87,7 @@ import me.shaohui.bottomdialog.BottomDialog;
 import static com.wetime.fanc.utils.Tools.REQUEST_IMAGE;
 
 
-public class WebActivity extends BaseActivity implements IPostMultiFileView {
+public class WebActivity extends BaseActivity implements IPostMultiFileView, WbShareCallback {
 
     @BindView(R.id.tv_title)
     TextView tvTitle;
@@ -113,6 +127,7 @@ public class WebActivity extends BaseActivity implements IPostMultiFileView {
             }
         }
     };
+    private WbShareHandler shareHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -140,6 +155,9 @@ public class WebActivity extends BaseActivity implements IPostMultiFileView {
             tvTitle.setText(intent.getStringExtra("title"));
         }
         webSetting();
+        WbSdk.install(this, new AuthInfo(this, Constants.APP_KEY, weburl, Constants.SCOPE));
+        shareHandler = new WbShareHandler(this);
+        shareHandler.registerApp();
     }
 
     @Override
@@ -567,7 +585,6 @@ public class WebActivity extends BaseActivity implements IPostMultiFileView {
         web.post(() -> web.loadUrl("javascript:returnPicData('" + ss + "');"));
     }
 
-
     private void gotoSelectPic(String num) {
         int n = Integer.valueOf(num);
         if (n <= 0)
@@ -603,7 +620,7 @@ public class WebActivity extends BaseActivity implements IPostMultiFileView {
     }
 
     @JavascriptInterface
-    public void shareView(String title, String des) {
+    public void shareView(String title, String des, String url) {
         web.post(() -> {
             if (mBottomDialog == null) {
                 mBottomDialog = BottomDialog.create(getSupportFragmentManager());
@@ -619,7 +636,20 @@ public class WebActivity extends BaseActivity implements IPostMultiFileView {
                     });
                     v.findViewById(R.id.ll_share_wb).setOnClickListener(v12 -> {
                         mBottomDialog.dismiss();
-                        Toast.makeText(mContext, "功能正在开发中!", Toast.LENGTH_SHORT).show();
+                        Glide.with(mContext).load(url).into(new SimpleTarget<Drawable>() {
+                            /**
+                             * The method that will be called when the resource load has finished.
+                             *
+                             * @param resource   the loaded resource.
+                             * @param transition
+                             */
+                            @Override
+                            public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
+                                Tools.shareWb(mContext, shareHandler, drawableToBitmap(resource), weburl, title, des);
+                            }
+                        });
+
+//                        Toast.makeText(mContext, "功能正在开发中!", Toast.LENGTH_SHORT).show();
                     });
                     v.findViewById(R.id.ll_share_qq).setOnClickListener(v12 -> {
                         mBottomDialog.dismiss();
@@ -673,6 +703,31 @@ public class WebActivity extends BaseActivity implements IPostMultiFileView {
         });
     }
 
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+
+
+        shareHandler.doResultIntent(intent, this);
+
+    }
+
+    public Bitmap drawableToBitmap(Drawable drawable) {
+
+        int w = drawable.getIntrinsicWidth();
+        int h = drawable.getIntrinsicHeight();
+        Bitmap.Config config =
+                drawable.getOpacity() != PixelFormat.OPAQUE ? Bitmap.Config.ARGB_8888
+                        : Bitmap.Config.RGB_565;
+        Bitmap bitmap = Bitmap.createBitmap(w, h, config);
+        //注意，下面三行代码要用到，否则在View或者SurfaceView里的canvas.drawBitmap会看不到图
+        Canvas canvas = new Canvas(bitmap);
+        drawable.setBounds(0, 0, w, h);
+        drawable.draw(canvas);
+
+        return bitmap;
+    }
+
     @JavascriptInterface
     public void allowLocation() {
         web.post(() -> Tools.showTipsDialog(mContext, "", "需开启定位且位置为海南才可领取红包",
@@ -685,6 +740,24 @@ public class WebActivity extends BaseActivity implements IPostMultiFileView {
     }
 
 
+    @Override
+    public void onWbShareSuccess() {
+        Toast.makeText(this, R.string.weibosdk_demo_toast_share_success, Toast.LENGTH_LONG).show();
+
+    }
+
+    @Override
+    public void onWbShareCancel() {
+        Toast.makeText(this, R.string.weibosdk_demo_toast_share_canceled, Toast.LENGTH_LONG).show();
+
+    }
+
+
+    @Override
+    public void onWbShareFail() {
+        Toast.makeText(this, getString(R.string.weibosdk_demo_toast_share_failed) + "Error Message: ", Toast.LENGTH_LONG).show();
+
+    }
 }
 
 

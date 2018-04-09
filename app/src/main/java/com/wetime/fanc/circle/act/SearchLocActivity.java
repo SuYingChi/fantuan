@@ -113,13 +113,17 @@ public class SearchLocActivity extends BaseActivity implements TextWatcher, IGet
         finish();
     }
 
-    @OnClick({R.id.iv_back,R.id.iv_close})
+    @OnClick({R.id.iv_back, R.id.iv_close, R.id.tv_cancel})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
                 onBackPressed();
                 break;
             case R.id.iv_close:
+                etSearch.setText("");
+                llEmpty.setVisibility(View.GONE);
+                break;
+            case R.id.tv_cancel:
                 etSearch.setText("");
                 llEmpty.setVisibility(View.GONE);
                 break;
@@ -140,10 +144,12 @@ public class SearchLocActivity extends BaseActivity implements TextWatcher, IGet
     public void afterTextChanged(Editable editable) {
         if (editable.toString().length() > 0) {
             ivClose.setVisibility(View.VISIBLE);
+            tvCancel.setVisibility(View.VISIBLE);
             page = 1;
             getLocListPresenter.getLoclist();
         } else {
             ivClose.setVisibility(View.GONE);
+            tvCancel.setVisibility(View.GONE);
             list.clear();
             mAutoLoadMoreAdapter.notifyDataSetChanged();
         }
@@ -155,9 +161,9 @@ public class SearchLocActivity extends BaseActivity implements TextWatcher, IGet
             list.clear();
         }
         list.addAll(bean.getData().getList());
-        if(page==1&&bean.getData().getList().size()==0){
+        if (page == 1 && bean.getData().getList().size() == 0) {
             llEmpty.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             llEmpty.setVisibility(View.GONE);
         }
 

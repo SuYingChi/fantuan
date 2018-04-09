@@ -5,6 +5,14 @@
     android:layout_height="match_parent"
     android:background="@color/_1b1b1b">
 
+
+
+    <com.wetime.fanc.customview.photoview.MyViewPager
+        android:id="@+id/viewpager_photos"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none" />
+
     <LinearLayout
         android:id="@+id/back_layout"
         android:layout_width="match_parent"
@@ -87,13 +95,6 @@
 
 
     </LinearLayout>
-
-    <com.wetime.fanc.customview.photoview.MyViewPager
-        android:id="@+id/viewpager_photos"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/back_layout"
-        android:scrollbars="none" />
 
     <ViewStub
         android:id="@+id/activity_net_error_stub"

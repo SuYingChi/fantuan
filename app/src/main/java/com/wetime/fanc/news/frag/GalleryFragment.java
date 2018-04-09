@@ -7,12 +7,18 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.PixelFormat;
 import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Message;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,6 +34,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
+import com.sina.weibo.sdk.WbSdk;
+import com.sina.weibo.sdk.auth.AuthInfo;
+import com.sina.weibo.sdk.share.WbShareCallback;
+import com.sina.weibo.sdk.share.WbShareHandler;
 import com.tencent.mm.opensdk.modelmsg.SendMessageToWX;
 import com.tencent.tauth.IUiListener;
 import com.tencent.tauth.UiError;
@@ -47,6 +60,7 @@ import com.wetime.fanc.news.iviews.IGetNewsDetailView;
 import com.wetime.fanc.news.presenter.GetNewsDetailPresenter;
 import com.wetime.fanc.utils.ToastUtils;
 import com.wetime.fanc.utils.Tools;
+import com.wetime.fanc.weibo.Constants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -98,11 +112,28 @@ public class GalleryFragment extends BaseLazyFragment implements IHandlerMessage
     private ImageView collertImage;
     private View shareImage;
     private PopupWindow pop;
+    private WbShareHandler shareHandler;
 
     public static GalleryFragment newInstance(@Nullable Bundle bundle) {
         GalleryFragment fragment = new GalleryFragment();
         fragment.setArguments(bundle);
         return fragment;
+    }
+
+    public Bitmap drawableToBitmap(Drawable drawable) {
+
+        int w = drawable.getIntrinsicWidth();
+        int h = drawable.getIntrinsicHeight();
+        Bitmap.Config config =
+                drawable.getOpacity() != PixelFormat.OPAQUE ? Bitmap.Config.ARGB_8888
+                        : Bitmap.Config.RGB_565;
+        Bitmap bitmap = Bitmap.createBitmap(w, h, config);
+        //注意，下面三行代码要用到，否则在View或者SurfaceView里的canvas.drawBitmap会看不到图
+        Canvas canvas = new Canvas(bitmap);
+        drawable.setBounds(0, 0, w, h);
+        drawable.draw(canvas);
+
+        return bitmap;
     }
 
     @Override
@@ -120,6 +151,7 @@ public class GalleryFragment extends BaseLazyFragment implements IHandlerMessage
         }
         galleryId = this.getArguments().getString("galleryId");
         initLisner();
+
         return rootView;
     }
 
@@ -273,7 +305,6 @@ public class GalleryFragment extends BaseLazyFragment implements IHandlerMessage
         super.onDestroy();
     }
 
-
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
@@ -341,17 +372,30 @@ public class GalleryFragment extends BaseLazyFragment implements IHandlerMessage
                 imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
                 break;
             case R.id.ll_share_wx:
-                Tools.shareWx(getContext(), gallery.getData().getAtlas_url(), SendMessageToWX.Req.WXSceneSession, "Test", "Test");
+                Tools.shareWx(getContext(), gallery.getData().getAtlas_url(), SendMessageToWX.Req.WXSceneSession, "Test", gallery.getData().getName());
                 break;
             case R.id.ll_share_wxq:
-                Tools.shareWx(getContext(), gallery.getData().getAtlas_url(), SendMessageToWX.Req.WXSceneTimeline, "Test", "Test");
+                Tools.shareWx(getContext(), gallery.getData().getAtlas_url(), SendMessageToWX.Req.WXSceneTimeline, "Test", gallery.getData().getName());
                 break;
             case R.id.ll_share_wb:
 //                Toast.makeText(mGalleryActivity, "功能正在开发中!", Toast.LENGTH_SHORT).show();
-                Tools.shareWb(getActivity(), gallery.getData().getAtlas_url(),  "Test", "Test");
+                Glide.with(getActivity()).load(gallery.getData().getAtlas_content().get(0).getImg_url()).into(new SimpleTarget<Drawable>() {
+                    /**
+                     * The method that will be called when the resource load has finished.
+                     *
+                     * @param resource   the loaded resource.
+                     * @param transition
+                     */
+                    @Override
+                    public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
+                        Tools.shareWb(getActivity(),shareHandler, drawableToBitmap(resource), gallery.getData().getAtlas_url(), "Test", gallery.getData().getName());
+
+                    }
+                });
+
                 break;
             case R.id.ll_share_qq:
-                Tools.shareQQ(getActivity(), gallery.getData().getAtlas_url(), "Test", "Test", new IUiListener() {
+                Tools.shareQQ(getActivity(), gallery.getData().getAtlas_url(), "Test", gallery.getData().getName(), new IUiListener() {
                     @Override
                     public void onComplete(Object o) {
                         Toast.makeText(mGalleryActivity, "分享成功!", Toast.LENGTH_SHORT).show();
@@ -369,7 +413,7 @@ public class GalleryFragment extends BaseLazyFragment implements IHandlerMessage
                 });
                 break;
             case R.id.ll_share_qqkj:
-                Tools.shareToQzone(getActivity(), gallery.getData().getAtlas_url(), "Test", "Test", new IUiListener() {
+                Tools.shareToQzone(getActivity(), gallery.getData().getAtlas_url(), "Test", gallery.getData().getName(), new IUiListener() {
                     @Override
                     public void onComplete(Object o) {
                         Toast.makeText(mGalleryActivity, "分享成功!", Toast.LENGTH_SHORT).show();
@@ -398,6 +442,12 @@ public class GalleryFragment extends BaseLazyFragment implements IHandlerMessage
                 }
                 break;
         }
+    }
+
+    public void onNewIntent(Intent intent) {
+
+
+        shareHandler.doResultIntent(intent, ((GalleryActivity) getActivity()));
     }
 
     private void showPop() {
@@ -541,6 +591,9 @@ public class GalleryFragment extends BaseLazyFragment implements IHandlerMessage
     public void onGetNewDetail(GalleryItemBean bean) {
         mGalleryActivity.drawingView(bean);
         gallery = bean;
+        WbSdk.install(getActivity(), new AuthInfo(getActivity(), Constants.APP_KEY, gallery.getData().getAtlas_url(), Constants.SCOPE));
+        shareHandler = new WbShareHandler(getActivity());
+        shareHandler.registerApp();
         if (bean.getError() == 0) {
             if (bean.getData().getAtlas_content().size() == 0) {
                 handler.obtainMessage(MSG_CALL_NO_DATA).sendToTarget();
@@ -584,6 +637,14 @@ public class GalleryFragment extends BaseLazyFragment implements IHandlerMessage
             mGalleryCurrEdit.setText("");
         }
     }
+
+
+
+    public void hidePop(){
+        if (pop.isShowing()) {
+            pop.dismiss();
+        }
+    };
 
     public interface OnPhotoTapListener {
         void onShowView();

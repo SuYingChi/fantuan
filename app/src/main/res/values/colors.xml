@@ -27,6 +27,7 @@
     <color name="bg_dark">#f3f5f9</color>
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
+    <color name="lucency">#00000000</color>
     <color name="linebg">#e5e5e5</color>
     <color name="biglinebg">#f5f5f5</color>
     <color name="line_color">#e5e5e5</color>

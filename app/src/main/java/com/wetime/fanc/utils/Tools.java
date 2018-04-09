@@ -26,12 +26,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.sina.weibo.sdk.WbSdk;
+import com.sina.weibo.sdk.api.ImageObject;
 import com.sina.weibo.sdk.api.TextObject;
 import com.sina.weibo.sdk.api.WebpageObject;
 import com.sina.weibo.sdk.api.WeiboMultiMessage;
-import com.sina.weibo.sdk.auth.AuthInfo;
 import com.sina.weibo.sdk.share.WbShareHandler;
+import com.sina.weibo.sdk.utils.Utility;
 import com.tencent.connect.share.QQShare;
 import com.tencent.connect.share.QzoneShare;
 import com.tencent.mm.opensdk.modelmsg.SendMessageToWX;
@@ -46,7 +46,6 @@ import com.wetime.fanc.customview.multiimageselector.MultiImageSelectorActivity;
 import com.wetime.fanc.login.act.LoginActivity;
 import com.wetime.fanc.main.act.PictureActivity;
 import com.wetime.fanc.web.WebActivity;
-import com.wetime.fanc.weibo.Constants;
 
 import java.io.ByteArrayOutputStream;
 import java.io.Serializable;
@@ -394,60 +393,50 @@ public class Tools {
 
     }
 
-    public static void shareWb(Context mContext, String url, String title, String des) {
+    public static void shareWb(Context mContext, WbShareHandler shareHandler, Bitmap bitmap, String url, String title, String des) {
 
 
-        WbSdk.install(mContext, new AuthInfo(mContext, Constants.APP_KEY, url, Constants.SCOPE));
+        WeiboMultiMessage weiboMessage = new WeiboMultiMessage();
 
-//注册你的ShareHandler：
+//        weiboMessage.textObject = getTextObj(url, title, des);
 
-        WbShareHandler shareHandler;
+        weiboMessage.imageObject = getImageObj(bitmap);
+
+        weiboMessage.mediaObject = getWebpageObj(bitmap, url, title, des);
+
+        shareHandler.shareMessage(weiboMessage, false);
 
 
-        shareHandler = new WbShareHandler((Activity) mContext);
+    }
 
-
-        shareHandler.registerApp();
-
-        WebpageObject mediaObj = new WebpageObject();
-
-        //创建文本消息对象
-
+    /**
+     * 创建文本消息对象。
+     *
+     * @return 文本消息对象。
+     */
+    private static TextObject getTextObj(String url, String title, String des) {
         TextObject textObject = new TextObject();
+        textObject.text = des;
+        textObject.title = title;
+        textObject.actionUrl = url;
+        return textObject;
+    }
 
-        textObject.text = "你分享内容的描述";
+    private static ImageObject getImageObj(Bitmap bitmap) {
+        ImageObject imageObject = new ImageObject();
+        imageObject.setImageObject(bitmap);
+        return imageObject;
+    }
 
-        //创建图片消息对象，如果只分享文字和网页就不用加图片
-
-        WeiboMultiMessage message = new WeiboMultiMessage();
-
-//        ImageObject imageObject =new ImageObject();
-
-        // 设置 Bitmap 类型的图片到视频对象里        设置缩略图。 注意：最终压缩过的缩略图大小 不得超过 32kb。
-
-//        Bitmap bitmap = BitmapFactory.decodeResource(getResources() , R.drawable.test);
-
-//        imageObject.setImageObject(bitmap);
-
-        message.textObject = textObject;
-
-//        message.imageObject= imageObject;
-
-        message.mediaObject = mediaObj;
-
-        shareHandler.shareMessage(message, false);
-
-
-//        WeiboMessage weiboMessage = new WeiboMessage();
-//        ImageObject imageObject = new ImageObject();
-//        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
-//        imageObject.setImageObject(bitmap);
-//        weiboMessage.mediaObject = imageObject;
-//        SendMessageToWeiboRequest request = new SendMessageToWeiboRequest();
-//        request.transaction = String.valueOf(System.currentTimeMillis());
-//        request.message = weiboMessage;
-//        mWeiboShareAPI.sendRequest(SinaActivity.this, request);
-
+    private static WebpageObject getWebpageObj(Bitmap bitmap, String url, String title, String des) {
+        WebpageObject mediaObject = new WebpageObject();
+        mediaObject.identify = Utility.generateGUID();
+        mediaObject.title = des;
+        mediaObject.description = des;
+        // 设置 Bitmap 类型的图片到视频对象里         设置缩略图。 注意：最终压缩过的缩略图大小不得超过 32kb。
+        mediaObject.setThumbImage(bitmap);
+        mediaObject.actionUrl = url;
+        return mediaObject;
     }
 
     public static String buildTransaction(final String type) {
