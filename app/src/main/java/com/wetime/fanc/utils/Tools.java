@@ -382,10 +382,10 @@ public class Tools {
     private static Bitmap comp(Bitmap image) {
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        image.compress(Bitmap.CompressFormat.JPEG, 10, baos);
+        image.compress(Bitmap.CompressFormat.JPEG, 80, baos);
         if( baos.toByteArray().length / 1024>32) {//判断如果图片大于1M,进行压缩避免在生成图片（BitmapFactory.decodeStream）时溢出
             baos.reset();//重置baos即清空baos
-            image.compress(Bitmap.CompressFormat.JPEG, 10, baos);//这里压缩50%，把压缩后的数据存放到baos中
+            image.compress(Bitmap.CompressFormat.JPEG, 70, baos);//这里压缩50%，把压缩后的数据存放到baos中
         }
         ByteArrayInputStream isBm = new ByteArrayInputStream(baos.toByteArray());
         BitmapFactory.Options newOpts = new BitmapFactory.Options();
@@ -396,8 +396,8 @@ public class Tools {
         int w = newOpts.outWidth;
         int h = newOpts.outHeight;
         //现在主流手机比较多是800*480分辨率，所以高和宽我们设置为
-        float hh = 300f;//这里设置高度为800f
-        float ww = 300f;//这里设置宽度为480f
+        float hh = 80f;//这里设置高度为800f
+        float ww = 80f;//这里设置宽度为480f
         //缩放比。由于是固定比例缩放，只用高或者宽其中一个数据进行计算即可
         int be = 5;//be=1表示不缩放
         if (w > h && w > ww) {//如果宽度大的话根据宽度固定大小缩放
@@ -417,8 +417,8 @@ public class Tools {
     private static Bitmap compressImage(Bitmap image) {
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        image.compress(Bitmap.CompressFormat.JPEG, 1, baos);//质量压缩方法，这里100表示不压缩，把压缩后的数据存放到baos中
-        int options = 100;
+        image.compress(Bitmap.CompressFormat.JPEG, 70, baos);//质量压缩方法，这里100表示不压缩，把压缩后的数据存放到baos中
+        int options = 50;
         while ( baos.toByteArray().length / 1024>32) { //循环判断如果压缩后图片是否大于100kb,大于继续压缩
             baos.reset();//重置baos即清空baos
             image.compress(Bitmap.CompressFormat.JPEG, options, baos);//这里压缩options%，把压缩后的数据存放到baos中
@@ -454,13 +454,14 @@ public class Tools {
         msg.description = des;
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        int quality = 1;
+        int quality = 10;
         Log.e("xi", "shareWx: "+getBitmapSize(thumb) );
-        thumb.compress(Bitmap.CompressFormat.JPEG, quality, baos);
-        BitmapFactory.Options options2 = new BitmapFactory.Options();
-        options2.inPreferredConfig = Bitmap.Config.RGB_565;
-        byte[] bytes = baos.toByteArray();
-        thumb = BitmapFactory.decodeByteArray(bytes, 0, bytes.length,options2);
+//        thumb.compress(Bitmap.CompressFormat.JPEG, quality, baos);
+//        BitmapFactory.Options options2 = new BitmapFactory.Options();
+//        options2.inPreferredConfig = Bitmap.Config.ARGB_8888;
+//        byte[] bytes = baos.toByteArray();
+//        thumb = BitmapFactory.decodeByteArray(bytes, 0, bytes.length,options2);
+        thumb=comp(thumb);
         Log.e("xi", "shareWx: "+getBitmapSize(thumb) );
 
         msg.thumbData = bmpToByteArray(thumb, true);
