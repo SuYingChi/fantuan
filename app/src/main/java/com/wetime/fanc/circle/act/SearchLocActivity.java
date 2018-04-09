@@ -124,8 +124,7 @@ public class SearchLocActivity extends BaseActivity implements TextWatcher, IGet
                 llEmpty.setVisibility(View.GONE);
                 break;
             case R.id.tv_cancel:
-                etSearch.setText("");
-                llEmpty.setVisibility(View.GONE);
+                onBackPressed();;
                 break;
         }
     }
@@ -144,12 +143,10 @@ public class SearchLocActivity extends BaseActivity implements TextWatcher, IGet
     public void afterTextChanged(Editable editable) {
         if (editable.toString().length() > 0) {
             ivClose.setVisibility(View.VISIBLE);
-            tvCancel.setVisibility(View.VISIBLE);
             page = 1;
             getLocListPresenter.getLoclist();
         } else {
             ivClose.setVisibility(View.GONE);
-            tvCancel.setVisibility(View.GONE);
             list.clear();
             mAutoLoadMoreAdapter.notifyDataSetChanged();
         }

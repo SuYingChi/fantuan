@@ -2,6 +2,7 @@ package com.wetime.fanc.news.presenter;
 
 
 import com.fan.http.okhttp.OkHttpUtils;
+import com.wetime.fanc.main.model.ErrorBean;
 import com.wetime.fanc.news.bean.CommentBean;
 import com.wetime.fanc.news.bean.GalleryCommentBean;
 import com.wetime.fanc.news.iviews.IGetAllCommentView;
@@ -65,6 +66,20 @@ public class GetAllCommentPresenter {
                         super.onResponse(s, i);
                         GalleryCommentBean galleryItemBean = GsonUtils.getGsonInstance().fromJson(s, GalleryCommentBean.class);
                         iview.onSendCommont(galleryItemBean);
+                    }
+                });
+    }
+    public void deleteCommonet(String comment_id) {
+        OkHttpUtils.post().url(Const.DELETE_COMMENT)
+                .addParams("token", iview.getToken())
+                .addParams("comment_id", comment_id)
+                .build()
+                .execute(new DataStringCallback(iview, true, false, false) {
+                    @Override
+                    public void onResponse(String s, int i) {
+                        super.onResponse(s, i);
+                        ErrorBean galleryItemBean = GsonUtils.getGsonInstance().fromJson(s, ErrorBean.class);
+                        iview.onDeleteCommont(galleryItemBean);
                     }
                 });
     }

@@ -1,6 +1,7 @@
 package com.wetime.fanc.news.adapter;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.text.Spannable;
@@ -18,6 +19,7 @@ import com.wetime.fanc.customview.GoodView;
 import com.wetime.fanc.my.act.UserCardActivity;
 import com.wetime.fanc.news.act.ReplyActivity;
 import com.wetime.fanc.news.bean.ReplyCommentBean;
+import com.wetime.fanc.utils.DialogUtils;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
 
@@ -41,16 +43,23 @@ public class ReplyAdapter extends CommonAdapter<ReplyCommentBean.DataBean.ReplyB
     protected void convert(ViewHolder holder, ReplyCommentBean.DataBean.ReplyBean replyBean, int position) {
         if (replyBean.isIs_author()) {
             holder.setText(R.id.reply_item_name, "我");
+            holder.setVisible(R.id.reply_delete, true);
         } else {
             holder.setText(R.id.reply_item_name, replyBean.getUser().getUsername());
+            holder.setVisible(R.id.reply_delete, false);
         }
         holder.setText(R.id.reply_item_good, replyBean.getLike_num());
         holder.setText(R.id.reply_item_time, replyBean.getTime());
         Glide.with(context).load(replyBean.getUser().getAvatar()).into((ImageView) holder.getView(R.id.reply_item_head));
         if (replyBean.isIs_like()) {
-            holder.setImageResource(R.id.reply_item_image, R.drawable.good_checked);
+            holder.setImageResource(R.id.reply_item_image, R.drawable.ic_homeitem_zan_off_on);
+//            holder.setTextColor(R.id.reply_item_good, R.color._ff3f53);
+            ((TextView) holder.getView(R.id.reply_item_good)).setTextColor(Color.parseColor("#ff3f53"));
         } else {
-            holder.setImageResource(R.id.reply_item_image, R.drawable.good);
+            holder.setImageResource(R.id.reply_item_image, R.drawable.ic_homeitem_zan_off_off);
+//            holder.setTextColor(R.id.reply_item_good, R.color.bot_gray);
+            ((TextView) holder.getView(R.id.reply_item_good)).setTextColor(Color.parseColor("#999999"));
+
         }
 
         if (replyBean.getReply_object() != null) {
@@ -81,23 +90,46 @@ public class ReplyAdapter extends CommonAdapter<ReplyCommentBean.DataBean.ReplyB
         holder.setOnClickListener(R.id.reply_item_name, v -> {
             ((ReplyActivity) context).sendReply(replyBean.getId(), replyBean.getComment_id(), replyBean.getUser().getUsername());
         });
+
+        holder.setOnClickListener(R.id.reply_delete, v -> {
+            DialogUtils.showNormalDialog(mContext, null, "确认删除该评论？", new DialogInterface.OnClickListener() {
+                /**
+                 * This method will be invoked when a button in the dialog is clicked.
+                 *
+                 * @param dialog the dialog that received the click
+                 * @param which  the button that was clicked (ex.
+                 *               {@link DialogInterface#BUTTON_POSITIVE}) or the position
+                 */
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    ((ReplyActivity) context).deleteReply(replyBean.getId());
+                    dialog.dismiss();
+                }
+            });
+
+        });
         holder.setOnClickListener(R.id.reply_item_linear, v -> {//0、取消点赞1、点赞
             if (mGoodView.isShowing()) return;
             if (replyBean.isIs_like()) {
                 mGoodView.setText("-1");
                 mGoodView.show(v);
                 replyBean.setIs_like(false);
-                holder.setImageResource(R.id.reply_item_image, R.drawable.good);
                 int i = Integer.parseInt(((TextView) holder.getView(R.id.reply_item_good)).getText().toString());
                 holder.setText(R.id.reply_item_good, String.valueOf(i - 1));
+
+                holder.setImageResource(R.id.reply_item_image, R.drawable.ic_homeitem_zan_off_off);
+//                holder.setTextColor(R.id.reply_item_good, R.color.bot_gray);
+                ((TextView) holder.getView(R.id.reply_item_good)).setTextColor(Color.parseColor("#999999"));
                 ((ReplyActivity) context).clickLike(replyBean.getId(), "0");
             } else {
                 mGoodView.setText("+1");
                 mGoodView.show(v);
                 replyBean.setIs_like(true);
-                holder.setImageResource(R.id.reply_item_image, R.drawable.good_checked);
                 int i = Integer.parseInt(((TextView) holder.getView(R.id.reply_item_good)).getText().toString());
                 holder.setText(R.id.reply_item_good, String.valueOf(i + 1));
+                holder.setImageResource(R.id.reply_item_image, R.drawable.ic_homeitem_zan_off_on);
+//                holder.setTextColor(R.id.reply_item_good, R.color._ff3f53);
+                ((TextView) holder.getView(R.id.reply_item_good)).setTextColor(Color.parseColor("#ff3f53"));
                 ((ReplyActivity) context).clickLike(replyBean.getId(), "1");
             }
 

@@ -25,6 +25,7 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.wetime.fanc.R;
 import com.wetime.fanc.login.act.LoginActivity;
 import com.wetime.fanc.main.act.BaseActivity;
+import com.wetime.fanc.main.model.ErrorBean;
 import com.wetime.fanc.news.adapter.CommentListAdapter;
 import com.wetime.fanc.news.bean.CommentBean;
 import com.wetime.fanc.news.bean.GalleryCommentBean;
@@ -177,8 +178,19 @@ public class CommentActivity extends BaseActivity implements IGetAllCommentView,
         }
     }
 
+    @Override
+    public void onDeleteCommont(ErrorBean bean) {
+        if (bean.getError() == 0) {
+            Toast.makeText(this, "删除成功", Toast.LENGTH_SHORT).show();
+            onRefresh(commentRefreshLayout);
+        }
+    }
+
     public void clickLike(String comment_id, String like) {
         getAllCommentPresenter.clickLike(comment_id, like);
+    }
+    public void deleteComment(String comment_id) {
+        getAllCommentPresenter.deleteCommonet(comment_id);
     }
 
     @Override
@@ -213,7 +225,7 @@ public class CommentActivity extends BaseActivity implements IGetAllCommentView,
                 } else {
                     String s = String.valueOf(galleryCurrEditText.getText());
                     s = s.replace("\n", " ");
-                    if (s.equals("null")) {
+                    if (s.isEmpty()) {
                         Toast.makeText(this, "评论不能为空哦~", Toast.LENGTH_SHORT).show();
                         return;
                     }

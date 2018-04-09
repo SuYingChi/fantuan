@@ -67,8 +67,7 @@
             android:lineSpacingExtra="0sp"
             android:text="@string/str_cancel"
             android:textColor="#333333"
-            android:textSize="16sp"
-            android:visibility="gone" />
+            android:textSize="16sp" />
     </LinearLayout>
 
     <RelativeLayout
