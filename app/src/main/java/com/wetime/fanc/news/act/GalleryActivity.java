@@ -171,7 +171,7 @@ public class GalleryActivity extends BaseActivity implements View.OnClickListene
             case R.id.friend_base_text:
                 Intent go = new Intent(this, UserCardActivity.class);
                 go.putExtra("num", "3");
-                go.putExtra("index", 0);
+                go.putExtra("index", 1);
                 go.putExtra("id", bean.getData().getUid());
                 this.startActivity(go);
                 break;
