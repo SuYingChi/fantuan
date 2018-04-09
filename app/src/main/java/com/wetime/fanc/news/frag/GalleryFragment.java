@@ -348,12 +348,9 @@ public class GalleryFragment extends BaseLazyFragment implements IHandlerMessage
 
                 break;
             case R.id.gallery_share:
-                if (spu.getToken().equals("")) {
-                    Intent go1 = new Intent(getActivity(), LoginActivity.class);
-                    startActivity(go1);
-                } else {
-                    showPop();
-                }
+
+                showPop();
+
 
                 break;
             case R.id.gallery_curr_TextView:
@@ -662,7 +659,7 @@ public class GalleryFragment extends BaseLazyFragment implements IHandlerMessage
             Toast.makeText(mGalleryActivity, "评论成功", Toast.LENGTH_SHORT).show();
             hideInput();
             mGalleryCurrEdit.setText("");
-            CommentActivity.startToComment(getActivity(),galleryId);
+            CommentActivity.startToComment(getActivity(), galleryId);
         }
     }
 
