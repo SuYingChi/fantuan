@@ -666,6 +666,7 @@ public class WebActivity extends BaseActivity implements IPostMultiFileView, WbS
                     });
                     v.findViewById(R.id.ll_share_wxq).setOnClickListener(v12 -> {
                         mBottomDialog.dismiss();
+                        Log.e("xi", "shareView: "+url );
                         Glide.with(mContext).load(url).into(new SimpleTarget<Drawable>() {
                             /**
                              * The method that will be called when the resource load has finished.

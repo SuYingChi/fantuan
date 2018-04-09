@@ -9,7 +9,9 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.IBinder;
 import android.support.v7.app.AlertDialog;
 import android.text.SpannableString;
@@ -47,7 +49,15 @@ import com.wetime.fanc.login.act.LoginActivity;
 import com.wetime.fanc.main.act.PictureActivity;
 import com.wetime.fanc.web.WebActivity;
 
+import java.io.BufferedOutputStream;
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -369,7 +379,68 @@ public class Tools {
         mContext.startActivity(go);
     }
 
-    public static void shareWx(Context mContext,Bitmap thumb, String url, int type, String title, String des) {
+    private static Bitmap comp(Bitmap image) {
+
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        image.compress(Bitmap.CompressFormat.JPEG, 10, baos);
+        if( baos.toByteArray().length / 1024>32) {//判断如果图片大于1M,进行压缩避免在生成图片（BitmapFactory.decodeStream）时溢出
+            baos.reset();//重置baos即清空baos
+            image.compress(Bitmap.CompressFormat.JPEG, 10, baos);//这里压缩50%，把压缩后的数据存放到baos中
+        }
+        ByteArrayInputStream isBm = new ByteArrayInputStream(baos.toByteArray());
+        BitmapFactory.Options newOpts = new BitmapFactory.Options();
+        //开始读入图片，此时把options.inJustDecodeBounds 设回true了
+        newOpts.inJustDecodeBounds = true;
+        Bitmap bitmap = BitmapFactory.decodeStream(isBm, null, newOpts);
+        newOpts.inJustDecodeBounds = false;
+        int w = newOpts.outWidth;
+        int h = newOpts.outHeight;
+        //现在主流手机比较多是800*480分辨率，所以高和宽我们设置为
+        float hh = 300f;//这里设置高度为800f
+        float ww = 300f;//这里设置宽度为480f
+        //缩放比。由于是固定比例缩放，只用高或者宽其中一个数据进行计算即可
+        int be = 5;//be=1表示不缩放
+        if (w > h && w > ww) {//如果宽度大的话根据宽度固定大小缩放
+            be = (int) (newOpts.outWidth / ww);
+        } else if (w < h && h > hh) {//如果高度高的话根据宽度固定大小缩放
+            be = (int) (newOpts.outHeight / hh);
+        }
+        if (be <= 0)
+            be = 1;
+        newOpts.inSampleSize = be;//设置缩放比例
+        //重新读入图片，注意此时已经把options.inJustDecodeBounds 设回false了
+        isBm = new ByteArrayInputStream(baos.toByteArray());
+        bitmap = BitmapFactory.decodeStream(isBm, null, newOpts);
+        return compressImage(bitmap);//压缩好比例大小后再进行质量压缩
+    }
+
+    private static Bitmap compressImage(Bitmap image) {
+
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        image.compress(Bitmap.CompressFormat.JPEG, 1, baos);//质量压缩方法，这里100表示不压缩，把压缩后的数据存放到baos中
+        int options = 100;
+        while ( baos.toByteArray().length / 1024>32) { //循环判断如果压缩后图片是否大于100kb,大于继续压缩
+            baos.reset();//重置baos即清空baos
+            image.compress(Bitmap.CompressFormat.JPEG, options, baos);//这里压缩options%，把压缩后的数据存放到baos中
+            options -= 10;//每次都减少10
+        }
+        ByteArrayInputStream isBm = new ByteArrayInputStream(baos.toByteArray());//把压缩后的数据baos存放到ByteArrayInputStream中
+        Bitmap bitmap = BitmapFactory.decodeStream(isBm, null, null);//把ByteArrayInputStream数据生成图片
+        return bitmap;
+    }
+
+    public static int getBitmapSize(Bitmap bitmap) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {    //API 19
+            return bitmap.getAllocationByteCount();
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR1) {//API 12
+            return bitmap.getByteCount();
+        }
+        // 在低版本中用一行的字节x高度
+        return bitmap.getRowBytes() * bitmap.getHeight();                //earlier version
+    }
+
+    public static void shareWx(Context mContext, Bitmap thumb, String url, int type, String title, String des) {
 
         if (!FApp.mWxApi.isWXAppInstalled()) {
             Tools.toastInBottom(mContext, "您没有安装微信");
@@ -382,14 +453,24 @@ public class Tools {
         msg.title = title;
         msg.description = des;
 
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        int quality = 1;
+        Log.e("xi", "shareWx: "+getBitmapSize(thumb) );
+        thumb.compress(Bitmap.CompressFormat.JPEG, quality, baos);
+        BitmapFactory.Options options2 = new BitmapFactory.Options();
+        options2.inPreferredConfig = Bitmap.Config.RGB_565;
+        byte[] bytes = baos.toByteArray();
+        thumb = BitmapFactory.decodeByteArray(bytes, 0, bytes.length,options2);
+        Log.e("xi", "shareWx: "+getBitmapSize(thumb) );
+
         msg.thumbData = bmpToByteArray(thumb, true);
         SendMessageToWX.Req req = new SendMessageToWX.Req();
         req.transaction = buildTransaction("webpage");
         req.message = msg;
         req.scene = type;
         IWXAPI mWxApi = WXAPIFactory.createWXAPI(mContext, "wx2fbcb61b6e5b1384", true);
-        mWxApi.sendReq(req);
-
+        boolean b = mWxApi.sendReq(req);
+        Log.e("xi", "shareWx: " + b);
     }
 
     public static void shareWb(Context mContext, WbShareHandler shareHandler, Bitmap bitmap, String url, String title, String des) {
