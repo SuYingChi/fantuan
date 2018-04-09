@@ -349,7 +349,7 @@ public class GalleryFragment extends BaseLazyFragment implements IHandlerMessage
                 break;
             case R.id.gallery_share:
 
-                showPop();
+                    showPop();
 
 
                 break;
@@ -412,7 +412,7 @@ public class GalleryFragment extends BaseLazyFragment implements IHandlerMessage
                      */
                     @Override
                     public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
-                        Tools.shareWb(getActivity(), shareHandler, drawableToBitmap(resource), gallery.getData().getAtlas_url(), gallery.getData().getName(), gallery.getData().getName());
+                        Tools.shareWb(getActivity(), shareHandler, drawableToBitmap(resource), gallery.getData().getAtlas_url(),"分享来自范团APP的《" + gallery.getData().getName() + "》", "分享来自范团APP的《" + gallery.getData().getName() + "》");
 
                     }
                 });
@@ -659,7 +659,7 @@ public class GalleryFragment extends BaseLazyFragment implements IHandlerMessage
             Toast.makeText(mGalleryActivity, "评论成功", Toast.LENGTH_SHORT).show();
             hideInput();
             mGalleryCurrEdit.setText("");
-            CommentActivity.startToComment(getActivity(), galleryId);
+            CommentActivity.startToComment(getActivity(),galleryId);
         }
     }
 

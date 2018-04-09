@@ -537,6 +537,7 @@ public class WebActivity extends BaseActivity implements IPostMultiFileView, WbS
 
     @JavascriptInterface
     public void goUserCard(String uid, boolean isNews, int index) {
+        Log.e("xi", "goUserCard: "+ index );
         web.post(() -> {
             Intent go = new Intent(mContext, UserCardActivity.class);
             go.putExtra("num", isNews ? "3" : "2");
@@ -692,7 +693,7 @@ public class WebActivity extends BaseActivity implements IPostMultiFileView, WbS
                              */
                             @Override
                             public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
-                                Tools.shareWb(mContext, shareHandler, drawableToBitmap(resource), weburl, title, des);
+                                Tools.shareWb(mContext, shareHandler, drawableToBitmap(resource), weburl, "分享来自范团APP的《" + title + "》", des);
                             }
                         });
 
