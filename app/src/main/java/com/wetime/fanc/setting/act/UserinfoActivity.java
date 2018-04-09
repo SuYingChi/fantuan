@@ -16,22 +16,22 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.wetime.fanc.R;
 import com.wetime.fanc.customview.multiimageselector.MultiImageSelectorActivity;
 import com.wetime.fanc.main.act.BaseActivity;
+import com.wetime.fanc.main.bean.PostFileResultBean;
+import com.wetime.fanc.main.ivews.IPostMultiFileView;
 import com.wetime.fanc.main.model.BaseBean;
-import com.wetime.fanc.utils.Tools;
-import com.wetime.fanc.R;
+import com.wetime.fanc.main.presenter.PostMultiFilePresenter;
 import com.wetime.fanc.my.bean.MyInfoBean;
 import com.wetime.fanc.my.iviews.IGetMyInfoView;
 import com.wetime.fanc.my.presenter.GetUserInfoPresenter;
-import com.wetime.fanc.main.bean.PostFileResultBean;
-import com.wetime.fanc.main.ivews.IPostMultiFileView;
-import com.wetime.fanc.main.presenter.PostMultiFilePresenter;
 import com.wetime.fanc.setting.event.ChangeUserInfoEvent;
 import com.wetime.fanc.setting.iviews.ISetHeadImageView;
 import com.wetime.fanc.setting.iviews.ISetUsernameView;
 import com.wetime.fanc.setting.presenter.SetHeadImagePresenter;
 import com.wetime.fanc.setting.presenter.SetUserNamePresenter;
+import com.wetime.fanc.utils.Tools;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -124,7 +124,7 @@ public class UserinfoActivity extends BaseActivity implements IGetMyInfoView,
 
         SetHeadImagePresenter setHeadImagePresenter = new SetHeadImagePresenter(this);
         setHeadImagePresenter.setHeadImage(bean.getData().getId().get(0));
-     }
+    }
 
     @Override
     public void onSetHeadImageResult(BaseBean bean) {
@@ -162,8 +162,8 @@ public class UserinfoActivity extends BaseActivity implements IGetMyInfoView,
         btnOK.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (et.getText().toString().length() < 4) {
-                    Tools.toastInBottom(mContext, "长度限制: 4-20个字符");
+                if (et.getText().toString().length() == 0) {
+                    Tools.toastInBottom(mContext, "长度限制: 1—10个字");
                     return;
                 }
                 InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);

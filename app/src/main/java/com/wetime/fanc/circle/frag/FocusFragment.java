@@ -75,6 +75,7 @@ public class FocusFragment extends BaseLazyFragment implements OnRefreshListener
     @Override
     public void onNetError() {
         super.onNetError();
+
         refreshLayout.finishRefresh();
     }
 
@@ -84,6 +85,13 @@ public class FocusFragment extends BaseLazyFragment implements OnRefreshListener
             rclHome.scrollToPosition(0);
             refreshLayout.autoRefresh();
         }
+    }
+
+    @Override
+    public void onError(String s) {
+        super.onError(s);
+        refreshLayout.finishRefresh();
+        rlEmpty.setVisibility(View.VISIBLE);
     }
 
     @Override

@@ -536,11 +536,11 @@ public class WebActivity extends BaseActivity implements IPostMultiFileView, WbS
     }
 
     @JavascriptInterface
-    public void goUserCard(String uid, boolean isNews) {
+    public void goUserCard(String uid, boolean isNews,int index) {
         web.post(() -> {
             Intent go = new Intent(mContext, UserCardActivity.class);
             go.putExtra("num", isNews ? "3" : "2");
-            go.putExtra("index", 0);
+            go.putExtra("index", index);
             go.putExtra("id", uid);
             startActivity(go);
         });
