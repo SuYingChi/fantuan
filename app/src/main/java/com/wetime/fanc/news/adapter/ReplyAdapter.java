@@ -39,8 +39,11 @@ public class ReplyAdapter extends CommonAdapter<ReplyCommentBean.DataBean.ReplyB
 
     @Override
     protected void convert(ViewHolder holder, ReplyCommentBean.DataBean.ReplyBean replyBean, int position) {
-        holder.setText(R.id.reply_item_name, replyBean.getUser().getUsername());
-
+        if (replyBean.isIs_author()) {
+            holder.setText(R.id.reply_item_name, "我");
+        } else {
+            holder.setText(R.id.reply_item_name, replyBean.getUser().getUsername());
+        }
         holder.setText(R.id.reply_item_good, replyBean.getLike_num());
         holder.setText(R.id.reply_item_time, replyBean.getTime());
         Glide.with(context).load(replyBean.getUser().getAvatar()).into((ImageView) holder.getView(R.id.reply_item_head));
@@ -87,7 +90,7 @@ public class ReplyAdapter extends CommonAdapter<ReplyCommentBean.DataBean.ReplyB
                 holder.setImageResource(R.id.reply_item_image, R.drawable.good);
                 int i = Integer.parseInt(((TextView) holder.getView(R.id.reply_item_good)).getText().toString());
                 holder.setText(R.id.reply_item_good, String.valueOf(i - 1));
-                ((ReplyActivity) context).clickLike(replyBean.getId(),"0");
+                ((ReplyActivity) context).clickLike(replyBean.getId(), "0");
             } else {
                 mGoodView.setText("+1");
                 mGoodView.show(v);
@@ -95,7 +98,7 @@ public class ReplyAdapter extends CommonAdapter<ReplyCommentBean.DataBean.ReplyB
                 holder.setImageResource(R.id.reply_item_image, R.drawable.good_checked);
                 int i = Integer.parseInt(((TextView) holder.getView(R.id.reply_item_good)).getText().toString());
                 holder.setText(R.id.reply_item_good, String.valueOf(i + 1));
-                ((ReplyActivity) context).clickLike(replyBean.getId(),"1");
+                ((ReplyActivity) context).clickLike(replyBean.getId(), "1");
             }
 
         });
