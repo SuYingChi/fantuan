@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:background="@color/white"
     android:id="@+id/rl_no_login"
+    android:clickable="true"
     android:visibility="gone"
     android:layout_height="match_parent">
 
