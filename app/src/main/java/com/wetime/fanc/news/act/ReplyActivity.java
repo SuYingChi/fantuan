@@ -2,6 +2,7 @@ package com.wetime.fanc.news.act;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -27,6 +28,7 @@ import com.wetime.fanc.R;
 import com.wetime.fanc.customview.GoodView;
 import com.wetime.fanc.login.act.LoginActivity;
 import com.wetime.fanc.main.act.BaseActivity;
+import com.wetime.fanc.main.model.ErrorBean;
 import com.wetime.fanc.my.act.UserCardActivity;
 import com.wetime.fanc.news.adapter.ReplyAdapter;
 import com.wetime.fanc.news.bean.CommentBean;
@@ -109,11 +111,15 @@ public class ReplyActivity extends BaseActivity implements OnRefreshListener, IG
         replyGood.setText(commentTestBean.getLike_num());
         replyTime.setText(commentTestBean.getTime());
         Glide.with(this).load(commentTestBean.getUser().getAvatar()).into(replyHead);
+
         if (commentTestBean.isIs_like()) {
-            replyImage.setImageResource(R.drawable.good_checked);
+            replyImage.setImageResource(R.drawable.ic_homeitem_zan_off_on);
+            replyGood.setTextColor(Color.parseColor("#ff3f53"));
         } else {
-            replyImage.setImageResource(R.drawable.good);
+            replyImage.setImageResource(R.drawable.ic_homeitem_zan_off_off);
+            replyGood.setTextColor(Color.parseColor("#999999"));
         }
+
         getCommentReplyPresenter = new GetCommentReplyPresenter(this);
         getCommentReplyPresenter.getCommentReply(commentTestBean.getId());
     }
@@ -217,7 +223,7 @@ public class ReplyActivity extends BaseActivity implements OnRefreshListener, IG
                 } else {
                     String s = String.valueOf(galleryCurrEditText.getText());
                     s = s.replace("\n", " ");
-                    if (s.equals("null")) {
+                    if (s.isEmpty()) {
                         Toast.makeText(this, "评论不能为空哦~", Toast.LENGTH_SHORT).show();
                         return;
                     }
@@ -265,6 +271,14 @@ public class ReplyActivity extends BaseActivity implements OnRefreshListener, IG
 
     }
 
+    @Override
+    public void onDeleteCommont(ErrorBean bean) {
+        if (bean.getError() == 0) {
+            Toast.makeText(this, "删除成功", Toast.LENGTH_SHORT).show();
+            onRefresh(replyRefreshLayout);
+        }
+    }
+
     public void sendReply(String pid, String commentId, String username) {
         this.pid = pid;
         this.commentId = commentId;
@@ -276,6 +290,10 @@ public class ReplyActivity extends BaseActivity implements OnRefreshListener, IG
 
     public void clickLike(String comment_id, String like) {
         getCommentReplyPresenter.clickLike(comment_id, like);
+    }
+
+    public void deleteReply(String comment_id) {
+        getCommentReplyPresenter.deleteReply(comment_id);
     }
 
     @Override

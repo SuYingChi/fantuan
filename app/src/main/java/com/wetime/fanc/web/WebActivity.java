@@ -536,7 +536,7 @@ public class WebActivity extends BaseActivity implements IPostMultiFileView, WbS
     }
 
     @JavascriptInterface
-    public void goUserCard(String uid, boolean isNews,int index) {
+    public void goUserCard(String uid, boolean isNews, int index) {
         web.post(() -> {
             Intent go = new Intent(mContext, UserCardActivity.class);
             go.putExtra("num", isNews ? "3" : "2");
@@ -556,16 +556,38 @@ public class WebActivity extends BaseActivity implements IPostMultiFileView, WbS
     }
 
     @JavascriptInterface
-    public void shareWXFriends(String url, String title, String des) {
+    public void shareWXFriends(String url, String title, String des,String imageUrl) {
         web.post(() -> {
-            Tools.shareWx(mContext, url, SendMessageToWX.Req.WXSceneSession, title, des);
+            Glide.with(mContext).load(imageUrl).into(new SimpleTarget<Drawable>() {
+                /**
+                 * The method that will be called when the resource load has finished.
+                 *
+                 * @param resource   the loaded resource.
+                 * @param transition
+                 */
+                @Override
+                public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
+                    Tools.shareWx(mContext, drawableToBitmap(resource), weburl, SendMessageToWX.Req.WXSceneSession, title, des);
+                }
+            });
         });
     }
 
     @JavascriptInterface
-    public void shareWXTimeline(String url, String title, String des) {
+    public void shareWXTimeline(String url, String title, String des,String imageUrl) {
         web.post(() -> {
-            Tools.shareWx(mContext, url, SendMessageToWX.Req.WXSceneTimeline, title, des);
+            Glide.with(mContext).load(imageUrl).into(new SimpleTarget<Drawable>() {
+                /**
+                 * The method that will be called when the resource load has finished.
+                 *
+                 * @param resource   the loaded resource.
+                 * @param transition
+                 */
+                @Override
+                public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
+                    Tools.shareWx(mContext, drawableToBitmap(resource), weburl, SendMessageToWX.Req.WXSceneTimeline, title, des);
+                }
+            });
         });
     }
 
@@ -628,11 +650,35 @@ public class WebActivity extends BaseActivity implements IPostMultiFileView, WbS
                 mBottomDialog.setViewListener(v -> {
                     v.findViewById(R.id.ll_share_wx).setOnClickListener(v1 -> {
                         mBottomDialog.dismiss();
-                        Tools.shareWx(mContext, weburl, SendMessageToWX.Req.WXSceneSession, title, des);
+                        Glide.with(mContext).load(url).into(new SimpleTarget<Drawable>() {
+                            /**
+                             * The method that will be called when the resource load has finished.
+                             *
+                             * @param resource   the loaded resource.
+                             * @param transition
+                             */
+                            @Override
+                            public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
+                                Tools.shareWx(mContext, drawableToBitmap(resource), weburl, SendMessageToWX.Req.WXSceneSession, title, des);
+                            }
+                        });
+
                     });
                     v.findViewById(R.id.ll_share_wxq).setOnClickListener(v12 -> {
                         mBottomDialog.dismiss();
-                        Tools.shareWx(mContext, weburl, SendMessageToWX.Req.WXSceneTimeline, title, des);
+                        Glide.with(mContext).load(url).into(new SimpleTarget<Drawable>() {
+                            /**
+                             * The method that will be called when the resource load has finished.
+                             *
+                             * @param resource   the loaded resource.
+                             * @param transition
+                             */
+                            @Override
+                            public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
+                                Tools.shareWx(mContext, drawableToBitmap(resource), weburl, SendMessageToWX.Req.WXSceneTimeline, title, des);
+                            }
+                        });
+
                     });
                     v.findViewById(R.id.ll_share_wb).setOnClickListener(v12 -> {
                         mBottomDialog.dismiss();
@@ -653,7 +699,7 @@ public class WebActivity extends BaseActivity implements IPostMultiFileView, WbS
                     });
                     v.findViewById(R.id.ll_share_qq).setOnClickListener(v12 -> {
                         mBottomDialog.dismiss();
-                        Tools.shareQQ((Activity) mContext, weburl, title, des, new IUiListener() {
+                        Tools.shareQQ((Activity) mContext, weburl, url, title, des, new IUiListener() {
                             @Override
                             public void onComplete(Object o) {
                                 Toast.makeText(mContext, "分享成功!", Toast.LENGTH_SHORT).show();
@@ -672,7 +718,7 @@ public class WebActivity extends BaseActivity implements IPostMultiFileView, WbS
                     });
                     v.findViewById(R.id.ll_share_qqkj).setOnClickListener(v12 -> {
                         mBottomDialog.dismiss();
-                        Tools.shareToQzone((Activity) mContext, weburl, title, des, new IUiListener() {
+                        Tools.shareToQzone((Activity) mContext, weburl, url, title, des, new IUiListener() {
                             @Override
                             public void onComplete(Object o) {
                                 Toast.makeText(mContext, "分享成功!", Toast.LENGTH_SHORT).show();

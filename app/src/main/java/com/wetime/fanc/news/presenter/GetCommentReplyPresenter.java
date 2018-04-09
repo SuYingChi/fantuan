@@ -55,10 +55,10 @@ public class GetCommentReplyPresenter {
                 });
     }
 
-    public void clickLike(String reply_id , String like) {
+    public void clickLike(String reply_id, String like) {
         OkHttpUtils.post().url(Const.REPLY_CLICK_LIKE)
                 .addParams("token", iview.getToken())
-                .addParams("reply_id", reply_id )
+                .addParams("reply_id", reply_id)
                 .addParams("like", like)
                 .build()
                 .execute(new DataStringCallback(iview, false, false, false) {
@@ -69,5 +69,21 @@ public class GetCommentReplyPresenter {
                     }
                 });
     }
+
+    public void deleteReply(String reply_id) {
+        OkHttpUtils.post().url(Const.DELETE_COMMENT_REPLY)
+                .addParams("token", iview.getToken())
+                .addParams("reply_id", reply_id)
+                .build()
+                .execute(new DataStringCallback(iview, true, false, false) {
+                    @Override
+                    public void onResponse(String s, int i) {
+                        super.onResponse(s, i);
+                        ErrorBean galleryItemBean = GsonUtils.getGsonInstance().fromJson(s, ErrorBean.class);
+                        iview.onDeleteCommont(galleryItemBean);
+                    }
+                });
+    }
+
 
 }

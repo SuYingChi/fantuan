@@ -18,7 +18,6 @@ import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,7 +38,6 @@ import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.sina.weibo.sdk.WbSdk;
 import com.sina.weibo.sdk.auth.AuthInfo;
-import com.sina.weibo.sdk.share.WbShareCallback;
 import com.sina.weibo.sdk.share.WbShareHandler;
 import com.tencent.mm.opensdk.modelmsg.SendMessageToWX;
 import com.tencent.tauth.IUiListener;
@@ -108,7 +106,7 @@ public class GalleryFragment extends BaseLazyFragment implements IHandlerMessage
     private EditText mGalleryEdit;
     private LinearLayout mGalleryLinear;
     private EditText mGalleryCurrEdit;
-    private TextView mGalleryTextView;
+    private View mGalleryTextView;
     private ImageView collertImage;
     private View shareImage;
     private PopupWindow pop;
@@ -359,8 +357,8 @@ public class GalleryFragment extends BaseLazyFragment implements IHandlerMessage
                 } else {
                     String s = String.valueOf(mGalleryCurrEdit.getText());
                     s = s.replace("\n", " ");
-                    if (s.equals("null")) {
-                        Toast.makeText(mGalleryActivity, "请先填写您的评论", Toast.LENGTH_SHORT).show();
+                    if (s.isEmpty()) {
+                        Toast.makeText(mGalleryActivity, "评论不能为空哦~", Toast.LENGTH_SHORT).show();
                         return;
                     }
                     getNewsDetailPresenter.sendCommonet(galleryId, s);
@@ -372,10 +370,33 @@ public class GalleryFragment extends BaseLazyFragment implements IHandlerMessage
                 imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
                 break;
             case R.id.ll_share_wx:
-                Tools.shareWx(getContext(), gallery.getData().getAtlas_url(), SendMessageToWX.Req.WXSceneSession, "Test", gallery.getData().getName());
+                Glide.with(getActivity()).load(gallery.getData().getAtlas_content().get(0).getImg_url()).into(new SimpleTarget<Drawable>() {
+                    /**
+                     * The method that will be called when the resource load has finished.
+                     *
+                     * @param resource   the loaded resource.
+                     * @param transition
+                     */
+                    @Override
+                    public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
+                        Tools.shareWx(getContext(), drawableToBitmap(resource), gallery.getData().getAtlas_url(), SendMessageToWX.Req.WXSceneSession, gallery.getData().getName(), gallery.getData().getAtlas_content().get(0).getContent());
+                    }
+                });
                 break;
             case R.id.ll_share_wxq:
-                Tools.shareWx(getContext(), gallery.getData().getAtlas_url(), SendMessageToWX.Req.WXSceneTimeline, "Test", gallery.getData().getName());
+                Glide.with(getActivity()).load(gallery.getData().getAtlas_content().get(0).getImg_url()).into(new SimpleTarget<Drawable>() {
+                    /**
+                     * The method that will be called when the resource load has finished.
+                     *
+                     * @param resource   the loaded resource.
+                     * @param transition
+                     */
+                    @Override
+                    public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
+                        Tools.shareWx(getContext(), drawableToBitmap(resource), gallery.getData().getAtlas_url(), SendMessageToWX.Req.WXSceneTimeline, gallery.getData().getName(), gallery.getData().getAtlas_content().get(0).getContent());
+                    }
+                });
+
                 break;
             case R.id.ll_share_wb:
 //                Toast.makeText(mGalleryActivity, "功能正在开发中!", Toast.LENGTH_SHORT).show();
@@ -388,14 +409,14 @@ public class GalleryFragment extends BaseLazyFragment implements IHandlerMessage
                      */
                     @Override
                     public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
-                        Tools.shareWb(getActivity(),shareHandler, drawableToBitmap(resource), gallery.getData().getAtlas_url(), "Test", gallery.getData().getName());
+                        Tools.shareWb(getActivity(), shareHandler, drawableToBitmap(resource), gallery.getData().getAtlas_url(), gallery.getData().getName(), gallery.getData().getName());
 
                     }
                 });
 
                 break;
             case R.id.ll_share_qq:
-                Tools.shareQQ(getActivity(), gallery.getData().getAtlas_url(), "Test", gallery.getData().getName(), new IUiListener() {
+                Tools.shareQQ(getActivity(), gallery.getData().getAtlas_url(), gallery.getData().getAtlas_content().get(0).getImg_url(), gallery.getData().getName(), gallery.getData().getAtlas_content().get(0).getContent(), new IUiListener() {
                     @Override
                     public void onComplete(Object o) {
                         Toast.makeText(mGalleryActivity, "分享成功!", Toast.LENGTH_SHORT).show();
@@ -413,7 +434,7 @@ public class GalleryFragment extends BaseLazyFragment implements IHandlerMessage
                 });
                 break;
             case R.id.ll_share_qqkj:
-                Tools.shareToQzone(getActivity(), gallery.getData().getAtlas_url(), "Test", gallery.getData().getName(), new IUiListener() {
+                Tools.shareToQzone(getActivity(), gallery.getData().getAtlas_url(), gallery.getData().getAtlas_content().get(0).getImg_url(), gallery.getData().getName(), gallery.getData().getAtlas_content().get(0).getContent(), new IUiListener() {
                     @Override
                     public void onComplete(Object o) {
                         Toast.makeText(mGalleryActivity, "分享成功!", Toast.LENGTH_SHORT).show();
@@ -639,12 +660,13 @@ public class GalleryFragment extends BaseLazyFragment implements IHandlerMessage
     }
 
 
-
-    public void hidePop(){
+    public void hidePop() {
         if (pop.isShowing()) {
             pop.dismiss();
         }
-    };
+    }
+
+    ;
 
     public interface OnPhotoTapListener {
         void onShowView();

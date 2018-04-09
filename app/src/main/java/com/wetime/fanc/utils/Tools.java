@@ -369,7 +369,7 @@ public class Tools {
         mContext.startActivity(go);
     }
 
-    public static void shareWx(Context mContext, String url, int type, String title, String des) {
+    public static void shareWx(Context mContext,Bitmap thumb, String url, int type, String title, String des) {
 
         if (!FApp.mWxApi.isWXAppInstalled()) {
             Tools.toastInBottom(mContext, "您没有安装微信");
@@ -382,7 +382,6 @@ public class Tools {
         msg.title = title;
         msg.description = des;
 
-        Bitmap thumb = BitmapFactory.decodeResource(mContext.getResources(), R.mipmap.ic_launcher);
         msg.thumbData = bmpToByteArray(thumb, true);
         SendMessageToWX.Req req = new SendMessageToWX.Req();
         req.transaction = buildTransaction("webpage");
@@ -431,7 +430,7 @@ public class Tools {
     private static WebpageObject getWebpageObj(Bitmap bitmap, String url, String title, String des) {
         WebpageObject mediaObject = new WebpageObject();
         mediaObject.identify = Utility.generateGUID();
-        mediaObject.title = des;
+        mediaObject.title = title;
         mediaObject.description = des;
         // 设置 Bitmap 类型的图片到视频对象里         设置缩略图。 注意：最终压缩过的缩略图大小不得超过 32kb。
         mediaObject.setThumbImage(bitmap);
@@ -468,7 +467,7 @@ public class Tools {
                 android.R.anim.fade_out);
     }
 
-    public static void shareQQ(Activity mContext, String url, String title, String des, IUiListener iUiListener) {
+    public static void shareQQ(Activity mContext, String url, String ImageUrl, String title, String des, IUiListener iUiListener) {
         Bundle bundle = new Bundle();
 //这条分享消息被好友点击后的跳转URL。
         bundle.putString(QQShare.SHARE_TO_QQ_TARGET_URL, url);
@@ -483,7 +482,7 @@ public class Tools {
 //                 /*QQ分享增加ARK end*/
 //
 //        //分享的图片URL
-//        bundle.putString(Constants.PARAM_IMAGE_URL, "http://img3.cache.netease.com/photo/0005/2013-03-07/8PBKS8G400BV0005.jpg");
+        bundle.putString(QQShare.SHARE_TO_QQ_IMAGE_URL, ImageUrl);
 
 
         FApp.mTencent.shareToQQ(mContext, bundle, iUiListener);
@@ -509,27 +508,4 @@ public class Tools {
         params.putStringArrayList(QzoneShare.SHARE_TO_QQ_IMAGE_URL, imageUrls);
         FApp.mTencent.shareToQzone(mContext, params, iUiListener);
     }
-
-    public static void shareToQzone(Activity mContext, String url, String title, String des, IUiListener iUiListener) {
-//        Bundle bundle = new Bundle();
-////分享类型
-//        bundle.putInt(QzoneShare.SHARE_TO_QZONE_KEY_TYPE, QzoneShare.SHARE_TO_QZONE_TYPE_IMAGE_TEXT);
-//        bundle.putString(QzoneShare.SHARE_TO_QQ_TITLE, title);//必填
-//        bundle.putString(QzoneShare.SHARE_TO_QQ_SUMMARY, des);//选填
-//        bundle.putString(QzoneShare.SHARE_TO_QQ_TARGET_URL, url);//必填
-//        FApp.mTencent.shareToQzone(mContext, bundle, iUiListener);
-
-        Bundle params = new Bundle();
-        params.putInt(QzoneShare.SHARE_TO_QZONE_KEY_TYPE, QzoneShare.SHARE_TO_QZONE_TYPE_IMAGE_TEXT);//类型
-        params.putString(QzoneShare.SHARE_TO_QQ_TITLE, title);//标题
-        params.putString(QzoneShare.SHARE_TO_QQ_SUMMARY, des);//概要
-        params.putString(QzoneShare.SHARE_TO_QQ_TARGET_URL, url);
-        //下面这个必须加上  不然无法调动 qq空间
-        ArrayList<String> imageUrls = new ArrayList<String>();
-        imageUrls.add("http://www.beehood.com/uploads/allimg/150310/2-150310142133.jpg");
-        params.putStringArrayList(QzoneShare.SHARE_TO_QQ_IMAGE_URL, imageUrls);
-        FApp.mTencent.shareToQzone(mContext, params, iUiListener);
-    }
-
-
 }

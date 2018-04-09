@@ -59,8 +59,7 @@
         android:layout_alignParentBottom="true"
         android:background="@color/white"
         android:gravity="center"
-        android:orientation="horizontal"
-        android:visibility="gone">
+        android:orientation="horizontal">
 
 
         <EditText
@@ -81,16 +80,24 @@
             android:textColor="#333"
             android:textColorHint="#999999" />
 
-
-        <TextView
+        <LinearLayout
             android:id="@+id/gallery_curr_TextView"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_marginRight="10dp"
-            android:gravity="center"
-            android:text="发送"
-            android:textColor="#333333"
-            android:textSize="16sp" />
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="发送"
+                android:textColor="#333333"
+                android:textSize="16sp" />
+
+
+        </LinearLayout>
+
 
     </LinearLayout>
 
