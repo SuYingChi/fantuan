@@ -1,12 +1,12 @@
 package com.wetime.fanc.home.presenter;
 
 
-import com.wetime.fanc.utils.DataStringCallback;
-import com.wetime.fanc.utils.GsonUtils;
+import com.fan.http.okhttp.OkHttpUtils;
 import com.wetime.fanc.home.bean.SearchResult;
 import com.wetime.fanc.home.iviews.IGetHomeSugView;
 import com.wetime.fanc.utils.Const;
-import com.fan.http.okhttp.OkHttpUtils;
+import com.wetime.fanc.utils.DataStringCallback;
+import com.wetime.fanc.utils.GsonUtils;
 
 /**
  * Created by zhoukang on 2017/5/19.
@@ -33,7 +33,7 @@ public class GetHomeSugSerachPresenter {
                         super.onResponse(s, i);
                         SearchResult bean = GsonUtils.getGsonInstance().fromJson(s, SearchResult.class);
                         if (bean.getError() == 0)
-                            iView.onGetHomeSug(bean,word);
+                            iView.onGetHomeSug(bean, word);
                     }
                 });
     }

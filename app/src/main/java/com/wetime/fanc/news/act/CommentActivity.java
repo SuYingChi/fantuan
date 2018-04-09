@@ -23,6 +23,7 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.wetime.fanc.R;
+import com.wetime.fanc.login.act.LoginActivity;
 import com.wetime.fanc.main.act.BaseActivity;
 import com.wetime.fanc.news.adapter.CommentListAdapter;
 import com.wetime.fanc.news.bean.CommentBean;
@@ -206,12 +207,18 @@ public class CommentActivity extends BaseActivity implements IGetAllCommentView,
                 }
                 break;
             case R.id.gallery_curr_TextView:
-                String s = String.valueOf(galleryCurrEditText.getText());
-                if (s.equals("null")) {
-                    Toast.makeText(this, "评论不能为空哦~", Toast.LENGTH_SHORT).show();
-                    return;
+                if (spu.getToken().equals("")) {
+                    Intent go1 = new Intent(this, LoginActivity.class);
+                    startActivity(go1);
+                } else {
+                    String s = String.valueOf(galleryCurrEditText.getText());
+                    s = s.replace("\n", " ");
+                    if (s.equals("null")) {
+                        Toast.makeText(this, "评论不能为空哦~", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    getAllCommentPresenter.sendCommonet(galleyId, s);
                 }
-                getAllCommentPresenter.sendCommonet(galleyId, s);
                 break;
             case R.id.gallery_linear:
                 isShowInput = true;

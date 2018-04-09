@@ -21,12 +21,14 @@ public class CommentActPresenter {
     }
 
     public void commnetAct() {
+        String content = iView.getContent();
+        content=content.replace("\n"," ");
         OkHttpUtils
                 .post()
                 .url(Const.DYNAMIC_COMMENT)
                 .addParams("token", iView.getToken())
                 .addParams("dy_id", iView.getDyId())
-                .addParams("content", iView.getContent())
+                .addParams("content", content)
                 .addParams("to_uid", iView.getToUid())
                 .build()
                 .execute(new DataStringCallback(iView, true) {

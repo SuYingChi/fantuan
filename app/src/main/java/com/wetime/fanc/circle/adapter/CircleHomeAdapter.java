@@ -50,6 +50,8 @@ public class CircleHomeAdapter extends RecyclerView.Adapter {
     private LayoutInflater inflater;
     private List<CircleHomeListBean.DataBean.CirclesBean> circllist;
     private HeadCircleAdapter circleAdapter;
+    private OnTabClickLitener mOnTabClickLitener;
+    private OnItemClickLitener mOnItemClickLitener;
 
     public CircleHomeAdapter(List<CircleHomeListBean.DataBean.CirclesBean> circllist,
                              List<HomeItemBean> mList,
@@ -59,7 +61,6 @@ public class CircleHomeAdapter extends RecyclerView.Adapter {
         this.mActivity = mActivity;
         this.inflater = LayoutInflater.from(mActivity);
     }
-
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -192,7 +193,10 @@ public class CircleHomeAdapter extends RecyclerView.Adapter {
                         ((NewsHolder19) holder).ivZan.setImageResource(R.drawable.ic_homeitem_zan_off_off);
                         presenter.zanAct(bean.getId(), Tools.getSpu(mActivity).getToken(), "0");
                         bean.setHas_like(false);
-                        int num = Integer.valueOf(((NewsHolder19) holder).tvZannum.getText().toString()) - 1;
+                        int num = 0;
+                        if (Integer.valueOf(((NewsHolder19) holder).tvZannum.getText().toString()) != 0) {
+                            num = Integer.valueOf(((NewsHolder19) holder).tvZannum.getText().toString()) - 1;
+                        }
                         ((NewsHolder19) holder).tvZannum.setText(String.format("%d", num));
                     } else {
                         ((NewsHolder19) holder).ivZan.setImageResource(R.drawable.ic_homeitem_zan_off_on);
@@ -246,11 +250,32 @@ public class CircleHomeAdapter extends RecyclerView.Adapter {
         return list.size() + 1;
     }
 
+
+    // 九宫格
+
     @Override
     public int getItemViewType(int position) {
         if (position == 0)
             return -1;
         return list.get(position - 1).getType();
+    }
+
+    public void setOnTabClickLitener(OnTabClickLitener mOnTabClickLitener) {
+        this.mOnTabClickLitener = mOnTabClickLitener;
+    }
+
+    public void setOnItemClickLitener(OnItemClickLitener mOnItemClickLitener) {
+        this.mOnItemClickLitener = mOnItemClickLitener;
+    }
+
+
+    public interface OnTabClickLitener {
+        void onTabClick(int position);
+    }
+
+
+    public interface OnItemClickLitener {
+        void onItemClick(View view, int position);
     }
 
     // 一张小图
@@ -263,9 +288,6 @@ public class CircleHomeAdapter extends RecyclerView.Adapter {
             ButterKnife.bind(this, view);
         }
     }
-
-
-    // 九宫格
 
     class NewsHolder19 extends RecyclerView.ViewHolder {
         @BindView(R.id.tv_name)
@@ -313,31 +335,6 @@ public class CircleHomeAdapter extends RecyclerView.Adapter {
             super(view);
             ButterKnife.bind(this, view);
         }
-    }
-
-
-    //    public interface OnItemClickLitener {
-//        void onItemClick(View view, int position);
-//    }
-//
-//
-//    private OnItemClickLitener mOnItemClickLitener;
-//
-//
-//    public void setOnItemClickLitener(OnItemClickLitener mOnItemClickLitener) {
-//        this.mOnItemClickLitener = mOnItemClickLitener;
-//    }
-
-    public interface OnTabClickLitener {
-        void onTabClick(int position);
-    }
-
-
-    private OnTabClickLitener mOnTabClickLitener;
-
-
-    public void setOnTabClickLitener(OnTabClickLitener mOnTabClickLitener) {
-        this.mOnTabClickLitener = mOnTabClickLitener;
     }
 
 }
