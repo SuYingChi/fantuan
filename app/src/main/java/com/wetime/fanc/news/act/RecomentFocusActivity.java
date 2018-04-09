@@ -14,6 +14,7 @@ import com.wetime.fanc.circle.act.ActDetailActivity;
 import com.wetime.fanc.circle.presenter.FocusPresenter;
 import com.wetime.fanc.login.act.LoginActivity;
 import com.wetime.fanc.main.act.BaseActivity;
+import com.wetime.fanc.my.act.UserCardActivity;
 import com.wetime.fanc.news.adapter.FcousTitleAdapter;
 import com.wetime.fanc.news.adapter.FcousUserAdapter;
 import com.wetime.fanc.news.bean.FocusTitleList;
@@ -63,7 +64,13 @@ public class RecomentFocusActivity extends BaseActivity implements IGetRecomentF
         getRecomentFocusPresenter.getRecomentFocus();
         getRecomentFocusUserPresenter = new GetRecomentFocusUserPresenter(this);
         userAdapter = new FcousUserAdapter(userList, mContext);
-
+        userAdapter.setOnItemClickLitener((view, position) -> {
+            Intent go = new Intent(this, UserCardActivity.class);
+            go.putExtra("num", "3" );
+            go.putExtra("index", 1);
+            go.putExtra("id", userList.get(position).getUid());
+            startActivity(go);
+        });
         mAutoLoadMoreAdapter = new AutoLoadMoreAdapter(this, userAdapter);
         mAutoLoadMoreAdapter.setOnLoadListener(new AutoLoadMoreAdapter.OnLoadListener() {
             @Override
@@ -80,7 +87,7 @@ public class RecomentFocusActivity extends BaseActivity implements IGetRecomentF
         rclFcous.setLayoutManager(new LinearLayoutManager(this));
         rclFcous.setAdapter(mAutoLoadMoreAdapter);
 
-        userAdapter.setOnItemClickLitener((view, position) -> {
+        userAdapter.setOnFocusClickLitener((view, position) -> {
             if (this.getToken().isEmpty()) {
                 Tools.toastInBottom(this, "请先登录");
                 Intent goLogin = new Intent(this, LoginActivity.class);

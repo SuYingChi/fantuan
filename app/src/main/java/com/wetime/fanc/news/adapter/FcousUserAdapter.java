@@ -53,6 +53,22 @@ public class FcousUserAdapter extends RecyclerView.Adapter {
         this.mOnItemClickLitener = mOnItemClickLitener;
     }
 
+
+
+
+
+    public interface OnFocusClickLitener {
+        void onItemClick(View view, int position);
+    }
+
+
+    private OnFocusClickLitener mOnFocusClickLitener;
+
+
+    public void setOnFocusClickLitener(OnFocusClickLitener mOnItemClickLitener) {
+        this.mOnFocusClickLitener = mOnItemClickLitener;
+    }
+
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         final OrderViewHolder oholder = (OrderViewHolder) holder;
@@ -76,8 +92,11 @@ public class FcousUserAdapter extends RecyclerView.Adapter {
         }
 
 
+        if (mOnFocusClickLitener != null) {
+            ((OrderViewHolder) holder).tvFocus.setOnClickListener(view -> mOnFocusClickLitener.onItemClick(view, position));
+        }
         if (mOnItemClickLitener != null) {
-            ((OrderViewHolder) holder).tvFocus.setOnClickListener(view -> mOnItemClickLitener.onItemClick(view, position));
+            ((OrderViewHolder) holder).itemView.setOnClickListener(view -> mOnItemClickLitener.onItemClick(view, position));
         }
     }
 
