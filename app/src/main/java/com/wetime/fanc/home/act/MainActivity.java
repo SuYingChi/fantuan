@@ -121,7 +121,7 @@ public class MainActivity extends BaseActivity implements IBindPushView, IGetRed
             getRedNumPresenter.getRedNum();
 
 
-        showFloat();
+//        showFloat();
     }
 
     private void showFloat() {
