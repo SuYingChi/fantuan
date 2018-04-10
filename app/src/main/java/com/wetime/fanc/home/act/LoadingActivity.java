@@ -6,7 +6,12 @@ import android.os.Bundle;
 import com.wetime.fanc.R;
 import com.wetime.fanc.main.act.BaseActivity;
 import com.wetime.fanc.utils.LogUtils;
+import com.wetime.fanc.utils.Tools;
+import com.yanzhenjie.permission.Action;
+import com.yanzhenjie.permission.AndPermission;
+import com.yanzhenjie.permission.Permission;
 
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -22,6 +27,23 @@ public class LoadingActivity extends BaseActivity {
         setContentView(R.layout.activity_loading);
         LogUtils.d("loading");
         time = new Timer();
+
+        AndPermission.with(this)
+                .permission(Permission.Group.LOCATION,Permission.Group.STORAGE)
+                .onGranted(permissions -> {
+                    // TODO what to do.
+                    waitGo();
+                }).onDenied(permissions -> {
+            // TODO what to do
+            Tools.toastInBottom(mContext,"为了更好使用范团，请赋予权限");
+            waitGo();
+        })
+                .start();
+
+
+        spu.setValue("citem", "0");
+    }
+    private void waitGo(){
         tk = new TimerTask() {
             @Override
             public void run() {
@@ -31,11 +53,10 @@ public class LoadingActivity extends BaseActivity {
             }
         };
         time.schedule(tk, timelong);
-        spu.setValue("citem", "0");
     }
-
     @Override
     protected void onDestroy() {
+
         time.cancel();
         tk.cancel();
         super.onDestroy();
