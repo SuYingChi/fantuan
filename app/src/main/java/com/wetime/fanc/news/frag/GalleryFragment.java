@@ -317,6 +317,7 @@ public class GalleryFragment extends BaseLazyFragment implements IHandlerMessage
     @Override
     public void onPageSelected(int position) {
         mDescNumber.setText((position + 1) + "/" + data.size() + "   " + data.get(position).getContent());
+        mSaveCurrPos.setText((position + 1) + "/" + data.size());
         if (gallery != null) {
             mGalleryText.setText(gallery.getData().getComment_num());
         }
@@ -345,13 +346,9 @@ public class GalleryFragment extends BaseLazyFragment implements IHandlerMessage
                         getNewsDetailPresenter.collectNews(galleryId, "1");
                     }
                 }
-
                 break;
             case R.id.gallery_share:
-
-                    showPop();
-
-
+                showPop();
                 break;
             case R.id.gallery_curr_TextView:
                 if (spu.getToken().equals("")) {
@@ -359,11 +356,11 @@ public class GalleryFragment extends BaseLazyFragment implements IHandlerMessage
                     startActivity(go1);
                 } else {
                     String s = String.valueOf(mGalleryCurrEdit.getText());
-                    s = s.replace("\n", " ");
-                    if (s.isEmpty()) {
+                    if (s == null || s.isEmpty()) {
                         Toast.makeText(mGalleryActivity, "评论不能为空哦~", Toast.LENGTH_SHORT).show();
                         return;
                     }
+                    s = s.replace("\n", " ");
                     getNewsDetailPresenter.sendCommonet(galleryId, s);
                 }
                 break;
@@ -402,7 +399,6 @@ public class GalleryFragment extends BaseLazyFragment implements IHandlerMessage
 
                 break;
             case R.id.ll_share_wb:
-//                Toast.makeText(mGalleryActivity, "功能正在开发中!", Toast.LENGTH_SHORT).show();
                 Glide.with(getActivity()).load(gallery.getData().getAtlas_content().get(0).getImg_url()).into(new SimpleTarget<Drawable>() {
                     /**
                      * The method that will be called when the resource load has finished.
@@ -412,8 +408,7 @@ public class GalleryFragment extends BaseLazyFragment implements IHandlerMessage
                      */
                     @Override
                     public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
-                        Tools.shareWb(getActivity(), shareHandler, drawableToBitmap(resource), gallery.getData().getAtlas_url(),"分享来自范团APP的《" + gallery.getData().getName() + "》", "分享来自范团APP的《" + gallery.getData().getName() + "》");
-
+                        Tools.shareWb(getActivity(), shareHandler, drawableToBitmap(resource), gallery.getData().getAtlas_url(), "分享来自范团APP的《" + gallery.getData().getName() + "》", "分享来自范团APP的《" + gallery.getData().getName() + "》");
                     }
                 });
 
@@ -457,8 +452,13 @@ public class GalleryFragment extends BaseLazyFragment implements IHandlerMessage
             case R.id.ll_share_copy:
                 ClipboardManager cm = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
                 // 将文本内容放到系统剪贴板里。
-                cm.setPrimaryClip(ClipData.newPlainText("text", gallery.getData().getAtlas_url()));
-                Tools.toastInBottom(getContext(), "复制成功");
+                if (cm != null) {
+                    cm.setPrimaryClip(ClipData.newPlainText("text", gallery.getData().getAtlas_url()));
+                    Tools.toastInBottom(getContext(), "复制成功");
+                } else {
+                    Tools.toastInBottom(getContext(), "复制失败");
+                }
+
                 break;
             case R.id.pop_cancel:
                 if (pop.isShowing()) {
@@ -469,8 +469,6 @@ public class GalleryFragment extends BaseLazyFragment implements IHandlerMessage
     }
 
     public void onNewIntent(Intent intent) {
-
-
         shareHandler.doResultIntent(intent, ((GalleryActivity) getActivity()));
     }
 
@@ -521,14 +519,11 @@ public class GalleryFragment extends BaseLazyFragment implements IHandlerMessage
     }
 
     public void AttentionFriends() {
-
         if (mGalleryActivity.getTextString().equals("已关注")) {//0、取消1、关注
             getNewsDetailPresenter.attentionFriends("0", gallery.getData().getUid());
         } else {
             getNewsDetailPresenter.attentionFriends("1", gallery.getData().getUid());
         }
-
-
     }
 
 
@@ -543,7 +538,6 @@ public class GalleryFragment extends BaseLazyFragment implements IHandlerMessage
         if (isDismiss) {
             //保存相关
             mSavePicParent.setVisibility(View.GONE);
-
             //下方描述输入相关
             mDescParent.setVisibility(View.VISIBLE);
             mComment.setVisibility(View.VISIBLE);
@@ -552,11 +546,9 @@ public class GalleryFragment extends BaseLazyFragment implements IHandlerMessage
             }
         } else {
             mSavePicParent.setVisibility(View.VISIBLE);
-
             if (viewPager != null && data != null) {
                 mSaveCurrPos.setText((viewPager.getCurrentItem() + 1) + "/" + data.size());
             }
-
             //下方描述输入相关
             mDescParent.setVisibility(View.GONE);
             mComment.setVisibility(View.GONE);
@@ -659,7 +651,7 @@ public class GalleryFragment extends BaseLazyFragment implements IHandlerMessage
             Toast.makeText(mGalleryActivity, "评论成功", Toast.LENGTH_SHORT).show();
             hideInput();
             mGalleryCurrEdit.setText("");
-            CommentActivity.startToComment(getActivity(),galleryId);
+            CommentActivity.startToComment(getActivity(), galleryId);
         }
     }
 
