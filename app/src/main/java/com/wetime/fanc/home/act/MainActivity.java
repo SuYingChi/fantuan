@@ -7,6 +7,7 @@ import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -34,7 +35,9 @@ import com.wetime.fanc.main.act.BaseActivity;
 import com.wetime.fanc.my.frag.MyFragment;
 import com.wetime.fanc.news.frag.NewsLazyFragment;
 import com.wetime.fanc.push.event.RegistPushSuccessEvent;
+import com.wetime.fanc.test.ListActivity;
 import com.wetime.fanc.web.WebActivity;
+import com.yhao.floatwindow.FloatWindow;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -116,6 +119,22 @@ public class MainActivity extends BaseActivity implements IBindPushView, IGetRed
         getRedNumPresenter = new GetRedNumPresenter(this);
         if (!TextUtils.isEmpty(spu.getToken()))
             getRedNumPresenter.getRedNum();
+
+
+//        showFloat();
+    }
+
+    private void showFloat() {
+        View floatView = LayoutInflater.from(this).inflate(R.layout.item_float, null);
+        FloatWindow
+                .with(getApplicationContext())
+                .setView(floatView)
+                .setDesktopShow(true)                //默认 false
+                .build();
+        floatView.setOnClickListener(v -> {
+            Intent go = new Intent(mContext, ListActivity.class);
+            startActivity(go);
+        });
     }
 
     @Override
@@ -287,7 +306,7 @@ public class MainActivity extends BaseActivity implements IBindPushView, IGetRed
     @Override
     protected void onResume() {
         super.onResume();
-        Log.e("zk home","onResume");
+        Log.e("zk home", "onResume");
         if (!TextUtils.isEmpty(spu.getToken()))
             getRedNumPresenter.getRedNum();
     }

@@ -258,7 +258,7 @@ public class PublishActActivity extends BaseActivity implements IPostMultiFileVi
 
     @Override
     public void onPublisResultCircle(PublishResultBean bean) {
-        onBackPressed();
+        finish();
         Intent go = new Intent(mContext, ActDetailActivity.class);
         go.putExtra("id", bean.getData().getId());
         startActivity(go);
