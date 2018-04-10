@@ -187,7 +187,7 @@ public class ReplyActivity extends BaseActivity implements OnRefreshListener, IG
                     mGoodView.setText("-1");
                     mGoodView.show(view);
                     commentTestBean.setIs_like(false);
-                    replyImage.setImageResource(R.drawable.good);
+                    replyImage.setImageResource(R.drawable.ic_homeitem_zan_off_off);
                     int i = Integer.parseInt(replyGood.getText().toString());
                     replyGood.setText(String.valueOf(i - 1));
                     clickLike(commentTestBean.getId(), "0");
@@ -195,7 +195,7 @@ public class ReplyActivity extends BaseActivity implements OnRefreshListener, IG
                     mGoodView.setText("+1");
                     mGoodView.show(view);
                     commentTestBean.setIs_like(true);
-                    replyImage.setImageResource(R.drawable.good_checked);
+                    replyImage.setImageResource(R.drawable.ic_homeitem_zan_off_on);
                     int i = Integer.parseInt(replyGood.getText().toString());
                     replyGood.setText(String.valueOf(i + 1));
                     clickLike(commentTestBean.getId(), "1");
@@ -222,11 +222,11 @@ public class ReplyActivity extends BaseActivity implements OnRefreshListener, IG
                     startActivity(go1);
                 } else {
                     String s = String.valueOf(galleryCurrEditText.getText());
-                    s = s.replace("\n", " ");
-                    if (s.isEmpty()) {
+                    if (s == null || s.isEmpty()) {
                         Toast.makeText(this, "评论不能为空哦~", Toast.LENGTH_SHORT).show();
                         return;
                     }
+                    s = s.replace("\n", " ");
                     getCommentReplyPresenter.sendCommentReply(pid, commentId, s);
                 }
 

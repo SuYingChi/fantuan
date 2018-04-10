@@ -189,6 +189,7 @@ public class CommentActivity extends BaseActivity implements IGetAllCommentView,
     public void clickLike(String comment_id, String like) {
         getAllCommentPresenter.clickLike(comment_id, like);
     }
+
     public void deleteComment(String comment_id) {
         getAllCommentPresenter.deleteCommonet(comment_id);
     }
@@ -224,11 +225,11 @@ public class CommentActivity extends BaseActivity implements IGetAllCommentView,
                     startActivity(go1);
                 } else {
                     String s = String.valueOf(galleryCurrEditText.getText());
-                    s = s.replace("\n", " ");
-                    if (s.isEmpty()) {
+                    if (s == null || s.isEmpty()) {
                         Toast.makeText(this, "评论不能为空哦~", Toast.LENGTH_SHORT).show();
                         return;
                     }
+                    s = s.replace("\n", " ");
                     getAllCommentPresenter.sendCommonet(galleyId, s);
                 }
                 break;
