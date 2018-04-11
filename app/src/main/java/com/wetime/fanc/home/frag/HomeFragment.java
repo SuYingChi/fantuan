@@ -27,6 +27,7 @@ import com.fan.baselib.loadmore.AutoLoadMoreAdapter;
 import com.flyco.tablayout.CommonTabLayout;
 import com.flyco.tablayout.listener.CustomTabEntity;
 import com.flyco.tablayout.listener.OnTabSelectListener;
+import com.hitomi.sortricheditor.ui.EditLongTextActivity;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
@@ -258,7 +259,9 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, IGe
 
                 break;
             case R.id.ll_search:
-                Intent gosearch = new Intent(getContext(), HomeSearchActivity.class);
+//                Intent gosearch = new Intent(getContext(), HomeSearchActivity.class);
+//                startActivity(gosearch);
+                Intent gosearch = new Intent(getContext(), EditLongTextActivity.class);
                 startActivity(gosearch);
                 break;
             case R.id.iv_msg:
