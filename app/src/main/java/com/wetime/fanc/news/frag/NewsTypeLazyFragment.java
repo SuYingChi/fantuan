@@ -178,6 +178,7 @@ public class NewsTypeLazyFragment extends BaseLazyFragment implements IGetNewsTy
                 headbean.setType(9000);
                 list.add(headbean);
             }
+            mAutoLoadMoreAdapter.enable();
         }
         total = bean.getData().getPaging().getTotal();
         list.addAll(bean.getData().getList());

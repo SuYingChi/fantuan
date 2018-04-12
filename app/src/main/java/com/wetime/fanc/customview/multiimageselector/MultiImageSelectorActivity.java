@@ -8,13 +8,16 @@ import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 
-import com.wetime.fanc.utils.Tools;
 import com.wetime.fanc.R;
+import com.wetime.fanc.main.act.BaseActivity;
+import com.wetime.fanc.utils.Tools;
+import com.yanzhenjie.permission.AndPermission;
+import com.yanzhenjie.permission.Permission;
 
 import java.io.File;
 import java.util.ArrayList;
 
-public class MultiImageSelectorActivity extends AppCompatActivity implements
+public class MultiImageSelectorActivity extends BaseActivity implements
         MultiImageSelectorFragment.Callback, Handler.Callback {
 
     /**
@@ -43,7 +46,6 @@ public class MultiImageSelectorActivity extends AppCompatActivity implements
      */
     public static final int MODE_SINGLE = 0;
     /**
-     *
      * 多选
      */
     public static final int MODE_MULTI = 1;
@@ -77,10 +79,23 @@ public class MultiImageSelectorActivity extends AppCompatActivity implements
         bundle.putStringArrayList(
                 MultiImageSelectorFragment.EXTRA_DEFAULT_SELECTED_LIST,
                 resultList);
-        Fragment f = Fragment.instantiate(this,
-                MultiImageSelectorFragment.class.getName(), bundle);
-        getSupportFragmentManager().beginTransaction().add(R.id.image_grid, f)
-                .commit();
+
+        AndPermission.with(this)
+                .permission(Permission.Group.STORAGE)
+                .onGranted(permissions -> {
+                    // TODO what to do.
+                    Fragment f = Fragment.instantiate(this,
+                            MultiImageSelectorFragment.class.getName(), bundle);
+                    getSupportFragmentManager().beginTransaction().add(R.id.image_grid, f)
+                            .commit();
+                }).onDenied(permissions -> {
+            // TODO what to do
+            Tools.toastInBottom(this, "请赋予权限");
+            finish();
+
+        })
+                .start();
+
 
     }
 

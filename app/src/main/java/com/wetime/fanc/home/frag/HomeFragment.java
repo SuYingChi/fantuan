@@ -50,6 +50,9 @@ import com.wetime.fanc.shopcenter.act.ShopCenterActivity;
 import com.wetime.fanc.utils.Const;
 import com.wetime.fanc.utils.Tools;
 import com.wetime.fanc.web.WebActivity;
+import com.yanzhenjie.permission.Action;
+import com.yanzhenjie.permission.AndPermission;
+import com.yanzhenjie.permission.Permission;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -111,7 +114,7 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, IGe
 
     private int page = 1;
 
-//    private Timer time;
+    //    private Timer time;
 //    private TimerTask tk;
 //    private int i = 0;
     private Handler mHandler;
@@ -125,6 +128,7 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, IGe
     private HomeItemAdapter adapter;
     private AutoLoadMoreAdapter mAutoLoadMoreAdapter;
     private QBadgeView qBadgeMsg;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -237,12 +241,21 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, IGe
 
     }
 
-    @OnClick({R.id.iv_scan, R.id.ll_search,R.id.iv_msg})
+    @OnClick({R.id.iv_scan, R.id.ll_search, R.id.iv_msg})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_scan:
-                Intent goscan = new Intent(getContext(), ScanActivity.class);
-                startActivityForResult(goscan, REQUEST_CODE);
+                AndPermission.with(this)
+                        .permission(Permission.Group.CAMERA)
+                        .onGranted(permissions -> {
+                            Intent goscan = new Intent(getContext(), ScanActivity.class);
+                            startActivityForResult(goscan, REQUEST_CODE);
+
+                        }).onDenied(permissions -> {
+                    Tools.toastInBottom(getContext(), "请赋予权限");
+                })
+                        .start();
+
                 break;
             case R.id.ll_search:
                 Intent gosearch = new Intent(getContext(), HomeSearchActivity.class);
@@ -286,7 +299,7 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, IGe
                     return;
                 }
                 if (bigcatesBean.getId().equals("-2")) {
-                    Intent goSort =  new Intent(getContext(), SortActivity.class);
+                    Intent goSort = new Intent(getContext(), SortActivity.class);
                     startActivity(goSort);
                     return;
                 }
@@ -375,10 +388,12 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, IGe
         mLocationClient.startLocation();
 
     }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(RefreshRedNumEvent event) {
         qBadgeMsg.setBadgeNumber(event.getNum());
     }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(LogoutEvent event) {
         qBadgeMsg.setBadgeNumber(0);
