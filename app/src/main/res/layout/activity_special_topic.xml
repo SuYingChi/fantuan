@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tl="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true">
+
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/toolbar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:titleEnabled="false">
+
+            <LinearLayout
+                android:id="@+id/special_linear"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:layout_marginTop="50dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/iv_empty_card_comment" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="18dp"
+                    android:layout_marginTop="15dp"
+                    android:lineSpacingExtra="0sp"
+                    android:maxLines="2"
+                    android:text="聚焦新一届国务院机构组成人员，这个专题名称可以有两行哦"
+                    android:textColor="#333333"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="18dp"
+                    android:layout_marginTop="15dp"
+                    android:lineSpacingExtra="0sp"
+                    android:text="3月19日，十三届全国人大一次会议决定国务院副总理、国务委员等人选。新一届国务院组成人员全部产生！"
+                    android:textColor="#666666"
+                    android:textSize="14sp" />
+
+
+            </LinearLayout>
+
+            <com.wetime.fanc.customview.LetToolBar
+                android:id="@+id/id_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                app:layout_collapseMode="pin">
+
+            </com.wetime.fanc.customview.LetToolBar>
+
+
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+
+        <com.flyco.tablayout.SlidingTabLayout
+            android:id="@+id/tablayout"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/white"
+            tl:tl_indicator_style="NORMAL"
+            tl:tl_indicator_color="#ff3f53"
+            tl:tl_indicator_height="3dp"
+            tl:tl_indicator_width_equal_title="true"
+            tl:tl_tab_padding="20dp"
+            tl:tl_tab_space_equal="true"
+            tl:tl_textSelectColor="#ff3f53"
+            tl:tl_textUnselectColor="#000000"
+            tl:tl_textsize="16sp"
+            tl:tl_underline_color="#e5e5e5"
+            tl:tl_underline_height="0.5dp" />
+
+    </android.support.design.widget.AppBarLayout>
+
+    <include layout="@layout/content_scrolling" />
+
+</android.support.design.widget.CoordinatorLayout>
+
+

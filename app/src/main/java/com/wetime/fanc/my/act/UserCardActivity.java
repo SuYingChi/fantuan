@@ -91,6 +91,8 @@ public class UserCardActivity extends BaseActivity implements OnLoadMoreListener
     TextView tvFansNum;
     @BindView(R.id.iv_cover)
     ImageView ivCover;
+    @BindView(R.id.iv_more)
+    ImageView ivMore;
 //    @BindView(R.id.iv_empty)
 //    ImageView ivEmpty;
 //    @BindView(R.id.tv_empty)
@@ -119,6 +121,7 @@ public class UserCardActivity extends BaseActivity implements OnLoadMoreListener
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mycard);
         ButterKnife.bind(this);
+        ivMore.setVisibility(View.VISIBLE);
         int sw = Tools.getScreenW(this);
         int w = (sw - Tools.dip2px(this, 15 + 15));
         Double rate = 281.5 / 374.5;
@@ -175,13 +178,63 @@ public class UserCardActivity extends BaseActivity implements OnLoadMoreListener
         super.onBackPressed();
     }
 
-    @OnClick({R.id.iv_back})
+    @OnClick({R.id.iv_back, R.id.iv_more})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
                 onBackPressed();
                 break;
+            case R.id.iv_more:
+
+                showShareAct();
+                break;
         }
+    }
+
+    private void showShareAct() {
+        BottomDialog mDeleteBottomDialogShare = BottomDialog.create(getSupportFragmentManager());
+        mDeleteBottomDialogShare.setDimAmount(0.5f);
+        mDeleteBottomDialogShare.setCancelOutside(true);
+        mDeleteBottomDialogShare.setLayoutRes(R.layout.bottom_share_dialog_layout);
+        mDeleteBottomDialogShare.setViewListener(v -> {
+
+            v.findViewById(R.id.tv_item1).setOnClickListener(v12 -> {
+
+                mDeleteBottomDialogShare.dismiss();
+                BottomDialog mDeleteBottomDialog = BottomDialog.create(getSupportFragmentManager());
+                mDeleteBottomDialog.setDimAmount(0.5f);
+                mDeleteBottomDialog.setCancelOutside(true);
+                mDeleteBottomDialog.setLayoutRes(R.layout.bottom_anim_dialog_layout);
+                mDeleteBottomDialog.setViewListener(v11 -> {
+                    v11.findViewById(R.id.tv_item2).setOnClickListener(v1 -> {
+                        mDeleteBottomDialog.dismiss();
+                    });
+                    v11.findViewById(R.id.tv_item3).setOnClickListener(v2 -> {
+                        mDeleteBottomDialog.dismiss();
+                    });
+                    v11.findViewById(R.id.tv_item4).setOnClickListener(v3 -> {
+                        mDeleteBottomDialog.dismiss();
+
+                    });
+                    v11.findViewById(R.id.tv_item5).setOnClickListener(v4 -> {
+                        mDeleteBottomDialog.dismiss();
+
+                    });
+                    v11.findViewById(R.id.tv_item6).setOnClickListener(v5 -> {
+                        mDeleteBottomDialog.dismiss();
+
+                    });
+                });
+
+                mDeleteBottomDialog.show();
+
+            });
+            v.findViewById(R.id.tv_item2).setOnClickListener(v14 -> {
+                mDeleteBottomDialogShare.dismiss();
+            });
+        });
+
+        mDeleteBottomDialogShare.show();
     }
 
     @Override
@@ -275,27 +328,27 @@ public class UserCardActivity extends BaseActivity implements OnLoadMoreListener
                 tvFocus.setCompoundDrawables(drawable, null, null, null);
             }
             tvFocus.setOnClickListener(v -> {
-                if(TextUtils.isEmpty(spu.getToken())){
+                if (TextUtils.isEmpty(spu.getToken())) {
                     Tools.toastInBottom(getContext(), "请先登录");
                     Intent goLogin = new Intent(getContext(), LoginActivity.class);
                     startActivity(goLogin);
-                }else{
+                } else {
                     bean.getData().getUser().setFollow(!bean.getData().getUser().isFollow());
                     FocusPresenter focusPresenter = new FocusPresenter();
-                    focusPresenter.focusUser(this,getToken(),
+                    focusPresenter.focusUser(this, getToken(),
                             bean.getData().getUser().isFollow() ? "1" : "0",
                             bean.getData().getUser().getId());
                     if (bean.getData().getUser().isFollow()) {
                         tvFocus.setTextColor(ContextCompat.getColor(mContext, R.color.text_hint));
                         tvFocus.setText("已关注");
-                        Tools.toastInBottom(mContext,"已关注");
+                        Tools.toastInBottom(mContext, "已关注");
                         Drawable drawable = getResources().getDrawable(R.drawable.ic_focus_bottom_off);
                         drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getMinimumHeight());
                         tvFocus.setCompoundDrawables(drawable, null, null, null);
                     } else {
                         tvFocus.setTextColor(ContextCompat.getColor(mContext, R.color.text_commen));
                         tvFocus.setText("加关注");
-                        Tools.toastInBottom(mContext,"已取消关注");
+                        Tools.toastInBottom(mContext, "已取消关注");
                         Drawable drawable = getResources().getDrawable(R.drawable.ic_focus_bottom_on);
                         drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getMinimumHeight());
                         tvFocus.setCompoundDrawables(drawable, null, null, null);
@@ -372,4 +425,6 @@ public class UserCardActivity extends BaseActivity implements OnLoadMoreListener
     public void onSetCoverResult(BaseBean bean) {
 
     }
+
+
 }

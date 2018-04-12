@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -52,6 +53,7 @@ public class CircleHomeAdapter extends RecyclerView.Adapter {
     private HeadCircleAdapter circleAdapter;
     private OnTabClickLitener mOnTabClickLitener;
     private OnItemClickLitener mOnItemClickLitener;
+    private HeadCircleAdapter circleAdapter1;
 
     public CircleHomeAdapter(List<CircleHomeListBean.DataBean.CirclesBean> circllist,
                              List<HomeItemBean> mList,
@@ -107,8 +109,20 @@ public class CircleHomeAdapter extends RecyclerView.Adapter {
                 //头部
                 GridLayoutManager manager = new GridLayoutManager(mActivity, 4);
                 ((CircleHeadViewHolder) holder).rclCircle.setLayoutManager(manager);
-                circleAdapter = new HeadCircleAdapter(circllist, mActivity);
+                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mActivity);
+                linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+                ((CircleHeadViewHolder) holder).rclCircleMy.setLayoutManager(linearLayoutManager);
+                circleAdapter = new HeadCircleAdapter(circllist, mActivity, 0);
+                if (circllist == null || circllist.size() == 0) {
+                    ((CircleHeadViewHolder) holder).rclCircleMy.setVisibility(View.GONE);
+                    ((CircleHeadViewHolder) holder).llHeadTv.setVisibility(View.VISIBLE);
+                } else {
+                    ((CircleHeadViewHolder) holder).rclCircleMy.setVisibility(View.VISIBLE);
+                    ((CircleHeadViewHolder) holder).llHeadTv.setVisibility(View.GONE);
+                    circleAdapter1 = new HeadCircleAdapter(circllist, mActivity, 1);
+                }
                 ((CircleHeadViewHolder) holder).rclCircle.setAdapter(circleAdapter);
+                ((CircleHeadViewHolder) holder).rclCircleMy.setAdapter(circleAdapter1);
                 circleAdapter.setOnItemClickLitener((view, position2) -> {
                     if (circllist.get(position2).getId().equals("0")) {
                         Intent goAll = new Intent(mActivity, AllCircleActivity.class);
@@ -330,6 +344,12 @@ public class CircleHomeAdapter extends RecyclerView.Adapter {
         RecyclerView rclCircle;
         @BindView(R.id.ll_headinfo)
         LinearLayout llHeadinfo;
+        @BindView(R.id.rcl_circle_my)
+        RecyclerView rclCircleMy;
+        @BindView(R.id.ll_headmy)
+        LinearLayout llHeadMy;
+        @BindView(R.id.rcl_circle_tv)
+        TextView llHeadTv;
 
         CircleHeadViewHolder(View view) {
             super(view);

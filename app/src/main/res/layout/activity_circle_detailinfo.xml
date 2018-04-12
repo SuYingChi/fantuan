@@ -22,7 +22,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="25dp"
                 android:layout_marginTop="25dp"
                 android:orientation="horizontal">
@@ -60,8 +60,64 @@
                         android:textColor="#999999"
                         android:textSize="12sp"
                         tools:text="创建于2017-12-30" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:lineSpacingExtra="0sp"
+                            android:text="关注"
+                            android:textColor="#666666"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/tv_attention"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="7dp"
+                            android:lineSpacingExtra="0sp"
+                            android:text="2522"
+                            android:textColor="#333333"
+                            android:textSize="14sp" />
+
+                        <View
+                            android:layout_width="1dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="7dp"
+                            android:layout_marginRight="7dp"
+                            android:background="#999999" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:lineSpacingExtra="0sp"
+                            android:text="动态"
+                            android:textColor="#666666"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/tv_state"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="7dp"
+                            android:lineSpacingExtra="0sp"
+                            android:text="2522"
+                            android:textColor="#333333"
+                            android:textSize="14sp" />
+
+
+                    </LinearLayout>
+
                 </LinearLayout>
+
             </LinearLayout>
+
 
             <include layout="@layout/item_my_line" />
 
@@ -89,13 +145,37 @@
                     android:src="@drawable/ic_head_default" />
 
                 <TextView
-                    android:layout_marginLeft="10dp"
                     android:id="@+id/tv_username"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
                     android:textColor="#333333"
                     android:textSize="16sp"
                     tools:text="曾半仙儿啊" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/rcl_my_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:lineSpacingExtra="0sp"
+                android:text="圈子管理团队"
+                android:textColor="#333333"
+                android:textSize="19sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:id="@+id/rcl_my_linear"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="20dp"
+                android:gravity="center">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rcl_my_recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
             </LinearLayout>
 
             <TextView
@@ -137,7 +217,22 @@
                 tools:text="一、群内尽量避免与政治有关的言论，杜绝反政府言论和图片。
 二、文明聊天，友善待人，懂得尊重他人以及自己。
 群内杜绝有损群形象的言论和图片，杜绝进行人身攻击 ，杜绝脏话、粗言。" />
+
+
+            <Button
+                android:id="@+id/bt_attrntion"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/rectangle_3_copy_cancel"
+                android:textColor="#666666"
+                android:textSize="17sp"
+                tools:text="取消关注圈子" />
+
         </LinearLayout>
+
+
     </ScrollView>
 </LinearLayout>
 

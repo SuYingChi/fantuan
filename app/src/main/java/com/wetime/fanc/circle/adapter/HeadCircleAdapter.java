@@ -26,29 +26,31 @@ import butterknife.ButterKnife;
 
 public class HeadCircleAdapter extends RecyclerView.Adapter {
 
+    private int type;
     private List<CircleHomeListBean.DataBean.CirclesBean> mlist = new ArrayList<>();
     private Context mContext;
     private RequestOptions myOptions;
+    private OnItemClickLitener mOnItemClickLitener;
 
-    public HeadCircleAdapter(List<CircleHomeListBean.DataBean.CirclesBean> list, Context mContext) {
+    public HeadCircleAdapter(List<CircleHomeListBean.DataBean.CirclesBean> list, Context mContext, int type) {
         this.mlist = list;
         this.mContext = mContext;
-        myOptions = new RequestOptions()
-                .transform(new GlideRoundTransform(mContext, 5));
+        this.type = type;
+        myOptions = new RequestOptions().transform(new GlideRoundTransform(mContext, 5));
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new ViewHolder(LayoutInflater.from(mContext).inflate(R.layout.item_home_circle, parent, false));
+        View inflate = LayoutInflater.from(mContext).inflate(R.layout.item_home_circle, parent, false);
+        if (type == 0) {
+            return new ViewHolder(inflate);
+        } else {
+            ViewGroup.LayoutParams layoutParams = inflate.getLayoutParams();
+            layoutParams.width = 200;
+            inflate.setLayoutParams(layoutParams);
+            return new ViewHolder(inflate);
+        }
     }
-
-    public interface OnItemClickLitener {
-        void onItemClick(View view, int position);
-    }
-
-
-    private OnItemClickLitener mOnItemClickLitener;
-
 
     public void setOnItemClickLitener(OnItemClickLitener mOnItemClickLitener) {
         this.mOnItemClickLitener = mOnItemClickLitener;
@@ -78,6 +80,10 @@ public class HeadCircleAdapter extends RecyclerView.Adapter {
     @Override
     public int getItemCount() {
         return mlist.size();
+    }
+
+    public interface OnItemClickLitener {
+        void onItemClick(View view, int position);
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {

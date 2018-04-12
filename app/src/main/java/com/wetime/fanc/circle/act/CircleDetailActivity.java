@@ -54,6 +54,8 @@ public class CircleDetailActivity extends BaseActivity implements IGetCircleHead
     TextView tvCircleinfo;
     @BindView(R.id.tv_title)
     TextView tvTitle;
+    @BindView(R.id.iv_attention)
+    ImageView ivAttention;
 
     private ArrayList<Fragment> mFragments = new ArrayList<>();
 
@@ -72,7 +74,7 @@ public class CircleDetailActivity extends BaseActivity implements IGetCircleHead
         super.onBackPressed();
     }
 
-    @OnClick({R.id.iv_back, R.id.iv_edit, R.id.ll_headinfo})
+    @OnClick({R.id.iv_back, R.id.iv_edit, R.id.ll_headinfo, R.id.iv_attention})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
@@ -92,6 +94,8 @@ public class CircleDetailActivity extends BaseActivity implements IGetCircleHead
                     goPublish.putExtra("id", getCircleId());
                     startActivity(goPublish);
                 }
+                break;
+            case R.id.iv_attention:
                 break;
         }
 
@@ -149,4 +153,6 @@ public class CircleDetailActivity extends BaseActivity implements IGetCircleHead
     public String getCircleId() {
         return getIntent().getStringExtra("id");
     }
+
+
 }

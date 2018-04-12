@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/line_color_lib"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_item1"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:text="请选择举报原因"
+            android:textColor="@color/cardview_dark_background"
+            android:textSize="14sp" />
+
+        <View
+            android:id="@+id/tv_view1"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/line_color_lib" />
+
+        <TextView
+            android:id="@+id/tv_item2"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:text="账号昵称含有害信息"
+            android:textColor="#388ae5"
+            android:textSize="15sp" />
+
+        <View
+            android:id="@+id/tv_view2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/line_color_lib" />
+
+        <TextView
+
+            android:id="@+id/tv_item3"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:text="发布淫秽色情等有害内容"
+            android:textColor="#388ae5"
+            android:textSize="15sp" />
+
+        <View
+            android:id="@+id/tv_view3"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/line_color_lib" />
+
+        <TextView
+            android:id="@+id/tv_item4"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:text="头像图片有问题"
+            android:textColor="#388ae5"
+            android:textSize="15sp" />
+
+        <View
+            android:id="@+id/tv_view4"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/line_color_lib" />
+
+        <TextView
+            android:id="@+id/tv_item5"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:text="存在侵权信息"
+            android:textColor="#388ae5"
+            android:textSize="15sp" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_item6"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/white"
+        android:gravity="center"
+        android:text="取消"
+        android:textColor="#388ae5"
+        android:textSize="15sp" />
+
+</LinearLayout>

@@ -43,7 +43,7 @@ public class GetNewsDetailPresenter {
                 .addParams("follow", follow)
                 .addParams("following_id", following_id)
                 .build()
-                .execute(new DataStringCallback(iView, false, false, true) {
+                .execute(new DataStringCallback(iView, false, false, false) {
                     @Override
                     public void onResponse(String s, int i) {
                         super.onResponse(s, i);
