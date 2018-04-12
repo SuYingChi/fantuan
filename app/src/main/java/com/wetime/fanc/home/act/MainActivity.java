@@ -157,6 +157,7 @@ public class MainActivity extends BaseActivity implements IBindPushView, IGetRed
         EventBus.getDefault().unregister(this);
         System.gc();
         super.onDestroy();
+//        FloatWindow.destroy();
     }
 
 

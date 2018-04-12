@@ -31,6 +31,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 
+import com.bumptech.glide.Glide;
 import com.wetime.fanc.R;
 
 import java.util.ArrayList;
@@ -172,7 +173,7 @@ public class SortRichEditor extends ScrollView implements SEditorDataI {
     /**
      * 图片加载器
      */
-    private SEImageLoader imageLoader;
+//    private SEImageLoader imageLoader;
 
     /**
      * 用于实现拖动效果的帮助类
@@ -253,7 +254,7 @@ public class SortRichEditor extends ScrollView implements SEditorDataI {
         dashDrawable.setColor(Color.parseColor("#ffffff"));
 
         // 初始化图片加载器
-        imageLoader = SEImageLoader.getInstance(3, SEImageLoader.Type.LIFO);
+//        imageLoader = SEImageLoader.getInstance(3, SEImageLoader.Type.LIFO);
 
         // 初始化ViewDragHelper
         viewDragHelper = ViewDragHelper.create(containerLayout, 1.5f, new ViewDragHelperCallBack());
@@ -972,10 +973,11 @@ public class SortRichEditor extends ScrollView implements SEditorDataI {
 
         final RelativeLayout imageLayout = createImageLayout();
         ImageView imageView = (ImageView) imageLayout.getChildAt(0);
-        PointF pointF = new PointF();
-        pointF.x = getWidth() - 2 * DEFAULT_MARGING;
-        pointF.y = DEFAULT_IMAGE_HEIGHT;
-        imageLoader.loadImage(imagePath, imageView, pointF);
+//        PointF pointF = new PointF();
+//        pointF.x = getWidth() - 2 * DEFAULT_MARGING;
+//        pointF.y = DEFAULT_IMAGE_HEIGHT;
+//        imageLoader.loadImage(imagePath, imageView, pointF);
+        Glide.with(getContext()).load(imagePath).into(imageView);
         imageView.setTag(imagePath);
 
         final int finalIndex = index;

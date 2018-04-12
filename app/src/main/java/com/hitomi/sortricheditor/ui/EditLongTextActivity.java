@@ -15,7 +15,6 @@ import com.hitomi.sortricheditor.view.editor.SortRichEditor;
 import com.wetime.fanc.R;
 import com.wetime.fanc.customview.multiimageselector.MultiImageSelectorActivity;
 import com.wetime.fanc.main.act.BaseActivity;
-import com.wetime.fanc.utils.Tools;
 
 import java.util.List;
 

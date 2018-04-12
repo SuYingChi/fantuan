@@ -43,7 +43,7 @@
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.FLASHLIGHT" />
-
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <application
         android:name=".application.FApp"
         android:icon="@mipmap/ic_launcher"
@@ -228,6 +228,7 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity android:name=".test.ListActivity" />
         <activity android:name="com.hitomi.sortricheditor.ui.EditLongTextActivity" />
+        <activity android:name=".circle.act.TestActivity" />
 
 
     </application>

@@ -33,6 +33,7 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.wetime.fanc.R;
+import com.wetime.fanc.circle.act.TestActivity;
 import com.wetime.fanc.circle.adapter.HeadHomeAdapter;
 import com.wetime.fanc.home.act.HomeSearchActivity;
 import com.wetime.fanc.home.act.SortActivity;
@@ -261,7 +262,7 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, IGe
             case R.id.ll_search:
 //                Intent gosearch = new Intent(getContext(), HomeSearchActivity.class);
 //                startActivity(gosearch);
-                Intent gosearch = new Intent(getContext(), EditLongTextActivity.class);
+                Intent gosearch = new Intent(getContext(), TestActivity.class);
                 startActivity(gosearch);
                 break;
             case R.id.iv_msg:
