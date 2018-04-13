@@ -78,15 +78,30 @@
                         android:orientation="vertical"
                         android:paddingLeft="15dp">
 
-                        <TextView
-                            android:id="@+id/tv_circlename"
-                            android:layout_width="wrap_content"
+                        <RelativeLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:lineSpacingExtra="0sp"
-                            android:textColor="#333333"
-                            android:textSize="21sp"
-                            android:textStyle="bold"
-                            tools:text="舌尖上的海口" />
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/tv_circlename"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentLeft="true"
+                                android:lineSpacingExtra="0sp"
+                                android:textColor="#333333"
+                                android:textSize="21sp"
+                                android:textStyle="bold"
+                                tools:text="舌尖上的海口" />
+
+                            <ImageView
+                                android:id="@+id/iv_attention"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:src="@drawable/icon_02" />
+                        </RelativeLayout>
+
 
                         <TextView
                             android:id="@+id/tv_circleinfo"
@@ -98,6 +113,8 @@
                             android:textSize="12sp"
                             tools:text="海南有趣、有料、有温度的生活圈，分分钟带你吃 遍全海南~" />
                     </LinearLayout>
+
+
                 </LinearLayout>
 
             </LinearLayout>

@@ -350,8 +350,40 @@ public class ActDetailActivity extends BaseActivity implements IGetActDetailView
 
             v.findViewById(R.id.tv_delete).setOnClickListener(v12 -> {
                 mDeleteBottomDialog.dismiss();
-                DeleteActPresenter deleteActPresenter = new DeleteActPresenter(this);
-                deleteActPresenter.deleteAct();
+//                DeleteActPresenter deleteActPresenter = new DeleteActPresenter(this);
+//                deleteActPresenter.deleteAct();
+
+                BottomDialog mDeleteBottomDialog = BottomDialog.create(getSupportFragmentManager());
+                mDeleteBottomDialog.setDimAmount(0.5f);
+                mDeleteBottomDialog.setCancelOutside(true);
+                mDeleteBottomDialog.setLayoutRes(R.layout.bottom_delete_dialog_layout);
+                mDeleteBottomDialog.setViewListener(v11 -> {
+                    v11.findViewById(R.id.tv_item2).setOnClickListener(v1 -> {
+                        mDeleteBottomDialog.dismiss();
+                    });
+                    v11.findViewById(R.id.tv_item3).setOnClickListener(v2 -> {
+                        mDeleteBottomDialog.dismiss();
+                    });
+                    v11.findViewById(R.id.tv_item4).setOnClickListener(v3 -> {
+                        mDeleteBottomDialog.dismiss();
+
+                    });
+                    v11.findViewById(R.id.tv_item5).setOnClickListener(v4 -> {
+                        mDeleteBottomDialog.dismiss();
+
+                    });
+                    v11.findViewById(R.id.tv_item6).setOnClickListener(v5 -> {
+                        mDeleteBottomDialog.dismiss();
+
+                    });
+                    v11.findViewById(R.id.tv_item7).setOnClickListener(v6 -> {
+                        mDeleteBottomDialog.dismiss();
+
+                    });
+                });
+
+                mDeleteBottomDialog.show();
+
 
             });
             v.findViewById(R.id.tv_cancel).setOnClickListener(v14 -> {
@@ -362,4 +394,5 @@ public class ActDetailActivity extends BaseActivity implements IGetActDetailView
 
         mDeleteBottomDialog.show();
     }
+
 }

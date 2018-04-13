@@ -1,13 +1,18 @@
 package com.wetime.fanc.circle.frag;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.PopupWindow;
+import android.widget.Toast;
 
-import com.flyco.tablayout.CommonTabLayout;
 import com.flyco.tablayout.SlidingTabLayout;
 import com.wetime.fanc.R;
 import com.wetime.fanc.circle.act.PublishActActivity;
@@ -16,8 +21,6 @@ import com.wetime.fanc.home.event.RefreshRedNumEvent;
 import com.wetime.fanc.login.act.LoginActivity;
 import com.wetime.fanc.login.event.LogoutEvent;
 import com.wetime.fanc.main.frag.BaseLazyFragment;
-import com.wetime.fanc.my.frag.MyCollectNewsLazyFragment;
-import com.wetime.fanc.my.frag.MyCollectShopLazyFragment;
 import com.wetime.fanc.utils.Const;
 import com.wetime.fanc.utils.Tools;
 
@@ -52,6 +55,7 @@ public class CircleHomeFragment extends BaseLazyFragment {
 
     @Override
     protected void initView() {
+
         EventBus.getDefault().register(this);
         qBadgeMsg = new QBadgeView(getContext());
         qBadgeMsg.setBadgeTextSize(11, true);
@@ -100,14 +104,55 @@ public class CircleHomeFragment extends BaseLazyFragment {
                 }
                 break;
             case R.id.iv_edit:
-                if (spu.getToken().equals("")) {
-                    Intent gologin = new Intent(getContext(), LoginActivity.class);
-                    startActivity(gologin);
-                } else {
-                    Intent goPublish = new Intent(getContext(), PublishActActivity.class);
-                    startActivity(goPublish);
-                }
+                showPopWin();
                 break;
         }
+    }
+
+    private void showPopWin() {
+
+        View popupView = LayoutInflater.from(getContext()).inflate(R.layout.layout_popupwindow, null);
+
+        PopupWindow window = new PopupWindow(popupView, 250, 160);
+
+        window.setAnimationStyle(R.style.popup_window_anim);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            window.setElevation(20);
+        }
+
+        window.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#F8F8F8")));
+
+        window.setFocusable(true);
+
+        window.setOutsideTouchable(true);
+
+        window.update();
+
+        window.showAsDropDown(ivEdit, -200, 0);
+
+        popupView.findViewById(R.id.pop_duan).setOnClickListener(v -> {
+            if (spu.getToken().equals("")) {
+                Intent gologin = new Intent(getContext(), LoginActivity.class);
+                startActivity(gologin);
+                if (window.isShowing()) {
+                    window.dismiss();
+                }
+            } else {
+                Intent goPublish = new Intent(getContext(), PublishActActivity.class);
+                startActivity(goPublish);
+                if (window.isShowing()) {
+                    window.dismiss();
+                }
+            }
+        });
+
+        popupView.findViewById(R.id.pop_chang).setOnClickListener(v -> {
+            Toast.makeText(mActivity, "点击了长文章", Toast.LENGTH_SHORT).show();
+            if (window.isShowing()) {
+                window.dismiss();
+            }
+        });
+
     }
 }

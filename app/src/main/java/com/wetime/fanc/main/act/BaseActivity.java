@@ -50,7 +50,6 @@ public class BaseActivity extends AppCompatActivity implements IBaseVIew {
         Configuration config = new Configuration();
         config.setToDefaults();
         res.updateConfiguration(config, res.getDisplayMetrics());
-
         return res;
     }
 

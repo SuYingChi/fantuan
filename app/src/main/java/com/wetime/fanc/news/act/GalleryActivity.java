@@ -180,6 +180,7 @@ public class GalleryActivity extends BaseActivity implements View.OnClickListene
                     Intent go1 = new Intent(this, LoginActivity.class);
                     startActivity(go1);
                 } else {
+                    if (gallery.getData().isIs_author())
                     ((GalleryFragment) mCurrFragment).AttentionFriends();
                 }
 
@@ -221,7 +222,6 @@ public class GalleryActivity extends BaseActivity implements View.OnClickListene
 
     @Override
     public boolean needScroll() {
-
         return true;
     }
 
@@ -238,6 +238,11 @@ public class GalleryActivity extends BaseActivity implements View.OnClickListene
     }
 
     public void drawingAttring(AttentionBean bean) {
+        if (bean.getError() != 0) {
+            Toast.makeText(this, bean.getMsg(), Toast.LENGTH_SHORT).show();
+            return;
+        }
+        Toast.makeText(this, bean.getMsg(), Toast.LENGTH_SHORT).show();
         if (String.valueOf(friendBaseTextView.getText()).equals("关注")) {
             friendBaseLinearLayout.setBackground(getResources().getDrawable(R.drawable.icon_attention));
             friendBaseTextView.setText("已关注");

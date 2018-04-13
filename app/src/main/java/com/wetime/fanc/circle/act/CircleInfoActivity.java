@@ -1,9 +1,13 @@
 package com.wetime.fanc.circle.act;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -40,6 +44,18 @@ public class CircleInfoActivity extends BaseActivity implements IGetCircleDetail
     TextView tvRule;
     @BindView(R.id.iv_circle)
     CircleImageView ivCircle;
+    @BindView(R.id.tv_attention)
+    TextView tvAttention;
+    @BindView(R.id.tv_state)
+    TextView tvState;
+    @BindView(R.id.rcl_my_tv)
+    TextView rclMyTv;
+    @BindView(R.id.rcl_my_recyclerView)
+    RecyclerView rclMyRecyclerView;
+    @BindView(R.id.rcl_my_linear)
+    LinearLayout rclMyLinear;
+    @BindView(R.id.bt_attrntion)
+    Button btAttrntion;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,11 +72,22 @@ public class CircleInfoActivity extends BaseActivity implements IGetCircleDetail
         super.onBackPressed();
     }
 
-    @OnClick({R.id.iv_back})
+    @OnClick({R.id.iv_back, R.id.bt_attrntion})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
                 onBackPressed();
+                break;
+            case R.id.bt_attrntion:
+                if (String.valueOf(btAttrntion.getText()).equals("关注圈子")) {
+                    btAttrntion.setText("取消关注圈子");
+                    btAttrntion.setTextColor(Color.parseColor("#666666"));
+                    btAttrntion.setBackgroundResource(R.drawable.rectangle_3_copy_cancel);
+                } else {
+                    btAttrntion.setText("关注圈子");
+                    btAttrntion.setTextColor(Color.parseColor("#ff3f53"));
+                    btAttrntion.setBackgroundResource(R.drawable.rectangle_3_copy);
+                }
                 break;
         }
     }
