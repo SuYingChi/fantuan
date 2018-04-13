@@ -228,7 +228,7 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity android:name=".test.ListActivity" />
         <activity android:name="com.hitomi.sortricheditor.ui.EditLongTextActivity" />
-        <activity android:name=".circle.act.TestActivity" />
+        <activity android:name=".circle.act.LongTextEditActivity" />
 
 
     </application>

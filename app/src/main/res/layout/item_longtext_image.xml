@@ -3,33 +3,67 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white"
-    android:orientation="horizontal">
+    android:orientation="vertical"
+    android:paddingLeft="15dp"
+    android:paddingBottom="5dp"
+    android:paddingRight="15dp">
+
     <RelativeLayout
-        android:gravity="center"
+        android:paddingTop="5dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:gravity="center">
+
         <ImageView
             android:id="@+id/iv_cover"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="match_parent"
+            android:padding="0.5dp" />
+
+        <ImageView
+            android:id="@+id/iv_drag"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:layout_marginRight="15dp"
+            android:src="@drawable/ic_drag" />
+
         <ImageView
             android:id="@+id/iv_delete"
-            android:layout_alignParentRight="true"
-            android:src="@drawable/ic_longtext_deleteimg"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:padding="10dp"
+            android:src="@drawable/ic_longtext_deleteimg" />
+
+        <ImageView
+            android:id="@+id/iv_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp"
+            android:paddingBottom="10dp"
+            android:src="@drawable/bg_longtext_editdes" />
     </RelativeLayout>
 
 
     <EditText
         android:id="@+id/et_des"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@color/white"
+        android:layout_height="wrap_content"
+        android:background="#f2f2f2"
+        android:gravity="center"
         android:hint="输入描述"
-        android:lineSpacingExtra="0sp"
-        android:padding="15dp"
+        android:lineSpacingExtra="4sp"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
         android:textColor="#999999"
-        android:textSize="17sp" />
+        android:textSize="12sp"
+        android:visibility="gone" />
 
 </LinearLayout>

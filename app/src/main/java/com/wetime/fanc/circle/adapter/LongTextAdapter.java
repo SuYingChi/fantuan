@@ -1,8 +1,11 @@
 package com.wetime.fanc.circle.adapter;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -32,11 +35,22 @@ public class LongTextAdapter extends RecyclerView.Adapter {
     private String TAG = "zk longtext";
     private List<LongTextBean> mData;
     private Activity mContext;
+    private boolean sort = false;
+    private final int sortHight;
 
 
     public LongTextAdapter(Activity context, List<LongTextBean> mData) {
         this.mData = mData;
         mContext = context;
+        sortHight = Tools.dip2px(mContext, 84);
+    }
+
+    public boolean isSort() {
+        return sort;
+    }
+
+    public void setSort(boolean sort) {
+        this.sort = sort;
     }
 
     @Override
@@ -62,7 +76,6 @@ public class LongTextAdapter extends RecyclerView.Adapter {
         LongTextBean bean = mData.get(position);
 
         if (holder instanceof TitleViewHolder) {
-
             ((TitleViewHolder) holder).etTitle.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -82,6 +95,28 @@ public class LongTextAdapter extends RecyclerView.Adapter {
             ((TitleViewHolder) holder).etTitle.setText(bean.getTitle());
         }
         if (holder instanceof EditViewHolder) {
+            if (isSort()) {
+                ((EditViewHolder) holder).etText.setEnabled(false);
+                ((EditViewHolder) holder).etText.setBackgroundResource(R.drawable.bg_edit_dash);
+                ViewGroup.LayoutParams params = ((EditViewHolder) holder).etText.getLayoutParams();
+                params.height = sortHight;
+                ((EditViewHolder) holder).etText.setLayoutParams(params);
+                ((EditViewHolder) holder).etText.setTextSize(12);
+
+            } else {
+                if (mData.size() == 2) {
+                    ((EditViewHolder) holder).etText.setHint("请输入正文");
+                } else {
+                    ((EditViewHolder) holder).etText.setHint("");
+                }
+                ((EditViewHolder) holder).etText.setEnabled(true);
+                ((EditViewHolder) holder).etText.setBackgroundResource(R.drawable.bg_edit_nodash);
+                ViewGroup.LayoutParams params = ((EditViewHolder) holder).etText.getLayoutParams();
+                params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+                ((EditViewHolder) holder).etText.setLayoutParams(params);
+                ((EditViewHolder) holder).etText.setTextSize(17);
+            }
+
 
             ((EditViewHolder) holder).etText.addTextChangedListener(new SaveEditWatcher((EditViewHolder) holder));
             //通过设置tag，防止position紊乱
@@ -98,18 +133,69 @@ public class LongTextAdapter extends RecyclerView.Adapter {
             });
         }
         if (holder instanceof ImageViewHolder) {
-            Glide.with(mContext)
-                    .load(bean.getImageUrl())
-                    .apply(new RequestOptions()
+            if (isSort()) {
+                ((ImageViewHolder) holder).etDes.setVisibility(View.GONE);
+                ((ImageViewHolder) holder).ivCover.setBackgroundResource(R.drawable.bg_edit_dash);
+                ((ImageViewHolder) holder).ivDelete.setVisibility(View.GONE);
+                ((ImageViewHolder) holder).ivEdit.setVisibility(View.GONE);
+                ((ImageViewHolder) holder).ivDrag.setVisibility(View.VISIBLE);
+                Glide.with(mContext)
+                        .load(bean.getImageUrl())
+                        .apply(new RequestOptions()
 //                            .override(Tools.getScreenW(mContext), Tools.getScreenW(mContext))
-                            .override(Tools.getScreenW(mContext), 200)
-                            .centerCrop())
-                    .into(((ImageViewHolder) holder).ivCover);
-            if (mOnImgDeleteClickLitener != null) {
-                ((ImageViewHolder) holder).ivDelete
-                        .setOnClickListener(view ->
-                                mOnImgDeleteClickLitener.onImageDeleteClick(view, holder.getAdapterPosition()));
+                                .override(Tools.getScreenW(mContext) - Tools.dip2px(mContext, 15 + 15), sortHight)
+                                .centerCrop())
+                        .into(((ImageViewHolder) holder).ivCover);
+
+
+            } else {
+                if (TextUtils.isEmpty(bean.getDes())) {
+                    ((ImageViewHolder) holder).etDes.setVisibility(View.GONE);
+                } else {
+                    ((ImageViewHolder) holder).etDes.setVisibility(View.VISIBLE);
+                }
+                ((ImageViewHolder) holder).ivCover.setBackgroundResource(R.drawable.bg_edit_nodash);
+                ((ImageViewHolder) holder).ivDelete.setVisibility(View.VISIBLE);
+                ((ImageViewHolder) holder).ivEdit.setVisibility(View.VISIBLE);
+                ((ImageViewHolder) holder).ivDrag.setVisibility(View.GONE);
+
+                if (mOnImgDeleteClickLitener != null) {
+                    ((ImageViewHolder) holder).ivDelete
+                            .setOnClickListener(view ->
+                                    mOnImgDeleteClickLitener.onImageDeleteClick(view, holder.getAdapterPosition()));
+                }
+
+                ((ImageViewHolder) holder).ivEdit.setOnClickListener(v -> {
+                    ((ImageViewHolder) holder).etDes.setVisibility(View.VISIBLE);
+                    ((ImageViewHolder) holder).etDes.requestFocus();
+                });
+                ((ImageViewHolder) holder).etDes.addTextChangedListener(new SaveDesEditWatcher((ImageViewHolder) holder));
+                ((ImageViewHolder) holder).etDes.setTag(position);
+                ((ImageViewHolder) holder).etDes.setText(bean.getDes());
+
+                BitmapFactory.Options options = new BitmapFactory.Options();
+                options.inJustDecodeBounds = true;
+                Bitmap bmp = BitmapFactory.decodeFile(bean.getImageUrl(), options);//这里的bitmap是个空
+                if (bmp == null) {
+                    Log.e("通过options获取到的bitmap为空", "===");
+                }
+                int outHeight = options.outHeight;
+                int outWidth = options.outWidth;
+
+                int sw = Tools.getScreenW(mContext);
+                int w = (sw - Tools.dip2px(mContext, 15 + 15));
+                Double rate = outHeight * 1.0 / outWidth;
+
+                int h = (int) (w * rate);
+                Glide.with(mContext)
+                        .load(bean.getImageUrl())
+                        .apply(new RequestOptions()
+//                            .override(Tools.getScreenW(mContext), Tools.getScreenW(mContext))
+                                .override(w, h))
+                        .into(((ImageViewHolder) holder).ivCover);
             }
+
+
         }
 
         if (mOnItemClickLitener != null) {
@@ -161,6 +247,10 @@ public class LongTextAdapter extends RecyclerView.Adapter {
         ImageView ivCover;
         @BindView(R.id.iv_delete)
         ImageView ivDelete;
+        @BindView(R.id.iv_drag)
+        ImageView ivDrag;
+        @BindView(R.id.iv_edit)
+        ImageView ivEdit;
         @BindView(R.id.et_des)
         EditText etDes;
 
@@ -207,6 +297,47 @@ public class LongTextAdapter extends RecyclerView.Adapter {
 //            SaveEditListener listener = (SaveEditListener) mContext
             if (s != null && mSaveEditListener != null) {
                 mSaveEditListener.SaveEdit(Integer.parseInt(mHolder.etText.getTag().toString()), s.toString());
+            }
+        }
+    }
+
+    public interface SaveDesEditListener {
+        void saveDesEdit(int position, String string);
+    }
+
+    private SaveDesEditListener mSaveDesEditListener;
+
+
+    public void setSaveDesEditListener(SaveDesEditListener mSaveDesEditListener) {
+        this.mSaveDesEditListener = mSaveDesEditListener;
+    }
+
+
+    //监听 文本输入框
+    class SaveDesEditWatcher implements TextWatcher {
+
+        private ImageViewHolder mHolder;
+
+        public SaveDesEditWatcher(ImageViewHolder mHolder) {
+            this.mHolder = mHolder;
+        }
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            //用户输入完毕后，处理输入数据，回调给主界面处理
+//            SaveEditListener listener = (SaveEditListener) mContext
+            if (s != null && mSaveDesEditListener != null) {
+                mSaveDesEditListener.saveDesEdit(Integer.parseInt(mHolder.etDes.getTag().toString()), s.toString());
             }
         }
     }
