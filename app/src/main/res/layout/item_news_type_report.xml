@@ -20,21 +20,35 @@
         android:paddingRight="15dp"
         android:paddingTop="15dp">
 
-
-        <TextView
-            android:id="@+id/name"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:lineSpacingExtra="5sp"
-            android:maxLines="2"
-            android:textColor="#000000"
-            android:textSize="17sp"
-            tools:text="满口喝到完苏梅子果肉，这杯正是暖冬的味道正是暖冬的..." />
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="3dp"
+                android:src="@drawable/invalid_report" />
+
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:lineSpacingExtra="5sp"
+                android:maxLines="2"
+                android:text="\t\t\t聚焦新一届国务院机构组成人员，这个专题名称可以有两行哦"
+                android:textColor="#333333"
+                android:textSize="18sp" />
+
+
+        </RelativeLayout>
+
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_height="150dp"
             android:layout_marginTop="10dp"
             android:gravity="center"
             android:orientation="horizontal">
@@ -46,69 +60,118 @@
                 android:layout_weight="1"
                 android:scaleType="centerCrop"
                 android:src="@drawable/iv_default_news_small" />
-
-            <ImageView
-                android:id="@+id/iv_cover1"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="6dp"
-                android:layout_weight="1"
-                android:scaleType="centerCrop"
-                android:src="@drawable/iv_default_news_small" />
-
-            <ImageView
-                android:id="@+id/iv_cover2"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="6dp"
-                android:layout_weight="1"
-                android:scaleType="centerCrop"
-                android:src="@drawable/iv_default_news_small" />
         </LinearLayout>
 
-        <RelativeLayout
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="15dp"
-            android:layout_marginTop="15dp">
+            android:layout_marginTop="15dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingBottom="2dp">
 
-            <LinearLayout
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:textColor="#ff3f53"
+                android:lineSpacingExtra="0sp"
+                android:text="最新"
+                />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="12dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:background="#e5e5e5" />
+
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingBottom="2dp">
+                android:ellipsize="end"
+                android:lineSpacingExtra="5sp"
+                android:maxLines="2"
+                android:text="聚焦新一届国务院机构组成人员，这个专题名称可以有两行哦"
+                android:textSize="16sp"
+                android:textColor="#333333"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingBottom="2dp">
 
-                <TextView
-                    android:id="@+id/tv_author"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:lineSpacingExtra="1sp"
-                    android:paddingRight="10dp"
-                    android:textColor="#999999"
-                    android:textSize="12sp"
-                    tools:text="下饭馆下你好下饭" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:textColor="#ff3f53"
+                android:lineSpacingExtra="0sp"
+                android:text="热点"
+                />
 
-                <TextView
-                    android:id="@+id/tv_time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:lineSpacingExtra="1sp"
-                    android:paddingRight="10dp"
-                    android:textColor="#999999"
-                    android:textSize="12sp"
-                    tools:text="12-29" />
+            <View
+                android:layout_width="1dp"
+                android:layout_height="12dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:background="#e5e5e5" />
 
-                <TextView
-                    android:id="@+id/tv_readnum"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="end"
-                    android:lineSpacingExtra="1sp"
-                    android:textColor="#999999"
-                    android:textSize="12sp"
-                    tools:text="456次浏览" />
-            </LinearLayout>
-        </RelativeLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:lineSpacingExtra="5sp"
+                android:maxLines="2"
+                android:text="聚焦新一届国务院机构组成人员，这个专题名称可以有两行哦"
+                android:textSize="16sp"
+                android:textColor="#333333"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingBottom="2dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:textColor="#ff3f53"
+                android:lineSpacingExtra="0sp"
+                android:text="聚焦"
+                />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="12dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:background="#e5e5e5" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:lineSpacingExtra="5sp"
+                android:maxLines="2"
+                android:text="聚焦新一届国务院机构组成人员，这个专题名称可以有两行哦"
+                android:textSize="16sp"
+                android:textColor="#333333"
+                />
+        </LinearLayout>
+
 
         <View
             android:id="@+id/smallline"

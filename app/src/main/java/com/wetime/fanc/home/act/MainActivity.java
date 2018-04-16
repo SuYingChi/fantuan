@@ -9,7 +9,6 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -127,8 +126,7 @@ public class MainActivity extends BaseActivity implements IBindPushView, IGetRed
 
     private void showFloat() {
         View floatView = LayoutInflater.from(this).inflate(R.layout.item_float, null);
-        FloatWindow
-                .with(getApplicationContext())
+        FloatWindow.with(getApplicationContext())
                 .setView(floatView)
                 .setDesktopShow(true)                //默认 false
                 .build();

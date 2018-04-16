@@ -59,6 +59,7 @@ public class ActDetailActivity extends BaseActivity implements IGetActDetailView
     @BindView(R.id.tv_zan)
     TextView tvZan;
     @BindView(R.id.et_content)
+    public
     EditText etContent;
     @BindView(R.id.tv_send)
     TextView tvSend;
@@ -73,7 +74,7 @@ public class ActDetailActivity extends BaseActivity implements IGetActDetailView
     private ActDetailAdapter actDetailAdapter;
     private ActDetailBean actbean;
     private CommentActPresenter commentActPresenter;
-    private String toId = "";
+    public String toId = "";
     private BottomDialog mCommentBottomDialog;
     private BottomDialog mDeleteBottomDialog;
     private DeleteCommentPresenter deleteCommentPresenter;
@@ -295,7 +296,7 @@ public class ActDetailActivity extends BaseActivity implements IGetActDetailView
                 .init();
     }
 
-    private void showKeyborad() {
+    public void showKeyborad() {
         rlBottom.setVisibility(View.VISIBLE);
         etContent.requestFocus();
         InputMethodManager imm = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
