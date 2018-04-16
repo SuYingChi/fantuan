@@ -2,6 +2,7 @@ package com.wetime.fanc.circle.adapter;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.text.Spannable;
@@ -198,11 +199,16 @@ public class ActDetailAdapter extends RecyclerView.Adapter {
                     @Override
                     public void onClick(View arg0) {
                         // TODO Auto-generated method stub
-                        Intent go = new Intent(mActivity, UserCardActivity.class);
-                        go.putExtra("num", bean.isTo_news() ? "3" : "2");
-                        go.putExtra("index", 0);
-                        go.putExtra("id", bean.getTo_uid());
-                        mActivity.startActivity(go);
+//                        Intent go = new Intent(mActivity, UserCardActivity.class);
+//                        go.putExtra("num", bean.isTo_news() ? "3" : "2");
+//                        go.putExtra("index", 0);
+//                        go.putExtra("id", bean.getTo_uid());
+//                        mActivity.startActivity(go);
+                        new Handler().postDelayed(() -> {
+                            ((ActDetailActivity) mActivity).toId = bean.getUid();
+                            ((ActDetailActivity) mActivity).etContent.setHint("回复 " + bean.getUsername());
+                            ((ActDetailActivity) mActivity).showKeyborad();
+                        }, 500);
                     }
 
                     @Override
@@ -225,11 +231,16 @@ public class ActDetailAdapter extends RecyclerView.Adapter {
                 mActivity.startActivity(go);
             });
             ((ViewHolder2) holder).tvName.setOnClickListener(view -> {
-                Intent go = new Intent(mActivity, UserCardActivity.class);
-                go.putExtra("num", actDetailBean.getData().isIs_news() ? "3" : "2");
-                go.putExtra("index", 0);
-                go.putExtra("id", bean.getUid());
-                mActivity.startActivity(go);
+//                Intent go = new Intent(mActivity, UserCardActivity.class);
+//                go.putExtra("num", actDetailBean.getData().isIs_news() ? "3" : "2");
+//                go.putExtra("index", 0);
+//                go.putExtra("id", bean.getUid());
+//                mActivity.startActivity(go);
+                new Handler().postDelayed(() -> {
+                    ((ActDetailActivity) mActivity).toId = bean.getUid();
+                    ((ActDetailActivity) mActivity).etContent.setHint("回复 " + bean.getUsername());
+                    ((ActDetailActivity) mActivity).showKeyborad();
+                }, 500);
             });
         }
 

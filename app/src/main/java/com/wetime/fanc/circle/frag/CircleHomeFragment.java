@@ -9,6 +9,7 @@ import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.Toast;
@@ -113,7 +114,7 @@ public class CircleHomeFragment extends BaseLazyFragment {
 
         View popupView = LayoutInflater.from(getContext()).inflate(R.layout.layout_popupwindow, null);
 
-        PopupWindow window = new PopupWindow(popupView, 250, 160);
+        PopupWindow window = new PopupWindow(popupView,  ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
         window.setAnimationStyle(R.style.popup_window_anim);
 
@@ -129,7 +130,7 @@ public class CircleHomeFragment extends BaseLazyFragment {
 
         window.update();
 
-        window.showAsDropDown(ivEdit, -200, 0);
+        window.showAsDropDown(ivEdit, -180, 0);
 
         popupView.findViewById(R.id.pop_duan).setOnClickListener(v -> {
             if (spu.getToken().equals("")) {

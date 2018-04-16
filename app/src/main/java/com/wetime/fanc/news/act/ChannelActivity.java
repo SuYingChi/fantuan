@@ -70,8 +70,7 @@ public class ChannelActivity extends BaseActivity {
         //判断有没有变化
         boolean isChange = false;
         List<ChannelBean> olditems = GsonUtils.getGsonInstance().fromJson(spu.getValue(LOCALCHANNAL),
-                new TypeToken<List<ChannelBean>>() {
-                }.getType());
+                new TypeToken<List<ChannelBean>>() {}.getType());
 
         if (items.size() != olditems.size()) {
             isChange = true;
