@@ -56,4 +56,6 @@
     <color name="_33000000">#33000000</color>
     <color name="_80ffffff">#80ffffff</color>
     <color name="_ff3f53">#ff3f53</color>
+
+    <color name="photoPackDivider">#DDDDDD</color>
 </resources>

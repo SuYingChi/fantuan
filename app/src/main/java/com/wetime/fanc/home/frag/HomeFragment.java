@@ -29,11 +29,10 @@ import com.flyco.tablayout.listener.CustomTabEntity;
 import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.wetime.fanc.R;
+import com.wetime.fanc.circle.act.LongTextEditActivity;
 import com.wetime.fanc.circle.adapter.HeadHomeAdapter;
-import com.wetime.fanc.home.act.HomeSearchActivity;
 import com.wetime.fanc.home.act.SortActivity;
 import com.wetime.fanc.home.adapter.HomeItemAdapter;
 import com.wetime.fanc.home.bean.HomeItemBean;
@@ -50,7 +49,6 @@ import com.wetime.fanc.shopcenter.act.ShopCenterActivity;
 import com.wetime.fanc.utils.Const;
 import com.wetime.fanc.utils.Tools;
 import com.wetime.fanc.web.WebActivity;
-import com.yanzhenjie.permission.Action;
 import com.yanzhenjie.permission.AndPermission;
 import com.yanzhenjie.permission.Permission;
 
@@ -60,8 +58,6 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -258,7 +254,9 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, IGe
 
                 break;
             case R.id.ll_search:
-                Intent gosearch = new Intent(getContext(), HomeSearchActivity.class);
+//                Intent gosearch = new Intent(getContext(), HomeSearchActivity.class);
+//                startActivity(gosearch);
+                Intent gosearch = new Intent(getContext(), LongTextEditActivity.class);
                 startActivity(gosearch);
                 break;
             case R.id.iv_msg:
