@@ -8,10 +8,11 @@ import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.IBinder;
 import android.support.v7.app.AlertDialog;
 import android.text.SpannableString;
@@ -23,8 +24,10 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,20 +47,16 @@ import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.tencent.tauth.IUiListener;
 import com.wetime.fanc.R;
 import com.wetime.fanc.application.FApp;
+import com.wetime.fanc.circle.act.LongTextEditActivity;
+import com.wetime.fanc.circle.act.PublishActActivity;
 import com.wetime.fanc.customview.multiimageselector.MultiImageSelectorActivity;
 import com.wetime.fanc.login.act.LoginActivity;
+import com.wetime.fanc.main.act.BaseActivity;
 import com.wetime.fanc.main.act.PictureActivity;
 import com.wetime.fanc.web.WebActivity;
 
-import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -383,7 +382,7 @@ public class Tools {
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         image.compress(Bitmap.CompressFormat.JPEG, 80, baos);
-        if( baos.toByteArray().length / 1024>32) {//判断如果图片大于1M,进行压缩避免在生成图片（BitmapFactory.decodeStream）时溢出
+        if (baos.toByteArray().length / 1024 > 32) {//判断如果图片大于1M,进行压缩避免在生成图片（BitmapFactory.decodeStream）时溢出
             baos.reset();//重置baos即清空baos
             image.compress(Bitmap.CompressFormat.JPEG, 70, baos);//这里压缩50%，把压缩后的数据存放到baos中
         }
@@ -419,7 +418,7 @@ public class Tools {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         image.compress(Bitmap.CompressFormat.JPEG, 70, baos);//质量压缩方法，这里100表示不压缩，把压缩后的数据存放到baos中
         int options = 50;
-        while ( baos.toByteArray().length / 1024>32) { //循环判断如果压缩后图片是否大于100kb,大于继续压缩
+        while (baos.toByteArray().length / 1024 > 32) { //循环判断如果压缩后图片是否大于100kb,大于继续压缩
             baos.reset();//重置baos即清空baos
             image.compress(Bitmap.CompressFormat.JPEG, options, baos);//这里压缩options%，把压缩后的数据存放到baos中
             options -= 10;//每次都减少10
@@ -455,14 +454,14 @@ public class Tools {
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         int quality = 10;
-        Log.e("xi", "shareWx: "+getBitmapSize(thumb) );
+        Log.e("xi", "shareWx: " + getBitmapSize(thumb));
 //        thumb.compress(Bitmap.CompressFormat.JPEG, quality, baos);
 //        BitmapFactory.Options options2 = new BitmapFactory.Options();
 //        options2.inPreferredConfig = Bitmap.Config.ARGB_8888;
 //        byte[] bytes = baos.toByteArray();
 //        thumb = BitmapFactory.decodeByteArray(bytes, 0, bytes.length,options2);
-        thumb=comp(thumb);
-        Log.e("xi", "shareWx: "+getBitmapSize(thumb) );
+        thumb = comp(thumb);
+        Log.e("xi", "shareWx: " + getBitmapSize(thumb));
 
         msg.thumbData = bmpToByteArray(thumb, true);
         SendMessageToWX.Req req = new SendMessageToWX.Req();
@@ -589,5 +588,56 @@ public class Tools {
         imageUrls.add(imageUrl);
         params.putStringArrayList(QzoneShare.SHARE_TO_QQ_IMAGE_URL, imageUrls);
         FApp.mTencent.shareToQzone(mContext, params, iUiListener);
+    }
+
+    public static void showPopWin(Context context, View ivEdit, String id) {
+        View popupView = LayoutInflater.from(context).inflate(R.layout.layout_popupwindow, null);
+
+        PopupWindow window = new PopupWindow(popupView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+
+        window.setAnimationStyle(R.style.popup_window_anim);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            window.setElevation(20);
+        }
+
+        window.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#F8F8F8")));
+
+        window.setFocusable(true);
+
+        window.setOutsideTouchable(true);
+
+        window.update();
+
+        window.showAsDropDown(ivEdit, -180, 0);
+
+        popupView.findViewById(R.id.pop_duan).setOnClickListener(v -> {
+            if (((BaseActivity) context).spu.getToken().equals("")) {
+                Intent gologin = new Intent(context, LoginActivity.class);
+                context.startActivity(gologin);
+                if (window.isShowing()) {
+                    window.dismiss();
+                }
+            } else {
+                Intent goPublish = new Intent(context, PublishActActivity.class);
+                String mCircleID = id;
+                if (null == mCircleID) {
+                    mCircleID = "";
+                }
+                goPublish.putExtra("id",mCircleID);
+                context.startActivity(goPublish);
+                if (window.isShowing()) {
+                    window.dismiss();
+                }
+            }
+        });
+
+        popupView.findViewById(R.id.pop_chang).setOnClickListener(v -> {
+            Intent gosearch = new Intent(context, LongTextEditActivity.class);
+            context.startActivity(gosearch);
+            if (window.isShowing()) {
+                window.dismiss();
+            }
+        });
     }
 }

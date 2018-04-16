@@ -82,8 +82,6 @@ public class CircleHomeAdapter extends RecyclerView.Adapter {
 //        if (mOnItemClickLitener != null) {
 //            holder.itemView.setOnClickListener(view -> mOnItemClickLitener.onItemClick(view, position));
 //        }
-
-
         if (holder instanceof CircleHeadViewHolder) {
             if (circleAdapter == null) {
                 ArrayList<CustomTabEntity> mTabEntities = new ArrayList<>();
@@ -187,7 +185,7 @@ public class CircleHomeAdapter extends RecyclerView.Adapter {
                 ((NewsHolder19) holder).gv.setLayoutParams(params);
                 gvadapter.notifyDataSetChanged();
                 ((NewsHolder19) holder).gv.setOnItemClickListener((adapterView, view, i, l) -> Tools.goPicGallery(mActivity, bean.getCover(), i));
-                ((NewsHolder19) holder).gv.setOnTouchInvalidPositionListener(motionEvent -> false);
+//                ((NewsHolder19) holder).gv.setOnTouchInvalidPositionListener(motionEvent -> false);
             }
 
             ((NewsHolder19) holder).tvSee.setText(bean.getRead_num());

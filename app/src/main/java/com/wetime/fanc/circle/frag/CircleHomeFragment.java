@@ -1,22 +1,14 @@
 package com.wetime.fanc.circle.frag;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.os.Build;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.PopupWindow;
-import android.widget.Toast;
 
 import com.flyco.tablayout.SlidingTabLayout;
 import com.wetime.fanc.R;
-import com.wetime.fanc.circle.act.PublishActActivity;
 import com.wetime.fanc.home.adapter.NormalTitlePagerAdapter;
 import com.wetime.fanc.home.event.RefreshRedNumEvent;
 import com.wetime.fanc.login.act.LoginActivity;
@@ -105,55 +97,9 @@ public class CircleHomeFragment extends BaseLazyFragment {
                 }
                 break;
             case R.id.iv_edit:
-                showPopWin();
+                Tools.showPopWin(getContext(), ivEdit, null);
                 break;
         }
     }
 
-    private void showPopWin() {
-
-        View popupView = LayoutInflater.from(getContext()).inflate(R.layout.layout_popupwindow, null);
-
-        PopupWindow window = new PopupWindow(popupView,  ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-
-        window.setAnimationStyle(R.style.popup_window_anim);
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            window.setElevation(20);
-        }
-
-        window.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#F8F8F8")));
-
-        window.setFocusable(true);
-
-        window.setOutsideTouchable(true);
-
-        window.update();
-
-        window.showAsDropDown(ivEdit, -180, 0);
-
-        popupView.findViewById(R.id.pop_duan).setOnClickListener(v -> {
-            if (spu.getToken().equals("")) {
-                Intent gologin = new Intent(getContext(), LoginActivity.class);
-                startActivity(gologin);
-                if (window.isShowing()) {
-                    window.dismiss();
-                }
-            } else {
-                Intent goPublish = new Intent(getContext(), PublishActActivity.class);
-                startActivity(goPublish);
-                if (window.isShowing()) {
-                    window.dismiss();
-                }
-            }
-        });
-
-        popupView.findViewById(R.id.pop_chang).setOnClickListener(v -> {
-            Toast.makeText(mActivity, "点击了长文章", Toast.LENGTH_SHORT).show();
-            if (window.isShowing()) {
-                window.dismiss();
-            }
-        });
-
-    }
 }

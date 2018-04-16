@@ -23,6 +23,7 @@ import com.wetime.fanc.home.adapter.NormalTitlePagerAdapter;
 import com.wetime.fanc.login.act.LoginActivity;
 import com.wetime.fanc.main.act.BaseActivity;
 import com.wetime.fanc.utils.GlideRoundTransform;
+import com.wetime.fanc.utils.Tools;
 
 import java.util.ArrayList;
 
@@ -86,14 +87,7 @@ public class CircleDetailActivity extends BaseActivity implements IGetCircleHead
                 startActivity(go);
                 break;
             case R.id.iv_edit:
-                if (spu.getToken().equals("")) {
-                    Intent gologin = new Intent(mContext, LoginActivity.class);
-                    startActivity(gologin);
-                } else {
-                    Intent goPublish = new Intent(this, PublishActActivity.class);
-                    goPublish.putExtra("id", getCircleId());
-                    startActivity(goPublish);
-                }
+                Tools.showPopWin(this, ivEdit,getCircleId());
                 break;
             case R.id.iv_attention:
                 break;

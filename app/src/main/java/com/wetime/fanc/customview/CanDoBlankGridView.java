@@ -62,12 +62,10 @@ public class CanDoBlankGridView extends GridView {
             // events, it just doesn't respond to them.
             return isClickable() || isLongClickable();
         }
-        final int motionPosition = pointToPosition((int) event.getX(),
-                (int) event.getY());
+        final int motionPosition = pointToPosition((int) event.getX(), (int) event.getY());
         if (motionPosition == INVALID_POSITION) {
             super.onTouchEvent(event);
-            return mTouchInvalidPosListener.onTouchInvalidPosition(event
-                    .getActionMasked());
+            return mTouchInvalidPosListener.onTouchInvalidPosition(event.getActionMasked());
         }
         return super.onTouchEvent(event);
     }
