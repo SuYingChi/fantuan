@@ -20,6 +20,8 @@ import com.wetime.fanc.circle.bean.LongTextBean;
 import com.wetime.fanc.customview.OnRecyclerItemClickListener;
 import com.wetime.fanc.customview.multiimageselector.MultiImageSelectorActivity;
 import com.wetime.fanc.main.act.BaseActivity;
+import com.wetime.fanc.utils.GsonUtils;
+import com.wetime.fanc.utils.KeyboardChangeListener;
 import com.wetime.fanc.utils.Tools;
 
 import java.util.ArrayList;
@@ -29,10 +31,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+import static android.support.v7.widget.RecyclerView.SCROLL_STATE_DRAGGING;
 import static com.wetime.fanc.utils.Tools.REQUEST_IMAGE;
 
 public class LongTextEditActivity extends BaseActivity implements LongTextAdapter.SaveEditListener,
-        LongTextAdapter.SaveSelectionStartListener, LongTextAdapter.OnImgDeleteClickLitener, LongTextAdapter.SaveDesEditListener {
+        LongTextAdapter.SaveSelectionStartListener, LongTextAdapter.OnImgDeleteClickLitener, LongTextAdapter.SaveDesEditListener{
 
 
     @BindView(R.id.iv_back)
@@ -60,11 +63,11 @@ public class LongTextEditActivity extends BaseActivity implements LongTextAdapte
         ButterKnife.bind(this);
         rclContent.setLayoutManager(new LinearLayoutManager(this));
         LongTextBean titleLB = new LongTextBean();
-        titleLB.setType(0);
+        titleLB.setType("0");
         list.add(titleLB);
 
         LongTextBean firstLB = new LongTextBean();
-        firstLB.setType(1);
+        firstLB.setType("1");
         list.add(firstLB);
 
         adapter = new LongTextAdapter(this, list);
@@ -74,12 +77,13 @@ public class LongTextEditActivity extends BaseActivity implements LongTextAdapte
         adapter.setSaveDesEditListener(this);
         rclContent.setAdapter(adapter);
 
-
         rclContent.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
-                Tools.hideSoftInput(LongTextEditActivity.this);
+                //The RecyclerView is currently being dragged by outside input such as user touch input.
+                if (newState == SCROLL_STATE_DRAGGING)
+                    Tools.hideSoftInput(LongTextEditActivity.this);
             }
 
             @Override
@@ -92,6 +96,12 @@ public class LongTextEditActivity extends BaseActivity implements LongTextAdapte
     }
 
     @Override
+    protected void setSoftInPutMode() {
+//        super.setSoftInPutMode();
+    }
+
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         Log.e("zk", "position: " + pos);
         Log.e("zk", "index: " + index);
@@ -102,7 +112,7 @@ public class LongTextEditActivity extends BaseActivity implements LongTextAdapte
                     for (String path : data.getStringArrayListExtra(MultiImageSelectorActivity.EXTRA_RESULT)) {
                         LongTextBean lb = new LongTextBean();
                         lb.setImageUrl(path);
-                        lb.setType(2);
+                        lb.setType("2");
                         list.add(lb);
                     }
                 } else {
@@ -111,7 +121,7 @@ public class LongTextEditActivity extends BaseActivity implements LongTextAdapte
                         for (String path : data.getStringArrayListExtra(MultiImageSelectorActivity.EXTRA_RESULT)) {
                             LongTextBean lb = new LongTextBean();
                             lb.setImageUrl(path);
-                            lb.setType(2);
+                            lb.setType("2");
                             list.add(pos, lb);
                         }
                     } else {//拆分当前
@@ -120,7 +130,7 @@ public class LongTextEditActivity extends BaseActivity implements LongTextAdapte
                             for (String path : data.getStringArrayListExtra(MultiImageSelectorActivity.EXTRA_RESULT)) {
                                 LongTextBean lb = new LongTextBean();
                                 lb.setImageUrl(path);
-                                lb.setType(2);
+                                lb.setType("2");
                                 list.add(pos + 1, lb);
                             }
                         } else {
@@ -130,13 +140,13 @@ public class LongTextEditActivity extends BaseActivity implements LongTextAdapte
                             list.get(pos).setContent(start);
 
                             LongTextBean elb = new LongTextBean();
-                            elb.setType(1);
+                            elb.setType("1");
                             elb.setContent(end);
                             list.add(pos + 1, elb);
                             for (String path : data.getStringArrayListExtra(MultiImageSelectorActivity.EXTRA_RESULT)) {
                                 LongTextBean lb = new LongTextBean();
                                 lb.setImageUrl(path);
-                                lb.setType(2);
+                                lb.setType("2");
                                 list.add(pos + 1, lb);
                             }
                         }
@@ -151,7 +161,7 @@ public class LongTextEditActivity extends BaseActivity implements LongTextAdapte
     private void initSortData() {
         //第一个 为 title 不排
         for (int i = 1; i < list.size(); i++) {
-            int type = list.get(i).getType();
+            int type = Integer.valueOf(list.get(i).getType());
             //当文本为空的时候 不参与排序
             if (type == 1 && TextUtils.isEmpty(list.get(i).getContent())) {
                 list.remove(i);
@@ -163,13 +173,13 @@ public class LongTextEditActivity extends BaseActivity implements LongTextAdapte
     private void initNormalData() {
         //第一个 为 title 不排
         for (int i = 1; i < list.size(); i++) {
-            int type = list.get(i).getType();
+            int type = Integer.valueOf(list.get(i).getType());
 
             if (type == 1) {
                 if (i + 1 < list.size()) {//下一个还有
                     LongTextBean nlb = list.get(i + 1);
                     //并且下一个也为edit 合并
-                    if (nlb.getType() == 1) {
+                    if (Integer.valueOf(nlb.getType()) == 1) {
                         // 下一个不为空的时候加 回车  合并，否则 直接rmove掉
                         if (!TextUtils.isEmpty(nlb.getContent())) {
                             list.get(i).setContent(list.get(i).getContent() + "\n" + nlb.getContent());
@@ -181,22 +191,22 @@ public class LongTextEditActivity extends BaseActivity implements LongTextAdapte
                 if (i + 1 < list.size()) {//下一个还有
                     LongTextBean nlb = list.get(i + 1);
                     //并且下一个也为 图片 需要插入一个 edit
-                    if (nlb.getType() == 2) {
+                    if (Integer.valueOf(nlb.getType()) == 2) {
                         LongTextBean elb = new LongTextBean();
-                        elb.setType(1);
+                        elb.setType("1");
                         list.add(i + 1, elb);
                     }
                     //没有下一个 底部 许增加一个 输入框
                 } else {
                     LongTextBean elb = new LongTextBean();
-                    elb.setType(1);
+                    elb.setType("1");
                     list.add(elb);
 
                 }
                 //头部 第一个为图片的情况  再在上面加一个 edit 更具需求 增删
                 if (i == 1) {
                     LongTextBean elb = new LongTextBean();
-                    elb.setType(1);
+                    elb.setType("1");
                     list.add(1, elb);
                 }
             }
@@ -236,8 +246,11 @@ public class LongTextEditActivity extends BaseActivity implements LongTextAdapte
                 break;
             case R.id.tv_publish:
                 for (LongTextBean b : list) {
+
                     Log.e("zk", "type=" + b.getType() + "--title=" + b.getTitle() + "--con=" + b.getContent() + "--des=" + b.getDes());
                 }
+                Log.d("zk",GsonUtils.getGsonInstance().toJson(list));
+
                 break;
 
 
@@ -269,8 +282,8 @@ public class LongTextEditActivity extends BaseActivity implements LongTextAdapte
         ImmersionBar.with(this)
                 .statusBarColor(R.color.white_lib)
                 .statusBarDarkFont(true, 0.2f)
-                .fitsSystemWindows(true)
-                .keyboardEnable(true)
+//                .fitsSystemWindows(true)
+//                .keyboardEnable(true)
                 .init();
     }
 
@@ -336,7 +349,7 @@ public class LongTextEditActivity extends BaseActivity implements LongTextAdapte
                 int fromPosition = viewHolder.getAdapterPosition();
                 //拿到当前拖拽到的item的viewHolder
                 int toPosition = target.getAdapterPosition();
-                if(toPosition==0){// 第一个不参与排序
+                if (toPosition == 0) {// 第一个不参与排序
                     return true;
                 }
                 if (fromPosition < toPosition) {

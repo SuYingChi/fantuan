@@ -1,7 +1,7 @@
 package com.wetime.fanc.circle.bean;
 
 public class LongTextBean {
-    private int type;//0 头部 1输入框 2 图文
+    private String type;//0 头部 1输入框 2 图文
     private String title = "";//头部  title
     private String imageUrl = "";
     private String des = "";
@@ -16,11 +16,11 @@ public class LongTextBean {
     }
 
 
-    public int getType() {
+    public String getType() {
         return type;
     }
 
-    public void setType(int type) {
+    public void setType(String type) {
         this.type = type;
     }
 

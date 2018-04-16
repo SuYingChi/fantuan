@@ -1,6 +1,7 @@
 package com.wetime.fanc.circle.adapter;
 
 import android.app.Activity;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v7.widget.RecyclerView;
@@ -11,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 
@@ -67,7 +69,7 @@ public class LongTextAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemViewType(int position) {
-        return mData.get(position).getType();
+        return Integer.valueOf(mData.get(position).getType());
     }
 
     @Override
@@ -167,7 +169,15 @@ public class LongTextAdapter extends RecyclerView.Adapter {
 
                 ((ImageViewHolder) holder).ivEdit.setOnClickListener(v -> {
                     ((ImageViewHolder) holder).etDes.setVisibility(View.VISIBLE);
+
+                    ((ImageViewHolder) holder).etDes.setFocusable(true);
+                    ((ImageViewHolder) holder).etDes.setFocusableInTouchMode(true);
                     ((ImageViewHolder) holder).etDes.requestFocus();
+                    InputMethodManager imm = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.showSoftInput(((ImageViewHolder) holder).etDes, 0);
+
+
+//                    ((ImageViewHolder) holder).etDes.requestFocus();
                 });
                 ((ImageViewHolder) holder).etDes.addTextChangedListener(new SaveDesEditWatcher((ImageViewHolder) holder));
                 ((ImageViewHolder) holder).etDes.setTag(position);
