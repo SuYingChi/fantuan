@@ -196,7 +196,15 @@ public class LongTextEditActivity extends BaseActivity implements LongTextAdapte
                     tvAddres.setTextColor(ContextCompat.getColor(mContext, R.color.text_blue));
                     ivClose.setVisibility(View.VISIBLE);
                 }
-                showKeyboard();
+                rclContent.scrollToPosition(pos);
+//                    rclContent.smoothScrollToPosition(pos);
+                Log.e("zk", "pos: " + pos);
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        showKeyboard();
+                    }
+                }, 200);
             }
         }
     }
@@ -331,7 +339,7 @@ public class LongTextEditActivity extends BaseActivity implements LongTextAdapte
     private void showKeyboard() {
         EditText et;
         if (pos == 0) {
-            et = rclContent.getLayoutManager().findViewByPosition(pos).findViewById(R.id.et_text);
+            et = rclContent.getLayoutManager().findViewByPosition(pos).findViewById(R.id.et_title);
         } else {
             et = rclContent.getLayoutManager().findViewByPosition(pos).findViewById(R.id.et_text);
         }
