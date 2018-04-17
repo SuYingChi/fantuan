@@ -1,7 +1,11 @@
 package com.wetime.fanc.circle.act;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -9,13 +13,15 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.gyf.barlibrary.ImmersionBar;
 import com.wetime.fanc.R;
 import com.wetime.fanc.circle.adapter.LongTextAdapter;
+import com.wetime.fanc.circle.bean.LocItemBean;
 import com.wetime.fanc.circle.bean.LongTextBean;
 import com.wetime.fanc.customview.OnRecyclerItemClickListener;
 import com.wetime.fanc.customview.multiimageselector.MultiImageSelectorActivity;
@@ -32,10 +38,11 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 import static android.support.v7.widget.RecyclerView.SCROLL_STATE_DRAGGING;
+import static com.wetime.fanc.circle.act.PublishActActivity.REQUEST_LOC;
 import static com.wetime.fanc.utils.Tools.REQUEST_IMAGE;
 
 public class LongTextEditActivity extends BaseActivity implements LongTextAdapter.SaveEditListener,
-        LongTextAdapter.SaveSelectionStartListener, LongTextAdapter.OnImgDeleteClickLitener, LongTextAdapter.SaveDesEditListener{
+        LongTextAdapter.SaveSelectionStartListener, LongTextAdapter.OnImgDeleteClickLitener, LongTextAdapter.SaveDesEditListener, KeyboardChangeListener.KeyBoardListener {
 
 
     @BindView(R.id.iv_back)
@@ -48,6 +55,13 @@ public class LongTextEditActivity extends BaseActivity implements LongTextAdapte
     TextView tvPublish;
     @BindView(R.id.tv_ok)
     TextView tvOk;
+    @BindView(R.id.iv_keyboard)
+    ImageView ivKeyboard;
+    @BindView(R.id.tv_addres)
+    TextView tvAddres;
+    @BindView(R.id.iv_close)
+    ImageView ivClose;
+
     private ArrayList<LongTextBean> list = new ArrayList<>();
     private LongTextAdapter adapter;
     // 记录光标位置  添加图片处理
@@ -55,13 +69,15 @@ public class LongTextEditActivity extends BaseActivity implements LongTextAdapte
     private int index = 0;//光标 在第几个字后面
     private EditText lasteditText;
     private ItemTouchHelper mItemTouchHelper;
-
+    private boolean isKeyboadShow;
+    private LocItemBean locBean = new LocItemBean();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_longtext2);
         ButterKnife.bind(this);
-        rclContent.setLayoutManager(new LinearLayoutManager(this));
+        LinearLayoutManager lm = new LinearLayoutManager(this);
+        rclContent.setLayoutManager(lm);
         LongTextBean titleLB = new LongTextBean();
         titleLB.setType("0");
         list.add(titleLB);
@@ -69,6 +85,10 @@ public class LongTextEditActivity extends BaseActivity implements LongTextAdapte
         LongTextBean firstLB = new LongTextBean();
         firstLB.setType("1");
         list.add(firstLB);
+        isKeyboadShow = true;
+        KeyboardChangeListener mKeyboardChangeListener = new KeyboardChangeListener(this);
+        mKeyboardChangeListener.setKeyBoardListener(this);
+
 
         adapter = new LongTextAdapter(this, list);
         adapter.setSaveEditListener(this);
@@ -92,14 +112,12 @@ public class LongTextEditActivity extends BaseActivity implements LongTextAdapte
             }
         });
         setDrag();
-
     }
 
     @Override
     protected void setSoftInPutMode() {
-//        super.setSoftInPutMode();
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
     }
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -154,6 +172,31 @@ public class LongTextEditActivity extends BaseActivity implements LongTextAdapte
                 }
                 initNormalData();
                 adapter.notifyDataSetChanged();
+            }
+        }
+        if (requestCode == REQUEST_LOC) {
+            if (resultCode == RESULT_OK) {
+                locBean = (LocItemBean) data.getSerializableExtra("loc");
+                if (TextUtils.isEmpty(locBean.getTitle())) {
+                    tvAddres.setText(getString(R.string.str_where_are_you));
+                    ivClose.setVisibility(View.GONE);
+                    Drawable drawable = getResources().getDrawable(R.drawable.ic_loc_off);
+                    drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getMinimumHeight());
+                    tvAddres.setCompoundDrawables(drawable, null, null, null);
+                    tvAddres.setTextColor(ContextCompat.getColor(mContext, R.color.text_hint));
+                } else {
+                    if (locBean.getTitle().length() > 8) {
+                        tvAddres.setText(String.format("%s...", locBean.getTitle().substring(0, 8)));
+                    } else {
+                        tvAddres.setText(locBean.getTitle());
+                    }
+                    Drawable drawable = getResources().getDrawable(R.drawable.ic_loc_on);
+                    drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getMinimumHeight());
+                    tvAddres.setCompoundDrawables(drawable, null, null, null);
+                    tvAddres.setTextColor(ContextCompat.getColor(mContext, R.color.text_blue));
+                    ivClose.setVisibility(View.VISIBLE);
+                }
+                showKeyboard();
             }
         }
     }
@@ -215,9 +258,23 @@ public class LongTextEditActivity extends BaseActivity implements LongTextAdapte
 
     }
 
-    @OnClick({R.id.iv_back, R.id.iv_gopic, R.id.tv_sort, R.id.tv_ok, R.id.tv_publish})
+    @OnClick({R.id.tv_addres,R.id.iv_close,R.id.iv_back, R.id.iv_gopic, R.id.tv_sort, R.id.tv_ok, R.id.tv_publish, R.id.iv_keyboard})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            case R.id.iv_close:
+                tvAddres.setText(getString(R.string.str_where_are_you));
+                ivClose.setVisibility(View.GONE);
+                Drawable drawable = getResources().getDrawable(R.drawable.ic_loc_off);
+                drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getMinimumHeight());
+                tvAddres.setCompoundDrawables(drawable, null, null, null);
+                tvAddres.setTextColor(ContextCompat.getColor(mContext, R.color.text_hint));
+                break;
+            case R.id.tv_addres:
+                Intent goloc = new Intent(mContext, SelectLocActivity.class);
+                locBean.setSelected(true);
+                goloc.putExtra("loc", locBean);
+                startActivityForResult(goloc, REQUEST_LOC);
+                break;
             case R.id.iv_back:
                 onBackPressed();
                 break;
@@ -246,15 +303,46 @@ public class LongTextEditActivity extends BaseActivity implements LongTextAdapte
                 break;
             case R.id.tv_publish:
                 for (LongTextBean b : list) {
-
                     Log.e("zk", "type=" + b.getType() + "--title=" + b.getTitle() + "--con=" + b.getContent() + "--des=" + b.getDes());
                 }
-                Log.d("zk",GsonUtils.getGsonInstance().toJson(list));
-
+                Log.d("zk", GsonUtils.getGsonInstance().toJson(list));
                 break;
-
-
+            case R.id.iv_keyboard:
+                if (isKeyboadShow) {
+                    Tools.hideSoftInput(this);
+                } else {
+//                    LinearLayoutManager lm= (LinearLayoutManager) rclContent.getLayoutManager();
+//                    lm.scrollToPositionWithOffset(pos, 0);
+//                  lm.scrollToPositionWithOffset(pos, 0);
+                    rclContent.scrollToPosition(pos);
+//                    rclContent.smoothScrollToPosition(pos);
+                    Log.e("zk", "pos: " + pos);
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            showKeyboard();
+                        }
+                    }, 200);
+                }
+                break;
         }
+    }
+
+    private void showKeyboard() {
+        EditText et;
+        if (pos == 0) {
+            et = rclContent.getLayoutManager().findViewByPosition(pos).findViewById(R.id.et_text);
+        } else {
+            et = rclContent.getLayoutManager().findViewByPosition(pos).findViewById(R.id.et_text);
+        }
+        if (et != null) {
+            et.requestFocus();
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            if (imm != null) {
+                imm.showSoftInput(et, 0);
+            }
+        }
+
     }
 
     private void gotoSelectPic() {
@@ -279,12 +367,6 @@ public class LongTextEditActivity extends BaseActivity implements LongTextAdapte
     }
 
     protected void initStateBar() {
-        ImmersionBar.with(this)
-                .statusBarColor(R.color.white_lib)
-                .statusBarDarkFont(true, 0.2f)
-//                .fitsSystemWindows(true)
-//                .keyboardEnable(true)
-                .init();
     }
 
     @Override
@@ -302,8 +384,8 @@ public class LongTextEditActivity extends BaseActivity implements LongTextAdapte
         this.pos = position;
         this.lasteditText = editText;
 //        this.index = editText.ge;
-//        Log.e("zk", "position: " + position);
-//        Log.e("zk", "index: " + index);
+        Log.e("zk", "position: " + position);
+        Log.e("zk", "index: " + index);
     }
 
     @Override
@@ -432,4 +514,13 @@ public class LongTextEditActivity extends BaseActivity implements LongTextAdapte
         });
     }
 
+    @Override
+    public void onKeyboardChange(boolean isShow, int keyboardHeight) {
+        isKeyboadShow = isShow;
+        if (isShow) {
+            ivKeyboard.setImageResource(R.drawable.ic_hide_keyborad);
+        } else {
+            ivKeyboard.setImageResource(R.drawable.ic_show_keyboard);
+        }
+    }
 }

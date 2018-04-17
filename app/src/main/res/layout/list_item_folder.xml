@@ -12,7 +12,6 @@
         android:layout_centerVertical="true"
         android:layout_marginLeft="10dp"
         android:id="@+id/cover"
-        tools:src="@drawable/btn_back_nor"
         android:layout_gravity="center_vertical"
         android:scaleType="centerInside"
         android:src="@drawable/lib_default_error"
