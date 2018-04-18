@@ -21,7 +21,6 @@ import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.wetime.fanc.R;
-import com.wetime.fanc.customview.multiimageselector.MultiImageSelectorActivity;
 import com.wetime.fanc.main.act.BaseActivity;
 import com.wetime.fanc.main.bean.PostFileResultBean;
 import com.wetime.fanc.main.ivews.IPostMultiFileView;
@@ -118,18 +117,18 @@ public class UserinfoActivity extends BaseActivity implements IGetMyInfoView,
         Glide.with(this).load(bean.getData().getUser().getAvatar()).into(civHead);
     }
 
-    private long getFileSize(File file) throws Exception {
-        if (file == null) {
-            return 0;
-        }
-        long size = 0;
-        if (file.exists()) {
-            FileInputStream fis = null;
-            fis = new FileInputStream(file);
-            size = fis.available();
-        }
-        return size / 1024;
-    }
+//    private long getFileSize(File file) throws Exception {
+//        if (file == null) {
+//            return 0;
+//        }
+//        long size = 0;
+//        if (file.exists()) {
+//            FileInputStream fis = null;
+//            fis = new FileInputStream(file);
+//            size = fis.available();
+//        }
+//        return size / 1024;
+//    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -142,7 +141,7 @@ public class UserinfoActivity extends BaseActivity implements IGetMyInfoView,
                 // 3.media.getCompressPath();为压缩后path，需判断media.isCompressed();是否为true  注意：音视频除外
                 // 如果裁剪并压缩了，以取压缩路径为准，因为是先裁剪后压缩的
                 if (selectList != null && selectList.size() > 0) {
-                    new Handler().post(() -> {
+
                         ArrayList<String> pathlist = new ArrayList<>();
                         if (selectList.get(0).isCompressed()) {
                             pathlist.add(selectList.get(0).getCompressPath());
@@ -161,21 +160,12 @@ public class UserinfoActivity extends BaseActivity implements IGetMyInfoView,
 //                                e.printStackTrace();
 //                            }
 //                        }
-
-
                         postMultiFilePresenter.PostMultiFile(pathlist);
                         Glide.with(mContext).load(pathlist.get(0)).into(civHead);
 
-                    });
 
                 }
             }
-        }
-
-        if (resultCode == RESULT_OK && requestCode == Tools.REQUEST_IMAGE && data != null) {
-            final List<String> path =
-                    data.getStringArrayListExtra(MultiImageSelectorActivity.EXTRA_RESULT);
-
         }
     }
 

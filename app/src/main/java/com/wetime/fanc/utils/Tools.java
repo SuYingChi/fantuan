@@ -49,7 +49,6 @@ import com.wetime.fanc.R;
 import com.wetime.fanc.application.FApp;
 import com.wetime.fanc.circle.act.LongTextEditActivity;
 import com.wetime.fanc.circle.act.PublishActActivity;
-import com.wetime.fanc.customview.multiimageselector.MultiImageSelectorActivity;
 import com.wetime.fanc.login.act.LoginActivity;
 import com.wetime.fanc.main.act.BaseActivity;
 import com.wetime.fanc.main.act.PictureActivity;
@@ -108,13 +107,7 @@ public class Tools {
         }
     }
 
-    public static void gotoSelectPic(Activity mActivity) {
-        Intent intent = new Intent(mActivity, MultiImageSelectorActivity.class);
-        intent.putExtra(MultiImageSelectorActivity.EXTRA_SHOW_CAMERA, true);
-        intent.putExtra(MultiImageSelectorActivity.EXTRA_SELECT_MODE,
-                MultiImageSelectorActivity.MODE_SINGLE);
-        mActivity.startActivityForResult(intent, REQUEST_IMAGE);
-    }
+
 
     public static void showWaitDialog(Context context, boolean cancelable) {
 
@@ -624,7 +617,7 @@ public class Tools {
                 if (null == mCircleID) {
                     mCircleID = "";
                 }
-                goPublish.putExtra("id",mCircleID);
+                goPublish.putExtra("id", mCircleID);
                 context.startActivity(goPublish);
                 if (window.isShowing()) {
                     window.dismiss();

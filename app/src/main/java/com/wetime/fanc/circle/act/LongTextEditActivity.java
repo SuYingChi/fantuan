@@ -28,7 +28,6 @@ import com.wetime.fanc.circle.adapter.LongTextAdapter;
 import com.wetime.fanc.circle.bean.LocItemBean;
 import com.wetime.fanc.circle.bean.LongTextBean;
 import com.wetime.fanc.customview.OnRecyclerItemClickListener;
-import com.wetime.fanc.customview.multiimageselector.MultiImageSelectorActivity;
 import com.wetime.fanc.main.act.BaseActivity;
 import com.wetime.fanc.utils.GsonUtils;
 import com.wetime.fanc.utils.KeyboardChangeListener;
@@ -44,7 +43,6 @@ import butterknife.OnClick;
 
 import static android.support.v7.widget.RecyclerView.SCROLL_STATE_DRAGGING;
 import static com.wetime.fanc.circle.act.PublishActActivity.REQUEST_LOC;
-import static com.wetime.fanc.utils.Tools.REQUEST_IMAGE;
 
 public class LongTextEditActivity extends BaseActivity implements LongTextAdapter.SaveEditListener,
         LongTextAdapter.SaveSelectionStartListener, LongTextAdapter.OnImgDeleteClickLitener, LongTextAdapter.SaveDesEditListener, KeyboardChangeListener.KeyBoardListener {
