@@ -116,7 +116,7 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, IGe
 //    private int i = 0;
     private Handler mHandler;
     private ArrayList<CustomTabEntity> mTabEntities = new ArrayList<>();
-    private String[] mTitles = {"热门", "最新"};
+    private String[] mTitles = {"最新","热门" };
     private String[] sort = {"1", "2"};//    ort : 1 = 按热度排序， 2 = 按发布时间排序
     private int sortPos = 0;
     private HeadHomeAdapter headAdapter;
