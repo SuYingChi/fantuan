@@ -48,7 +48,6 @@ import com.tencent.tauth.UiError;
 import com.wetime.fanc.R;
 import com.wetime.fanc.application.FApp;
 import com.wetime.fanc.circle.act.ActDetailActivity;
-import com.wetime.fanc.customview.multiimageselector.MultiImageSelectorActivity;
 import com.wetime.fanc.home.act.HomeSearchActivity;
 import com.wetime.fanc.home.event.BeInvaterSuccess;
 import com.wetime.fanc.home.event.SwichFragEvent;
@@ -88,8 +87,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import me.shaohui.bottomdialog.BottomDialog;
-
-import static com.wetime.fanc.utils.Tools.REQUEST_IMAGE;
 
 
 public class WebActivity extends BaseActivity implements IPostMultiFileView, WbShareCallback {
@@ -191,12 +188,6 @@ public class WebActivity extends BaseActivity implements IPostMultiFileView, WbS
         if (requestCode == PictureConfig.CHOOSE_REQUEST) {
             if (resultCode == RESULT_OK) {
                 List<LocalMedia> selectList = PictureSelector.obtainMultipleResult(data);
-                // 例如 LocalMedia 里面返回三种path
-                // 1.media.getPath(); 为原图path
-                // 2.media.getCutPath();为裁剪后path，需判断media.isCut();是否为true  注意：音视频除外
-                // 3.media.getCompressPath();为压缩后path，需判断media.isCompressed();是否为true  注意：音视频除外
-                // 如果裁剪并压缩了，以取压缩路径为准，因为是先裁剪后压缩的
-
                 ArrayList<String> pathlist = new ArrayList<>();
                 for (LocalMedia lm : selectList) {
                     if (lm.isCompressed()) {
@@ -210,7 +201,6 @@ public class WebActivity extends BaseActivity implements IPostMultiFileView, WbS
                     new PostMultiFilePresenter(this).PostMultiFile(defaultDataArray);
             }
         }
-
     }
 
     @Override
@@ -639,26 +629,6 @@ public class WebActivity extends BaseActivity implements IPostMultiFileView, WbS
                 .isCamera(true)
                 .compress(true)
                 .forResult(PictureConfig.CHOOSE_REQUEST);
-
-
-        Intent intent = new Intent(mContext, MultiImageSelectorActivity.class);
-        // 是否显示调用相机拍照
-        intent.putExtra(MultiImageSelectorActivity.EXTRA_SHOW_CAMERA, true);
-        // 最大图片选择数量
-        intent.putExtra(MultiImageSelectorActivity.EXTRA_SELECT_COUNT, n);
-        // 设置模式 (支持 单选/MultiImageSelectorActivity.MODE_SINGLE 或者
-        // 多选/MultiImageSelectorActivity.MODE_MULTI)
-        intent.putExtra(MultiImageSelectorActivity.EXTRA_SELECT_MODE,
-                MultiImageSelectorActivity.MODE_MULTI);
-        // 默认选择图片,回填选项(支持String ArrayList)
-        // ArrayList<String> temp = new ArrayList<String>();
-        // for (int i = 0; i < defaultDataArray.size(); i++) {
-        // temp.add(defaultDataArray.get(i));
-        // }
-        intent.putStringArrayListExtra(
-                MultiImageSelectorActivity.EXTRA_DEFAULT_SELECTED_LIST,
-                defaultDataArray);
-        startActivityForResult(intent, REQUEST_IMAGE);
     }
 
     @JavascriptInterface
@@ -782,10 +752,7 @@ public class WebActivity extends BaseActivity implements IPostMultiFileView, WbS
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-
-
         shareHandler.doResultIntent(intent, this);
-
     }
 
     public Bitmap drawableToBitmap(Drawable drawable) {
