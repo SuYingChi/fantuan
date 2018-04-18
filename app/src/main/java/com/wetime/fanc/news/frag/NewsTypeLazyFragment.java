@@ -31,6 +31,8 @@ import com.wetime.fanc.login.event.LogoutEvent;
 import com.wetime.fanc.main.frag.BaseLazyFragment;
 import com.wetime.fanc.news.act.RecomentFocusActivity;
 import com.wetime.fanc.news.bean.NewsListBean;
+import com.wetime.fanc.utils.GsonUtils;
+import com.wetime.fanc.utils.SimpleCatchKey;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -59,7 +61,7 @@ public class NewsTypeLazyFragment extends BaseLazyFragment implements IGetNewsTy
     private int page = 1;
     private RecyclerView rcl;
     private List<HomeItemBean> list = new ArrayList<>();
-//    private List<SpecialTopicBean.DataBean.ListBean> mlist = new ArrayList<>();
+    //    private List<SpecialTopicBean.DataBean.ListBean> mlist = new ArrayList<>();
     private HomeItemAdapter adapter;
     private SmartRefreshLayout refreshLayout;
     private TextView tvRec;
@@ -135,6 +137,12 @@ public class NewsTypeLazyFragment extends BaseLazyFragment implements IGetNewsTy
 //            startActivity(goweb);
 //        });
         getNewsTypePresenter = new GetNewsTypePresenter(this);
+        //预先加载缓存
+        String catchStr = spu.getValue(SimpleCatchKey.catchkey_news + type);
+        if (!TextUtils.isEmpty(catchStr)) {
+            NewsListBean bean = GsonUtils.getGsonInstance().fromJson(catchStr, NewsListBean.class);
+            onGetNews(bean);
+        }
 
     }
 
@@ -156,7 +164,7 @@ public class NewsTypeLazyFragment extends BaseLazyFragment implements IGetNewsTy
     @Override
     public void onGetNews(NewsListBean bean) {
         // 推荐空页面
-         if (type.equals("-1")) {
+        if (type.equals("-1")) {
             rlNoLogin.setVisibility(View.GONE);
             if (bean.getData().getList().size() == 0) {
                 rlNoFocus.setVisibility(View.VISIBLE);
@@ -180,6 +188,8 @@ public class NewsTypeLazyFragment extends BaseLazyFragment implements IGetNewsTy
                 list.add(headbean);
             }
             mAutoLoadMoreAdapter.enable();
+            // 缓存
+            spu.setValue(SimpleCatchKey.catchkey_news + type, GsonUtils.getGsonInstance().toJson(bean));
         }
         total = bean.getData().getPaging().getTotal();
         if (page == 1) {
