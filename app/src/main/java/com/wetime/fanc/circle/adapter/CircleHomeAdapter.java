@@ -87,7 +87,7 @@ public class CircleHomeAdapter extends RecyclerView.Adapter {
         if (holder instanceof CircleHeadViewHolder) {
             if (circleAdapter == null) {
                 ArrayList<CustomTabEntity> mTabEntities = new ArrayList<>();
-                String[] mTitles = {"热门动态", "最新动态"};
+                String[] mTitles = {"最新动态", "热门动态"};
                 for (String mTitle : mTitles) {
                     mTabEntities.add(new TabEntity(mTitle));
                 }

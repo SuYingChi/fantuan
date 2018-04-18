@@ -59,8 +59,8 @@ public class NewsTypeLazyFragment extends BaseLazyFragment implements IGetNewsTy
     private String total = "";
     private int page = 1;
     private RecyclerView rcl;
-    private List<HomeItemBean> list=new ArrayList<>();
-    private List<SpecialTopicBean.DataBean.ListBean> mlist=new ArrayList<>();
+    private List<HomeItemBean> list = new ArrayList<>();
+    private List<SpecialTopicBean.DataBean.ListBean> mlist = new ArrayList<>();
     private HomeItemAdapter adapter;
     private SmartRefreshLayout refreshLayout;
     private TextView tvRec;
@@ -183,9 +183,19 @@ public class NewsTypeLazyFragment extends BaseLazyFragment implements IGetNewsTy
             mAutoLoadMoreAdapter.enable();
         }
         total = bean.getData().getPaging().getTotal();
-        list.addAll(bean.getData().getList());
-        if (specialTopicBean != null && specialTopicBean.getData() != null && specialTopicBean.getData().getList() != null)
-            mlist.addAll(specialTopicBean.getData().getList());
+        if (page == 1) {
+            list.clear();
+            mlist.clear();
+            list.addAll(bean.getData().getList());
+            if (specialTopicBean != null && specialTopicBean.getData() != null && specialTopicBean.getData().getList() != null)
+                mlist.addAll(specialTopicBean.getData().getList());
+        } else {
+            list.addAll(bean.getData().getList());
+            if (specialTopicBean != null && specialTopicBean.getData() != null && specialTopicBean.getData().getList() != null)
+                mlist.addAll(specialTopicBean.getData().getList());
+        }
+
+
         if (page > 1) {
             mAutoLoadMoreAdapter.finishLoading();
         }

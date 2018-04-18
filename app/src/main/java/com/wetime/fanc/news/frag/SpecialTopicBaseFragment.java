@@ -1,11 +1,9 @@
 package com.wetime.fanc.news.frag;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,11 +18,7 @@ import com.wetime.fanc.R;
 import com.wetime.fanc.home.adapter.HomeItemAdapter;
 import com.wetime.fanc.home.bean.HomeItemBean;
 import com.wetime.fanc.home.event.ReFreshNewsEvent;
-import com.wetime.fanc.login.act.LoginActivity;
-import com.wetime.fanc.login.event.LoginEvent;
-import com.wetime.fanc.login.event.LogoutEvent;
 import com.wetime.fanc.main.frag.BaseLazyFragment;
-import com.wetime.fanc.news.act.RecomentFocusActivity;
 import com.wetime.fanc.news.bean.NewsListBean;
 import com.wetime.fanc.news.iviews.IGetSpecialNewsTypeView;
 import com.wetime.fanc.news.presenter.GetSpecialNewsTypePresenter;
@@ -116,7 +110,7 @@ public class SpecialTopicBaseFragment extends BaseLazyFragment implements OnRefr
             @Override
             public void onLoadMore() {
                 page++;
-                getNewsTypePresenter.getNews(id,String .valueOf(page));
+                getNewsTypePresenter.getNews(id, String.valueOf(page));
             }
         });
 
@@ -131,7 +125,7 @@ public class SpecialTopicBaseFragment extends BaseLazyFragment implements OnRefr
     @Override
     protected void initData() {
 
-            refreshLayout.autoRefresh();
+        refreshLayout.autoRefresh();
 
 
     }
@@ -139,7 +133,7 @@ public class SpecialTopicBaseFragment extends BaseLazyFragment implements OnRefr
     @Override
     public void onRefresh(RefreshLayout refreshlayout) {
         page = 1;
-        getNewsTypePresenter.getNews(id,String .valueOf(page));
+        getNewsTypePresenter.getNews(id, String.valueOf(page));
     }
 
     @Override
@@ -158,7 +152,6 @@ public class SpecialTopicBaseFragment extends BaseLazyFragment implements OnRefr
     }
 
 
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();
@@ -167,13 +160,16 @@ public class SpecialTopicBaseFragment extends BaseLazyFragment implements OnRefr
 
     @Override
     public void onGetSpecialNews(NewsListBean bean) {
-
-
         refreshLayout.finishRefresh();
-
-
         total = bean.getData().getPaging().getTotal();
-        list.addAll(bean.getData().getList());
+
+        if (page == 1) {
+            list.clear();
+            list.addAll(bean.getData().getList());
+        } else {
+            list.addAll(bean.getData().getList());
+        }
+
         if (page > 1) {
             mAutoLoadMoreAdapter.finishLoading();
         }
