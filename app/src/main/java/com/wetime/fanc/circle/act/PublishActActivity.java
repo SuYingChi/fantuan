@@ -176,12 +176,6 @@ public class PublishActActivity extends BaseActivity implements IPostMultiFileVi
         if (requestCode == PictureConfig.CHOOSE_REQUEST) {
             if (resultCode == RESULT_OK) {
                 selectList = PictureSelector.obtainMultipleResult(data);
-                // 例如 LocalMedia 里面返回三种path
-                // 1.media.getPath(); 为原图path
-                // 2.media.getCutPath();为裁剪后path，需判断media.isCut();是否为true  注意：音视频除外
-                // 3.media.getCompressPath();为压缩后path，需判断media.isCompressed();是否为true  注意：音视频除外
-                // 如果裁剪并压缩了，以取压缩路径为准，因为是先裁剪后压缩的
-
                 ArrayList<String> pathlist = new ArrayList<>();
                 for (LocalMedia lm : selectList) {
                     if (lm.isCompressed()) {
