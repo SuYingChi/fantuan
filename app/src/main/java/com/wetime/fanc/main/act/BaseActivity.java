@@ -21,7 +21,7 @@ import com.wetime.fanc.utils.Tools;
 import org.greenrobot.eventbus.EventBus;
 
 
-public class BaseActivity extends InitialBaseActivity implements IBaseVIew {
+public class BaseActivity extends InitialBaseActivity  {
     public SharePreferenceUtil spu;
     public Context mContext;
 

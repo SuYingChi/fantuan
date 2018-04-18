@@ -50,15 +50,17 @@ public class CircleHomeAdapter extends RecyclerView.Adapter {
     private Activity mActivity;
     private LayoutInflater inflater;
     private List<CircleHomeListBean.DataBean.CirclesBean> circllist;
+    private List<CircleHomeListBean.DataBean.FollowCirclesBean> follow_circles;
     private HeadCircleAdapter circleAdapter;
     private OnTabClickLitener mOnTabClickLitener;
     private OnItemClickLitener mOnItemClickLitener;
     private HeadCircleAdapter circleAdapter1;
 
-    public CircleHomeAdapter(List<CircleHomeListBean.DataBean.CirclesBean> circllist,
+    public CircleHomeAdapter(List<CircleHomeListBean.DataBean.FollowCirclesBean> follow_circles, List<CircleHomeListBean.DataBean.CirclesBean> circllist,
                              List<HomeItemBean> mList,
                              Activity mActivity) {
         this.circllist = circllist;
+        this.follow_circles = follow_circles;
         this.list = mList;
         this.mActivity = mActivity;
         this.inflater = LayoutInflater.from(mActivity);
@@ -110,14 +112,14 @@ public class CircleHomeAdapter extends RecyclerView.Adapter {
                 LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mActivity);
                 linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
                 ((CircleHeadViewHolder) holder).rclCircleMy.setLayoutManager(linearLayoutManager);
-                circleAdapter = new HeadCircleAdapter(circllist, mActivity, 0);
-                if (circllist == null || circllist.size() == 0) {
+                circleAdapter = new HeadCircleAdapter(follow_circles, circllist, mActivity, 0);
+                if (follow_circles == null || follow_circles.size() == 0) {
                     ((CircleHeadViewHolder) holder).rclCircleMy.setVisibility(View.GONE);
                     ((CircleHeadViewHolder) holder).llHeadTv.setVisibility(View.VISIBLE);
                 } else {
                     ((CircleHeadViewHolder) holder).rclCircleMy.setVisibility(View.VISIBLE);
                     ((CircleHeadViewHolder) holder).llHeadTv.setVisibility(View.GONE);
-                    circleAdapter1 = new HeadCircleAdapter(circllist, mActivity, 1);
+                    circleAdapter1 = new HeadCircleAdapter(follow_circles, circllist, mActivity, 1);
                 }
                 ((CircleHeadViewHolder) holder).rclCircle.setAdapter(circleAdapter);
                 ((CircleHeadViewHolder) holder).rclCircleMy.setAdapter(circleAdapter1);
@@ -130,8 +132,13 @@ public class CircleHomeAdapter extends RecyclerView.Adapter {
                         goCircle.putExtra("id", circllist.get(position2).getId());
                         mActivity.startActivity(goCircle);
                     }
-
                 });
+                if (circleAdapter1 != null)
+                    circleAdapter1.setOnItemClickLitener((view, position2) -> {
+                        Intent goCircle = new Intent(mActivity, CircleDetailActivity.class);
+                        goCircle.putExtra("id", follow_circles.get(position2).getId());
+                        mActivity.startActivity(goCircle);
+                    });
             }
         }
         if (holder instanceof NewsHolder19) {

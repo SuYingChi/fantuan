@@ -20,7 +20,6 @@ import com.wetime.fanc.circle.frag.CircleDetailLazyFragment;
 import com.wetime.fanc.circle.iviews.IGetCircleHeadView;
 import com.wetime.fanc.circle.presenter.GetCircleHeadPresenter;
 import com.wetime.fanc.home.adapter.NormalTitlePagerAdapter;
-import com.wetime.fanc.login.act.LoginActivity;
 import com.wetime.fanc.main.act.BaseActivity;
 import com.wetime.fanc.utils.GlideRoundTransform;
 import com.wetime.fanc.utils.Tools;
@@ -87,9 +86,10 @@ public class CircleDetailActivity extends BaseActivity implements IGetCircleHead
                 startActivity(go);
                 break;
             case R.id.iv_edit:
-                Tools.showPopWin(this, ivEdit,getCircleId());
+                Tools.showPopWin(this, ivEdit, getCircleId());
                 break;
             case R.id.iv_attention:
+
                 break;
         }
 
@@ -141,6 +141,14 @@ public class CircleDetailActivity extends BaseActivity implements IGetCircleHead
         tvCirclename.setText(bean.getData().getName());
         tvCircleinfo.setText(bean.getData().getIntro());
         tvTitle.setText(bean.getData().getName());
+
+        if (bean.getData().isIs_follow()) {
+            ivAttention.setVisibility(View.GONE);
+        } else {
+            ivAttention.setVisibility(View.VISIBLE);
+        }
+
+
     }
 
     @Override

@@ -26,7 +26,6 @@ public class AboutActivity extends BaseActivity implements IGetVersionPageView {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
-        ButterKnife.bind(this);
         if (BuildConfig.DEBUG) {
             tvTitle.setText(BuildConfig.releaseTime);
         } else {

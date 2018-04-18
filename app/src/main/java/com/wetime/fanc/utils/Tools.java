@@ -609,7 +609,7 @@ public class Tools {
 
         window.update();
 
-        window.showAsDropDown(ivEdit, -180, 0);
+        window.showAsDropDown(ivEdit, -120, 0);
 
         popupView.findViewById(R.id.pop_duan).setOnClickListener(v -> {
             if (((BaseActivity) context).spu.getToken().equals("")) {

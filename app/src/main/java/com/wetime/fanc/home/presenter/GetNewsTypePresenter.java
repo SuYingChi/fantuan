@@ -4,6 +4,7 @@ package com.wetime.fanc.home.presenter;
 import com.fan.http.okhttp.OkHttpUtils;
 import com.wetime.fanc.home.iviews.IGetNewsTypeView;
 import com.wetime.fanc.news.bean.NewsListBean;
+import com.wetime.fanc.news.bean.SpecialTopicBean;
 import com.wetime.fanc.utils.Const;
 import com.wetime.fanc.utils.DataStringCallback;
 import com.wetime.fanc.utils.GsonUtils;
@@ -23,9 +24,9 @@ public class GetNewsTypePresenter {
         OkHttpUtils
                 .post()
                 .url(Const.NEWS)
-                .addParams("cid", iView.getCid())
-                .addParams("token", iView.getToken())
+                .addHeader("token", iView.getToken())
                 .addParams("total", iView.getTotal())
+                .addParams("cid", iView.getCid())
                 .addParams("pn", iView.getPage())
                 .build()
                 .execute(new DataStringCallback(iView, false) {
@@ -33,8 +34,9 @@ public class GetNewsTypePresenter {
                     public void onResponse(String s, int i) {
                         super.onResponse(s, i);
                         NewsListBean bean = GsonUtils.getGsonInstance().fromJson(s, NewsListBean.class);
+                        SpecialTopicBean specialTopicBean = GsonUtils.getGsonInstance().fromJson(s, SpecialTopicBean.class);
                         if (bean.getError() == 0)
-                            iView.onGetNews(bean);
+                            iView.onGetNews(bean,specialTopicBean);
                     }
                 });
     }

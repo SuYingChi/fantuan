@@ -99,7 +99,6 @@ public class MainActivity extends BaseActivity implements IBindPushView, IGetRed
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        EventBus.getDefault().register(this);
         ImmersionBar.with(this).statusBarColor(R.color.white).statusBarDarkFont(true, 0.2f).fitsSystemWindows(true).init();
 
 
@@ -153,7 +152,6 @@ public class MainActivity extends BaseActivity implements IBindPushView, IGetRed
         f1 = null;
         f2 = null;
         f3 = null;
-        EventBus.getDefault().unregister(this);
         System.gc();
         super.onDestroy();
 //        FloatWindow.destroy();

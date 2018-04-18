@@ -1,12 +1,12 @@
 package com.wetime.fanc.main.presenter;
 
 
-import com.wetime.fanc.utils.DataStringCallback;
+import com.fan.http.okhttp.OkHttpUtils;
+import com.fan.http.okhttp.builder.PostFormBuilder;
 import com.wetime.fanc.main.bean.PostFileResultBean;
 import com.wetime.fanc.main.ivews.IPostMultiFileView;
 import com.wetime.fanc.utils.Const;
-import com.fan.http.okhttp.OkHttpUtils;
-import com.fan.http.okhttp.builder.PostFormBuilder;
+import com.wetime.fanc.utils.DataStringCallback;
 
 import java.io.File;
 import java.util.List;
@@ -40,6 +40,7 @@ public class PostMultiFilePresenter {
 
         builder.build()
                 .execute(new DataStringCallback(iView, true, true, true, true, false) {
+
                     @Override
                     public void onResponse(String s, int i) {
                         super.onResponse(s, i);

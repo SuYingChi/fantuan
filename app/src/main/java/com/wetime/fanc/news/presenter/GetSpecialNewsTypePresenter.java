@@ -19,14 +19,12 @@ public class GetSpecialNewsTypePresenter {
         this.iView = iView;
     }
 
-    public void getNews() {
+    public void getNews(String id, String pn) {
         OkHttpUtils
                 .post()
-                .url(Const.NEWS)
-                .addParams("cid", "0")
-                .addParams("token", "ipm4y0993nEM_XoLeefFw3gxio2A1cBu")
-                .addParams("total", "10")
-                .addParams("pn", "1")
+                .url(Const.SPECIAL_NEWS)
+                .addParams("id", id)
+                .addParams("pn", pn)
                 .build()
                 .execute(new DataStringCallback(iView, false) {
                     @Override

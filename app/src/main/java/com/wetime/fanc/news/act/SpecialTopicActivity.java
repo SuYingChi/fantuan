@@ -10,6 +10,8 @@ import android.graphics.PixelFormat;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.Gravity;
@@ -17,24 +19,35 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.flyco.tablayout.SlidingTabLayout;
 import com.sina.weibo.sdk.WbSdk;
 import com.sina.weibo.sdk.auth.AuthInfo;
 import com.sina.weibo.sdk.share.WbShareCallback;
 import com.sina.weibo.sdk.share.WbShareHandler;
+import com.tencent.mm.opensdk.modelmsg.SendMessageToWX;
+import com.tencent.tauth.IUiListener;
+import com.tencent.tauth.UiError;
 import com.wetime.fanc.R;
 import com.wetime.fanc.customview.LetToolBar;
 import com.wetime.fanc.main.act.BaseActivity;
 import com.wetime.fanc.my.adapter.MyFriendsPagerAdapter;
+import com.wetime.fanc.news.bean.SpecialTopicBean;
 import com.wetime.fanc.news.frag.SpecialTopicBaseFragment;
 import com.wetime.fanc.utils.Tools;
 import com.wetime.fanc.weibo.Constants;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -50,16 +63,31 @@ public class SpecialTopicActivity extends BaseActivity implements View.OnClickLi
     LetToolBar idToolbar;
     @BindView(R.id.special_linear)
     LinearLayout specialLinear;
+    @BindView(R.id.topic_iv)
+    ImageView topicIv;
+    @BindView(R.id.topic_name)
+    TextView topicName;
+    @BindView(R.id.topic_content)
+    TextView topicContent;
 
     private MyFriendsPagerAdapter mAdapter;
     private ArrayList<Fragment> mFragments = new ArrayList<>();
     private ArrayList<String> mChannels = new ArrayList<>();
     private PopupWindow pop;
     private WbShareHandler shareHandler;
+    private List<SpecialTopicBean.DataBean.ListBean.ElementsBean> elements = new ArrayList<>();
+    private String imageurl;
+    private String name;
+    private String content;
+    private String titleUrl;
 
-    public static void startToSpecialTopic(Context context, String specialTopicId) {
-        Intent intent = new Intent(context, CommentActivity.class);
-        intent.putExtra("specialTopicId", specialTopicId);
+    public static void startToSpecialTopic(Context context, List<SpecialTopicBean.DataBean.ListBean.ElementsBean> specialTopicId, String imageurl, String name, String content, String titleUrl) {
+        Intent intent = new Intent(context, SpecialTopicActivity.class);
+        intent.putExtra("elements", (Serializable) specialTopicId);
+        intent.putExtra("imageurl", imageurl);
+        intent.putExtra("name", name);
+        intent.putExtra("content", content);
+        intent.putExtra("titleUrl", titleUrl);
         context.startActivity(intent);
     }
 
@@ -71,6 +99,13 @@ public class SpecialTopicActivity extends BaseActivity implements View.OnClickLi
         WbSdk.install(this, new AuthInfo(this, Constants.APP_KEY, "url", Constants.SCOPE));
         shareHandler = new WbShareHandler(this);
         shareHandler.registerApp();
+
+        elements = (List<SpecialTopicBean.DataBean.ListBean.ElementsBean>) getIntent().getSerializableExtra("elements");
+        imageurl = getIntent().getStringExtra("imageurl");
+        name = getIntent().getStringExtra("name");
+        content = getIntent().getStringExtra("content");
+        titleUrl = getIntent().getStringExtra("titleUrl");
+
         initView();
 
     }
@@ -88,14 +123,23 @@ public class SpecialTopicActivity extends BaseActivity implements View.OnClickLi
         idToolbar.getRightView().setOnClickListener(this);
         idToolbar.getRightView().setVisibility(View.VISIBLE);
 
+        topicName.setText(name);
+        topicContent.setText(content);
+        Glide.with(this).load(imageurl).into(topicIv);
 
-        mChannels.add("要点1");
-        mChannels.add("要点2");
-        mChannels.add("要点3");
 
-        mFragments.add(new SpecialTopicBaseFragment());
-        mFragments.add(new SpecialTopicBaseFragment());
-        mFragments.add(new SpecialTopicBaseFragment());
+        for (int i = 0; i < elements.size(); i++) {
+            mChannels.add(elements.get(i).getName());
+            SpecialTopicBaseFragment e = new SpecialTopicBaseFragment();
+            Bundle bundle = new Bundle();
+            bundle.putString("id", elements.get(i).getId());
+            e.setArguments(bundle);
+            mFragments.add(e);
+        }
+
+//        mFragments.add(new SpecialTopicBaseFragment());
+//        mFragments.add(new SpecialTopicBaseFragment());
+//        mFragments.add(new SpecialTopicBaseFragment());
 
         mAdapter = new MyFriendsPagerAdapter(getSupportFragmentManager(), mFragments, mChannels);
         viewPager.setOffscreenPageLimit(4);
@@ -124,90 +168,90 @@ public class SpecialTopicActivity extends BaseActivity implements View.OnClickLi
                 showPop();
                 break;
             case R.id.ll_share_wx:
-//                Glide.with(this).load(gallery.getData().getAtlas_content().get(0).getImg_url()).into(new SimpleTarget<Drawable>() {
-//                    /**
-//                     * The method that will be called when the resource load has finished.
-//                     *
-//                     * @param resource   the loaded resource.
-//                     * @param transition
-//                     */
-//                    @Override
-//                    public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
-//                        Tools.shareWx(SpecialTopicActivity.this, drawableToBitmap(resource),"url", SendMessageToWX.Req.WXSceneSession, gallery.getData().getName(), gallery.getData().getAtlas_content().get(0).getContent());
-//                    }
-//                });
+                Glide.with(this).load(imageurl).into(new SimpleTarget<Drawable>() {
+                    /**
+                     * The method that will be called when the resource load has finished.
+                     *
+                     * @param resource   the loaded resource.
+                     * @param transition
+                     */
+                    @Override
+                    public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
+                        Tools.shareWx(SpecialTopicActivity.this, drawableToBitmap(resource),titleUrl, SendMessageToWX.Req.WXSceneSession, name, content);
+                    }
+                });
                 break;
             case R.id.ll_share_wxq:
-//                Glide.with(this).load(gallery.getData().getAtlas_content().get(0).getImg_url()).into(new SimpleTarget<Drawable>() {
-//                    /**
-//                     * The method that will be called when the resource load has finished.
-//                     *
-//                     * @param resource   the loaded resource.
-//                     * @param transition
-//                     */
-//                    @Override
-//                    public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
-//                        Tools.shareWx(SpecialTopicActivity.this, drawableToBitmap(resource),"url", SendMessageToWX.Req.WXSceneTimeline, gallery.getData().getName(), gallery.getData().getAtlas_content().get(0).getContent());
-//                    }
-//                });
+                Glide.with(this).load(imageurl).into(new SimpleTarget<Drawable>() {
+                    /**
+                     * The method that will be called when the resource load has finished.
+                     *
+                     * @param resource   the loaded resource.
+                     * @param transition
+                     */
+                    @Override
+                    public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
+                        Tools.shareWx(SpecialTopicActivity.this, drawableToBitmap(resource),titleUrl, SendMessageToWX.Req.WXSceneTimeline, name, content);
+                    }
+                });
 
                 break;
             case R.id.ll_share_wb:
-//                Glide.with(this).load(gallery.getData().getAtlas_content().get(0).getImg_url()).into(new SimpleTarget<Drawable>() {
-//                    /**
-//                     * The method that will be called when the resource load has finished.
-//                     *
-//                     * @param resource   the loaded resource.
-//                     * @param transition
-//                     */
-//                    @Override
-//                    public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
-//                        Tools.shareWb(this, shareHandler, drawableToBitmap(resource),"url", "分享来自范团APP的《" + gallery.getData().getName() + "》", "分享来自范团APP的《" + gallery.getData().getName() + "》");
-//                    }
-//                });
+                Glide.with(this).load(imageurl).into(new SimpleTarget<Drawable>() {
+                    /**
+                     * The method that will be called when the resource load has finished.
+                     *
+                     * @param resource   the loaded resource.
+                     * @param transition
+                     */
+                    @Override
+                    public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
+                        Tools.shareWb(SpecialTopicActivity.this, shareHandler, drawableToBitmap(resource),titleUrl, "分享来自范团APP的《" + name + "》", "分享来自范团APP的《" +content + "》");
+                    }
+                });
 
                 break;
             case R.id.ll_share_qq:
-//                Tools.shareQQ(this,"url", gallery.getData().getAtlas_content().get(0).getImg_url(), gallery.getData().getName(), gallery.getData().getAtlas_content().get(0).getContent(), new IUiListener() {
-//                    @Override
-//                    public void onComplete(Object o) {
-//                        Toast.makeText(SpecialTopicActivity.this, "分享成功!", Toast.LENGTH_SHORT).show();
-//                    }
-//
-//                    @Override
-//                    public void onError(UiError uiError) {
-//                        Toast.makeText(SpecialTopicActivity.this, "未知错误!", Toast.LENGTH_SHORT).show();
-//                    }
-//
-//                    @Override
-//                    public void onCancel() {
-//                        Toast.makeText(SpecialTopicActivity.this, "分享取消!", Toast.LENGTH_SHORT).show();
-//                    }
-//                });
+                Tools.shareQQ(this,titleUrl,imageurl,name,content, new IUiListener() {
+                    @Override
+                    public void onComplete(Object o) {
+                        Toast.makeText(SpecialTopicActivity.this, "分享成功!", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onError(UiError uiError) {
+                        Toast.makeText(SpecialTopicActivity.this, "未知错误!", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onCancel() {
+                        Toast.makeText(SpecialTopicActivity.this, "分享取消!", Toast.LENGTH_SHORT).show();
+                    }
+                });
                 break;
             case R.id.ll_share_qqkj:
-//                Tools.shareToQzone(this,"url", gallery.getData().getAtlas_content().get(0).getImg_url(), gallery.getData().getName(), gallery.getData().getAtlas_content().get(0).getContent(), new IUiListener() {
-//                    @Override
-//                    public void onComplete(Object o) {
-//                        Toast.makeText(SpecialTopicActivity.this, "分享成功!", Toast.LENGTH_SHORT).show();
-//                    }
-//
-//                    @Override
-//                    public void onError(UiError uiError) {
-//                        Toast.makeText(SpecialTopicActivity.this, "未知错误!", Toast.LENGTH_SHORT).show();
-//                    }
-//
-//                    @Override
-//                    public void onCancel() {
-//                        Toast.makeText(SpecialTopicActivity.this, "分享取消!", Toast.LENGTH_SHORT).show();
-//                    }
-//                });
+                Tools.shareToQzone(this,titleUrl,imageurl,name,content, new IUiListener() {
+                    @Override
+                    public void onComplete(Object o) {
+                        Toast.makeText(SpecialTopicActivity.this, "分享成功!", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onError(UiError uiError) {
+                        Toast.makeText(SpecialTopicActivity.this, "未知错误!", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onCancel() {
+                        Toast.makeText(SpecialTopicActivity.this, "分享取消!", Toast.LENGTH_SHORT).show();
+                    }
+                });
                 break;
             case R.id.ll_share_copy:
                 ClipboardManager cm = (ClipboardManager) this.getSystemService(Context.CLIPBOARD_SERVICE);
                 // 将文本内容放到系统剪贴板里。
                 if (cm != null) {
-                    cm.setPrimaryClip(ClipData.newPlainText("text", "url"));
+                    cm.setPrimaryClip(ClipData.newPlainText("text", titleUrl));
                     Tools.toastInBottom(SpecialTopicActivity.this, "复制成功");
                 } else {
                     Tools.toastInBottom(SpecialTopicActivity.this, "复制失败");

@@ -6,10 +6,11 @@ package com.wetime.fanc.circle.bean;
 
 public class CircleHeadBean {
 
+
     /**
      * error : 0
      * msg :
-     * data : {"id":"4","name":"测试1","intro":"1111","cover_url":"https://staticcdntest.fantuanlife.com/uimage/00/00/8d/03/00008d03f4117803248945a19d98402d.jpg"}
+     * data : {"id":"4","name":"测试测试测试","intro":"1111","cover_url":"https://staticcdntest.fantuanlife.com/uimage/04/36/be/a2/0436bea2bf66d31c08d3efed034e0c77.jpg","is_follow":false}
      */
 
     private int error;
@@ -43,15 +44,17 @@ public class CircleHeadBean {
     public static class DataBean {
         /**
          * id : 4
-         * name : 测试1
+         * name : 测试测试测试
          * intro : 1111
-         * cover_url : https://staticcdntest.fantuanlife.com/uimage/00/00/8d/03/00008d03f4117803248945a19d98402d.jpg
+         * cover_url : https://staticcdntest.fantuanlife.com/uimage/04/36/be/a2/0436bea2bf66d31c08d3efed034e0c77.jpg
+         * is_follow : false
          */
 
         private String id;
         private String name;
         private String intro;
         private String cover_url;
+        private boolean is_follow;
 
         public String getId() {
             return id;
@@ -83,6 +86,14 @@ public class CircleHeadBean {
 
         public void setCover_url(String cover_url) {
             this.cover_url = cover_url;
+        }
+
+        public boolean isIs_follow() {
+            return is_follow;
+        }
+
+        public void setIs_follow(boolean is_follow) {
+            this.is_follow = is_follow;
         }
     }
 }

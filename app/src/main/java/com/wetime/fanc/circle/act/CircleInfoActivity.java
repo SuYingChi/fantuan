@@ -3,6 +3,7 @@ package com.wetime.fanc.circle.act;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.wetime.fanc.R;
+import com.wetime.fanc.circle.adapter.HeadManageAdapter;
 import com.wetime.fanc.circle.bean.CircleDetailBean;
 import com.wetime.fanc.circle.iviews.IGetCircleDetailView;
 import com.wetime.fanc.circle.presenter.GetCircleDetailPresenter;
@@ -108,6 +110,39 @@ public class CircleInfoActivity extends BaseActivity implements IGetCircleDetail
             go.putExtra("num", bean.getData().isIs_news() ? "3" : "2");
             startActivity(go);
         });
+        if (bean.getData().isIs_follow()) {
+            btAttrntion.setText("取消关注圈子");
+            btAttrntion.setTextColor(Color.parseColor("#666666"));
+            btAttrntion.setBackgroundResource(R.drawable.rectangle_3_copy_cancel);
+        } else {
+            btAttrntion.setText("关注圈子");
+            btAttrntion.setTextColor(Color.parseColor("#ff3f53"));
+            btAttrntion.setBackgroundResource(R.drawable.rectangle_3_copy);
+        }
+        tvState.setText(bean.getData().getDynamic_num());
+        tvAttention.setText(bean.getData().getFollow_num());
+        if (bean.getData().getManagers().size() == 0) {
+            rclMyTv.setVisibility(View.GONE);
+            rclMyLinear.setVisibility(View.GONE);
+        } else {
+            rclMyTv.setVisibility(View.VISIBLE);
+            rclMyLinear.setVisibility(View.VISIBLE);
+            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+            linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+            rclMyRecyclerView.setLayoutManager(linearLayoutManager);
+            HeadManageAdapter adapter = new HeadManageAdapter(bean.getData().getManagers(), this, 3);
+            rclMyRecyclerView.setAdapter(adapter);
+            adapter.setOnItemClickLitener(new HeadManageAdapter.OnItemClickLitener() {
+                @Override
+                public void onItemClick(View view, int position) {
+                    Intent go = new Intent(CircleInfoActivity.this, UserCardActivity.class);
+                    go.putExtra("num", "3");
+                    go.putExtra("index", 1);
+                    go.putExtra("id", bean.getData().getManagers().get(position).getId());
+                    CircleInfoActivity.this.startActivity(go);
+                }
+            });
+        }
     }
 
     @Override
