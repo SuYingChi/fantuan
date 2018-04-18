@@ -32,7 +32,6 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.wetime.fanc.R;
 import com.wetime.fanc.circle.presenter.FocusPresenter;
-import com.wetime.fanc.customview.multiimageselector.MultiImageSelectorActivity;
 import com.wetime.fanc.home.adapter.HomeItemAdapter;
 import com.wetime.fanc.home.bean.HomeItemBean;
 import com.wetime.fanc.home.bean.TabEntity;
