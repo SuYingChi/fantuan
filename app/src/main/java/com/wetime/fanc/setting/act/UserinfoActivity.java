@@ -16,8 +16,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.luck.picture.lib.PictureSelector;
+import com.luck.picture.lib.config.PictureConfig;
+import com.luck.picture.lib.config.PictureMimeType;
+import com.luck.picture.lib.entity.LocalMedia;
 import com.wetime.fanc.R;
-import com.wetime.fanc.customview.multiimageselector.MultiImageSelectorActivity;
 import com.wetime.fanc.main.act.BaseActivity;
 import com.wetime.fanc.main.bean.PostFileResultBean;
 import com.wetime.fanc.main.ivews.IPostMultiFileView;
@@ -35,6 +38,9 @@ import com.wetime.fanc.utils.Tools;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -64,7 +70,8 @@ public class UserinfoActivity extends BaseActivity implements IGetMyInfoView,
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_userinfo);
         ButterKnife.bind(this);
-        tvTitle.setText("个人信息");
+        tvTitle.setText(getString(R.string.str_userinfo));
+
         getUserInfoPresenter = new GetUserInfoPresenter(this);
         getUserInfoPresenter.getUserInfo();
         postMultiFilePresenter = new PostMultiFilePresenter(this);
@@ -84,12 +91,24 @@ public class UserinfoActivity extends BaseActivity implements IGetMyInfoView,
                 onBackPressed();
                 break;
             case R.id.civ_head:
-                Tools.gotoSelectPic(this);
+                gotoSelectPic();
+
                 break;
             case R.id.tv_name:
                 showGuqingDialog();
                 break;
         }
+    }
+
+    private void gotoSelectPic() {
+        PictureSelector.create(this)
+                .openGallery(PictureMimeType.ofImage())
+                .selectionMode(PictureConfig.SINGLE)
+                .theme(R.style.picture_my_style)
+                .previewImage(true)
+                .isCamera(true)
+                .compress(true)
+                .forResult(PictureConfig.CHOOSE_REQUEST);
     }
 
     @Override
@@ -98,21 +117,54 @@ public class UserinfoActivity extends BaseActivity implements IGetMyInfoView,
         Glide.with(this).load(bean.getData().getUser().getAvatar()).into(civHead);
     }
 
+//    private long getFileSize(File file) throws Exception {
+//        if (file == null) {
+//            return 0;
+//        }
+//        long size = 0;
+//        if (file.exists()) {
+//            FileInputStream fis = null;
+//            fis = new FileInputStream(file);
+//            size = fis.available();
+//        }
+//        return size / 1024;
+//    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == RESULT_OK && requestCode == Tools.REQUEST_IMAGE && data != null) {
-            final List<String> path =
-                    data.getStringArrayListExtra(MultiImageSelectorActivity.EXTRA_RESULT);
-            if (path != null && path.size() > 0) {
-                new Handler().post(new Runnable() {
-                    @Override
-                    public void run() {
-                        postMultiFilePresenter.PostMultiFile(path);
-                        Glide.with(mContext).load(path.get(0)).into(civHead);
+        if (requestCode == PictureConfig.CHOOSE_REQUEST) {
+            if (resultCode == RESULT_OK) {
+                List<LocalMedia> selectList = PictureSelector.obtainMultipleResult(data);
+                // 例如 LocalMedia 里面返回三种path
+                // 1.media.getPath(); 为原图path
+                // 2.media.getCutPath();为裁剪后path，需判断media.isCut();是否为true  注意：音视频除外
+                // 3.media.getCompressPath();为压缩后path，需判断media.isCompressed();是否为true  注意：音视频除外
+                // 如果裁剪并压缩了，以取压缩路径为准，因为是先裁剪后压缩的
+                if (selectList != null && selectList.size() > 0) {
 
-                    }
-                });
+                        ArrayList<String> pathlist = new ArrayList<>();
+                        if (selectList.get(0).isCompressed()) {
+                            pathlist.add(selectList.get(0).getCompressPath());
+                        } else {
+                            pathlist.add(selectList.get(0).getPath());
+                        }
+                        // 测试信息
+//                        if (BuildConfig.DEBUG) {
+//                            try {
+//                                File of = new File(selectList.get(0).getPath());
+//                                Log.e("zk", "压缩前文件大小kb" + getFileSize(of));
+//
+//                                File nf = new File(selectList.get(0).getCompressPath());
+//                                Log.e("zk", "压缩后文件大小kb" + getFileSize(nf));
+//                            } catch (Exception e) {
+//                                e.printStackTrace();
+//                            }
+//                        }
+                        postMultiFilePresenter.PostMultiFile(pathlist);
+                        Glide.with(mContext).load(pathlist.get(0)).into(civHead);
 
+
+                }
             }
         }
     }

@@ -1,5 +1,6 @@
 package com.wetime.fanc.circle.adapter;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -141,6 +142,9 @@ public class LongTextAdapter extends RecyclerView.Adapter {
                 ((ImageViewHolder) holder).ivDelete.setVisibility(View.GONE);
                 ((ImageViewHolder) holder).ivEdit.setVisibility(View.GONE);
                 ((ImageViewHolder) holder).ivDrag.setVisibility(View.VISIBLE);
+                ViewGroup.LayoutParams params =holder.itemView.getLayoutParams();
+                params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+                holder.itemView.setLayoutParams(params);
                 Glide.with(mContext)
                         .load(bean.getImageUrl())
                         .apply(new RequestOptions()
@@ -151,6 +155,7 @@ public class LongTextAdapter extends RecyclerView.Adapter {
 
 
             } else {
+
                 if (TextUtils.isEmpty(bean.getDes())) {
                     ((ImageViewHolder) holder).etDes.setVisibility(View.GONE);
                 } else {
@@ -168,6 +173,10 @@ public class LongTextAdapter extends RecyclerView.Adapter {
                 }
 
                 ((ImageViewHolder) holder).ivEdit.setOnClickListener(v -> {
+
+                    ViewGroup.LayoutParams params =holder.itemView.getLayoutParams();
+                    params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+                    holder.itemView.setLayoutParams(params);
                     ((ImageViewHolder) holder).etDes.setVisibility(View.VISIBLE);
 
                     ((ImageViewHolder) holder).etDes.setFocusable(true);
@@ -197,11 +206,15 @@ public class LongTextAdapter extends RecyclerView.Adapter {
                 Double rate = outHeight * 1.0 / outWidth;
 
                 int h = (int) (w * rate);
+
+                ViewGroup.LayoutParams params =holder.itemView.getLayoutParams();
+                params.height = h+Tools.dip2px(mContext,10);
+                holder.itemView.setLayoutParams(params);
                 Glide.with(mContext)
                         .load(bean.getImageUrl())
                         .apply(new RequestOptions()
 //                            .override(Tools.getScreenW(mContext), Tools.getScreenW(mContext))
-                                .override(w, h))
+                                .override(w, h).centerCrop())
                         .into(((ImageViewHolder) holder).ivCover);
             }
 

@@ -23,12 +23,15 @@ import com.bumptech.glide.request.RequestOptions;
 import com.flyco.tablayout.CommonTabLayout;
 import com.flyco.tablayout.listener.CustomTabEntity;
 import com.flyco.tablayout.listener.OnTabSelectListener;
+import com.luck.picture.lib.PictureSelector;
+import com.luck.picture.lib.config.PictureConfig;
+import com.luck.picture.lib.config.PictureMimeType;
+import com.luck.picture.lib.entity.LocalMedia;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.wetime.fanc.R;
 import com.wetime.fanc.circle.presenter.FocusPresenter;
-import com.wetime.fanc.customview.multiimageselector.MultiImageSelectorActivity;
 import com.wetime.fanc.home.adapter.HomeItemAdapter;
 import com.wetime.fanc.home.bean.HomeItemBean;
 import com.wetime.fanc.home.bean.TabEntity;
@@ -185,7 +188,6 @@ public class UserCardActivity extends BaseActivity implements OnLoadMoreListener
                 onBackPressed();
                 break;
             case R.id.iv_more:
-
                 showShareAct();
                 break;
         }
@@ -239,10 +241,17 @@ public class UserCardActivity extends BaseActivity implements OnLoadMoreListener
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == RESULT_OK && requestCode == Tools.REQUEST_IMAGE && data != null) {
-            final List<String> path =
-                    data.getStringArrayListExtra(MultiImageSelectorActivity.EXTRA_RESULT);
-            if (path != null && path.size() > 0) {
+
+        if (resultCode == RESULT_OK && requestCode == PictureConfig.CHOOSE_REQUEST && data != null) {
+            List<LocalMedia> selectList = PictureSelector.obtainMultipleResult(data);
+            ArrayList<String> path = new ArrayList<>();
+            if (selectList.get(0).isCut()) {
+                path.add(selectList.get(0).getCompressPath());
+            } else {
+                path.add(selectList.get(0).getPath());
+            }
+
+            if (path.size() > 0) {
                 new Handler().post(() -> {
                     Uri uri_crop = Uri.fromFile(new File(path.get(0)));
                     //裁剪后保存到文件中
@@ -384,8 +393,16 @@ public class UserCardActivity extends BaseActivity implements OnLoadMoreListener
 
             v.findViewById(R.id.tv_delete).setOnClickListener(v12 -> {
                 mDeleteBottomDialog.dismiss();
-                Tools.gotoSelectPic(UserCardActivity.this);
+                PictureSelector.create(this)
+                        .openGallery(PictureMimeType.ofImage())
+                        .selectionMode(PictureConfig.SINGLE)
+                        .theme(R.style.picture_my_style)
+                        .previewImage(true)
+                        .isCamera(true)
+                        .compress(true)
+                        .forResult(PictureConfig.CHOOSE_REQUEST);
             });
+
             v.findViewById(R.id.tv_cancel).setOnClickListener(v14 -> {
                 mDeleteBottomDialog.dismiss();
             });

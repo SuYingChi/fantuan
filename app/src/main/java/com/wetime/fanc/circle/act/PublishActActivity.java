@@ -15,6 +15,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.gyf.barlibrary.ImmersionBar;
+import com.luck.picture.lib.PictureSelector;
+import com.luck.picture.lib.config.PictureConfig;
+import com.luck.picture.lib.config.PictureMimeType;
+import com.luck.picture.lib.entity.LocalMedia;
 import com.wetime.fanc.R;
 import com.wetime.fanc.circle.bean.DefaultCircleBean;
 import com.wetime.fanc.circle.bean.LocItemBean;
@@ -26,7 +30,6 @@ import com.wetime.fanc.circle.iviews.IPublishCircleView;
 import com.wetime.fanc.circle.presenter.GetDefaultCirclePresenter;
 import com.wetime.fanc.circle.presenter.GetLocStrPresenter;
 import com.wetime.fanc.customview.GridViewForScrollView;
-import com.wetime.fanc.customview.multiimageselector.MultiImageSelectorActivity;
 import com.wetime.fanc.main.act.BaseActivity;
 import com.wetime.fanc.main.bean.PostFileResultBean;
 import com.wetime.fanc.main.ivews.IPostMultiFileView;
@@ -39,12 +42,11 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-
-import static com.wetime.fanc.utils.Tools.REQUEST_IMAGE;
 
 public class PublishActActivity extends BaseActivity implements IPostMultiFileView, AdapterView.OnItemClickListener, IGetDefaultCircleView, IPublishCircleView, IGetLocStrView {
 
@@ -75,6 +77,7 @@ public class PublishActActivity extends BaseActivity implements IPostMultiFileVi
     private ImageGridAdapter mPicGridAdapter;
     private String mCircleID;
     private LocItemBean locBean = new LocItemBean();
+    private List<LocalMedia> selectList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -179,12 +182,20 @@ public class PublishActActivity extends BaseActivity implements IPostMultiFileVi
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // TODO Auto-generated method stub
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_IMAGE) {
-            if (resultCode == RESULT_OK) {
-                // 获取返回的图片列表
-                defaultDataArray = data
-                        .getStringArrayListExtra(MultiImageSelectorActivity.EXTRA_RESULT);
 
+        if (requestCode == PictureConfig.CHOOSE_REQUEST) {
+            if (resultCode == RESULT_OK) {
+                selectList = PictureSelector.obtainMultipleResult(data);
+                ArrayList<String> pathlist = new ArrayList<>();
+                for (LocalMedia lm : selectList) {
+                    if (lm.isCompressed()) {
+                        pathlist.add(lm.getCompressPath());
+                    } else {
+                        pathlist.add(lm.getPath());
+                    }
+                }
+                defaultDataArray.clear();
+                defaultDataArray.addAll(pathlist);
                 mPicGridAdapter = new ImageGridAdapter(mContext,
                         defaultDataArray);
                 mPicGridAdapter.setOnDeleteClickLitener((view, position) -> {
@@ -195,6 +206,7 @@ public class PublishActActivity extends BaseActivity implements IPostMultiFileVi
                 mPicGridAdapter.notifyDataSetChanged();
             }
         }
+
         if (requestCode == REQUEST_CIRCLE) {
             if (resultCode == RESULT_OK) {
                 tvCirclename.setText(data.getStringExtra("name"));
@@ -229,24 +241,15 @@ public class PublishActActivity extends BaseActivity implements IPostMultiFileVi
     }
 
     private void gotoSelectPic() {
-        Intent intent = new Intent(mContext, MultiImageSelectorActivity.class);
-        // 是否显示调用相机拍照
-        intent.putExtra(MultiImageSelectorActivity.EXTRA_SHOW_CAMERA, true);
-        // 最大图片选择数量
-        intent.putExtra(MultiImageSelectorActivity.EXTRA_SELECT_COUNT, getResources().getInteger(R.integer.most_pic_num));
-        // 设置模式 (支持 单选/MultiImageSelectorActivity.MODE_SINGLE 或者
-        // 多选/MultiImageSelectorActivity.MODE_MULTI)
-        intent.putExtra(MultiImageSelectorActivity.EXTRA_SELECT_MODE,
-                MultiImageSelectorActivity.MODE_MULTI);
-        // 默认选择图片,回填选项(支持String ArrayList)
-        // ArrayList<String> temp = new ArrayList<String>();
-        // for (int i = 0; i < defaultDataArray.size(); i++) {
-        // temp.add(defaultDataArray.get(i));
-        // }
-        intent.putStringArrayListExtra(
-                MultiImageSelectorActivity.EXTRA_DEFAULT_SELECTED_LIST,
-                defaultDataArray);
-        startActivityForResult(intent, REQUEST_IMAGE);
+        PictureSelector.create(this)
+                .openGallery(PictureMimeType.ofImage())
+                .maxSelectNum(9)
+                .theme(R.style.picture_my_style)
+                .previewImage(true)
+                .isCamera(true)
+                .compress(true)
+                .selectionMedia(selectList)
+                .forResult(PictureConfig.CHOOSE_REQUEST);
     }
 
     @Override

@@ -33,6 +33,10 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.gyf.barlibrary.ImmersionBar;
+import com.luck.picture.lib.PictureSelector;
+import com.luck.picture.lib.config.PictureConfig;
+import com.luck.picture.lib.config.PictureMimeType;
+import com.luck.picture.lib.entity.LocalMedia;
 import com.secure.pay.PayService;
 import com.sina.weibo.sdk.WbSdk;
 import com.sina.weibo.sdk.auth.AuthInfo;
@@ -44,7 +48,6 @@ import com.tencent.tauth.UiError;
 import com.wetime.fanc.R;
 import com.wetime.fanc.application.FApp;
 import com.wetime.fanc.circle.act.ActDetailActivity;
-import com.wetime.fanc.customview.multiimageselector.MultiImageSelectorActivity;
 import com.wetime.fanc.home.act.HomeSearchActivity;
 import com.wetime.fanc.home.event.BeInvaterSuccess;
 import com.wetime.fanc.home.event.SwichFragEvent;
@@ -78,13 +81,12 @@ import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import me.shaohui.bottomdialog.BottomDialog;
-
-import static com.wetime.fanc.utils.Tools.REQUEST_IMAGE;
 
 
 public class WebActivity extends BaseActivity implements IPostMultiFileView, WbShareCallback {
@@ -181,15 +183,22 @@ public class WebActivity extends BaseActivity implements IPostMultiFileView, WbS
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // TODO Auto-generated method stub
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_IMAGE) {
-            if (resultCode == RESULT_OK) {
-                // 获取返回的图片列表
-                defaultDataArray = data
-                        .getStringArrayListExtra(MultiImageSelectorActivity.EXTRA_RESULT);
 
+        if (requestCode == PictureConfig.CHOOSE_REQUEST) {
+            if (resultCode == RESULT_OK) {
+                List<LocalMedia> selectList = PictureSelector.obtainMultipleResult(data);
+                ArrayList<String> pathlist = new ArrayList<>();
+                for (LocalMedia lm : selectList) {
+                    if (lm.isCompressed()) {
+                        pathlist.add(lm.getCompressPath());
+                    } else {
+                        pathlist.add(lm.getPath());
+                    }
+                }
+                defaultDataArray.addAll(pathlist);
+                if (defaultDataArray.size() > 0)
+                    new PostMultiFilePresenter(this).PostMultiFile(defaultDataArray);
             }
-            if (defaultDataArray.size() > 0)
-                new PostMultiFilePresenter(this).PostMultiFile(defaultDataArray);
         }
     }
 
@@ -554,7 +563,7 @@ public class WebActivity extends BaseActivity implements IPostMultiFileView, WbS
     }
 
     @JavascriptInterface
-    public void shareWXFriends(String url, String title, String des,String imageUrl) {
+    public void shareWXFriends(String url, String title, String des, String imageUrl) {
         web.post(() -> {
             Glide.with(mContext).load(imageUrl).into(new SimpleTarget<Drawable>() {
                 /**
@@ -572,7 +581,7 @@ public class WebActivity extends BaseActivity implements IPostMultiFileView, WbS
     }
 
     @JavascriptInterface
-    public void shareWXTimeline(String url, String title, String des,String imageUrl) {
+    public void shareWXTimeline(String url, String title, String des, String imageUrl) {
         web.post(() -> {
             Glide.with(mContext).load(imageUrl).into(new SimpleTarget<Drawable>() {
                 /**
@@ -610,24 +619,14 @@ public class WebActivity extends BaseActivity implements IPostMultiFileView, WbS
         if (n <= 0)
             return;
 
-        Intent intent = new Intent(mContext, MultiImageSelectorActivity.class);
-        // 是否显示调用相机拍照
-        intent.putExtra(MultiImageSelectorActivity.EXTRA_SHOW_CAMERA, true);
-        // 最大图片选择数量
-        intent.putExtra(MultiImageSelectorActivity.EXTRA_SELECT_COUNT, n);
-        // 设置模式 (支持 单选/MultiImageSelectorActivity.MODE_SINGLE 或者
-        // 多选/MultiImageSelectorActivity.MODE_MULTI)
-        intent.putExtra(MultiImageSelectorActivity.EXTRA_SELECT_MODE,
-                MultiImageSelectorActivity.MODE_MULTI);
-        // 默认选择图片,回填选项(支持String ArrayList)
-        // ArrayList<String> temp = new ArrayList<String>();
-        // for (int i = 0; i < defaultDataArray.size(); i++) {
-        // temp.add(defaultDataArray.get(i));
-        // }
-        intent.putStringArrayListExtra(
-                MultiImageSelectorActivity.EXTRA_DEFAULT_SELECTED_LIST,
-                defaultDataArray);
-        startActivityForResult(intent, REQUEST_IMAGE);
+        PictureSelector.create(this)
+                .openGallery(PictureMimeType.ofImage())
+                .maxSelectNum(n)
+                .theme(R.style.picture_my_style)
+                .previewImage(true)
+                .isCamera(true)
+                .compress(true)
+                .forResult(PictureConfig.CHOOSE_REQUEST);
     }
 
     @JavascriptInterface
@@ -664,7 +663,7 @@ public class WebActivity extends BaseActivity implements IPostMultiFileView, WbS
                     });
                     v.findViewById(R.id.ll_share_wxq).setOnClickListener(v12 -> {
                         mBottomDialog.dismiss();
-                        Log.e("xi", "shareView: "+url );
+                        Log.e("xi", "shareView: " + url);
                         Glide.with(mContext).load(url).into(new SimpleTarget<Drawable>() {
                             /**
                              * The method that will be called when the resource load has finished.
@@ -751,10 +750,7 @@ public class WebActivity extends BaseActivity implements IPostMultiFileView, WbS
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-
-
         shareHandler.doResultIntent(intent, this);
-
     }
 
     public Bitmap drawableToBitmap(Drawable drawable) {
