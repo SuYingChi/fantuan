@@ -124,11 +124,7 @@
         <activity
             android:name=".qr.ScanActivity"
             android:screenOrientation="portrait" />
-        <activity
-            android:name=".customview.multiimageselector.MultiImageSelectorActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-            android:windowSoftInputMode="stateHidden|stateAlwaysHidden" />
+
         <activity
             android:name=".home.act.HomeSearchActivity"
             android:launchMode="singleTop" />

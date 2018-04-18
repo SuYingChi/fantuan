@@ -1,4 +1,4 @@
-package com.wetime.fanc.customview.multiimageselector.adapter;
+package com.wetime.fanc.customview;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -7,7 +7,7 @@ import android.widget.ImageView;
 /**
  * An image view which always remains square with respect to its width.
  */
-public class SquaredImageView extends ImageView {
+public class SquaredImageView extends android.support.v7.widget.AppCompatImageView {
     public SquaredImageView(Context context) {
         super(context);
     }
