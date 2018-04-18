@@ -155,6 +155,7 @@ public class PublishActActivity extends BaseActivity implements IPostMultiFileVi
                     intent.putExtra("Loc", getLoc());
                     intent.putExtra("content", getContent());
                     startService(intent);
+                    this.finish();
                 } else {
                     Tools.toastInBottom(mContext, "内容还不够10个字~");
                 }
@@ -279,7 +280,7 @@ public class PublishActActivity extends BaseActivity implements IPostMultiFileVi
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEvent(uploadEvent messageEvent) {
-        Log.e("xi", "onEvent: "+this.isDestroyed() );
+        Log.e("xi", "onEvent: " + this.isDestroyed());
         if (!this.isDestroyed()) {
             Intent go = new Intent(this, ActDetailActivity.class);
             go.putExtra("id", messageEvent.getId());

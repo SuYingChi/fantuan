@@ -1,11 +1,18 @@
 package com.wetime.fanc.circle.frag;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.flyco.tablayout.SlidingTabLayout;
 import com.wetime.fanc.R;
@@ -14,6 +21,8 @@ import com.wetime.fanc.home.event.RefreshRedNumEvent;
 import com.wetime.fanc.login.act.LoginActivity;
 import com.wetime.fanc.login.event.LogoutEvent;
 import com.wetime.fanc.main.frag.BaseLazyFragment;
+import com.wetime.fanc.service.event.UploadProgessEvent;
+import com.wetime.fanc.service.event.uploadEvent;
 import com.wetime.fanc.utils.Const;
 import com.wetime.fanc.utils.Tools;
 
@@ -24,7 +33,9 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.util.ArrayList;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 import q.rorbin.badgeview.QBadgeView;
 
 
@@ -37,6 +48,10 @@ public class CircleHomeFragment extends BaseLazyFragment {
     SlidingTabLayout slidingTabLayout;
     @BindView(R.id.vp)
     ViewPager vp;
+    @BindView(R.id.progess)
+    LinearLayout progess;
+    @BindView(R.id.progess_title)
+    TextView progessTitle;
     private ArrayList<Fragment> mFragments = new ArrayList<>();
 
     private QBadgeView qBadgeMsg;
@@ -48,7 +63,7 @@ public class CircleHomeFragment extends BaseLazyFragment {
 
     @Override
     protected void initView() {
-
+        progess.setVisibility(View.INVISIBLE);
         EventBus.getDefault().register(this);
         qBadgeMsg = new QBadgeView(getContext());
         qBadgeMsg.setBadgeTextSize(11, true);
@@ -73,6 +88,26 @@ public class CircleHomeFragment extends BaseLazyFragment {
     protected void initData() {
 
     }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(UploadProgessEvent messageEvent) {
+        Log.e("xi", "onEvent: "+messageEvent.getPrgess() );
+        progess.setVisibility(View.VISIBLE);
+        String substring = String.valueOf(messageEvent.getPrgess() * 100).substring(0, String.valueOf(messageEvent.getPrgess() * 100).indexOf("."));
+        if (messageEvent.getPrgess() < 1) {
+            progessTitle.setText("文章上传中，请不要离开" + substring + "%…");
+        } else if (messageEvent.getPrgess() >= 1) {
+            progessTitle.setText("文章上传中，请不要离开" + 99 + "%…");
+        }
+    }
+
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(uploadEvent messageEvent) {
+        progess.setVisibility(View.INVISIBLE);
+    }
+
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(LogoutEvent event) {
@@ -101,5 +136,6 @@ public class CircleHomeFragment extends BaseLazyFragment {
                 break;
         }
     }
+
 
 }

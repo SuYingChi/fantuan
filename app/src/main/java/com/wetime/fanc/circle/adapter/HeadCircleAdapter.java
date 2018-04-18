@@ -59,18 +59,18 @@ public class HeadCircleAdapter extends RecyclerView.Adapter {
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         final ViewHolder oholder = (ViewHolder) holder;
         CircleHomeListBean.DataBean.CirclesBean bean = mlist.get(position);
 
-
-        if (type==0){
+        if (type == 0) {
             ((ViewHolder) holder).tvname.setText(bean.getName());
             Glide.with(mContext)
                     .load(bean.getCover())
                     .apply(myOptions)
                     .into(oholder.ivcover);
-        }else{
+        } else {
+            if (position >= follow_circles.size()) return;
             ((ViewHolder) holder).tvname.setText(follow_circles.get(position).getName());
             Glide.with(mContext)
                     .load(follow_circles.get(position).getCover())
@@ -78,16 +78,9 @@ public class HeadCircleAdapter extends RecyclerView.Adapter {
                     .into(oholder.ivcover);
         }
 
-
         if (mOnItemClickLitener != null) {
-            oholder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    mOnItemClickLitener.onItemClick(view, position);
-                }
-            });
+            oholder.itemView.setOnClickListener(view -> mOnItemClickLitener.onItemClick(view, position));
         }
-
     }
 
     @Override

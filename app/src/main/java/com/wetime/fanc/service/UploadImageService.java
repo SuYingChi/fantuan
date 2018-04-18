@@ -129,8 +129,8 @@ public class UploadImageService extends Service {
                     public void onResponse(String s, int i) {
                         Log.e("xi", "onResponse: " + s);
                         PublishResultBean bean = GsonUtils.getGsonInstance().fromJson(s, PublishResultBean.class);
-                        if (bean.getError() == 0)
-                            EventBus.getDefault().post(new uploadEvent(bean.getData().getId()));
+                        if (bean.getError() == 0) EventBus.getDefault().post(new uploadEvent(bean.getData().getId()));
+                        Toast.makeText(getApplicationContext(), "文章上传成功", Toast.LENGTH_SHORT).show();
                     }
                 });
     }

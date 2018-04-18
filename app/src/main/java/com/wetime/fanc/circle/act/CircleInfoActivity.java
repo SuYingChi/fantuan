@@ -18,6 +18,7 @@ import com.wetime.fanc.circle.bean.CircleDetailBean;
 import com.wetime.fanc.circle.iviews.IGetCircleDetailView;
 import com.wetime.fanc.circle.presenter.GetCircleDetailPresenter;
 import com.wetime.fanc.main.act.BaseActivity;
+import com.wetime.fanc.main.model.ErrorBean;
 import com.wetime.fanc.my.act.UserCardActivity;
 
 import butterknife.BindView;
@@ -59,13 +60,15 @@ public class CircleInfoActivity extends BaseActivity implements IGetCircleDetail
     @BindView(R.id.bt_attrntion)
     Button btAttrntion;
 
+    private GetCircleDetailPresenter getCircleDetailPresenter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_circle_detailinfo);
         ButterKnife.bind(this);
         tvTitle.setText("圈子资料");
-        GetCircleDetailPresenter getCircleDetailPresenter = new GetCircleDetailPresenter(this);
+        getCircleDetailPresenter = new GetCircleDetailPresenter(this);
         getCircleDetailPresenter.getCircleDetail();
     }
 
@@ -82,13 +85,9 @@ public class CircleInfoActivity extends BaseActivity implements IGetCircleDetail
                 break;
             case R.id.bt_attrntion:
                 if (String.valueOf(btAttrntion.getText()).equals("关注圈子")) {
-                    btAttrntion.setText("取消关注圈子");
-                    btAttrntion.setTextColor(Color.parseColor("#666666"));
-                    btAttrntion.setBackgroundResource(R.drawable.rectangle_3_copy_cancel);
+                    getCircleDetailPresenter.setCircleAttention(getCircleId(), "1");
                 } else {
-                    btAttrntion.setText("关注圈子");
-                    btAttrntion.setTextColor(Color.parseColor("#ff3f53"));
-                    btAttrntion.setBackgroundResource(R.drawable.rectangle_3_copy);
+                    getCircleDetailPresenter.setCircleAttention(getCircleId(), "2");
                 }
                 break;
         }
@@ -142,6 +141,19 @@ public class CircleInfoActivity extends BaseActivity implements IGetCircleDetail
                     CircleInfoActivity.this.startActivity(go);
                 }
             });
+        }
+    }
+
+    @Override
+    public void onSetCircleAttention(ErrorBean bean) {
+        if (String.valueOf(btAttrntion.getText()).equals("关注圈子")) {
+            btAttrntion.setText("取消关注圈子");
+            btAttrntion.setTextColor(Color.parseColor("#666666"));
+            btAttrntion.setBackgroundResource(R.drawable.rectangle_3_copy_cancel);
+        } else {
+            btAttrntion.setText("关注圈子");
+            btAttrntion.setTextColor(Color.parseColor("#ff3f53"));
+            btAttrntion.setBackgroundResource(R.drawable.rectangle_3_copy);
         }
     }
 

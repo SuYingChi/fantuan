@@ -21,8 +21,14 @@ import com.wetime.fanc.circle.iviews.IGetCircleHeadView;
 import com.wetime.fanc.circle.presenter.GetCircleHeadPresenter;
 import com.wetime.fanc.home.adapter.NormalTitlePagerAdapter;
 import com.wetime.fanc.main.act.BaseActivity;
+import com.wetime.fanc.main.model.ErrorBean;
+import com.wetime.fanc.service.event.UploadProgessEvent;
+import com.wetime.fanc.service.event.uploadEvent;
 import com.wetime.fanc.utils.GlideRoundTransform;
 import com.wetime.fanc.utils.Tools;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 
@@ -56,8 +62,14 @@ public class CircleDetailActivity extends BaseActivity implements IGetCircleHead
     TextView tvTitle;
     @BindView(R.id.iv_attention)
     ImageView ivAttention;
+    @BindView(R.id.progess)
+    LinearLayout progess;
+    @BindView(R.id.progess_title)
+    TextView progessTitle;
 
     private ArrayList<Fragment> mFragments = new ArrayList<>();
+
+    private GetCircleHeadPresenter getCircleHeadPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +77,8 @@ public class CircleDetailActivity extends BaseActivity implements IGetCircleHead
         setContentView(R.layout.activity_circle_detail);
         ButterKnife.bind(this);
         initView();
-        GetCircleHeadPresenter getCircleHeadPresenter = new GetCircleHeadPresenter(this);
+        progess.setVisibility(View.GONE);
+        getCircleHeadPresenter = new GetCircleHeadPresenter(this);
         getCircleHeadPresenter.getDefaultCircle();
     }
 
@@ -89,10 +102,9 @@ public class CircleDetailActivity extends BaseActivity implements IGetCircleHead
                 Tools.showPopWin(this, ivEdit, getCircleId());
                 break;
             case R.id.iv_attention:
-
+                getCircleHeadPresenter.setCircleAttention(getCircleId(), "1");
                 break;
         }
-
     }
 
     private void initView() {
@@ -151,9 +163,33 @@ public class CircleDetailActivity extends BaseActivity implements IGetCircleHead
 
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(UploadProgessEvent messageEvent) {
+        progess.setVisibility(View.VISIBLE);
+        String substring = String.valueOf(messageEvent.getPrgess() * 100).substring(0, String.valueOf(messageEvent.getPrgess() * 100).indexOf("."));
+        if (messageEvent.getPrgess() < 1) {
+            progessTitle.setText("文章上传中，请不要离开" + substring + "%…");
+        } else if (messageEvent.getPrgess() >= 1) {
+            progessTitle.setText("文章上传中，请不要离开" + 99 + "%…");
+        }
+    }
+
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(uploadEvent messageEvent) {
+        progess.setVisibility(View.GONE);
+    }
+
+
     @Override
     public String getCircleId() {
         return getIntent().getStringExtra("id");
+    }
+
+    @Override
+    public void onSetCircleAttention(ErrorBean bean) {
+        ivAttention.setVisibility(View.GONE);
     }
 
 

@@ -5,6 +5,8 @@ import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.Toast;
 
@@ -14,13 +16,17 @@ import com.wetime.fanc.R;
 import com.wetime.fanc.application.FApp;
 import com.wetime.fanc.login.event.LogoutEvent;
 import com.wetime.fanc.main.ivews.IBaseVIew;
+import com.wetime.fanc.main.model.ErrorBean;
+import com.wetime.fanc.service.event.uploadEvent;
 import com.wetime.fanc.utils.SharePreferenceUtil;
 import com.wetime.fanc.utils.Tools;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 
-public class BaseActivity extends InitialBaseActivity  {
+public class BaseActivity extends AppCompatActivity implements IBaseVIew   {
     public SharePreferenceUtil spu;
     public Context mContext;
 
@@ -29,6 +35,7 @@ public class BaseActivity extends InitialBaseActivity  {
         super.onCreate(savedInstanceState);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setSoftInPutMode();
+        EventBus.getDefault().register(this);
         spu = Tools.getSpu(this);
         initStateBar();
         addToActManager();
@@ -91,6 +98,7 @@ public class BaseActivity extends InitialBaseActivity  {
     protected void onDestroy() {
         ImmersionBar.with(this).destroy();
         FApp.getInstance().removeActivity(this);
+        EventBus.getDefault().unregister(this);
         super.onDestroy();
     }
 
@@ -137,5 +145,10 @@ public class BaseActivity extends InitialBaseActivity  {
     public void onError(String s) {
 //        Tools.toastInBottom(this, s);
         Toast.makeText(mContext, s, Toast.LENGTH_SHORT).show();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(ErrorBean messageEvent) {
+
     }
 }
