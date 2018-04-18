@@ -5,6 +5,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
@@ -28,15 +29,17 @@ import com.wetime.fanc.circle.iviews.IGetLocStrView;
 import com.wetime.fanc.circle.iviews.IPublishCircleView;
 import com.wetime.fanc.circle.presenter.GetDefaultCirclePresenter;
 import com.wetime.fanc.circle.presenter.GetLocStrPresenter;
-import com.wetime.fanc.circle.presenter.PublishCirclePresenter;
 import com.wetime.fanc.customview.GridViewForScrollView;
 import com.wetime.fanc.main.act.BaseActivity;
 import com.wetime.fanc.main.bean.PostFileResultBean;
 import com.wetime.fanc.main.ivews.IPostMultiFileView;
-import com.wetime.fanc.main.presenter.PostMultiFilePresenter;
 import com.wetime.fanc.order.adapter.ImageGridAdapter;
-import com.wetime.fanc.utils.GsonUtils;
+import com.wetime.fanc.service.UploadImageService;
+import com.wetime.fanc.service.event.uploadEvent;
 import com.wetime.fanc.utils.Tools;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,6 +51,8 @@ import butterknife.OnClick;
 public class PublishActActivity extends BaseActivity implements IPostMultiFileView, AdapterView.OnItemClickListener, IGetDefaultCircleView, IPublishCircleView, IGetLocStrView {
 
 
+    public static final int REQUEST_CIRCLE = 1008;
+    public static final int REQUEST_LOC = 1009;
     @BindView(R.id.tv_title)
     TextView tvTitle;
     @BindView(R.id.iv_back)
@@ -68,14 +73,10 @@ public class PublishActActivity extends BaseActivity implements IPostMultiFileVi
     TextView tvAddres;
     @BindView(R.id.iv_close)
     ImageView ivClose;
-
-
     private ArrayList<String> defaultDataArray = new ArrayList<>();
     private ImageGridAdapter mPicGridAdapter;
     private String mCircleID;
     private LocItemBean locBean = new LocItemBean();
-    public static final int REQUEST_CIRCLE = 1008;
-    public static final int REQUEST_LOC = 1009;
     private List<LocalMedia> selectList = new ArrayList<>();
 
     @Override
@@ -143,8 +144,17 @@ public class PublishActActivity extends BaseActivity implements IPostMultiFileVi
                 break;
             case R.id.tv_publish:
                 if (etContent.getText().toString().length() >= 10 || defaultDataArray.size() > 0) {
-                    PostMultiFilePresenter postMultiFilePresenter = new PostMultiFilePresenter(this);
-                    postMultiFilePresenter.PostMultiFile(defaultDataArray);
+//                    PostMultiFilePresenter postMultiFilePresenter = new PostMultiFilePresenter(this);
+//                    postMultiFilePresenter.PostMultiFile(defaultDataArray);
+                    Intent intent = new Intent(this, UploadImageService.class);
+                    intent.putStringArrayListExtra("defaultDataArray", defaultDataArray);
+                    intent.putExtra("token", getToken());
+                    intent.putExtra("CircleId", getCircleId());
+                    intent.putExtra("CJd", getCJd());
+                    intent.putExtra("CWd", getCWd());
+                    intent.putExtra("Loc", getLoc());
+                    intent.putExtra("content", getContent());
+                    startService(intent);
                 } else {
                     Tools.toastInBottom(mContext, "内容还不够10个字~");
                 }
@@ -164,8 +174,8 @@ public class PublishActActivity extends BaseActivity implements IPostMultiFileVi
 
     @Override
     public void onPostResult(PostFileResultBean bean) {
-        PublishCirclePresenter publishCirclePresenter = new PublishCirclePresenter(this);
-        publishCirclePresenter.publishCircle((GsonUtils.getGsonInstance().toJson(bean.getData().getId())));
+//        PublishCirclePresenter publishCirclePresenter = new PublishCirclePresenter(this);
+//        publishCirclePresenter.publishCircle((GsonUtils.getGsonInstance().toJson(bean.getData().getId())));
     }
 
     @Override
@@ -265,6 +275,17 @@ public class PublishActActivity extends BaseActivity implements IPostMultiFileVi
         Intent go = new Intent(mContext, ActDetailActivity.class);
         go.putExtra("id", bean.getData().getId());
         startActivity(go);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(uploadEvent messageEvent) {
+        Log.e("xi", "onEvent: "+this.isDestroyed() );
+        if (!this.isDestroyed()) {
+            Intent go = new Intent(this, ActDetailActivity.class);
+            go.putExtra("id", messageEvent.getId());
+            startActivity(go);
+        }
+
     }
 
     @Override

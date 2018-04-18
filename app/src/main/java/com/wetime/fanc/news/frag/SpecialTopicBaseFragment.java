@@ -1,11 +1,9 @@
 package com.wetime.fanc.news.frag;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,11 +18,7 @@ import com.wetime.fanc.R;
 import com.wetime.fanc.home.adapter.HomeItemAdapter;
 import com.wetime.fanc.home.bean.HomeItemBean;
 import com.wetime.fanc.home.event.ReFreshNewsEvent;
-import com.wetime.fanc.login.act.LoginActivity;
-import com.wetime.fanc.login.event.LoginEvent;
-import com.wetime.fanc.login.event.LogoutEvent;
 import com.wetime.fanc.main.frag.BaseLazyFragment;
-import com.wetime.fanc.news.act.RecomentFocusActivity;
 import com.wetime.fanc.news.bean.NewsListBean;
 import com.wetime.fanc.news.iviews.IGetSpecialNewsTypeView;
 import com.wetime.fanc.news.presenter.GetSpecialNewsTypePresenter;
@@ -50,7 +44,7 @@ public class SpecialTopicBaseFragment extends BaseLazyFragment implements OnRefr
     Unbinder unbinder;
     @BindView(R.id.rl_no_login)
     RelativeLayout rlNoLogin;
-    private String type = "0";
+    private String id = "0";
     private GetSpecialNewsTypePresenter getNewsTypePresenter;
     private String total = "";
     private int page = 1;
@@ -65,7 +59,7 @@ public class SpecialTopicBaseFragment extends BaseLazyFragment implements OnRefr
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         Bundle bundle = getArguments();
-//        type = bundle.getString("type");
+        id = bundle.getString("id");
         unbinder = ButterKnife.bind(this, super.onCreateView(inflater, container, savedInstanceState));
         return super.onCreateView(inflater, container, savedInstanceState);
     }
@@ -116,7 +110,7 @@ public class SpecialTopicBaseFragment extends BaseLazyFragment implements OnRefr
             @Override
             public void onLoadMore() {
                 page++;
-                getNewsTypePresenter.getNews();
+                getNewsTypePresenter.getNews(id, String.valueOf(page));
             }
         });
 
@@ -130,22 +124,16 @@ public class SpecialTopicBaseFragment extends BaseLazyFragment implements OnRefr
 
     @Override
     protected void initData() {
-        if (type.equals("-1") && TextUtils.isEmpty(spu.getToken())) {
-            rlNoLogin.setVisibility(View.VISIBLE);
-            mRootView.findViewById(R.id.tv_gologin).setOnClickListener(v -> {
-                Intent go = new Intent(getContext(), LoginActivity.class);
-                startActivity(go);
-            });
-        } else {
-            refreshLayout.autoRefresh();
-        }
+
+        refreshLayout.autoRefresh();
+
 
     }
 
     @Override
     public void onRefresh(RefreshLayout refreshlayout) {
         page = 1;
-        getNewsTypePresenter.getNews();
+        getNewsTypePresenter.getNews(id, String.valueOf(page));
     }
 
     @Override
@@ -163,18 +151,6 @@ public class SpecialTopicBaseFragment extends BaseLazyFragment implements OnRefr
         }
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMessageEvent(LoginEvent event) {
-        if (type.equals("-1"))
-            refreshLayout.autoRefresh();
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMessageEvent(LogoutEvent event) {
-        if (type.equals("-1")) {
-            rlNoLogin.setVisibility(View.VISIBLE);
-        }
-    }
 
     @Override
     public void onDestroyView() {
@@ -184,32 +160,16 @@ public class SpecialTopicBaseFragment extends BaseLazyFragment implements OnRefr
 
     @Override
     public void onGetSpecialNews(NewsListBean bean) {
-        if (type.equals("-1")) {
-            rlNoLogin.setVisibility(View.GONE);
-            if (bean.getData().getList().size() == 0) {
-                rlNoFocus.setVisibility(View.VISIBLE);
-                mRootView.findViewById(R.id.tv_gofocus).setOnClickListener(v -> {
-                    Intent goFocus = new Intent(getContext(), RecomentFocusActivity.class);
-                    startActivity(goFocus);
-                });
-            } else {
-                rlNoFocus.setVisibility(View.GONE);
-            }
-        }
-
         refreshLayout.finishRefresh();
+        total = bean.getData().getPaging().getTotal();
 
         if (page == 1) {
             list.clear();
-            //推荐 特殊的头部
-            if (type.equals("-1")) {
-                HomeItemBean headbean = new HomeItemBean();
-                headbean.setType(9000);
-                list.add(headbean);
-            }
+            list.addAll(bean.getData().getList());
+        } else {
+            list.addAll(bean.getData().getList());
         }
-        total = bean.getData().getPaging().getTotal();
-        list.addAll(bean.getData().getList());
+
         if (page > 1) {
             mAutoLoadMoreAdapter.finishLoading();
         }

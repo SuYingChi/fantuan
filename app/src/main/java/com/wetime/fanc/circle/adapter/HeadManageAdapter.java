@@ -11,7 +11,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.wetime.fanc.R;
-import com.wetime.fanc.circle.bean.CircleHomeListBean;
+import com.wetime.fanc.circle.bean.CircleDetailBean;
 import com.wetime.fanc.utils.GlideRoundTransform;
 
 import java.util.ArrayList;
@@ -24,18 +24,16 @@ import butterknife.ButterKnife;
  * Created by yuxun on 2017/4/15.
  */
 
-public class HeadCircleAdapter extends RecyclerView.Adapter {
+public class HeadManageAdapter extends RecyclerView.Adapter {
 
     private int type;
-    private List<CircleHomeListBean.DataBean.CirclesBean> mlist = new ArrayList<>();
-    private List<CircleHomeListBean.DataBean.FollowCirclesBean> follow_circles = new ArrayList<>();
+    private List<CircleDetailBean.DataBean.ManagersBean> mlist = new ArrayList<>();
     private Context mContext;
     private RequestOptions myOptions;
     private OnItemClickLitener mOnItemClickLitener;
 
-    public HeadCircleAdapter(List<CircleHomeListBean.DataBean.FollowCirclesBean> follow_circles, List<CircleHomeListBean.DataBean.CirclesBean> list, Context mContext, int type) {
+    public HeadManageAdapter(List<CircleDetailBean.DataBean.ManagersBean> list, Context mContext, int type) {
         this.mlist = list;
-        this.follow_circles = follow_circles;
         this.mContext = mContext;
         this.type = type;
         myOptions = new RequestOptions().transform(new GlideRoundTransform(mContext, 5));
@@ -44,14 +42,11 @@ public class HeadCircleAdapter extends RecyclerView.Adapter {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View inflate = LayoutInflater.from(mContext).inflate(R.layout.item_home_circle, parent, false);
-        if (type == 0) {
-            return new ViewHolder(inflate);
-        } else {
-            ViewGroup.LayoutParams layoutParams = inflate.getLayoutParams();
-            layoutParams.width = 200;
-            inflate.setLayoutParams(layoutParams);
-            return new ViewHolder(inflate);
-        }
+        ViewGroup.LayoutParams layoutParams = inflate.getLayoutParams();
+        layoutParams.width = 100;
+        inflate.setLayoutParams(layoutParams);
+        return new ViewHolder(inflate);
+
     }
 
     public void setOnItemClickLitener(OnItemClickLitener mOnItemClickLitener) {
@@ -61,23 +56,17 @@ public class HeadCircleAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         final ViewHolder oholder = (ViewHolder) holder;
-        CircleHomeListBean.DataBean.CirclesBean bean = mlist.get(position);
+        CircleDetailBean.DataBean.ManagersBean bean = mlist.get(position);
 
+        ((ViewHolder) holder).tvname.setText(bean.getUsername());
 
-        if (type==0){
-            ((ViewHolder) holder).tvname.setText(bean.getName());
-            Glide.with(mContext)
-                    .load(bean.getCover())
-                    .apply(myOptions)
-                    .into(oholder.ivcover);
-        }else{
-            ((ViewHolder) holder).tvname.setText(follow_circles.get(position).getName());
-            Glide.with(mContext)
-                    .load(follow_circles.get(position).getCover())
-                    .apply(myOptions)
-                    .into(oholder.ivcover);
-        }
+        Glide.with(mContext)
+                .load(bean.getCover())
+                .apply(myOptions)
+                .into(oholder.ivuser);
 
+        ((ViewHolder) holder).ivuser.setVisibility(View.VISIBLE);
+        ((ViewHolder) holder).ivcover.setVisibility(View.GONE);
 
         if (mOnItemClickLitener != null) {
             oholder.itemView.setOnClickListener(new View.OnClickListener() {

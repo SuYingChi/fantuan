@@ -31,6 +31,7 @@
 
 
                 <ImageView
+                    android:id="@+id/topic_iv"
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
                     android:layout_marginTop="50dp"
@@ -38,6 +39,7 @@
                     android:src="@drawable/iv_empty_card_comment" />
 
                 <TextView
+                    android:id="@+id/topic_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
@@ -50,6 +52,7 @@
                     android:textSize="18sp" />
 
                 <TextView
+                    android:id="@+id/topic_content"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="20dp"

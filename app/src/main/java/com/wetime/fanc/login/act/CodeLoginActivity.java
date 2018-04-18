@@ -52,7 +52,6 @@ public class CodeLoginActivity extends BaseActivity implements ISendSMSView, IIn
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_codelogin);
         ButterKnife.bind(this);
-        EventBus.getDefault().register(this);
         tvTitle.setText("短信验证码登录");
         sendLoginSMSPresenter = new SendLoginSMSPresenter(this);
         invalidLoginCodePresenter = new InvalidLoginCodePresenter(this);
@@ -121,7 +120,6 @@ public class CodeLoginActivity extends BaseActivity implements ISendSMSView, IIn
     protected void onDestroy() {
         super.onDestroy();
         downTimer.cancel();
-        EventBus.getDefault().unregister(this);
     }
 
     @Override

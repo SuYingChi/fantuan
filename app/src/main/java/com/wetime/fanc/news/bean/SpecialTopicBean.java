@@ -1,16 +1,13 @@
 package com.wetime.fanc.news.bean;
 
-import com.wetime.fanc.home.adapter.HomeItemAdapter;
-import com.wetime.fanc.home.bean.HomeItemBean;
-
+import java.io.Serializable;
 import java.util.List;
 
 /**
- * Created by zhoukang on 2018/1/30.
+ * Created by Administrator on 2018/4/18.
  */
 
-public class NewsListBean {
-
+public class SpecialTopicBean implements Serializable {
 
     /**
      * error : 0
@@ -46,7 +43,7 @@ public class NewsListBean {
         this.data = data;
     }
 
-    public static class DataBean {
+    public static class DataBean implements Serializable {
         /**
          * update_num : 0
          * paging : {"total":"242","total_page":"25","limit":"10","pn":"1","is_end":false}
@@ -55,7 +52,7 @@ public class NewsListBean {
 
         private String update_num;
         private PagingBean paging;
-        private List<HomeItemBean> list;
+        private List<ListBean> list;
 
         public String getUpdate_num() {
             return update_num;
@@ -73,11 +70,11 @@ public class NewsListBean {
             this.paging = paging;
         }
 
-        public List<HomeItemBean> getList() {
+        public List<ListBean> getList() {
             return list;
         }
 
-        public void setList(List<HomeItemBean> list) {
+        public void setList(List<ListBean> list) {
             this.list = list;
         }
 
@@ -137,7 +134,7 @@ public class NewsListBean {
             }
         }
 
-        public static class ListBean {
+        public static class ListBean implements Serializable {
             /**
              * special : {"id":"1","name":"测试专题名称测试","intro":"简介简介简介简介简介简介简介简介简介简介啦啦啦","coverStr":"https://staticcdntest.fantuanlife.com/uimage/ce/42/21/ae/ce4221ae23f3f1d5a50174f641425e6f.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70/","status":"1","createdAt":"2018-04-13 10:27:33","cover":["https://staticcdntest.fantuanlife.com/uimage/ce/42/21/ae/ce4221ae23f3f1d5a50174f641425e6f.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70/"]}
              * lastest : {"id":"12726","newsId":"47","cid":"1","name":"共创亚洲和世界的美好未来\u2014\u2014解读习近平主席在博鳌亚洲论坛2018年年会开幕式上的主旨演讲","cover":"393283","author":"南海网11","readNum":"0","likeNum":"0","commentNum":"0","recommend":"0","cause":"0","state":"1","time":"2018-04-11 09:06:00","originTime":"2018-04-11 09:06:00","spiderTime":"2018-04-11 19:46:52","type":"2","score":"1200","contentType":"0","atlasNum":"0","article_url":"https://staticcdntest.fantuanlife.com/index.html#/article/detail?article_id=12726"}
@@ -790,7 +787,7 @@ public class NewsListBean {
                 }
             }
 
-            public static class FocusedBean {
+            public static class FocusedBean implements Serializable {
                 /**
                  * id : 56
                  * newsId : 1
@@ -996,7 +993,7 @@ public class NewsListBean {
                 }
             }
 
-            public static class ElementsBean {
+            public static class ElementsBean implements Serializable {
                 /**
                  * id : 2
                  * name : 测试要点二

@@ -64,7 +64,6 @@ public class SettingActivity extends BaseActivity implements ILogoutView, IGetSe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
         ButterKnife.bind(this);
-        EventBus.getDefault().register(this);
         tvTitle.setText("设置");
         getSettingPresenter = new GetSettingPresenter(this);
 
@@ -80,7 +79,6 @@ public class SettingActivity extends BaseActivity implements ILogoutView, IGetSe
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        EventBus.getDefault().unregister(this);
     }
 
     @Override

@@ -52,7 +52,6 @@ public class LoginActivity extends BaseActivity implements IWXLoginView {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
-        EventBus.getDefault().register(this);
         wxLoginPresenter = new WXLoginPresenter(this);
 
         tvProtocol.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG); //下划线
@@ -76,7 +75,6 @@ public class LoginActivity extends BaseActivity implements IWXLoginView {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        EventBus.getDefault().unregister(this);
     }
 
     @OnClick({R.id.iv_close, R.id.ll_weixin, R.id.ll_phone, R.id.tv_protocol})

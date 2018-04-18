@@ -136,7 +136,6 @@ public class WebActivity extends BaseActivity implements IPostMultiFileView, WbS
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_web);
         ButterKnife.bind(this);
-        EventBus.getDefault().register(this);
         intent = getIntent();
         weburl = intent.getStringExtra("url");
         web.loadUrl(weburl);
@@ -205,7 +204,6 @@ public class WebActivity extends BaseActivity implements IPostMultiFileView, WbS
 
     @Override
     protected void onDestroy() {
-        EventBus.getDefault().unregister(this);
 //        mWebViewContainer.removeView(web);
 //        web.stopLoading();
 //        web.getSettings().setJavaScriptEnabled(false);

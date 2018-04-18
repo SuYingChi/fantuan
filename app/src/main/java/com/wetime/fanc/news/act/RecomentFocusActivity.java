@@ -26,6 +26,9 @@ import com.wetime.fanc.news.presenter.GetRecomentFocusPresenter;
 import com.wetime.fanc.news.presenter.GetRecomentFocusUserPresenter;
 import com.wetime.fanc.utils.Tools;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -103,6 +106,8 @@ public class RecomentFocusActivity extends BaseActivity implements IGetRecomentF
         mAutoLoadMoreAdapter.notifyDataSetChanged();
     }
 
+
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();
@@ -161,4 +166,5 @@ public class RecomentFocusActivity extends BaseActivity implements IGetRecomentF
     public String getId() {
         return id;
     }
+
 }

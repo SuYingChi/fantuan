@@ -31,6 +31,8 @@ import com.wetime.fanc.my.act.UserCardActivity;
 import com.wetime.fanc.my.presenter.DeleteMyNewsPresenter;
 import com.wetime.fanc.news.act.GalleryActivity;
 import com.wetime.fanc.news.act.RecomentFocusActivity;
+import com.wetime.fanc.news.act.SpecialTopicActivity;
+import com.wetime.fanc.news.bean.SpecialTopicBean;
 import com.wetime.fanc.order.MyRatingBar;
 import com.wetime.fanc.shop.act.ShopDetailActivity;
 import com.wetime.fanc.utils.Tools;
@@ -53,12 +55,20 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
     // 区分  0 默认样式  1  特殊 shopnews 带阴影  只有单图
     private int listtype = 0;
     private boolean isBlod;
+    private List<SpecialTopicBean.DataBean.ListBean> mlist;
 
     public HomeItemAdapter(List<HomeItemBean> list, Activity mActivity) {
         this.list = list;
         this.mActivity = mActivity;
         this.inflater = LayoutInflater.from(mActivity);
         this.isBlod = false;
+    }
+
+    public HomeItemAdapter(List<SpecialTopicBean.DataBean.ListBean> mlist, List<HomeItemBean> list, Activity mActivity) {
+        this.list = list;
+        this.mlist = mlist;
+        this.mActivity = mActivity;
+        this.inflater = LayoutInflater.from(mActivity);
     }
 
     public HomeItemAdapter(List<HomeItemBean> list, Activity mActivity, boolean isBlod) {
@@ -101,6 +111,8 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
                 return new NewsHolder2(inflater.inflate(R.layout.item_news_type2, parent, false));
             } else if (viewType == 9000) {//头条 推荐 头部
                 return new NewsHolder9000(inflater.inflate(R.layout.item_news_type9000, parent, false));
+            } else if (viewType == 5) {//专题
+                return new NewsHolder5(inflater.inflate(R.layout.item_news_type_report, parent, false));
             }
 
         } else if (listtype == 1) {
@@ -178,7 +190,17 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
                 DeleteMyNewsPresenter deleteMyNewsPresenter = new DeleteMyNewsPresenter();
                 deleteMyNewsPresenter.detDleteMyNews(bean.getId(), Tools.getSpu(mActivity).getToken());
             });
+        }
 
+        if (holder instanceof NewsHolder5) {
+            if (mlist != null) {
+                ((NewsHolder5) holder).itemView.setOnClickListener(v -> SpecialTopicActivity.startToSpecialTopic(mActivity, mlist.get(position).getElements(), mlist.get(position).getSpecial().getCoverStr(), mlist.get(position).getSpecial().getName(), mlist.get(position).getSpecial().getIntro(), mlist.get(position).getArticle_url()));
+                ((NewsHolder5) holder).reportname.setText("\t\t\t\t" + mlist.get(position).getSpecial().getName());
+                ((NewsHolder5) holder).reportnew.setText(mlist.get(position).getLastest().getName());
+                ((NewsHolder5) holder).reporthot.setText(mlist.get(position).getHottest().getName());
+                ((NewsHolder5) holder).reportnewhot.setText(mlist.get(position).getFocused().getName());
+                Glide.with(mActivity).load(mlist.get(position).getSpecial().getCoverStr()).into(((NewsHolder5) holder).reportcover);
+            }
         }
 
         if (holder instanceof NewsHolder0) {
@@ -877,6 +899,24 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
         RelativeLayout rlEmpty;
 
         NewsHolder1000(View view) {
+            super(view);
+            ButterKnife.bind(this, view);
+        }
+    }
+
+    class NewsHolder5 extends RecyclerView.ViewHolder {
+        @BindView(R.id.report_cover)
+        ImageView reportcover;
+        @BindView(R.id.report_name)
+        TextView reportname;
+        @BindView(R.id.report_new)
+        TextView reportnew;
+        @BindView(R.id.report_hot)
+        TextView reporthot;
+        @BindView(R.id.report_newhot)
+        TextView reportnewhot;
+
+        NewsHolder5(View view) {
             super(view);
             ButterKnife.bind(this, view);
         }

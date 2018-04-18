@@ -50,7 +50,6 @@ public class MyWalletActivity extends BaseActivity implements IGetWalletBalanceV
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mywallet);
         ButterKnife.bind(this);
-        EventBus.getDefault().register(this);
         tvTitle.setText("我的钱包");
         getWalletBalancePresenter = new GetWalletBalancePresenter(this);
         wxBindPresenter = new WXBindPresenter(this);
@@ -58,7 +57,6 @@ public class MyWalletActivity extends BaseActivity implements IGetWalletBalanceV
 
     @Override
     protected void onDestroy() {
-        EventBus.getDefault().unregister(this);
         super.onDestroy();
     }
 

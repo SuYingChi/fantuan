@@ -61,7 +61,6 @@ public class GalleryActivity extends BaseActivity implements View.OnClickListene
 
     private List<Fragment> fragments;
     private TabHomeAdapter adapter;
-    private GalleryItemBean gallery;
     private boolean isHideView;
     private Fragment mCurrFragment;
     private GalleryItemBean bean;
@@ -180,10 +179,12 @@ public class GalleryActivity extends BaseActivity implements View.OnClickListene
                     Intent go1 = new Intent(this, LoginActivity.class);
                     startActivity(go1);
                 } else {
-                    if (gallery.getData().isIs_author())
-                    ((GalleryFragment) mCurrFragment).AttentionFriends();
+                    if (bean.getData().isIs_author()) {
+                        Toast.makeText(mContext, "您不能关注自己哦~", Toast.LENGTH_SHORT).show();
+                    } else {
+                        ((GalleryFragment) mCurrFragment).AttentionFriends();
+                    }
                 }
-
                 break;
         }
     }

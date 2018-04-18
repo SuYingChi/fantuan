@@ -58,6 +58,10 @@ import q.rorbin.badgeview.QBadgeView;
 
 public class MyFragment extends BaseFragment implements IGetMyInfoView, IGetRedPackageView {
 
+    public AMapLocationClient mLocationClient = null;
+    //声明定位回调监听器
+    public AMapLocationListener mLocationListener;
+    public AMapLocationClientOption mLocationOption = null;
     @BindView(R.id.iv_msg)
     ImageView ivMsg;
     @BindView(R.id.iv_setting)
@@ -101,15 +105,9 @@ public class MyFragment extends BaseFragment implements IGetMyInfoView, IGetRedP
     TextView tvCommentnum;
     @BindView(R.id.tv_myfriend)
     TextView tvMyfriend;
-
     private GetUserInfoPresenter getUserInfoPresenter;
     private MyInfoBean bean;
     private QBadgeView qBadgeMsg;
-
-    public AMapLocationClient mLocationClient = null;
-    //声明定位回调监听器
-    public AMapLocationListener mLocationListener;
-    public AMapLocationClientOption mLocationOption = null;
     private GetRedPackagePresenter getRedPackagePresenter;
 
     @Override
@@ -123,7 +121,6 @@ public class MyFragment extends BaseFragment implements IGetMyInfoView, IGetRedP
         qBadgeMsg.setBadgeTextSize(11, true);
         qBadgeMsg.bindTarget(ivMsg);
 
-
         getUserInfoPresenter = new GetUserInfoPresenter(this);
         getRedPackagePresenter = new GetRedPackagePresenter(this);
 
@@ -135,6 +132,7 @@ public class MyFragment extends BaseFragment implements IGetMyInfoView, IGetRedP
         super.onDestroyView();
         unbinder.unbind();
         EventBus.getDefault().unregister(this);
+
     }
 
     @OnClick({R.id.tv_myfriend, R.id.civ_head, R.id.ll_my_state, R.id.ll_call, R.id.iv_setting, R.id.ll_login, R.id.tv_fanpiao, R.id.tv_youhuiquan, R.id.ll_mycomment,

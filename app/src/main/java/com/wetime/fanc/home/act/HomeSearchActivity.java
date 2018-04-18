@@ -89,7 +89,6 @@ public class HomeSearchActivity extends BaseActivity implements IGetHomeHotSearc
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_search);
         ButterKnife.bind(this);
-        EventBus.getDefault().register(this);
 //        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 //        imm.showSoftInput(etSearch, InputMethodManager.SHOW_FORCED);
         getHomeHotSerachPresenter = new GetHomeHotSerachPresenter(this);
@@ -161,7 +160,6 @@ public class HomeSearchActivity extends BaseActivity implements IGetHomeHotSearc
 
     @Override
     protected void onDestroy() {
-        EventBus.getDefault().unregister(this);
         super.onDestroy();
     }
 

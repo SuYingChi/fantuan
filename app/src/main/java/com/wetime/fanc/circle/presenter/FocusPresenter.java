@@ -10,6 +10,8 @@ import com.wetime.fanc.main.model.ErrorBean;
 import com.wetime.fanc.utils.Const;
 import com.wetime.fanc.utils.GsonUtils;
 
+import org.greenrobot.eventbus.EventBus;
+
 import okhttp3.Call;
 
 /**
@@ -18,7 +20,7 @@ import okhttp3.Call;
 
 public class FocusPresenter {
 
-    public void focusUser(Context context,String token, String follow,String following_id) {
+    public void focusUser(Context context, String token, String follow, String following_id) {
         OkHttpUtils
                 .post()
                 .url(Const.USER_FOLLOW)
@@ -34,8 +36,8 @@ public class FocusPresenter {
 
                     @Override
                     public void onResponse(String response, int id) {
-//                        ErrorBean errorBean = GsonUtils.getGsonInstance().fromJson(response, ErrorBean.class);
-//                        Toast.makeText(context, errorBean.getMsg(), Toast.LENGTH_SHORT).show();
+                        ErrorBean errorBean = GsonUtils.getGsonInstance().fromJson(response, ErrorBean.class);
+                        Toast.makeText(context, errorBean.getMsg(), Toast.LENGTH_SHORT).show();
                     }
                 });
     }

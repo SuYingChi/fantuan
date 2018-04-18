@@ -91,7 +91,6 @@ public class ShopSearchActivity extends BaseActivity implements IGetShopHotSearc
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shop_search);
         ButterKnife.bind(this);
-        EventBus.getDefault().register(this);
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.showSoftInput(etSearch, InputMethodManager.SHOW_FORCED);
         name = getIntent().getStringExtra("name");
@@ -120,7 +119,6 @@ public class ShopSearchActivity extends BaseActivity implements IGetShopHotSearc
 
     @Override
     protected void onDestroy() {
-        EventBus.getDefault().unregister(this);
         super.onDestroy();
     }
 

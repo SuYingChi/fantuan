@@ -181,7 +181,6 @@ public class ShopDetailActivity extends BaseActivity implements IGetShopDetailVi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shop_detail);
         ButterKnife.bind(this);
-        EventBus.getDefault().register(this);
         tvTitle.setText("商家详情");
         rlContent.setVisibility(View.INVISIBLE);
         getShopDetailPresenter = new GetShopDetailPresenter(this);
@@ -194,7 +193,6 @@ public class ShopDetailActivity extends BaseActivity implements IGetShopDetailVi
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        EventBus.getDefault().unregister(this);
     }
 
     @Override

@@ -14,6 +14,14 @@
         android:layout_width="45dp"
         android:layout_height="45dp" />
 
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/iv_user"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:visibility="gone"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_head_default" />
+
     <TextView
         android:ellipsize="end"
         android:maxLines="1"

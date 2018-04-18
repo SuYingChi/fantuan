@@ -31,6 +31,7 @@ import com.wetime.fanc.login.event.LogoutEvent;
 import com.wetime.fanc.main.frag.BaseLazyFragment;
 import com.wetime.fanc.news.act.RecomentFocusActivity;
 import com.wetime.fanc.news.bean.NewsListBean;
+import com.wetime.fanc.news.bean.SpecialTopicBean;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -58,7 +59,8 @@ public class NewsTypeLazyFragment extends BaseLazyFragment implements IGetNewsTy
     private String total = "";
     private int page = 1;
     private RecyclerView rcl;
-    private List<HomeItemBean> list;
+    private List<HomeItemBean> list = new ArrayList<>();
+    private List<SpecialTopicBean.DataBean.ListBean> mlist = new ArrayList<>();
     private HomeItemAdapter adapter;
     private SmartRefreshLayout refreshLayout;
     private TextView tvRec;
@@ -104,7 +106,7 @@ public class NewsTypeLazyFragment extends BaseLazyFragment implements IGetNewsTy
         refreshLayout.setOnRefreshListener(this);
 
         list = new ArrayList<>();
-        adapter = new HomeItemAdapter(list, getActivity());
+        adapter = new HomeItemAdapter(mlist, list, getActivity());
         rcl = mRootView.findViewById(R.id.rcl_news);
         rcl.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -153,7 +155,7 @@ public class NewsTypeLazyFragment extends BaseLazyFragment implements IGetNewsTy
     }
 
     @Override
-    public void onGetNews(NewsListBean bean) {
+    public void onGetNews(NewsListBean bean, SpecialTopicBean specialTopicBean) {
         // 推荐空页面
         if (type.equals("-1")) {
             rlNoLogin.setVisibility(View.GONE);
@@ -181,13 +183,26 @@ public class NewsTypeLazyFragment extends BaseLazyFragment implements IGetNewsTy
             mAutoLoadMoreAdapter.enable();
         }
         total = bean.getData().getPaging().getTotal();
-        list.addAll(bean.getData().getList());
+        if (page == 1) {
+            list.clear();
+            mlist.clear();
+            list.addAll(bean.getData().getList());
+            if (specialTopicBean != null && specialTopicBean.getData() != null && specialTopicBean.getData().getList() != null)
+                mlist.addAll(specialTopicBean.getData().getList());
+        } else {
+            list.addAll(bean.getData().getList());
+            if (specialTopicBean != null && specialTopicBean.getData() != null && specialTopicBean.getData().getList() != null)
+                mlist.addAll(specialTopicBean.getData().getList());
+        }
+
+
         if (page > 1) {
             mAutoLoadMoreAdapter.finishLoading();
         }
         if (bean.getData().getPaging().isIs_end()) {
             mAutoLoadMoreAdapter.disable();
         }
+        adapter = new HomeItemAdapter(mlist, list, getActivity());
         mAutoLoadMoreAdapter.notifyDataSetChanged();
 
 
