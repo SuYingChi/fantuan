@@ -76,6 +76,7 @@ public class LongTextEditActivity extends BaseActivity implements LongTextAdapte
     private ItemTouchHelper mItemTouchHelper;
     private boolean isKeyboadShow;
     private LocItemBean locBean = new LocItemBean();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -137,24 +138,27 @@ public class LongTextEditActivity extends BaseActivity implements LongTextAdapte
                 // 3.media.getCompressPath();为压缩后path，需判断media.isCompressed();是否为true  注意：音视频除外
                 // 如果裁剪并压缩了，以取压缩路径为准，因为是先裁剪后压缩的
 
+                ArrayList<String> pathlist = new ArrayList<>();
+                for (LocalMedia lm : selectList) {
+                    if (lm.isCompressed()) {
+                        pathlist.add(lm.getCompressPath());
+                    } else {
+                        pathlist.add(lm.getPath());
+                    }
+                }
 
-                //光标在头部 在list尾部加数据
+
                 if (pos == 0) {
-                    for (LocalMedia lm : selectList) {
+                    for (String path : pathlist) {
                         LongTextBean lb = new LongTextBean();
-                        if(lm.isCompressed()){
-                            lb.setImageUrl(lm.getCompressPath());
-                        }else{
-                            lb.setImageUrl(lm.getPath());
-                        }
-
+                        lb.setImageUrl(path);
                         lb.setType("2");
                         list.add(lb);
                     }
                 } else {
                     //光标在文本的最前面 在当前的 前面加数据
                     if (index == 0) {
-                        for (String path : data.getStringArrayListExtra(MultiImageSelectorActivity.EXTRA_RESULT)) {
+                        for (String path : pathlist) {
                             LongTextBean lb = new LongTextBean();
                             lb.setImageUrl(path);
                             lb.setType("2");
@@ -163,7 +167,7 @@ public class LongTextEditActivity extends BaseActivity implements LongTextAdapte
                     } else {//拆分当前
                         //pos 在末尾 直接在后面添加
                         if (index == list.get(pos).getContent().length()) {
-                            for (String path : data.getStringArrayListExtra(MultiImageSelectorActivity.EXTRA_RESULT)) {
+                            for (String path : pathlist) {
                                 LongTextBean lb = new LongTextBean();
                                 lb.setImageUrl(path);
                                 lb.setType("2");
@@ -179,7 +183,7 @@ public class LongTextEditActivity extends BaseActivity implements LongTextAdapte
                             elb.setType("1");
                             elb.setContent(end);
                             list.add(pos + 1, elb);
-                            for (String path : data.getStringArrayListExtra(MultiImageSelectorActivity.EXTRA_RESULT)) {
+                            for (String path : pathlist) {
                                 LongTextBean lb = new LongTextBean();
                                 lb.setImageUrl(path);
                                 lb.setType("2");
@@ -284,7 +288,7 @@ public class LongTextEditActivity extends BaseActivity implements LongTextAdapte
 
     }
 
-    @OnClick({R.id.tv_addres,R.id.iv_close,R.id.iv_back, R.id.iv_gopic, R.id.tv_sort, R.id.tv_ok, R.id.tv_publish, R.id.iv_keyboard})
+    @OnClick({R.id.tv_addres, R.id.iv_close, R.id.iv_back, R.id.iv_gopic, R.id.tv_sort, R.id.tv_ok, R.id.tv_publish, R.id.iv_keyboard})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_close:
@@ -337,18 +341,8 @@ public class LongTextEditActivity extends BaseActivity implements LongTextAdapte
                 if (isKeyboadShow) {
                     Tools.hideSoftInput(this);
                 } else {
-//                    LinearLayoutManager lm= (LinearLayoutManager) rclContent.getLayoutManager();
-//                    lm.scrollToPositionWithOffset(pos, 0);
-//                  lm.scrollToPositionWithOffset(pos, 0);
                     rclContent.scrollToPosition(pos);
-//                    rclContent.smoothScrollToPosition(pos);
-                    Log.e("zk", "pos: " + pos);
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            showKeyboard();
-                        }
-                    }, 200);
+                    new Handler().postDelayed(() -> showKeyboard(), 200);
                 }
                 break;
         }

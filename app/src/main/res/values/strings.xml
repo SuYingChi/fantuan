@@ -44,10 +44,12 @@
     <string name="save_image_succ">保存成功</string>
     <string name="save_image_fail">保存失败</string>
     <string name="permission_denied">权限拒绝</string>
+    <string name="str_userinfo">个人信息</string>
 
     <string name="weibosdk_demo_toast_share_success">分享成功</string>
     <string name="weibosdk_demo_toast_share_failed">分享失败</string>
     <string name="weibosdk_demo_toast_share_canceled">取消分享</string>
     <item name="tag_position" type="id" />
     <item name="tag_photo" type="id" />
+
 </resources>
