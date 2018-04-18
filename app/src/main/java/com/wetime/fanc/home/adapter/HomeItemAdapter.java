@@ -32,7 +32,6 @@ import com.wetime.fanc.my.presenter.DeleteMyNewsPresenter;
 import com.wetime.fanc.news.act.GalleryActivity;
 import com.wetime.fanc.news.act.RecomentFocusActivity;
 import com.wetime.fanc.news.act.SpecialTopicActivity;
-import com.wetime.fanc.news.bean.SpecialTopicBean;
 import com.wetime.fanc.order.MyRatingBar;
 import com.wetime.fanc.shop.act.ShopDetailActivity;
 import com.wetime.fanc.utils.Tools;
@@ -55,7 +54,7 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
     // 区分  0 默认样式  1  特殊 shopnews 带阴影  只有单图
     private int listtype = 0;
     private boolean isBlod;
-    private List<SpecialTopicBean.DataBean.ListBean> mlist;
+//    private List<SpecialTopicBean.DataBean.ListBean> mlist;
 
     public HomeItemAdapter(List<HomeItemBean> list, Activity mActivity) {
         this.list = list;
@@ -64,12 +63,12 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
         this.isBlod = false;
     }
 
-    public HomeItemAdapter(List<SpecialTopicBean.DataBean.ListBean> mlist, List<HomeItemBean> list, Activity mActivity) {
-        this.list = list;
-        this.mlist = mlist;
-        this.mActivity = mActivity;
-        this.inflater = LayoutInflater.from(mActivity);
-    }
+//    public HomeItemAdapter(List<SpecialTopicBean.DataBean.ListBean> mlist, List<HomeItemBean> list, Activity mActivity) {
+//        this.list = list;
+//        this.mlist = mlist;
+//        this.mActivity = mActivity;
+//        this.inflater = LayoutInflater.from(mActivity);
+//    }
 
     public HomeItemAdapter(List<HomeItemBean> list, Activity mActivity, boolean isBlod) {
         this.list = list;
@@ -193,14 +192,18 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
         }
 
         if (holder instanceof NewsHolder5) {
-            if (mlist != null) {
-                ((NewsHolder5) holder).itemView.setOnClickListener(v -> SpecialTopicActivity.startToSpecialTopic(mActivity, mlist.get(position).getElements(), mlist.get(position).getSpecial().getCoverStr(), mlist.get(position).getSpecial().getName(), mlist.get(position).getSpecial().getIntro(), mlist.get(position).getArticle_url()));
-                ((NewsHolder5) holder).reportname.setText("\t\t\t\t" + mlist.get(position).getSpecial().getName());
-                ((NewsHolder5) holder).reportnew.setText(mlist.get(position).getLastest().getName());
-                ((NewsHolder5) holder).reporthot.setText(mlist.get(position).getHottest().getName());
-                ((NewsHolder5) holder).reportnewhot.setText(mlist.get(position).getFocused().getName());
-                Glide.with(mActivity).load(mlist.get(position).getSpecial().getCoverStr()).into(((NewsHolder5) holder).reportcover);
-            }
+            ((NewsHolder5) holder).itemView.setOnClickListener(v -> SpecialTopicActivity.startToSpecialTopic(mActivity
+                    , bean.getElements(),
+                    bean.getSpecial().getCoverStr(),
+                    bean.getSpecial().getName(),
+                    bean.getSpecial().getIntro(),
+                    bean.getArticle_url()));
+
+            ((NewsHolder5) holder).reportname.setText("\t\t\t\t" + bean.getSpecial().getName());
+            ((NewsHolder5) holder).reportnew.setText(bean.getLastest().getName());
+            ((NewsHolder5) holder).reporthot.setText(bean.getHottest().getName());
+            ((NewsHolder5) holder).reportnewhot.setText(bean.getFocused().getName());
+            Glide.with(mActivity).load(bean.getSpecial().getCoverStr()).into(((NewsHolder5) holder).reportcover);
         }
 
         if (holder instanceof NewsHolder0) {
