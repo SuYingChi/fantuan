@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -177,6 +178,30 @@ public class MainActivity extends BaseActivity implements IBindPushView, IGetRed
 
         vp.setScanScroll(false);
         vp.setPageTransformer(true, null);
+        vp.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                if (position != 2) {
+                    if (isAdd() && isIssue()) {
+                        removePushProgress();
+                    }
+                } else {
+                    if (isAdd() && isIssue()) {
+                        addPushProgress();
+                    }
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
 
 

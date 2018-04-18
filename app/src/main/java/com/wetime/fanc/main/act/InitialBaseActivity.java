@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,6 +32,16 @@ public abstract class InitialBaseActivity extends AppCompatActivity implements I
     private View framView;
     private TextView textView;
 
+    public boolean isIssue() {
+        return issue;
+    }
+
+    public void setIssue(boolean issue) {
+        this.issue = issue;
+    }
+
+    private boolean issue = false;
+
     //查找布局的底层
     protected static ViewGroup getRootView(Activity context) {
         return (ViewGroup) context.findViewById(android.R.id.content);
@@ -44,7 +53,6 @@ public abstract class InitialBaseActivity extends AppCompatActivity implements I
         EventBus.getDefault().register(this);
     }
 
-
     protected int addPushProgressHeight() {
         return 80;
     }
@@ -54,48 +62,52 @@ public abstract class InitialBaseActivity extends AppCompatActivity implements I
     }
 
     public void addPushProgress() {
-        framView.setVisibility(View.VISIBLE);
+        this.framView.setVisibility(View.VISIBLE);
     }
 
     public void removePushProgress() {
-        framView.setVisibility(View.INVISIBLE);
+        this.framView.setVisibility(View.INVISIBLE);
     }
 
     public void setPushProgress(String progress) {
         if (isAdd) {
-            textView.setText(progress);
+            this.textView.setText(progress);
         }
+    }
+
+    public boolean isAdd() {
+        return isAdd;
+    }
+
+    public void setAdd(boolean add) {
+        isAdd = add;
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEvent(UploadProgessEvent messageEvent) {
+
         if (this.getClass().getSimpleName().equals("PublishActActivity")) {
             this.finish();
         }
-        addPushProgress();
-        String substring = String.valueOf(messageEvent.getPrgess() * 100).substring(0, String.valueOf(messageEvent.getPrgess() * 100).indexOf("."));
-        Log.e("xi", "onEvent: " + substring);
-//        setPushProgress("文章上传中，请不要离开" + substring + "%…");
-//        ViewGroup rootView = getRootView(this);
-//        View childAt = rootView.getChildAt(rootView.getChildCount() - 1);
-//        ((TextView) childAt.findViewById(R.id.progess_title)).setText("文章上传中，请不要离开" + substring + "%…");
-        if (messageEvent.getPrgess() < 1) {
-            setPushProgress("文章上传中，请不要离开" + substring + "%…");
-        } else if (messageEvent.getPrgess() >= 1) {
-            setPushProgress("文章上传中，请不要离开" + 99 + "%…");
-        }
 
+        issue = true;
+
+        if (this.getClass().getSimpleName().equals("MainActivity") || this.getClass().getSimpleName().equals("CircleDetailActivity")) {
+            addPushProgress();
+            String substring = String.valueOf(messageEvent.getPrgess() * 100).substring(0, String.valueOf(messageEvent.getPrgess() * 100).indexOf("."));
+            if (messageEvent.getPrgess() < 1) {
+                setPushProgress("文章上传中，请不要离开" + substring + "%…");
+            } else if (messageEvent.getPrgess() >= 1) {
+                setPushProgress("文章上传中，请不要离开" + 99 + "%…");
+            }
+        }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEvent(uploadEvent messageEvent) {
-        Log.e("xi", "uploadEvent: ");
+        issue = false;
         Toast.makeText(this, "文章上传成功", Toast.LENGTH_SHORT).show();
         this.framView.setVisibility(View.INVISIBLE);
-//        Intent go = new Intent(this, ActDetailActivity.class);
-//        go.putExtra("id", messageEvent.getId());
-//        startActivity(go);
-
     }
 
     @Override
