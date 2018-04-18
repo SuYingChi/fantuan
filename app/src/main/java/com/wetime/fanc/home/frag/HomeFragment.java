@@ -156,7 +156,7 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, IGe
         super.onNetError();
         refreshLayout.finishRefresh();
         refreshLayout.finishLoadMore();
-        if (!TextUtils.isEmpty(spu.getValue(SimpleCatchKey.catchkey_home))) {
+        if (!TextUtils.isEmpty(spu.getValue(SimpleCatchKey.catchkey_home)) && page == 1) {
             HomePageBean bean = GsonUtils.getGsonInstance()
                     .fromJson(spu.getValue(SimpleCatchKey.catchkey_home), HomePageBean.class);
             onGetHomePage(bean);

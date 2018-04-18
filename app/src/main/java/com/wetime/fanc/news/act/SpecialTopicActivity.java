@@ -38,9 +38,9 @@ import com.tencent.tauth.IUiListener;
 import com.tencent.tauth.UiError;
 import com.wetime.fanc.R;
 import com.wetime.fanc.customview.LetToolBar;
+import com.wetime.fanc.home.bean.HomeItemBean;
 import com.wetime.fanc.main.act.BaseActivity;
 import com.wetime.fanc.my.adapter.MyFriendsPagerAdapter;
-import com.wetime.fanc.news.bean.SpecialTopicBean;
 import com.wetime.fanc.news.frag.SpecialTopicBaseFragment;
 import com.wetime.fanc.utils.Tools;
 import com.wetime.fanc.weibo.Constants;
@@ -75,13 +75,13 @@ public class SpecialTopicActivity extends BaseActivity implements View.OnClickLi
     private ArrayList<String> mChannels = new ArrayList<>();
     private PopupWindow pop;
     private WbShareHandler shareHandler;
-    private List<SpecialTopicBean.DataBean.ListBean.ElementsBean> elements = new ArrayList<>();
+    private List<HomeItemBean.ElementsBean> elements = new ArrayList<>();
     private String imageurl;
     private String name;
     private String content;
     private String titleUrl;
 
-    public static void startToSpecialTopic(Context context, List<SpecialTopicBean.DataBean.ListBean.ElementsBean> specialTopicId, String imageurl, String name, String content, String titleUrl) {
+    public static void startToSpecialTopic(Context context, List<HomeItemBean.ElementsBean> specialTopicId, String imageurl, String name, String content, String titleUrl) {
         Intent intent = new Intent(context, SpecialTopicActivity.class);
         intent.putExtra("elements", (Serializable) specialTopicId);
         intent.putExtra("imageurl", imageurl);
@@ -100,7 +100,7 @@ public class SpecialTopicActivity extends BaseActivity implements View.OnClickLi
         shareHandler = new WbShareHandler(this);
         shareHandler.registerApp();
 
-        elements = (List<SpecialTopicBean.DataBean.ListBean.ElementsBean>) getIntent().getSerializableExtra("elements");
+        elements = (List<HomeItemBean.ElementsBean>) getIntent().getSerializableExtra("elements");
         imageurl = getIntent().getStringExtra("imageurl");
         name = getIntent().getStringExtra("name");
         content = getIntent().getStringExtra("content");

@@ -31,7 +31,8 @@ import com.wetime.fanc.login.event.LogoutEvent;
 import com.wetime.fanc.main.frag.BaseLazyFragment;
 import com.wetime.fanc.news.act.RecomentFocusActivity;
 import com.wetime.fanc.news.bean.NewsListBean;
-import com.wetime.fanc.news.bean.SpecialTopicBean;
+import com.wetime.fanc.utils.GsonUtils;
+import com.wetime.fanc.utils.SimpleCatchKey;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -60,7 +61,7 @@ public class NewsTypeLazyFragment extends BaseLazyFragment implements IGetNewsTy
     private int page = 1;
     private RecyclerView rcl;
     private List<HomeItemBean> list = new ArrayList<>();
-    private List<SpecialTopicBean.DataBean.ListBean> mlist = new ArrayList<>();
+    //    private List<SpecialTopicBean.DataBean.ListBean> mlist = new ArrayList<>();
     private HomeItemAdapter adapter;
     private SmartRefreshLayout refreshLayout;
     private TextView tvRec;
@@ -106,7 +107,7 @@ public class NewsTypeLazyFragment extends BaseLazyFragment implements IGetNewsTy
         refreshLayout.setOnRefreshListener(this);
 
         list = new ArrayList<>();
-        adapter = new HomeItemAdapter(mlist, list, getActivity());
+        adapter = new HomeItemAdapter(list, getActivity());
         rcl = mRootView.findViewById(R.id.rcl_news);
         rcl.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -136,6 +137,12 @@ public class NewsTypeLazyFragment extends BaseLazyFragment implements IGetNewsTy
 //            startActivity(goweb);
 //        });
         getNewsTypePresenter = new GetNewsTypePresenter(this);
+        //预先加载缓存
+        String catchStr = spu.getValue(SimpleCatchKey.catchkey_news + type);
+        if (!TextUtils.isEmpty(catchStr)) {
+            NewsListBean bean = GsonUtils.getGsonInstance().fromJson(catchStr, NewsListBean.class);
+            onGetNews(bean);
+        }
 
     }
 
@@ -155,7 +162,7 @@ public class NewsTypeLazyFragment extends BaseLazyFragment implements IGetNewsTy
     }
 
     @Override
-    public void onGetNews(NewsListBean bean, SpecialTopicBean specialTopicBean) {
+    public void onGetNews(NewsListBean bean) {
         // 推荐空页面
         if (type.equals("-1")) {
             rlNoLogin.setVisibility(View.GONE);
@@ -181,18 +188,15 @@ public class NewsTypeLazyFragment extends BaseLazyFragment implements IGetNewsTy
                 list.add(headbean);
             }
             mAutoLoadMoreAdapter.enable();
+            // 缓存
+            spu.setValue(SimpleCatchKey.catchkey_news + type, GsonUtils.getGsonInstance().toJson(bean));
         }
         total = bean.getData().getPaging().getTotal();
         if (page == 1) {
             list.clear();
-            mlist.clear();
             list.addAll(bean.getData().getList());
-            if (specialTopicBean != null && specialTopicBean.getData() != null && specialTopicBean.getData().getList() != null)
-                mlist.addAll(specialTopicBean.getData().getList());
         } else {
             list.addAll(bean.getData().getList());
-            if (specialTopicBean != null && specialTopicBean.getData() != null && specialTopicBean.getData().getList() != null)
-                mlist.addAll(specialTopicBean.getData().getList());
         }
 
 
@@ -202,7 +206,6 @@ public class NewsTypeLazyFragment extends BaseLazyFragment implements IGetNewsTy
         if (bean.getData().getPaging().isIs_end()) {
             mAutoLoadMoreAdapter.disable();
         }
-        adapter = new HomeItemAdapter(mlist, list, getActivity());
         mAutoLoadMoreAdapter.notifyDataSetChanged();
 
 

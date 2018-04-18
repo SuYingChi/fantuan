@@ -25,6 +25,7 @@ import com.wetime.fanc.news.iviews.IGetMyChannelView;
 import com.wetime.fanc.news.presenter.GetMyChannelPresenter;
 import com.wetime.fanc.news.presenter.SaveMyChannelPresenter;
 import com.wetime.fanc.utils.GsonUtils;
+import com.wetime.fanc.utils.SimpleCatchKey;
 import com.wetime.fanc.utils.Tools;
 
 import org.greenrobot.eventbus.EventBus;
@@ -84,11 +85,7 @@ public class NewsLazyFragment extends BaseLazyFragment implements IGetMyChannelV
     protected void initData() {
 
     }
-//    @Subscribe(threadMode = ThreadMode.MAIN)
-//    public void onMessageEvent(ReFreshNewsEvent event) {
-//        String[] mIndex = getResources().getStringArray(R.array.newstypeindex);
-//        EventBus.getDefault().post(new ReFreshNewsTypeEvent(mIndex[vp.getCurrentItem()]));
-//    }
+
 
     private void initFromLocal() {
         mChannels.clear();
@@ -105,9 +102,19 @@ public class NewsLazyFragment extends BaseLazyFragment implements IGetMyChannelV
         initFromLocal();
     }
 
+    @Override
+    public void onNetError() {
+        super.onNetError();
+        if (!TextUtils.isEmpty(spu.getValue(SimpleCatchKey.catchkey_news_header))) {
+            AllChannelListBean bean = GsonUtils.getGsonInstance()
+                    .fromJson(spu.getValue(SimpleCatchKey.catchkey_news_header), AllChannelListBean.class);
+            onGetMyChannel(bean);
+        }
+    }
 
     @Override
     public void onGetMyChannel(AllChannelListBean bean) {
+        spu.setValue(SimpleCatchKey.catchkey_news_header, GsonUtils.getGsonInstance().toJson(bean));
         spu.setValue(ChannelActivity.ALLCHANNAL, GsonUtils.getGsonInstance().toJson(bean.getData().getAll_news_category()));
 
         // 登陆状态
@@ -115,7 +122,7 @@ public class NewsLazyFragment extends BaseLazyFragment implements IGetMyChannelV
             if (bean.getData().getUser_news_category().size() == 0) {
                 initFromLocal();
 
-                Tools.toastInBottom(getContext(), "上传本地数据");
+//                Tools.toastInBottom(getContext(), "上传本地数据");
                 //上传本地数据
                 SaveMyChannelPresenter saveMyChannelPresenter = new SaveMyChannelPresenter();
                 String saveStr = spu.getValue(ChannelActivity.LOCALCHANNAL);
@@ -142,6 +149,7 @@ public class NewsLazyFragment extends BaseLazyFragment implements IGetMyChannelV
                 initTab();
             }
         }
+        slidingTabLayout.setCurrentTab(1);
         vp.setCurrentItem(1);
 
     }
