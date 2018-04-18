@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
+import android.support.multidex.MultiDex;
 
 import com.fan.http.okhttp.OkHttpUtils;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -78,7 +79,11 @@ public class FApp extends Application {
     public static FApp getInstance() {
         return instance;
     }
-
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
+    }
     @Override
     public void onCreate() {
         super.onCreate();

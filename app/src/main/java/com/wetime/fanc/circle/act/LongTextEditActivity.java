@@ -19,6 +19,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.luck.picture.lib.PictureSelector;
+import com.luck.picture.lib.config.PictureConfig;
+import com.luck.picture.lib.config.PictureMimeType;
+import com.luck.picture.lib.entity.LocalMedia;
 import com.wetime.fanc.R;
 import com.wetime.fanc.circle.adapter.LongTextAdapter;
 import com.wetime.fanc.circle.bean.LocItemBean;
@@ -32,6 +36,7 @@ import com.wetime.fanc.utils.Tools;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -123,13 +128,26 @@ public class LongTextEditActivity extends BaseActivity implements LongTextAdapte
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         Log.e("zk", "position: " + pos);
         Log.e("zk", "index: " + index);
-        if (requestCode == REQUEST_IMAGE) {
+        if (requestCode == PictureConfig.CHOOSE_REQUEST) {
             if (resultCode == RESULT_OK) {
+                List<LocalMedia> selectList = PictureSelector.obtainMultipleResult(data);
+                // 例如 LocalMedia 里面返回三种path
+                // 1.media.getPath(); 为原图path
+                // 2.media.getCutPath();为裁剪后path，需判断media.isCut();是否为true  注意：音视频除外
+                // 3.media.getCompressPath();为压缩后path，需判断media.isCompressed();是否为true  注意：音视频除外
+                // 如果裁剪并压缩了，以取压缩路径为准，因为是先裁剪后压缩的
+
+
                 //光标在头部 在list尾部加数据
                 if (pos == 0) {
-                    for (String path : data.getStringArrayListExtra(MultiImageSelectorActivity.EXTRA_RESULT)) {
+                    for (LocalMedia lm : selectList) {
                         LongTextBean lb = new LongTextBean();
-                        lb.setImageUrl(path);
+                        if(lm.isCompressed()){
+                            lb.setImageUrl(lm.getCompressPath());
+                        }else{
+                            lb.setImageUrl(lm.getPath());
+                        }
+
                         lb.setType("2");
                         list.add(lb);
                     }
@@ -354,24 +372,14 @@ public class LongTextEditActivity extends BaseActivity implements LongTextAdapte
     }
 
     private void gotoSelectPic() {
-        Intent intent = new Intent(this, MultiImageSelectorActivity.class);
-        // 是否显示调用相机拍照
-        intent.putExtra(MultiImageSelectorActivity.EXTRA_SHOW_CAMERA, true);
-        // 最大图片选择数量
-        intent.putExtra(MultiImageSelectorActivity.EXTRA_SELECT_COUNT, 30);
-        // 设置模式 (支持 单选/MultiImageSelectorActivity.MODE_SINGLE 或者
-        // 多选/MultiImageSelectorActivity.MODE_MULTI)
-        intent.putExtra(MultiImageSelectorActivity.EXTRA_SELECT_MODE,
-                MultiImageSelectorActivity.MODE_MULTI);
-        // 默认选择图片,回填选项(支持String ArrayList)
-        // ArrayList<String> temp = new ArrayList<String>();
-        // for (int i = 0; i < defaultDataArray.size(); i++) {
-        // temp.add(defaultDataArray.get(i));
-        // }
-//        intent.putStringArrayListExtra(
-//                MultiImageSelectorActivity.EXTRA_DEFAULT_SELECTED_LIST,
-//                defaultDataArray);
-        startActivityForResult(intent, REQUEST_IMAGE);
+        PictureSelector.create(this)
+                .openGallery(PictureMimeType.ofImage())
+                .maxSelectNum(100)
+                .theme(R.style.picture_my_style)
+                .previewImage(true)
+                .isCamera(true)
+                .compress(true)
+                .forResult(PictureConfig.CHOOSE_REQUEST);
     }
 
     protected void initStateBar() {
