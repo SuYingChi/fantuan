@@ -31,7 +31,6 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.wetime.fanc.R;
-import com.wetime.fanc.circle.act.LongTextEditActivity;
 import com.wetime.fanc.circle.adapter.HeadHomeAdapter;
 import com.wetime.fanc.home.act.HomeSearchActivity;
 import com.wetime.fanc.home.act.SortActivity;
@@ -48,6 +47,8 @@ import com.wetime.fanc.main.frag.BaseFragment;
 import com.wetime.fanc.qr.ScanActivity;
 import com.wetime.fanc.shopcenter.act.ShopCenterActivity;
 import com.wetime.fanc.utils.Const;
+import com.wetime.fanc.utils.GsonUtils;
+import com.wetime.fanc.utils.SimpleCatchKey;
 import com.wetime.fanc.utils.Tools;
 import com.wetime.fanc.web.WebActivity;
 import com.yanzhenjie.permission.AndPermission;
@@ -116,7 +117,7 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, IGe
 //    private int i = 0;
     private Handler mHandler;
     private ArrayList<CustomTabEntity> mTabEntities = new ArrayList<>();
-    private String[] mTitles = {"最新","热门" };
+    private String[] mTitles = {"最新", "热门"};
     private String[] sort = {"1", "2"};//    ort : 1 = 按热度排序， 2 = 按发布时间排序
     private int sortPos = 0;
     private HeadHomeAdapter headAdapter;
@@ -125,6 +126,7 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, IGe
     private HomeItemAdapter adapter;
     private AutoLoadMoreAdapter mAutoLoadMoreAdapter;
     private QBadgeView qBadgeMsg;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -147,6 +149,18 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, IGe
 
         getHomePagePresenter.getHomePage();
         return v;
+    }
+
+    @Override
+    public void onNetError() {
+        super.onNetError();
+        refreshLayout.finishRefresh();
+        refreshLayout.finishLoadMore();
+        if (!TextUtils.isEmpty(spu.getValue(SimpleCatchKey.catchkey_home))) {
+            HomePageBean bean = GsonUtils.getGsonInstance()
+                    .fromJson(spu.getValue(SimpleCatchKey.catchkey_home), HomePageBean.class);
+            onGetHomePage(bean);
+        }
     }
 
     private void initView() {
@@ -281,8 +295,6 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, IGe
         if (headAdapter == null) {
             GridLayoutManager manager = new GridLayoutManager(getContext(), 5);
             rclCircle.setLayoutManager(manager);
-
-
             headlist.addAll(bean.getData().getBigcates());
             headAdapter = new HeadHomeAdapter(headlist, getContext());
             rclCircle.setAdapter(headAdapter);
@@ -305,6 +317,8 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, IGe
         }
         if (page == 1) {
             list.clear();
+            //记录缓存
+            spu.setValue(SimpleCatchKey.catchkey_home, GsonUtils.getGsonInstance().toJson(bean));
         }
         if (bean.getData().getPaging().isIs_end()) {
             mAutoLoadMoreAdapter.disable();

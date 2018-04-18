@@ -10,7 +10,8 @@
     <string name="str_no_name_comment">匿名评价</string>
     <string name="tips_no_name_comment">匿名评价不会对外公开您的头像、昵称给其他用户和商家</string>
 
-    <string name="tips_net_error">网络异常，请检查网络</string>
+    <string name="tips_net_error">网络异常</string>
+    <string name="tips_no_net_available">网络不可用</string>
     <string name="tips_form_json_error">返回数据格式错误</string>
     <string name="tips_timeout">登录超时，请重新登录</string>
 

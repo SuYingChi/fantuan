@@ -5,7 +5,6 @@ import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.WindowManager;
 import android.widget.Toast;
 
@@ -102,7 +101,11 @@ public class BaseActivity extends InitialBaseActivity implements IBaseVIew {
 
     @Override
     public void onNetError() {
-        Tools.toastInBottom(this, getString(R.string.tips_net_error));
+        if (Tools.isNetworkAvailable(mContext)) {
+            Tools.toastInBottom(this, getString(R.string.tips_net_error));
+        } else {
+            Tools.toastInBottom(this, getString(R.string.tips_no_net_available));
+        }
     }
 
     @Override

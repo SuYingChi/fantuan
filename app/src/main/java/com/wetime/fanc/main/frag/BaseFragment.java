@@ -1,14 +1,15 @@
 package com.wetime.fanc.main.frag;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 
+import com.wetime.fanc.R;
 import com.wetime.fanc.login.event.LogoutEvent;
 import com.wetime.fanc.main.ivews.IBaseVIew;
 import com.wetime.fanc.utils.SharePreferenceUtil;
 import com.wetime.fanc.utils.Tools;
-import com.wetime.fanc.R;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -60,7 +61,15 @@ public class BaseFragment extends Fragment implements IBaseVIew {
 
     @Override
     public void onNetError() {
-        Tools.toastInBottom(getActivity(), getString(R.string.tips_net_error));
+        Context mContext = getActivity();
+        if (mContext == null)
+            return;
+        if (Tools.isNetworkAvailable(mContext)) {
+            Tools.toastInBottom(getActivity(), getString(R.string.tips_net_error));
+        } else {
+            Tools.toastInBottom(getActivity(), getString(R.string.tips_no_net_available));
+        }
+
     }
 
     @Override
