@@ -33,6 +33,10 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.gyf.barlibrary.ImmersionBar;
+import com.luck.picture.lib.PictureSelector;
+import com.luck.picture.lib.config.PictureConfig;
+import com.luck.picture.lib.config.PictureMimeType;
+import com.luck.picture.lib.entity.LocalMedia;
 import com.secure.pay.PayService;
 import com.sina.weibo.sdk.WbSdk;
 import com.sina.weibo.sdk.auth.AuthInfo;
@@ -78,6 +82,7 @@ import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -182,16 +187,30 @@ public class WebActivity extends BaseActivity implements IPostMultiFileView, WbS
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // TODO Auto-generated method stub
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_IMAGE) {
-            if (resultCode == RESULT_OK) {
-                // 获取返回的图片列表
-                defaultDataArray = data
-                        .getStringArrayListExtra(MultiImageSelectorActivity.EXTRA_RESULT);
 
+        if (requestCode == PictureConfig.CHOOSE_REQUEST) {
+            if (resultCode == RESULT_OK) {
+                List<LocalMedia> selectList = PictureSelector.obtainMultipleResult(data);
+                // 例如 LocalMedia 里面返回三种path
+                // 1.media.getPath(); 为原图path
+                // 2.media.getCutPath();为裁剪后path，需判断media.isCut();是否为true  注意：音视频除外
+                // 3.media.getCompressPath();为压缩后path，需判断media.isCompressed();是否为true  注意：音视频除外
+                // 如果裁剪并压缩了，以取压缩路径为准，因为是先裁剪后压缩的
+
+                ArrayList<String> pathlist = new ArrayList<>();
+                for (LocalMedia lm : selectList) {
+                    if (lm.isCompressed()) {
+                        pathlist.add(lm.getCompressPath());
+                    } else {
+                        pathlist.add(lm.getPath());
+                    }
+                }
+                defaultDataArray.addAll(pathlist);
+                if (defaultDataArray.size() > 0)
+                    new PostMultiFilePresenter(this).PostMultiFile(defaultDataArray);
             }
-            if (defaultDataArray.size() > 0)
-                new PostMultiFilePresenter(this).PostMultiFile(defaultDataArray);
         }
+
     }
 
     @Override
@@ -556,7 +575,7 @@ public class WebActivity extends BaseActivity implements IPostMultiFileView, WbS
     }
 
     @JavascriptInterface
-    public void shareWXFriends(String url, String title, String des,String imageUrl) {
+    public void shareWXFriends(String url, String title, String des, String imageUrl) {
         web.post(() -> {
             Glide.with(mContext).load(imageUrl).into(new SimpleTarget<Drawable>() {
                 /**
@@ -574,7 +593,7 @@ public class WebActivity extends BaseActivity implements IPostMultiFileView, WbS
     }
 
     @JavascriptInterface
-    public void shareWXTimeline(String url, String title, String des,String imageUrl) {
+    public void shareWXTimeline(String url, String title, String des, String imageUrl) {
         web.post(() -> {
             Glide.with(mContext).load(imageUrl).into(new SimpleTarget<Drawable>() {
                 /**
@@ -611,6 +630,16 @@ public class WebActivity extends BaseActivity implements IPostMultiFileView, WbS
         int n = Integer.valueOf(num);
         if (n <= 0)
             return;
+
+        PictureSelector.create(this)
+                .openGallery(PictureMimeType.ofImage())
+                .maxSelectNum(n)
+                .theme(R.style.picture_my_style)
+                .previewImage(true)
+                .isCamera(true)
+                .compress(true)
+                .forResult(PictureConfig.CHOOSE_REQUEST);
+
 
         Intent intent = new Intent(mContext, MultiImageSelectorActivity.class);
         // 是否显示调用相机拍照
@@ -666,7 +695,7 @@ public class WebActivity extends BaseActivity implements IPostMultiFileView, WbS
                     });
                     v.findViewById(R.id.ll_share_wxq).setOnClickListener(v12 -> {
                         mBottomDialog.dismiss();
-                        Log.e("xi", "shareView: "+url );
+                        Log.e("xi", "shareView: " + url);
                         Glide.with(mContext).load(url).into(new SimpleTarget<Drawable>() {
                             /**
                              * The method that will be called when the resource load has finished.

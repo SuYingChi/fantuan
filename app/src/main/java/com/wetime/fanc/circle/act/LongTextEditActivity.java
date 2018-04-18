@@ -221,12 +221,7 @@ public class LongTextEditActivity extends BaseActivity implements LongTextAdapte
                 rclContent.scrollToPosition(pos);
 //                    rclContent.smoothScrollToPosition(pos);
                 Log.e("zk", "pos: " + pos);
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        showKeyboard();
-                    }
-                }, 200);
+                new Handler().postDelayed(this::showKeyboard, 200);
             }
         }
     }
