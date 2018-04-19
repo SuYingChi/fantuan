@@ -132,7 +132,7 @@ public class CircleHomeFragment extends BaseLazyFragment {
                 }
                 break;
             case R.id.iv_edit:
-                Tools.showPopWin(getContext(), ivEdit, null);
+                Tools.showPopWin(getContext(), ivEdit, null,null);
                 break;
         }
     }

@@ -28,7 +28,6 @@ import com.wetime.fanc.R;
 import com.wetime.fanc.circle.adapter.LongTextAdapter;
 import com.wetime.fanc.circle.bean.LocItemBean;
 import com.wetime.fanc.circle.bean.LongTextBean;
-import com.wetime.fanc.circle.bean.LongTextSaveBean;
 import com.wetime.fanc.customview.OnRecyclerItemClickListener;
 import com.wetime.fanc.main.act.BaseActivity;
 import com.wetime.fanc.service.UploadImageService;
@@ -71,6 +70,8 @@ public class LongTextEditActivity extends BaseActivity implements LongTextAdapte
     ImageView ivGopic;
     @BindView(R.id.ll_bottom)
     LinearLayout llBottom;
+    @BindView(R.id.tv_circle)
+    TextView tvCircle;
 
     private ArrayList<LongTextBean> list = new ArrayList<>();
     private LongTextAdapter adapter;
@@ -83,6 +84,7 @@ public class LongTextEditActivity extends BaseActivity implements LongTextAdapte
     private LocItemBean locBean = new LocItemBean();
 
     private String mCircleID;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -128,7 +130,11 @@ public class LongTextEditActivity extends BaseActivity implements LongTextAdapte
         mCircleID = getIntent().getStringExtra("id");
         if (null == mCircleID) {
             mCircleID = "";
+        } else {
+            tvCircle.setText(String.format("发布到%s", getIntent().getStringExtra("name")));
         }
+        if (!TextUtils.isEmpty(getIntent().getStringExtra("name")))
+            tvCircle.setText(String.format("发布到%s", getIntent().getStringExtra("name")));
     }
 
     @Override
@@ -351,19 +357,19 @@ public class LongTextEditActivity extends BaseActivity implements LongTextAdapte
 
                 break;
             case R.id.tv_publish:
-                if(TextUtils.isEmpty(list.get(0).getTitle())){
-                    Tools.toastInBottom(mContext,getString(R.string.str_title_cannot_empty));
+                if (TextUtils.isEmpty(list.get(0).getTitle())) {
+                    Tools.toastInBottom(mContext, getString(R.string.str_title_cannot_empty));
                     return;
                 }
-                if(list.size()==2&&TextUtils.isEmpty(list.get(1).getContent())){
-                    Tools.toastInBottom(mContext,getString(R.string.str_content_cannot_empty));
+                if (list.size() == 2 && TextUtils.isEmpty(list.get(1).getContent())) {
+                    Tools.toastInBottom(mContext, getString(R.string.str_content_cannot_empty));
                     return;
                 }
 
 
                 ArrayList<String> defaultDataArray = new ArrayList<>();
-                for(LongTextBean lb:list){
-                    if(lb.getType().equals("2"))
+                for (LongTextBean lb : list) {
+                    if (lb.getType().equals("2"))
                         defaultDataArray.add(lb.getImageUrl());
                 }
 
@@ -381,12 +387,8 @@ public class LongTextEditActivity extends BaseActivity implements LongTextAdapte
                 list.remove(0);
                 intent.putExtra("content", GsonUtils.getGsonInstance().toJson(list));
                 startService(intent);
+                Tools.hideSoftInput(LongTextEditActivity.this);
                 this.finish();
-
-
-
-
-
 
 
                 break;
@@ -410,6 +412,7 @@ public class LongTextEditActivity extends BaseActivity implements LongTextAdapte
         }
         return locBean.getTitle();
     }
+
     public String getCJd() {
         if (locBean == null
                 || TextUtils.equals(getString(R.string.str_where_are_you), tvAddres.getText().toString())) {
@@ -425,6 +428,7 @@ public class LongTextEditActivity extends BaseActivity implements LongTextAdapte
         }
         return locBean.getLat();
     }
+
     private void showKeyboard() {
         EditText et;
         View itemView;

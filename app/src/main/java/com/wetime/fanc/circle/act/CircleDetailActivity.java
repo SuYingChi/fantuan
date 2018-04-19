@@ -99,7 +99,7 @@ public class CircleDetailActivity extends BaseActivity implements IGetCircleHead
                 startActivity(go);
                 break;
             case R.id.iv_edit:
-                Tools.showPopWin(this, ivEdit, getCircleId());
+                Tools.showPopWin(this, ivEdit, getCircleId(),tvCirclename.getText().toString());
                 break;
             case R.id.iv_attention:
                 getCircleHeadPresenter.setCircleAttention(getCircleId(), "1");
