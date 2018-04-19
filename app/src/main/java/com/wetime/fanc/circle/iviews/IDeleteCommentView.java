@@ -9,7 +9,8 @@ import com.wetime.fanc.main.model.BaseBean;
  */
 
 public interface IDeleteCommentView extends IBaseVIew {
-    void onDeleteResult(BaseBean bean);
+    void onDeleteResult(BaseBean bean, String type);
+    void onReportResult(BaseBean bean);
 
 
 

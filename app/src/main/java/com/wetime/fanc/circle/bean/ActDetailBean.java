@@ -86,6 +86,7 @@ public class ActDetailBean {
         private boolean is_news;
         private boolean is_owner;
         private boolean is_follow;
+        private boolean is_delete;
         private PagingBean paging;
         private List<String> cover;
         private List<LikeListBean> like_list;
@@ -97,6 +98,14 @@ public class ActDetailBean {
 
         public void setIs_follow(boolean is_follow) {
             this.is_follow = is_follow;
+        }
+
+        public boolean isIs_delete() {
+            return is_delete;
+        }
+
+        public void setIs_delete(boolean is_delete) {
+            this.is_delete = is_delete;
         }
 
         public String getLocation() {

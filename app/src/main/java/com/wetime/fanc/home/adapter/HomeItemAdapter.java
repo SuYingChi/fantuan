@@ -203,6 +203,33 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
             ((NewsHolder5) holder).reportnew.setText(bean.getLastest().getName());
             ((NewsHolder5) holder).reporthot.setText(bean.getHottest().getName());
             ((NewsHolder5) holder).reportnewhot.setText(bean.getFocused().getName());
+            ((NewsHolder5) holder).reporthotliner.setOnClickListener(v -> {
+                if (TextUtils.isEmpty(bean.getHottest().getArticle_url()))
+                    return;
+                Intent goweb = new Intent(mActivity, WebActivity.class);
+                goweb.putExtra("url", bean.getHottest().getArticle_url());
+                goweb.putExtra("type", "2");
+                goweb.putExtra("title", bean.getHottest().getName());
+                mActivity.startActivity(goweb);
+            });
+            ((NewsHolder5) holder).reportnewhotliner.setOnClickListener(v -> {
+                if (TextUtils.isEmpty(bean.getFocused().getArticle_url()))
+                    return;
+                Intent goweb = new Intent(mActivity, WebActivity.class);
+                goweb.putExtra("url", bean.getFocused().getArticle_url());
+                goweb.putExtra("type", "2");
+                goweb.putExtra("title", bean.getFocused().getName());
+                mActivity.startActivity(goweb);
+            });
+            ((NewsHolder5) holder).reportnewliner.setOnClickListener(v -> {
+                if (TextUtils.isEmpty(bean.getLastest().getArticle_url()))
+                    return;
+                Intent goweb = new Intent(mActivity, WebActivity.class);
+                goweb.putExtra("url", bean.getLastest().getArticle_url());
+                goweb.putExtra("type", "2");
+                goweb.putExtra("title", bean.getLastest().getName());
+                mActivity.startActivity(goweb);
+            });
             Glide.with(mActivity).load(bean.getSpecial().getCoverStr()).into(((NewsHolder5) holder).reportcover);
         }
 
@@ -918,6 +945,12 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
         TextView reporthot;
         @BindView(R.id.report_newhot)
         TextView reportnewhot;
+        @BindView(R.id.report_hot_liner)
+        LinearLayout reporthotliner;
+        @BindView(R.id.report_new_liner)
+        LinearLayout reportnewliner;
+        @BindView(R.id.report_newhot_liner)
+        LinearLayout reportnewhotliner;
 
         NewsHolder5(View view) {
             super(view);

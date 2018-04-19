@@ -1,13 +1,11 @@
 package com.wetime.fanc.circle.act;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -19,9 +17,6 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.target.SimpleTarget;
-import com.bumptech.glide.request.transition.Transition;
 import com.gyf.barlibrary.ImmersionBar;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -34,13 +29,13 @@ import com.wetime.fanc.circle.iviews.IDeleteActView;
 import com.wetime.fanc.circle.iviews.IDeleteCommentView;
 import com.wetime.fanc.circle.iviews.IGetActDetailView;
 import com.wetime.fanc.circle.presenter.CommentActPresenter;
-import com.wetime.fanc.circle.presenter.DeleteActPresenter;
 import com.wetime.fanc.circle.presenter.DeleteCommentPresenter;
 import com.wetime.fanc.circle.presenter.GetActDetailPresenter;
 import com.wetime.fanc.circle.presenter.ZanActPresenter;
 import com.wetime.fanc.login.act.LoginActivity;
 import com.wetime.fanc.main.act.BaseActivity;
 import com.wetime.fanc.main.model.BaseBean;
+import com.wetime.fanc.utils.DialogUtils;
 import com.wetime.fanc.utils.KeyboardChangeListener;
 import com.wetime.fanc.utils.Tools;
 
@@ -52,6 +47,10 @@ import me.shaohui.bottomdialog.BottomDialog;
 public class ActDetailActivity extends BaseActivity implements IGetActDetailView, OnLoadMoreListener, KeyboardChangeListener.KeyBoardListener, ICommentActView, IDeleteCommentView, IDeleteActView {
 
 
+    @BindView(R.id.et_content)
+    public
+    EditText etContent;
+    public String toId = "";
     @BindView(R.id.tv_title)
     TextView tvTitle;
     @BindView(R.id.rcl_circle)
@@ -64,23 +63,17 @@ public class ActDetailActivity extends BaseActivity implements IGetActDetailView
     TextView tvGocomment;
     @BindView(R.id.tv_zan)
     TextView tvZan;
-    @BindView(R.id.et_content)
-    public
-    EditText etContent;
     @BindView(R.id.tv_send)
     TextView tvSend;
     @BindView(R.id.rl_bottom)
     RelativeLayout rlBottom;
     @BindView(R.id.iv_memu)
     ImageView ivMemu;
-
-
     private GetActDetailPresenter getActDetailPresenter;
     private int page = 1;
     private ActDetailAdapter actDetailAdapter;
     private ActDetailBean actbean;
     private CommentActPresenter commentActPresenter;
-    public String toId = "";
     private BottomDialog mCommentBottomDialog;
     private BottomDialog mDeleteBottomDialog;
     private DeleteCommentPresenter deleteCommentPresenter;
@@ -190,8 +183,14 @@ public class ActDetailActivity extends BaseActivity implements IGetActDetailView
                 hideKeyboard();
                 break;
             case R.id.iv_memu:
-                showDeleteAct();
+                if (actbean.getData().isIs_delete()) {
+                    showDeleteAct(actbean.getData().isIs_owner());
+                } else {
+                    showReportAct();
+                }
+
                 break;
+
         }
 
     }
@@ -212,6 +211,12 @@ public class ActDetailActivity extends BaseActivity implements IGetActDetailView
             actDetailAdapter = new ActDetailAdapter(this, actbean);
             rclCircle.setAdapter(actDetailAdapter);
             actDetailAdapter.setOnItemClickLitener((view, position) -> {
+
+                if (view.getId() == R.id.iv_delete) {
+                    showDeleteAct(true);
+                    return;
+                }
+
                 ActDetailBean.DataBean.CommentListBean b = actbean.getData().getComment_list().get(position - 2);
                 if (b.isIs_owner()) {
                     mCommentBottomDialog = BottomDialog.create(getSupportFragmentManager());
@@ -229,14 +234,20 @@ public class ActDetailActivity extends BaseActivity implements IGetActDetailView
                         });
                         v.findViewById(R.id.tv_delete).setOnClickListener(v12 -> {
                             mCommentBottomDialog.dismiss();
-                            deleteCommentPresenter.deleteComment(b.getId());
-                            actbean.getData().getComment_list().remove(position - 2);
-                            actbean.getData().setComment_num(actbean.getData().getComment_num() - 1);
+                            DialogUtils.showNormalDialog(ActDetailActivity.this, null, "是否删除该评论", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    deleteCommentPresenter.deleteComment("0", b.getId(), "违反圈子规章");
+                                    actbean.getData().getComment_list().remove(position - 2);
+                                    actbean.getData().setComment_num(actbean.getData().getComment_num() - 1);
 
-                            actDetailAdapter.notifyItemChanged(1);
-                            actDetailAdapter.notifyItemRemoved(position);
-                            actDetailAdapter.notifyItemRangeChanged(2,
-                                    actbean.getData().getComment_list().size());
+                                    actDetailAdapter.notifyItemChanged(1);
+                                    actDetailAdapter.notifyItemRemoved(position);
+                                    actDetailAdapter.notifyItemRangeChanged(2,
+                                            actbean.getData().getComment_list().size());
+                                }
+                            });
+//
 //                                actDetailAdapter.notifyDataSetChanged();
 
 
@@ -343,12 +354,21 @@ public class ActDetailActivity extends BaseActivity implements IGetActDetailView
     }
 
     @Override
-    public void onDeleteResult(BaseBean bean) {
-        Tools.toastInBottom(this, "删除成功");
+    public void onDeleteResult(BaseBean bean, String type) {
+        if (!type.equals("0")) {
+            this.finish();
+        }
+//        Toast.makeText(mContext, "删除成功!", Toast.LENGTH_SHORT).show();
 
     }
 
-    private void showDeleteAct() {
+    @Override
+    public void onReportResult(BaseBean bean) {
+        // Tools.toastInBottom(this, "举报成功");
+//        this.finish();
+    }
+
+    private void showDeleteAct(boolean b) {
         mDeleteBottomDialog = BottomDialog.create(getSupportFragmentManager());
         mDeleteBottomDialog.setDimAmount(0.5f);
         mDeleteBottomDialog.setLayoutRes(R.layout.item_delete_act);
@@ -359,32 +379,40 @@ public class ActDetailActivity extends BaseActivity implements IGetActDetailView
 //                DeleteActPresenter deleteActPresenter = new DeleteActPresenter(this);
 //                deleteActPresenter.deleteAct();
 
+                if (b) {
+                    DialogUtils.showNormalDialog(ActDetailActivity.this, null, "是否删除该评论", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            deleteCommentPresenter.deleteComment("1", actbean.getData().getId(), "违反圈子规章");
+                        }
+                    });
+                    return;
+                }
+
                 BottomDialog mDeleteBottomDialog = BottomDialog.create(getSupportFragmentManager());
                 mDeleteBottomDialog.setDimAmount(0.5f);
                 mDeleteBottomDialog.setCancelOutside(true);
                 mDeleteBottomDialog.setLayoutRes(R.layout.bottom_delete_dialog_layout);
                 mDeleteBottomDialog.setViewListener(v11 -> {
                     v11.findViewById(R.id.tv_item2).setOnClickListener(v1 -> {
-                        mDeleteBottomDialog.dismiss();
+                        delete(mDeleteBottomDialog, "1", v1.getId(), v11);
                     });
                     v11.findViewById(R.id.tv_item3).setOnClickListener(v2 -> {
-                        mDeleteBottomDialog.dismiss();
+                        delete(mDeleteBottomDialog, "1", v2.getId(), v11);
                     });
                     v11.findViewById(R.id.tv_item4).setOnClickListener(v3 -> {
-                        mDeleteBottomDialog.dismiss();
+                        delete(mDeleteBottomDialog, "1", v3.getId(), v11);
 
                     });
                     v11.findViewById(R.id.tv_item5).setOnClickListener(v4 -> {
-                        mDeleteBottomDialog.dismiss();
-
+                        delete(mDeleteBottomDialog, "1", v4.getId(), v11);
                     });
                     v11.findViewById(R.id.tv_item6).setOnClickListener(v5 -> {
-                        mDeleteBottomDialog.dismiss();
+                        delete(mDeleteBottomDialog, "1", v5.getId(), v11);
 
                     });
                     v11.findViewById(R.id.tv_item7).setOnClickListener(v6 -> {
-                        mDeleteBottomDialog.dismiss();
-
+                        delete(mDeleteBottomDialog, "1", v6.getId(), v11);
                     });
                 });
 
@@ -399,6 +427,62 @@ public class ActDetailActivity extends BaseActivity implements IGetActDetailView
         });
 
         mDeleteBottomDialog.show();
+    }
+
+    private void showReportAct() {
+        BottomDialog mDeleteBottomDialogShare = BottomDialog.create(getSupportFragmentManager());
+        mDeleteBottomDialogShare.setDimAmount(0.5f);
+        mDeleteBottomDialogShare.setCancelOutside(true);
+        mDeleteBottomDialogShare.setLayoutRes(R.layout.bottom_report_dialog_layout);
+        mDeleteBottomDialogShare.setViewListener(v -> {
+
+            v.findViewById(R.id.tv_item1).setOnClickListener(v12 -> {
+                mDeleteBottomDialogShare.dismiss();
+                BottomDialog mDeleteBottomDialog = BottomDialog.create(getSupportFragmentManager());
+                mDeleteBottomDialog.setDimAmount(0.5f);
+                mDeleteBottomDialog.setCancelOutside(true);
+                mDeleteBottomDialog.setLayoutRes(R.layout.bottom_anim_dialog_layout);
+                mDeleteBottomDialog.setViewListener(v11 -> {
+                    v11.findViewById(R.id.tv_item2).setOnClickListener(v1 -> {
+                        report(mDeleteBottomDialog, v1.getId(), v11);
+                    });
+                    v11.findViewById(R.id.tv_item3).setOnClickListener(v2 -> {
+                        report(mDeleteBottomDialog, v2.getId(), v11);
+                    });
+                    v11.findViewById(R.id.tv_item4).setOnClickListener(v3 -> {
+                        report(mDeleteBottomDialog, v3.getId(), v11);
+                    });
+                    v11.findViewById(R.id.tv_item5).setOnClickListener(v4 -> {
+                        report(mDeleteBottomDialog, v4.getId(), v11);
+                    });
+                    v11.findViewById(R.id.tv_item6).setOnClickListener(v5 -> {
+                        report(mDeleteBottomDialog, v5.getId(), v11);
+                    });
+                });
+
+                mDeleteBottomDialog.show();
+
+            });
+            v.findViewById(R.id.tv_item2).setOnClickListener(v14 -> {
+                mDeleteBottomDialogShare.dismiss();
+            });
+        });
+
+        mDeleteBottomDialogShare.show();
+    }
+
+    private void report(BottomDialog mDeleteBottomDialog, int id, View v11) {
+        deleteCommentPresenter.reportComment("1",
+                actbean.getData().getId(),
+                String.valueOf(((TextView) v11.findViewById(id)).getText()));
+        mDeleteBottomDialog.dismiss();
+    }
+
+    private void delete(BottomDialog mDeleteBottomDialog, String type, int id, View v11) {
+        deleteCommentPresenter.deleteComment(type,
+                actbean.getData().getCircle_id(),
+                String.valueOf(((TextView) v11.findViewById(id)).getText()));
+        mDeleteBottomDialog.dismiss();
     }
 
 }

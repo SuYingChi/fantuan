@@ -57,6 +57,7 @@
 
 
         <LinearLayout
+            android:id="@+id/report_new_liner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
@@ -93,6 +94,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/report_hot_liner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
@@ -129,6 +131,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/report_newhot_liner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"

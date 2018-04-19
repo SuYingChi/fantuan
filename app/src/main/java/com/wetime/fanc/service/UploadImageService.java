@@ -109,15 +109,8 @@ public class UploadImageService extends Service {
                     @Override
                     public void onResponse(String s, int i) {
                         PostFileResultBean msg = getGsonInstance().fromJson(s, PostFileResultBean.class);
-                        if (msg.getError() == 0) {
-                            if (TextUtils.isEmpty(type)) {
-                                publishCircle((GsonUtils.getGsonInstance().toJson(msg.getData().getId())));
-                            } else {
-                                // 接口传 第一张图  作为封面
-                                publishLongText(msg);
-                            }
-                        }
-
+                        if (msg.getError() == 0)
+                            publishCircle((GsonUtils.getGsonInstance().toJson(msg.getData().getId())));
                     }
                 });
     }
@@ -141,13 +134,16 @@ public class UploadImageService extends Service {
                 .execute(new StringCallback() {
                     @Override
                     public void onError(Call call, Exception e, int i) {
+                        EventBus.getDefault().post(new uploadEvent("-1"));
+                        UploadImageService.this.stopSelf();
                         Toast.makeText(UploadImageService.this, "上传失败!", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void onResponse(String s, int i) {
-                        Log.e("xi", "onResponse: " + s);
                         PublishResultBean bean = GsonUtils.getGsonInstance().fromJson(s, PublishResultBean.class);
+                        if (bean.getError() == 0)
+                            EventBus.getDefault().post(new uploadEvent(bean.getData().getId()));
                         if (bean.getError() == 0)
                             EventBus.getDefault().post(new uploadEvent(bean.getData().getId()));
                         Toast.makeText(getApplicationContext(), "文章上传成功", Toast.LENGTH_SHORT).show();
@@ -194,6 +190,7 @@ public class UploadImageService extends Service {
                         if (bean.getError() == 0)
                             EventBus.getDefault().post(new uploadEvent(bean.getData().getId()));
                         Toast.makeText(getApplicationContext(), "文章上传成功", Toast.LENGTH_SHORT).show();
+                        UploadImageService.this.stopSelf();
                     }
                 });
     }

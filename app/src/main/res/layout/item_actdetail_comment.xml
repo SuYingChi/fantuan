@@ -16,9 +16,10 @@
         android:src="@drawable/ic_head_default" />
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
+        android:layout_weight="1"
         android:orientation="vertical">
 
         <TextView
@@ -49,5 +50,22 @@
             android:textSize="12sp"
             tools:text="刚刚" />
     </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/iv_delete"
+        android:layout_width="30dp"
+        android:visibility="gone"
+        android:layout_height="30dp"
+        android:src="@drawable/ic_head_default">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:src="@drawable/invalid_name_delete" />
+
+    </RelativeLayout>
+
+
 </LinearLayout>
 
