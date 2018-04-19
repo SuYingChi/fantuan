@@ -31,6 +31,7 @@ import com.wetime.fanc.circle.bean.LongTextBean;
 import com.wetime.fanc.circle.bean.LongTextSaveBean;
 import com.wetime.fanc.customview.OnRecyclerItemClickListener;
 import com.wetime.fanc.main.act.BaseActivity;
+import com.wetime.fanc.service.UploadImageService;
 import com.wetime.fanc.utils.GsonUtils;
 import com.wetime.fanc.utils.KeyboardChangeListener;
 import com.wetime.fanc.utils.Tools;
@@ -81,6 +82,7 @@ public class LongTextEditActivity extends BaseActivity implements LongTextAdapte
     private boolean isKeyboadShow;
     private LocItemBean locBean = new LocItemBean();
 
+    private String mCircleID;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -122,6 +124,11 @@ public class LongTextEditActivity extends BaseActivity implements LongTextAdapte
             }
         });
         setDrag();
+
+        mCircleID = getIntent().getStringExtra("id");
+        if (null == mCircleID) {
+            mCircleID = "";
+        }
     }
 
     @Override
@@ -352,11 +359,36 @@ public class LongTextEditActivity extends BaseActivity implements LongTextAdapte
                     Tools.toastInBottom(mContext,getString(R.string.str_content_cannot_empty));
                     return;
                 }
-                LongTextSaveBean saveBean =  new LongTextSaveBean();
-                saveBean.setTitle(list.get(0).getTitle());
+
+
+                ArrayList<String> defaultDataArray = new ArrayList<>();
+                for(LongTextBean lb:list){
+                    if(lb.getType().equals("2"))
+                        defaultDataArray.add(lb.getImageUrl());
+                }
+
+
+                Intent intent = new Intent(this, UploadImageService.class);
+                intent.putExtra("type", "1");
+                intent.putExtra("title", list.get(0).getTitle());
+                intent.putExtra("token", getToken());
+                intent.putStringArrayListExtra("defaultDataArray", defaultDataArray);
+                intent.putExtra("token", getToken());
+                intent.putExtra("CircleId", mCircleID);
+                intent.putExtra("CJd", getCJd());
+                intent.putExtra("CWd", getCWd());
+                intent.putExtra("Loc", getLoc());
                 list.remove(0);
-                saveBean.setList(list);
-                Log.d("zk", GsonUtils.getGsonInstance().toJson(saveBean));
+                intent.putExtra("content", GsonUtils.getGsonInstance().toJson(list));
+                startService(intent);
+                this.finish();
+
+
+
+
+
+
+
                 break;
             case R.id.iv_keyboard:
                 if (adapter.isSort())
@@ -371,6 +403,28 @@ public class LongTextEditActivity extends BaseActivity implements LongTextAdapte
         }
     }
 
+    public String getLoc() {
+        if (locBean == null
+                || TextUtils.equals(getString(R.string.str_where_are_you), tvAddres.getText().toString())) {
+            return "";
+        }
+        return locBean.getTitle();
+    }
+    public String getCJd() {
+        if (locBean == null
+                || TextUtils.equals(getString(R.string.str_where_are_you), tvAddres.getText().toString())) {
+            return "";
+        }
+        return locBean.getLng();
+    }
+
+    public String getCWd() {
+        if (locBean == null
+                || TextUtils.equals(getString(R.string.str_where_are_you), tvAddres.getText().toString())) {
+            return "";
+        }
+        return locBean.getLat();
+    }
     private void showKeyboard() {
         EditText et;
         View itemView;
