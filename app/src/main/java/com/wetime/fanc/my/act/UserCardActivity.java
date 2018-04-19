@@ -188,20 +188,18 @@ public class UserCardActivity extends BaseActivity implements OnLoadMoreListener
                 onBackPressed();
                 break;
             case R.id.iv_more:
-                showShareAct();
+                showReportAct();
                 break;
         }
     }
-
-    private void showShareAct() {
+    private void showReportAct() {
         BottomDialog mDeleteBottomDialogShare = BottomDialog.create(getSupportFragmentManager());
         mDeleteBottomDialogShare.setDimAmount(0.5f);
         mDeleteBottomDialogShare.setCancelOutside(true);
-        mDeleteBottomDialogShare.setLayoutRes(R.layout.bottom_share_dialog_layout);
+        mDeleteBottomDialogShare.setLayoutRes(R.layout.bottom_report_dialog_layout);
         mDeleteBottomDialogShare.setViewListener(v -> {
 
             v.findViewById(R.id.tv_item1).setOnClickListener(v12 -> {
-
                 mDeleteBottomDialogShare.dismiss();
                 BottomDialog mDeleteBottomDialog = BottomDialog.create(getSupportFragmentManager());
                 mDeleteBottomDialog.setDimAmount(0.5f);
@@ -209,22 +207,19 @@ public class UserCardActivity extends BaseActivity implements OnLoadMoreListener
                 mDeleteBottomDialog.setLayoutRes(R.layout.bottom_anim_dialog_layout);
                 mDeleteBottomDialog.setViewListener(v11 -> {
                     v11.findViewById(R.id.tv_item2).setOnClickListener(v1 -> {
-                        mDeleteBottomDialog.dismiss();
+                        report(mDeleteBottomDialog, v1.getId(), v11);
                     });
                     v11.findViewById(R.id.tv_item3).setOnClickListener(v2 -> {
-                        mDeleteBottomDialog.dismiss();
+                        report(mDeleteBottomDialog, v2.getId(), v11);
                     });
                     v11.findViewById(R.id.tv_item4).setOnClickListener(v3 -> {
-                        mDeleteBottomDialog.dismiss();
-
+                        report(mDeleteBottomDialog, v3.getId(), v11);
                     });
                     v11.findViewById(R.id.tv_item5).setOnClickListener(v4 -> {
-                        mDeleteBottomDialog.dismiss();
-
+                        report(mDeleteBottomDialog, v4.getId(), v11);
                     });
                     v11.findViewById(R.id.tv_item6).setOnClickListener(v5 -> {
-                        mDeleteBottomDialog.dismiss();
-
+                        report(mDeleteBottomDialog, v5.getId(), v11);
                     });
                 });
 
@@ -237,6 +232,13 @@ public class UserCardActivity extends BaseActivity implements OnLoadMoreListener
         });
 
         mDeleteBottomDialogShare.show();
+    }
+
+    private void report(BottomDialog mDeleteBottomDialog, int id, View v11) {
+        getUserCardPresenter.reportComment("0",
+                getUid(),
+                String.valueOf(((TextView) v11.findViewById(id)).getText()));
+        mDeleteBottomDialog.dismiss();
     }
 
     @Override
@@ -383,6 +385,11 @@ public class UserCardActivity extends BaseActivity implements OnLoadMoreListener
         adapter.notifyDataSetChanged();
         refreshLayout.finishLoadMore();
         refreshLayout.setEnableLoadMore(!bean.getData().getPaging().isIs_end());
+    }
+
+    @Override
+    public void onReportResult(BaseBean bean) {
+
     }
 
     private void showDeleteAct() {

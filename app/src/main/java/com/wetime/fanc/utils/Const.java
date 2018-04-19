@@ -72,7 +72,9 @@ public interface Const {
     String SOCIAL = BASEURL + "/social";
     String DYNAMIC_DETAIL = BASEURL + "/dynamic/detail";
     String DYNAMIC_COMMENT = BASEURL + "/dynamic/comment";
-    String DYNAMIC_COMMENT_DELETE = BASEURL + "/dynamic/comment/delete";
+//    String DYNAMIC_COMMENT_DELETE = BASEURL + "/dynamic/comment/delete";
+    String DYNAMIC_COMMENT_DELETE = BASEURL + "/jv/qz/deleterecord";
+    String REPORT = BASEURL + "/jv/qz/report";
     String DYNAMIC_DELETE = BASEURL + "/dynamic/delete";
     String DYNAMIC_LIKE = BASEURL + "/dynamic/like";
     String USER_NOTICE_UNREAD = BASEURL + "/user/notice/unread";

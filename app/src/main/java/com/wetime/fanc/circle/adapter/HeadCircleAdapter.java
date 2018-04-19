@@ -85,7 +85,12 @@ public class HeadCircleAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemCount() {
-        return mlist.size();
+        if (type == 0) {
+            return mlist.size();
+        } else {
+            return follow_circles.size();
+        }
+
     }
 
     public interface OnItemClickLitener {

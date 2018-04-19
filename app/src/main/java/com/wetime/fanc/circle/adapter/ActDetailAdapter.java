@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -188,6 +189,16 @@ public class ActDetailAdapter extends RecyclerView.Adapter {
             ActDetailBean.DataBean.CommentListBean bean = actDetailBean.getData().getComment_list().get(position - 2);
             ((ViewHolder2) holder).tvName.setText(bean.getUsername());
             ((ViewHolder2) holder).tvTime.setText(bean.getTime());
+
+            if (actDetailBean.getData().isIs_delete()) {
+                ((ViewHolder2) holder).ivdelete.setVisibility(View.VISIBLE);
+                ((ViewHolder2) holder).ivdelete.setOnClickListener(v -> {
+                    mOnItemClickLitener.onItemClick(v, position);
+                });
+            } else {
+                ((ViewHolder2) holder).ivdelete.setVisibility(View.GONE);
+            }
+
             if (TextUtils.isEmpty(bean.getTo_username())) {
                 ((ViewHolder2) holder).tvContent.setText(bean.getContent());
             } else {
@@ -231,11 +242,6 @@ public class ActDetailAdapter extends RecyclerView.Adapter {
                 mActivity.startActivity(go);
             });
             ((ViewHolder2) holder).tvName.setOnClickListener(view -> {
-//                Intent go = new Intent(mActivity, UserCardActivity.class);
-//                go.putExtra("num", actDetailBean.getData().isIs_news() ? "3" : "2");
-//                go.putExtra("index", 0);
-//                go.putExtra("id", bean.getUid());
-//                mActivity.startActivity(go);
                 new Handler().postDelayed(() -> {
                     ((ActDetailActivity) mActivity).toId = bean.getUid();
                     ((ActDetailActivity) mActivity).etContent.setHint("回复 " + bean.getUsername());
@@ -326,6 +332,8 @@ public class ActDetailAdapter extends RecyclerView.Adapter {
         TextView tvTime;
         @BindView(R.id.iv_head)
         CircleImageView ivHead;
+        @BindView(R.id.iv_delete)
+        RelativeLayout ivdelete;
 
         ViewHolder2(View view) {
             super(view);

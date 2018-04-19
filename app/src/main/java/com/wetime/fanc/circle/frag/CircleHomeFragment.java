@@ -1,14 +1,10 @@
 package com.wetime.fanc.circle.frag;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -33,9 +29,7 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.util.ArrayList;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 import q.rorbin.badgeview.QBadgeView;
 
 
@@ -55,6 +49,7 @@ public class CircleHomeFragment extends BaseLazyFragment {
     private ArrayList<Fragment> mFragments = new ArrayList<>();
 
     private QBadgeView qBadgeMsg;
+    private boolean issu = false;
 
     @Override
     protected int setLayoutId() {
@@ -91,7 +86,7 @@ public class CircleHomeFragment extends BaseLazyFragment {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEvent(UploadProgessEvent messageEvent) {
-        Log.e("xi", "onEvent: "+messageEvent.getPrgess() );
+        issu = true;
         progess.setVisibility(View.VISIBLE);
         String substring = String.valueOf(messageEvent.getPrgess() * 100).substring(0, String.valueOf(messageEvent.getPrgess() * 100).indexOf("."));
         if (messageEvent.getPrgess() < 1) {
@@ -102,9 +97,9 @@ public class CircleHomeFragment extends BaseLazyFragment {
     }
 
 
-
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEvent(uploadEvent messageEvent) {
+        issu = false;
         progess.setVisibility(View.INVISIBLE);
     }
 
@@ -132,7 +127,11 @@ public class CircleHomeFragment extends BaseLazyFragment {
                 }
                 break;
             case R.id.iv_edit:
-                Tools.showPopWin(getContext(), ivEdit, null);
+                if (issu) {
+                    Toast.makeText(mActivity, "文章上传中,请稍后再发~", Toast.LENGTH_SHORT).show();
+                }else{
+                    Tools.showPopWin(getContext(), ivEdit, null);
+                }
                 break;
         }
     }

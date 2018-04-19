@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -70,6 +71,7 @@ public class CircleDetailActivity extends BaseActivity implements IGetCircleHead
     private ArrayList<Fragment> mFragments = new ArrayList<>();
 
     private GetCircleHeadPresenter getCircleHeadPresenter;
+    private boolean issu = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,7 +101,12 @@ public class CircleDetailActivity extends BaseActivity implements IGetCircleHead
                 startActivity(go);
                 break;
             case R.id.iv_edit:
-                Tools.showPopWin(this, ivEdit, getCircleId());
+                if (issu) {
+                    Toast.makeText(this, "文章上传中,请稍后再发~", Toast.LENGTH_SHORT).show();
+                } else {
+                    Tools.showPopWin(this, ivEdit, getCircleId());
+                }
+
                 break;
             case R.id.iv_attention:
                 getCircleHeadPresenter.setCircleAttention(getCircleId(), "1");
@@ -165,6 +172,7 @@ public class CircleDetailActivity extends BaseActivity implements IGetCircleHead
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEvent(UploadProgessEvent messageEvent) {
+        issu = true;
         progess.setVisibility(View.VISIBLE);
         String substring = String.valueOf(messageEvent.getPrgess() * 100).substring(0, String.valueOf(messageEvent.getPrgess() * 100).indexOf("."));
         if (messageEvent.getPrgess() < 1) {
@@ -174,10 +182,9 @@ public class CircleDetailActivity extends BaseActivity implements IGetCircleHead
         }
     }
 
-
-
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEvent(uploadEvent messageEvent) {
+        issu = false;
         progess.setVisibility(View.GONE);
     }
 
