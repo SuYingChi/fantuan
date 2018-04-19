@@ -50,6 +50,8 @@
     <string name="weibosdk_demo_toast_share_success">分享成功</string>
     <string name="weibosdk_demo_toast_share_failed">分享失败</string>
     <string name="weibosdk_demo_toast_share_canceled">取消分享</string>
+    <string name="str_title_cannot_empty">请输入标题</string>
+    <string name="str_content_cannot_empty">请输入内容</string>
     <item name="tag_position" type="id" />
     <item name="tag_photo" type="id" />
 
