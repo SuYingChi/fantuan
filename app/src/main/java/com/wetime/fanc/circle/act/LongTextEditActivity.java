@@ -17,6 +17,7 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.luck.picture.lib.PictureSelector;
@@ -27,6 +28,7 @@ import com.wetime.fanc.R;
 import com.wetime.fanc.circle.adapter.LongTextAdapter;
 import com.wetime.fanc.circle.bean.LocItemBean;
 import com.wetime.fanc.circle.bean.LongTextBean;
+import com.wetime.fanc.circle.bean.LongTextSaveBean;
 import com.wetime.fanc.customview.OnRecyclerItemClickListener;
 import com.wetime.fanc.main.act.BaseActivity;
 import com.wetime.fanc.utils.GsonUtils;
@@ -64,6 +66,10 @@ public class LongTextEditActivity extends BaseActivity implements LongTextAdapte
     TextView tvAddres;
     @BindView(R.id.iv_close)
     ImageView ivClose;
+    @BindView(R.id.iv_gopic)
+    ImageView ivGopic;
+    @BindView(R.id.ll_bottom)
+    LinearLayout llBottom;
 
     private ArrayList<LongTextBean> list = new ArrayList<>();
     private LongTextAdapter adapter;
@@ -233,6 +239,12 @@ public class LongTextEditActivity extends BaseActivity implements LongTextAdapte
                 list.remove(i);
             }
         }
+        //只有头部的时候 增加一个edit
+        if (list.size() == 1) {
+            LongTextBean lb = new LongTextBean();
+            lb.setType("1");
+            list.add(lb);
+        }
 
     }
 
@@ -302,11 +314,15 @@ public class LongTextEditActivity extends BaseActivity implements LongTextAdapte
                 onBackPressed();
                 break;
             case R.id.iv_gopic:
+                if (adapter.isSort())
+                    return;
                 if (lasteditText != null)
                     this.index = lasteditText.getSelectionStart();
                 gotoSelectPic();
                 break;
             case R.id.tv_ok:
+                ivGopic.setImageResource(R.drawable.ic_add_image);
+                llBottom.setVisibility(View.VISIBLE);
                 initNormalData();
                 adapter.setSort(false);
                 adapter.notifyDataSetChanged();
@@ -315,6 +331,8 @@ public class LongTextEditActivity extends BaseActivity implements LongTextAdapte
                 tvOk.setVisibility(View.GONE);
                 break;
             case R.id.tv_sort:
+                ivGopic.setImageResource(R.drawable.ic_add_image_enable);
+                llBottom.setVisibility(View.GONE);
                 Tools.hideSoftInput(this);
                 initSortData();
                 adapter.setSort(true);
@@ -323,19 +341,31 @@ public class LongTextEditActivity extends BaseActivity implements LongTextAdapte
                 tvSort.setVisibility(View.GONE);
                 tvPublish.setVisibility(View.GONE);
                 tvOk.setVisibility(View.VISIBLE);
+
                 break;
             case R.id.tv_publish:
-                for (LongTextBean b : list) {
-                    Log.e("zk", "type=" + b.getType() + "--title=" + b.getTitle() + "--con=" + b.getContent() + "--des=" + b.getDes());
+                if(TextUtils.isEmpty(list.get(0).getTitle())){
+                    Tools.toastInBottom(mContext,getString(R.string.str_title_cannot_empty));
+                    return;
                 }
-                Log.d("zk", GsonUtils.getGsonInstance().toJson(list));
+                if(list.size()==2&&TextUtils.isEmpty(list.get(1).getContent())){
+                    Tools.toastInBottom(mContext,getString(R.string.str_content_cannot_empty));
+                    return;
+                }
+                LongTextSaveBean saveBean =  new LongTextSaveBean();
+                saveBean.setTitle(list.get(0).getTitle());
+                list.remove(0);
+                saveBean.setList(list);
+                Log.d("zk", GsonUtils.getGsonInstance().toJson(saveBean));
                 break;
             case R.id.iv_keyboard:
+                if (adapter.isSort())
+                    return;
                 if (isKeyboadShow) {
                     Tools.hideSoftInput(this);
                 } else {
                     rclContent.scrollToPosition(pos);
-                    new Handler().postDelayed(() -> showKeyboard(), 200);
+                    new Handler().postDelayed(this::showKeyboard, 200);
                 }
                 break;
         }
@@ -343,10 +373,14 @@ public class LongTextEditActivity extends BaseActivity implements LongTextAdapte
 
     private void showKeyboard() {
         EditText et;
+        View itemView;
+        itemView = rclContent.getLayoutManager().findViewByPosition(pos);
+        if (itemView == null)
+            return;
         if (pos == 0) {
-            et = rclContent.getLayoutManager().findViewByPosition(pos).findViewById(R.id.et_title);
+            et = itemView.findViewById(R.id.et_title);
         } else {
-            et = rclContent.getLayoutManager().findViewByPosition(pos).findViewById(R.id.et_text);
+            et = itemView.findViewById(R.id.et_text);
         }
         if (et != null) {
             et.requestFocus();
@@ -374,7 +408,18 @@ public class LongTextEditActivity extends BaseActivity implements LongTextAdapte
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
+        if (isShowTipsDialog()) {
+            Tools.showTipsDialog(this, "", "退出此次编辑？", "取消", "退出", null, new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Tools.hideSoftInput(LongTextEditActivity.this);
+                    finish();
+                }
+            });
+        } else {
+            Tools.hideSoftInput(LongTextEditActivity.this);
+            super.onBackPressed();
+        }
     }
 
     @Override
@@ -525,5 +570,20 @@ public class LongTextEditActivity extends BaseActivity implements LongTextAdapte
         } else {
             ivKeyboard.setImageResource(R.drawable.ic_show_keyboard);
         }
+    }
+
+    private boolean isShowTipsDialog() {
+        boolean show = false;
+        if (list.size() > 2)
+            show = true;
+        else {
+            if (!TextUtils.isEmpty(list.get(0).getTitle()))
+                show = true;
+            if (!TextUtils.isEmpty(list.get(1).getContent())) {
+                show = true;
+            }
+        }
+
+        return show;
     }
 }

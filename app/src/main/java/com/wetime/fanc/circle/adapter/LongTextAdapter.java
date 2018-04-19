@@ -79,6 +79,12 @@ public class LongTextAdapter extends RecyclerView.Adapter {
         LongTextBean bean = mData.get(position);
 
         if (holder instanceof TitleViewHolder) {
+            if (isSort()) {
+                ((TitleViewHolder) holder).etTitle.setEnabled(false);
+            }else{
+                ((TitleViewHolder) holder).etTitle.setEnabled(true);
+            }
+
             ((TitleViewHolder) holder).etTitle.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence s, int start, int count, int after) {
