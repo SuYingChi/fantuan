@@ -130,7 +130,7 @@ public class CircleHomeFragment extends BaseLazyFragment {
                 if (issu) {
                     Toast.makeText(mActivity, "文章上传中,请稍后再发~", Toast.LENGTH_SHORT).show();
                 }else{
-                    Tools.showPopWin(getContext(), ivEdit, null);
+                    Tools.showPopWin(getContext(), ivEdit, null,null);
                 }
                 break;
         }
