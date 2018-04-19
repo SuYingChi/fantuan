@@ -109,8 +109,15 @@ public class UploadImageService extends Service {
                     @Override
                     public void onResponse(String s, int i) {
                         PostFileResultBean msg = getGsonInstance().fromJson(s, PostFileResultBean.class);
-                        if (msg.getError() == 0)
-                            publishCircle((GsonUtils.getGsonInstance().toJson(msg.getData().getId())));
+                        if (msg.getError() == 0) {
+                            if (TextUtils.isEmpty(type)) {
+                                publishCircle((GsonUtils.getGsonInstance().toJson(msg.getData().getId())));
+                            } else {
+                                // 接口传 第一张图  作为封面
+                                publishLongText(msg);
+                            }
+                        }
+
                     }
                 });
     }
