@@ -165,9 +165,11 @@ public class UploadImageService extends Service {
                 }.getType());
         for (LongTextBean lb : list) {
             if (lb.getType().equals("2")) {
-                lb.setImageUrl(postFileResultBean.getData().getUrl().get(0));
-                if (postFileResultBean.getData().getUrl().size() > 0)
+                if (postFileResultBean.getData().getUrl().size() > 0) {
+                    lb.setImageUrl(postFileResultBean.getData().getUrl().get(0));
                     postFileResultBean.getData().getUrl().remove(0);
+                }
+
             }
         }
 
