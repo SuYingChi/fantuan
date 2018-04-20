@@ -1,6 +1,9 @@
 package com.wetime.fanc.main.adapter;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.graphics.drawable.Drawable;
+import android.support.annotation.Nullable;
 import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,8 +11,16 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.SizeReadyCallback;
+import com.bumptech.glide.request.target.Target;
+import com.shizhefei.view.largeimage.LargeImageView;
+import com.shizhefei.view.largeimage.factory.FileBitmapDecoderFactory;
 import com.wetime.fanc.R;
 
+import java.io.File;
 import java.util.List;
 
 
@@ -40,14 +51,43 @@ public class ImageAdapter extends PagerAdapter {
         return view == object;
     }
 
+    @SuppressLint("CheckResult")
     @Override
     public Object instantiateItem(ViewGroup container, int position) {//必须实现
         View view = LayoutInflater.from(activity).inflate(R.layout.picture_gallery_item, container, false);
-        ImageView imageView = (ImageView) view.findViewById(R.id.home_gallery_item_imv);
+        LargeImageView imageView = view.findViewById(R.id.home_gallery_item_imv);
+//        Glide.with(activity).load(url.get(position)).into(imageView);
 
-        Glide.with(activity).load(url.get(position)).into(imageView);
+
+        Glide.with(activity).downloadOnly().load(url.get(position)).listener(new RequestListener<File>() {
+            @Override
+            public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<File> target, boolean isFirstResource) {
+                return false;
+            }
+
+            @Override
+            public boolean onResourceReady(File resource, Object model, Target<File> target, DataSource dataSource, boolean isFirstResource) {
+                imageView.setImage(new FileBitmapDecoderFactory(resource));
+                return false;
+            }
+
+        }).submit();
+
+        imageView.setCriticalScaleValueHook(new LargeImageView.CriticalScaleValueHook() {
+            @Override
+            public float getMinScale(LargeImageView largeImageView, int imageWidth, int imageHeight, float suggestMinScale) {
+                return 1;
+            }
+
+            @Override
+            public float getMaxScale(LargeImageView largeImageView, int imageWidth, int imageHeight, float suggestMaxScale) {
+                return 4;
+            }
+        });
+
+
         container.addView(view);
-        view.setOnClickListener(onClickListener);
+        imageView.setOnClickListener(onClickListener);
         return view;
     }
 
