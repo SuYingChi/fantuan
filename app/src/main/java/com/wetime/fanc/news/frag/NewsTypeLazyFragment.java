@@ -33,6 +33,7 @@ import com.wetime.fanc.news.act.RecomentFocusActivity;
 import com.wetime.fanc.news.bean.NewsListBean;
 import com.wetime.fanc.utils.GsonUtils;
 import com.wetime.fanc.utils.SimpleCatchKey;
+import com.wetime.fanc.utils.Tools;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -156,7 +157,8 @@ public class NewsTypeLazyFragment extends BaseLazyFragment implements IGetNewsTy
                 startActivity(go);
             });
         } else {
-            refreshLayout.autoRefresh();
+            if (Tools.isNetworkAvailable(mActivity))
+                refreshLayout.autoRefresh();
         }
 
     }

@@ -180,7 +180,7 @@ public class UploadImageService extends Service {
                 .addParams("token", token)
                 .addParams("circle_id", CircleId)
                 .addParams("title", title)
-                .addParams("content", content)
+                .addParams("content", GsonUtils.getGsonInstance().toJson(list))
                 .addParams("image_ids", postFileResultBean.getData().getId().size() > 0 ? postFileResultBean.getData().getId().get(0) : "")
                 .addParams("lng", CJd)
                 .addParams("lat", CWd)
