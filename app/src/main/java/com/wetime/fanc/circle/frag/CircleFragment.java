@@ -2,6 +2,7 @@ package com.wetime.fanc.circle.frag;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.RelativeLayout;
 
@@ -18,6 +19,8 @@ import com.wetime.fanc.home.bean.HomeItemBean;
 import com.wetime.fanc.home.event.ReFreshCircleEvent;
 import com.wetime.fanc.home.event.RefreshRedNumEvent;
 import com.wetime.fanc.main.frag.BaseLazyFragment;
+import com.wetime.fanc.utils.GsonUtils;
+import com.wetime.fanc.utils.SimpleCatchKey;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -67,6 +70,10 @@ public class CircleFragment extends BaseLazyFragment implements OnRefreshListene
 
         refreshLayout.setOnRefreshListener(this);
         refreshLayout.setEnableLoadMore(false);
+        if (!TextUtils.isEmpty(spu.getValue(SimpleCatchKey.catchkey_circle_home))) {
+            onGetCircleHome(GsonUtils.getGsonInstance().fromJson(
+                    spu.getValue(SimpleCatchKey.catchkey_circle_home), CircleHomeListBean.class));
+        }
     }
 
     @Override
@@ -85,7 +92,8 @@ public class CircleFragment extends BaseLazyFragment implements OnRefreshListene
     public void onRefresh(RefreshLayout refreshlayout) {
         page = 1;
         getCircleHomePresenter.getCircleHome();
-        mAutoLoadMoreAdapter.enable();
+        if (mAutoLoadMoreAdapter != null)
+            mAutoLoadMoreAdapter.enable();
     }
 
     @Override
@@ -100,7 +108,7 @@ public class CircleFragment extends BaseLazyFragment implements OnRefreshListene
         if (adapter == null) {
             //列表
             rclHome.setLayoutManager(new LinearLayoutManager(getContext()));
-            adapter = new CircleHomeAdapter(bean.getData().getFollow_circles(),bean.getData().getCircles(), mList, getActivity());
+            adapter = new CircleHomeAdapter(bean.getData().getFollow_circles(), bean.getData().getCircles(), mList, getActivity());
             mAutoLoadMoreAdapter = new AutoLoadMoreAdapter(getContext(), adapter);
             mAutoLoadMoreAdapter.setOnLoadListener(new AutoLoadMoreAdapter.OnLoadListener() {
                 @Override
@@ -124,6 +132,7 @@ public class CircleFragment extends BaseLazyFragment implements OnRefreshListene
 
         if (page == 1) {
             mList.clear();
+            spu.setValue(SimpleCatchKey.catchkey_circle_home, GsonUtils.getGsonInstance().toJson(bean));
         }
         if (bean.getData().getPaging().isIs_end()) {
             mAutoLoadMoreAdapter.disable();

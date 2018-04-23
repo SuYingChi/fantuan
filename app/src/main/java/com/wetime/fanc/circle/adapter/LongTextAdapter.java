@@ -201,6 +201,9 @@ public class LongTextAdapter extends RecyclerView.Adapter {
                 }
                 int outHeight = options.outHeight;
                 int outWidth = options.outWidth;
+                bean.setWidth(String.valueOf(outWidth));
+                bean.setHeight(String.valueOf(outHeight));
+
 
                 int sw = Tools.getScreenW(mContext);
                 int w = (sw - Tools.dip2px(mContext, 15 + 15));
