@@ -107,4 +107,9 @@ public interface Const {
     String DELETE_COMMENT = BASEURL + "/news/comment/delete";
 
 
+    // java的写到这里
+    String DYNAMIC_LONGARTICLE = BASEURL + "/jv/qz/publish/dynamicarticle";
+
+
+
 }

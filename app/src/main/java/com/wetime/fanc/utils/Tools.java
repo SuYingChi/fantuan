@@ -584,7 +584,7 @@ public class Tools {
         FApp.mTencent.shareToQzone(mContext, params, iUiListener);
     }
 
-    public static void showPopWin(Context context, View ivEdit, String id) {
+    public static void showPopWin(Context context, View ivEdit, String id,String name) {
         View popupView = LayoutInflater.from(context).inflate(R.layout.layout_popupwindow, null);
 
         PopupWindow window = new PopupWindow(popupView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -628,6 +628,9 @@ public class Tools {
 
         popupView.findViewById(R.id.pop_chang).setOnClickListener(v -> {
             Intent gosearch = new Intent(context, LongTextEditActivity.class);
+            // add by zhoukang
+            gosearch.putExtra("name",name);
+            gosearch.putExtra("id",id);
             context.startActivity(gosearch);
             if (window.isShowing()) {
                 window.dismiss();

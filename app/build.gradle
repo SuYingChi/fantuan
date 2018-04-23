@@ -125,6 +125,7 @@ dependencies {
     implementation 'com.github.yhaolpz:FloatWindow:1.0.8'
     implementation 'com.yanzhenjie:permission:2.0.0-rc4'
     implementation 'com.github.LuckSiege.PictureSelector:picture_library:v2.2.3'
+    implementation 'com.shizhefei:LargeImageView:1.1.0'
 }
 
 

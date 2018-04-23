@@ -81,7 +81,7 @@ public class LongTextAdapter extends RecyclerView.Adapter {
         if (holder instanceof TitleViewHolder) {
             if (isSort()) {
                 ((TitleViewHolder) holder).etTitle.setEnabled(false);
-            }else{
+            } else {
                 ((TitleViewHolder) holder).etTitle.setEnabled(true);
             }
 
@@ -148,7 +148,7 @@ public class LongTextAdapter extends RecyclerView.Adapter {
                 ((ImageViewHolder) holder).ivDelete.setVisibility(View.GONE);
                 ((ImageViewHolder) holder).ivEdit.setVisibility(View.GONE);
                 ((ImageViewHolder) holder).ivDrag.setVisibility(View.VISIBLE);
-                ViewGroup.LayoutParams params =holder.itemView.getLayoutParams();
+                ViewGroup.LayoutParams params = holder.itemView.getLayoutParams();
                 params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
                 holder.itemView.setLayoutParams(params);
                 Glide.with(mContext)
@@ -162,11 +162,7 @@ public class LongTextAdapter extends RecyclerView.Adapter {
 
             } else {
 
-                if (TextUtils.isEmpty(bean.getDes())) {
-                    ((ImageViewHolder) holder).etDes.setVisibility(View.GONE);
-                } else {
-                    ((ImageViewHolder) holder).etDes.setVisibility(View.VISIBLE);
-                }
+
                 ((ImageViewHolder) holder).ivCover.setBackgroundResource(R.drawable.bg_edit_nodash);
                 ((ImageViewHolder) holder).ivDelete.setVisibility(View.VISIBLE);
                 ((ImageViewHolder) holder).ivEdit.setVisibility(View.VISIBLE);
@@ -179,8 +175,7 @@ public class LongTextAdapter extends RecyclerView.Adapter {
                 }
 
                 ((ImageViewHolder) holder).ivEdit.setOnClickListener(v -> {
-
-                    ViewGroup.LayoutParams params =holder.itemView.getLayoutParams();
+                    ViewGroup.LayoutParams params = holder.itemView.getLayoutParams();
                     params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
                     holder.itemView.setLayoutParams(params);
                     ((ImageViewHolder) holder).etDes.setVisibility(View.VISIBLE);
@@ -213,8 +208,18 @@ public class LongTextAdapter extends RecyclerView.Adapter {
 
                 int h = (int) (w * rate);
 
-                ViewGroup.LayoutParams params =holder.itemView.getLayoutParams();
-                params.height = h+Tools.dip2px(mContext,10);
+                ViewGroup.LayoutParams params = holder.itemView.getLayoutParams();
+
+
+                if (TextUtils.isEmpty(bean.getDes())) {
+                    ((ImageViewHolder) holder).etDes.setVisibility(View.GONE);
+                    params.height = h + Tools.dip2px(mContext, 10);
+                } else {
+                    params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+                    ((ImageViewHolder) holder).etDes.setVisibility(View.VISIBLE);
+                }
+
+
                 holder.itemView.setLayoutParams(params);
                 Glide.with(mContext)
                         .load(bean.getImageUrl())

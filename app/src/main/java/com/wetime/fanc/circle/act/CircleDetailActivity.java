@@ -104,7 +104,7 @@ public class CircleDetailActivity extends BaseActivity implements IGetCircleHead
                 if (issu) {
                     Toast.makeText(this, "文章上传中,请稍后再发~", Toast.LENGTH_SHORT).show();
                 } else {
-                    Tools.showPopWin(this, ivEdit, getCircleId());
+                    Tools.showPopWin(this, ivEdit, getCircleId(),tvCirclename.getText().toString());
                 }
 
                 break;
