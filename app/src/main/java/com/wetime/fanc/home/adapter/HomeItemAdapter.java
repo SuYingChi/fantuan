@@ -25,6 +25,7 @@ import com.wetime.fanc.circle.adapter.NineImageGridListAdapter;
 import com.wetime.fanc.circle.adapter.NineImageGridListAdapterCard;
 import com.wetime.fanc.circle.presenter.ZanActPresenter;
 import com.wetime.fanc.customview.CanDoBlankGridView;
+import com.wetime.fanc.customview.MixtureTextView;
 import com.wetime.fanc.home.bean.HomeItemBean;
 import com.wetime.fanc.login.act.LoginActivity;
 import com.wetime.fanc.my.act.UserCardActivity;
@@ -195,8 +196,8 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
             ((NewsHolder5) holder).itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (TextUtils.isEmpty(bean.getArticle_url()))
-                        return;
+//                    if (TextUtils.isEmpty(bean.getArticle_url()))
+//                        return;
                     if (TextUtils.isEmpty(bean.getSpecial().getCoverStr()))
                         return;
                     if (TextUtils.isEmpty(bean.getSpecial().getName()))
@@ -212,7 +213,7 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
             });
 
             if (bean.getSpecial() != null && bean.getSpecial().getName() != null) {
-                ((NewsHolder5) holder).reportname.setText("\t\t\t\t" + bean.getSpecial().getName());
+                ((NewsHolder5) holder).mixtureTextView.setText(" " + bean.getSpecial().getName());
             }
             if (bean.getLastest() != null && bean.getLastest().getName() != null) {
                 ((NewsHolder5) holder).reportnew.setText(bean.getLastest().getName());
@@ -958,8 +959,10 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
     class NewsHolder5 extends RecyclerView.ViewHolder {
         @BindView(R.id.report_cover)
         ImageView reportcover;
-        @BindView(R.id.report_name)
-        TextView reportname;
+        @BindView(R.id.mixtureTextView)
+        MixtureTextView mixtureTextView;
+        //        @BindView(R.id.report_name)
+//        TextView reportname;
         @BindView(R.id.report_new)
         TextView reportnew;
         @BindView(R.id.report_hot)

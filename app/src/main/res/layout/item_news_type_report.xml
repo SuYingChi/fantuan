@@ -13,47 +13,39 @@
         android:paddingRight="15dp"
         android:paddingTop="15dp">
 
-        <RelativeLayout
+        <com.wetime.fanc.customview.MixtureTextView
+            android:id="@+id/mixtureTextView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:textColor="#333333"
+            android:textSize="18sp">
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingTop="3dp"
+                android:layout_marginRight="5dp"
                 android:src="@drawable/invalid_report" />
 
-
-            <TextView
-                android:id="@+id/report_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:lineSpacingExtra="5sp"
-                android:maxLines="2"
-                android:text="\t\t\t聚焦新一届国务院机构组成人员，这个专题名称可以有两行哦"
-                android:textColor="#333333"
-                android:textSize="18sp" />
-
-
-        </RelativeLayout>
+            <!--<TextView-->
+            <!--android:id="@+id/report_name"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:ellipsize="end"-->
+            <!--android:lineSpacingExtra="5sp"-->
+            <!--android:maxLines="2"-->
+            <!--android:text="聚焦新一届国务院机构组成人员，这个专题名称可以有两行哦"-->
+            <!--android:textColor="#333333"-->
+            <!--android:textSize="18sp" />-->
 
 
-        <LinearLayout
+        </com.wetime.fanc.customview.MixtureTextView>
+
+
+        <ImageView
+            android:id="@+id/report_cover"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:layout_marginTop="10dp"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:id="@+id/report_cover"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:scaleType="centerCrop"
-                android:src="@drawable/iv_default_news_small" />
-        </LinearLayout>
+            android:layout_height="wrap_content"
+            android:scaleType="centerCrop" />
 
 
         <LinearLayout
@@ -134,9 +126,9 @@
             android:id="@+id/report_newhot_liner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
             android:layout_marginTop="15dp"
             android:gravity="center_vertical"
-            android:layout_marginBottom="15dp"
             android:orientation="horizontal"
             android:paddingBottom="2dp">
 

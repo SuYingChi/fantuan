@@ -165,6 +165,10 @@ public class NewsTypeLazyFragment extends BaseLazyFragment implements IGetNewsTy
 
     @Override
     public void onGetNews(NewsListBean bean) {
+        if (bean.getError() != 0) {
+            refreshLayout.finishRefresh();
+            return;
+        }
         // 推荐空页面
         if (type.equals("-1")) {
             rlNoLogin.setVisibility(View.GONE);

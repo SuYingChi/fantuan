@@ -107,9 +107,9 @@ public class LongDetailActivity extends BaseActivity implements OnLoadMoreListen
     private String titleUrl;
     private WbShareHandler shareHandler;
 
-    public static void startToLongDetail(Context context,String longId){
+    public static void startToLongDetail(Context context, String longId) {
         Intent intent = new Intent(context, LongDetailActivity.class);
-        intent.putExtra("id",longId);
+        intent.putExtra("id", longId);
         context.startActivity(intent);
     }
 
@@ -182,7 +182,7 @@ public class LongDetailActivity extends BaseActivity implements OnLoadMoreListen
                         tvZan.setText(String.format("%d", num));
                         actbean.getData().setLike_num(String.format("%d", num));
                         for (int i = 0; i < actbean.getData().getLike_list().size(); i++) {
-                            if (TextUtils.equals(actbean.getData().getLike_list().get(i).getUid(),actbean.getData().getCurrent_uid())) {
+                            if (TextUtils.equals(actbean.getData().getLike_list().get(i).getUid(), actbean.getData().getCurrent_uid())) {
                                 actbean.getData().getLike_list().remove(i);
                             }
 
@@ -221,7 +221,7 @@ public class LongDetailActivity extends BaseActivity implements OnLoadMoreListen
                 break;
             case R.id.iv_memu:
                 if (actbean.getData().isIs_manager() || actbean.getData().isIs_owner()) {
-                    showDeleteAct(actbean.getData().isIs_owner());
+                    showDeleteAct(actbean.getData().isIs_owner(), false);
                 } else {
                     showReportAct();
                 }
@@ -257,7 +257,7 @@ public class LongDetailActivity extends BaseActivity implements OnLoadMoreListen
             actDetailAdapter.setOnItemClickLitener((view, position) -> {
 
                 if (view.getId() == R.id.iv_delete) {
-                    showDeleteAct(true);
+                    showDeleteAct(true, true);
                     return;
                 }
 
@@ -410,10 +410,14 @@ public class LongDetailActivity extends BaseActivity implements OnLoadMoreListen
 //        this.finish();
     }
 
-    private void showDeleteAct(boolean b) {
+    private void showDeleteAct(boolean b, boolean b1) {
         mDeleteBottomDialog = BottomDialog.create(getSupportFragmentManager());
         mDeleteBottomDialog.setDimAmount(0.5f);
-        mDeleteBottomDialog.setLayoutRes(R.layout.item_delete_share);
+        if (b1) {
+            mDeleteBottomDialog.setLayoutRes(R.layout.item_delete_act);
+        } else {
+            mDeleteBottomDialog.setLayoutRes(R.layout.item_delete_share);
+        }
         mDeleteBottomDialog.setViewListener(v -> {
 
             v.findViewById(R.id.tv_delete).setOnClickListener(v12 -> {

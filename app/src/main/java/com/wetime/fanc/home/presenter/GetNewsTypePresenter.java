@@ -28,13 +28,12 @@ public class GetNewsTypePresenter {
                 .addParams("cid", iView.getCid())
                 .addParams("pn", iView.getPage())
                 .build()
-                .execute(new DataStringCallback(iView, false) {
+                .execute(new DataStringCallback(iView, false,false,false) {
                     @Override
                     public void onResponse(String s, int i) {
                         super.onResponse(s, i);
                         NewsListBean bean = GsonUtils.getGsonInstance().fromJson(s, NewsListBean.class);
-                        if (bean.getError() == 0)
-                            iView.onGetNews(bean);
+                        iView.onGetNews(bean);
                     }
                 });
     }
