@@ -17,6 +17,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -241,6 +242,8 @@ public class LongDetailActivity extends BaseActivity implements OnLoadMoreListen
             return;
         }
 
+        Log.e("xi", "onGetLongDetail: " + bean.getData().getComment_list().size());
+
 
         if (page == 1) {
             if (bean.getData().getCover().size() != 0) {
@@ -308,24 +311,29 @@ public class LongDetailActivity extends BaseActivity implements OnLoadMoreListen
                     showKeyborad();
                 }
 
-
+                tvZan.setText(bean.getData().getLike_num());
+                tvMessage.setText(bean.getData().getComment_num());
+                if (actbean.getData().isHas_like()) {
+                    Drawable drawable = getResources().getDrawable(R.drawable.ic_homeitem_zan_off_on);
+                    drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getMinimumHeight());
+                    tvZan.setCompoundDrawables(drawable, null, null, null);
+                } else {
+                    Drawable drawable = getResources().getDrawable(R.drawable.ic_homeitem_zan_off_off);
+                    drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getMinimumHeight());
+                    tvZan.setCompoundDrawables(drawable, null, null, null);
+                }
             });
         } else {
             actbean.getData().getComment_list().addAll(bean.getData().getComment_list());
         }
-        tvZan.setText(bean.getData().getLike_num());
-        tvMessage.setText(bean.getData().getComment_num());
-        if (actbean.getData().isHas_like()) {
-            Drawable drawable = getResources().getDrawable(R.drawable.ic_homeitem_zan_off_on);
-            drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getMinimumHeight());
-            tvZan.setCompoundDrawables(drawable, null, null, null);
-        } else {
-            Drawable drawable = getResources().getDrawable(R.drawable.ic_homeitem_zan_off_off);
-            drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getMinimumHeight());
-            tvZan.setCompoundDrawables(drawable, null, null, null);
-        }
+
         actDetailAdapter.notifyDataSetChanged();
-        refreshLayout.setEnableLoadMore(!bean.getData().getPaging().isIs_end());
+        if (bean.getData().getComment_list().size() == 0) {
+            refreshLayout.setEnableLoadMore(false);
+        } else {
+            refreshLayout.setEnableLoadMore(!bean.getData().getPaging().isIs_end());
+        }
+
         refreshLayout.finishLoadMore();
 
     }

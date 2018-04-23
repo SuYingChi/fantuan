@@ -82,6 +82,8 @@ public class LongDetailAdapter extends RecyclerView.Adapter {
             Glide.with(mActivity).load(actDetailBean.getData().getAvatar()).into(((ViewHolder0) holder).ivHead);
             ((ViewHolder0) holder).tvName.setText(actDetailBean.getData().getUsername());
             ((ViewHolder0) holder).tvTime.setText(actDetailBean.getData().getTime());
+            ((ViewHolder0) holder).title_long.setVisibility(View.VISIBLE);
+            ((ViewHolder0) holder).title_long.setText(actDetailBean.getData().getTitle());
 
             ((ViewHolder0) holder).tvSee.setText(actDetailBean.getData().getRead_num() + "次浏览");
             ((ViewHolder0) holder).tvCirclename.setText(actDetailBean.getData().getCircle_name());
@@ -278,6 +280,8 @@ public class LongDetailAdapter extends RecyclerView.Adapter {
         TextView tvCirclename;
         @BindView(R.id.recyc)
         RecyclerView recyc;
+        @BindView(R.id.title_long)
+        TextView title_long;
 
 
         ViewHolder0(View view) {

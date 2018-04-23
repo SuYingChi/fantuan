@@ -8,6 +8,17 @@
     android:paddingLeft="15dp"
     android:paddingRight="15dp">
 
+    <TextView
+        android:id="@+id/title_long"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="24sp"
+        android:layout_marginTop="20dp"
+        android:visibility="gone"
+        android:textColor="#333333"
+        android:lineSpacingExtra="0sp"
+        tools:text="海口旅游攻略"
+        />
 
     <LinearLayout
         android:id="@+id/ll_head_circle"

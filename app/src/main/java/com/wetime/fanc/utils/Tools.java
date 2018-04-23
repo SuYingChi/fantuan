@@ -542,6 +542,16 @@ public class Tools {
                 android.R.anim.fade_out);
     }
 
+    public static void goPicGallery(Activity mActivity, List<String> list, List<String> contents, int index) {
+        Intent pic = new Intent(mActivity, PictureActivity.class);
+        pic.putExtra("big_photo", (Serializable) list);
+        pic.putExtra("page", index);
+        pic.putExtra("contents",  (Serializable) contents);
+        mActivity.startActivity(pic);
+        mActivity.overridePendingTransition(android.R.anim.fade_in,
+                android.R.anim.fade_out);
+    }
+
     public static void shareQQ(Activity mContext, String url, String ImageUrl, String title, String des, IUiListener iUiListener) {
         Bundle bundle = new Bundle();
 //这条分享消息被好友点击后的跳转URL。
