@@ -198,12 +198,8 @@ public class NewsTypeLazyFragment extends BaseLazyFragment implements IGetNewsTy
             spu.setValue(SimpleCatchKey.catchkey_news + type, GsonUtils.getGsonInstance().toJson(bean));
         }
         total = bean.getData().getPaging().getTotal();
-        if (page == 1) {
-            list.clear();
-            list.addAll(bean.getData().getList());
-        } else {
-            list.addAll(bean.getData().getList());
-        }
+
+        list.addAll(bean.getData().getList());
 
 
         if (page > 1) {
