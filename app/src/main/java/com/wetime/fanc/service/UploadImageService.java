@@ -41,6 +41,7 @@ public class UploadImageService extends Service {
     //长文
     private String title;
     private String type;
+    private String simpleName;
 
     public UploadImageService() {
 
@@ -61,6 +62,7 @@ public class UploadImageService extends Service {
         CWd = intent.getStringExtra("CWd");
         Loc = intent.getStringExtra("Loc");
         content = intent.getStringExtra("content");
+        simpleName=intent.getStringExtra("simpleName");
         PostMultiFile(defaultDataArray);
         return super.onStartCommand(intent, flags, startId);
     }
@@ -98,7 +100,7 @@ public class UploadImageService extends Service {
                     public void inProgress(float progress, long total, int id) {
                         super.inProgress(progress, total, id);
                         Log.e("xi", "onResponse: " + progress);
-                        EventBus.getDefault().post(new UploadProgessEvent(progress));
+                        EventBus.getDefault().post(new UploadProgessEvent(progress,simpleName));
                     }
 
                     @Override
@@ -126,7 +128,7 @@ public class UploadImageService extends Service {
 //        "lng":"110.3196",
 //                "lat":"20.02862",
 //                "location":"百方"
-        content = content.replace("\n", " ");
+//        content = content.replace("\n", " ");
         OkHttpUtils
                 .post()
                 .url(Const.DYNAMIC_PUBLISH_SAVE)

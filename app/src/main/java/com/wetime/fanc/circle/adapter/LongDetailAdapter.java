@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Handler;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -25,6 +26,7 @@ import com.bumptech.glide.Glide;
 import com.wetime.fanc.R;
 import com.wetime.fanc.circle.act.ActDetailActivity;
 import com.wetime.fanc.circle.act.CircleDetailActivity;
+import com.wetime.fanc.circle.act.LongDetailActivity;
 import com.wetime.fanc.circle.bean.ActDetailBean;
 import com.wetime.fanc.circle.bean.LongBean;
 import com.wetime.fanc.circle.presenter.FocusPresenter;
@@ -73,11 +75,15 @@ public class LongDetailAdapter extends RecyclerView.Adapter {
             });
         }
         if (holder instanceof ViewHolder0) {
+
+            ((ViewHolder0) holder).recyc.setLayoutManager(new LinearLayoutManager(mActivity));
+            ((ViewHolder0) holder).recyc.setAdapter(new LongDetailItemAdapte(mActivity, R.layout.item_longdetail, actDetailBean.getData().getContents()));
+
             Glide.with(mActivity).load(actDetailBean.getData().getAvatar()).into(((ViewHolder0) holder).ivHead);
             ((ViewHolder0) holder).tvName.setText(actDetailBean.getData().getUsername());
             ((ViewHolder0) holder).tvTime.setText(actDetailBean.getData().getTime());
 
-            ((ViewHolder0) holder).tvSee.setText(actDetailBean.getData().getRead_num()+"次浏览");
+            ((ViewHolder0) holder).tvSee.setText(actDetailBean.getData().getRead_num() + "次浏览");
             ((ViewHolder0) holder).tvCirclename.setText(actDetailBean.getData().getCircle_name());
 
             if (actDetailBean.getData().isIs_owner()) {
@@ -97,7 +103,7 @@ public class LongDetailAdapter extends RecyclerView.Adapter {
             }
             ((ViewHolder0) holder).tvFocus.setOnClickListener(v -> {
                 FocusPresenter focusPresenter = new FocusPresenter();
-                if (((ActDetailActivity) mActivity).getToken().isEmpty()) {
+                if (((LongDetailActivity) mActivity).getToken().isEmpty()) {
                     Tools.toastInBottom(mActivity, "请先登录");
                     Intent goLogin = new Intent(mActivity, LoginActivity.class);
                     mActivity.startActivity(goLogin);
@@ -117,8 +123,6 @@ public class LongDetailAdapter extends RecyclerView.Adapter {
                     ((ViewHolder0) holder).tvFocus.setBackgroundResource(R.drawable.bg_btn_red_corner);
                 }
             });
-
-
 
 
             ((ViewHolder0) holder).tvCirclename.setOnClickListener(view -> {
@@ -153,7 +157,7 @@ public class LongDetailAdapter extends RecyclerView.Adapter {
             CircleImageGridAdapter adapter = new CircleImageGridAdapter(mActivity, actDetailBean.getData().getLike_list());
             ((ViewHolder1) holder).gv.setAdapter(adapter);
             adapter.notifyDataSetChanged();
-            if (actDetailBean.getData().getComment_num() .equals("0")) {
+            if (actDetailBean.getData().getComment_num().equals("0")) {
                 ((ViewHolder1) holder).tvComm.setText("暂无评论");
                 ((ViewHolder1) holder).llEmpty.setVisibility(View.VISIBLE);
             } else {
@@ -272,6 +276,8 @@ public class LongDetailAdapter extends RecyclerView.Adapter {
         TextView tvPublishtitle;
         @BindView(R.id.tv_circlename)
         TextView tvCirclename;
+        @BindView(R.id.recyc)
+        RecyclerView recyc;
 
 
         ViewHolder0(View view) {

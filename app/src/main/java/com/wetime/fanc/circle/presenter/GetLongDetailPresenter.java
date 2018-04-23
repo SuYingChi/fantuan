@@ -23,12 +23,9 @@ public class GetLongDetailPresenter {
         OkHttpUtils
                 .post()
                 .url(Const.LONG_DETAIL)
-//                .addParams("pn", iView.getPage() + "")
-                .addParams("pn",  "1")
-//                .addParams("id", iView.getId())
-                .addParams("id", "406")
-//                .addHeader("token", iView.getToken())
-                .addHeader("token", "lcaKiq5GIC_FHqubOBcI6FUKaL8N171U")
+                .addParams("pn", iView.getPage() + "")
+                .addParams("id", iView.getId())
+                .addHeader("token", iView.getToken())
                 .build()
                 .execute(new DataStringCallback(iView, false) {
                     @Override
