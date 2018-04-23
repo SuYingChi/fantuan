@@ -32,6 +32,7 @@ public class HomeItemBean {
 
     private String id;
     private String uid;
+    private String title;
     private String circle_id;
     private String longitude;
     private String latitude;
@@ -51,6 +52,13 @@ public class HomeItemBean {
     private boolean circle_owner = false;
     private List<String> cover;
 
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
     //热评
     private String mid;

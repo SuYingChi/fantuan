@@ -31,7 +31,7 @@ public class CommentActPresenter {
                 .addParams("content", content)
                 .addParams("to_uid", iView.getToUid())
                 .build()
-                .execute(new DataStringCallback(iView, true) {
+                .execute(new DataStringCallback(iView, true,false,false) {
                     @Override
                     public void onResponse(String s, int i) {
                         super.onResponse(s, i);

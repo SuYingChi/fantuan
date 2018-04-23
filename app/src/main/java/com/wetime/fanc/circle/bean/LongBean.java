@@ -109,7 +109,7 @@ public class LongBean {
         private String username;
         private List<String> cover;
         private List<ActDetailBean.DataBean.CommentListBean> comment_list;
-        private List<ContentsBean> contents;
+        private List<LongTextBean> contents;
         private List<ActDetailBean.DataBean.LikeListBean> like_list;
 
         public String getComment_num() {
@@ -352,11 +352,11 @@ public class LongBean {
             this.comment_list = comment_list;
         }
 
-        public List<ContentsBean> getContents() {
+        public List<LongTextBean> getContents() {
             return contents;
         }
 
-        public void setContents(List<ContentsBean> contents) {
+        public void setContents(List<LongTextBean> contents) {
             this.contents = contents;
         }
 

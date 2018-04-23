@@ -86,13 +86,15 @@ public class CircleHomeFragment extends BaseLazyFragment {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEvent(UploadProgessEvent messageEvent) {
-        issu = true;
-        progess.setVisibility(View.VISIBLE);
-        String substring = String.valueOf(messageEvent.getPrgess() * 100).substring(0, String.valueOf(messageEvent.getPrgess() * 100).indexOf("."));
-        if (messageEvent.getPrgess() < 1) {
-            progessTitle.setText("文章上传中，请不要离开" + substring + "%…");
-        } else if (messageEvent.getPrgess() >= 1) {
-            progessTitle.setText("文章上传中，请不要离开" + 99 + "%…");
+        if (this.getClass().getSimpleName().equals(messageEvent.getSimpleName())) {
+            issu = true;
+            progess.setVisibility(View.VISIBLE);
+            String substring = String.valueOf(messageEvent.getPrgess() * 100).substring(0, String.valueOf(messageEvent.getPrgess() * 100).indexOf("."));
+            if (messageEvent.getPrgess() < 1) {
+                progessTitle.setText("文章上传中，请不要离开" + substring + "%…");
+            } else if (messageEvent.getPrgess() >= 1) {
+                progessTitle.setText("文章上传中，请不要离开" + 99 + "%…");
+            }
         }
     }
 
@@ -129,8 +131,8 @@ public class CircleHomeFragment extends BaseLazyFragment {
             case R.id.iv_edit:
                 if (issu) {
                     Toast.makeText(mActivity, "文章上传中,请稍后再发~", Toast.LENGTH_SHORT).show();
-                }else{
-                    Tools.showPopWin(getContext(), ivEdit, null,null);
+                } else {
+                    Tools.showPopWin(getContext(), ivEdit, null, null, this.getClass().getSimpleName());
                 }
                 break;
         }

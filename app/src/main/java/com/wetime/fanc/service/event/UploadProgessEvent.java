@@ -6,9 +6,19 @@ package com.wetime.fanc.service.event;
 
 public class UploadProgessEvent {
     float prgess;
+    String simpleName;
 
-    public UploadProgessEvent(float prgess) {
+    public UploadProgessEvent(float prgess, String simpleName) {
         this.prgess = prgess;
+        this.simpleName = simpleName;
+    }
+
+    public String getSimpleName() {
+        return simpleName;
+    }
+
+    public void setSimpleName(String simpleName) {
+        this.simpleName = simpleName;
     }
 
     public float getPrgess() {

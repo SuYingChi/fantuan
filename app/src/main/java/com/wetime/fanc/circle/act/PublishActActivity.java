@@ -154,6 +154,7 @@ public class PublishActActivity extends BaseActivity implements IPostMultiFileVi
                     intent.putExtra("CWd", getCWd());
                     intent.putExtra("Loc", getLoc());
                     intent.putExtra("content", getContent());
+                    intent.putExtra("simpleName", getIntent().getStringExtra("simpleName"));
                     startService(intent);
                     this.finish();
                 } else {

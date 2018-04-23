@@ -1,39 +1,57 @@
 package com.wetime.fanc.circle.act;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.PixelFormat;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.gyf.barlibrary.ImmersionBar;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
+import com.sina.weibo.sdk.share.WbShareCallback;
+import com.sina.weibo.sdk.share.WbShareHandler;
+import com.tencent.mm.opensdk.modelmsg.SendMessageToWX;
+import com.tencent.tauth.IUiListener;
+import com.tencent.tauth.UiError;
 import com.wetime.fanc.R;
-import com.wetime.fanc.circle.adapter.ActDetailAdapter;
 import com.wetime.fanc.circle.adapter.LongDetailAdapter;
 import com.wetime.fanc.circle.bean.ActDetailBean;
 import com.wetime.fanc.circle.bean.LongBean;
 import com.wetime.fanc.circle.iviews.ICommentActView;
 import com.wetime.fanc.circle.iviews.IDeleteActView;
 import com.wetime.fanc.circle.iviews.IDeleteCommentView;
-import com.wetime.fanc.circle.iviews.IGetActDetailView;
 import com.wetime.fanc.circle.iviews.IGetLongDetailView;
 import com.wetime.fanc.circle.presenter.CommentActPresenter;
 import com.wetime.fanc.circle.presenter.DeleteCommentPresenter;
-import com.wetime.fanc.circle.presenter.GetActDetailPresenter;
 import com.wetime.fanc.circle.presenter.GetLongDetailPresenter;
 import com.wetime.fanc.circle.presenter.ZanActPresenter;
 import com.wetime.fanc.login.act.LoginActivity;
@@ -48,7 +66,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import me.shaohui.bottomdialog.BottomDialog;
 
-public class LongDetailActivity extends BaseActivity implements  OnLoadMoreListener, KeyboardChangeListener.KeyBoardListener, ICommentActView, IDeleteCommentView, IDeleteActView, IGetLongDetailView {
+public class LongDetailActivity extends BaseActivity implements OnLoadMoreListener, KeyboardChangeListener.KeyBoardListener, ICommentActView, IDeleteCommentView, IDeleteActView, IGetLongDetailView, View.OnClickListener, WbShareCallback {
 
 
     @BindView(R.id.et_content)
@@ -82,6 +100,18 @@ public class LongDetailActivity extends BaseActivity implements  OnLoadMoreListe
     private BottomDialog mCommentBottomDialog;
     private BottomDialog mDeleteBottomDialog;
     private DeleteCommentPresenter deleteCommentPresenter;
+    private PopupWindow pop;
+    private String imageurl;
+    private String name;
+    private String content;
+    private String titleUrl;
+    private WbShareHandler shareHandler;
+
+    public static void startToLongDetail(Context context,String longId){
+        Intent intent = new Intent(context, LongDetailActivity.class);
+        intent.putExtra("id",longId);
+        context.startActivity(intent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,6 +119,8 @@ public class LongDetailActivity extends BaseActivity implements  OnLoadMoreListe
         setSoftInPutMode();
         setContentView(R.layout.activity_longdetail);
         ButterKnife.bind(this);
+        shareHandler = new WbShareHandler(this);
+        shareHandler.registerApp();
         tvTitle.setText("长文章详情");
         getActDetailPresenter = new GetLongDetailPresenter(this);
         refreshLayout.setOnLoadMoreListener(this);
@@ -120,7 +152,7 @@ public class LongDetailActivity extends BaseActivity implements  OnLoadMoreListe
         super.onBackPressed();
     }
 
-    @OnClick({R.id.iv_back, R.id.tv_gocomment, R.id.tv_zan, R.id.rl_bottom, R.id.tv_send, R.id.iv_memu})
+    @OnClick({R.id.iv_back, R.id.tv_gocomment, R.id.tv_zan, R.id.rl_bottom, R.id.tv_send, R.id.iv_memu, R.id.gallery_share})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
@@ -144,13 +176,13 @@ public class LongDetailActivity extends BaseActivity implements  OnLoadMoreListe
                         Drawable drawable = getResources().getDrawable(R.drawable.ic_homeitem_zan_off_off);
                         drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getMinimumHeight());
                         tvZan.setCompoundDrawables(drawable, null, null, null);
-                        presenter.zanAct(actbean.getData().getId(), Tools.getSpu(mContext).getToken(), "0");
+                        presenter.zanAct(actbean.getData().getCurrent_uid(), Tools.getSpu(mContext).getToken(), "0");
 
                         int num = Integer.valueOf(tvZan.getText().toString()) - 1;
                         tvZan.setText(String.format("%d", num));
                         actbean.getData().setLike_num(String.format("%d", num));
                         for (int i = 0; i < actbean.getData().getLike_list().size(); i++) {
-                            if (TextUtils.equals(actbean.getData().getLike_list().get(i).getUid(), actbean.getData().getId())) {
+                            if (TextUtils.equals(actbean.getData().getLike_list().get(i).getUid(),actbean.getData().getCurrent_uid())) {
                                 actbean.getData().getLike_list().remove(i);
                             }
 
@@ -168,8 +200,8 @@ public class LongDetailActivity extends BaseActivity implements  OnLoadMoreListe
                         actbean.getData().setLike_num(String.format("%d", num));
                         actDetailAdapter.notifyItemChanged(1);
                         ActDetailBean.DataBean.LikeListBean b = new ActDetailBean.DataBean.LikeListBean();
-                        b.setAvatar(actbean.getData().getAvatar());
-                        b.setUid(actbean.getData().getId());
+                        b.setAvatar(actbean.getData().getCurrent_avatar());
+                        b.setUid(actbean.getData().getCurrent_uid());
                         actbean.getData().getLike_list().add(0, b);
                         actDetailAdapter.notifyItemChanged(1);
                         actbean.getData().setHas_like(true);
@@ -188,12 +220,14 @@ public class LongDetailActivity extends BaseActivity implements  OnLoadMoreListe
                 hideKeyboard();
                 break;
             case R.id.iv_memu:
-                if (actbean.getData().isIs_manager()) {
+                if (actbean.getData().isIs_manager() || actbean.getData().isIs_owner()) {
                     showDeleteAct(actbean.getData().isIs_owner());
                 } else {
                     showReportAct();
                 }
-
+                break;
+            case R.id.gallery_share:
+                showPop();
                 break;
 
         }
@@ -206,6 +240,11 @@ public class LongDetailActivity extends BaseActivity implements  OnLoadMoreListe
             onBackPressed();
             return;
         }
+
+        imageurl = bean.getData().getCover().get(0);
+        name = bean.getData().getTitle();
+        content = bean.getData().getContent();
+        titleUrl = bean.getData().getAvatar();
 
 
         if (page == 1) {
@@ -374,7 +413,7 @@ public class LongDetailActivity extends BaseActivity implements  OnLoadMoreListe
     private void showDeleteAct(boolean b) {
         mDeleteBottomDialog = BottomDialog.create(getSupportFragmentManager());
         mDeleteBottomDialog.setDimAmount(0.5f);
-        mDeleteBottomDialog.setLayoutRes(R.layout.item_delete_act);
+        mDeleteBottomDialog.setLayoutRes(R.layout.item_delete_share);
         mDeleteBottomDialog.setViewListener(v -> {
 
             v.findViewById(R.id.tv_delete).setOnClickListener(v12 -> {
@@ -427,16 +466,58 @@ public class LongDetailActivity extends BaseActivity implements  OnLoadMoreListe
                 mDeleteBottomDialog.dismiss();
 
             });
+            v.findViewById(R.id.tv_share).setOnClickListener(v14 -> {
+                mDeleteBottomDialog.dismiss();
+                showPop();
+            });
         });
 
         mDeleteBottomDialog.show();
+    }
+
+    private void initPopListener(View shareView) {
+        shareView.findViewById(R.id.ll_share_wx).setOnClickListener(this);
+        shareView.findViewById(R.id.ll_share_wxq).setOnClickListener(this);
+        shareView.findViewById(R.id.ll_share_wb).setOnClickListener(this);
+        shareView.findViewById(R.id.ll_share_qq).setOnClickListener(this);
+        shareView.findViewById(R.id.ll_share_qqkj).setOnClickListener(this);
+        shareView.findViewById(R.id.ll_share_copy).setOnClickListener(this);
+        shareView.findViewById(R.id.pop_cancel).setOnClickListener(this);
+    }
+
+    private void showPop() {
+        View shareView = LayoutInflater.from(this).inflate(R.layout.view_popupwindow, null);
+
+        initPopListener(shareView);
+
+        // 创建PopupWindow对象
+        pop = new PopupWindow(shareView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, false);
+        // 需要设置一下此参数，点击外边可消失
+        pop.setBackgroundDrawable(new ColorDrawable());
+        // 设置点击窗口外边窗口消失
+        pop.setOutsideTouchable(true);
+        // 设置此参数获得焦点，否则无法点击
+        pop.setFocusable(true);
+
+        WindowManager.LayoutParams lp = this.getWindow().getAttributes();
+        lp.alpha = 0.5f;
+        this.getWindow().setAttributes(lp);
+
+        pop.setOnDismissListener(() -> {
+            // popupWindow隐藏时恢复屏幕正常透明度
+            WindowManager.LayoutParams lp1 = this.getWindow().getAttributes();
+            lp1.alpha = 1.0f;
+            this.getWindow().setAttributes(lp1);
+        });
+
+        pop.showAtLocation(this.getWindow().getDecorView(), Gravity.BOTTOM, 0, 0);
     }
 
     private void showReportAct() {
         BottomDialog mDeleteBottomDialogShare = BottomDialog.create(getSupportFragmentManager());
         mDeleteBottomDialogShare.setDimAmount(0.5f);
         mDeleteBottomDialogShare.setCancelOutside(true);
-        mDeleteBottomDialogShare.setLayoutRes(R.layout.bottom_report_dialog_layout);
+        mDeleteBottomDialogShare.setLayoutRes(R.layout.bottom_report_share_layout);
         mDeleteBottomDialogShare.setViewListener(v -> {
 
             v.findViewById(R.id.tv_item1).setOnClickListener(v12 -> {
@@ -469,6 +550,10 @@ public class LongDetailActivity extends BaseActivity implements  OnLoadMoreListe
             v.findViewById(R.id.tv_item2).setOnClickListener(v14 -> {
                 mDeleteBottomDialogShare.dismiss();
             });
+            v.findViewById(R.id.tv_share).setOnClickListener(v14 -> {
+                mDeleteBottomDialogShare.dismiss();
+                showPop();
+            });
         });
 
         mDeleteBottomDialogShare.show();
@@ -486,6 +571,156 @@ public class LongDetailActivity extends BaseActivity implements  OnLoadMoreListe
                 actbean.getData().getCircle_id(),
                 String.valueOf(((TextView) v11.findViewById(id)).getText()));
         mDeleteBottomDialog.dismiss();
+    }
+
+    public Bitmap drawableToBitmap(Drawable drawable) {
+
+        int w = drawable.getIntrinsicWidth();
+        int h = drawable.getIntrinsicHeight();
+        Bitmap.Config config =
+                drawable.getOpacity() != PixelFormat.OPAQUE ? Bitmap.Config.ARGB_8888
+                        : Bitmap.Config.RGB_565;
+        Bitmap bitmap = Bitmap.createBitmap(w, h, config);
+        //注意，下面三行代码要用到，否则在View或者SurfaceView里的canvas.drawBitmap会看不到图
+        Canvas canvas = new Canvas(bitmap);
+        drawable.setBounds(0, 0, w, h);
+        drawable.draw(canvas);
+
+        return bitmap;
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        shareHandler.doResultIntent(intent, this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.ll_share_wx:
+                Glide.with(this).load(actbean.getData().getCover().get(0)).into(new SimpleTarget<Drawable>() {
+                    /**
+                     * The method that will be called when the resource load has finished.
+                     *
+                     * @param resource   the loaded resource.
+                     * @param transition
+                     */
+                    @Override
+                    public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
+                        Tools.shareWx(LongDetailActivity.this, drawableToBitmap(resource), titleUrl, SendMessageToWX.Req.WXSceneSession, name, content);
+                    }
+                });
+                break;
+            case R.id.ll_share_wxq:
+                Glide.with(this).load(imageurl).into(new SimpleTarget<Drawable>() {
+                    /**
+                     * The method that will be called when the resource load has finished.
+                     *
+                     * @param resource   the loaded resource.
+                     * @param transition
+                     */
+                    @Override
+                    public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
+                        Tools.shareWx(LongDetailActivity.this, drawableToBitmap(resource), titleUrl, SendMessageToWX.Req.WXSceneTimeline, name, content);
+                    }
+                });
+
+                break;
+            case R.id.ll_share_wb:
+                Glide.with(this).load(imageurl).into(new SimpleTarget<Drawable>() {
+                    /**
+                     * The method that will be called when the resource load has finished.
+                     *
+                     * @param resource   the loaded resource.
+                     * @param transition
+                     */
+                    @Override
+                    public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
+                        Tools.shareWb(LongDetailActivity.this, shareHandler, drawableToBitmap(resource), titleUrl, "分享来自范团APP的《" + name + "》", "分享来自范团APP的《" + content + "》");
+                    }
+                });
+
+                break;
+            case R.id.ll_share_qq:
+                Tools.shareQQ(this, titleUrl, imageurl, name, content, new IUiListener() {
+                    @Override
+                    public void onComplete(Object o) {
+                        Toast.makeText(LongDetailActivity.this, "分享成功!", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onError(UiError uiError) {
+                        Toast.makeText(LongDetailActivity.this, "未知错误!", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onCancel() {
+                        Toast.makeText(LongDetailActivity.this, "分享取消!", Toast.LENGTH_SHORT).show();
+                    }
+                });
+                break;
+            case R.id.ll_share_qqkj:
+                Tools.shareToQzone(this, titleUrl, imageurl, name, content, new IUiListener() {
+                    @Override
+                    public void onComplete(Object o) {
+                        Toast.makeText(LongDetailActivity.this, "分享成功!", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onError(UiError uiError) {
+                        Toast.makeText(LongDetailActivity.this, "未知错误!", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onCancel() {
+                        Toast.makeText(LongDetailActivity.this, "分享取消!", Toast.LENGTH_SHORT).show();
+                    }
+                });
+                break;
+            case R.id.ll_share_copy:
+                ClipboardManager cm = (ClipboardManager) this.getSystemService(Context.CLIPBOARD_SERVICE);
+                // 将文本内容放到系统剪贴板里。
+                if (cm != null) {
+                    cm.setPrimaryClip(ClipData.newPlainText("text", titleUrl));
+                    Tools.toastInBottom(LongDetailActivity.this, "复制成功");
+                } else {
+                    Tools.toastInBottom(LongDetailActivity.this, "复制失败");
+                }
+
+                break;
+            case R.id.pop_cancel:
+                if (pop.isShowing()) {
+                    pop.dismiss();
+                }
+                break;
+        }
+    }
+
+
+    @Override
+    public void onWbShareSuccess() {
+        Toast.makeText(this, R.string.weibosdk_demo_toast_share_success, Toast.LENGTH_LONG).show();
+        hidePop();
+    }
+
+    @Override
+    public void onWbShareCancel() {
+        Toast.makeText(this, R.string.weibosdk_demo_toast_share_canceled, Toast.LENGTH_LONG).show();
+        hidePop();
+    }
+
+
+    @Override
+    public void onWbShareFail() {
+        Toast.makeText(this, getString(R.string.weibosdk_demo_toast_share_failed) + "Error Message: ", Toast.LENGTH_LONG).show();
+        hidePop();
+    }
+
+    public void hidePop() {
+        if (pop.isShowing()) {
+            pop.dismiss();
+        }
     }
 
 }

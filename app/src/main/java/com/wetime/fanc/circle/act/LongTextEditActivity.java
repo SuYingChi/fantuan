@@ -384,6 +384,7 @@ public class LongTextEditActivity extends BaseActivity implements LongTextAdapte
                 intent.putExtra("CJd", getCJd());
                 intent.putExtra("CWd", getCWd());
                 intent.putExtra("Loc", getLoc());
+                intent.putExtra("simpleName", getIntent().getStringExtra("simpleName"));
                 list.remove(0);
                 intent.putExtra("content", GsonUtils.getGsonInstance().toJson(list));
                 startService(intent);
