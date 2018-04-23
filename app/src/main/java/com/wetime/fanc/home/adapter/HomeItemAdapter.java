@@ -192,17 +192,38 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
         }
 
         if (holder instanceof NewsHolder5) {
-            ((NewsHolder5) holder).itemView.setOnClickListener(v -> SpecialTopicActivity.startToSpecialTopic(mActivity
-                    , bean.getElements(),
-                    bean.getSpecial().getCoverStr(),
-                    bean.getSpecial().getName(),
-                    bean.getSpecial().getIntro(),
-                    bean.getArticle_url()));
+            ((NewsHolder5) holder).itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (TextUtils.isEmpty(bean.getArticle_url()))
+                        return;
+                    if (TextUtils.isEmpty(bean.getSpecial().getCoverStr()))
+                        return;
+                    if (TextUtils.isEmpty(bean.getSpecial().getName()))
+                        return;
+                    if (TextUtils.isEmpty(bean.getSpecial().getIntro()))
+                        return;
+                    SpecialTopicActivity.startToSpecialTopic(mActivity, bean.getElements(),
+                            bean.getSpecial().getCoverStr(),
+                            bean.getSpecial().getName(),
+                            bean.getSpecial().getIntro(),
+                            bean.getArticle_url());
+                }
+            });
 
-            ((NewsHolder5) holder).reportname.setText("\t\t\t\t" + bean.getSpecial().getName());
-            ((NewsHolder5) holder).reportnew.setText(bean.getLastest().getName());
-            ((NewsHolder5) holder).reporthot.setText(bean.getHottest().getName());
-            ((NewsHolder5) holder).reportnewhot.setText(bean.getFocused().getName());
+            if (bean.getSpecial() != null && bean.getSpecial().getName() != null) {
+                ((NewsHolder5) holder).reportname.setText("\t\t\t\t" + bean.getSpecial().getName());
+            }
+            if (bean.getLastest() != null && bean.getLastest().getName() != null) {
+                ((NewsHolder5) holder).reportnew.setText(bean.getLastest().getName());
+            }
+            if (bean.getHottest() != null && bean.getHottest().getName() != null) {
+                ((NewsHolder5) holder).reporthot.setText(bean.getHottest().getName());
+            }
+            if (bean.getFocused() != null && bean.getFocused().getName() != null) {
+                ((NewsHolder5) holder).reportnewhot.setText(bean.getFocused().getName());
+            }
+
             ((NewsHolder5) holder).reporthotliner.setOnClickListener(v -> {
                 if (TextUtils.isEmpty(bean.getHottest().getArticle_url()))
                     return;

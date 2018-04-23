@@ -12,7 +12,7 @@ public class LongBean {
     /**
      * error : 0
      * msg :
-     * data : {"comment_num":"0","circle_id":"0","reply_time":"2018-04-19 16:13:06","latitude":"0.0","type":"1","title":"长文测试","content":[{"content":"","des":"","imageUrl":"","title":"标题","type":"0"},{"content":"正文文字","des":"","imageUrl":"","title":"","type":"1"},{"content":"","des":"图片描述","imageUrl":"/storage/emulated/0/wandoujia/downloader/openscreen/open_screen_bg_img_1527.png","title":"","type":"2"},{"content":"振文","des":"","imageUrl":"","title":"","type":"1"},{"content":"","des":"描述","imageUrl":"/storage/emulated/0/wandoujia/downloader/openscreen/open_screen_bg_img_1527.png","title":"","type":"2"},{"content":"","des":"","imageUrl":"","title":"","type":"1"}],"cover":["https://staticcdntest.fantuanlife.com/uimage/aa/48/cf/fe/aa48cffe2cac19a8d945260db051cbf5.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70/"],"uid":"2","score":"0","is_news":true,"read_num":"2","comment_list":[],"id":"406","state":"0","circle_name":"","longitude":"0.0","like_num":"0","is_follow":false,"is_owner":false,"paging":{"total":"0","total_page":"0","limit":"20","pn":"1","is_end":false},"avatar":"https://staticcdntest.fantuanlife.com/uimage/dd/d8/95/ca/ddd895cace5fd359cdbc15f62965ce73.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70/","is_manager":false,"location":"","time":"2018-04-19 16:13:06","image_id":"352703","like_list":[],"has_like":false,"username":"哈哈哈哈"}
+     * data : {"comment_num":"0","circle_id":"0","reply_time":"2018-04-19 16:13:06","latitude":"0.0","type":"1","title":"长文测试","content":"","cover":["https://staticcdntest.fantuanlife.com/uimage/aa/48/cf/fe/aa48cffe2cac19a8d945260db051cbf5.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70/"],"uid":"2","score":"0","current_uid":"2","is_news":true,"read_num":"2","comment_list":[],"id":"406","state":"1","circle_name":"","longitude":"0.0","like_num":"0","is_follow":false,"is_owner":true,"paging":{"total":"0","total_page":"0","limit":"20","pn":"1","is_end":false},"avatar":"https://staticcdntest.fantuanlife.com/uimage/dd/d8/95/ca/ddd895cace5fd359cdbc15f62965ce73.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70/","is_manager":false,"contents":[{"content":"","des":"","imageUrl":"","title":"标题","type":"0"},{"content":"正文文字","des":"","imageUrl":"","title":"","type":"1"},{"content":"","des":"图片描述","imageUrl":"/storage/emulated/0/wandoujia/downloader/openscreen/open_screen_bg_img_1527.png","title":"","type":"2"},{"content":"振文","des":"","imageUrl":"","title":"","type":"1"},{"content":"","des":"描述","imageUrl":"/storage/emulated/0/wandoujia/downloader/openscreen/open_screen_bg_img_1527.png","title":"","type":"2"},{"content":"","des":"","imageUrl":"","title":"","type":"1"}],"current_avatar":"https://staticcdntest.fantuanlife.com/image/fant/default_avatar.png","location":"","time":"2018-04-19 16:13:06","image_id":"352703","like_list":[],"has_like":false,"username":"哈哈哈哈"}
      */
 
     private int error;
@@ -51,23 +51,26 @@ public class LongBean {
          * latitude : 0.0
          * type : 1
          * title : 长文测试
-         * content : [{"content":"","des":"","imageUrl":"","title":"标题","type":"0"},{"content":"正文文字","des":"","imageUrl":"","title":"","type":"1"},{"content":"","des":"图片描述","imageUrl":"/storage/emulated/0/wandoujia/downloader/openscreen/open_screen_bg_img_1527.png","title":"","type":"2"},{"content":"振文","des":"","imageUrl":"","title":"","type":"1"},{"content":"","des":"描述","imageUrl":"/storage/emulated/0/wandoujia/downloader/openscreen/open_screen_bg_img_1527.png","title":"","type":"2"},{"content":"","des":"","imageUrl":"","title":"","type":"1"}]
+         * content :
          * cover : ["https://staticcdntest.fantuanlife.com/uimage/aa/48/cf/fe/aa48cffe2cac19a8d945260db051cbf5.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70/"]
          * uid : 2
          * score : 0
+         * current_uid : 2
          * is_news : true
          * read_num : 2
          * comment_list : []
          * id : 406
-         * state : 0
+         * state : 1
          * circle_name :
          * longitude : 0.0
          * like_num : 0
          * is_follow : false
-         * is_owner : false
+         * is_owner : true
          * paging : {"total":"0","total_page":"0","limit":"20","pn":"1","is_end":false}
          * avatar : https://staticcdntest.fantuanlife.com/uimage/dd/d8/95/ca/ddd895cace5fd359cdbc15f62965ce73.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70/
          * is_manager : false
+         * contents : [{"content":"","des":"","imageUrl":"","title":"标题","type":"0"},{"content":"正文文字","des":"","imageUrl":"","title":"","type":"1"},{"content":"","des":"图片描述","imageUrl":"/storage/emulated/0/wandoujia/downloader/openscreen/open_screen_bg_img_1527.png","title":"","type":"2"},{"content":"振文","des":"","imageUrl":"","title":"","type":"1"},{"content":"","des":"描述","imageUrl":"/storage/emulated/0/wandoujia/downloader/openscreen/open_screen_bg_img_1527.png","title":"","type":"2"},{"content":"","des":"","imageUrl":"","title":"","type":"1"}]
+         * current_avatar : https://staticcdntest.fantuanlife.com/image/fant/default_avatar.png
          * location :
          * time : 2018-04-19 16:13:06
          * image_id : 352703
@@ -82,8 +85,10 @@ public class LongBean {
         private String latitude;
         private String type;
         private String title;
+        private String content;
         private String uid;
         private String score;
+        private String current_uid;
         private boolean is_news;
         private String read_num;
         private String id;
@@ -96,14 +101,15 @@ public class LongBean {
         private PagingBean paging;
         private String avatar;
         private boolean is_manager;
+        private String current_avatar;
         private String location;
         private String time;
         private String image_id;
         private boolean has_like;
         private String username;
-        private List<LongTextBean> content;
         private List<String> cover;
         private List<ActDetailBean.DataBean.CommentListBean> comment_list;
+        private List<ContentsBean> contents;
         private List<ActDetailBean.DataBean.LikeListBean> like_list;
 
         public String getComment_num() {
@@ -154,6 +160,14 @@ public class LongBean {
             this.title = title;
         }
 
+        public String getContent() {
+            return content;
+        }
+
+        public void setContent(String content) {
+            this.content = content;
+        }
+
         public String getUid() {
             return uid;
         }
@@ -168,6 +182,14 @@ public class LongBean {
 
         public void setScore(String score) {
             this.score = score;
+        }
+
+        public String getCurrent_uid() {
+            return current_uid;
+        }
+
+        public void setCurrent_uid(String current_uid) {
+            this.current_uid = current_uid;
         }
 
         public boolean isIs_news() {
@@ -266,6 +288,14 @@ public class LongBean {
             this.is_manager = is_manager;
         }
 
+        public String getCurrent_avatar() {
+            return current_avatar;
+        }
+
+        public void setCurrent_avatar(String current_avatar) {
+            this.current_avatar = current_avatar;
+        }
+
         public String getLocation() {
             return location;
         }
@@ -306,14 +336,6 @@ public class LongBean {
             this.username = username;
         }
 
-        public List<LongTextBean> getContent() {
-            return content;
-        }
-
-        public void setContent(List<LongTextBean> content) {
-            this.content = content;
-        }
-
         public List<String> getCover() {
             return cover;
         }
@@ -328,6 +350,14 @@ public class LongBean {
 
         public void setComment_list(List<ActDetailBean.DataBean.CommentListBean> comment_list) {
             this.comment_list = comment_list;
+        }
+
+        public List<ContentsBean> getContents() {
+            return contents;
+        }
+
+        public void setContents(List<ContentsBean> contents) {
+            this.contents = contents;
         }
 
         public List<ActDetailBean.DataBean.LikeListBean> getLike_list() {
@@ -394,6 +424,61 @@ public class LongBean {
             }
         }
 
+        public static class ContentsBean {
+            /**
+             * content :
+             * des :
+             * imageUrl :
+             * title : 标题
+             * type : 0
+             */
 
+            private String content;
+            private String des;
+            private String imageUrl;
+            private String title;
+            private String type;
+
+            public String getContent() {
+                return content;
+            }
+
+            public void setContent(String content) {
+                this.content = content;
+            }
+
+            public String getDes() {
+                return des;
+            }
+
+            public void setDes(String des) {
+                this.des = des;
+            }
+
+            public String getImageUrl() {
+                return imageUrl;
+            }
+
+            public void setImageUrl(String imageUrl) {
+                this.imageUrl = imageUrl;
+            }
+
+            public String getTitle() {
+                return title;
+            }
+
+            public void setTitle(String title) {
+                this.title = title;
+            }
+
+            public String getType() {
+                return type;
+            }
+
+            public void setType(String type) {
+                this.type = type;
+            }
+        }
     }
 }
+
