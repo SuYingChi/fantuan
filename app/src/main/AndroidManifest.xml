@@ -206,7 +206,8 @@
         <activity android:name=".circle.act.SelectCircleActivity" />
         <activity android:name=".circle.act.AllCircleActivity" />
         <activity android:name=".circle.act.CircleInfoActivity" />
-        <activity android:name=".circle.act.ActDetailActivity" />
+        <activity android:name=".circle.act.ActDetailActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize"/>
         <activity android:name=".home.act.SortActivity" />
         <activity android:name=".order.act.MyOrderActivity" />
         <activity android:name=".my.act.MyFriendsActivity" />
@@ -244,7 +245,7 @@
         <service
             android:name=".service.UploadImageService"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true"/>
     </application>
 
 </manifest>

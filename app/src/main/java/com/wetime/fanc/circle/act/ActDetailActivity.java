@@ -97,11 +97,14 @@ public class ActDetailActivity extends BaseActivity implements IGetActDetailView
         deleteCommentPresenter = new DeleteCommentPresenter(this);
     }
 
+//    @Override
+//    protected void setSoftInPutMode() {
+//        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE | WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+//    }
     @Override
     protected void setSoftInPutMode() {
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE | WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
     }
-
     @Override
     public void onKeyboardChange(boolean isShow, int keyboardHeight) {
         if (!isShow) {
@@ -304,12 +307,12 @@ public class ActDetailActivity extends BaseActivity implements IGetActDetailView
     }
 
     protected void initStateBar() {
-        ImmersionBar.with(this)
-                .statusBarColor(R.color.white_lib)
-                .statusBarDarkFont(true, 0.2f)
-                .fitsSystemWindows(true)
-                .keyboardEnable(true)
-                .init();
+//        ImmersionBar.with(this)
+//                .statusBarColor(R.color.white_lib)
+//                .statusBarDarkFont(true, 0.2f)
+//                .fitsSystemWindows(true)
+//                .keyboardEnable(true)
+//                .init();
     }
 
     public void showKeyborad() {

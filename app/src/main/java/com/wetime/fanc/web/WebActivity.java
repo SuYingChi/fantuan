@@ -19,6 +19,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
@@ -161,13 +162,16 @@ public class WebActivity extends BaseActivity implements IPostMultiFileView, WbS
         shareHandler = new WbShareHandler(this);
         shareHandler.registerApp();
     }
-
+    @Override
+    protected void setSoftInPutMode() {
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+    }
     @Override
     public void initStateBar() {
 //        super.initStateBar();
-        ImmersionBar.with(this).statusBarColor(R.color.white_lib)
-                .statusBarDarkFont(true, 0.2f)
-                .fitsSystemWindows(true).keyboardEnable(true).init();
+//        ImmersionBar.with(this).statusBarColor(R.color.white_lib)
+//                .statusBarDarkFont(true, 0.2f)
+//                .fitsSystemWindows(true).keyboardEnable(true).init();
 
     }
 
@@ -553,6 +557,7 @@ public class WebActivity extends BaseActivity implements IPostMultiFileView, WbS
             startActivity(go);
         });
     }
+
 
     @JavascriptInterface
     public void goActDetail(String id) {
