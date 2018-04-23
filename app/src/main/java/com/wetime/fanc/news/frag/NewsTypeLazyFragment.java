@@ -282,6 +282,10 @@ public class NewsTypeLazyFragment extends BaseLazyFragment implements IGetNewsTy
     public void onMessageEvent(LogoutEvent event) {
         if (type.equals("-1")) {
             rlNoLogin.setVisibility(View.VISIBLE);
+            mRootView.findViewById(R.id.tv_gologin).setOnClickListener(v -> {
+                Intent go = new Intent(getContext(), LoginActivity.class);
+                startActivity(go);
+            });
         }
     }
 
