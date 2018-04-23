@@ -60,6 +60,7 @@ import com.wetime.fanc.main.bean.PostFileResultBean;
 import com.wetime.fanc.main.ivews.IPostMultiFileView;
 import com.wetime.fanc.main.presenter.PostMultiFilePresenter;
 import com.wetime.fanc.my.act.UserCardActivity;
+import com.wetime.fanc.news.act.GalleryActivity;
 import com.wetime.fanc.order.act.CommentOrderActivity;
 import com.wetime.fanc.order.event.RefreshOrderEvent;
 import com.wetime.fanc.shop.act.ShopDetailActivity;
@@ -559,6 +560,13 @@ public class WebActivity extends BaseActivity implements IPostMultiFileView, WbS
             Intent goDet = new Intent(mContext, ActDetailActivity.class);
             goDet.putExtra("id", id);
             startActivity(goDet);
+        });
+    }
+
+    @JavascriptInterface
+    public void goGallery(String id) {
+        web.post(() -> {
+            GalleryActivity.startToGallery(mContext, id);
         });
     }
 
