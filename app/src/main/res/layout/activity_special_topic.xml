@@ -87,7 +87,7 @@
             tl:tl_indicator_style="NORMAL"
             tl:tl_indicator_color="#ff3f53"
             tl:tl_indicator_height="3dp"
-            tl:tl_indicator_width_equal_title="true"
+            tl:tl_indicator_width_equal_title="false"
             tl:tl_tab_padding="20dp"
             tl:tl_tab_space_equal="true"
             tl:tl_textSelectColor="#ff3f53"

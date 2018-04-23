@@ -48,17 +48,16 @@ public class PictureActivity extends BaseActivity implements View.OnClickListene
         allStr = (List<String>) getIntent().getSerializableExtra("big_photo");
         contents = (List<String>) getIntent().getSerializableExtra("contents");
 
+        tvIndex.setVisibility(View.GONE);
+        tvIndexTop.setVisibility(View.VISIBLE);
+
         page = getIntent().getIntExtra("page", 0);
 
         if (contents == null || contents.size() == 0) {
-            tvIndex.setText((page + 1) + "/" + (allStr.size()));
+            tvIndexTop.setText((page + 1) + "/" + (allStr.size()));
             galleryDescLayout.setVisibility(View.GONE);
-            tvIndexTop.setVisibility(View.GONE);
-            tvIndex.setVisibility(View.VISIBLE);
         } else {
             galleryDescLayout.setVisibility(View.VISIBLE);
-            tvIndexTop.setVisibility(View.VISIBLE);
-            tvIndex.setVisibility(View.GONE);
             tvIndexTop.setText((page + 1) + "/" + (allStr.size()));
             if (TextUtils.isEmpty(contents.get(page))) {
                 galleryDescLayout.setVisibility(View.GONE);
@@ -81,7 +80,7 @@ public class PictureActivity extends BaseActivity implements View.OnClickListene
             @Override
             public void onPageSelected(int position) {
                 if (contents == null || contents.size() == 0) {
-                    tvIndex.setText((position + 1) + "/" + (allStr.size()));
+                    tvIndexTop.setText((position + 1) + "/" + (allStr.size()));
                 } else {
                     tvIndexTop.setText((position + 1) + "/" + (allStr.size()));
                     if (TextUtils.isEmpty(contents.get(position))) {
