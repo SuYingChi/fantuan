@@ -74,21 +74,27 @@
             android:fitsSystemWindows="true"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden|adjustResize|adjustUnspecified|stateHidden" />
-        <activity android:name=".news.act.SpecialTopicActivity">
 
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
-
-
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
-        </activity>
-        <activity android:name=".home.act.LoadingActivity">
+        <activity android:name=".circle.act.LongDetailActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+        </activity>
+
+        <activity android:name=".news.act.SpecialTopicActivity">
+
+
+        </activity>
+        <activity android:name=".home.act.LoadingActivity">
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
+
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -194,6 +200,7 @@
         <activity android:name=".my.act.UserCardActivity" />
         <activity android:name=".my.act.MyCollectActivity" />
         <activity android:name=".circle.act.PublishActActivity" />
+
         <activity android:name=".main.act.PictureActivity" />
         <activity android:name=".circle.act.CircleDetailActivity" />
         <activity android:name=".circle.act.SelectCircleActivity" />
