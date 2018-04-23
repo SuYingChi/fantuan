@@ -22,7 +22,7 @@
         tools:text="世贸北路一号海岸一二三四五六七八号C栋综合楼1003..." />
 
     <LinearLayout
-
+        android:id="@+id/linear"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">

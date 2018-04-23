@@ -241,13 +241,14 @@ public class LongDetailActivity extends BaseActivity implements OnLoadMoreListen
             return;
         }
 
-        imageurl = bean.getData().getCover().get(0);
-        name = bean.getData().getTitle();
-        content = bean.getData().getContent();
-        titleUrl = bean.getData().getAvatar();
-
 
         if (page == 1) {
+            if (bean.getData().getCover().size() != 0) {
+                imageurl = bean.getData().getCover().get(0);
+            }
+            name = bean.getData().getTitle();
+            content = bean.getData().getContent();
+            titleUrl = bean.getData().getAvatar();
             if (bean.getData().isIs_owner()) {
                 ivMemu.setVisibility(View.VISIBLE);
             }

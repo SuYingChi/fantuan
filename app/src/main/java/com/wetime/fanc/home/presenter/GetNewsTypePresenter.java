@@ -28,7 +28,7 @@ public class GetNewsTypePresenter {
                 .addParams("cid", iView.getCid())
                 .addParams("pn", iView.getPage())
                 .build()
-                .execute(new DataStringCallback(iView, false,false,false) {
+                .execute(new DataStringCallback(iView, false) {
                     @Override
                     public void onResponse(String s, int i) {
                         super.onResponse(s, i);

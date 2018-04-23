@@ -313,8 +313,10 @@ public class CircleHomeAdapter extends RecyclerView.Adapter {
 
             if (TextUtils.isEmpty(bean.getCircle_name())) {
                 ((NewsHolder18) holder).tvPubTitle.setVisibility(View.GONE);
+                ((NewsHolder18) holder).linear.setVisibility(View.GONE);
             } else {
                 ((NewsHolder18) holder).tvPubTitle.setVisibility(View.VISIBLE);
+                ((NewsHolder18) holder).linear.setVisibility(View.VISIBLE);
                 ((NewsHolder18) holder).tvCirclename.setText(bean.getCircle_name());
             }
 
@@ -453,6 +455,8 @@ public class CircleHomeAdapter extends RecyclerView.Adapter {
         TextView tvZannum;
         @BindView(R.id.iv_head)
         CircleImageView ivHead;
+        @BindView(R.id.linear)
+        LinearLayout linear;
 
         NewsHolder18(View view) {
             super(view);

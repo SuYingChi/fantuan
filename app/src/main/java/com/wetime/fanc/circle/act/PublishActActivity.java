@@ -35,11 +35,8 @@ import com.wetime.fanc.main.bean.PostFileResultBean;
 import com.wetime.fanc.main.ivews.IPostMultiFileView;
 import com.wetime.fanc.order.adapter.ImageGridAdapter;
 import com.wetime.fanc.service.UploadImageService;
-import com.wetime.fanc.service.event.uploadEvent;
 import com.wetime.fanc.utils.Tools;
 
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -279,16 +276,7 @@ public class PublishActActivity extends BaseActivity implements IPostMultiFileVi
         startActivity(go);
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onEvent(uploadEvent messageEvent) {
-        Log.e("xi", "onEvent: " + this.isDestroyed());
-        if (!this.isDestroyed()) {
-            Intent go = new Intent(this, ActDetailActivity.class);
-            go.putExtra("id", messageEvent.getId());
-            startActivity(go);
-        }
 
-    }
 
     @Override
     public String getCircleId() {
