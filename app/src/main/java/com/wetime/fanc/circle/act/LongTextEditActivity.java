@@ -2,6 +2,8 @@ package com.wetime.fanc.circle.act;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
@@ -369,8 +371,23 @@ public class LongTextEditActivity extends BaseActivity implements LongTextAdapte
 
                 ArrayList<String> defaultDataArray = new ArrayList<>();
                 for (LongTextBean lb : list) {
-                    if (lb.getType().equals("2"))
+                    if (lb.getType().equals("2")){
+
+
+                        BitmapFactory.Options options = new BitmapFactory.Options();
+                        options.inJustDecodeBounds = true;
+                        Bitmap bmp = BitmapFactory.decodeFile(lb.getImageUrl(), options);//这里的bitmap是个空
+                        if (bmp == null) {
+                            Log.e("通过options获取到的bitmap为空", "===");
+                        }
+                        int outHeight = options.outHeight;
+                        int outWidth = options.outWidth;
+                        lb.setWidth(String.valueOf(outWidth));
+                        lb.setHeight(String.valueOf(outHeight));
                         defaultDataArray.add(lb.getImageUrl());
+                    }
+
+
                 }
 
 
