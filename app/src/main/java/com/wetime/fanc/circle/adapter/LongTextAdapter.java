@@ -1,6 +1,5 @@
 package com.wetime.fanc.circle.adapter;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -201,8 +200,6 @@ public class LongTextAdapter extends RecyclerView.Adapter {
                 }
                 int outHeight = options.outHeight;
                 int outWidth = options.outWidth;
-                bean.setWidth(String.valueOf(outWidth));
-                bean.setHeight(String.valueOf(outHeight));
 
 
                 int sw = Tools.getScreenW(mContext);
