@@ -18,7 +18,7 @@
             android:gravity="center"
             android:text="举报"
             android:textColor="#ff3b30"
-            android:textSize="14sp" />
+            android:textSize="@dimen/dialog_text_size" />
 
     </LinearLayout>
 
@@ -31,6 +31,6 @@
         android:gravity="center"
         android:text="取消"
         android:textColor="#388ae5"
-        android:textSize="15sp" />
+        android:textSize="@dimen/dialog_text_size" />
 
 </LinearLayout>

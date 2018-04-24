@@ -2,20 +2,11 @@ package com.wetime.fanc.circle.adapter;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.PixelFormat;
-import android.graphics.drawable.Drawable;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.bumptech.glide.request.target.SimpleTarget;
-import com.bumptech.glide.request.transition.Transition;
 import com.wetime.fanc.R;
 import com.wetime.fanc.circle.bean.LongTextBean;
 import com.wetime.fanc.utils.Tools;
@@ -65,17 +56,21 @@ public class LongDetailItemAdapte extends CommonAdapter<LongTextBean> {
             case "2":
                 holder.getView(R.id.item_name).setVisibility(View.GONE);
                 holder.setText(R.id.item_content, longTextBean.getDes());
+                int sw = Tools.getScreenW(context);
+                Double rate = Double.parseDouble(longTextBean.getHeight()) / Double.parseDouble(longTextBean.getWidth());
+                int h = (int) (sw * rate);
                 Glide.with(context)
                         .load(longTextBean.getImageUrl())
                         .apply(
                                 new RequestOptions()
-                                        .centerCrop()
-                                        .placeholder(R.drawable.iv_default_news_small))
+                                        .override(sw, h)
+                                        .placeholder(R.drawable.iv_default_news_small)
+                        )
                         .into(((ImageView) holder.getView(R.id.item_img)));
                 holder.setOnClickListener(R.id.item_img, v -> {
                     for (int i = 0; i < list.size(); i++) {
                         if (datas.get(position).getImageUrl().equals(list.get(i))) {
-                            Tools.goPicGallery((Activity) context, list,content, i);
+                            Tools.goPicGallery((Activity) context, list, content, i);
                         }
                     }
                 });

@@ -18,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.flyco.tablayout.CommonTabLayout;
 import com.flyco.tablayout.listener.CustomTabEntity;
 import com.flyco.tablayout.listener.OnTabSelectListener;
@@ -280,12 +281,15 @@ public class CircleHomeAdapter extends RecyclerView.Adapter {
                     LongDetailActivity.startToLongDetail(mActivity, bean.getId());
                 }
             });
-            Glide.with(mActivity).load(bean.getAvatar()).into(((NewsHolder18) holder).ivHead);
+            Glide.with(mActivity).load(bean.getAvatar())
+                    .into(((NewsHolder18) holder).ivHead);
             ((NewsHolder18) holder).tvName.setText(bean.getUsername());
             ((NewsHolder18) holder).tvTime.setText(bean.getTime());
 
             ((NewsHolder18) holder).typename.setText(bean.getTitle());
-            Glide.with(mActivity).load(bean.getCover().get(0)).into(((NewsHolder18) holder).typeimage);
+            Glide.with(mActivity).load(bean.getCover().get(0))
+                    .apply(new RequestOptions().centerCrop())
+                    .into(((NewsHolder18) holder).typeimage);
 
             ((NewsHolder18) holder).tvSee.setText(bean.getRead_num());
             ((NewsHolder18) holder).tvZannum.setText(bean.getLike_num());

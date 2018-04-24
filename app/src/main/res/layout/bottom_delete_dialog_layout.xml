@@ -18,7 +18,7 @@
             android:gravity="center"
             android:text="请选择删除原因"
             android:textColor="@color/cardview_dark_background"
-            android:textSize="14sp" />
+            android:textSize="@dimen/dialog_text_size" />
 
         <View
             android:id="@+id/tv_view1"
@@ -33,7 +33,7 @@
             android:gravity="center"
             android:text="欺诈骗钱"
             android:textColor="#388ae5"
-            android:textSize="15sp" />
+            android:textSize="@dimen/dialog_text_size" />
 
         <View
             android:id="@+id/tv_view2"
@@ -49,7 +49,7 @@
             android:gravity="center"
             android:text="色情暴力"
             android:textColor="#388ae5"
-            android:textSize="15sp" />
+            android:textSize="@dimen/dialog_text_size" />
 
         <View
             android:id="@+id/tv_view3"
@@ -64,7 +64,7 @@
             android:gravity="center"
             android:text="广告骚扰"
             android:textColor="#388ae5"
-            android:textSize="15sp" />
+            android:textSize="@dimen/dialog_text_size" />
 
         <View
             android:id="@+id/tv_view5"
@@ -79,7 +79,7 @@
             android:gravity="center"
             android:text="侵权"
             android:textColor="#388ae5"
-            android:textSize="15sp" />
+            android:textSize="@dimen/dialog_text_size" />
         <View
             android:id="@+id/tv_view4"
             android:layout_width="match_parent"
@@ -93,7 +93,7 @@
             android:gravity="center"
             android:text="违反圈子规章"
             android:textColor="#388ae5"
-            android:textSize="15sp" />
+            android:textSize="@dimen/dialog_text_size" />
 
     </LinearLayout>
 
@@ -106,6 +106,6 @@
         android:gravity="center"
         android:text="取消"
         android:textColor="#388ae5"
-        android:textSize="15sp" />
+        android:textSize="@dimen/dialog_text_size" />
 
 </LinearLayout>

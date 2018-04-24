@@ -23,5 +23,6 @@
     <dimen name="text_nomal">15sp</dimen>
     <dimen name="text_small">14sp</dimen>
     <dimen name="text_top_title">19sp</dimen>
+    <dimen name="dialog_text_size">17sp</dimen>
 
 </resources>
