@@ -8,7 +8,6 @@ public class RecomentFocusUserBean {
      * avatar : https://staticcdntest.fantuanlife.com/image/fant/default_avatar.png
      * is_follow : false
      */
-
     private String uid;
     private String intro;
     private String username;

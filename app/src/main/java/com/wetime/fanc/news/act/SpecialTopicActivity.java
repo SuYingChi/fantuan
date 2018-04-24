@@ -26,6 +26,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.flyco.tablayout.SlidingTabLayout;
@@ -125,7 +126,20 @@ public class SpecialTopicActivity extends BaseActivity implements View.OnClickLi
 
         topicName.setText(name);
         topicContent.setText(content);
-        Glide.with(this).load(imageurl).into(topicIv);
+
+        int sw = Tools.getScreenW(this);
+        int w = sw - Tools.dip2px(this, 15 + 15);
+
+        Double rate = 194.0 / 345;
+        int h = (int) (w * rate);
+
+        Glide.with(this).load(imageurl)
+                .apply(
+                        new RequestOptions()
+                                .override(w, h)
+                                .centerCrop()
+                                .placeholder(R.drawable.iv_default_news_small))
+                .into(topicIv);
 
 
         for (int i = 0; i < elements.size(); i++) {
@@ -145,7 +159,7 @@ public class SpecialTopicActivity extends BaseActivity implements View.OnClickLi
         viewPager.setOffscreenPageLimit(4);
         viewPager.setAdapter(mAdapter);
 //        vp.setCurrentItem(1);
-
+        tablayout.setFillViewport(false);
         tablayout.setViewPager(viewPager);
 
     }
@@ -177,7 +191,7 @@ public class SpecialTopicActivity extends BaseActivity implements View.OnClickLi
                      */
                     @Override
                     public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
-                        Tools.shareWx(SpecialTopicActivity.this, drawableToBitmap(resource),titleUrl, SendMessageToWX.Req.WXSceneSession, name, content);
+                        Tools.shareWx(SpecialTopicActivity.this, drawableToBitmap(resource), titleUrl, SendMessageToWX.Req.WXSceneSession, name, content);
                     }
                 });
                 break;
@@ -191,7 +205,7 @@ public class SpecialTopicActivity extends BaseActivity implements View.OnClickLi
                      */
                     @Override
                     public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
-                        Tools.shareWx(SpecialTopicActivity.this, drawableToBitmap(resource),titleUrl, SendMessageToWX.Req.WXSceneTimeline, name, content);
+                        Tools.shareWx(SpecialTopicActivity.this, drawableToBitmap(resource), titleUrl, SendMessageToWX.Req.WXSceneTimeline, name, content);
                     }
                 });
 
@@ -206,13 +220,13 @@ public class SpecialTopicActivity extends BaseActivity implements View.OnClickLi
                      */
                     @Override
                     public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
-                        Tools.shareWb(SpecialTopicActivity.this, shareHandler, drawableToBitmap(resource),titleUrl, "分享来自范团APP的《" + name + "》", "分享来自范团APP的《" +content + "》");
+                        Tools.shareWb(SpecialTopicActivity.this, shareHandler, drawableToBitmap(resource), titleUrl, "分享来自范团APP的《" + name + "》", "分享来自范团APP的《" + content + "》");
                     }
                 });
 
                 break;
             case R.id.ll_share_qq:
-                Tools.shareQQ(this,titleUrl,imageurl,name,content, new IUiListener() {
+                Tools.shareQQ(this, titleUrl, imageurl, name, content, new IUiListener() {
                     @Override
                     public void onComplete(Object o) {
                         Toast.makeText(SpecialTopicActivity.this, "分享成功!", Toast.LENGTH_SHORT).show();
@@ -230,7 +244,7 @@ public class SpecialTopicActivity extends BaseActivity implements View.OnClickLi
                 });
                 break;
             case R.id.ll_share_qqkj:
-                Tools.shareToQzone(this,titleUrl,imageurl,name,content, new IUiListener() {
+                Tools.shareToQzone(this, titleUrl, imageurl, name, content, new IUiListener() {
                     @Override
                     public void onComplete(Object o) {
                         Toast.makeText(SpecialTopicActivity.this, "分享成功!", Toast.LENGTH_SHORT).show();

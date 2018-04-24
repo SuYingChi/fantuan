@@ -167,7 +167,7 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
                     mActivity.startActivity(goFocus);
                     break;
                 case 38:
-                    LongDetailActivity.startToLongDetail(mActivity,bean.getId());
+                    LongDetailActivity.startToLongDetail(mActivity, bean.getId());
                     break;
             }
         });
@@ -329,7 +329,20 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
                 goweb.putExtra("title", bean.getLastest().getName());
                 mActivity.startActivity(goweb);
             });
-            Glide.with(mActivity).load(bean.getSpecial().getCoverStr()).into(((NewsHolder5) holder).reportcover);
+            int sw = Tools.getScreenW(mActivity);
+            int w = sw - Tools.dip2px(mActivity, 15 + 15);
+
+            Double rate = 194.0 / 345;
+            int h = (int) (w * rate);
+
+            Glide.with(mActivity)
+                    .load(bean.getSpecial().getCoverStr())
+                    .apply(
+                            new RequestOptions()
+                                    .override(w, h)
+                                    .centerCrop()
+                                    .placeholder(R.drawable.iv_default_news_small))
+                    .into(((NewsHolder5) holder).reportcover);
         }
 
         if (holder instanceof NewsHolder0) {

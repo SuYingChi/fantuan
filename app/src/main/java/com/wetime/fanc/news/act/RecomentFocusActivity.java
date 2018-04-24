@@ -97,6 +97,7 @@ public class RecomentFocusActivity extends BaseActivity implements IGetRecomentF
                 this.startActivity(goLogin);
                 return;
             }
+
             userList.get(position).setIs_follow(!userList.get(position).isIs_follow());
             mAutoLoadMoreAdapter.notifyDataSetChanged();
             focusPresenter.focusUser(this,getToken(),
