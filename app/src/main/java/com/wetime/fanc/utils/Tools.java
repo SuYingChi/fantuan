@@ -448,14 +448,12 @@ public class Tools {
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         int quality = 10;
-        Log.e("xi", "shareWx: " + getBitmapSize(thumb));
 //        thumb.compress(Bitmap.CompressFormat.JPEG, quality, baos);
 //        BitmapFactory.Options options2 = new BitmapFactory.Options();
 //        options2.inPreferredConfig = Bitmap.Config.ARGB_8888;
 //        byte[] bytes = baos.toByteArray();
 //        thumb = BitmapFactory.decodeByteArray(bytes, 0, bytes.length,options2);
         thumb = comp(thumb);
-        Log.e("xi", "shareWx: " + getBitmapSize(thumb));
 
         msg.thumbData = bmpToByteArray(thumb, true);
         SendMessageToWX.Req req = new SendMessageToWX.Req();
@@ -464,7 +462,6 @@ public class Tools {
         req.scene = type;
         IWXAPI mWxApi = WXAPIFactory.createWXAPI(mContext, "wx2fbcb61b6e5b1384", true);
         boolean b = mWxApi.sendReq(req);
-        Log.e("xi", "shareWx: " + b);
     }
 
     public static void shareWb(Context mContext, WbShareHandler shareHandler, Bitmap bitmap, String url, String title, String des) {
@@ -546,7 +543,7 @@ public class Tools {
         Intent pic = new Intent(mActivity, PictureActivity.class);
         pic.putExtra("big_photo", (Serializable) list);
         pic.putExtra("page", index);
-        pic.putExtra("contents",  (Serializable) contents);
+        pic.putExtra("contents", (Serializable) contents);
         mActivity.startActivity(pic);
         mActivity.overridePendingTransition(android.R.anim.fade_in,
                 android.R.anim.fade_out);
@@ -595,6 +592,15 @@ public class Tools {
     }
 
     public static void showPopWin(Context context, View ivEdit, String id, String name, String simpleName) {
+
+        if (TextUtils.isEmpty(((BaseActivity) context).spu.getToken())) {
+            Tools.toastInBottom(context, "请先登录");
+            Intent goLogin = new Intent(context, LoginActivity.class);
+            context.startActivity(goLogin);
+            return;
+        }
+
+
         View popupView = LayoutInflater.from(context).inflate(R.layout.layout_popupwindow, null);
 
         PopupWindow window = new PopupWindow(popupView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -613,7 +619,13 @@ public class Tools {
 
         window.update();
 
-        window.showAsDropDown(ivEdit, -120, 0);
+        ivEdit.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
+
+        int mShowMorePopupWindowWidth = (int) (-ivEdit.getMeasuredWidth()*2.2);
+
+        Log.e("xi", "showPopWin: " + mShowMorePopupWindowWidth);
+
+        window.showAsDropDown(ivEdit, mShowMorePopupWindowWidth, 0);
 
         popupView.findViewById(R.id.pop_duan).setOnClickListener(v -> {
             if (((BaseActivity) context).spu.getToken().equals("")) {

@@ -67,6 +67,14 @@ public class CircleHomeAdapter extends RecyclerView.Adapter {
         this.inflater = LayoutInflater.from(mActivity);
     }
 
+    public void setFollow_circles(List<CircleHomeListBean.DataBean.FollowCirclesBean> follow_circles) {
+        this.follow_circles.clear();
+        this.follow_circles.addAll(follow_circles);
+        if (circleAdapter1 != null) {
+            circleAdapter1.notifyDataSetChanged();
+        }
+    }
+
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (viewType == 10 || viewType == 11 || viewType == 19 || viewType == 14) {
@@ -269,7 +277,7 @@ public class CircleHomeAdapter extends RecyclerView.Adapter {
             HomeItemBean bean = list.get(position - 1);
             holder.itemView.setOnClickListener(view -> {
                 if (bean.getType() != -1) {
-                    LongDetailActivity.startToLongDetail(mActivity,bean.getId());
+                    LongDetailActivity.startToLongDetail(mActivity, bean.getId());
                 }
             });
             Glide.with(mActivity).load(bean.getAvatar()).into(((NewsHolder18) holder).ivHead);

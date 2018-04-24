@@ -128,6 +128,9 @@ public class CircleFragment extends BaseLazyFragment implements OnRefreshListene
                 onRefresh(refreshLayout);
             });
 //            adapter.notifyDataSetChanged();
+        }else{
+            adapter.setFollow_circles(bean.getData().getFollow_circles());
+            adapter.notifyDataSetChanged();
         }
 
         if (page == 1) {

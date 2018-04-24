@@ -63,14 +63,15 @@ public class LongDetailItemAdapte extends CommonAdapter<LongTextBean> {
                 holder.getView(R.id.item_content).setVisibility(View.GONE);
                 break;
             case "2":
-
                 holder.getView(R.id.item_name).setVisibility(View.GONE);
                 holder.setText(R.id.item_content, longTextBean.getDes());
-
                 Glide.with(context)
                         .load(longTextBean.getImageUrl())
+                        .apply(
+                                new RequestOptions()
+                                        .centerCrop()
+                                        .placeholder(R.drawable.iv_default_news_small))
                         .into(((ImageView) holder.getView(R.id.item_img)));
-
                 holder.setOnClickListener(R.id.item_img, v -> {
                     for (int i = 0; i < list.size(); i++) {
                         if (datas.get(position).getImageUrl().equals(list.get(i))) {

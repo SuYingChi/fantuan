@@ -6,6 +6,7 @@ import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -21,6 +22,7 @@ import com.wetime.fanc.circle.frag.CircleDetailLazyFragment;
 import com.wetime.fanc.circle.iviews.IGetCircleHeadView;
 import com.wetime.fanc.circle.presenter.GetCircleHeadPresenter;
 import com.wetime.fanc.home.adapter.NormalTitlePagerAdapter;
+import com.wetime.fanc.login.act.LoginActivity;
 import com.wetime.fanc.main.act.BaseActivity;
 import com.wetime.fanc.main.model.ErrorBean;
 import com.wetime.fanc.service.event.UploadProgessEvent;
@@ -109,7 +111,13 @@ public class CircleDetailActivity extends BaseActivity implements IGetCircleHead
 
                 break;
             case R.id.iv_attention:
-                getCircleHeadPresenter.setCircleAttention(getCircleId(), "1");
+                if (TextUtils.isEmpty(spu.getToken())) {
+                    Tools.toastInBottom(this, "请先登录");
+                    Intent goLogin = new Intent(this, LoginActivity.class);
+                    startActivity(goLogin);
+                }else{
+                    getCircleHeadPresenter.setCircleAttention(getCircleId(), "1");
+                }
                 break;
         }
     }

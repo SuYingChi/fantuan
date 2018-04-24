@@ -45,6 +45,7 @@
             android:id="@+id/report_cover"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:scaleType="centerCrop" />
 
 
@@ -52,7 +53,7 @@
             android:id="@+id/report_new_liner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="20dp"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:paddingBottom="2dp">
