@@ -24,6 +24,7 @@ public class GetCircleHeadPresenter {
         OkHttpUtils
                 .post()
                 .url(Const.DYNAMIC_LIST_CIRCLE)
+                .addParams("token", iView.getToken())
                 .addParams("circle_id", iView.getCircleId())
                 .build()
                 .execute(new DataStringCallback(iView, false) {

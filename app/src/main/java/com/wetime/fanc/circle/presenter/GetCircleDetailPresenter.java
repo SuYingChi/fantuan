@@ -26,6 +26,7 @@ public class GetCircleDetailPresenter {
         OkHttpUtils
                 .post()
                 .url(Const.CIRCLE_INFO)
+                .addParams("token", iView.getToken())
                 .addParams("circle_id", iView.getCircleId())
                 .build()
                 .execute(new DataStringCallback(iView, false) {

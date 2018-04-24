@@ -308,7 +308,7 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
                 Intent goweb = new Intent(mActivity, WebActivity.class);
                 goweb.putExtra("url", bean.getHottest().getArticle_url());
                 goweb.putExtra("type", "2");
-                goweb.putExtra("title", bean.getHottest().getName());
+                goweb.putExtra("title", bean.getHottest().getAuthor());
                 mActivity.startActivity(goweb);
             });
             ((NewsHolder5) holder).reportnewhotliner.setOnClickListener(v -> {
@@ -317,7 +317,7 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
                 Intent goweb = new Intent(mActivity, WebActivity.class);
                 goweb.putExtra("url", bean.getFocused().getArticle_url());
                 goweb.putExtra("type", "2");
-                goweb.putExtra("title", bean.getFocused().getName());
+                goweb.putExtra("title", bean.getFocused().getAuthor());
                 mActivity.startActivity(goweb);
             });
             ((NewsHolder5) holder).reportnewliner.setOnClickListener(v -> {
@@ -326,7 +326,7 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
                 Intent goweb = new Intent(mActivity, WebActivity.class);
                 goweb.putExtra("url", bean.getLastest().getArticle_url());
                 goweb.putExtra("type", "2");
-                goweb.putExtra("title", bean.getLastest().getName());
+                goweb.putExtra("title", bean.getLastest().getAuthor());
                 mActivity.startActivity(goweb);
             });
             int sw = Tools.getScreenW(mActivity);

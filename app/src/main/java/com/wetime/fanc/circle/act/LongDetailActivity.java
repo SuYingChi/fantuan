@@ -127,7 +127,6 @@ public class LongDetailActivity extends BaseActivity implements OnLoadMoreListen
         refreshLayout.setOnLoadMoreListener(this);
         refreshLayout.setEnableRefresh(false);
         rclCircle.setLayoutManager(new LinearLayoutManager(this));
-        rclCircle.setFocusableInTouchMode(false);
         KeyboardChangeListener mKeyboardChangeListener = new KeyboardChangeListener(this);
         mKeyboardChangeListener.setKeyBoardListener(this);
         getActDetailPresenter.getLongDetail();

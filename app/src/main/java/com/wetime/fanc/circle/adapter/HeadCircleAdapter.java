@@ -61,16 +61,14 @@ public class HeadCircleAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         final ViewHolder oholder = (ViewHolder) holder;
-        CircleHomeListBean.DataBean.CirclesBean bean = mlist.get(position);
-
         if (type == 0) {
+            CircleHomeListBean.DataBean.CirclesBean bean = mlist.get(position);
             ((ViewHolder) holder).tvname.setText(bean.getName());
             Glide.with(mContext)
                     .load(bean.getCover())
                     .apply(myOptions)
                     .into(oholder.ivcover);
         } else {
-            if (position >= follow_circles.size()) return;
             ((ViewHolder) holder).tvname.setText(follow_circles.get(position).getName());
             Glide.with(mContext)
                     .load(follow_circles.get(position).getCover())
