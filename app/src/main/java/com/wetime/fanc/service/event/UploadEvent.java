@@ -4,14 +4,14 @@ package com.wetime.fanc.service.event;
  * Created by Administrator on 2018/4/17.
  */
 
-public class uploadEvent {
+public class UploadEvent {
     /**
      * id : 84
      */
 
     private String id;
 
-    public uploadEvent(String id) {
+    public UploadEvent(String id) {
         this.id = id;
     }
 

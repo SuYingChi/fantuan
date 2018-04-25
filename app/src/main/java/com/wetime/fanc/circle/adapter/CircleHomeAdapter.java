@@ -57,6 +57,7 @@ public class CircleHomeAdapter extends RecyclerView.Adapter {
     private OnTabClickLitener mOnTabClickLitener;
     private OnItemClickLitener mOnItemClickLitener;
     private HeadCircleAdapter circleAdapter1;
+    private RecyclerView.ViewHolder holder;
 
     public CircleHomeAdapter(List<CircleHomeListBean.DataBean.FollowCirclesBean> follow_circles, List<CircleHomeListBean.DataBean.CirclesBean> circllist,
                              List<HomeItemBean> mList,
@@ -69,10 +70,17 @@ public class CircleHomeAdapter extends RecyclerView.Adapter {
     }
 
     public void setFollow_circles(List<CircleHomeListBean.DataBean.FollowCirclesBean> follow_circles) {
-        this.follow_circles.clear();
-        this.follow_circles.addAll(follow_circles);
         if (circleAdapter1 != null) {
-            circleAdapter1.notifyDataSetChanged();
+            if (follow_circles.size() == 0) {
+                ((CircleHeadViewHolder) holder).rclCircleMy.setVisibility(View.GONE);
+                ((CircleHeadViewHolder) holder).llHeadTv.setVisibility(View.VISIBLE);
+            } else {
+                ((CircleHeadViewHolder) holder).rclCircleMy.setVisibility(View.VISIBLE);
+                ((CircleHeadViewHolder) holder).llHeadTv.setVisibility(View.GONE);
+                circleAdapter1.notifyDataSetChanged();
+                circleAdapter1 = new HeadCircleAdapter(follow_circles, circllist, mActivity, 1);
+            }
+
         }
     }
 
@@ -92,6 +100,7 @@ public class CircleHomeAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
 
+        this.holder=holder;
 
 //        if (mOnItemClickLitener != null) {
 //            holder.itemView.setOnClickListener(view -> mOnItemClickLitener.onItemClick(view, position));

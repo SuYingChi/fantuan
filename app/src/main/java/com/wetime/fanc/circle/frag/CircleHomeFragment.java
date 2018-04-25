@@ -17,8 +17,8 @@ import com.wetime.fanc.home.event.RefreshRedNumEvent;
 import com.wetime.fanc.login.act.LoginActivity;
 import com.wetime.fanc.login.event.LogoutEvent;
 import com.wetime.fanc.main.frag.BaseLazyFragment;
+import com.wetime.fanc.service.event.UploadEvent;
 import com.wetime.fanc.service.event.UploadProgessEvent;
-import com.wetime.fanc.service.event.uploadEvent;
 import com.wetime.fanc.utils.Const;
 import com.wetime.fanc.utils.Tools;
 
@@ -100,7 +100,7 @@ public class CircleHomeFragment extends BaseLazyFragment {
 
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onEvent(uploadEvent messageEvent) {
+    public void onEvent(UploadEvent messageEvent) {
         issu = false;
         progess.setVisibility(View.INVISIBLE);
     }

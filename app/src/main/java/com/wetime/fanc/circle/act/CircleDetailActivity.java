@@ -26,7 +26,7 @@ import com.wetime.fanc.login.act.LoginActivity;
 import com.wetime.fanc.main.act.BaseActivity;
 import com.wetime.fanc.main.model.ErrorBean;
 import com.wetime.fanc.service.event.UploadProgessEvent;
-import com.wetime.fanc.service.event.uploadEvent;
+import com.wetime.fanc.service.event.UploadEvent;
 import com.wetime.fanc.utils.GlideRoundTransform;
 import com.wetime.fanc.utils.Tools;
 
@@ -193,7 +193,7 @@ public class CircleDetailActivity extends BaseActivity implements IGetCircleHead
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onEvent(uploadEvent messageEvent) {
+    public void onEvent(UploadEvent messageEvent) {
         issu = false;
         progess.setVisibility(View.GONE);
     }

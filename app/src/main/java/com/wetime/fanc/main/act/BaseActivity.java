@@ -6,7 +6,6 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 import android.view.WindowManager;
 import android.widget.Toast;
 
@@ -17,7 +16,6 @@ import com.wetime.fanc.application.FApp;
 import com.wetime.fanc.login.event.LogoutEvent;
 import com.wetime.fanc.main.ivews.IBaseVIew;
 import com.wetime.fanc.main.model.ErrorBean;
-import com.wetime.fanc.service.event.uploadEvent;
 import com.wetime.fanc.utils.SharePreferenceUtil;
 import com.wetime.fanc.utils.Tools;
 

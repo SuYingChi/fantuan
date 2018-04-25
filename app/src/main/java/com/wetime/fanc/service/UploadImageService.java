@@ -14,7 +14,7 @@ import com.wetime.fanc.circle.bean.LongTextBean;
 import com.wetime.fanc.circle.bean.PublishResultBean;
 import com.wetime.fanc.main.bean.PostFileResultBean;
 import com.wetime.fanc.service.event.UploadProgessEvent;
-import com.wetime.fanc.service.event.uploadEvent;
+import com.wetime.fanc.service.event.UploadEvent;
 import com.wetime.fanc.utils.Const;
 import com.wetime.fanc.utils.GsonUtils;
 
@@ -103,7 +103,7 @@ public class UploadImageService extends Service {
 
                     @Override
                     public void onError(Call call, Exception e, int i) {
-                        EventBus.getDefault().post(new uploadEvent("-1"));
+                        EventBus.getDefault().post(new UploadEvent("-1"));
                         UploadImageService.this.stopSelf();
                         Toast.makeText(UploadImageService.this, "上传失败!", Toast.LENGTH_SHORT).show();
                     }
@@ -119,7 +119,7 @@ public class UploadImageService extends Service {
                                 publishLongText(msg);
                             }
                         } else {
-                            EventBus.getDefault().post(new uploadEvent("-1"));
+                            EventBus.getDefault().post(new UploadEvent("-1"));
                             UploadImageService.this.stopSelf();
                             Toast.makeText(UploadImageService.this, "上传失败!", Toast.LENGTH_SHORT).show();
                         }
@@ -147,7 +147,7 @@ public class UploadImageService extends Service {
                 .execute(new StringCallback() {
                     @Override
                     public void onError(Call call, Exception e, int i) {
-                        EventBus.getDefault().post(new uploadEvent("-1"));
+                        EventBus.getDefault().post(new UploadEvent("-1"));
                         UploadImageService.this.stopSelf();
                         Toast.makeText(UploadImageService.this, "上传失败!", Toast.LENGTH_SHORT).show();
                     }
@@ -156,11 +156,11 @@ public class UploadImageService extends Service {
                     public void onResponse(String s, int i) {
                         PublishResultBean bean = GsonUtils.getGsonInstance().fromJson(s, PublishResultBean.class);
                         if (bean.getError() == 0) {
-                            EventBus.getDefault().post(new uploadEvent(bean.getData().getId()));
+                            EventBus.getDefault().post(new UploadEvent(bean.getData().getId()));
                             UploadImageService.this.stopSelf();
                             Toast.makeText(getApplicationContext(), "文章上传成功", Toast.LENGTH_SHORT).show();
                         } else {
-                            EventBus.getDefault().post(new uploadEvent("-1"));
+                            EventBus.getDefault().post(new UploadEvent("-1"));
                             UploadImageService.this.stopSelf();
                             Toast.makeText(UploadImageService.this, "上传失败!", Toast.LENGTH_SHORT).show();
                         }
@@ -199,7 +199,7 @@ public class UploadImageService extends Service {
                 .execute(new StringCallback() {
                     @Override
                     public void onError(Call call, Exception e, int i) {
-                        EventBus.getDefault().post(new uploadEvent("-1"));
+                        EventBus.getDefault().post(new UploadEvent("-1"));
                         UploadImageService.this.stopSelf();
                         Toast.makeText(UploadImageService.this, "上传失败!", Toast.LENGTH_SHORT).show();
                     }
@@ -208,11 +208,11 @@ public class UploadImageService extends Service {
                     public void onResponse(String s, int i) {
                         PublishResultBean bean = GsonUtils.getGsonInstance().fromJson(s, PublishResultBean.class);
                         if (bean.getError() == 0) {
-                            EventBus.getDefault().post(new uploadEvent(bean.getData().getId()));
+                            EventBus.getDefault().post(new UploadEvent(bean.getData().getId()));
                             Toast.makeText(getApplicationContext(), "文章上传成功", Toast.LENGTH_SHORT).show();
                             UploadImageService.this.stopSelf();
                         } else {
-                            EventBus.getDefault().post(new uploadEvent("-1"));
+                            EventBus.getDefault().post(new UploadEvent("-1"));
                             UploadImageService.this.stopSelf();
                             Toast.makeText(UploadImageService.this, "上传失败!", Toast.LENGTH_SHORT).show();
                         }
