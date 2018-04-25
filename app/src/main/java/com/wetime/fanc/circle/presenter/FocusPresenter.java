@@ -36,8 +36,8 @@ public class FocusPresenter {
 
                     @Override
                     public void onResponse(String response, int id) {
-                        ErrorBean errorBean = GsonUtils.getGsonInstance().fromJson(response, ErrorBean.class);
-                        Toast.makeText(context, errorBean.getMsg(), Toast.LENGTH_SHORT).show();
+//                        ErrorBean errorBean = GsonUtils.getGsonInstance().fromJson(response, ErrorBean.class);
+//                        Toast.makeText(context, errorBean.getMsg(), Toast.LENGTH_SHORT).show();
                     }
                 });
     }
