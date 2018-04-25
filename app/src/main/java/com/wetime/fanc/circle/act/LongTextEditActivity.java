@@ -86,7 +86,7 @@ public class LongTextEditActivity extends BaseActivity implements LongTextAdapte
     private LocItemBean locBean = new LocItemBean();
 
     private String mCircleID;
-    private int max = 10;
+    private int max = 100;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
