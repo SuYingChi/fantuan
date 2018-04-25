@@ -129,6 +129,7 @@ public class ActDetailActivity extends BaseActivity implements IGetActDetailView
                     Intent gologin = new Intent(this, LoginActivity.class);
                     startActivity(gologin);
                 } else {
+                    toId = "";
                     showKeyborad();
                 }
                 break;
