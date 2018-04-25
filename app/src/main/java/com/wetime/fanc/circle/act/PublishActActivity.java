@@ -151,7 +151,8 @@ public class PublishActActivity extends BaseActivity implements IPostMultiFileVi
                     intent.putExtra("content", getContent());
                     intent.putExtra("simpleName", getIntent().getStringExtra("simpleName"));
                     startService(intent);
-                    onBackPressed();
+                    Tools.hideSoftInput(PublishActActivity.this);
+                    finish();
                 } else {
                     Tools.toastInBottom(mContext, "内容还不够10个字~");
                 }
