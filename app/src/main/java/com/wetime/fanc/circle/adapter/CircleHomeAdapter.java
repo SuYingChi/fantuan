@@ -10,6 +10,7 @@ import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -70,18 +71,19 @@ public class CircleHomeAdapter extends RecyclerView.Adapter {
     }
 
     public void setFollow_circles(List<CircleHomeListBean.DataBean.FollowCirclesBean> follow_circles) {
-        if (circleAdapter1 != null) {
+        Log.e("xi", "setFollow_circles: "+follow_circles.size() );
+        if (holder != null && holder instanceof CircleHeadViewHolder) {
             if (follow_circles.size() == 0) {
                 ((CircleHeadViewHolder) holder).rclCircleMy.setVisibility(View.GONE);
                 ((CircleHeadViewHolder) holder).llHeadTv.setVisibility(View.VISIBLE);
             } else {
                 ((CircleHeadViewHolder) holder).rclCircleMy.setVisibility(View.VISIBLE);
                 ((CircleHeadViewHolder) holder).llHeadTv.setVisibility(View.GONE);
-                circleAdapter1.notifyDataSetChanged();
                 circleAdapter1 = new HeadCircleAdapter(follow_circles, circllist, mActivity, 1);
+                ((CircleHeadViewHolder) holder).rclCircleMy.setAdapter(circleAdapter1);
             }
-
         }
+
     }
 
     @Override
@@ -100,12 +102,13 @@ public class CircleHomeAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
 
-        this.holder=holder;
+
 
 //        if (mOnItemClickLitener != null) {
 //            holder.itemView.setOnClickListener(view -> mOnItemClickLitener.onItemClick(view, position));
 //        }
         if (holder instanceof CircleHeadViewHolder) {
+            this.holder = holder;
             if (circleAdapter == null) {
                 ArrayList<CustomTabEntity> mTabEntities = new ArrayList<>();
                 String[] mTitles = {"最新动态", "热门动态"};

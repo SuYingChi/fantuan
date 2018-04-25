@@ -33,7 +33,7 @@
                 <ImageView
                     android:id="@+id/topic_iv"
                     android:layout_width="match_parent"
-                    android:layout_height="150dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="50dp"
                     android:scaleType="fitXY"
                     android:src="@drawable/iv_empty_card_comment" />

@@ -119,7 +119,7 @@ public class SpecialTopicActivity extends BaseActivity implements View.OnClickLi
 
     private void initView() {
 
-        idToolbar.setTitle("饭团专题");
+        idToolbar.setTitle("范团专题");
         idToolbar.getLeftView().setOnClickListener(this);
         idToolbar.getRightView().setOnClickListener(this);
         idToolbar.getRightView().setVisibility(View.VISIBLE);
@@ -128,15 +128,13 @@ public class SpecialTopicActivity extends BaseActivity implements View.OnClickLi
         topicContent.setText(content);
 
         int sw = Tools.getScreenW(this);
-        int w = sw - Tools.dip2px(this, 15 + 15);
-
         Double rate = 194.0 / 345;
-        int h = (int) (w * rate);
+        int h = (int) (sw * rate);
 
         Glide.with(this).load(imageurl)
                 .apply(
                         new RequestOptions()
-                                .override(w, h)
+                                .override(sw, h)
                                 .centerCrop()
                                 .placeholder(R.drawable.iv_default_news_small))
                 .into(topicIv);
