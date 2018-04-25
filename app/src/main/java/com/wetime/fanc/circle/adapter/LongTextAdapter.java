@@ -15,13 +15,16 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.wetime.fanc.BuildConfig;
 import com.wetime.fanc.R;
 import com.wetime.fanc.circle.bean.LongTextBean;
 import com.wetime.fanc.utils.Tools;
 
+import java.io.File;
 import java.util.List;
 
 import butterknife.BindView;
@@ -39,12 +42,14 @@ public class LongTextAdapter extends RecyclerView.Adapter {
     private Activity mContext;
     private boolean sort = false;
     private final int sortHight;
+    private final int maxHight;
 
 
     public LongTextAdapter(Activity context, List<LongTextBean> mData) {
         this.mData = mData;
         mContext = context;
         sortHight = Tools.dip2px(mContext, 84);
+        maxHight = Tools.dip2px(mContext, 120);
     }
 
     public boolean isSort() {
@@ -112,15 +117,18 @@ public class LongTextAdapter extends RecyclerView.Adapter {
                 ((EditViewHolder) holder).etText.setTextSize(12);
 
             } else {
+                ViewGroup.LayoutParams params = ((EditViewHolder) holder).etText.getLayoutParams();
+
                 if (mData.size() == 2) {
                     ((EditViewHolder) holder).etText.setHint("请输入正文");
+                    params.height = maxHight;
+                    ((EditViewHolder) holder).etText.setLayoutParams(params);
                 } else {
                     ((EditViewHolder) holder).etText.setHint("");
+                    params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
                 }
                 ((EditViewHolder) holder).etText.setEnabled(true);
                 ((EditViewHolder) holder).etText.setBackgroundResource(R.drawable.bg_edit_nodash);
-                ViewGroup.LayoutParams params = ((EditViewHolder) holder).etText.getLayoutParams();
-                params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
                 ((EditViewHolder) holder).etText.setLayoutParams(params);
                 ((EditViewHolder) holder).etText.setTextSize(17);
             }
@@ -200,6 +208,18 @@ public class LongTextAdapter extends RecyclerView.Adapter {
                 }
                 int outHeight = options.outHeight;
                 int outWidth = options.outWidth;
+                if(BuildConfig.DEBUG){
+                    String temp;
+                    long size = new File(bean.getImageUrl()).length();
+                    if(size>1014){
+                        temp = size/1024+"kb";
+                    }
+                    else {
+                        temp = size+"b";
+                    }
+                    ((ImageViewHolder) holder).tvInfo.setText(String.format("H:%s--W:%s--size=%s", outHeight, outWidth,temp));
+                }
+
 
 
                 int sw = Tools.getScreenW(mContext);
@@ -287,6 +307,8 @@ public class LongTextAdapter extends RecyclerView.Adapter {
         ImageView ivEdit;
         @BindView(R.id.et_des)
         EditText etDes;
+        @BindView(R.id.tv_info)
+        TextView tvInfo;
 
         ImageViewHolder(View view) {
             super(view);

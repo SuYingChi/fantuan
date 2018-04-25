@@ -15,6 +15,8 @@
         android:gravity="center"
         android:paddingTop="5dp">
 
+
+
         <ImageView
             android:id="@+id/iv_cover"
             android:layout_width="match_parent"
@@ -50,6 +52,13 @@
             android:layout_marginLeft="10dp"
             android:paddingBottom="10dp"
             android:src="@drawable/bg_longtext_editdes" />
+        <TextView
+            android:id="@+id/tv_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/warning_red"
+            android:textSize="20sp"
+            android:textStyle="bold" />
     </RelativeLayout>
 
 

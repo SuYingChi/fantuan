@@ -86,6 +86,7 @@ public class LongTextEditActivity extends BaseActivity implements LongTextAdapte
     private LocItemBean locBean = new LocItemBean();
 
     private String mCircleID;
+    private int max = 100;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -243,6 +244,11 @@ public class LongTextEditActivity extends BaseActivity implements LongTextAdapte
                 new Handler().postDelayed(this::showKeyboard, 200);
             }
         }
+        if (getImageNum() >= max) {
+            ivGopic.setImageResource(R.drawable.ic_add_image_enable);
+        } else {
+            ivGopic.setImageResource(R.drawable.ic_add_image);
+        }
     }
 
     private void initSortData() {
@@ -331,6 +337,8 @@ public class LongTextEditActivity extends BaseActivity implements LongTextAdapte
             case R.id.iv_gopic:
                 if (adapter.isSort())
                     return;
+                if (getImageNum() >= max)
+                    return;
                 if (lasteditText != null)
                     this.index = lasteditText.getSelectionStart();
                 gotoSelectPic();
@@ -371,9 +379,7 @@ public class LongTextEditActivity extends BaseActivity implements LongTextAdapte
 
                 ArrayList<String> defaultDataArray = new ArrayList<>();
                 for (LongTextBean lb : list) {
-                    if (lb.getType().equals("2")){
-
-
+                    if (lb.getType().equals("2")) {
                         BitmapFactory.Options options = new BitmapFactory.Options();
                         options.inJustDecodeBounds = true;
                         Bitmap bmp = BitmapFactory.decodeFile(lb.getImageUrl(), options);//这里的bitmap是个空
@@ -386,8 +392,6 @@ public class LongTextEditActivity extends BaseActivity implements LongTextAdapte
                         lb.setHeight(String.valueOf(outHeight));
                         defaultDataArray.add(lb.getImageUrl());
                     }
-
-
                 }
 
 
@@ -421,6 +425,7 @@ public class LongTextEditActivity extends BaseActivity implements LongTextAdapte
                 }
                 break;
         }
+
     }
 
     public String getLoc() {
@@ -471,12 +476,21 @@ public class LongTextEditActivity extends BaseActivity implements LongTextAdapte
     private void gotoSelectPic() {
         PictureSelector.create(this)
                 .openGallery(PictureMimeType.ofImage())
-                .maxSelectNum(100)
+                .maxSelectNum(max - getImageNum())
                 .theme(R.style.picture_my_style)
                 .previewImage(true)
                 .isCamera(true)
                 .compress(true)
                 .forResult(PictureConfig.CHOOSE_REQUEST);
+    }
+
+    private int getImageNum() {
+        int num = 0;
+        for (LongTextBean bean : list) {
+            if (bean.getType().equals("2"))
+                num++;
+        }
+        return num;
     }
 
     protected void initStateBar() {
@@ -518,6 +532,11 @@ public class LongTextEditActivity extends BaseActivity implements LongTextAdapte
         list.remove(position);
         initNormalData();
         adapter.notifyDataSetChanged();
+        if (getImageNum() >= max) {
+            ivGopic.setImageResource(R.drawable.ic_add_image_enable);
+        } else {
+            ivGopic.setImageResource(R.drawable.ic_add_image);
+        }
     }
 
     @Override
