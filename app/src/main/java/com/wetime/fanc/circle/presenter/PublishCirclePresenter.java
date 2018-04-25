@@ -27,7 +27,6 @@ public class PublishCirclePresenter {
 //                "lat":"20.02862",
 //                "location":"百方"
         String content = iView.getContent();
-        content=content.replace("\n"," ");
         OkHttpUtils
                 .post()
                 .url(Const.DYNAMIC_PUBLISH_SAVE)

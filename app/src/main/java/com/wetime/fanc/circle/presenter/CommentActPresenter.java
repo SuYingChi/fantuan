@@ -22,7 +22,6 @@ public class CommentActPresenter {
 
     public void commnetAct() {
         String content = iView.getContent();
-        content=content.replace("\n"," ");
         OkHttpUtils
                 .post()
                 .url(Const.DYNAMIC_COMMENT)
