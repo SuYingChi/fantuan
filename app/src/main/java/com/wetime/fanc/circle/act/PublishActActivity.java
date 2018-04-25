@@ -5,7 +5,6 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
@@ -36,7 +35,6 @@ import com.wetime.fanc.main.ivews.IPostMultiFileView;
 import com.wetime.fanc.order.adapter.ImageGridAdapter;
 import com.wetime.fanc.service.UploadImageService;
 import com.wetime.fanc.utils.Tools;
-
 
 import java.util.ArrayList;
 import java.util.List;
@@ -153,7 +151,7 @@ public class PublishActActivity extends BaseActivity implements IPostMultiFileVi
                     intent.putExtra("content", getContent());
                     intent.putExtra("simpleName", getIntent().getStringExtra("simpleName"));
                     startService(intent);
-                    this.finish();
+                    onBackPressed();
                 } else {
                     Tools.toastInBottom(mContext, "内容还不够10个字~");
                 }
@@ -275,7 +273,6 @@ public class PublishActActivity extends BaseActivity implements IPostMultiFileVi
         go.putExtra("id", bean.getData().getId());
         startActivity(go);
     }
-
 
 
     @Override
