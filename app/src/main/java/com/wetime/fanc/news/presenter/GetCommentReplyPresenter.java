@@ -45,7 +45,7 @@ public class GetCommentReplyPresenter {
                 .addParams("comment_id", comment_id)
                 .addParams("content", content)
                 .build()
-                .execute(new DataStringCallback(iview, true) {
+                .execute(new DataStringCallback(iview, false) {
                     @Override
                     public void onResponse(String s, int i) {
                         super.onResponse(s, i);

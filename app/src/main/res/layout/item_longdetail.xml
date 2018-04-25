@@ -11,8 +11,8 @@
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:layout_marginTop="20dp"
-        android:lineSpacingExtra="0sp"
-        android:text="海南岛是一个非常棒的旅游目的地。 "
+        android:lineSpacingExtra="6sp"
+        android:text="海南岛是一个非常棒的旅游目的地。"
         android:textColor="#333333"
         android:textSize="17sp" />
 
@@ -20,18 +20,17 @@
         android:id="@+id/item_img"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp" />
+        android:layout_marginTop="15dp"/>
 
     <TextView
         android:id="@+id/item_content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
         android:layout_gravity="center"
-        android:layout_marginRight="15dp"
-        android:layout_marginTop="5dp"
-        android:lineSpacingExtra="0sp"
-
+        android:layout_marginTop="9dp"
+        android:lineSpacingExtra="6sp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
         android:text="傍晚的海滩风景"
         android:textColor="#999999"
         android:textSize="12sp" />

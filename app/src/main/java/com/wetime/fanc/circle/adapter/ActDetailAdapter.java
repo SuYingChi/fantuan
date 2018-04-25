@@ -78,6 +78,14 @@ public class ActDetailAdapter extends RecyclerView.Adapter {
             ((ViewHolder0) holder).tvContent.setText(actDetailBean.getData().getContent());
 
             ((ViewHolder0) holder).tvSee.setText(actDetailBean.getData().getRead_num());
+            if (TextUtils.isEmpty(actDetailBean.getData().getCircle_name())){
+                ((ViewHolder0) holder). tvPublishtitle.setVisibility(View.GONE);
+                ((ViewHolder0) holder).tvCirclename.setVisibility(View.GONE);
+            }else{
+                ((ViewHolder0) holder). tvPublishtitle.setVisibility(View.VISIBLE);
+                ((ViewHolder0) holder).tvCirclename.setVisibility(View.VISIBLE);
+                ((ViewHolder0) holder).tvCirclename.setText(actDetailBean.getData().getCircle_name());
+            }
             ((ViewHolder0) holder).tvCirclename.setText(actDetailBean.getData().getCircle_name());
             if (TextUtils.isEmpty(actDetailBean.getData().getContent())) {
                 ((ViewHolder0) holder).tvContent.setVisibility(View.GONE);

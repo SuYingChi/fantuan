@@ -134,11 +134,12 @@ public class CircleInfoActivity extends BaseActivity implements IGetCircleDetail
             adapter.setOnItemClickLitener(new HeadManageAdapter.OnItemClickLitener() {
                 @Override
                 public void onItemClick(View view, int position) {
-                    Intent go = new Intent(CircleInfoActivity.this, UserCardActivity.class);
-                    go.putExtra("num", "3");
-                    go.putExtra("index", 1);
+
+                    Intent go = new Intent(mContext, UserCardActivity.class);
+                    go.putExtra("index", 0);
                     go.putExtra("id", bean.getData().getManagers().get(position).getId());
-                    CircleInfoActivity.this.startActivity(go);
+                    go.putExtra("num", bean.getData().getManagers().get(position).isIs_news() ? "3" : "2");
+                    startActivity(go);
                 }
             });
         }

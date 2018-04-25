@@ -13,8 +13,8 @@ import com.google.gson.reflect.TypeToken;
 import com.wetime.fanc.circle.bean.LongTextBean;
 import com.wetime.fanc.circle.bean.PublishResultBean;
 import com.wetime.fanc.main.bean.PostFileResultBean;
-import com.wetime.fanc.service.event.UploadProgessEvent;
 import com.wetime.fanc.service.event.UploadEvent;
+import com.wetime.fanc.service.event.UploadProgessEvent;
 import com.wetime.fanc.utils.Const;
 import com.wetime.fanc.utils.GsonUtils;
 
@@ -98,6 +98,9 @@ public class UploadImageService extends Service {
                     @Override
                     public void inProgress(float progress, long total, int id) {
                         super.inProgress(progress, total, id);
+                        if (defaultDataArray == null || defaultDataArray.size() == 0) {
+                            return;
+                        }
                         EventBus.getDefault().post(new UploadProgessEvent(progress, simpleName));
                     }
 

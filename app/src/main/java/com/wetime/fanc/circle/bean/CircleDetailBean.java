@@ -198,6 +198,15 @@ public class CircleDetailBean {
             private String id;
             private String username;
             private String cover;
+            private boolean is_news;
+
+            public boolean isIs_news() {
+                return is_news;
+            }
+
+            public void setIs_news(boolean is_news) {
+                this.is_news = is_news;
+            }
 
             public String getId() {
                 return id;

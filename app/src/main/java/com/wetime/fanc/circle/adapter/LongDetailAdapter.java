@@ -29,11 +29,16 @@ import com.wetime.fanc.circle.act.CircleDetailActivity;
 import com.wetime.fanc.circle.act.LongDetailActivity;
 import com.wetime.fanc.circle.bean.ActDetailBean;
 import com.wetime.fanc.circle.bean.LongBean;
+import com.wetime.fanc.circle.bean.LongTextBean;
 import com.wetime.fanc.circle.presenter.FocusPresenter;
 import com.wetime.fanc.customview.GridViewForScrollView;
+import com.wetime.fanc.customview.SpaceItemDecoration;
 import com.wetime.fanc.login.act.LoginActivity;
 import com.wetime.fanc.my.act.UserCardActivity;
 import com.wetime.fanc.utils.Tools;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -48,10 +53,20 @@ public class LongDetailAdapter extends RecyclerView.Adapter {
     private LongBean actDetailBean;
     private Activity mActivity;
     private OnItemClickLitener mOnItemClickLitener;
+    private List<LongTextBean> datas = new ArrayList<>();
 
     public LongDetailAdapter(Activity mActivity, LongBean actDetailBean) {
         this.mActivity = mActivity;
         this.actDetailBean = actDetailBean;
+        if (actDetailBean == null || actDetailBean.getData().getContents() == null) return;
+        for (int i = 0; i < actDetailBean.getData().getContents().size(); i++) {
+            LongTextBean longTextBean = actDetailBean.getData().getContents().get(i);
+            if (longTextBean.getType().equals("1") && TextUtils.isEmpty(longTextBean.getContent())) {
+            } else {
+                datas.add(longTextBean);
+            }
+
+        }
     }
 
     @Override
@@ -77,7 +92,12 @@ public class LongDetailAdapter extends RecyclerView.Adapter {
         if (holder instanceof ViewHolder0) {
 
             ((ViewHolder0) holder).recyc.setLayoutManager(new LinearLayoutManager(mActivity));
-            ((ViewHolder0) holder).recyc.setAdapter(new LongDetailItemAdapte(mActivity, R.layout.item_longdetail, actDetailBean.getData().getContents()));
+
+
+            ((ViewHolder0) holder).recyc.setAdapter(new LongDetailItemAdapte(mActivity, R.layout.item_longdetail, datas));
+            int spacingInPixels = mActivity.getResources().getDimensionPixelSize(R.dimen.space);
+            ((ViewHolder0) holder).recyc.addItemDecoration(new SpaceItemDecoration(spacingInPixels));
+
 
             Glide.with(mActivity).load(actDetailBean.getData().getAvatar()).into(((ViewHolder0) holder).ivHead);
             ((ViewHolder0) holder).tvName.setText(actDetailBean.getData().getUsername());
@@ -86,7 +106,15 @@ public class LongDetailAdapter extends RecyclerView.Adapter {
             ((ViewHolder0) holder).title_long.setText(actDetailBean.getData().getTitle());
 
             ((ViewHolder0) holder).tvSee.setText(actDetailBean.getData().getRead_num() + "次浏览");
-            ((ViewHolder0) holder).tvCirclename.setText(actDetailBean.getData().getCircle_name());
+            if (TextUtils.isEmpty(actDetailBean.getData().getCircle_name())) {
+                ((ViewHolder0) holder).tvPublishtitle.setVisibility(View.GONE);
+                ((ViewHolder0) holder).tvCirclename.setVisibility(View.GONE);
+            } else {
+                ((ViewHolder0) holder).tvPublishtitle.setVisibility(View.VISIBLE);
+                ((ViewHolder0) holder).tvCirclename.setVisibility(View.VISIBLE);
+                ((ViewHolder0) holder).tvCirclename.setText(actDetailBean.getData().getCircle_name());
+            }
+
 
             if (actDetailBean.getData().isIs_owner()) {
                 ((ViewHolder0) holder).tvFocus.setVisibility(View.GONE);
@@ -173,7 +201,7 @@ public class LongDetailAdapter extends RecyclerView.Adapter {
             ((ViewHolder2) holder).tvName.setText(bean.getUsername());
             ((ViewHolder2) holder).tvTime.setText(bean.getTime());
 
-            if (actDetailBean.getData().isIs_manager()) {
+            if (actDetailBean.getData().isIs_delete()) {
                 ((ViewHolder2) holder).ivdelete.setVisibility(View.VISIBLE);
                 ((ViewHolder2) holder).ivdelete.setOnClickListener(v -> {
                     mOnItemClickLitener.onItemClick(v, position);

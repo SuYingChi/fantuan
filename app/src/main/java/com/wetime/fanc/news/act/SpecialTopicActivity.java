@@ -40,6 +40,7 @@ import com.tencent.tauth.UiError;
 import com.wetime.fanc.R;
 import com.wetime.fanc.customview.LetToolBar;
 import com.wetime.fanc.home.bean.HomeItemBean;
+import com.wetime.fanc.login.act.LoginActivity;
 import com.wetime.fanc.main.act.BaseActivity;
 import com.wetime.fanc.my.adapter.MyFriendsPagerAdapter;
 import com.wetime.fanc.news.frag.SpecialTopicBaseFragment;
@@ -177,7 +178,14 @@ public class SpecialTopicActivity extends BaseActivity implements View.OnClickLi
                 onBackPressed();
                 break;
             case R.id.iv_more:
-                showPop();
+                if (spu.getToken() != null) {
+                    showPop();
+                } else {
+                    Tools.toastInBottom(this, "请先登录");
+                    Intent goLogin = new Intent(this, LoginActivity.class);
+                    startActivity(goLogin);
+                }
+
                 break;
             case R.id.ll_share_wx:
                 Glide.with(this).load(imageurl).into(new SimpleTarget<Drawable>() {

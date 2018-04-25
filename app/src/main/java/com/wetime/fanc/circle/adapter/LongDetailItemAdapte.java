@@ -2,6 +2,7 @@ package com.wetime.fanc.circle.adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -34,6 +35,7 @@ public class LongDetailItemAdapte extends CommonAdapter<LongTextBean> {
         this.datas = datas;
         list = new ArrayList<>();
         content = new ArrayList<>();
+        if (datas == null) return;
         for (int i = 0; i < datas.size(); i++) {
             switch (datas.get(i).getType()) {
                 case "2":
@@ -49,22 +51,27 @@ public class LongDetailItemAdapte extends CommonAdapter<LongTextBean> {
 
         switch (longTextBean.getType()) {
             case "1":
-                holder.setText(R.id.item_name, longTextBean.getContent());
+                if (TextUtils.isEmpty(longTextBean.getContent())) {
+                    holder.getView(R.id.item_name).setVisibility(View.GONE);
+                } else {
+                    holder.getView(R.id.item_name).setVisibility(View.VISIBLE);
+                    holder.setText(R.id.item_name, longTextBean.getContent());
+                }
                 holder.getView(R.id.item_img).setVisibility(View.GONE);
                 holder.getView(R.id.item_content).setVisibility(View.GONE);
                 break;
             case "2":
                 holder.getView(R.id.item_name).setVisibility(View.GONE);
-                holder.setText(R.id.item_content, longTextBean.getDes());
-                int sw = Tools.getScreenW(context);
-                Double rate = Double.parseDouble(longTextBean.getHeight()) / Double.parseDouble(longTextBean.getWidth());
-                int h = (int) (sw * rate);
+                if (TextUtils.isEmpty(longTextBean.getDes())) {
+                    holder.getView(R.id.item_content).setVisibility(View.GONE);
+                } else {
+                    holder.getView(R.id.item_content).setVisibility(View.VISIBLE);
+                    holder.setText(R.id.item_content, longTextBean.getDes());
+                }
                 Glide.with(context)
                         .load(longTextBean.getImageUrl())
                         .apply(
-                                new RequestOptions()
-                                        .override(sw, h)
-                                        .placeholder(R.drawable.iv_default_news_small)
+                                new RequestOptions().placeholder(R.drawable.iv_default_news_small)
                         )
                         .into(((ImageView) holder.getView(R.id.item_img)));
                 holder.setOnClickListener(R.id.item_img, v -> {

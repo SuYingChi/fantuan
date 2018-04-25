@@ -19,6 +19,7 @@
         android:layout_alignParentBottom="true"
         android:gravity="center"
         android:id="@+id/tv_index"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="1/2"
@@ -38,7 +39,7 @@
     <ScrollView
         android:id="@+id/gallery_desc_layout"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:background="@color/_33000000"
         android:paddingBottom="5dp"

@@ -480,6 +480,15 @@ public class HomeItemBean {
         private String status;
         private String createdAt;
         private List<String> cover;
+        private String article_url;
+
+        public String getArticle_url() {
+            return article_url;
+        }
+
+        public void setArticle_url(String article_url) {
+            this.article_url = article_url;
+        }
 
         public String getId() {
             return id;

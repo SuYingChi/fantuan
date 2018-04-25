@@ -152,7 +152,7 @@ public class LongDetailActivity extends BaseActivity implements OnLoadMoreListen
         super.onBackPressed();
     }
 
-    @OnClick({R.id.iv_back, R.id.tv_gocomment, R.id.tv_zan, R.id.rl_bottom, R.id.tv_send, R.id.iv_memu, R.id.gallery_share})
+    @OnClick({R.id.iv_back, R.id.tv_gocomment, R.id.tv_zan, R.id.tv_message, R.id.rl_bottom, R.id.tv_send, R.id.iv_memu, R.id.gallery_share})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
@@ -220,14 +220,25 @@ public class LongDetailActivity extends BaseActivity implements OnLoadMoreListen
                 hideKeyboard();
                 break;
             case R.id.iv_memu:
-                if (actbean.getData().isIs_manager() || actbean.getData().isIs_owner()) {
-                    showDeleteAct(actbean.getData().isIs_owner(), false);
+                if (spu.getToken() != null) {
+                    if (actbean.getData() == null) return;
+                    if (actbean.getData().isIs_delete()) {
+                        showDeleteAct(actbean.getData().isIs_owner(), false);
+                    } else {
+                        showReportAct();
+                    }
                 } else {
-                    showReportAct();
+                    Tools.toastInBottom(this, "请先登录");
+                    Intent goLogin = new Intent(this, LoginActivity.class);
+                    startActivity(goLogin);
                 }
+
                 break;
             case R.id.gallery_share:
                 showPop();
+                break;
+            case R.id.tv_message:
+                rclCircle.scrollToPosition(actDetailAdapter.getItemCount() - 1);
                 break;
 
         }
@@ -260,7 +271,7 @@ public class LongDetailActivity extends BaseActivity implements OnLoadMoreListen
             actDetailAdapter.setOnItemClickLitener((view, position) -> {
 
                 if (view.getId() == R.id.iv_delete) {
-                    showDeleteAct(true, true);
+                    showDeleteAct(true, true, position);
                     return;
                 }
 
@@ -282,7 +293,7 @@ public class LongDetailActivity extends BaseActivity implements OnLoadMoreListen
                         v.findViewById(R.id.tv_delete).setOnClickListener(v12 -> {
                             mCommentBottomDialog.dismiss();
                             DialogUtils.showNormalDialog(LongDetailActivity.this, null, "是否删除该评论", (dialog, which) -> {
-                                deleteCommentPresenter.deleteComment("0", b.getId(), "违反圈子规章");
+                                deleteCommentPresenter.deleteComment("0", actbean.getData().getComment_list().get(position - 2).getId(), "违反圈子规章");
                                 actbean.getData().getComment_list().remove(position - 2);
                                 actbean.getData().setComment_num(String.valueOf(Integer.parseInt(actbean.getData().getComment_num()) - 1));
 
@@ -422,6 +433,10 @@ public class LongDetailActivity extends BaseActivity implements OnLoadMoreListen
     }
 
     private void showDeleteAct(boolean b, boolean b1) {
+        showDeleteAct(b, b1, -1);
+    }
+
+    private void showDeleteAct(boolean b, boolean b1, int position) {
         mDeleteBottomDialog = BottomDialog.create(getSupportFragmentManager());
         mDeleteBottomDialog.setDimAmount(0.5f);
         if (b1) {
@@ -437,10 +452,15 @@ public class LongDetailActivity extends BaseActivity implements OnLoadMoreListen
 //                deleteActPresenter.deleteAct();
 
                 if (b) {
-                    DialogUtils.showNormalDialog(LongDetailActivity.this, null, "是否删除该评论", new DialogInterface.OnClickListener() {
+                    DialogUtils.showNormalDialog(LongDetailActivity.this, null, b1 ? "是否删除该评论" : "是否删除该动态", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            deleteCommentPresenter.deleteComment("1", actbean.getData().getId(), "违反圈子规章");
+                            if (b1) {
+                                deleteCommentPresenter.deleteComment("0", actbean.getData().getComment_list().get(position - 2).getId(), "违反圈子规章");
+                            } else {
+                                deleteCommentPresenter.deleteComment("1", actbean.getData().getId(), "欺诈骗钱");
+                            }
+
                         }
                     });
                     return;
@@ -481,10 +501,14 @@ public class LongDetailActivity extends BaseActivity implements OnLoadMoreListen
                 mDeleteBottomDialog.dismiss();
 
             });
-            v.findViewById(R.id.tv_share).setOnClickListener(v14 -> {
-                mDeleteBottomDialog.dismiss();
-                showPop();
-            });
+            if (b1) {
+            } else {
+                v.findViewById(R.id.tv_share).setOnClickListener(v14 -> {
+                    mDeleteBottomDialog.dismiss();
+                    showPop();
+                });
+            }
+
         });
 
         mDeleteBottomDialog.show();
@@ -540,7 +564,7 @@ public class LongDetailActivity extends BaseActivity implements OnLoadMoreListen
                 BottomDialog mDeleteBottomDialog = BottomDialog.create(getSupportFragmentManager());
                 mDeleteBottomDialog.setDimAmount(0.5f);
                 mDeleteBottomDialog.setCancelOutside(true);
-                mDeleteBottomDialog.setLayoutRes(R.layout.bottom_anim_dialog_layout);
+                mDeleteBottomDialog.setLayoutRes(R.layout.bottom_delete_dialog_layout);
                 mDeleteBottomDialog.setViewListener(v11 -> {
                     v11.findViewById(R.id.tv_item2).setOnClickListener(v1 -> {
                         report(mDeleteBottomDialog, v1.getId(), v11);

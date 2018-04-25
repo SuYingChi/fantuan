@@ -12,7 +12,8 @@
     <ImageView
         android:id="@+id/iv_cover"
         android:layout_width="45dp"
-        android:layout_height="45dp" />
+        android:layout_height="45dp"
+        android:src="@drawable/ic_head_default"/>
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/iv_user"

@@ -101,6 +101,7 @@ public class LongBean {
         private PagingBean paging;
         private String avatar;
         private boolean is_manager;
+        private boolean is_delete;
         private String current_avatar;
         private String location;
         private String time;
@@ -111,6 +112,14 @@ public class LongBean {
         private List<ActDetailBean.DataBean.CommentListBean> comment_list;
         private List<LongTextBean> contents;
         private List<ActDetailBean.DataBean.LikeListBean> like_list;
+
+        public boolean isIs_delete() {
+            return is_delete;
+        }
+
+        public void setIs_delete(boolean is_delete) {
+            this.is_delete = is_delete;
+        }
 
         public String getComment_num() {
             return comment_num;

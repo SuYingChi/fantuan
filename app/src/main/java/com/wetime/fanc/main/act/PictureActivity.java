@@ -5,6 +5,7 @@ import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -39,9 +40,22 @@ public class PictureActivity extends BaseActivity implements View.OnClickListene
     private int page = 0;
 
     @Override
+    protected void setSoftInPutMode() {
+
+    }
+
+    @Override
+    protected void initStateBar() {
+
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
+        Window window = getWindow();
+        int flag = WindowManager.LayoutParams.FLAG_FULLSCREEN;
+        window.setFlags(flag, flag);
         setContentView(R.layout.activity_picture);
         ButterKnife.bind(this);
 
@@ -99,10 +113,7 @@ public class PictureActivity extends BaseActivity implements View.OnClickListene
         });
     }
 
-    @Override
-    protected void initStateBar() {
-        ImmersionBar.with(this).statusBarColor(R.color.black).fitsSystemWindows(true).init();
-    }
+
 
     @Override
     public void onClick(View v) {

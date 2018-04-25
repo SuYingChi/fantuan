@@ -2,6 +2,7 @@ package com.wetime.fanc.circle.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,10 +61,12 @@ public class HeadManageAdapter extends RecyclerView.Adapter {
 
         ((ViewHolder) holder).tvname.setText(bean.getUsername());
 
-        Glide.with(mContext)
-                .load(bean.getCover())
-                .apply(myOptions)
-                .into(oholder.ivuser);
+        if (!TextUtils.isEmpty(bean.getCover())) {
+            Glide.with(mContext)
+                    .load(bean.getCover())
+                    .apply(myOptions)
+                    .into(oholder.ivuser);
+        }
 
         ((ViewHolder) holder).ivuser.setVisibility(View.VISIBLE);
         ((ViewHolder) holder).ivcover.setVisibility(View.GONE);

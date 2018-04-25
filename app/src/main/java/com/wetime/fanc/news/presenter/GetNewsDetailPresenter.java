@@ -59,7 +59,7 @@ public class GetNewsDetailPresenter {
                 .addParams("article_id", article_id)
                 .addParams("content", content)
                 .build()
-                .execute(new DataStringCallback(iView, true, false, false) {
+                .execute(new DataStringCallback(iView, false, false, false) {
                     @Override
                     public void onResponse(String s, int i) {
                         super.onResponse(s, i);

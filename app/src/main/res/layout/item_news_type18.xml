@@ -89,6 +89,7 @@
             />
 
         <LinearLayout
+            android:id="@+id/type_linear"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#f6f6f6"

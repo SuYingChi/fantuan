@@ -60,7 +60,7 @@ public class GetAllCommentPresenter {
                 .addParams("article_id", article_id)
                 .addParams("content", content)
                 .build()
-                .execute(new DataStringCallback(iview, true, false, false) {
+                .execute(new DataStringCallback(iview, false, false, false) {
                     @Override
                     public void onResponse(String s, int i) {
                         super.onResponse(s, i);

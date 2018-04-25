@@ -10,7 +10,6 @@ import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -71,7 +70,6 @@ public class CircleHomeAdapter extends RecyclerView.Adapter {
     }
 
     public void setFollow_circles(List<CircleHomeListBean.DataBean.FollowCirclesBean> follow_circles) {
-        Log.e("xi", "setFollow_circles: "+follow_circles.size() );
         if (holder != null && holder instanceof CircleHeadViewHolder) {
             if (follow_circles.size() == 0) {
                 ((CircleHeadViewHolder) holder).rclCircleMy.setVisibility(View.GONE);
@@ -101,7 +99,6 @@ public class CircleHomeAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
-
 
 
 //        if (mOnItemClickLitener != null) {
@@ -288,7 +285,12 @@ public class CircleHomeAdapter extends RecyclerView.Adapter {
 
         if (holder instanceof NewsHolder18) {
             HomeItemBean bean = list.get(position - 1);
-            holder.itemView.setOnClickListener(view -> {
+//            ((NewsHolder18) holder).typelinear.setOnClickListener(view -> {
+//                if (bean.getType() != -1) {
+//                    LongDetailActivity.startToLongDetail(mActivity, bean.getId());
+//                }
+//            });
+            ((NewsHolder18) holder).itemView.setOnClickListener(view -> {
                 if (bean.getType() != -1) {
                     LongDetailActivity.startToLongDetail(mActivity, bean.getId());
                 }
@@ -481,6 +483,8 @@ public class CircleHomeAdapter extends RecyclerView.Adapter {
         CircleImageView ivHead;
         @BindView(R.id.linear)
         LinearLayout linear;
+        @BindView(R.id.type_linear)
+        LinearLayout typelinear;
 
         NewsHolder18(View view) {
             super(view);

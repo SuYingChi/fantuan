@@ -17,7 +17,6 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.gyf.barlibrary.ImmersionBar;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
@@ -97,7 +96,7 @@ public class ActDetailActivity extends BaseActivity implements IGetActDetailView
         deleteCommentPresenter = new DeleteCommentPresenter(this);
     }
 
-//    @Override
+    //    @Override
 //    protected void setSoftInPutMode() {
 //        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE | WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 //    }
@@ -105,6 +104,7 @@ public class ActDetailActivity extends BaseActivity implements IGetActDetailView
     protected void setSoftInPutMode() {
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
     }
+
     @Override
     public void onKeyboardChange(boolean isShow, int keyboardHeight) {
         if (!isShow) {
@@ -186,11 +186,18 @@ public class ActDetailActivity extends BaseActivity implements IGetActDetailView
                 hideKeyboard();
                 break;
             case R.id.iv_memu:
-                if (actbean.getData().isIs_delete()) {
-                    showDeleteAct(actbean.getData().isIs_owner());
+                if (spu.getToken() != null) {
+                    if (actbean.getData().isIs_delete()) {
+                        showDeleteAct(actbean.getData().isIs_owner(), false);
+                    } else {
+                        showReportAct();
+                    }
                 } else {
-                    showReportAct();
+                    Tools.toastInBottom(this, "请先登录");
+                    Intent goLogin = new Intent(this, LoginActivity.class);
+                    startActivity(goLogin);
                 }
+
 
                 break;
 
@@ -216,7 +223,7 @@ public class ActDetailActivity extends BaseActivity implements IGetActDetailView
             actDetailAdapter.setOnItemClickLitener((view, position) -> {
 
                 if (view.getId() == R.id.iv_delete) {
-                    showDeleteAct(true);
+                    showDeleteAct(true, true, position);
                     return;
                 }
 
@@ -240,7 +247,7 @@ public class ActDetailActivity extends BaseActivity implements IGetActDetailView
                             DialogUtils.showNormalDialog(ActDetailActivity.this, null, "是否删除该评论", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    deleteCommentPresenter.deleteComment("0", b.getId(), "违反圈子规章");
+                                    deleteCommentPresenter.deleteComment("0", actbean.getData().getComment_list().get(position - 2).getId(), "违反圈子规章");
                                     actbean.getData().getComment_list().remove(position - 2);
                                     actbean.getData().setComment_num(actbean.getData().getComment_num() - 1);
 
@@ -371,7 +378,11 @@ public class ActDetailActivity extends BaseActivity implements IGetActDetailView
 //        this.finish();
     }
 
-    private void showDeleteAct(boolean b) {
+    private void showDeleteAct(boolean b, boolean b1) {
+        showDeleteAct(b, b1, -1);
+    }
+
+    private void showDeleteAct(boolean b, boolean b1, int position) {
         mDeleteBottomDialog = BottomDialog.create(getSupportFragmentManager());
         mDeleteBottomDialog.setDimAmount(0.5f);
         mDeleteBottomDialog.setLayoutRes(R.layout.item_delete_act);
@@ -383,10 +394,15 @@ public class ActDetailActivity extends BaseActivity implements IGetActDetailView
 //                deleteActPresenter.deleteAct();
 
                 if (b) {
-                    DialogUtils.showNormalDialog(ActDetailActivity.this, null, "是否删除该评论", new DialogInterface.OnClickListener() {
+                    DialogUtils.showNormalDialog(ActDetailActivity.this, null,  b1?"是否删除该评论":"是否删除该动态", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            deleteCommentPresenter.deleteComment("1", actbean.getData().getId(), "违反圈子规章");
+                            if (b1){
+                                deleteCommentPresenter.deleteComment("0", actbean.getData().getComment_list().get(position-2).getId(), "违反圈子规章");
+                            }else{
+                                deleteCommentPresenter.deleteComment("1", actbean.getData().getId(), "欺诈骗钱");
+                            }
+
                         }
                     });
                     return;
@@ -395,7 +411,7 @@ public class ActDetailActivity extends BaseActivity implements IGetActDetailView
                 BottomDialog mDeleteBottomDialog = BottomDialog.create(getSupportFragmentManager());
                 mDeleteBottomDialog.setDimAmount(0.5f);
                 mDeleteBottomDialog.setCancelOutside(true);
-                mDeleteBottomDialog.setLayoutRes(R.layout.bottom_delete_dialog_layout);
+                mDeleteBottomDialog.setLayoutRes(R.layout.bottom_anim_dialog_layout);
                 mDeleteBottomDialog.setViewListener(v11 -> {
                     v11.findViewById(R.id.tv_item2).setOnClickListener(v1 -> {
                         delete(mDeleteBottomDialog, "1", v1.getId(), v11);
@@ -444,7 +460,7 @@ public class ActDetailActivity extends BaseActivity implements IGetActDetailView
                 BottomDialog mDeleteBottomDialog = BottomDialog.create(getSupportFragmentManager());
                 mDeleteBottomDialog.setDimAmount(0.5f);
                 mDeleteBottomDialog.setCancelOutside(true);
-                mDeleteBottomDialog.setLayoutRes(R.layout.bottom_anim_dialog_layout);
+                mDeleteBottomDialog.setLayoutRes(R.layout.bottom_delete_dialog_layout);
                 mDeleteBottomDialog.setViewListener(v11 -> {
                     v11.findViewById(R.id.tv_item2).setOnClickListener(v1 -> {
                         report(mDeleteBottomDialog, v1.getId(), v11);
@@ -483,7 +499,7 @@ public class ActDetailActivity extends BaseActivity implements IGetActDetailView
 
     private void delete(BottomDialog mDeleteBottomDialog, String type, int id, View v11) {
         deleteCommentPresenter.deleteComment(type,
-                actbean.getData().getCircle_id(),
+                actbean.getData().getId(),
                 String.valueOf(((TextView) v11.findViewById(id)).getText()));
         mDeleteBottomDialog.dismiss();
     }
