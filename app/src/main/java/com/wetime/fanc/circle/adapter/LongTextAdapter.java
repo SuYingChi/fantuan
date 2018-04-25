@@ -39,12 +39,14 @@ public class LongTextAdapter extends RecyclerView.Adapter {
     private Activity mContext;
     private boolean sort = false;
     private final int sortHight;
+    private final int maxHight;
 
 
     public LongTextAdapter(Activity context, List<LongTextBean> mData) {
         this.mData = mData;
         mContext = context;
         sortHight = Tools.dip2px(mContext, 84);
+        maxHight = Tools.dip2px(mContext, 120);
     }
 
     public boolean isSort() {
@@ -112,15 +114,18 @@ public class LongTextAdapter extends RecyclerView.Adapter {
                 ((EditViewHolder) holder).etText.setTextSize(12);
 
             } else {
+                ViewGroup.LayoutParams params = ((EditViewHolder) holder).etText.getLayoutParams();
+
                 if (mData.size() == 2) {
                     ((EditViewHolder) holder).etText.setHint("请输入正文");
+                    params.height = maxHight;
+                    ((EditViewHolder) holder).etText.setLayoutParams(params);
                 } else {
                     ((EditViewHolder) holder).etText.setHint("");
+                    params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
                 }
                 ((EditViewHolder) holder).etText.setEnabled(true);
                 ((EditViewHolder) holder).etText.setBackgroundResource(R.drawable.bg_edit_nodash);
-                ViewGroup.LayoutParams params = ((EditViewHolder) holder).etText.getLayoutParams();
-                params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
                 ((EditViewHolder) holder).etText.setLayoutParams(params);
                 ((EditViewHolder) holder).etText.setTextSize(17);
             }
