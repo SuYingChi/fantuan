@@ -107,6 +107,7 @@ public class LongDetailActivity extends BaseActivity implements OnLoadMoreListen
     private String content;
     private String titleUrl;
     private WbShareHandler shareHandler;
+    private boolean isComm = false;
 
     public static void startToLongDetail(Context context, String longId) {
         Intent intent = new Intent(context, LongDetailActivity.class);
@@ -355,6 +356,12 @@ public class LongDetailActivity extends BaseActivity implements OnLoadMoreListen
 
         refreshLayout.finishLoadMore();
 
+        if (isComm) {
+            rclCircle.scrollToPosition(actDetailAdapter.getItemCount() - 2);
+            isComm = false;
+        }
+
+
     }
 
     @Override
@@ -401,6 +408,7 @@ public class LongDetailActivity extends BaseActivity implements OnLoadMoreListen
         etContent.setText("");
         hideKeyboard();
         getActDetailPresenter.getLongDetail();
+        isComm = true;
     }
 
     @Override

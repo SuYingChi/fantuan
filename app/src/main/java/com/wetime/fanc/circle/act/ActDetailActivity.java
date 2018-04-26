@@ -77,6 +77,7 @@ public class ActDetailActivity extends BaseActivity implements IGetActDetailView
     private BottomDialog mDeleteBottomDialog;
     private DeleteCommentPresenter deleteCommentPresenter;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -177,11 +178,17 @@ public class ActDetailActivity extends BaseActivity implements IGetActDetailView
                 }
                 break;
             case R.id.tv_send:
-                if (TextUtils.isEmpty(etContent.getText().toString())) {
-                    Tools.toastInBottom(mContext, "请填写评论内容");
-                    return;
+                if (!TextUtils.isEmpty(spu.getToken())) {
+                    if (TextUtils.isEmpty(etContent.getText().toString())) {
+                        Tools.toastInBottom(mContext, "请填写评论内容");
+                        return;
+                    }
+                    commentActPresenter.commnetAct();
+                } else {
+                    Tools.toastInBottom(this, "请先登录");
+                    Intent goLogin = new Intent(this, LoginActivity.class);
+                    startActivity(goLogin);
                 }
-                commentActPresenter.commnetAct();
                 break;
             case R.id.rl_bottom:
                 hideKeyboard();
@@ -220,7 +227,7 @@ public class ActDetailActivity extends BaseActivity implements IGetActDetailView
             actDetailAdapter = new ActDetailAdapter(this, actbean);
             rclCircle.setAdapter(actDetailAdapter);
             actDetailAdapter.setOnItemClickLitener((view, position) -> {
-                if(TextUtils.isEmpty(spu.getToken())){
+                if (TextUtils.isEmpty(spu.getToken())) {
                     Intent gologin = new Intent(this, LoginActivity.class);
                     startActivity(gologin);
                     return;
