@@ -247,7 +247,7 @@ public class LongDetailAdapter extends RecyclerView.Adapter {
             Glide.with(mActivity).load(bean.getAvatar()).into(((ViewHolder2) holder).ivHead);
             ((ViewHolder2) holder).ivHead.setOnClickListener(view -> {
                 Intent go = new Intent(mActivity, UserCardActivity.class);
-                go.putExtra("num", actDetailBean.getData().isIs_news() ? "3" : "2");
+                go.putExtra("num", bean.isIs_news() ? "3" : "2");
                 go.putExtra("index", 0);
                 go.putExtra("id", bean.getUid());
                 mActivity.startActivity(go);
