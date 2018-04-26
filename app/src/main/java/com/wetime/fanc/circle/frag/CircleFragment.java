@@ -106,8 +106,8 @@ public class CircleFragment extends BaseLazyFragment implements OnRefreshListene
     public void onGetCircleHome(CircleHomeListBean bean) {
         refreshLayout.finishRefresh();
 
-        rclHome.setLayoutManager(new LinearLayoutManager(getContext()));
         if (adapter == null) {
+            rclHome.setLayoutManager(new LinearLayoutManager(getContext()));
             adapter = new CircleHomeAdapter(bean.getData().getFollow_circles(), bean.getData().getCircles(), mList, getActivity(), sortPos);
             mAutoLoadMoreAdapter = new AutoLoadMoreAdapter(getContext(), adapter);
             mAutoLoadMoreAdapter.setOnLoadListener(new AutoLoadMoreAdapter.OnLoadListener() {
@@ -131,9 +131,8 @@ public class CircleFragment extends BaseLazyFragment implements OnRefreshListene
 
 //            adapter.notifyDataSetChanged();
         adapter.setCircllist(bean.getData().getCircles());
-
         adapter.setFollow_circles(bean.getData().getFollow_circles());
-        adapter.notifyDataSetChanged();
+
 
 
         if (page == 1) {

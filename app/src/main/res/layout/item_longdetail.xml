@@ -16,11 +16,11 @@
         android:textColor="#333333"
         android:textSize="17sp" />
 
-    <ImageView
+    <com.shizhefei.view.largeimage.LargeImageView
         android:id="@+id/item_img"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:scaleType="centerCrop"
+        android:scrollbars="vertical|horizontal"
         android:layout_marginTop="15dp"/>
 
     <TextView

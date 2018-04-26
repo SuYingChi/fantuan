@@ -45,6 +45,10 @@ public class HeadManageAdapter extends RecyclerView.Adapter {
         View inflate = LayoutInflater.from(mContext).inflate(R.layout.item_home_circle, parent, false);
         ViewGroup.LayoutParams layoutParams = inflate.getLayoutParams();
         layoutParams.width = 100;
+        if (layoutParams instanceof RecyclerView.LayoutParams) {
+            ((RecyclerView.LayoutParams) layoutParams).leftMargin = 10;
+            ((RecyclerView.LayoutParams) layoutParams).rightMargin = 10;
+        }
         inflate.setLayoutParams(layoutParams);
         return new ViewHolder(inflate);
 
