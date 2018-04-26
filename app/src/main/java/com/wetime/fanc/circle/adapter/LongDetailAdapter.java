@@ -24,9 +24,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.wetime.fanc.R;
-import com.wetime.fanc.circle.act.ActDetailActivity;
-import com.wetime.fanc.circle.act.CircleDetailActivity;
 import com.wetime.fanc.circle.act.LongDetailActivity;
+import com.wetime.fanc.circle.act.CircleDetailActivity;
 import com.wetime.fanc.circle.bean.ActDetailBean;
 import com.wetime.fanc.circle.bean.LongBean;
 import com.wetime.fanc.circle.bean.LongTextBean;
@@ -227,9 +226,9 @@ public class LongDetailAdapter extends RecyclerView.Adapter {
 //                        go.putExtra("id", bean.getTo_uid());
 //                        mActivity.startActivity(go);
                         new Handler().postDelayed(() -> {
-                            ((ActDetailActivity) mActivity).toId = bean.getUid();
-                            ((ActDetailActivity) mActivity).etContent.setHint("回复 " + bean.getUsername());
-                            ((ActDetailActivity) mActivity).showKeyborad();
+                            ((LongDetailActivity) mActivity).toId = bean.getUid();
+                            ((LongDetailActivity) mActivity).etContent.setHint("回复 " + bean.getUsername());
+                            ((LongDetailActivity) mActivity).showKeyborad();
                         }, 500);
                     }
 
@@ -254,9 +253,9 @@ public class LongDetailAdapter extends RecyclerView.Adapter {
             });
             ((ViewHolder2) holder).tvName.setOnClickListener(view -> {
                 new Handler().postDelayed(() -> {
-                    ((ActDetailActivity) mActivity).toId = bean.getUid();
-                    ((ActDetailActivity) mActivity).etContent.setHint("回复 " + bean.getUsername());
-                    ((ActDetailActivity) mActivity).showKeyborad();
+                    ((LongDetailActivity) mActivity).toId = bean.getUid();
+                    ((LongDetailActivity) mActivity).etContent.setHint("回复 " + bean.getUsername());
+                    ((LongDetailActivity) mActivity).showKeyborad();
                 }, 500);
             });
         }
