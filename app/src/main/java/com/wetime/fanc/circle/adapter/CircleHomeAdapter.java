@@ -60,14 +60,6 @@ public class CircleHomeAdapter extends RecyclerView.Adapter {
     private RecyclerView.ViewHolder holder;
     private int currentTab = 0;
 
-    public int getCurrentTab() {
-        return currentTab;
-    }
-
-    public void setCurrentTab(int currentTab) {
-        this.currentTab = currentTab;
-    }
-
     public CircleHomeAdapter(List<CircleHomeListBean.DataBean.FollowCirclesBean> follow_circles, List<CircleHomeListBean.DataBean.CirclesBean> circllist,
                              List<HomeItemBean> mList,
                              Activity mActivity, int currentTab) {
@@ -76,6 +68,14 @@ public class CircleHomeAdapter extends RecyclerView.Adapter {
         this.list = mList;
         this.mActivity = mActivity;
         this.inflater = LayoutInflater.from(mActivity);
+        this.currentTab = currentTab;
+    }
+
+    public int getCurrentTab() {
+        return currentTab;
+    }
+
+    public void setCurrentTab(int currentTab) {
         this.currentTab = currentTab;
     }
 
@@ -190,8 +190,8 @@ public class CircleHomeAdapter extends RecyclerView.Adapter {
                         mActivity.startActivity(goCircle);
                     });
             }
-        }else{
-            circleAdapter.notifyDataSetChanged();
+        } else {
+            if (circleAdapter != null) circleAdapter.notifyDataSetChanged();
         }
         if (holder instanceof NewsHolder19) {
             HomeItemBean bean = list.get(position - 1);

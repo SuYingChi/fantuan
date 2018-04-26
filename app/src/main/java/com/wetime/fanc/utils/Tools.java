@@ -559,8 +559,8 @@ public class Tools {
         bundle.putString(QQShare.SHARE_TO_QQ_SUMMARY, des);
 //手Q客户端顶部，替换“返回”按钮文字，如果为空，用返回代替
 //        bundle.putString(Constants.PARAM_APPNAME, "??我在测试");
-////标识该消息的来源应用，值为应用名称+AppId。
-//        bundle.putString(Constants.PARAM_APP_SOURCE, "星期几" + AppId);
+//标识该消息的来源应用，值为应用名称+AppId。
+        bundle.putString(QQShare.SHARE_TO_QQ_APP_NAME, "范团");
 //                 /*QQ分享增加ARK end*/
 //
 //        //分享的图片URL
@@ -621,7 +621,7 @@ public class Tools {
 
         ivEdit.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
 
-        int mShowMorePopupWindowWidth = (int) (-ivEdit.getMeasuredWidth()*2.2);
+        int mShowMorePopupWindowWidth = (int) (-ivEdit.getMeasuredWidth() * 2.2);
 
         Log.e("xi", "showPopWin: " + mShowMorePopupWindowWidth);
 

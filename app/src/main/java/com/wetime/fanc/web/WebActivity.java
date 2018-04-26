@@ -49,6 +49,7 @@ import com.tencent.tauth.UiError;
 import com.wetime.fanc.R;
 import com.wetime.fanc.application.FApp;
 import com.wetime.fanc.circle.act.ActDetailActivity;
+import com.wetime.fanc.circle.act.LongDetailActivity;
 import com.wetime.fanc.home.act.HomeSearchActivity;
 import com.wetime.fanc.home.event.BeInvaterSuccess;
 import com.wetime.fanc.home.event.SwichFragEvent;
@@ -565,6 +566,13 @@ public class WebActivity extends BaseActivity implements IPostMultiFileView, WbS
             Intent goDet = new Intent(mContext, ActDetailActivity.class);
             goDet.putExtra("id", id);
             startActivity(goDet);
+        });
+    }
+
+    @JavascriptInterface
+    public void goLongDetail(String id) {
+        web.post(() -> {
+            LongDetailActivity.startToLongDetail(mContext,id);
         });
     }
 

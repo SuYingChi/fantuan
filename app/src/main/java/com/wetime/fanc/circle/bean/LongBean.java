@@ -106,6 +106,7 @@ public class LongBean {
         private String current_avatar;
         private String location;
         private String time;
+        private String coverStr;
         private String image_id;
         private boolean has_like;
         private String username;
@@ -114,6 +115,13 @@ public class LongBean {
         private List<LongTextBean> contents;
         private List<ActDetailBean.DataBean.LikeListBean> like_list;
 
+        public String getCoverStr() {
+            return coverStr;
+        }
+
+        public void setCoverStr(String coverStr) {
+            this.coverStr = coverStr;
+        }
 
         public String getArticle_url() {
             return article_url;

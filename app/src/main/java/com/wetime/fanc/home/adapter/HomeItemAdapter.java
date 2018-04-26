@@ -22,7 +22,6 @@ import com.wetime.fanc.R;
 import com.wetime.fanc.circle.act.ActDetailActivity;
 import com.wetime.fanc.circle.act.CircleDetailActivity;
 import com.wetime.fanc.circle.act.LongDetailActivity;
-import com.wetime.fanc.circle.adapter.CircleHomeAdapter;
 import com.wetime.fanc.circle.adapter.NineImageGridListAdapter;
 import com.wetime.fanc.circle.adapter.NineImageGridListAdapterCard;
 import com.wetime.fanc.circle.presenter.ZanActPresenter;
@@ -117,7 +116,7 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
                 return new NewsHolder5(inflater.inflate(R.layout.item_news_type_report, parent, false));
             } else if (viewType == 38) {//长文
                 return new NewsHolder38(inflater.inflate(R.layout.item_news_type38, parent, false));
-            }else if (viewType == 18) {
+            } else if (viewType == 18) {
                 return new NewsHolder18(inflater.inflate(R.layout.item_news_type18, parent, false));
             }
 
@@ -310,31 +309,45 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
             }
 
             ((NewsHolder5) holder).reporthotliner.setOnClickListener(v -> {
-                if (TextUtils.isEmpty(bean.getHottest().getArticle_url()))
-                    return;
-                Intent goweb = new Intent(mActivity, WebActivity.class);
-                goweb.putExtra("url", bean.getHottest().getArticle_url());
-                goweb.putExtra("type", "2");
-                goweb.putExtra("title", bean.getHottest().getAuthor());
-                mActivity.startActivity(goweb);
+                if (bean.getHottest().getContentType().equals("0")) {
+                    if (TextUtils.isEmpty(bean.getHottest().getArticle_url()))
+                        return;
+                    Intent goweb = new Intent(mActivity, WebActivity.class);
+                    goweb.putExtra("url", bean.getHottest().getArticle_url());
+                    goweb.putExtra("type", "2");
+                    goweb.putExtra("title", bean.getHottest().getAuthor());
+                    mActivity.startActivity(goweb);
+                } else {
+                    GalleryActivity.startToGallery(mActivity, bean.getHottest().getId());
+                }
             });
             ((NewsHolder5) holder).reportnewhotliner.setOnClickListener(v -> {
-                if (TextUtils.isEmpty(bean.getFocused().getArticle_url()))
-                    return;
-                Intent goweb = new Intent(mActivity, WebActivity.class);
-                goweb.putExtra("url", bean.getFocused().getArticle_url());
-                goweb.putExtra("type", "2");
-                goweb.putExtra("title", bean.getFocused().getAuthor());
-                mActivity.startActivity(goweb);
+                if (bean.getFocused().getContentType().equals("0")) {
+                    if (TextUtils.isEmpty(bean.getFocused().getArticle_url()))
+                        return;
+                    Intent goweb = new Intent(mActivity, WebActivity.class);
+                    goweb.putExtra("url", bean.getFocused().getArticle_url());
+                    goweb.putExtra("type", "2");
+                    goweb.putExtra("title", bean.getFocused().getAuthor());
+                    mActivity.startActivity(goweb);
+                } else {
+                    GalleryActivity.startToGallery(mActivity, bean.getFocused().getId());
+                }
+
             });
             ((NewsHolder5) holder).reportnewliner.setOnClickListener(v -> {
-                if (TextUtils.isEmpty(bean.getLastest().getArticle_url()))
-                    return;
-                Intent goweb = new Intent(mActivity, WebActivity.class);
-                goweb.putExtra("url", bean.getLastest().getArticle_url());
-                goweb.putExtra("type", "2");
-                goweb.putExtra("title", bean.getLastest().getAuthor());
-                mActivity.startActivity(goweb);
+                if (bean.getLastest().getContentType().equals("0")) {
+                    if (TextUtils.isEmpty(bean.getLastest().getArticle_url()))
+                        return;
+                    Intent goweb = new Intent(mActivity, WebActivity.class);
+                    goweb.putExtra("url", bean.getLastest().getArticle_url());
+                    goweb.putExtra("type", "2");
+                    goweb.putExtra("title", bean.getLastest().getAuthor());
+                    mActivity.startActivity(goweb);
+                } else {
+                    GalleryActivity.startToGallery(mActivity, bean.getLastest().getId());
+                }
+
             });
             int sw = Tools.getScreenW(mActivity);
             int w = sw - Tools.dip2px(mActivity, 15 + 15);
@@ -369,8 +382,8 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
             ((NewsHolder18) holder).tvTime.setText(bean.getTime());
 
             ((NewsHolder18) holder).typename.setText(bean.getTitle());
-            if (bean.getCover()==null||bean.getCover().size()==0) {
-            }else{
+            if (bean.getCover() == null || bean.getCover().size() == 0) {
+            } else {
                 Glide.with(mActivity).load(bean.getCover().get(0))
                         .apply(new RequestOptions().centerCrop())
                         .into(((NewsHolder18) holder).typeimage);
@@ -434,6 +447,13 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
             });
             if (bean.isCircle_owner()) {
                 ((NewsHolder18) holder).ivOnwer.setVisibility(View.VISIBLE);
+                ((NewsHolder18) holder).ivOnwer.setImageResource(R.drawable.bg_circle_onwer);
+            } else {
+                ((NewsHolder18) holder).ivOnwer.setVisibility(View.GONE);
+            }
+            if (bean.isCircle_admin()) {
+                ((NewsHolder18) holder).ivOnwer.setVisibility(View.VISIBLE);
+                ((NewsHolder18) holder).ivOnwer.setImageResource(R.drawable.invalid_manage);
             } else {
                 ((NewsHolder18) holder).ivOnwer.setVisibility(View.GONE);
             }
@@ -858,6 +878,13 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
             });
             if (bean.isCircle_owner()) {
                 ((NewsHolder19) holder).ivOnwer.setVisibility(View.VISIBLE);
+                ((NewsHolder19) holder).ivOnwer.setImageResource(R.drawable.bg_circle_onwer);
+            } else {
+                ((NewsHolder19) holder).ivOnwer.setVisibility(View.GONE);
+            }
+            if (bean.isCircle_admin()) {
+                ((NewsHolder19) holder).ivOnwer.setVisibility(View.VISIBLE);
+                ((NewsHolder19) holder).ivOnwer.setImageResource(R.drawable.invalid_manage);
             } else {
                 ((NewsHolder19) holder).ivOnwer.setVisibility(View.GONE);
             }

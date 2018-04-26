@@ -49,7 +49,8 @@ public class HomeItemBean {
     private int type;
     private boolean has_like;
     private boolean is_news;
-    private boolean circle_owner = false;
+    private boolean circle_owner ;
+    private boolean circle_admin ;
     private List<String> cover;
 
     public String getTitle() {
@@ -58,6 +59,14 @@ public class HomeItemBean {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public boolean isCircle_admin() {
+        return circle_admin;
+    }
+
+    public void setCircle_admin(boolean circle_admin) {
+        this.circle_admin = circle_admin;
     }
 
     //热评
