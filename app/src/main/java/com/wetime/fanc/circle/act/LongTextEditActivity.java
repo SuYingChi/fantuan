@@ -357,6 +357,7 @@ public class LongTextEditActivity extends BaseActivity implements LongTextAdapte
                 tvSort.setVisibility(View.VISIBLE);
                 tvPublish.setVisibility(View.VISIBLE);
                 tvOk.setVisibility(View.GONE);
+                ivBack.setVisibility(View.VISIBLE);
                 break;
             case R.id.tv_sort:
                 ivGopic.setImageResource(R.drawable.ic_add_image_enable);
@@ -369,6 +370,7 @@ public class LongTextEditActivity extends BaseActivity implements LongTextAdapte
                 tvSort.setVisibility(View.GONE);
                 tvPublish.setVisibility(View.GONE);
                 tvOk.setVisibility(View.VISIBLE);
+                ivBack.setVisibility(View.GONE);
 
                 break;
             case R.id.tv_publish:
