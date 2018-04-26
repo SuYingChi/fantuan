@@ -14,6 +14,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -178,7 +179,7 @@ public class SpecialTopicActivity extends BaseActivity implements View.OnClickLi
                 onBackPressed();
                 break;
             case R.id.iv_more:
-                if (spu.getToken() != null) {
+                if (!TextUtils.isEmpty(spu.getToken())) {
                     showPop();
                 } else {
                     Tools.toastInBottom(this, "请先登录");
