@@ -182,6 +182,7 @@ public class LongTextAdapter extends RecyclerView.Adapter {
                 }
 
                 ((ImageViewHolder) holder).ivEdit.setOnClickListener(v -> {
+                    ((ImageViewHolder) holder).ivEdit.setVisibility(View.GONE);
                     ViewGroup.LayoutParams params = holder.itemView.getLayoutParams();
                     params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
                     holder.itemView.setLayoutParams(params);
@@ -208,18 +209,16 @@ public class LongTextAdapter extends RecyclerView.Adapter {
                 }
                 int outHeight = options.outHeight;
                 int outWidth = options.outWidth;
-                if(BuildConfig.DEBUG){
+                if (BuildConfig.DEBUG) {
                     String temp;
                     long size = new File(bean.getImageUrl()).length();
-                    if(size>1014){
-                        temp = size/1024+"kb";
+                    if (size > 1014) {
+                        temp = size / 1024 + "kb";
+                    } else {
+                        temp = size + "b";
                     }
-                    else {
-                        temp = size+"b";
-                    }
-                    ((ImageViewHolder) holder).tvInfo.setText(String.format("H:%s--W:%s--size=%s", outHeight, outWidth,temp));
+                    ((ImageViewHolder) holder).tvInfo.setText(String.format("H:%s--W:%s--size=%s", outHeight, outWidth, temp));
                 }
-
 
 
                 int sw = Tools.getScreenW(mContext);
