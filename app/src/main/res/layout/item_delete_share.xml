@@ -13,7 +13,7 @@
         android:gravity="center"
         android:lineSpacingExtra="0sp"
         android:text="分享"
-        android:textColor="#ff3b30"
+        android:textColor="#388ae5"
         android:textSize="15sp" />
 
     <View

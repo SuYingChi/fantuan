@@ -77,6 +77,7 @@ public class ActDetailActivity extends BaseActivity implements IGetActDetailView
     private BottomDialog mDeleteBottomDialog;
     private DeleteCommentPresenter deleteCommentPresenter;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -177,11 +178,17 @@ public class ActDetailActivity extends BaseActivity implements IGetActDetailView
                 }
                 break;
             case R.id.tv_send:
-                if (TextUtils.isEmpty(etContent.getText().toString())) {
-                    Tools.toastInBottom(mContext, "请填写评论内容");
-                    return;
+                if (!TextUtils.isEmpty(spu.getToken())) {
+                    if (TextUtils.isEmpty(etContent.getText().toString())) {
+                        Tools.toastInBottom(mContext, "请填写评论内容");
+                        return;
+                    }
+                    commentActPresenter.commnetAct();
+                } else {
+                    Tools.toastInBottom(this, "请先登录");
+                    Intent goLogin = new Intent(this, LoginActivity.class);
+                    startActivity(goLogin);
                 }
-                commentActPresenter.commnetAct();
                 break;
             case R.id.rl_bottom:
                 hideKeyboard();
@@ -220,7 +227,7 @@ public class ActDetailActivity extends BaseActivity implements IGetActDetailView
             actDetailAdapter = new ActDetailAdapter(this, actbean);
             rclCircle.setAdapter(actDetailAdapter);
             actDetailAdapter.setOnItemClickLitener((view, position) -> {
-                if(TextUtils.isEmpty(spu.getToken())){
+                if (TextUtils.isEmpty(spu.getToken())) {
                     Intent gologin = new Intent(this, LoginActivity.class);
                     startActivity(gologin);
                     return;
@@ -430,12 +437,9 @@ public class ActDetailActivity extends BaseActivity implements IGetActDetailView
                         delete(mDeleteBottomDialog, "1", v4.getId(), v11);
                     });
                     v11.findViewById(R.id.tv_item6).setOnClickListener(v5 -> {
-                        delete(mDeleteBottomDialog, "1", v5.getId(), v11);
+                        mDeleteBottomDialog.dismiss();
+                    });
 
-                    });
-                    v11.findViewById(R.id.tv_item7).setOnClickListener(v6 -> {
-                        delete(mDeleteBottomDialog, "1", v6.getId(), v11);
-                    });
                 });
 
                 mDeleteBottomDialog.show();
@@ -479,6 +483,9 @@ public class ActDetailActivity extends BaseActivity implements IGetActDetailView
                     });
                     v11.findViewById(R.id.tv_item6).setOnClickListener(v5 -> {
                         report(mDeleteBottomDialog, v5.getId(), v11);
+                    });
+                    v11.findViewById(R.id.tv_item7).setOnClickListener(v6 -> {
+                        mDeleteBottomDialog.dismiss();
                     });
                 });
 

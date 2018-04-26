@@ -107,6 +107,7 @@ public class LongDetailActivity extends BaseActivity implements OnLoadMoreListen
     private String content;
     private String titleUrl;
     private WbShareHandler shareHandler;
+    private boolean isComm = false;
 
     public static void startToLongDetail(Context context, String longId) {
         Intent intent = new Intent(context, LongDetailActivity.class);
@@ -122,7 +123,7 @@ public class LongDetailActivity extends BaseActivity implements OnLoadMoreListen
         ButterKnife.bind(this);
         shareHandler = new WbShareHandler(this);
         shareHandler.registerApp();
-        tvTitle.setText("长文章详情");
+        tvTitle.setText("长文详情");
         getActDetailPresenter = new GetLongDetailPresenter(this);
         refreshLayout.setOnLoadMoreListener(this);
         refreshLayout.setEnableRefresh(false);
@@ -210,11 +211,17 @@ public class LongDetailActivity extends BaseActivity implements OnLoadMoreListen
                 }
                 break;
             case R.id.tv_send:
-                if (TextUtils.isEmpty(etContent.getText().toString())) {
-                    Tools.toastInBottom(mContext, "请填写评论内容");
-                    return;
+                if (!TextUtils.isEmpty(spu.getToken())) {
+                    if (TextUtils.isEmpty(etContent.getText().toString())) {
+                        Tools.toastInBottom(mContext, "请填写评论内容");
+                        return;
+                    }
+                    commentActPresenter.commnetAct();
+                } else {
+                    Tools.toastInBottom(this, "请先登录");
+                    Intent goLogin = new Intent(this, LoginActivity.class);
+                    startActivity(goLogin);
                 }
-                commentActPresenter.commnetAct();
                 break;
             case R.id.rl_bottom:
                 hideKeyboard();
@@ -349,6 +356,12 @@ public class LongDetailActivity extends BaseActivity implements OnLoadMoreListen
 
         refreshLayout.finishLoadMore();
 
+        if (isComm) {
+            rclCircle.scrollToPosition(actDetailAdapter.getItemCount() - 2);
+            isComm = false;
+        }
+
+
     }
 
     @Override
@@ -395,6 +408,7 @@ public class LongDetailActivity extends BaseActivity implements OnLoadMoreListen
         etContent.setText("");
         hideKeyboard();
         getActDetailPresenter.getLongDetail();
+        isComm = true;
     }
 
     @Override
@@ -452,7 +466,7 @@ public class LongDetailActivity extends BaseActivity implements OnLoadMoreListen
 //                deleteActPresenter.deleteAct();
 
                 if (b) {
-                    DialogUtils.showNormalDialog(LongDetailActivity.this, null, b1 ? "是否删除该评论" : "是否删除该动态", new DialogInterface.OnClickListener() {
+                    DialogUtils.showNormalDialog(LongDetailActivity.this, null, b1 ? "是否删除该评论" : "是否删除该长文", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             if (b1) {
@@ -489,7 +503,7 @@ public class LongDetailActivity extends BaseActivity implements OnLoadMoreListen
 
                     });
                     v11.findViewById(R.id.tv_item7).setOnClickListener(v6 -> {
-                        delete(mDeleteBottomDialog, "1", v6.getId(), v11);
+                        mDeleteBottomDialog.dismiss();
                     });
                 });
 
@@ -581,6 +595,9 @@ public class LongDetailActivity extends BaseActivity implements OnLoadMoreListen
                     v11.findViewById(R.id.tv_item6).setOnClickListener(v5 -> {
                         report(mDeleteBottomDialog, v5.getId(), v11);
                     });
+                    v11.findViewById(R.id.tv_item7).setOnClickListener(v5 -> {
+                        mDeleteBottomDialogShare.dismiss();
+                    });
                 });
 
                 mDeleteBottomDialog.show();
@@ -607,7 +624,7 @@ public class LongDetailActivity extends BaseActivity implements OnLoadMoreListen
 
     private void delete(BottomDialog mDeleteBottomDialog, String type, int id, View v11) {
         deleteCommentPresenter.deleteComment(type,
-                actbean.getData().getCircle_id(),
+                actbean.getData().getId(),
                 String.valueOf(((TextView) v11.findViewById(id)).getText()));
         mDeleteBottomDialog.dismiss();
     }

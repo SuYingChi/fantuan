@@ -180,8 +180,8 @@ public class CircleDetailActivity extends BaseActivity implements IGetCircleHead
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEvent(UploadProgessEvent messageEvent) {
+         issu = true;
         if (this.getClass().getSimpleName().equals(messageEvent.getSimpleName())) {
-            issu = true;
             progess.setVisibility(View.VISIBLE);
             String substring = String.valueOf(messageEvent.getPrgess() * 100).substring(0, String.valueOf(messageEvent.getPrgess() * 100).indexOf("."));
             if (messageEvent.getPrgess() < 1) {
