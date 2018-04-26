@@ -58,15 +58,34 @@ public class CircleHomeAdapter extends RecyclerView.Adapter {
     private OnItemClickLitener mOnItemClickLitener;
     private HeadCircleAdapter circleAdapter1;
     private RecyclerView.ViewHolder holder;
+    private int currentTab = 0;
+
+    public int getCurrentTab() {
+        return currentTab;
+    }
+
+    public void setCurrentTab(int currentTab) {
+        this.currentTab = currentTab;
+    }
 
     public CircleHomeAdapter(List<CircleHomeListBean.DataBean.FollowCirclesBean> follow_circles, List<CircleHomeListBean.DataBean.CirclesBean> circllist,
                              List<HomeItemBean> mList,
-                             Activity mActivity) {
+                             Activity mActivity, int currentTab) {
         this.circllist = circllist;
         this.follow_circles = follow_circles;
         this.list = mList;
         this.mActivity = mActivity;
         this.inflater = LayoutInflater.from(mActivity);
+        this.currentTab = currentTab;
+    }
+
+    public List<CircleHomeListBean.DataBean.CirclesBean> getCircllist() {
+        return circllist;
+    }
+
+    public void setCircllist(List<CircleHomeListBean.DataBean.CirclesBean> circllist) {
+        this.circllist.clear();
+        this.circllist.addAll(circllist);
     }
 
     public void setFollow_circles(List<CircleHomeListBean.DataBean.FollowCirclesBean> follow_circles) {
@@ -77,8 +96,14 @@ public class CircleHomeAdapter extends RecyclerView.Adapter {
             } else {
                 ((CircleHeadViewHolder) holder).rclCircleMy.setVisibility(View.VISIBLE);
                 ((CircleHeadViewHolder) holder).llHeadTv.setVisibility(View.GONE);
-                circleAdapter1 = new HeadCircleAdapter(follow_circles, circllist, mActivity, 1);
-                ((CircleHeadViewHolder) holder).rclCircleMy.setAdapter(circleAdapter1);
+                if (circleAdapter1 == null) {
+                    circleAdapter1 = new HeadCircleAdapter(follow_circles, circllist, mActivity, 1);
+
+                    ((CircleHeadViewHolder) holder).rclCircleMy.setAdapter(circleAdapter1);
+                } else {
+                    circleAdapter1.setFollow_circles(follow_circles);
+                }
+                circleAdapter1.notifyDataSetChanged();
             }
         }
 
@@ -113,7 +138,7 @@ public class CircleHomeAdapter extends RecyclerView.Adapter {
                     mTabEntities.add(new TabEntity(mTitle));
                 }
                 ((CircleHeadViewHolder) holder).commonTabLayout.setTabData(mTabEntities);
-                ((CircleHeadViewHolder) holder).commonTabLayout.setCurrentTab(0);
+                ((CircleHeadViewHolder) holder).commonTabLayout.setCurrentTab(currentTab);
                 ((CircleHeadViewHolder) holder).commonTabLayout.setOnTabSelectListener(new OnTabSelectListener() {
                     @Override
                     public void onTabSelect(int position) {
@@ -133,7 +158,11 @@ public class CircleHomeAdapter extends RecyclerView.Adapter {
                 LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mActivity);
                 linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
                 ((CircleHeadViewHolder) holder).rclCircleMy.setLayoutManager(linearLayoutManager);
+
+
                 circleAdapter = new HeadCircleAdapter(follow_circles, circllist, mActivity, 0);
+
+
                 if (follow_circles == null || follow_circles.size() == 0) {
                     ((CircleHeadViewHolder) holder).rclCircleMy.setVisibility(View.GONE);
                     ((CircleHeadViewHolder) holder).llHeadTv.setVisibility(View.VISIBLE);
@@ -161,6 +190,8 @@ public class CircleHomeAdapter extends RecyclerView.Adapter {
                         mActivity.startActivity(goCircle);
                     });
             }
+        }else{
+            circleAdapter.notifyDataSetChanged();
         }
         if (holder instanceof NewsHolder19) {
             HomeItemBean bean = list.get(position - 1);

@@ -41,6 +41,17 @@ public class HeadCircleAdapter extends RecyclerView.Adapter {
         myOptions = new RequestOptions().transform(new GlideRoundTransform(mContext, 5));
     }
 
+    public List<CircleHomeListBean.DataBean.FollowCirclesBean> getFollow_circles() {
+        return follow_circles;
+    }
+
+    public void setFollow_circles(List<CircleHomeListBean.DataBean.FollowCirclesBean> follow_circles) {
+
+        this.follow_circles.clear();
+        this.follow_circles.addAll(follow_circles);
+
+    }
+
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View inflate = LayoutInflater.from(mContext).inflate(R.layout.item_home_circle, parent, false);
