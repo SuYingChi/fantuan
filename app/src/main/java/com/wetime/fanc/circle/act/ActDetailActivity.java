@@ -91,7 +91,7 @@ public class ActDetailActivity extends BaseActivity implements IGetActDetailView
         rclCircle.setFocusableInTouchMode(false);
         KeyboardChangeListener mKeyboardChangeListener = new KeyboardChangeListener(this);
         mKeyboardChangeListener.setKeyBoardListener(this);
-        getActDetailPresenter.getActDetail();
+        getActDetailPresenter.getActDetail(false);
         commentActPresenter = new CommentActPresenter(this);
         deleteCommentPresenter = new DeleteCommentPresenter(this);
     }
@@ -198,8 +198,6 @@ public class ActDetailActivity extends BaseActivity implements IGetActDetailView
                     Intent goLogin = new Intent(this, LoginActivity.class);
                     startActivity(goLogin);
                 }
-
-
                 break;
 
         }
@@ -207,7 +205,7 @@ public class ActDetailActivity extends BaseActivity implements IGetActDetailView
     }
 
     @Override
-    public void onGetActDetail(ActDetailBean bean) {
+    public void onGetActDetail(ActDetailBean bean, boolean isComment) {
         if (bean.getError() != 0) {
             onBackPressed();
             return;
@@ -258,10 +256,6 @@ public class ActDetailActivity extends BaseActivity implements IGetActDetailView
                                             actbean.getData().getComment_list().size());
                                 }
                             });
-//
-//                                actDetailAdapter.notifyDataSetChanged();
-
-
                         });
                         v.findViewById(R.id.tv_cancel).setOnClickListener(v14 -> {
                             mCommentBottomDialog.dismiss();
@@ -295,6 +289,9 @@ public class ActDetailActivity extends BaseActivity implements IGetActDetailView
         actDetailAdapter.notifyDataSetChanged();
         refreshLayout.setEnableLoadMore(!bean.getData().getPaging().isIs_end());
         refreshLayout.finishLoadMore();
+//        if(rclCircle.getAdapter()
+        if (isComment)
+            rclCircle.scrollToPosition(2);
 
     }
 
@@ -311,7 +308,7 @@ public class ActDetailActivity extends BaseActivity implements IGetActDetailView
     @Override
     public void onLoadMore(RefreshLayout refreshlayout) {
         page++;
-        getActDetailPresenter.getActDetail();
+        getActDetailPresenter.getActDetail(false);
     }
 
     protected void initStateBar() {
@@ -341,7 +338,7 @@ public class ActDetailActivity extends BaseActivity implements IGetActDetailView
         Tools.toastInBottom(this, "评论成功");
         etContent.setText("");
         hideKeyboard();
-        getActDetailPresenter.getActDetail();
+        getActDetailPresenter.getActDetail(true);
     }
 
     @Override
@@ -395,12 +392,12 @@ public class ActDetailActivity extends BaseActivity implements IGetActDetailView
 //                deleteActPresenter.deleteAct();
 
                 if (b) {
-                    DialogUtils.showNormalDialog(ActDetailActivity.this, null,  b1?"是否删除该评论":"是否删除该动态", new DialogInterface.OnClickListener() {
+                    DialogUtils.showNormalDialog(ActDetailActivity.this, null, b1 ? "是否删除该评论" : "是否删除该动态", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            if (b1){
-                                deleteCommentPresenter.deleteComment("0", actbean.getData().getComment_list().get(position-2).getId(), "违反圈子规章");
-                            }else{
+                            if (b1) {
+                                deleteCommentPresenter.deleteComment("0", actbean.getData().getComment_list().get(position - 2).getId(), "违反圈子规章");
+                            } else {
                                 deleteCommentPresenter.deleteComment("1", actbean.getData().getId(), "欺诈骗钱");
                             }
 

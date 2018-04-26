@@ -10,7 +10,7 @@ import com.wetime.fanc.main.ivews.IBaseVIew;
  */
 
 public interface IGetActDetailView extends IBaseVIew {
-    void onGetActDetail(ActDetailBean bean);
+    void onGetActDetail(ActDetailBean bean,boolean isComment);
     int  getPage();
     String getId();
 }

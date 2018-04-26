@@ -19,7 +19,7 @@ public class GetActDetailPresenter {
         this.iView = iView;
     }
 
-    public void getActDetail() {
+    public void getActDetail(boolean isCommnet) {// 评论需要滚动到评论
         OkHttpUtils
                 .post()
                 .url(Const.DYNAMIC_DETAIL)
@@ -32,7 +32,7 @@ public class GetActDetailPresenter {
                     public void onResponse(String s, int i) {
                         super.onResponse(s, i);
                         ActDetailBean bean = GsonUtils.getGsonInstance().fromJson(s, ActDetailBean.class);
-                        iView.onGetActDetail(bean);
+                        iView.onGetActDetail(bean,isCommnet);
                     }
                 });
     }
