@@ -2,12 +2,19 @@ package com.wetime.fanc.circle.adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.Target;
 import com.wetime.fanc.R;
 import com.wetime.fanc.circle.bean.LongTextBean;
 import com.wetime.fanc.utils.Tools;
@@ -28,6 +35,19 @@ public class LongDetailItemAdapte extends CommonAdapter<LongTextBean> {
     private List<LongTextBean> datas;
     private ArrayList<String> list;
     private ArrayList<String> content;
+    private RequestListener mRequestListener = new RequestListener() {
+        @Override
+        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target target, boolean isFirstResource) {
+            Log.e("xi", "onException: " + e.toString() + "  model:" + model + " isFirstResource: " + isFirstResource);
+            return false;
+        }
+
+        @Override
+        public boolean onResourceReady(Object resource, Object model, Target target, DataSource dataSource, boolean isFirstResource) {
+            Log.e("xi", "model:" + model + " isFirstResource: " + isFirstResource);
+            return false;
+        }
+    };
 
     LongDetailItemAdapte(Context context, int layoutId, List<LongTextBean> datas) {
         super(context, layoutId, datas);
@@ -68,10 +88,30 @@ public class LongDetailItemAdapte extends CommonAdapter<LongTextBean> {
                     holder.getView(R.id.item_content).setVisibility(View.VISIBLE);
                     holder.setText(R.id.item_content, longTextBean.getDes());
                 }
+                int screenW = Tools.getScreenW(context);
+                Double d = Double.parseDouble(longTextBean.getHeight()) / Double.parseDouble(longTextBean.getWidth());
+                int h;
+                if (Double.parseDouble(longTextBean.getHeight()) > 4096) {
+                    h = 4096;
+                } else {
+                    h = (int) (screenW * d);
+                }
+                if (screenW > 4096) {
+                    screenW = 4096;
+                }
+                ViewGroup.LayoutParams layoutParams = ((ImageView) holder.getView(R.id.item_img)).getLayoutParams();
+                layoutParams.height = h;
+                layoutParams.width = screenW;
+                ((ImageView) holder.getView(R.id.item_img)).setLayoutParams(layoutParams);
                 Glide.with(context)
                         .load(longTextBean.getImageUrl())
+                        .listener(mRequestListener)
                         .apply(
-                                new RequestOptions().placeholder(R.drawable.iv_default_news_small)
+                                new RequestOptions()
+                                        .override(screenW, h)
+                                        .centerCrop()
+                                        .dontAnimate()
+                                        .placeholder(R.drawable.iv_default_news_small)
                         )
                         .into(((ImageView) holder.getView(R.id.item_img)));
                 holder.setOnClickListener(R.id.item_img, v -> {
@@ -83,7 +123,8 @@ public class LongDetailItemAdapte extends CommonAdapter<LongTextBean> {
                 });
                 break;
         }
-    }
 
+
+    }
 
 }
