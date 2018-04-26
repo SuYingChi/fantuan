@@ -437,12 +437,9 @@ public class ActDetailActivity extends BaseActivity implements IGetActDetailView
                         delete(mDeleteBottomDialog, "1", v4.getId(), v11);
                     });
                     v11.findViewById(R.id.tv_item6).setOnClickListener(v5 -> {
-                        delete(mDeleteBottomDialog, "1", v5.getId(), v11);
+                        mDeleteBottomDialog.dismiss();
+                    });
 
-                    });
-                    v11.findViewById(R.id.tv_item7).setOnClickListener(v6 -> {
-                        delete(mDeleteBottomDialog, "1", v6.getId(), v11);
-                    });
                 });
 
                 mDeleteBottomDialog.show();
@@ -486,6 +483,9 @@ public class ActDetailActivity extends BaseActivity implements IGetActDetailView
                     });
                     v11.findViewById(R.id.tv_item6).setOnClickListener(v5 -> {
                         report(mDeleteBottomDialog, v5.getId(), v11);
+                    });
+                    v11.findViewById(R.id.tv_item7).setOnClickListener(v6 -> {
+                        mDeleteBottomDialog.dismiss();
                     });
                 });
 

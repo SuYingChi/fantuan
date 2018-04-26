@@ -503,7 +503,7 @@ public class LongDetailActivity extends BaseActivity implements OnLoadMoreListen
 
                     });
                     v11.findViewById(R.id.tv_item7).setOnClickListener(v6 -> {
-                        delete(mDeleteBottomDialog, "1", v6.getId(), v11);
+                        mDeleteBottomDialog.dismiss();
                     });
                 });
 
@@ -595,6 +595,9 @@ public class LongDetailActivity extends BaseActivity implements OnLoadMoreListen
                     v11.findViewById(R.id.tv_item6).setOnClickListener(v5 -> {
                         report(mDeleteBottomDialog, v5.getId(), v11);
                     });
+                    v11.findViewById(R.id.tv_item7).setOnClickListener(v5 -> {
+                        mDeleteBottomDialogShare.dismiss();
+                    });
                 });
 
                 mDeleteBottomDialog.show();
@@ -621,7 +624,7 @@ public class LongDetailActivity extends BaseActivity implements OnLoadMoreListen
 
     private void delete(BottomDialog mDeleteBottomDialog, String type, int id, View v11) {
         deleteCommentPresenter.deleteComment(type,
-                actbean.getData().getCircle_id(),
+                actbean.getData().getId(),
                 String.valueOf(((TextView) v11.findViewById(id)).getText()));
         mDeleteBottomDialog.dismiss();
     }

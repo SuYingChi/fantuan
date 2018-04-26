@@ -86,7 +86,9 @@ public class LongDetailItemAdapte extends CommonAdapter<LongTextBean> {
                     holder.getView(R.id.item_content).setVisibility(View.GONE);
                 } else {
                     holder.getView(R.id.item_content).setVisibility(View.VISIBLE);
-                    holder.setText(R.id.item_content, longTextBean.getDes());
+                    String des = longTextBean.getDes();
+                    des = des.replace("\n", " ");
+                    holder.setText(R.id.item_content, des);
                 }
                 int screenW = Tools.getScreenW(context);
                 Double d = Double.parseDouble(longTextBean.getHeight()) / Double.parseDouble(longTextBean.getWidth());
