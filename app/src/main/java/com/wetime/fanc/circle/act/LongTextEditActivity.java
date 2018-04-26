@@ -159,7 +159,8 @@ public class LongTextEditActivity extends BaseActivity implements LongTextAdapte
                 // 如果裁剪并压缩了，以取压缩路径为准，因为是先裁剪后压缩的
 
                 ArrayList<String> pathlist = new ArrayList<>();
-                for (LocalMedia lm : selectList) {
+                for (int i = 0; i < selectList.size(); i++) {
+                    LocalMedia lm = selectList.get(i);
                     if (lm.isCompressed()) {
                         pathlist.add(lm.getCompressPath());
                     } else {
@@ -169,7 +170,8 @@ public class LongTextEditActivity extends BaseActivity implements LongTextAdapte
 
 
                 if (pos == 0) {
-                    for (String path : pathlist) {
+                    for (int i = 0; i < pathlist.size(); i++) {
+                        String path = pathlist.get(i);
                         LongTextBean lb = new LongTextBean();
                         lb.setImageUrl(path);
                         lb.setType("2");
@@ -178,20 +180,22 @@ public class LongTextEditActivity extends BaseActivity implements LongTextAdapte
                 } else {
                     //光标在文本的最前面 在当前的 前面加数据
                     if (index == 0) {
-                        for (String path : pathlist) {
+                        for (int i = 0; i < pathlist.size(); i++) {
+                            String path = pathlist.get(i);
                             LongTextBean lb = new LongTextBean();
                             lb.setImageUrl(path);
                             lb.setType("2");
-                            list.add(pos, lb);
+                            list.add(pos +i, lb);
                         }
                     } else {//拆分当前
                         //pos 在末尾 直接在后面添加
                         if (index == list.get(pos).getContent().length()) {
-                            for (String path : pathlist) {
+                            for (int i = 0; i < pathlist.size(); i++) {
+                                String path = pathlist.get(i);
                                 LongTextBean lb = new LongTextBean();
                                 lb.setImageUrl(path);
                                 lb.setType("2");
-                                list.add(pos + 1, lb);
+                                list.add(pos + 1 + i, lb);
                             }
                         } else {
                             String all = list.get(pos).getContent();
@@ -203,11 +207,12 @@ public class LongTextEditActivity extends BaseActivity implements LongTextAdapte
                             elb.setType("1");
                             elb.setContent(end);
                             list.add(pos + 1, elb);
-                            for (String path : pathlist) {
+                            for (int i = 0; i < pathlist.size(); i++) {
+                                String path = pathlist.get(i);
                                 LongTextBean lb = new LongTextBean();
                                 lb.setImageUrl(path);
                                 lb.setType("2");
-                                list.add(pos + 1, lb);
+                                list.add(pos + 1 + i, lb);
                             }
                         }
                     }
