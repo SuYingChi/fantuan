@@ -100,6 +100,7 @@ public class LongBean {
         private boolean is_owner;
         private PagingBean paging;
         private String avatar;
+        private String article_url;
         private boolean is_manager;
         private boolean is_delete;
         private String current_avatar;
@@ -112,6 +113,15 @@ public class LongBean {
         private List<ActDetailBean.DataBean.CommentListBean> comment_list;
         private List<LongTextBean> contents;
         private List<ActDetailBean.DataBean.LikeListBean> like_list;
+
+
+        public String getArticle_url() {
+            return article_url;
+        }
+
+        public void setArticle_url(String article_url) {
+            this.article_url = article_url;
+        }
 
         public boolean isIs_delete() {
             return is_delete;

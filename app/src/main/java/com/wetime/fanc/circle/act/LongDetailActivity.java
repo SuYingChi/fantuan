@@ -268,7 +268,7 @@ public class LongDetailActivity extends BaseActivity implements OnLoadMoreListen
             }
             name = bean.getData().getTitle();
             content = bean.getData().getContent();
-            titleUrl = bean.getData().getAvatar();
+            titleUrl = bean.getData().getArticle_url();
             if (bean.getData().isIs_owner()) {
                 ivMemu.setVisibility(View.VISIBLE);
             }
