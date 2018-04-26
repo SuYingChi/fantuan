@@ -35,6 +35,19 @@ public class LongDetailItemAdapte extends CommonAdapter<LongTextBean> {
     private List<LongTextBean> datas;
     private ArrayList<String> list;
     private ArrayList<String> content;
+    private RequestListener mRequestListener = new RequestListener() {
+        @Override
+        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target target, boolean isFirstResource) {
+            Log.e("xi", "onException: " + e.toString() + "  model:" + model + " isFirstResource: " + isFirstResource);
+            return false;
+        }
+
+        @Override
+        public boolean onResourceReady(Object resource, Object model, Target target, DataSource dataSource, boolean isFirstResource) {
+            Log.e("xi", "model:" + model + " isFirstResource: " + isFirstResource);
+            return false;
+        }
+    };
 
     LongDetailItemAdapte(Context context, int layoutId, List<LongTextBean> datas) {
         super(context, layoutId, datas);
@@ -77,7 +90,15 @@ public class LongDetailItemAdapte extends CommonAdapter<LongTextBean> {
                 }
                 int screenW = Tools.getScreenW(context);
                 Double d = Double.parseDouble(longTextBean.getHeight()) / Double.parseDouble(longTextBean.getWidth());
-                int h = (int) (screenW * d);
+                int h;
+                if (Double.parseDouble(longTextBean.getHeight()) > 4096) {
+                    h = 4096;
+                } else {
+                    h = (int) (screenW * d);
+                }
+                if (screenW > 4096) {
+                    screenW = 4096;
+                }
                 ViewGroup.LayoutParams layoutParams = ((ImageView) holder.getView(R.id.item_img)).getLayoutParams();
                 layoutParams.height = h;
                 layoutParams.width = screenW;
@@ -89,6 +110,7 @@ public class LongDetailItemAdapte extends CommonAdapter<LongTextBean> {
                                 new RequestOptions()
                                         .override(screenW, h)
                                         .centerCrop()
+                                        .dontAnimate()
                                         .placeholder(R.drawable.iv_default_news_small)
                         )
                         .into(((ImageView) holder.getView(R.id.item_img)));
@@ -104,18 +126,5 @@ public class LongDetailItemAdapte extends CommonAdapter<LongTextBean> {
 
 
     }
-    private RequestListener mRequestListener = new RequestListener() {
-        @Override
-        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target target, boolean isFirstResource) {
-            Log.e("xi", "onException: " + e.toString()+"  model:"+model+" isFirstResource: "+isFirstResource);
-            return false;
-        }
-
-        @Override
-        public boolean onResourceReady(Object resource, Object model, Target target, DataSource dataSource, boolean isFirstResource) {
-            Log.e("xi",  "model:"+model+" isFirstResource: "+isFirstResource);
-            return false;
-        }
-    };
 
 }
