@@ -220,6 +220,11 @@ public class ActDetailActivity extends BaseActivity implements IGetActDetailView
             actDetailAdapter = new ActDetailAdapter(this, actbean);
             rclCircle.setAdapter(actDetailAdapter);
             actDetailAdapter.setOnItemClickLitener((view, position) -> {
+                if(TextUtils.isEmpty(spu.getToken())){
+                    Intent gologin = new Intent(this, LoginActivity.class);
+                    startActivity(gologin);
+                    return;
+                }
 
                 if (view.getId() == R.id.iv_delete) {
                     showDeleteAct(true, true, position);
