@@ -220,7 +220,7 @@ public class LongDetailActivity extends BaseActivity implements OnLoadMoreListen
                 hideKeyboard();
                 break;
             case R.id.iv_memu:
-                if (spu.getToken() != null) {
+                if (!TextUtils.isEmpty(spu.getToken())) {
                     if (actbean.getData() == null) return;
                     if (actbean.getData().isIs_delete()) {
                         showDeleteAct(actbean.getData().isIs_owner(), false);
