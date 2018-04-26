@@ -108,7 +108,7 @@ public class UploadImageService extends Service {
                     public void onError(Call call, Exception e, int i) {
                         EventBus.getDefault().post(new UploadEvent("-1"));
                         UploadImageService.this.stopSelf();
-                        Toast.makeText(UploadImageService.this, "上传失败!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(UploadImageService.this, "图片上传失败!", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
@@ -124,7 +124,7 @@ public class UploadImageService extends Service {
                         } else {
                             EventBus.getDefault().post(new UploadEvent("-1"));
                             UploadImageService.this.stopSelf();
-                            Toast.makeText(UploadImageService.this, "上传失败!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(UploadImageService.this, msg.getMsg(), Toast.LENGTH_SHORT).show();
                         }
 
                     }
@@ -152,7 +152,7 @@ public class UploadImageService extends Service {
                     public void onError(Call call, Exception e, int i) {
                         EventBus.getDefault().post(new UploadEvent("-1"));
                         UploadImageService.this.stopSelf();
-                        Toast.makeText(UploadImageService.this, "上传失败!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(UploadImageService.this, "文字上传失败!", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
@@ -165,7 +165,7 @@ public class UploadImageService extends Service {
                         } else {
                             EventBus.getDefault().post(new UploadEvent("-1"));
                             UploadImageService.this.stopSelf();
-                            Toast.makeText(UploadImageService.this, "上传失败!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(UploadImageService.this, bean.getMsg(), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.PixelFormat;
 import android.graphics.drawable.ColorDrawable;
@@ -265,18 +264,13 @@ public class LongDetailActivity extends BaseActivity implements OnLoadMoreListen
             return;
         }
 
-        Log.e("xi", "onGetLongDetail: " + bean.getData().getComment_list().size());
-
-
         if (page == 1) {
-            if (bean.getData().getCover().size() != 0) {
-                imageurl = bean.getData().getCover().get(0);
-            }
+            imageurl = bean.getData().getCoverStr();
             name = bean.getData().getTitle();
             if (TextUtils.isEmpty(bean.getData().getContent())) {
-                content = bean.getData().getContent();
+                content = "来自" + bean.getData().getUsername() + "的分享";
             } else {
-                content = "来自" + bean.getData().getUsername() + " 的分享";
+                content = bean.getData().getContent();
             }
 
             titleUrl = bean.getData().getArticle_url();
@@ -666,62 +660,50 @@ public class LongDetailActivity extends BaseActivity implements OnLoadMoreListen
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.ll_share_wx:
-                if (actbean.getData().getCover().size() != 0) {
-                    Glide.with(this).load(imageurl).into(new SimpleTarget<Drawable>() {
-                        /**
-                         * The method that will be called when the resource load has finished.
-                         *
-                         * @param resource   the loaded resource.
-                         * @param transition
-                         */
-                        @Override
-                        public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
-                            Tools.shareWx(LongDetailActivity.this, drawableToBitmap(resource), titleUrl, SendMessageToWX.Req.WXSceneSession, name, content);
-                        }
-                    });
-                } else {
-                    Tools.shareWx(LongDetailActivity.this, BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher), titleUrl, SendMessageToWX.Req.WXSceneSession, name, content);
-                }
+                Glide.with(this).load(imageurl).into(new SimpleTarget<Drawable>() {
+                    /**
+                     * The method that will be called when the resource load has finished.
+                     *
+                     * @param resource   the loaded resource.
+                     * @param transition
+                     */
+                    @Override
+                    public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
+                        Tools.shareWx(LongDetailActivity.this, drawableToBitmap(resource), titleUrl, SendMessageToWX.Req.WXSceneSession, name, content);
+                    }
+                });
 
 
                 break;
             case R.id.ll_share_wxq:
-                if (actbean.getData().getCover().size() != 0) {
-                    Glide.with(this).load(imageurl).into(new SimpleTarget<Drawable>() {
-                        /**
-                         * The method that will be called when the resource load has finished.
-                         *
-                         * @param resource   the loaded resource.
-                         * @param transition
-                         */
-                        @Override
-                        public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
-                            Tools.shareWx(LongDetailActivity.this, drawableToBitmap(resource), titleUrl, SendMessageToWX.Req.WXSceneTimeline, name, content);
-                        }
-                    });
-                } else {
-                    Tools.shareWx(LongDetailActivity.this, BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher), titleUrl, SendMessageToWX.Req.WXSceneTimeline, name, content);
-                }
+                Glide.with(this).load(imageurl).into(new SimpleTarget<Drawable>() {
+                    /**
+                     * The method that will be called when the resource load has finished.
+                     *
+                     * @param resource   the loaded resource.
+                     * @param transition
+                     */
+                    @Override
+                    public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
+                        Tools.shareWx(LongDetailActivity.this, drawableToBitmap(resource), titleUrl, SendMessageToWX.Req.WXSceneTimeline, name, content);
+                    }
+                });
 
 
                 break;
             case R.id.ll_share_wb:
-                if (actbean.getData().getCover().size() != 0) {
-                    Glide.with(this).load(imageurl).into(new SimpleTarget<Drawable>() {
-                        /**
-                         * The method that will be called when the resource load has finished.
-                         *
-                         * @param resource   the loaded resource.
-                         * @param transition
-                         */
-                        @Override
-                        public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
-                            Tools.shareWb(LongDetailActivity.this, shareHandler, drawableToBitmap(resource), titleUrl, "分享来自范团APP的《" + name + "》", "分享来自范团APP的《" + content + "》");
-                        }
-                    });
-                } else {
-                    Tools.shareWb(LongDetailActivity.this, shareHandler, BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher), titleUrl, "分享来自范团APP的《" + name + "》", "分享来自范团APP的《" + content + "》");
-                }
+                Glide.with(this).load(imageurl).into(new SimpleTarget<Drawable>() {
+                    /**
+                     * The method that will be called when the resource load has finished.
+                     *
+                     * @param resource   the loaded resource.
+                     * @param transition
+                     */
+                    @Override
+                    public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
+                        Tools.shareWb(LongDetailActivity.this, shareHandler, drawableToBitmap(resource), titleUrl, "分享来自范团APP的《" + name + "》", "分享来自范团APP的《" + content + "》");
+                    }
+                });
 
 
                 break;
@@ -784,19 +766,6 @@ public class LongDetailActivity extends BaseActivity implements OnLoadMoreListen
                 }
                 break;
         }
-    }
-
-    public File saveBitmapFile(Bitmap bitmap) {
-        File file = new File("/mnt/sdcard/pic/01.jpg");//将要保存图片的路径
-        try {
-            BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(file));
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bos);
-            bos.flush();
-            bos.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return file;
     }
 
 

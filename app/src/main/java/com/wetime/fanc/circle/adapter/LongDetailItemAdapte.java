@@ -35,19 +35,6 @@ public class LongDetailItemAdapte extends CommonAdapter<LongTextBean> {
     private List<LongTextBean> datas;
     private ArrayList<String> list;
     private ArrayList<String> content;
-    private RequestListener mRequestListener = new RequestListener() {
-        @Override
-        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target target, boolean isFirstResource) {
-            Log.e("xi", "onException: " + e.toString() + "  model:" + model + " isFirstResource: " + isFirstResource);
-            return false;
-        }
-
-        @Override
-        public boolean onResourceReady(Object resource, Object model, Target target, DataSource dataSource, boolean isFirstResource) {
-            Log.e("xi", "model:" + model + " isFirstResource: " + isFirstResource);
-            return false;
-        }
-    };
 
     LongDetailItemAdapte(Context context, int layoutId, List<LongTextBean> datas) {
         super(context, layoutId, datas);
@@ -107,7 +94,6 @@ public class LongDetailItemAdapte extends CommonAdapter<LongTextBean> {
                 ((ImageView) holder.getView(R.id.item_img)).setLayoutParams(layoutParams);
                 Glide.with(context)
                         .load(longTextBean.getImageUrl())
-                        .listener(mRequestListener)
                         .apply(
                                 new RequestOptions()
                                         .override(screenW, h)

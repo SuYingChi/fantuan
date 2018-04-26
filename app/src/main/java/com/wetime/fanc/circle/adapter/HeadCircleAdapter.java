@@ -59,7 +59,7 @@ public class HeadCircleAdapter extends RecyclerView.Adapter {
             return new ViewHolder(inflate);
         } else {
             ViewGroup.LayoutParams layoutParams = inflate.getLayoutParams();
-            layoutParams.width = 200;
+            layoutParams.width = 160;
             inflate.setLayoutParams(layoutParams);
             return new ViewHolder(inflate);
         }
