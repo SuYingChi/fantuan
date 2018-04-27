@@ -22,13 +22,14 @@
 
     <LinearLayout
         android:id="@+id/linear"
-        android:layout_marginTop="15dp"
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
 
         <TextView
+            android:layout_marginTop="15dp"
             android:id="@+id/tv_see"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -39,6 +40,7 @@
             tools:text="456次浏览" />
 
         <TextView
+            android:layout_marginTop="15dp"
             android:id="@+id/tv_publishtitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -48,6 +50,7 @@
             android:textSize="14sp" />
 
         <TextView
+            android:layout_marginTop="15dp"
             android:id="@+id/tv_circlename"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
