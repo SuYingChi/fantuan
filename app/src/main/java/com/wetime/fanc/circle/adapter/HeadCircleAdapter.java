@@ -13,6 +13,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.wetime.fanc.R;
 import com.wetime.fanc.circle.bean.CircleHomeListBean;
 import com.wetime.fanc.utils.GlideRoundTransform;
+import com.wetime.fanc.utils.Tools;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,7 +65,7 @@ public class HeadCircleAdapter extends RecyclerView.Adapter {
             return new ViewHolder(inflate);
         } else {
             ViewGroup.LayoutParams layoutParams = inflate.getLayoutParams();
-            layoutParams.width = 160;
+            layoutParams.width = (int) (Tools.getScreenW(mContext) / 4.3);
             inflate.setLayoutParams(layoutParams);
             return new ViewHolder(inflate);
         }
