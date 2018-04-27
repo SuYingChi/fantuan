@@ -132,10 +132,6 @@ public class UploadImageService extends Service {
     }
 
     public void publishCircle(String ids) {
-//        "lng":"110.3196",
-//                "lat":"20.02862",
-//                "location":"百方"
-//        content = content.replace("\n", " ");
         OkHttpUtils
                 .post()
                 .url(Const.DYNAMIC_PUBLISH_SAVE)

@@ -452,10 +452,10 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
                 ((NewsHolder18) holder).ivOnwer.setVisibility(View.GONE);
             }
             if (bean.isCircle_admin()) {
-                ((NewsHolder18) holder).ivOnwer.setVisibility(View.VISIBLE);
-                ((NewsHolder18) holder).ivOnwer.setImageResource(R.drawable.invalid_manage);
+                ((NewsHolder18) holder).ivManager.setVisibility(View.VISIBLE);
+                ((NewsHolder18) holder).ivManager.setImageResource(R.drawable.invalid_manage);
             } else {
-                ((NewsHolder18) holder).ivOnwer.setVisibility(View.GONE);
+                ((NewsHolder18) holder).ivManager.setVisibility(View.GONE);
             }
             if (TextUtils.isEmpty(bean.getLocation())) {
                 ((NewsHolder18) holder).tvAddres.setVisibility(View.GONE);
@@ -659,7 +659,7 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
             ((NewsHolder29) holder).gv.setLayoutParams(params);
             gvadapter.notifyDataSetChanged();
             ((NewsHolder29) holder).gv.setOnItemClickListener((adapterView, view, i, l) -> Tools.goPicGallery(mActivity, bean.getCover(), i));
-//            ((NewsHolder29) holder).gv.setOnTouchInvalidPositionListener(motionEvent -> false);
+//            ((NewsHolder29) holder).gv.setOnTouchInvalidPositionL`stener(motionEvent -> false);
             if (TextUtils.isEmpty(bean.getReply())) {
                 ((NewsHolder29) holder).tvShopsay.setVisibility(View.GONE);
             } else {
@@ -883,10 +883,10 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
                 ((NewsHolder19) holder).ivOnwer.setVisibility(View.GONE);
             }
             if (bean.isCircle_admin()) {
-                ((NewsHolder19) holder).ivOnwer.setVisibility(View.VISIBLE);
-                ((NewsHolder19) holder).ivOnwer.setImageResource(R.drawable.invalid_manage);
+                ((NewsHolder19) holder).ivManager.setVisibility(View.VISIBLE);
+                ((NewsHolder19) holder).ivManager.setImageResource(R.drawable.invalid_manage);
             } else {
-                ((NewsHolder19) holder).ivOnwer.setVisibility(View.GONE);
+                ((NewsHolder19) holder).ivManager.setVisibility(View.GONE);
             }
             if (TextUtils.isEmpty(bean.getLocation())) {
                 ((NewsHolder19) holder).tvAddres.setVisibility(View.GONE);
@@ -1092,6 +1092,8 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
         ImageView ivZan;
         @BindView(R.id.iv_onwer)
         ImageView ivOnwer;
+        @BindView(R.id.iv_manager)
+        ImageView ivManager;
         @BindView(R.id.tv_zannum)
         TextView tvZannum;
         @BindView(R.id.iv_head)
@@ -1127,6 +1129,8 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
         ImageView ivZan;
         @BindView(R.id.iv_onwer)
         ImageView ivOnwer;
+        @BindView(R.id.iv_manager)
+        ImageView ivManager;
         @BindView(R.id.tv_zannum)
         TextView tvZannum;
         @BindView(R.id.iv_head)

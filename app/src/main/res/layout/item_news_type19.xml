@@ -62,6 +62,15 @@
                         android:layout_width="wrap_content"
                         android:layout_height="16dp"
                         android:layout_marginLeft="5dp"
+                        android:visibility="gone"
+                        android:src="@drawable/bg_circle_onwer" />
+
+                    <ImageView
+                        android:id="@+id/iv_manager"
+                        android:layout_width="wrap_content"
+                        android:layout_height="16dp"
+                        android:layout_marginLeft="5dp"
+                        android:visibility="gone"
                         android:src="@drawable/bg_circle_onwer" />
                 </LinearLayout>
 
