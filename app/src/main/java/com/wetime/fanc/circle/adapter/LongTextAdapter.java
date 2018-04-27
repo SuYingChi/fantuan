@@ -172,7 +172,12 @@ public class LongTextAdapter extends RecyclerView.Adapter {
 
                 ((ImageViewHolder) holder).ivCover.setBackgroundResource(R.drawable.bg_edit_nodash);
                 ((ImageViewHolder) holder).ivDelete.setVisibility(View.VISIBLE);
-                ((ImageViewHolder) holder).ivEdit.setVisibility(View.VISIBLE);
+                if(TextUtils.isEmpty(bean.getDes())){
+                    ((ImageViewHolder) holder).ivEdit.setVisibility(View.VISIBLE);
+                }else {
+                    ((ImageViewHolder) holder).ivEdit.setVisibility(View.GONE);
+                }
+
                 ((ImageViewHolder) holder).ivDrag.setVisibility(View.GONE);
 
                 if (mOnImgDeleteClickLitener != null) {

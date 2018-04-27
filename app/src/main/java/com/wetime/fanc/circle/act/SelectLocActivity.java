@@ -5,11 +5,16 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.amap.api.location.AMapLocation;
+import com.amap.api.location.AMapLocationClient;
+import com.amap.api.location.AMapLocationClientOption;
+import com.amap.api.location.AMapLocationListener;
 import com.fan.baselib.loadmore.AutoLoadMoreAdapter;
 import com.wetime.fanc.R;
 import com.wetime.fanc.circle.adapter.LocListAdapter;
@@ -18,6 +23,7 @@ import com.wetime.fanc.circle.bean.SelectLocListBean;
 import com.wetime.fanc.circle.iviews.IGetLocListView;
 import com.wetime.fanc.circle.presenter.GetLocListPresenter;
 import com.wetime.fanc.main.act.BaseActivity;
+import com.wetime.fanc.utils.Tools;
 
 import java.util.ArrayList;
 
@@ -42,6 +48,11 @@ public class SelectLocActivity extends BaseActivity implements IGetLocListView {
     private ArrayList<LocItemBean> list = new ArrayList<>();
     private AutoLoadMoreAdapter mAutoLoadMoreAdapter;
     private final int SEARCH_LOC = 1000;
+
+    public AMapLocationClient mLocationClient = null;
+    //声明定位回调监听器
+    public AMapLocationListener mLocationListener;
+    public AMapLocationClientOption mLocationOption = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,7 +101,12 @@ public class SelectLocActivity extends BaseActivity implements IGetLocListView {
         mAutoLoadMoreAdapter.notifyDataSetChanged();
 
         getLocListPresenter = new GetLocListPresenter(this);
-        getLocListPresenter.getLoclist();
+        if (!TextUtils.isEmpty(getJd()) && !TextUtils.isEmpty(getWd())){
+            getLocListPresenter.getLoclist();
+        }else{
+            initLoaction();
+        }
+
 
 
     }
@@ -151,5 +167,53 @@ public class SelectLocActivity extends BaseActivity implements IGetLocListView {
     @Override
     public String getLocTitle() {
         return ((LocItemBean) getIntent().getSerializableExtra("loc")).getTitle();
+    }
+
+    private void initLoaction() {
+
+
+        mLocationClient = new AMapLocationClient(getApplicationContext());
+
+        //初始化AMapLocationClientOption对象
+        mLocationOption = new AMapLocationClientOption();
+        mLocationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);
+        //获取一次定位结果：
+        //该方法默认为false。
+        mLocationOption.setOnceLocation(true);
+
+        //获取最近3s内精度最高的一次定位结果：
+        //设置setOnceLocationLatest(boolean b)接口为true，启动定位时SDK会返回最近3s内精度最高的一次定位结果。如果设置其为true，setOnceLocation(boolean b)接口也会被设置为true，反之不会，默认为false。
+        mLocationOption.setOnceLocationLatest(true);
+        mLocationClient.setLocationOption(mLocationOption);
+
+
+        mLocationListener = amapLocation -> {
+            if (amapLocation != null) {
+                if (amapLocation.getErrorCode() == 0) {
+                    //可在其中解析amapLocation获取相应内容。
+
+                    Log.e("zk 纬度", String.valueOf(amapLocation.getLatitude()));
+                    Log.e("zk 经度", String.valueOf(amapLocation.getLongitude()));
+
+
+                    spu.setValue("wd", String.valueOf(amapLocation.getLatitude()));
+                    spu.setValue("jd", String.valueOf(amapLocation.getLongitude()));
+                    getLocListPresenter.getLoclist();
+                } else {
+                    //定位失败时，可通过ErrCode（错误码）信息来确定失败的原因，errInfo是错误信息，详见错误码表。
+                    Log.e("zk", "location Error, ErrCode:"
+                            + amapLocation.getErrorCode() + ", errInfo:"
+                            + amapLocation.getErrorInfo());
+                    spu.setValue("wd", "");
+                    spu.setValue("jd", "");
+                    Tools.toastInBottom(mContext, "获取位置信息失败");
+                }
+            }
+            mLocationClient.stopLocation();
+        };
+        //设置定位回调监听
+        mLocationClient.setLocationListener(mLocationListener);
+        mLocationClient.startLocation();
+
     }
 }

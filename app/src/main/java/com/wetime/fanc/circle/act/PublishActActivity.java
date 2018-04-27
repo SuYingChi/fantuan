@@ -35,6 +35,8 @@ import com.wetime.fanc.main.ivews.IPostMultiFileView;
 import com.wetime.fanc.order.adapter.ImageGridAdapter;
 import com.wetime.fanc.service.UploadImageService;
 import com.wetime.fanc.utils.Tools;
+import com.yanzhenjie.permission.AndPermission;
+import com.yanzhenjie.permission.Permission;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -162,10 +164,21 @@ public class PublishActActivity extends BaseActivity implements IPostMultiFileVi
                 startActivityForResult(goSelect, REQUEST_CIRCLE);
                 break;
             case R.id.tv_addres:
-                Intent goloc = new Intent(mContext, SelectLocActivity.class);
-                locBean.setSelected(true);
-                goloc.putExtra("loc", locBean);
-                startActivityForResult(goloc, REQUEST_LOC);
+                AndPermission.with(this)
+                        .permission(Permission.Group.LOCATION, Permission.Group.STORAGE)
+                        .onGranted(permissions -> {
+                            // TODO what to do.
+                            Intent goloc = new Intent(mContext, SelectLocActivity.class);
+                            locBean.setSelected(true);
+                            goloc.putExtra("loc", locBean);
+                            startActivityForResult(goloc, REQUEST_LOC);
+                        }).onDenied(permissions -> {
+                    // TODO what to do
+                    Tools.toastInBottom(mContext, "为了更好使用范团，请赋予权限");
+                })
+                        .start();
+
+
                 break;
         }
     }
@@ -262,8 +275,10 @@ public class PublishActActivity extends BaseActivity implements IPostMultiFileVi
         mCircleID = bean.getData().getId();
         tvCirclename.setText(bean.getData().getName());
         if (bean.getData().isLast_position()) {
-            GetLocStrPresenter getLocStrPresenter = new GetLocStrPresenter(this);
-            getLocStrPresenter.getLocStr();
+            if (!TextUtils.isEmpty(getJd()) && !TextUtils.isEmpty(getWd())) {
+                GetLocStrPresenter getLocStrPresenter = new GetLocStrPresenter(this);
+                getLocStrPresenter.getLocStr();
+            }
         }
     }
 
