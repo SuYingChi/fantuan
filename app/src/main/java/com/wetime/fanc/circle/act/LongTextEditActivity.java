@@ -556,6 +556,7 @@ public class LongTextEditActivity extends BaseActivity implements LongTextAdapte
         } else {
             ivGopic.setImageResource(R.drawable.ic_add_image);
         }
+        pos = 0;
     }
 
     @Override
