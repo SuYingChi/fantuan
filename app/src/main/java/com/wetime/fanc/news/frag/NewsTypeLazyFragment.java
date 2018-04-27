@@ -151,7 +151,7 @@ public class NewsTypeLazyFragment extends BaseLazyFragment implements IGetNewsTy
     @Override
     protected void initData() {
         if (type.equals("-1") && TextUtils.isEmpty(spu.getToken())) {
-            rlNoLogin.setVisibility(View.VISIBLE);
+            if (rlNoLogin != null)  rlNoLogin.setVisibility(View.VISIBLE);
             mRootView.findViewById(R.id.tv_gologin).setOnClickListener(v -> {
                 Intent go = new Intent(getContext(), LoginActivity.class);
                 startActivity(go);
@@ -171,7 +171,7 @@ public class NewsTypeLazyFragment extends BaseLazyFragment implements IGetNewsTy
         }
         // 推荐空页面
         if (type.equals("-1")) {
-            rlNoLogin.setVisibility(View.GONE);
+            if (rlNoLogin != null) rlNoLogin.setVisibility(View.GONE);
             if (bean.getData().getList().size() == 0) {
                 rlNoFocus.setVisibility(View.VISIBLE);
                 mRootView.findViewById(R.id.tv_gofocus).setOnClickListener(v -> {
@@ -281,7 +281,7 @@ public class NewsTypeLazyFragment extends BaseLazyFragment implements IGetNewsTy
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(LogoutEvent event) {
         if (type.equals("-1")) {
-            rlNoLogin.setVisibility(View.VISIBLE);
+            if (rlNoLogin != null) rlNoLogin.setVisibility(View.VISIBLE);
             mRootView.findViewById(R.id.tv_gologin).setOnClickListener(v -> {
                 Intent go = new Intent(getContext(), LoginActivity.class);
                 startActivity(go);

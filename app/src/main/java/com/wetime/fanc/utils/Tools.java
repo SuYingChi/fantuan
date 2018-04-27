@@ -373,12 +373,11 @@ public class Tools {
     }
 
     private static Bitmap comp(Bitmap image) {
-
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         image.compress(Bitmap.CompressFormat.JPEG, 80, baos);
         if (baos.toByteArray().length / 1024 > 32) {//判断如果图片大于1M,进行压缩避免在生成图片（BitmapFactory.decodeStream）时溢出
             baos.reset();//重置baos即清空baos
-            image.compress(Bitmap.CompressFormat.JPEG, 70, baos);//这里压缩50%，把压缩后的数据存放到baos中
+            image.compress(Bitmap.CompressFormat.JPEG, 80, baos);//这里压缩50%，把压缩后的数据存放到baos中
         }
         ByteArrayInputStream isBm = new ByteArrayInputStream(baos.toByteArray());
         BitmapFactory.Options newOpts = new BitmapFactory.Options();
@@ -410,7 +409,7 @@ public class Tools {
     private static Bitmap compressImage(Bitmap image) {
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        image.compress(Bitmap.CompressFormat.JPEG, 70, baos);//质量压缩方法，这里100表示不压缩，把压缩后的数据存放到baos中
+        image.compress(Bitmap.CompressFormat.JPEG, 80, baos);//质量压缩方法，这里100表示不压缩，把压缩后的数据存放到baos中
         int options = 50;
         while (baos.toByteArray().length / 1024 > 32) { //循环判断如果压缩后图片是否大于100kb,大于继续压缩
             baos.reset();//重置baos即清空baos
@@ -435,6 +434,11 @@ public class Tools {
 
     public static void shareWx(Context mContext, Bitmap thumb, String url, int type, String title, String des) {
 
+        shareWx(mContext, thumb, url, type, title, des, 1);
+    }
+
+    public static void shareWx(Context mContext, Bitmap thumb, String url, int type, String title, String des, int size) {
+
         if (!FApp.mWxApi.isWXAppInstalled()) {
             Tools.toastInBottom(mContext, "您没有安装微信");
             return;
@@ -446,14 +450,9 @@ public class Tools {
         msg.title = title;
         msg.description = des;
 
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        int quality = 10;
-//        thumb.compress(Bitmap.CompressFormat.JPEG, quality, baos);
-//        BitmapFactory.Options options2 = new BitmapFactory.Options();
-//        options2.inPreferredConfig = Bitmap.Config.ARGB_8888;
-//        byte[] bytes = baos.toByteArray();
-//        thumb = BitmapFactory.decodeByteArray(bytes, 0, bytes.length,options2);
-        thumb = comp(thumb);
+        if (size != 0) {
+            thumb = comp(thumb);
+        }
 
         msg.thumbData = bmpToByteArray(thumb, true);
         SendMessageToWX.Req req = new SendMessageToWX.Req();

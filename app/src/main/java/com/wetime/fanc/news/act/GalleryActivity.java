@@ -3,6 +3,7 @@ package com.wetime.fanc.news.act;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.View;
@@ -65,7 +66,7 @@ public class GalleryActivity extends BaseActivity implements View.OnClickListene
     private Fragment mCurrFragment;
     private GalleryItemBean bean;
 
-    public static void startToGallery(Context context, String galleryId) {
+    public static void startToGallery(Context context, @NonNull String galleryId) {
         Intent intent = new Intent(context, GalleryActivity.class);
         intent.putExtra("gallery", galleryId);
         context.startActivity(intent);

@@ -192,6 +192,7 @@ public class UserCardActivity extends BaseActivity implements OnLoadMoreListener
                 break;
         }
     }
+
     private void showReportAct() {
         BottomDialog mDeleteBottomDialogShare = BottomDialog.create(getSupportFragmentManager());
         mDeleteBottomDialogShare.setDimAmount(0.5f);
@@ -206,6 +207,7 @@ public class UserCardActivity extends BaseActivity implements OnLoadMoreListener
                 mDeleteBottomDialog.setCancelOutside(true);
                 mDeleteBottomDialog.setLayoutRes(R.layout.bottom_anim_dialog_layout);
                 mDeleteBottomDialog.setViewListener(v11 -> {
+                    ((TextView) v11.findViewById(R.id.tv_item1)).setText("请选择举报原因");
                     v11.findViewById(R.id.tv_item2).setOnClickListener(v1 -> {
                         report(mDeleteBottomDialog, v1.getId(), v11);
                     });

@@ -92,6 +92,16 @@ public class CircleHomeAdapter extends RecyclerView.Adapter {
                 circleAdapter.setMlist(circllist);
                 circleAdapter.notifyDataSetChanged();
             }
+            circleAdapter.setOnItemClickLitener((view, position2) -> {
+                if (circllist.get(position2).getId().equals("0")) {
+                    Intent goAll = new Intent(mActivity, AllCircleActivity.class);
+                    mActivity.startActivity(goAll);
+                } else {
+                    Intent goCircle = new Intent(mActivity, CircleDetailActivity.class);
+                    goCircle.putExtra("id", circllist.get(position2).getId());
+                    mActivity.startActivity(goCircle);
+                }
+            });
         }
     }
 
@@ -110,6 +120,12 @@ public class CircleHomeAdapter extends RecyclerView.Adapter {
                     circleAdapter1.setFollow_circles(follow_circles);
                     circleAdapter1.notifyDataSetChanged();
                 }
+                circleAdapter1.setOnItemClickLitener((view, position2) -> {
+                    Intent goCircle = new Intent(mActivity, CircleDetailActivity.class);
+                    goCircle.putExtra("id", follow_circles.get(position2).getId());
+                    mActivity.startActivity(goCircle);
+                });
+
             }
         }
 
@@ -160,6 +176,7 @@ public class CircleHomeAdapter extends RecyclerView.Adapter {
                 });
                 //头部
                 GridLayoutManager manager = new GridLayoutManager(mActivity, 4);
+
                 ((CircleHeadViewHolder) holder).rclCircle.setLayoutManager(manager);
                 LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mActivity);
                 linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);

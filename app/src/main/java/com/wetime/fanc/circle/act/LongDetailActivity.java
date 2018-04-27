@@ -17,7 +17,6 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -61,11 +60,6 @@ import com.wetime.fanc.main.model.BaseBean;
 import com.wetime.fanc.utils.DialogUtils;
 import com.wetime.fanc.utils.KeyboardChangeListener;
 import com.wetime.fanc.utils.Tools;
-
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -490,6 +484,7 @@ public class LongDetailActivity extends BaseActivity implements OnLoadMoreListen
                 mDeleteBottomDialog.setCancelOutside(true);
                 mDeleteBottomDialog.setLayoutRes(R.layout.bottom_anim_dialog_layout);
                 mDeleteBottomDialog.setViewListener(v11 -> {
+                    ((TextView) v11.findViewById(R.id.tv_item1)).setText("请选择删除原因");
                     v11.findViewById(R.id.tv_item2).setOnClickListener(v1 -> {
                         delete(mDeleteBottomDialog, "1", v1.getId(), v11);
                     });
@@ -666,7 +661,7 @@ public class LongDetailActivity extends BaseActivity implements OnLoadMoreListen
                      */
                     @Override
                     public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
-                        Tools.shareWx(LongDetailActivity.this, drawableToBitmap(resource), titleUrl, SendMessageToWX.Req.WXSceneSession, name, content);
+                        Tools.shareWx(LongDetailActivity.this, drawableToBitmap(resource), titleUrl, SendMessageToWX.Req.WXSceneSession, name, content, actbean.getData().getCover().size());
                     }
                 });
 
@@ -682,7 +677,7 @@ public class LongDetailActivity extends BaseActivity implements OnLoadMoreListen
                      */
                     @Override
                     public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
-                        Tools.shareWx(LongDetailActivity.this, drawableToBitmap(resource), titleUrl, SendMessageToWX.Req.WXSceneTimeline, name, content);
+                        Tools.shareWx(LongDetailActivity.this, drawableToBitmap(resource), titleUrl, SendMessageToWX.Req.WXSceneTimeline, name, content, actbean.getData().getCover().size());
                     }
                 });
 

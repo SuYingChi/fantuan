@@ -1,6 +1,7 @@
 package com.wetime.fanc.circle.adapter;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -58,8 +59,9 @@ public class HeadCircleAdapter extends RecyclerView.Adapter {
         this.mlist.addAll(mlist);
     }
 
+    @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View inflate = LayoutInflater.from(mContext).inflate(R.layout.item_home_circle, parent, false);
         if (type == 0) {
             return new ViewHolder(inflate);
