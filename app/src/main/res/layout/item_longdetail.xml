@@ -16,7 +16,7 @@
         android:textColor="#333333"
         android:textSize="17sp" />
 
-    <com.shizhefei.view.largeimage.LargeImageView
+    <ImageView
         android:id="@+id/item_img"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

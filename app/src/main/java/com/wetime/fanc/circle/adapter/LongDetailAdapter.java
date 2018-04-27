@@ -24,8 +24,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.wetime.fanc.R;
-import com.wetime.fanc.circle.act.LongDetailActivity;
 import com.wetime.fanc.circle.act.CircleDetailActivity;
+import com.wetime.fanc.circle.act.LongDetailActivity;
 import com.wetime.fanc.circle.bean.ActDetailBean;
 import com.wetime.fanc.circle.bean.LongBean;
 import com.wetime.fanc.circle.bean.LongTextBean;
@@ -200,7 +200,7 @@ public class LongDetailAdapter extends RecyclerView.Adapter {
             ((ViewHolder2) holder).tvName.setText(bean.getUsername());
             ((ViewHolder2) holder).tvTime.setText(bean.getTime());
 
-            if (actDetailBean.getData().isIs_delete()) {
+            if (actDetailBean.getData().isIs_manager()) {
                 ((ViewHolder2) holder).ivdelete.setVisibility(View.VISIBLE);
                 ((ViewHolder2) holder).ivdelete.setOnClickListener(v -> {
                     mOnItemClickLitener.onItemClick(v, position);
@@ -229,7 +229,7 @@ public class LongDetailAdapter extends RecyclerView.Adapter {
                             ((LongDetailActivity) mActivity).toId = bean.getUid();
                             ((LongDetailActivity) mActivity).etContent.setHint("回复 " + bean.getUsername());
                             ((LongDetailActivity) mActivity).showKeyborad();
-                        }, 500);
+                        }, 0);
                     }
 
                     @Override
@@ -243,6 +243,11 @@ public class LongDetailAdapter extends RecyclerView.Adapter {
 
                 ((ViewHolder2) holder).tvContent.setText(s1);
             }
+            ((ViewHolder2) holder).tvContent.setOnClickListener(v -> new Handler().postDelayed(() -> {
+                ((LongDetailActivity) mActivity).toId = bean.getUid();
+                ((LongDetailActivity) mActivity).etContent.setHint("回复 " + bean.getUsername());
+                ((LongDetailActivity) mActivity).showKeyborad();
+            }, 0));
             Glide.with(mActivity).load(bean.getAvatar()).into(((ViewHolder2) holder).ivHead);
             ((ViewHolder2) holder).ivHead.setOnClickListener(view -> {
                 Intent go = new Intent(mActivity, UserCardActivity.class);

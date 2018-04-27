@@ -227,7 +227,7 @@ public class ActDetailAdapter extends RecyclerView.Adapter {
                             ((ActDetailActivity) mActivity).toId = bean.getUid();
                             ((ActDetailActivity) mActivity).etContent.setHint("回复 " + bean.getUsername());
                             ((ActDetailActivity) mActivity).showKeyborad();
-                        }, 500);
+                        }, 0);
                     }
 
                     @Override
@@ -241,6 +241,11 @@ public class ActDetailAdapter extends RecyclerView.Adapter {
 
                 ((ViewHolder2) holder).tvContent.setText(s1);
             }
+            ((ViewHolder2) holder).tvContent.setOnClickListener(v -> {
+                ((ActDetailActivity) mActivity).toId = bean.getUid();
+                ((ActDetailActivity) mActivity).etContent.setHint("回复 " + bean.getUsername());
+                ((ActDetailActivity) mActivity).showKeyborad();
+            });
             Glide.with(mActivity).load(bean.getAvatar()).into(((ViewHolder2) holder).ivHead);
             ((ViewHolder2) holder).ivHead.setOnClickListener(view -> {
                 Intent go = new Intent(mActivity, UserCardActivity.class);

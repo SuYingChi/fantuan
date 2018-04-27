@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:gravity="center"
+        android:visibility="gone"
         android:lineSpacingExtra="0sp"
         android:text="分享"
         android:textColor="#388ae5"
@@ -19,6 +20,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
+        android:visibility="gone"
         android:background="@color/line_color_lib"/>
 
     <TextView

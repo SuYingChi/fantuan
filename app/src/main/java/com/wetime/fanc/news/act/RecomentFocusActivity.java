@@ -7,10 +7,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.fan.baselib.loadmore.AutoLoadMoreAdapter;
 import com.wetime.fanc.R;
-import com.wetime.fanc.circle.act.ActDetailActivity;
 import com.wetime.fanc.circle.presenter.FocusPresenter;
 import com.wetime.fanc.login.act.LoginActivity;
 import com.wetime.fanc.main.act.BaseActivity;
@@ -25,9 +25,6 @@ import com.wetime.fanc.news.iviews.IGetRecomentFocusView;
 import com.wetime.fanc.news.presenter.GetRecomentFocusPresenter;
 import com.wetime.fanc.news.presenter.GetRecomentFocusUserPresenter;
 import com.wetime.fanc.utils.Tools;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,7 +66,7 @@ public class RecomentFocusActivity extends BaseActivity implements IGetRecomentF
         userAdapter = new FcousUserAdapter(userList, mContext);
         userAdapter.setOnItemClickLitener((view, position) -> {
             Intent go = new Intent(this, UserCardActivity.class);
-            go.putExtra("num", "3" );
+            go.putExtra("num", "3");
             go.putExtra("index", 1);
             go.putExtra("id", userList.get(position).getUid());
             startActivity(go);
@@ -98,15 +95,18 @@ public class RecomentFocusActivity extends BaseActivity implements IGetRecomentF
                 return;
             }
 
+            if (userList.get(position).isIs_owner()) {
+                Toast.makeText(mContext, "您不能关注自己哦~", Toast.LENGTH_SHORT).show();
+                return;
+            }
             userList.get(position).setIs_follow(!userList.get(position).isIs_follow());
             mAutoLoadMoreAdapter.notifyDataSetChanged();
-            focusPresenter.focusUser(this,getToken(),
+            focusPresenter.focusUser(this, getToken(),
                     userList.get(position).isIs_follow() ? "1" : "0",
                     userList.get(position).getUid());
         });
         mAutoLoadMoreAdapter.notifyDataSetChanged();
     }
-
 
 
     @Override
@@ -151,7 +151,7 @@ public class RecomentFocusActivity extends BaseActivity implements IGetRecomentF
         }
         if (bean.getData().getPaging().isIs_end()) {
             mAutoLoadMoreAdapter.disable();
-        }else {
+        } else {
             mAutoLoadMoreAdapter.enable();
         }
 

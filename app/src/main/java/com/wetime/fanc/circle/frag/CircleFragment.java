@@ -127,12 +127,12 @@ public class CircleFragment extends BaseLazyFragment implements OnRefreshListene
                 sortPos = position;
                 onRefresh(refreshLayout);
             });
+
         }
 
-//            adapter.notifyDataSetChanged();
+//
         adapter.setCircllist(bean.getData().getCircles());
         adapter.setFollow_circles(bean.getData().getFollow_circles());
-
 
 
         if (page == 1) {
@@ -144,7 +144,7 @@ public class CircleFragment extends BaseLazyFragment implements OnRefreshListene
         }
         mList.addAll(bean.getData().getList());
         mAutoLoadMoreAdapter.notifyDataSetChanged();
-
+        adapter.notifyDataSetChanged();
 
         rlEmpty.setVisibility(View.GONE);
         if (page > 1) {

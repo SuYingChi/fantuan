@@ -13,6 +13,15 @@ public class RecomentFocusUserBean {
     private String username;
     private String avatar;
     private boolean is_follow;
+    private boolean is_owner;
+
+    public boolean isIs_owner() {
+        return is_owner;
+    }
+
+    public void setIs_owner(boolean is_owner) {
+        this.is_owner = is_owner;
+    }
 
     public String getUid() {
         return uid;

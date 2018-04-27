@@ -30,7 +30,6 @@ import com.wetime.fanc.circle.act.LongDetailActivity;
 import com.wetime.fanc.circle.bean.CircleHomeListBean;
 import com.wetime.fanc.circle.presenter.ZanActPresenter;
 import com.wetime.fanc.customview.CanDoBlankGridView;
-import com.wetime.fanc.customview.SpaceItemDecoration;
 import com.wetime.fanc.home.bean.HomeItemBean;
 import com.wetime.fanc.home.bean.TabEntity;
 import com.wetime.fanc.login.act.LoginActivity;
@@ -85,8 +84,15 @@ public class CircleHomeAdapter extends RecyclerView.Adapter {
     }
 
     public void setCircllist(List<CircleHomeListBean.DataBean.CirclesBean> circllist) {
-        this.circllist.clear();
-        this.circllist.addAll(circllist);
+        if (holder != null && holder instanceof CircleHeadViewHolder) {
+            if (circleAdapter == null) {
+                circleAdapter = new HeadCircleAdapter(follow_circles, circllist, mActivity, 1);
+                ((CircleHeadViewHolder) holder).rclCircle.setAdapter(circleAdapter);
+            } else {
+                circleAdapter.setMlist(circllist);
+                circleAdapter.notifyDataSetChanged();
+            }
+        }
     }
 
     public void setFollow_circles(List<CircleHomeListBean.DataBean.FollowCirclesBean> follow_circles) {
@@ -99,12 +105,11 @@ public class CircleHomeAdapter extends RecyclerView.Adapter {
                 ((CircleHeadViewHolder) holder).llHeadTv.setVisibility(View.GONE);
                 if (circleAdapter1 == null) {
                     circleAdapter1 = new HeadCircleAdapter(follow_circles, circllist, mActivity, 1);
-
                     ((CircleHeadViewHolder) holder).rclCircleMy.setAdapter(circleAdapter1);
                 } else {
                     circleAdapter1.setFollow_circles(follow_circles);
+                    circleAdapter1.notifyDataSetChanged();
                 }
-                circleAdapter1.notifyDataSetChanged();
             }
         }
 

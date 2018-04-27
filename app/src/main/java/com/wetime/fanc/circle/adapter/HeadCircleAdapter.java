@@ -52,6 +52,11 @@ public class HeadCircleAdapter extends RecyclerView.Adapter {
 
     }
 
+    public void setMlist(List<CircleHomeListBean.DataBean.CirclesBean> mlist) {
+        this.mlist.clear();
+        this.mlist.addAll(mlist);
+    }
+
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View inflate = LayoutInflater.from(mContext).inflate(R.layout.item_home_circle, parent, false);

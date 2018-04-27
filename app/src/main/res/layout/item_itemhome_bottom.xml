@@ -4,8 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:paddingBottom="15dp"
-    android:paddingTop="15dp">
+    android:paddingBottom="15dp">
 
     <TextView
         android:id="@+id/tv_addres"
@@ -13,16 +12,17 @@
         android:layout_height="wrap_content"
         android:drawableLeft="@drawable/ic_loc_off"
         android:drawablePadding="3dp"
+        android:layout_marginTop="15dp"
         android:ellipsize="end"
         android:lineSpacingExtra="0sp"
         android:maxLines="1"
-        android:paddingBottom="15dp"
         android:textColor="#999999"
         android:textSize="13sp"
         tools:text="世贸北路一号海岸一二三四五六七八号C栋综合楼1003..." />
 
     <LinearLayout
         android:id="@+id/linear"
+        android:layout_marginTop="15dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
