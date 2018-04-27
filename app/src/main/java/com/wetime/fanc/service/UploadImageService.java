@@ -217,7 +217,7 @@ public class UploadImageService extends Service {
                         } else {
                             EventBus.getDefault().post(new UploadEvent("-1"));
                             UploadImageService.this.stopSelf();
-                            Toast.makeText(UploadImageService.this, "上传失败!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(UploadImageService.this, bean.getMsg(), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
