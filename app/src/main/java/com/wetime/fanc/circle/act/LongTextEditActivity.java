@@ -36,6 +36,8 @@ import com.wetime.fanc.service.UploadImageService;
 import com.wetime.fanc.utils.GsonUtils;
 import com.wetime.fanc.utils.KeyboardChangeListener;
 import com.wetime.fanc.utils.Tools;
+import com.yanzhenjie.permission.AndPermission;
+import com.yanzhenjie.permission.Permission;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -185,7 +187,7 @@ public class LongTextEditActivity extends BaseActivity implements LongTextAdapte
                             LongTextBean lb = new LongTextBean();
                             lb.setImageUrl(path);
                             lb.setType("2");
-                            list.add(pos +i, lb);
+                            list.add(pos + i, lb);
                         }
                     } else {//拆分当前
                         //pos 在末尾 直接在后面添加
@@ -331,10 +333,20 @@ public class LongTextEditActivity extends BaseActivity implements LongTextAdapte
                 tvAddres.setTextColor(ContextCompat.getColor(mContext, R.color.text_hint));
                 break;
             case R.id.tv_addres:
-                Intent goloc = new Intent(mContext, SelectLocActivity.class);
-                locBean.setSelected(true);
-                goloc.putExtra("loc", locBean);
-                startActivityForResult(goloc, REQUEST_LOC);
+                AndPermission.with(this)
+                        .permission(Permission.Group.LOCATION, Permission.Group.STORAGE)
+                        .onGranted(permissions -> {
+                            // TODO what to do.
+                            Intent goloc = new Intent(mContext, SelectLocActivity.class);
+                            locBean.setSelected(true);
+                            goloc.putExtra("loc", locBean);
+                            startActivityForResult(goloc, REQUEST_LOC);
+                        }).onDenied(permissions -> {
+                    // TODO what to do
+                    Tools.toastInBottom(mContext, "为了更好使用范团，请赋予权限");
+                })
+                        .start();
+
                 break;
             case R.id.iv_back:
                 onBackPressed();
