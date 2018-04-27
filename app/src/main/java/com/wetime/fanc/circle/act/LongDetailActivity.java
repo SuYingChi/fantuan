@@ -482,7 +482,7 @@ public class LongDetailActivity extends BaseActivity implements OnLoadMoreListen
                 BottomDialog mDeleteBottomDialog = BottomDialog.create(getSupportFragmentManager());
                 mDeleteBottomDialog.setDimAmount(0.5f);
                 mDeleteBottomDialog.setCancelOutside(true);
-                mDeleteBottomDialog.setLayoutRes(R.layout.bottom_anim_dialog_layout);
+                mDeleteBottomDialog.setLayoutRes(R.layout.bottom_delete_dialog_layout);
                 mDeleteBottomDialog.setViewListener(v11 -> {
                     ((TextView) v11.findViewById(R.id.tv_item1)).setText("请选择删除原因");
                     v11.findViewById(R.id.tv_item2).setOnClickListener(v1 -> {
@@ -499,6 +499,9 @@ public class LongDetailActivity extends BaseActivity implements OnLoadMoreListen
                         delete(mDeleteBottomDialog, "1", v4.getId(), v11);
                     });
                     v11.findViewById(R.id.tv_item6).setOnClickListener(v5 -> {
+                        delete(mDeleteBottomDialog, "1", v5.getId(), v11);
+                    });
+                    v11.findViewById(R.id.tv_item7).setOnClickListener(v5 -> {
                         mDeleteBottomDialog.dismiss();
 
                     });
