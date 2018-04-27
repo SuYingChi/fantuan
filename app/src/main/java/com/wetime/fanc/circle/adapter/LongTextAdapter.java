@@ -172,9 +172,9 @@ public class LongTextAdapter extends RecyclerView.Adapter {
 
                 ((ImageViewHolder) holder).ivCover.setBackgroundResource(R.drawable.bg_edit_nodash);
                 ((ImageViewHolder) holder).ivDelete.setVisibility(View.VISIBLE);
-                if(TextUtils.isEmpty(bean.getDes())){
+                if (TextUtils.isEmpty(bean.getDes())) {
                     ((ImageViewHolder) holder).ivEdit.setVisibility(View.VISIBLE);
-                }else {
+                } else {
                     ((ImageViewHolder) holder).ivEdit.setVisibility(View.GONE);
                 }
 
@@ -231,6 +231,7 @@ public class LongTextAdapter extends RecyclerView.Adapter {
                 Double rate = outHeight * 1.0 / outWidth;
 
                 int h = (int) (w * rate);
+                h = h > 4096 ? 4096 : h;
 
                 ViewGroup.LayoutParams params = holder.itemView.getLayoutParams();
 
