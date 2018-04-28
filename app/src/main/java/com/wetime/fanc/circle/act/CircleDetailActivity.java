@@ -161,7 +161,7 @@ public class CircleDetailActivity extends BaseActivity implements IGetCircleHead
     public void onGetCircleHead(CircleHeadBean bean) {
         RequestOptions myOptions = new RequestOptions()
                 .transform(new GlideRoundTransform(mContext, 5));
-        Glide.with(this)
+        Glide.with(getApplicationContext())
                 .load(bean.getData().getCover_url())
                 .apply(myOptions)
                 .into(ivCover);
@@ -174,7 +174,6 @@ public class CircleDetailActivity extends BaseActivity implements IGetCircleHead
         } else {
             ivAttention.setVisibility(View.VISIBLE);
         }
-
 
     }
 
