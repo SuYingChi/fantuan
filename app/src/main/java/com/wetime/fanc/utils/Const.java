@@ -9,7 +9,7 @@ import com.wetime.fanc.BuildConfig;
 public interface Const {
 //    String BASEURL = "https://fanttest.fantuanlife.com";
 
-    String BASEURL = "https://fant.fantuanlife.com";
+    String BASEURL = BuildConfig.DEBUG ? "https://fanttest.fantuanlife.com" : "https://fant.fantuanlife.com";
 
     String PUSH_BIND = BASEURL + "/push/bind";
     String POSTMUTILEFILE = BASEURL + "/upload/image";
