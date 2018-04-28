@@ -118,15 +118,13 @@ public class PictureActivity extends BaseActivity implements View.OnClickListene
     @Override
     public void onClick(View v) {
         finish();
-        overridePendingTransition(android.R.anim.fade_in,
-                android.R.anim.fade_out);
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
         finish();
-        overridePendingTransition(android.R.anim.fade_in,
-                android.R.anim.fade_out);
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }
 }

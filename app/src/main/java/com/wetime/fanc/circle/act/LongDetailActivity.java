@@ -434,6 +434,7 @@ public class LongDetailActivity extends BaseActivity implements OnLoadMoreListen
     public void onDeleteResult(BaseBean bean, String type) {
         if (!type.equals("0")) {
             this.finish();
+
         }
 //        Toast.makeText(mContext, "删除成功!", Toast.LENGTH_SHORT).show();
 
@@ -470,6 +471,13 @@ public class LongDetailActivity extends BaseActivity implements OnLoadMoreListen
                         public void onClick(DialogInterface dialog, int which) {
                             if (b1) {
                                 deleteCommentPresenter.deleteComment("0", actbean.getData().getComment_list().get(position - 2).getId(), "违反圈子规章");
+                                actbean.getData().getComment_list().remove(position - 2);
+                                actbean.getData().setComment_num(String.valueOf(Integer.parseInt(actbean.getData().getComment_num()) - 1));
+
+                                actDetailAdapter.notifyItemChanged(1);
+                                actDetailAdapter.notifyItemRemoved(position);
+                                actDetailAdapter.notifyItemRangeChanged(2,
+                                        actbean.getData().getComment_list().size());
                             } else {
                                 deleteCommentPresenter.deleteComment("1", actbean.getData().getId(), "欺诈骗钱");
                             }
