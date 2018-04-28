@@ -151,7 +151,7 @@ public class NewsTypeLazyFragment extends BaseLazyFragment implements IGetNewsTy
     @Override
     protected void initData() {
         if (type.equals("-1") && TextUtils.isEmpty(spu.getToken())) {
-            if (rlNoLogin != null)  rlNoLogin.setVisibility(View.VISIBLE);
+            if (rlNoLogin != null) rlNoLogin.setVisibility(View.VISIBLE);
             mRootView.findViewById(R.id.tv_gologin).setOnClickListener(v -> {
                 Intent go = new Intent(getContext(), LoginActivity.class);
                 startActivity(go);
@@ -173,13 +173,15 @@ public class NewsTypeLazyFragment extends BaseLazyFragment implements IGetNewsTy
         if (type.equals("-1")) {
             if (rlNoLogin != null) rlNoLogin.setVisibility(View.GONE);
             if (bean.getData().getList().size() == 0) {
-                rlNoFocus.setVisibility(View.VISIBLE);
+                if (rlNoFocus != null)
+                    rlNoFocus.setVisibility(View.VISIBLE);
                 mRootView.findViewById(R.id.tv_gofocus).setOnClickListener(v -> {
                     Intent goFocus = new Intent(getContext(), RecomentFocusActivity.class);
                     startActivity(goFocus);
                 });
             } else {
-                rlNoFocus.setVisibility(View.GONE);
+                if (rlNoFocus != null)
+                    rlNoFocus.setVisibility(View.GONE);
             }
         }
 
