@@ -330,7 +330,7 @@ public class LongDetailAdapter extends RecyclerView.Adapter {
         @BindView(R.id.gv)
         GridViewForScrollView gv;
         @BindView(R.id.ll_empty)
-        LinearLayout llEmpty;
+        RelativeLayout llEmpty;
 
         ViewHolder1(View view) {
             super(view);

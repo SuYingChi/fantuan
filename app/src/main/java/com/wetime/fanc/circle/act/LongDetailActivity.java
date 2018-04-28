@@ -476,8 +476,7 @@ public class LongDetailActivity extends BaseActivity implements OnLoadMoreListen
 
                                 actDetailAdapter.notifyItemChanged(1);
                                 actDetailAdapter.notifyItemRemoved(position);
-                                actDetailAdapter.notifyItemRangeChanged(2,
-                                        actbean.getData().getComment_list().size());
+                                actDetailAdapter.notifyItemRangeChanged(2, actbean.getData().getComment_list().size());
                             } else {
                                 deleteCommentPresenter.deleteComment("1", actbean.getData().getId(), "欺诈骗钱");
                             }
@@ -604,7 +603,7 @@ public class LongDetailActivity extends BaseActivity implements OnLoadMoreListen
                         report(mDeleteBottomDialog, v5.getId(), v11);
                     });
                     v11.findViewById(R.id.tv_item7).setOnClickListener(v5 -> {
-                        mDeleteBottomDialogShare.dismiss();
+                        mDeleteBottomDialog.dismiss();
                     });
                 });
 
