@@ -121,7 +121,7 @@ public class LongTextAdapter extends RecyclerView.Adapter {
 
                 if (mData.size() == 2) {
                     ((EditViewHolder) holder).etText.setHint("请输入正文");
-                    params.height = maxHight;
+                    params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
                     ((EditViewHolder) holder).etText.setLayoutParams(params);
                 } else {
                     ((EditViewHolder) holder).etText.setHint("");

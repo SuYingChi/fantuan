@@ -20,6 +20,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.luck.picture.lib.PictureSelector;
@@ -76,6 +77,8 @@ public class LongTextEditActivity extends BaseActivity implements LongTextAdapte
     LinearLayout llBottom;
     @BindView(R.id.tv_circle)
     TextView tvCircle;
+    @BindView(R.id.rl_etbg)
+    RelativeLayout rlEtbg;
 
     private ArrayList<LongTextBean> list = new ArrayList<>();
     private LongTextAdapter adapter;
@@ -321,9 +324,22 @@ public class LongTextEditActivity extends BaseActivity implements LongTextAdapte
 
     }
 
-    @OnClick({R.id.tv_addres, R.id.iv_close, R.id.iv_back, R.id.iv_gopic, R.id.tv_sort, R.id.tv_ok, R.id.tv_publish, R.id.iv_keyboard})
+    @OnClick({R.id.rl_etbg, R.id.tv_addres, R.id.iv_close, R.id.iv_back, R.id.iv_gopic, R.id.tv_sort, R.id.tv_ok, R.id.tv_publish, R.id.iv_keyboard})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            case R.id.rl_etbg:
+                if (list.size() == 2) {
+//                    View v= rclContent.findViewById();
+                    EditText editText = rclContent.findViewById(R.id.et_text);
+
+
+                    editText.setFocusable(true);
+                    editText.setFocusableInTouchMode(true);
+                    editText.requestFocus();
+                    InputMethodManager imm = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.showSoftInput(editText, 0);
+                }
+                break;
             case R.id.iv_close:
                 tvAddres.setText(getString(R.string.str_where_are_you));
                 ivClose.setVisibility(View.GONE);
