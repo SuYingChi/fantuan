@@ -195,7 +195,7 @@ public class ActDetailActivity extends BaseActivity implements IGetActDetailView
                 break;
             case R.id.iv_memu:
                 if (!TextUtils.isEmpty(spu.getToken())) {
-                    if (actbean.getData().isIs_delete()) {
+                    if (actbean.getData().isIs_delete()||actbean.getData().isIs_owner()) {
                         showDeleteAct(actbean.getData().isIs_owner(), false);
                     } else {
                         showReportAct();
