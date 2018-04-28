@@ -376,7 +376,8 @@ public class Tools {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         image.compress(Bitmap.CompressFormat.JPEG, 70, baos);
         int options = 70;
-        while (baos.toByteArray().length / 1024 > 30) {//判断如果图片大于1M,进行压缩避免在生成图片（BitmapFactory.decodeStream）时溢出
+        while (baos.toByteArray().length / 1024 > 20) {//判断如果图片大于1M,进行压缩避免在生成图片（BitmapFactory.decodeStream）时溢出
+            Log.e("xi", "compressImage: "+ baos.toByteArray().length );
             baos.reset();//重置baos即清空baos
             image.compress(Bitmap.CompressFormat.JPEG, options, baos);//这里压缩50%，把压缩后的数据存放到baos中
             options -= 10;//每次都减少10
@@ -414,9 +415,7 @@ public class Tools {
         image.compress(Bitmap.CompressFormat.JPEG, 70, baos);//质量压缩方法，这里100表示不压缩，把压缩后的数据存放到baos中
         int options = 50;
 
-        while (baos.toByteArray().length / 1024 > 30) { //循环判断如果压缩后图片是否大于100kb,大于继续压缩
-
-
+        while (baos.toByteArray().length / 1024 > 20) { //循环判断如果压缩后图片是否大于100kb,大于继续压缩
             baos.reset();//重置baos即清空baos
             image.compress(Bitmap.CompressFormat.JPEG, options, baos);//这里压缩options%，把压缩后的数据存放到baos中
             options -= 10;//每次都减少10
