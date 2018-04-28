@@ -108,27 +108,27 @@
                     android:padding="3dp"
                     android:src="@drawable/ic_loc_close"
                     android:visibility="gone" />
+
                 <TextView
-                    android:paddingLeft="5dp"
-                    android:paddingRight="5dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="13sp"
-                    android:textColor="#999999"
-                    android:lineSpacingExtra="0sp"
                     android:gravity="center_horizontal"
+                    android:lineSpacingExtra="0sp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
                     android:text="|"
-                    />
+                    android:textColor="#999999"
+                    android:textSize="13sp" />
+
                 <TextView
                     android:id="@+id/tv_circle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="13sp"
-                    android:textColor="#999999"
-                    android:lineSpacingExtra="0sp"
                     android:gravity="center_horizontal"
+                    android:lineSpacingExtra="0sp"
                     android:text="发布到个人主页"
-                    />
+                    android:textColor="#999999"
+                    android:textSize="13sp" />
             </LinearLayout>
 
             <RelativeLayout
@@ -158,11 +158,18 @@
 
         </LinearLayout>
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rcl_content"
+        <RelativeLayout
+            android:id="@+id/rl_etbg"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@id/ll_bottom" />
+            android:layout_above="@id/ll_bottom">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rcl_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+
     </RelativeLayout>
 
 
