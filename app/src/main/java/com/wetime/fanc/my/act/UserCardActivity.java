@@ -354,14 +354,14 @@ public class UserCardActivity extends BaseActivity implements OnLoadMoreListener
                     if (bean.getData().getUser().isFollow()) {
                         tvFocus.setTextColor(ContextCompat.getColor(mContext, R.color.text_hint));
                         tvFocus.setText("已关注");
-                        Tools.toastInBottom(mContext, "已关注");
+//                        Tools.toastInBottom(mContext, "已关注");
                         Drawable drawable = getResources().getDrawable(R.drawable.ic_focus_bottom_off);
                         drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getMinimumHeight());
                         tvFocus.setCompoundDrawables(drawable, null, null, null);
                     } else {
                         tvFocus.setTextColor(ContextCompat.getColor(mContext, R.color.text_commen));
                         tvFocus.setText("加关注");
-                        Tools.toastInBottom(mContext, "已取消关注");
+//                        Tools.toastInBottom(mContext, "已取消关注");
                         Drawable drawable = getResources().getDrawable(R.drawable.ic_focus_bottom_on);
                         drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getMinimumHeight());
                         tvFocus.setCompoundDrawables(drawable, null, null, null);
