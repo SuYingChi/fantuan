@@ -195,7 +195,7 @@ public class ActDetailActivity extends BaseActivity implements IGetActDetailView
                 break;
             case R.id.iv_memu:
                 if (!TextUtils.isEmpty(spu.getToken())) {
-                    if (actbean.getData().isIs_delete()||actbean.getData().isIs_owner()) {
+                    if (actbean.getData().isIs_delete() || actbean.getData().isIs_owner()) {
                         showDeleteAct(actbean.getData().isIs_owner(), false);
                     } else {
                         showReportAct();
@@ -217,8 +217,6 @@ public class ActDetailActivity extends BaseActivity implements IGetActDetailView
             onBackPressed();
             return;
         }
-
-
         if (page == 1) {
             if (bean.getData().isIs_owner()) {
                 ivMemu.setVisibility(View.VISIBLE);
@@ -232,12 +230,10 @@ public class ActDetailActivity extends BaseActivity implements IGetActDetailView
                     startActivity(gologin);
                     return;
                 }
-
                 if (view.getId() == R.id.iv_delete) {
                     showDeleteAct(true, true, position);
                     return;
                 }
-
                 ActDetailBean.DataBean.CommentListBean b = actbean.getData().getComment_list().get(position - 2);
                 if (b.isIs_owner()) {
                     mCommentBottomDialog = BottomDialog.create(getSupportFragmentManager());
@@ -251,7 +247,6 @@ public class ActDetailActivity extends BaseActivity implements IGetActDetailView
                                 etContent.setHint("回复 " + b.getUsername());
                                 showKeyborad();
                             }, 500);
-
                         });
                         v.findViewById(R.id.tv_delete).setOnClickListener(v12 -> {
                             mCommentBottomDialog.dismiss();
@@ -275,15 +270,12 @@ public class ActDetailActivity extends BaseActivity implements IGetActDetailView
                             etContent.setHint("评论动态");
                         });
                     });
-
                     mCommentBottomDialog.show();
                 } else {
                     toId = b.getUid();
                     etContent.setHint("回复 " + b.getUsername());
                     showKeyborad();
                 }
-
-
             });
         } else {
             actbean.getData().getComment_list().addAll(bean.getData().getComment_list());
@@ -409,6 +401,13 @@ public class ActDetailActivity extends BaseActivity implements IGetActDetailView
                         public void onClick(DialogInterface dialog, int which) {
                             if (b1) {
                                 deleteCommentPresenter.deleteComment("0", actbean.getData().getComment_list().get(position - 2).getId(), "违反圈子规章");
+                                actbean.getData().getComment_list().remove(position - 2);
+                                actbean.getData().setComment_num(actbean.getData().getComment_num() - 1);
+
+                                actDetailAdapter.notifyItemChanged(1);
+                                actDetailAdapter.notifyItemRemoved(position);
+                                actDetailAdapter.notifyItemRangeChanged(2,
+                                        actbean.getData().getComment_list().size());
                             } else {
                                 deleteCommentPresenter.deleteComment("1", actbean.getData().getId(), "欺诈骗钱");
                             }
