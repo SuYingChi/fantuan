@@ -104,7 +104,7 @@ public class LongDetailItemAdapte extends CommonAdapter<LongTextBean> {
                     public void onLoadStarted(Drawable placeholder) {
                         super.onLoadStarted(placeholder);
                         //设置加载中的占位图
-//                        ((UpdateImageView) holder.getView(R.id.item_img)).setTagIdmage(new ColorDrawable(Color.GREEN));
+//                        ((UpdateImageView) holder.getView(R.id.item_img)).setImage(new ColorDrawable(Color.GREEN));
                     }
                 });
 
