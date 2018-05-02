@@ -15,6 +15,7 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.IBinder;
 import android.support.v7.app.AlertDialog;
 import android.text.SpannableString;
@@ -58,11 +59,18 @@ import com.wetime.fanc.web.WebActivity;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import me.shaohui.advancedluban.Luban;
+import me.shaohui.advancedluban.OnCompressListener;
 
 import static android.content.Context.INPUT_METHOD_SERVICE;
 
@@ -372,56 +380,24 @@ public class Tools {
         mContext.startActivity(go);
     }
 
-    private static Bitmap comp(Bitmap image) {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        image.compress(Bitmap.CompressFormat.JPEG, 70, baos);
-        int options = 70;
-        while (baos.toByteArray().length / 1024 > 20) {//判断如果图片大于1M,进行压缩避免在生成图片（BitmapFactory.decodeStream）时溢出
-            Log.e("xi", "compressImage: "+ baos.toByteArray().length );
-            baos.reset();//重置baos即清空baos
-            image.compress(Bitmap.CompressFormat.JPEG, options, baos);//这里压缩50%，把压缩后的数据存放到baos中
-            options -= 10;//每次都减少10
-        }
-        ByteArrayInputStream isBm = new ByteArrayInputStream(baos.toByteArray());
-        BitmapFactory.Options newOpts = new BitmapFactory.Options();
-        //开始读入图片，此时把options.inJustDecodeBounds 设回true了
-        newOpts.inJustDecodeBounds = true;
-        Bitmap bitmap = BitmapFactory.decodeStream(isBm, null, newOpts);
-        newOpts.inJustDecodeBounds = false;
-        int w = newOpts.outWidth;
-        int h = newOpts.outHeight;
-        //现在主流手机比较多是800*480分辨率，所以高和宽我们设置为
-        float hh = 80f;//这里设置高度为800f
-        float ww = 80f;//这里设置宽度为480f
-        //缩放比。由于是固定比例缩放，只用高或者宽其中一个数据进行计算即可
-        int be = 5;//be=1表示不缩放
-        if (w > h && w > ww) {//如果宽度大的话根据宽度固定大小缩放
-            be = (int) (newOpts.outWidth / ww);
-        } else if (w < h && h > hh) {//如果高度高的话根据宽度固定大小缩放
-            be = (int) (newOpts.outHeight / hh);
-        }
-        if (be <= 0)
-            be = 1;
-        newOpts.inSampleSize = be;//设置缩放比例
-        //重新读入图片，注意此时已经把options.inJustDecodeBounds 设回false了
-        isBm = new ByteArrayInputStream(baos.toByteArray());
-        bitmap = BitmapFactory.decodeStream(isBm, null, newOpts);
-        return compressImage(bitmap);//压缩好比例大小后再进行质量压缩
-    }
 
     private static Bitmap compressImage(Bitmap image) {
-
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         image.compress(Bitmap.CompressFormat.JPEG, 70, baos);//质量压缩方法，这里100表示不压缩，把压缩后的数据存放到baos中
-        int options = 50;
-
-        while (baos.toByteArray().length / 1024 > 20) { //循环判断如果压缩后图片是否大于100kb,大于继续压缩
+        int options = 70;
+        while (baos.toByteArray().length / 1024 > 20 && options > 0) { //循环判断如果压缩后图片是否大于100kb,大于继续压缩
+            Log.e("xi", "compressImage: " + (image.getRowBytes() * image.getHeight()));
+            Log.e("xi", "compressImage: " + baos.toByteArray().length);
             baos.reset();//重置baos即清空baos
             image.compress(Bitmap.CompressFormat.JPEG, options, baos);//这里压缩options%，把压缩后的数据存放到baos中
             options -= 10;//每次都减少10
         }
         ByteArrayInputStream isBm = new ByteArrayInputStream(baos.toByteArray());//把压缩后的数据baos存放到ByteArrayInputStream中
-        Bitmap bitmap = BitmapFactory.decodeStream(isBm, null, null);//把ByteArrayInputStream数据生成图片
+        Bitmap bitmap = BitmapFactory.decodeStream(isBm, null, null);
+        Log.e("xi", "compressImage: " + (getBitmapSize(bitmap) / 1000 > 31));
+        if (getBitmapSize(bitmap) / 1000 > 31) {
+            compressImage(bitmap);
+        }
         return bitmap;
     }
 
@@ -441,6 +417,7 @@ public class Tools {
         shareWx(mContext, thumb, url, type, title, des, 1);
     }
 
+
     public static void shareWx(Context mContext, Bitmap thumb, String url, int type, String title, String des, int size) {
 
         if (!FApp.mWxApi.isWXAppInstalled()) {
@@ -453,9 +430,46 @@ public class Tools {
         WXMediaMessage msg = new WXMediaMessage(webpage);
         msg.title = title;
         msg.description = des;
-
         if (size != 0) {
-            thumb = comp(thumb);
+            File file = saveImageToGallery(mContext, thumb);
+            Luban.compress(mContext, file)
+                    .putGear(Luban.CUSTOM_GEAR)
+                    .setMaxSize(31)
+                    .launch(new OnCompressListener() {
+                        @Override
+                        public void onStart() {
+                            Log.e("xi", "start");
+                        }
+
+                        @Override
+                        public void onSuccess(File file) {
+                            Log.e("TAG", file.getAbsolutePath());
+                            Bitmap bitmap = BitmapFactory.decodeFile(file.getPath());
+                            Log.e("TAG", getBitmapSize(thumb) + "");
+                            Log.e("TAG", getBitmapSize(bitmap) + "");
+//                            mImageViews.get(0).setImageURI(Uri.fromFile(file));
+                            msg.thumbData = bmpToByteArray(bitmap, true);
+                            SendMessageToWX.Req req = new SendMessageToWX.Req();
+                            req.transaction = buildTransaction("webpage");
+                            req.message = msg;
+                            req.scene = type;
+                            IWXAPI mWxApi = WXAPIFactory.createWXAPI(mContext, "wx2fbcb61b6e5b1384", true);
+                            boolean b = mWxApi.sendReq(req);
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+                            e.printStackTrace();
+                        }
+                    });
+
+//            Luban.compress(mContext, file)
+//                    .setMaxSize(32)                // limit the final image size（unit：Kb）
+//                    .setMaxHeight(1920)             // limit image height
+//                    .setMaxWidth(1080)              // limit image width
+//                    .putGear(Luban.CUSTOM_GEAR)     // use CUSTOM GEAR compression mode
+//                    .asObservable();
+            return;
         }
 
         msg.thumbData = bmpToByteArray(thumb, true);
@@ -465,6 +479,8 @@ public class Tools {
         req.scene = type;
         IWXAPI mWxApi = WXAPIFactory.createWXAPI(mContext, "wx2fbcb61b6e5b1384", true);
         boolean b = mWxApi.sendReq(req);
+
+
     }
 
     public static void shareWb(Context mContext, WbShareHandler shareHandler, Bitmap bitmap, String url, String title, String des) {
@@ -678,5 +694,49 @@ public class Tools {
             return false;
         }
         return true;
+    }
+
+    public static File saveImageToGallery(Context context, Bitmap bmp) {
+        // 首先保存图片
+        File file = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).getAbsoluteFile();//注意小米手机必须这样获得public绝对路径
+        String fileName = "ningjing";
+        File appDir = new File(file, fileName);
+        if (!appDir.exists()) {
+            appDir.mkdirs();
+        }
+        fileName = System.currentTimeMillis() + ".jpg";
+        File currentFile = new File(appDir, fileName);
+
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream(currentFile);
+            bmp.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+            fos.flush();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (fos != null) {
+                    fos.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        // 其次把文件插入到系统图库
+//        try {
+//            MediaStore.Images.Media.insertImage(context.getContentResolver(),
+//                    currentFile.getAbsolutePath(), fileName, null);
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        }
+
+        // 最后通知图库更新
+//        context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE,
+//                Uri.fromFile(new File(currentFile.getPath()))));
+        return currentFile;
     }
 }
