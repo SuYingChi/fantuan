@@ -420,10 +420,10 @@ public class Tools {
 
     public static void shareWx(Context mContext, Bitmap thumb, String url, int type, String title, String des, int size) {
 
-//        if (!FApp.mWxApi.isWXAppInstalled()) {
-//            Tools.toastInBottom(mContext, "您没有安装微信");
-//            return;
-//        }
+        if (!FApp.mWxApi.isWXAppInstalled()) {
+            Tools.toastInBottom(mContext, "您没有安装微信");
+            return;
+        }
         WXWebpageObject webpage = new WXWebpageObject();
         webpage.webpageUrl = url;
 
