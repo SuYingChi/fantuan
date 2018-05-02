@@ -13,6 +13,8 @@ import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.sina.weibo.sdk.WbSdk;
 import com.sina.weibo.sdk.auth.AuthInfo;
+import com.taobao.weex.InitConfig;
+import com.taobao.weex.WXSDKEngine;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.tencent.tauth.Tencent;
@@ -20,6 +22,7 @@ import com.wetime.fanc.R;
 import com.wetime.fanc.utils.MLoggerInterceptor;
 import com.wetime.fanc.utils.SharePreferenceUtil;
 import com.wetime.fanc.utils.Tools;
+import com.wetime.fanc.weex.ImageAdapter;
 import com.wetime.fanc.weibo.Constants;
 
 import java.util.ArrayList;
@@ -87,6 +90,10 @@ public class FApp extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+
+        InitConfig config=new InitConfig.Builder().setImgAdapter(new ImageAdapter()).build();
+        WXSDKEngine.initialize(this,config);
+
         registToWX();
         registToTencent();
         registToWB();

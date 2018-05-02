@@ -242,6 +242,7 @@
         <activity
             android:name=".circle.act.LongTextEditActivity"
             android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity android:name=".weex.EmptyWeexActivity" />
 
         <service
             android:name=".service.UploadImageService"

@@ -51,6 +51,7 @@ import com.wetime.fanc.utils.GsonUtils;
 import com.wetime.fanc.utils.SimpleCatchKey;
 import com.wetime.fanc.utils.Tools;
 import com.wetime.fanc.web.WebActivity;
+import com.wetime.fanc.weex.EmptyWeexActivity;
 import com.yanzhenjie.permission.AndPermission;
 import com.yanzhenjie.permission.Permission;
 
@@ -269,7 +270,7 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, IGe
 
                 break;
             case R.id.ll_search:
-                Intent gosearch = new Intent(getContext(), HomeSearchActivity.class);
+                Intent gosearch = new Intent(getContext(), EmptyWeexActivity.class);
                 startActivity(gosearch);
                 break;
             case R.id.iv_msg:
