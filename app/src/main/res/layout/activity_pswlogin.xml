@@ -15,7 +15,6 @@
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:layout_marginTop="20dp"
-        android:background="@drawable/bg_etit_gray_corner"
         android:orientation="horizontal">
 
         <TextView
@@ -38,7 +37,7 @@
             android:layout_height="match_parent"
             android:layout_marginLeft="10dp"
             android:layout_weight="1"
-            android:background="@color/bg_edit"
+            android:background="@null"
             android:hint="请输手机号"
             android:inputType="number"
             android:maxLength="11"
@@ -61,7 +60,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/bg_etit_gray_corner"
+            android:background="@null"
             android:hint="请输入密码"
             android:inputType="textPassword"
             android:maxLines="11"
@@ -73,16 +72,7 @@
 
     </LinearLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:lineSpacingExtra="0sp"
-        android:paddingLeft="15dp"
-        android:text="手机尚未注册或忘记密码，请使用短信验证登录"
-        android:textColor="#666666"
-        android:textSize="14sp"
-        />
+
 
     <TextView
         android:id="@+id/tv_ok"
@@ -91,7 +81,7 @@
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:layout_marginTop="25dp"
-        android:background="@drawable/bg_btn_red_corner"
+        android:background="@drawable/bg_btn_blue_corner"
         android:gravity="center"
         android:lineSpacingExtra="0sp"
         android:text="登录"

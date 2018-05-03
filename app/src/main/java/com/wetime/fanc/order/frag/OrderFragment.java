@@ -338,6 +338,7 @@ public class OrderFragment extends BaseFragment implements IGetOrderListView, On
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(LogoutEvent event) {
         initView();
+
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

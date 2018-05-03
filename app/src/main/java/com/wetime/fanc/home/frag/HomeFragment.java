@@ -409,6 +409,7 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, IGe
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(LogoutEvent event) {
         qBadgeMsg.setBadgeNumber(0);
+
     }
 
     @Override
