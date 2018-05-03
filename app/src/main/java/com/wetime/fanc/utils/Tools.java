@@ -52,6 +52,7 @@ import com.wetime.fanc.R;
 import com.wetime.fanc.application.FApp;
 import com.wetime.fanc.circle.act.LongTextEditActivity;
 import com.wetime.fanc.circle.act.PublishActActivity;
+import com.wetime.fanc.home.bean.Cover;
 import com.wetime.fanc.login.act.LoginActivity;
 import com.wetime.fanc.main.act.BaseActivity;
 import com.wetime.fanc.main.act.PictureActivity;
@@ -549,7 +550,7 @@ public class Tools {
         return result;
     }
 
-    public static void goPicGallery(Activity mActivity, List<String> list, int index) {
+    public static void goPicGallery(Activity mActivity, List<Cover> list, int index) {
         Intent pic = new Intent(mActivity, PictureActivity.class);
         pic.putExtra("big_photo", (Serializable) list);
         pic.putExtra("page", index);

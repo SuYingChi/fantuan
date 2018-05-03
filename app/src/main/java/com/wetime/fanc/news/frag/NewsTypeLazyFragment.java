@@ -218,7 +218,7 @@ public class NewsTypeLazyFragment extends BaseLazyFragment implements IGetNewsTy
         tvRec.setVisibility(View.VISIBLE);
         tvRec.setText(String.format("范团为您推荐了%s条新内容", bean.getData().getUpdate_num()));
         AnimationSet animationSet = (AnimationSet) AnimationUtils.loadAnimation(
-                getContext(), R.anim.anim_header);
+                getContext(), R.anim.anim_header_news);
         tvRec.startAnimation(animationSet);
         animationSet.setAnimationListener(new Animation.AnimationListener() {
             @Override

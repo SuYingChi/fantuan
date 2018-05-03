@@ -19,6 +19,7 @@ import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.tencent.tauth.Tencent;
 import com.wetime.fanc.R;
+import com.wetime.fanc.customview.photoview.FanHeader;
 import com.wetime.fanc.utils.MLoggerInterceptor;
 import com.wetime.fanc.utils.SharePreferenceUtil;
 import com.wetime.fanc.utils.Tools;
@@ -45,11 +46,11 @@ public class FApp extends Application {
 //        SmartRefreshLayout.setDefaultRefreshHeaderCreater((context, layout) -> new MyMaterialHeader(context));
 
         SmartRefreshLayout.setDefaultRefreshHeaderCreator((context, layout) -> {
-            ClassicsHeader header = new ClassicsHeader(context);
-            header.setDrawableArrowSize(14);//设置箭头的大小（dp单位）
-            header.setDrawableProgressSize(14);//设置图片的大小（dp单位）
-            header.setAccentColor(context.getResources().getColor(R.color.text_hint));//设置强调颜色
-            header.setTextSizeTitle(14);
+            FanHeader header = new FanHeader(context);
+//            header.setDrawableArrowSize(14);//设置箭头的大小（dp单位）
+//            header.setDrawableProgressSize(14);//设置图片的大小（dp单位）
+//            header.setAccentColor(context.getResources().getColor(R.color.text_hint));//设置强调颜色
+//            header.setTextSizeTitle(14);
             return header;
         });
 

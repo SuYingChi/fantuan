@@ -51,7 +51,7 @@ public class HomeItemBean {
     private boolean is_news;
     private boolean circle_owner ;
     private boolean circle_admin ;
-    private List<String> cover;
+    private List<Cover> covers;
 
     public String getTitle() {
         return title;
@@ -349,12 +349,12 @@ public class HomeItemBean {
         this.has_like = has_like;
     }
 
-    public List<String> getCover() {
-        return cover;
+    public List<Cover> getCover() {
+        return covers;
     }
 
-    public void setCover(List<String> cover) {
-        this.cover = cover;
+    public void setCover(List<Cover> cover) {
+        this.covers = cover;
     }
 
     public static class BannerBean {

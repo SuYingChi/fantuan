@@ -1,6 +1,7 @@
 package com.wetime.fanc.news.bean;
 
 import com.wetime.fanc.home.adapter.HomeItemAdapter;
+import com.wetime.fanc.home.bean.Cover;
 import com.wetime.fanc.home.bean.HomeItemBean;
 
 import java.util.List;
@@ -319,7 +320,7 @@ public class NewsListBean {
                 private String coverStr;
                 private String status;
                 private String createdAt;
-                private List<String> cover;
+                private List<Cover> covers;
 
                 public String getId() {
                     return id;
@@ -369,12 +370,12 @@ public class NewsListBean {
                     this.createdAt = createdAt;
                 }
 
-                public List<String> getCover() {
-                    return cover;
+                public List<Cover> getCover() {
+                    return covers;
                 }
 
-                public void setCover(List<String> cover) {
-                    this.cover = cover;
+                public void setCover(List<Cover> cover) {
+                    this.covers = cover;
                 }
             }
 

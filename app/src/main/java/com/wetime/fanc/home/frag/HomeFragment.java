@@ -32,7 +32,6 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.wetime.fanc.R;
 import com.wetime.fanc.circle.adapter.HeadHomeAdapter;
-import com.wetime.fanc.home.act.HomeSearchActivity;
 import com.wetime.fanc.home.act.SortActivity;
 import com.wetime.fanc.home.adapter.HomeItemAdapter;
 import com.wetime.fanc.home.bean.HomeItemBean;
@@ -147,8 +146,8 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, IGe
         refreshLayout.setOnRefreshListener(this);
         initlocview();
         initView();
-
-        getHomePagePresenter.getHomePage();
+        //去掉 接口php 没有处理 这个页面不要了 之后删除
+//        getHomePagePresenter.getHomePage();
         return v;
     }
 
@@ -208,7 +207,7 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, IGe
     @Override
     public void onRefresh(RefreshLayout refreshlayout) {
         page = 1;
-        getHomePagePresenter.getHomePage();
+//        getHomePagePresenter.getHomePage();
     }
 
 
