@@ -2,24 +2,19 @@ package com.wetime.fanc.login.act;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.wetime.fanc.login.presenter.ValidateCodeLoginPresenter;
 import com.wetime.fanc.main.act.BaseActivity;
-import com.wetime.fanc.main.model.BaseBean;
 import com.wetime.fanc.utils.GsonUtils;
 import com.wetime.fanc.utils.Tools;
 import com.wetime.fanc.R;
 import com.wetime.fanc.login.bean.LoginResultBean;
 import com.wetime.fanc.login.event.LoginEvent;
-import com.wetime.fanc.login.iviews.IInvalidCodeView;
-import com.wetime.fanc.login.iviews.ISendSMSView;
-import com.wetime.fanc.login.presenter.InvalidLoginCodePresenter;
-import com.wetime.fanc.login.presenter.SendLoginSMSPresenter;
-
+import com.wetime.fanc.login.iviews.IValidateCodeView;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -28,7 +23,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class CodeLoginActivity extends BaseActivity implements ISendSMSView, IInvalidCodeView {
+public class CodeLoginActivity extends BaseActivity implements /*ISendSMSView,*/ IValidateCodeView {
 
 
     @BindView(R.id.tv_title)
@@ -43,9 +38,9 @@ public class CodeLoginActivity extends BaseActivity implements ISendSMSView, IIn
     TextView tvSend;
     @BindView(R.id.tv_pswlogin)
     TextView tvPswlogin;
-    private boolean runningThree = false;
-    private SendLoginSMSPresenter sendLoginSMSPresenter;
-    private InvalidLoginCodePresenter invalidLoginCodePresenter;
+  /*  private boolean runningThree = false;
+    private SendLoginSMSPresenter sendLoginSMSPresenter;*/
+    private ValidateCodeLoginPresenter validateCodeLoginPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,8 +48,8 @@ public class CodeLoginActivity extends BaseActivity implements ISendSMSView, IIn
         setContentView(R.layout.activity_codelogin);
         ButterKnife.bind(this);
         tvTitle.setText("短信验证码登录");
-        sendLoginSMSPresenter = new SendLoginSMSPresenter(this);
-        invalidLoginCodePresenter = new InvalidLoginCodePresenter(this);
+     /*   sendLoginSMSPresenter = new SendLoginSMSPresenter(this);*/
+        validateCodeLoginPresenter = new ValidateCodeLoginPresenter(this);
     }
 
     @Override
@@ -77,10 +72,9 @@ public class CodeLoginActivity extends BaseActivity implements ISendSMSView, IIn
                     Tools.toastInBottom(this, "请输入正确验证码");
                     return;
                 }
-                invalidLoginCodePresenter.invalidCode(etPhone.getText().toString(), etCode.getText().toString());
-
+                validateCodeLoginPresenter.validate(etPhone.getText().toString(), etCode.getText().toString());
                 break;
-            case R.id.tv_send:
+            /*case R.id.tv_send:
                 if (etPhone.getText().length() != 11) {
                     Tools.toastInBottom(this, "请输入正确手机号");
                     return;
@@ -91,16 +85,15 @@ public class CodeLoginActivity extends BaseActivity implements ISendSMSView, IIn
 
                 if (!runningThree)
                     sendLoginSMSPresenter.sendSMS(etPhone.getText().toString());
-                break;
+                break;*/
             case R.id.tv_pswlogin:
-
                 Intent gopsw = new Intent(this, PSWLoginActivity.class);
                 startActivity(gopsw);
                 break;
         }
     }
 
-    private CountDownTimer downTimer = new CountDownTimer(60 * 1000 + 200, 1000) {
+/*    private CountDownTimer downTimer = new CountDownTimer(60 * 1000 + 200, 1000) {
         @Override
         public void onTick(long l) {
             runningThree = true;
@@ -114,9 +107,9 @@ public class CodeLoginActivity extends BaseActivity implements ISendSMSView, IIn
             tvSend.setText("重新获取");
             tvSend.setBackgroundResource(R.drawable.bg_btn_red_corner);
         }
-    };
+    };*/
 
-    @Override
+/*    @Override
     protected void onDestroy() {
         super.onDestroy();
         downTimer.cancel();
@@ -126,10 +119,10 @@ public class CodeLoginActivity extends BaseActivity implements ISendSMSView, IIn
     public void onSendResult(BaseBean bean) {
         if (bean.getError() == 0 && !runningThree)
             downTimer.start();
-    }
+    }*/
 
     @Override
-    public void onInvalidResult(LoginResultBean bean) {
+    public void onResult(LoginResultBean bean) {
         if (bean.getError() == 0) {
             spu.setValue("token", bean.getData().getToken());
 //            Intent goMain = new Intent(this, MainActivity.class);

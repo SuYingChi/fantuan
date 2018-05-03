@@ -463,13 +463,6 @@ public class Tools {
                             e.printStackTrace();
                         }
                     });
-
-//            Luban.compress(mContext, file)
-//                    .setMaxSize(32)                // limit the final image size（unit：Kb）
-//                    .setMaxHeight(1920)             // limit image height
-//                    .setMaxWidth(1080)              // limit image width
-//                    .putGear(Luban.CUSTOM_GEAR)     // use CUSTOM GEAR compression mode
-//                    .asObservable();
             return;
         }
 
@@ -480,7 +473,6 @@ public class Tools {
         req.scene = type;
         IWXAPI mWxApi = WXAPIFactory.createWXAPI(mContext, "wx2fbcb61b6e5b1384", true);
         boolean b = mWxApi.sendReq(req);
-
 
     }
 
@@ -611,13 +603,13 @@ public class Tools {
         FApp.mTencent.shareToQzone(mContext, params, iUiListener);
     }
 
-    public static void showPopWin(Context context, View ivEdit, String id, String name, String simpleName) {
+    public static PopupWindow showPopWin(Context context, View ivEdit, String id, String name, String simpleName, boolean bottom) {
 
         if (TextUtils.isEmpty(((BaseActivity) context).spu.getToken())) {
             Tools.toastInBottom(context, "请先登录");
             Intent goLogin = new Intent(context, LoginActivity.class);
             context.startActivity(goLogin);
-            return;
+            return null;
         }
 
 
@@ -639,13 +631,20 @@ public class Tools {
 
         window.update();
 
-        ivEdit.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
+        if (bottom) {
+            int windowPos[] = PopupWindowUtil.calculatePopWindowPos(ivEdit, popupView);
+            int xOff = 20; // 可以自己调整偏移
+            windowPos[0] -= xOff;
+            windowPos[1] -= xOff;
+            window.showAtLocation(ivEdit, Gravity.TOP | Gravity.START, windowPos[0], windowPos[1]);
+        } else {
+            ivEdit.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
 
-        int mShowMorePopupWindowWidth = (int) (-ivEdit.getMeasuredWidth() * 2.2);
+            int mShowMorePopupWindowWidth = (int) (-ivEdit.getMeasuredWidth() * 2.2);
 
-        Log.e("xi", "showPopWin: " + mShowMorePopupWindowWidth);
+            window.showAsDropDown(ivEdit, mShowMorePopupWindowWidth, 0);
+        }
 
-        window.showAsDropDown(ivEdit, mShowMorePopupWindowWidth, 0);
 
         popupView.findViewById(R.id.pop_duan).setOnClickListener(v -> {
             if (((BaseActivity) context).spu.getToken().equals("")) {
@@ -680,6 +679,12 @@ public class Tools {
                 window.dismiss();
             }
         });
+        return window;
+    }
+
+    public static PopupWindow showPopWin(Context context, View ivEdit, String id, String name, String simpleName) {
+
+        return showPopWin(context, ivEdit, id, name, simpleName, false);
     }
 
     public static boolean isNetworkAvailable(Context context) {

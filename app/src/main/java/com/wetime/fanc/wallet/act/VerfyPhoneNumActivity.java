@@ -10,10 +10,8 @@ import android.widget.TextView;
 
 import com.wetime.fanc.R;
 import com.wetime.fanc.login.bean.LoginResultBean;
-import com.wetime.fanc.login.iviews.IInvalidCodeView;
+import com.wetime.fanc.login.iviews.IValidateCodeView;
 import com.wetime.fanc.login.iviews.ISendSMSView;
-import com.wetime.fanc.login.presenter.InvalidLoginCodePresenter;
-import com.wetime.fanc.login.presenter.SendLoginSMSPresenter;
 import com.wetime.fanc.main.act.BaseActivity;
 import com.wetime.fanc.main.model.BaseBean;
 import com.wetime.fanc.utils.Tools;
@@ -24,7 +22,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class VerfyPhoneNumActivity extends BaseActivity implements ISendSMSView, IInvalidCodeView {
+public class VerfyPhoneNumActivity extends BaseActivity implements ISendSMSView,  IValidateCodeView {
 
 
     @BindView(R.id.tv_title)
@@ -112,10 +110,11 @@ public class VerfyPhoneNumActivity extends BaseActivity implements ISendSMSView,
     }
 
     @Override
-    public void onInvalidResult(LoginResultBean bean) {
+    public void onResult(LoginResultBean bean) {
         Intent go = new Intent(mContext, SetPayPwdActivity.class);
         go.putExtra("title", "设置新密码");
         startActivity(go);
         finish();
     }
+
 }

@@ -1,11 +1,13 @@
 package com.wetime.fanc.login.act;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.wetime.fanc.home.act.MainActivity;
 import com.wetime.fanc.main.act.BaseActivity;
 import com.wetime.fanc.utils.GsonUtils;
 import com.wetime.fanc.utils.Tools;
@@ -78,8 +80,8 @@ public class PSWLoginActivity extends BaseActivity implements ILoginView {
     public void onLoginResult(LoginResultBean bean) {
         if (bean.getError() == 0) {
             spu.setValue("token", bean.getData().getToken());
-//            Intent goMain = new Intent(this, MainActivity.class);
-//            startActivity(goMain);
+            Intent goMain = new Intent(this, MainActivity.class);
+            startActivity(goMain);
             EventBus.getDefault().post(new LoginEvent(GsonUtils.getGsonInstance().toJson(bean)));
             onBackPressed();
         }

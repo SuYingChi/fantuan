@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.wetime.fanc.R;
+import com.wetime.fanc.login.act.LoginActivity;
 import com.wetime.fanc.main.act.BaseActivity;
 import com.wetime.fanc.utils.LogUtils;
 import com.wetime.fanc.utils.Tools;
@@ -64,11 +65,17 @@ public class LoadingActivity extends BaseActivity {
 
     private void gotoActivity() {
         Intent go;
-        go = new Intent(this, MainActivity.class);
+        go = new Intent(this, LoginActivity.class);
         if (getIntent().getExtras() != null) {
             go.putExtras(getIntent().getExtras());
         }
-        startActivity(go);
+        if (spu.getToken().equals("")) {
+            Intent goLogin = new Intent(this, LoginActivity.class);
+            startActivity(goLogin);
+        }else {
+            Intent goMain = new Intent(this, MainActivity.class);
+            startActivity(goMain);
+        }
         finish();
 
     }

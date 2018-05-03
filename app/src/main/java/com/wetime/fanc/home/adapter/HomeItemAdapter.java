@@ -194,8 +194,8 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
                     .into(((NewsHolder38) holder).typeimage);
 
             ((NewsHolder38) holder).tvSee.setText(bean.getRead_num());
-            ((NewsHolder38) holder).tvZannum.setText(bean.getLike_num());
-            ((NewsHolder38) holder).tvCommentnum.setText(bean.getComment_num());
+//            ((NewsHolder38) holder).tvZannum.setText(bean.getLike_num());
+//            ((NewsHolder38) holder).tvCommentnum.setText(bean.getComment_num());
             if (bean.isHas_like()) {
                 ((NewsHolder38) holder).ivZan.setImageResource(R.drawable.ic_homeitem_zan_off_on);
             } else {
@@ -212,16 +212,16 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
                         presenter.zanAct(bean.getId(), Tools.getSpu(mActivity).getToken(), "0");
                         bean.setHas_like(false);
                         int num = 0;
-                        if (Integer.valueOf(((NewsHolder38) holder).tvZannum.getText().toString()) != 0) {
-                            num = Integer.valueOf(((NewsHolder38) holder).tvZannum.getText().toString()) - 1;
-                        }
-                        ((NewsHolder38) holder).tvZannum.setText(String.format("%d", num));
+//                        if (Integer.valueOf(((NewsHolder38) holder).tvZannum.getText().toString()) != 0) {
+//                            num = Integer.valueOf(((NewsHolder38) holder).tvZannum.getText().toString()) - 1;
+//                        }
+//                        ((NewsHolder38) holder).tvZannum.setText(String.format("%d", num));
                     } else {
                         ((NewsHolder38) holder).ivZan.setImageResource(R.drawable.ic_homeitem_zan_off_on);
                         presenter.zanAct(bean.getId(), Tools.getSpu(mActivity).getToken(), "1");
                         bean.setHas_like(true);
-                        int num = Integer.valueOf(((NewsHolder38) holder).tvZannum.getText().toString()) + 1;
-                        ((NewsHolder38) holder).tvZannum.setText(String.format("%d", num));
+//                        int num = Integer.valueOf(((NewsHolder38) holder).tvZannum.getText().toString()) + 1;
+//                        ((NewsHolder38) holder).tvZannum.setText(String.format("%d", num));
                     }
                 }
             });
@@ -390,7 +390,7 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
             }
 
             ((NewsHolder18) holder).tvSee.setText(bean.getRead_num());
-            ((NewsHolder18) holder).tvZannum.setText(bean.getLike_num());
+//            ((NewsHolder18) holder).tvZannum.setText(bean.getLike_num());
             if (bean.isHas_like()) {
                 ((NewsHolder18) holder).ivZan.setImageResource(R.drawable.ic_homeitem_zan_off_on);
             } else {
@@ -407,16 +407,16 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
                         presenter.zanAct(bean.getId(), Tools.getSpu(mActivity).getToken(), "0");
                         bean.setHas_like(false);
                         int num = 0;
-                        if (Integer.valueOf(((NewsHolder18) holder).tvZannum.getText().toString()) != 0) {
-                            num = Integer.valueOf(((NewsHolder18) holder).tvZannum.getText().toString()) - 1;
-                        }
-                        ((NewsHolder18) holder).tvZannum.setText(String.format("%d", num));
+//                        if (Integer.valueOf(((NewsHolder18) holder).tvZannum.getText().toString()) != 0) {
+//                            num = Integer.valueOf(((NewsHolder18) holder).tvZannum.getText().toString()) - 1;
+//                        }
+//                        ((NewsHolder18) holder).tvZannum.setText(String.format("%d", num));
                     } else {
                         ((NewsHolder18) holder).ivZan.setImageResource(R.drawable.ic_homeitem_zan_off_on);
                         presenter.zanAct(bean.getId(), Tools.getSpu(mActivity).getToken(), "1");
                         bean.setHas_like(true);
-                        int num = Integer.valueOf(((NewsHolder18) holder).tvZannum.getText().toString()) + 1;
-                        ((NewsHolder18) holder).tvZannum.setText(String.format("%d", num));
+//                        int num = Integer.valueOf(((NewsHolder18) holder).tvZannum.getText().toString()) + 1;
+//                        ((NewsHolder18) holder).tvZannum.setText(String.format("%d", num));
                     }
                 }
             });
@@ -437,7 +437,7 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
             });
 
 
-            ((NewsHolder18) holder).tvCommentnum.setText(bean.getComment_num());
+//            ((NewsHolder18) holder).tvCommentnum.setText(bean.getComment_num());
             ((NewsHolder18) holder).ivHead.setOnClickListener(view -> {
                 Intent go = new Intent(mActivity, UserCardActivity.class);
                 go.putExtra("num", bean.isIs_news() ? "3" : "2");
@@ -701,8 +701,8 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
                 ((NewsHolder39) holder).tvContent.setText(bean.getContent());
             }
             ((NewsHolder39) holder).tvSee.setText(bean.getRead_num());
-            ((NewsHolder39) holder).tvZannum.setText(bean.getLike_num());
-            ((NewsHolder39) holder).tvCommentnum.setText(bean.getComment_num());
+//            ((NewsHolder39) holder).tvZannum.setText(bean.getLike_num());
+//            ((NewsHolder39) holder).tvCommentnum.setText(bean.getComment_num());
             if (bean.isHas_like()) {
                 ((NewsHolder39) holder).ivZan.setImageResource(R.drawable.ic_homeitem_zan_off_on);
             } else {
@@ -719,16 +719,16 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
                         presenter.zanAct(bean.getId(), Tools.getSpu(mActivity).getToken(), "0");
                         bean.setHas_like(false);
                         int num = 0;
-                        if (Integer.valueOf(((NewsHolder39) holder).tvZannum.getText().toString()) != 0) {
-                            num = Integer.valueOf(((NewsHolder39) holder).tvZannum.getText().toString()) - 1;
-                        }
-                        ((NewsHolder39) holder).tvZannum.setText(String.format("%d", num));
+//                        if (Integer.valueOf(((NewsHolder39) holder).tvZannum.getText().toString()) != 0) {
+//                            num = Integer.valueOf(((NewsHolder39) holder).tvZannum.getText().toString()) - 1;
+//                        }
+//                        ((NewsHolder39) holder).tvZannum.setText(String.format("%d", num));
                     } else {
                         ((NewsHolder39) holder).ivZan.setImageResource(R.drawable.ic_homeitem_zan_off_on);
                         presenter.zanAct(bean.getId(), Tools.getSpu(mActivity).getToken(), "1");
                         bean.setHas_like(true);
-                        int num = Integer.valueOf(((NewsHolder39) holder).tvZannum.getText().toString()) + 1;
-                        ((NewsHolder39) holder).tvZannum.setText(String.format("%d", num));
+//                        int num = Integer.valueOf(((NewsHolder39) holder).tvZannum.getText().toString()) + 1;
+//                        ((NewsHolder39) holder).tvZannum.setText(String.format("%d", num));
                     }
                 }
             });
@@ -823,7 +823,7 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
             }
 
             ((NewsHolder19) holder).tvSee.setText(bean.getRead_num());
-            ((NewsHolder19) holder).tvZannum.setText(bean.getLike_num());
+//            ((NewsHolder19) holder).tvZannum.setText(bean.getLike_num());
             if (bean.isHas_like()) {
                 ((NewsHolder19) holder).ivZan.setImageResource(R.drawable.ic_homeitem_zan_off_on);
             } else {
@@ -840,16 +840,16 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
                         presenter.zanAct(bean.getId(), Tools.getSpu(mActivity).getToken(), "0");
                         bean.setHas_like(false);
                         int num = 0;
-                        if (Integer.valueOf(((NewsHolder19) holder).tvZannum.getText().toString()) != 0) {
-                            num = Integer.valueOf(((NewsHolder19) holder).tvZannum.getText().toString()) - 1;
-                        }
-                        ((NewsHolder19) holder).tvZannum.setText(String.format("%d", num));
+//                        if (Integer.valueOf(((NewsHolder19) holder).tvZannum.getText().toString()) != 0) {
+//                            num = Integer.valueOf(((NewsHolder19) holder).tvZannum.getText().toString()) - 1;
+//                        }
+//                        ((NewsHolder19) holder).tvZannum.setText(String.format("%d", num));
                     } else {
                         ((NewsHolder19) holder).ivZan.setImageResource(R.drawable.ic_homeitem_zan_off_on);
                         presenter.zanAct(bean.getId(), Tools.getSpu(mActivity).getToken(), "1");
                         bean.setHas_like(true);
-                        int num = Integer.valueOf(((NewsHolder19) holder).tvZannum.getText().toString()) + 1;
-                        ((NewsHolder19) holder).tvZannum.setText(String.format("%d", num));
+//                        int num = Integer.valueOf(((NewsHolder19) holder).tvZannum.getText().toString()) + 1;
+//                        ((NewsHolder19) holder).tvZannum.setText(String.format("%d", num));
                     }
                 }
             });
@@ -869,7 +869,7 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
             });
 
 
-            ((NewsHolder19) holder).tvCommentnum.setText(bean.getComment_num());
+//            ((NewsHolder19) holder).tvCommentnum.setText(bean.getComment_num());
             ((NewsHolder19) holder).ivHead.setOnClickListener(view -> {
                 Intent go = new Intent(mActivity, UserCardActivity.class);
                 go.putExtra("num", bean.isIs_news() ? "3" : "2");
