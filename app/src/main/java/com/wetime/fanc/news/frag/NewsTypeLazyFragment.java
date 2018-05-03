@@ -166,7 +166,7 @@ public class NewsTypeLazyFragment extends BaseLazyFragment implements IGetNewsTy
     @Override
     public void onGetNews(NewsListBean bean) {
         if (bean.getError() != 0) {
-            refreshLayout.finishRefresh();
+            refreshLayout.finishRefresh(2000);
             return;
         }
         // 推荐空页面
@@ -185,7 +185,7 @@ public class NewsTypeLazyFragment extends BaseLazyFragment implements IGetNewsTy
             }
         }
 
-        refreshLayout.finishRefresh();
+        refreshLayout.finishRefresh(1000);
 
         if (page == 1) {
             list.clear();
