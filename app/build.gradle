@@ -130,6 +130,7 @@ dependencies {
     //weex
     implementation 'com.taobao.android:weex_sdk:0.18.0'
     implementation 'com.alibaba:fastjson:1.2.46'
+    implementation 'cn.bingoogolapple:bga-swipebacklayout:1.1.8@aar'
 
 }
 

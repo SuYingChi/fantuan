@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <integer name="most_pic_num">9</integer>
+    <integer name="act_anim_duration">400</integer>
+    <integer name="bga_sbl_anim_duration">400</integer>
 </resources>

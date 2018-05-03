@@ -10,5 +10,7 @@
         <item name="android:colorEdgeEffect">#00e5e5e5</item>
         <item name="android:statusBarColor">#ffffff</item>
         <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowAnimationStyle">@style/AnimationActivity</item>
     </style>
+
 </resources>

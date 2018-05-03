@@ -280,6 +280,7 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, IGe
                     Tools.toastInBottom(getContext(), "请先登录");
                     Intent goLogin = new Intent(getContext(), LoginActivity.class);
                     startActivity(goLogin);
+
                 }
                 break;
         }

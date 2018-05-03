@@ -29,6 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import cn.bingoogolapple.swipebacklayout.BGASwipeBackHelper;
 import cn.jpush.android.api.JPushInterface;
 import okhttp3.OkHttpClient;
 
@@ -82,17 +83,19 @@ public class FApp extends Application {
     public static FApp getInstance() {
         return instance;
     }
+
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
         MultiDex.install(this);
     }
+
     @Override
     public void onCreate() {
         super.onCreate();
-
-        InitConfig config=new InitConfig.Builder().setImgAdapter(new ImageAdapter()).build();
-        WXSDKEngine.initialize(this,config);
+        BGASwipeBackHelper.init(this, null);
+        InitConfig config = new InitConfig.Builder().setImgAdapter(new ImageAdapter()).build();
+        WXSDKEngine.initialize(this, config);
 
         registToWX();
         registToTencent();
