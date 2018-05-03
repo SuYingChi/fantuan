@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:background="#2D2D2D"
     android:orientation="vertical">
 
     <LinearLayout
@@ -24,8 +25,8 @@
             android:layout_marginRight="14dp"
             android:gravity="center_horizontal"
             android:lineSpacingExtra="0sp"
-            android:text="短动态"
-            android:textColor="#333333"
+            android:text="动态"
+            android:textColor="#FFFFFF"
             android:textSize="14sp" />
 
     </LinearLayout>
@@ -57,8 +58,8 @@
             android:layout_marginRight="14dp"
             android:gravity="center_horizontal"
             android:lineSpacingExtra="0sp"
-            android:text="长文章"
-            android:textColor="#333333"
+            android:text="长文"
+            android:textColor="#FFFFFF"
             android:textSize="14sp" />
 
     </LinearLayout>

@@ -101,7 +101,7 @@ public class CircleInfoActivity extends BaseActivity implements IGetCircleDetail
         Glide.with(this).load(bean.getData().getAvatar()).into(ivUser);
         tvUsername.setText(bean.getData().getUsername());
         tvDes.setText(bean.getData().getIntro());
-        tvRule.setText(bean.getData().getRule());
+//        tvRule.setText(bean.getData().getRule());
         ivUser.setOnClickListener(view -> {
             Intent go = new Intent(mContext, UserCardActivity.class);
             go.putExtra("index", 0);
@@ -115,8 +115,8 @@ public class CircleInfoActivity extends BaseActivity implements IGetCircleDetail
             btAttrntion.setBackgroundResource(R.drawable.rectangle_3_copy_cancel);
         } else {
             btAttrntion.setText("关注圈子");
-            btAttrntion.setTextColor(Color.parseColor("#ff3f53"));
-            btAttrntion.setBackgroundResource(R.drawable.rectangle_3_copy);
+            btAttrntion.setTextColor(Color.parseColor("#1EB0FD"));
+            btAttrntion.setBackgroundResource(R.drawable.rectangle_v2_copy);
         }
         tvState.setText(bean.getData().getDynamic_num());
         tvAttention.setText(bean.getData().getFollow_num());
@@ -153,8 +153,8 @@ public class CircleInfoActivity extends BaseActivity implements IGetCircleDetail
             btAttrntion.setBackgroundResource(R.drawable.rectangle_3_copy_cancel);
         } else {
             btAttrntion.setText("关注圈子");
-            btAttrntion.setTextColor(Color.parseColor("#ff3f53"));
-            btAttrntion.setBackgroundResource(R.drawable.rectangle_3_copy);
+            btAttrntion.setTextColor(Color.parseColor("#1EB0FD"));
+            btAttrntion.setBackgroundResource(R.drawable.rectangle_v2_copy);
         }
     }
 

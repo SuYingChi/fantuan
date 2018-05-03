@@ -8,6 +8,7 @@
     <color name="bg_weixin">#19cf73</color>
     <color name="bg_phone">#00a4ff</color>
     <color name="text_blue">#05a4be</color>
+    <color name="transparence">#00000000</color>
 
 
     <color name="colorPrimary_lib">#ff5f61</color>
@@ -48,6 +49,7 @@
     <color name="text_hint">#999999</color>
     <color name="auto_loadmore_text">#000000</color>
     <color name="text_enable_gray">#c8c8c8</color>
+    <color name="text_enable_attention">#419DF0</color>
 
     <color name="_1b1b1b">#1b1b1b</color>
     <color name="_262626">#262626</color>

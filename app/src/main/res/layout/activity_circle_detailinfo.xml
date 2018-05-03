@@ -58,6 +58,7 @@
                         android:layout_marginTop="5dp"
                         android:lineSpacingExtra="4sp"
                         android:textColor="#999999"
+                        android:visibility="gone"
                         android:textSize="12sp"
                         tools:text="创建于2017-12-30" />
 
@@ -122,9 +123,39 @@
             <include layout="@layout/item_my_line" />
 
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:lineSpacingExtra="0sp"
+                android:text="圈子简介："
+                android:textColor="#333333"
+                android:textSize="19sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_des"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="8dp"
+                android:textColor="#333333"
+                android:textSize="14sp"
+                tools:text="海南有趣、有料、有适度的生活圈，分分钟带你吃遍全海南~" />
+
+
+            <TextView
+                android:id="@+id/tv_rule"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:textColor="#1EB0FD"
+                android:textSize="14sp"
+                tools:text="查看圈子规则 >" />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
                 android:lineSpacingExtra="0sp"
                 android:text="圈主："
                 android:textColor="#333333"
@@ -134,7 +165,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="15dp"
                 android:gravity="center">
 
                 <de.hdodenhof.circleimageview.CircleImageView
@@ -158,11 +189,11 @@
                 android:id="@+id/rcl_my_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="20dp"
                 android:lineSpacingExtra="0sp"
-                android:visibility="gone"
-                android:text="圈子管理团队"
+                android:text="圈子管理团队:"
                 android:textColor="#333333"
+                android:visibility="gone"
                 android:textSize="19sp"
                 android:textStyle="bold" />
 
@@ -171,7 +202,7 @@
                 android:layout_width="match_parent"
                 android:visibility="gone"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="15dp"
                 android:gravity="center">
 
                 <android.support.v7.widget.RecyclerView
@@ -180,24 +211,6 @@
                     android:layout_height="wrap_content" />
             </LinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
-                android:lineSpacingExtra="0sp"
-                android:text="圈子简介："
-                android:textColor="#333333"
-                android:textSize="19sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/tv_des"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:textColor="#333333"
-                android:textSize="14sp"
-                tools:text="海南有趣、有料、有适度的生活圈，分分钟带你吃遍全海南~" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -206,14 +219,15 @@
                 android:lineSpacingExtra="0sp"
                 android:text="圈子规矩："
                 android:textColor="#333333"
+                android:visibility="gone"
                 android:textSize="19sp"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/tv_rule"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
+                android:visibility="gone"
                 android:textColor="#333333"
                 android:textSize="14sp"
                 tools:text="一、群内尽量避免与政治有关的言论，杜绝反政府言论和图片。
@@ -226,7 +240,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:layout_marginBottom="10dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="40dp"
                 android:background="@drawable/rectangle_3_copy_cancel"
                 android:textColor="#666666"
                 android:textSize="17sp"
