@@ -163,12 +163,12 @@ public class SpecialTopicBaseFragment extends BaseLazyFragment implements OnRefr
         refreshLayout.finishRefresh();
         total = bean.getData().getPaging().getTotal();
 
-        if (page == 1) {
-            list.clear();
-            list.addAll(bean.getData().getList());
-        } else {
-            list.addAll(bean.getData().getList());
-        }
+//        if (page == 1) {
+//            list.clear();
+//            list.addAll(bean.getData().getList());
+//        } else {
+//            list.addAll(bean.getData().getList());
+//        }
 
         if (page > 1) {
             mAutoLoadMoreAdapter.finishLoading();

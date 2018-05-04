@@ -195,7 +195,6 @@
         <activity
             android:name=".wallet.act.RedPackActivity"
             android:theme="@style/translucent" />
-        <activity android:name=".shop.act.ShopNewsHomeActivity" />
         <activity android:name=".shop.act.ShopSayActivity" />
         <activity android:name=".news.act.ChannelActivity" />
         <activity android:name=".my.act.UserCardActivity" />

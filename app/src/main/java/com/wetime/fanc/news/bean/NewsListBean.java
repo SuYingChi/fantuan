@@ -1,8 +1,6 @@
 package com.wetime.fanc.news.bean;
 
-import com.wetime.fanc.home.adapter.HomeItemAdapter;
 import com.wetime.fanc.home.bean.Cover;
-import com.wetime.fanc.home.bean.HomeItemBean;
 
 import java.util.List;
 
@@ -56,7 +54,7 @@ public class NewsListBean {
 
         private String update_num;
         private PagingBean paging;
-        private List<HomeItemBean> list;
+        private List<NewsListItemBean> list;
 
         public String getUpdate_num() {
             return update_num;
@@ -74,11 +72,11 @@ public class NewsListBean {
             this.paging = paging;
         }
 
-        public List<HomeItemBean> getList() {
+        public List<NewsListItemBean> getList() {
             return list;
         }
 
-        public void setList(List<HomeItemBean> list) {
+        public void setList(List<NewsListItemBean> list) {
             this.list = list;
         }
 
