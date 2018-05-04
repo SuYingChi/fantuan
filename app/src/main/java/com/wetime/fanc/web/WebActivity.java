@@ -66,7 +66,6 @@ import com.wetime.fanc.news.act.GalleryActivity;
 import com.wetime.fanc.order.act.CommentOrderActivity;
 import com.wetime.fanc.order.event.RefreshOrderEvent;
 import com.wetime.fanc.shop.act.ShopDetailActivity;
-import com.wetime.fanc.shop.act.ShopNewsHomeActivity;
 import com.wetime.fanc.shop.act.ShopSayActivity;
 import com.wetime.fanc.shopcenter.act.ShopListActivity;
 import com.wetime.fanc.shopcenter.act.ShopSearchActivity;
@@ -539,14 +538,7 @@ public class WebActivity extends BaseActivity implements IPostMultiFileView, WbS
         });
     }
 
-    @JavascriptInterface
-    public void goShopNews(String mid) {
-        web.post(() -> {
-            Intent goShopnews = new Intent(this, ShopNewsHomeActivity.class);
-            goShopnews.putExtra("mid", mid);
-            startActivity(goShopnews);
-        });
-    }
+
 
     @JavascriptInterface
     public void goUserCard(String uid, boolean isNews, String index) {
