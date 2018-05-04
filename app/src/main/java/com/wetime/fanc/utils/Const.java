@@ -65,13 +65,14 @@ public interface Const {
     String CIRCLE_INFO = BASEURL + "/circle/info";
     String CIRCLE_ATTRNTION = BASEURL + "/jv/qz/following";
     String DYNAMIC_LIST_CIRCLE = BASEURL + "/dynamic/list/circle";
-    String DYNAMIC_LIST = BASEURL + "/dynamic/list";
+//    String DYNAMIC_LIST = BASEURL + "/dynamic/list";
+    String DYNAMIC_LIST = BASEURL + "/jv/qz/circleinfo";
     String USER_COLLECT_LIST = BASEURL + "/user/collect/list";
     String NEWS_COLLECT_CANCEL = BASEURL + "/news/collect/cancel";
     String USER_FOCUS_LIST = BASEURL + "/user/focus/list";
     String SOCIAL = BASEURL + "/social";
-    String DYNAMIC_DETAIL = BASEURL + "/dynamic/detail";
-//    String DYNAMIC_DETAIL = BASEURL + "/jv/anonymous/qz/dynamic";
+//    String DYNAMIC_DETAIL = BASEURL + "/dynamic/detail";
+    String DYNAMIC_DETAIL = BASEURL + "/jv/qz/dynamic";
     String LONG_DETAIL = BASEURL + "/jv/anonymous/qz/dynamicarticle";
     String DYNAMIC_COMMENT = BASEURL + "/dynamic/comment";
 //    String DYNAMIC_COMMENT_DELETE = BASEURL + "/dynamic/comment/delete";

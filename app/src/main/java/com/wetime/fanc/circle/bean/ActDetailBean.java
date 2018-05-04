@@ -92,6 +92,7 @@ public class ActDetailBean {
         private boolean is_delete;
         private PagingBean paging;
         private List<Cover> covers;
+//        private List<Cover> cover;
         private List<LikeListBean> like_list;
         private List<CommentListBean> comment_list;
 

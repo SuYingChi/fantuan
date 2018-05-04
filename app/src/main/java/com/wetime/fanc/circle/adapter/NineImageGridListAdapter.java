@@ -87,7 +87,7 @@ public class NineImageGridListAdapter extends BaseAdapter {
             layoutParams.width = sw / 3;
             holder.iv.setLayoutParams(layoutParams);
 
-            Glide.with(mContext).load(mlist.get(position)).downloadOnly(new LargeImageViewTarget(holder.iv) {
+            Glide.with(mContext).load(mlist.get(position).getUrl()).downloadOnly(new LargeImageViewTarget(holder.iv) {
                 @Override
                 public void onLoadStarted(Drawable placeholder) {
                     super.onLoadStarted(placeholder);
@@ -115,7 +115,7 @@ public class NineImageGridListAdapter extends BaseAdapter {
             layoutParams.width = sw;
             holder.iv.setLayoutParams(layoutParams);
 
-            Glide.with(mContext).load(mlist.get(position)).downloadOnly(new LargeImageViewTarget(holder.iv) {
+            Glide.with(mContext).load(mlist.get(position).getUrl()).downloadOnly(new LargeImageViewTarget(holder.iv) {
                 @Override
                 public void onLoadStarted(Drawable placeholder) {
                     super.onLoadStarted(placeholder);
