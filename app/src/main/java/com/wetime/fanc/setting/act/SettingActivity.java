@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.wetime.fanc.login.act.LoginActivity;
 import com.wetime.fanc.login.event.LogoutEvent;
 import com.wetime.fanc.main.act.BaseActivity;
 import com.wetime.fanc.main.model.BaseBean;
@@ -123,6 +124,8 @@ public class SettingActivity extends BaseActivity implements ILogoutView, IGetSe
         if (bean.getError() == 0) {
             Tools.logout(this);
             EventBus.getDefault().post(new LogoutEvent());
+            Intent goLogin = new Intent(this, LoginActivity.class);
+            startActivity(goLogin);
             finish();
         }
     }

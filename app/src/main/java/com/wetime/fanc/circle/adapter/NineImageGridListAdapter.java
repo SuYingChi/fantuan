@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide;
 import com.shizhefei.view.largeimage.UpdateImageView;
 import com.wetime.fanc.R;
 import com.wetime.fanc.customview.LargeImageViewTarget;
+import com.wetime.fanc.home.bean.Cover;
 import com.wetime.fanc.utils.Tools;
 
 import java.util.ArrayList;
@@ -22,11 +23,11 @@ import java.util.List;
 
 public class NineImageGridListAdapter extends BaseAdapter {
     private Context mContext;
-    private List<String> mlist = new ArrayList<String>();
+    private List<Cover> mlist = new ArrayList<Cover>();
     private LayoutInflater inflater = null;
 //    private final int mGridWidth;
 
-    public NineImageGridListAdapter(Context mContext, List<String> list) {
+    public NineImageGridListAdapter(Context mContext, List<Cover> list) {
         this.mContext = mContext;
         this.mlist = list;
         inflater = LayoutInflater.from(mContext);

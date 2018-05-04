@@ -106,7 +106,7 @@ dependencies {
     implementation 'de.hdodenhof:circleimageview:2.1.0'
     implementation 'com.google.android:flexbox:0.3.2'
     implementation 'com.android.support:support-vector-drawable:27.1.1'
-    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-1'
+    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-5'
     //    compile 'com.scwang.smartrefresh:SmartRefreshHeader:1.0.4'
     implementation 'com.google.zxing:core:3.3.0'
     implementation 'com.youth.banner:banner:1.4.10'
@@ -130,6 +130,7 @@ dependencies {
     //weex
     implementation 'com.taobao.android:weex_sdk:0.18.0'
     implementation 'com.alibaba:fastjson:1.2.46'
+    implementation 'cn.bingoogolapple:bga-swipebacklayout:1.1.8@aar'
 
 }
 

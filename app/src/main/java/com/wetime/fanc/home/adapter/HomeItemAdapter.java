@@ -189,7 +189,7 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
 
 
             ((NewsHolder38) holder).typename.setText(bean.getTitle());
-            Glide.with(mActivity).load(bean.getCover().get(0))
+            Glide.with(mActivity).load(bean.getCover().get(0).getCompress())
                     .apply(new RequestOptions().centerCrop())
                     .into(((NewsHolder38) holder).typeimage);
 
@@ -384,7 +384,7 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
             ((NewsHolder18) holder).typename.setText(bean.getTitle());
             if (bean.getCover() == null || bean.getCover().size() == 0) {
             } else {
-                Glide.with(mActivity).load(bean.getCover().get(0))
+                Glide.with(mActivity).load(bean.getCover().get(0).getCompress())
                         .apply(new RequestOptions().centerCrop())
                         .into(((NewsHolder18) holder).typeimage);
             }
@@ -486,7 +486,7 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
 
             int h = (int) (w * rate);
             ((NewsHolder4) holder).tvName.setText(bean.getName());
-            Glide.with(mActivity).load(bean.getCover().get(0)).apply(
+            Glide.with(mActivity).load(bean.getCover().get(0).getCompress()).apply(
                     new RequestOptions()
                             .override(w, h)
                             .centerCrop()
@@ -517,7 +517,7 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
             Double rate = 80.0 / 110;
 
             int h = (int) (w * rate);
-            Glide.with(mActivity).load(bean.getCover().get(0)).apply(
+            Glide.with(mActivity).load(bean.getCover().get(0).getCompress()).apply(
                     new RequestOptions()
                             .override(w, h)
                             .centerCrop()
@@ -555,7 +555,7 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
             params.width = w;
             ((NewsHolder2) holder).rlIv.setLayoutParams(params);
 
-            Glide.with(mActivity).load(bean.getCover().get(0)).apply(
+            Glide.with(mActivity).load(bean.getCover().get(0).getCompress()).apply(
                     new RequestOptions()
                             .override(w, h)
                             .centerCrop()
@@ -580,7 +580,7 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
             Double rate = 80.0 / 110;
 
             int h = (int) (w * rate);
-            Glide.with(mActivity).load(bean.getCover().get(0)).apply(
+            Glide.with(mActivity).load(bean.getCover().get(0).getCompress()).apply(
                     new RequestOptions()
                             .override(w, h)
                             .centerCrop()
@@ -614,21 +614,21 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
             int h = (int) (w * rate);
 
 
-            Glide.with(mActivity).load(bean.getCover().get(0)).apply(
+            Glide.with(mActivity).load(bean.getCover().get(0).getCompress()).apply(
                     new RequestOptions()
                             .override(w, h)
                             .centerCrop()
                             .placeholder(R.drawable.iv_default_news_small))
                     .into(((NewsHolder3) holder).ivCover0);
 
-            Glide.with(mActivity).load(bean.getCover().get(1)).apply(
+            Glide.with(mActivity).load(bean.getCover().get(1).getCompress()).apply(
                     new RequestOptions()
                             .override(w, h)
                             .centerCrop()
                             .placeholder(R.drawable.iv_default_news_small))
                     .into(((NewsHolder3) holder).ivCover1);
 
-            Glide.with(mActivity).load(bean.getCover().get(2)).apply(
+            Glide.with(mActivity).load(bean.getCover().get(2).getCompress()).apply(
                     new RequestOptions()
                             .override(w, h)
                             .centerCrop()

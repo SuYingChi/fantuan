@@ -121,11 +121,18 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/transparence</item>    <!-- 状态栏 -->
+        <item name="colorPrimary">@color/colorPrimary</item>    <!-- 状态栏 -->
         <item name="android:overScrollMode">never</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowAnimationStyle">@style/AnimationActivity</item>
+    </style>
 
+    <style name="AnimationActivity" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/forward_enter</item>
+        <item name="android:activityOpenExitAnimation">@anim/forward_exit</item>
+        <item name="android:activityCloseEnterAnimation">@anim/backward_enter</item>
+        <item name="android:activityCloseExitAnimation">@anim/backward_exit</item>
     </style>
 
     <style name="AppraisalRatingBarBig" parent="@android:style/Widget.RatingBar">
@@ -262,10 +269,8 @@
         <!--相册文件夹列表选中图标-->
         <item name="picture.folder_checked_dot">@drawable/orange_oval</item>
     </style>
-
     <style name="myCollaTitleSize">
         <item name="android:textSize">16sp</item>
         <item name="android:textColor">?android:textColorPrimary</item>
     </style>
-
 </resources>

@@ -52,7 +52,7 @@ public interface Const {
     String USER_INVITER_HISTORY = BASEURL + "/user/inviter/history";
     String user_inviter_redbag = BASEURL + "/user/inviter/redbag";
 //    String NEWS = BASEURL + "/news";
-    String NEWS = BASEURL + "/jv/anonymous/newsarticle/articles";
+
     String SPECIAL_NEWS = BASEURL + "/jv/anonymous/newsarticle/elementarticles";
     String NEWS_MALL = BASEURL + "/news/mall";
     String SHOP_POST_ARTICLE = BASEURL + "/shop/post/article";
@@ -110,6 +110,7 @@ public interface Const {
 
     // java的写到这里
     String DYNAMIC_LONGARTICLE = BASEURL + "/jv/qz/publish/dynamicarticle";
+    String NEWS = BASEURL + "/jv/anonymous/newsarticle/articles";
 
 
 

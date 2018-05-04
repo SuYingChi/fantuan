@@ -98,6 +98,7 @@ public class MainActivity extends BaseActivity implements IBindPushView, IGetRed
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         ImmersionBar.with(this).statusBarColor(R.color.white).statusBarDarkFont(true, 0.2f).fitsSystemWindows(true).init();
@@ -122,6 +123,11 @@ public class MainActivity extends BaseActivity implements IBindPushView, IGetRed
 
 
 //        showFloat();
+    }
+
+    @Override
+    public boolean isSupportSwipeBack() {
+        return false;
     }
 
     private void showFloat() {

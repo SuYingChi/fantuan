@@ -1,6 +1,7 @@
 package com.wetime.fanc.circle.bean;
 
 import com.google.gson.annotations.SerializedName;
+import com.wetime.fanc.home.bean.Cover;
 
 import java.util.List;
 
@@ -90,7 +91,7 @@ public class ActDetailBean {
         private boolean is_follow;
         private boolean is_delete;
         private PagingBean paging;
-        private List<String> cover;
+        private List<Cover> covers;
         private List<LikeListBean> like_list;
         private List<CommentListBean> comment_list;
 
@@ -270,12 +271,12 @@ public class ActDetailBean {
             this.paging = paging;
         }
 
-        public List<String> getCover() {
-            return cover;
+        public List<Cover> getCover() {
+            return covers;
         }
 
-        public void setCover(List<String> cover) {
-            this.cover = cover;
+        public void setCover(List<Cover> cover) {
+            this.covers = cover;
         }
 
         public List<LikeListBean> getLike_list() {
