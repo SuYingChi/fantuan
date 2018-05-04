@@ -1,5 +1,6 @@
 package com.wetime.fanc.weex;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -21,11 +22,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 
+@SuppressLint("Registered")
 public class WeexBaseActivity extends AppCompatActivity implements IWXRenderListener {
 
     public final static String ROOT = "root";
     private final static String TAG = "WEEX";
-//    private final static String URL =
+    //    private final static String URL =
 //            "http://h5.m.taobao.com/js/src/weexlist.js";
     private WXSDKInstance mInstance;
     private LinearLayout root;
@@ -140,7 +142,29 @@ public class WeexBaseActivity extends AppCompatActivity implements IWXRenderList
         return mInstance;
     }
 
-    public void loadWeexPage(final boolean weex) {
+    public void loadWeexPage(String name) {
+        perfEnd = false;
+        runOnUiThread(() -> {
+            if (mInstance != null) {
+                mInstance.destroy();
+            }
+            mInstance = new WXSDKInstance(WeexBaseActivity.this);
+            Map<String, Object> options = new HashMap<>();
+//                options.put(WXSDKInstance.BUNDLE_URL, "file://assets/hello_weex.js");
+            mInstance.registerRenderListener(WeexBaseActivity.this);
+            perfStart = true;
+            Log.v(TAG, "Start: " + startTime);
+            startTime = System.currentTimeMillis();
+            mInstance.render(TAG,
+                    WXFileUtils.loadAsset(name, WeexBaseActivity.this),
+                    options,
+                    null,
+                    WXRenderStrategy.APPEND_ASYNC);
+
+        });
+    }
+
+    public void loadWeexPageFromAssert(final boolean weex) {
         isWeex = weex;
         perfEnd = false;
         runOnUiThread(new Runnable() {
@@ -171,8 +195,6 @@ public class WeexBaseActivity extends AppCompatActivity implements IWXRenderList
             }
         });
     }
-
-
 
     public void loadWeexPageFromUrl(final String url) {
         perfEnd = false;
