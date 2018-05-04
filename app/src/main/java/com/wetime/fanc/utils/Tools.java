@@ -8,8 +8,11 @@ import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.PixelFormat;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -17,6 +20,10 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.IBinder;
+import android.renderscript.Allocation;
+import android.renderscript.Element;
+import android.renderscript.RenderScript;
+import android.renderscript.ScriptIntrinsicBlur;
 import android.support.v7.app.AlertDialog;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -680,6 +687,95 @@ public class Tools {
         });
         return window;
     }
+
+    // 图片缩放比例(即模糊度)
+    private static final float BITMAP_SCALE = 0.4f;
+
+    /**
+     * @param context 上下文对象
+     * @param image   需要模糊的图片
+     * @return 模糊处理后的Bitmap
+     */
+    public static Bitmap blurBitmap(Context context, Bitmap image, float blurRadius) {
+        // 计算图片缩小后的长宽
+        int width = Math.round(image.getWidth() * BITMAP_SCALE);
+        int height = Math.round(image.getHeight() * BITMAP_SCALE);
+
+        // 将缩小后的图片做为预渲染的图片
+        Bitmap inputBitmap = Bitmap.createScaledBitmap(image, width, height, false);
+        // 创建一张渲染后的输出图片
+        Bitmap outputBitmap = Bitmap.createBitmap(inputBitmap);
+
+        // 创建RenderScript内核对象
+        RenderScript rs = RenderScript.create(context);
+        // 创建一个模糊效果的RenderScript的工具对象
+        ScriptIntrinsicBlur blurScript = ScriptIntrinsicBlur.create(rs, Element.U8_4(rs));
+
+        // 由于RenderScript并没有使用VM来分配内存,所以需要使用Allocation类来创建和分配内存空间
+        // 创建Allocation对象的时候其实内存是空的,需要使用copyTo()将数据填充进去
+        Allocation tmpIn = Allocation.createFromBitmap(rs, inputBitmap);
+        Allocation tmpOut = Allocation.createFromBitmap(rs, outputBitmap);
+
+        // 设置渲染的模糊程度, 25f是最大模糊度
+        blurScript.setRadius(blurRadius);
+        // 设置blurScript对象的输入内存
+        blurScript.setInput(tmpIn);
+        // 将输出数据保存到输出内存中
+        blurScript.forEach(tmpOut);
+
+        // 将数据填充到Allocation中
+        tmpOut.copyTo(outputBitmap);
+
+        return outputBitmap;
+    }
+
+
+    public static Bitmap rsBlur(Context context,Bitmap source,int radius){
+
+        Bitmap inputBmp = source;
+        //(1)
+        RenderScript renderScript =  RenderScript.create(context);
+
+        // Allocate memory for Renderscript to work with
+        //(2)
+        final Allocation input = Allocation.createFromBitmap(renderScript,inputBmp);
+        final Allocation output = Allocation.createTyped(renderScript,input.getType());
+        //(3)
+        // Load up an instance of the specific script that we want to use.
+        ScriptIntrinsicBlur scriptIntrinsicBlur = ScriptIntrinsicBlur.create(renderScript, Element.U8_4(renderScript));
+        //(4)
+        scriptIntrinsicBlur.setInput(input);
+        //(5)
+        // Set the blur radius
+        scriptIntrinsicBlur.setRadius(radius);
+        //(6)
+        // Start the ScriptIntrinisicBlur
+        scriptIntrinsicBlur.forEach(output);
+        //(7)
+        // Copy the output to the blurred bitmap
+        output.copyTo(inputBmp);
+        //(8)
+        renderScript.destroy();
+
+        return inputBmp;
+    }
+
+    public static Bitmap drawableToBitmap(Drawable drawable) {
+
+        int w = drawable.getIntrinsicWidth();
+        int h = drawable.getIntrinsicHeight();
+        Bitmap.Config config =
+                drawable.getOpacity() != PixelFormat.OPAQUE ? Bitmap.Config.ARGB_8888
+                        : Bitmap.Config.RGB_565;
+        Bitmap bitmap = Bitmap.createBitmap(w, h, config);
+        //注意，下面三行代码要用到，否则在View或者SurfaceView里的canvas.drawBitmap会看不到图
+        Canvas canvas = new Canvas(bitmap);
+        drawable.setBounds(0, 0, w, h);
+        drawable.draw(canvas);
+
+        return bitmap;
+    }
+
 
     public static PopupWindow showPopWin(Context context, View ivEdit, String id, String name, String simpleName) {
 
