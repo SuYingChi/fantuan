@@ -257,7 +257,6 @@ public class CircleDetailActivity extends BaseActivity implements IGetCircleHead
 //        tvCirclename.setText(bean.getData().getName());
 
         CollapsingToolbarLayout.setTitle(bean.getData().getName());
-
         CollapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.myCollaTitleSize);
         CollapsingToolbarLayout.setExpandedTitleColor(Color.WHITE);
 

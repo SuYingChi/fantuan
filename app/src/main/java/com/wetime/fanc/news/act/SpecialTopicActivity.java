@@ -1,5 +1,6 @@
 package com.wetime.fanc.news.act;
 
+import android.app.Activity;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -12,11 +13,15 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -31,6 +36,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.flyco.tablayout.SlidingTabLayout;
+import com.gyf.barlibrary.ImmersionBar;
 import com.sina.weibo.sdk.WbSdk;
 import com.sina.weibo.sdk.auth.AuthInfo;
 import com.sina.weibo.sdk.share.WbShareCallback;
@@ -39,11 +45,10 @@ import com.tencent.mm.opensdk.modelmsg.SendMessageToWX;
 import com.tencent.tauth.IUiListener;
 import com.tencent.tauth.UiError;
 import com.wetime.fanc.R;
-import com.wetime.fanc.customview.LetToolBar;
-import com.wetime.fanc.home.bean.HomeItemBean;
 import com.wetime.fanc.login.act.LoginActivity;
 import com.wetime.fanc.main.act.BaseActivity;
 import com.wetime.fanc.my.adapter.MyFriendsPagerAdapter;
+import com.wetime.fanc.news.bean.NewsListItemBean;
 import com.wetime.fanc.news.frag.SpecialTopicBaseFragment;
 import com.wetime.fanc.utils.Tools;
 import com.wetime.fanc.weibo.Constants;
@@ -63,7 +68,7 @@ public class SpecialTopicActivity extends BaseActivity implements View.OnClickLi
     @BindView(R.id.viewPager)
     ViewPager viewPager;
     @BindView(R.id.id_toolbar)
-    LetToolBar idToolbar;
+    Toolbar idToolbar;
     @BindView(R.id.special_linear)
     LinearLayout specialLinear;
     @BindView(R.id.topic_iv)
@@ -72,19 +77,24 @@ public class SpecialTopicActivity extends BaseActivity implements View.OnClickLi
     TextView topicName;
     @BindView(R.id.topic_content)
     TextView topicContent;
+    @BindView(R.id.app_bar)
+    AppBarLayout appBar;
+    @BindView(R.id.textview)
+    TextView textview;
 
     private MyFriendsPagerAdapter mAdapter;
     private ArrayList<Fragment> mFragments = new ArrayList<>();
     private ArrayList<String> mChannels = new ArrayList<>();
     private PopupWindow pop;
     private WbShareHandler shareHandler;
-    private List<HomeItemBean.ElementsBean> elements = new ArrayList<>();
+    private List<NewsListItemBean.ElementsBean> elements = new ArrayList<>();
     private String imageurl;
     private String name;
     private String content;
     private String titleUrl;
+    private boolean isOnly = false;
 
-    public static void startToSpecialTopic(Context context, List<HomeItemBean.ElementsBean> specialTopicId, String imageurl, String name, String content, String titleUrl) {
+    public static void startToSpecialTopic(Context context, List<NewsListItemBean.ElementsBean> specialTopicId, String imageurl, String name, String content, String titleUrl) {
         Intent intent = new Intent(context, SpecialTopicActivity.class);
         intent.putExtra("elements", (Serializable) specialTopicId);
         intent.putExtra("imageurl", imageurl);
@@ -103,7 +113,7 @@ public class SpecialTopicActivity extends BaseActivity implements View.OnClickLi
         shareHandler = new WbShareHandler(this);
         shareHandler.registerApp();
 
-        elements = (List<HomeItemBean.ElementsBean>) getIntent().getSerializableExtra("elements");
+        elements = (List<NewsListItemBean.ElementsBean>) getIntent().getSerializableExtra("elements");
         imageurl = getIntent().getStringExtra("imageurl");
         name = getIntent().getStringExtra("name");
         content = getIntent().getStringExtra("content");
@@ -114,17 +124,27 @@ public class SpecialTopicActivity extends BaseActivity implements View.OnClickLi
     }
 
     @Override
+    protected void setSoftInPutMode() {
+//        super.setSoftInPutMode();
+    }
+
+    @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         shareHandler.doResultIntent(intent, this);
     }
 
-    private void initView() {
+    @Override
+    protected void initStateBar() {
+        ImmersionBar.with(this)
+                .transparentStatusBar()
+                .statusBarDarkFont(false)
+                .fitsSystemWindows(false).init();
+//        super.initStateBar();
+//        ImmersionBar.with(this).statusBarColor(R.color.white_lib).statusBarDarkFont(true, 0f).fitsSystemWindows(true).init();
+    }
 
-        idToolbar.setTitle("范团专题");
-        idToolbar.getLeftView().setOnClickListener(this);
-        idToolbar.getRightView().setOnClickListener(this);
-        idToolbar.getRightView().setVisibility(View.VISIBLE);
+    private void initView() {
 
         topicName.setText(name);
         topicContent.setText(content);
@@ -162,11 +182,53 @@ public class SpecialTopicActivity extends BaseActivity implements View.OnClickLi
         tablayout.setFillViewport(false);
         tablayout.setViewPager(viewPager);
 
+
+        idToolbar.setTitle("");
+        setSupportActionBar(idToolbar);
+        idToolbar.setNavigationIcon(R.drawable.icon_back);
+        idToolbar.setNavigationOnClickListener(v -> onBackPressed());
+        idToolbar.setOnMenuItemClickListener(item -> {
+            switch (item.getItemId()) {
+                case R.id.toolbar_r_img:
+                    showPop();
+                    break;
+            }
+            return true;
+        });
+
+
+        appBar.addOnOffsetChangedListener((appBarLayout, verticalOffset) -> {
+
+            int totalScrollRange = appBar.getTotalScrollRange();
+            if (Math.abs(verticalOffset) >= totalScrollRange) {
+                isOnly = true;
+                ImmersionBar.with((Activity) mContext)
+                        .statusBarColor(R.color.white_lib)
+                        .statusBarDarkFont(true, 0.5f)
+                        .fitsSystemWindows(false).init();
+                idToolbar.setBackgroundColor(getResources().getColor(R.color.white_lib));
+                textview.setText(name);
+                textview.setVisibility(View.VISIBLE);
+            } else {
+                if (isOnly) {
+                    ImmersionBar.with((Activity) mContext)
+                            .transparentStatusBar()
+                            .statusBarDarkFont(false)
+                            .fitsSystemWindows(false).init();
+                    idToolbar.setBackgroundColor(getResources().getColor(R.color.translucent_background));
+                    textview.setVisibility(View.INVISIBLE);
+                }
+                isOnly = false;
+            }
+        });
+
     }
 
+    //设置menu（右边图标）
     @Override
-    protected void initStateBar() {
-
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.toolbar, menu); //解析menu布局文件到menu
+        return true;
     }
 
     /**

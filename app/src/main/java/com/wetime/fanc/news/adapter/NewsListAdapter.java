@@ -18,6 +18,7 @@ import com.wetime.fanc.R;
 import com.wetime.fanc.customview.MixtureTextView;
 import com.wetime.fanc.news.act.GalleryActivity;
 import com.wetime.fanc.news.act.RecomentFocusActivity;
+import com.wetime.fanc.news.act.SpecialTopicActivity;
 import com.wetime.fanc.news.bean.NewsListItemBean;
 import com.wetime.fanc.utils.Tools;
 import com.wetime.fanc.web.WebActivity;
@@ -110,11 +111,11 @@ public class NewsListAdapter extends RecyclerView.Adapter {
                         return;
                     if (TextUtils.isEmpty(bean.getSpecial().getIntro()))
                         return;
-//                    SpecialTopicActivity.startToSpecialTopic(mActivity, bean.getElements(),
-//                            bean.getSpecial().getCoverStr(),
-//                            bean.getSpecial().getName(),
-//                            bean.getSpecial().getIntro(),
-//                            bean.getSpecial().getArticle_url());
+                    SpecialTopicActivity.startToSpecialTopic(mActivity, bean.getElements(),
+                            bean.getSpecial().getCover().get(0).getCompress(),
+                            bean.getSpecial().getName(),
+                            bean.getSpecial().getIntro(),
+                            bean.getSpecial().getArticle_url());
                 }
             });
 
@@ -177,15 +178,18 @@ public class NewsListAdapter extends RecyclerView.Adapter {
 
             Double rate = 194.0 / 345;
             int h = (int) (w * rate);
+            if (bean.getSpecial().getCover() != null && bean.getSpecial().getCover().size() > 0) {
 
-            Glide.with(mActivity)
-                    .load(bean.getSpecial().getCoverStr())
-                    .apply(
-                            new RequestOptions()
-                                    .override(w, h)
-                                    .centerCrop()
-                                    .placeholder(R.drawable.iv_default_news_small))
-                    .into(((NewsHolder5) holder).reportcover);
+                Glide.with(mActivity)
+                        .load(bean.getSpecial().getCover().get(0).getCompress())
+                        .apply(
+                                new RequestOptions()
+                                        .override(w, h)
+                                        .centerCrop()
+                                        .placeholder(R.drawable.iv_default_news_small))
+                        .into(((NewsHolder5) holder).reportcover);
+            }
+
         }
 
 
@@ -271,7 +275,6 @@ public class NewsListAdapter extends RecyclerView.Adapter {
                             .override(w, h)
                             .centerCrop()
                             .placeholder(R.drawable.iv_default_news_small))
-
                     .into(((NewsHolder2) holder).ivCover);
         }
 

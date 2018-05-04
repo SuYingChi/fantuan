@@ -490,7 +490,7 @@ public class NewsListItemBean {
         private String coverStr;
         private String status;
         private String createdAt;
-        private List<String> cover;
+        private List<Cover> covers;
         private String article_url;
 
         public String getArticle_url() {
@@ -549,12 +549,12 @@ public class NewsListItemBean {
             this.createdAt = createdAt;
         }
 
-        public List<String> getCover() {
-            return cover;
+        public List<Cover> getCover() {
+            return covers;
         }
 
-        public void setCover(List<String> cover) {
-            this.cover = cover;
+        public void setCover(List<Cover> cover) {
+            this.covers = cover;
         }
     }
 

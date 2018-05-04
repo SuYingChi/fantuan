@@ -289,11 +289,11 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
                         return;
                     if (TextUtils.isEmpty(bean.getSpecial().getIntro()))
                         return;
-                    SpecialTopicActivity.startToSpecialTopic(mActivity, bean.getElements(),
-                            bean.getSpecial().getCoverStr(),
-                            bean.getSpecial().getName(),
-                            bean.getSpecial().getIntro(),
-                            bean.getSpecial().getArticle_url());
+//                    SpecialTopicActivity.startToSpecialTopic(mActivity, bean.getElements(),
+//                            bean.getSpecial().getCoverStr(),
+//                            bean.getSpecial().getName(),
+//                            bean.getSpecial().getIntro(),
+//                            bean.getSpecial().getArticle_url());
                 }
             });
 

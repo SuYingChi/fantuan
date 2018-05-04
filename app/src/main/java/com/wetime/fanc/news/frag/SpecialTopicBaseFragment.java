@@ -19,7 +19,9 @@ import com.wetime.fanc.home.adapter.HomeItemAdapter;
 import com.wetime.fanc.home.bean.HomeItemBean;
 import com.wetime.fanc.home.event.ReFreshNewsEvent;
 import com.wetime.fanc.main.frag.BaseLazyFragment;
+import com.wetime.fanc.news.adapter.NewsListAdapter;
 import com.wetime.fanc.news.bean.NewsListBean;
+import com.wetime.fanc.news.bean.NewsListItemBean;
 import com.wetime.fanc.news.iviews.IGetSpecialNewsTypeView;
 import com.wetime.fanc.news.presenter.GetSpecialNewsTypePresenter;
 
@@ -49,8 +51,8 @@ public class SpecialTopicBaseFragment extends BaseLazyFragment implements OnRefr
     private String total = "";
     private int page = 1;
     private RecyclerView rcl;
-    private List<HomeItemBean> list;
-    private HomeItemAdapter adapter;
+    private List<NewsListItemBean> list;
+    private NewsListAdapter adapter;
     private SmartRefreshLayout refreshLayout;
     private TextView tvRec;
     private AutoLoadMoreAdapter mAutoLoadMoreAdapter;
@@ -95,7 +97,7 @@ public class SpecialTopicBaseFragment extends BaseLazyFragment implements OnRefr
         refreshLayout.setOnRefreshListener(this);
 
         list = new ArrayList<>();
-        adapter = new HomeItemAdapter(list, getActivity());
+        adapter = new NewsListAdapter(list, getActivity());
         rcl = mRootView.findViewById(R.id.rcl_news);
         rcl.setLayoutManager(new LinearLayoutManager(getContext()));
         rcl.setOverScrollMode(View.OVER_SCROLL_NEVER);
@@ -163,12 +165,12 @@ public class SpecialTopicBaseFragment extends BaseLazyFragment implements OnRefr
         refreshLayout.finishRefresh();
         total = bean.getData().getPaging().getTotal();
 
-//        if (page == 1) {
-//            list.clear();
-//            list.addAll(bean.getData().getList());
-//        } else {
-//            list.addAll(bean.getData().getList());
-//        }
+        if (page == 1) {
+            list.clear();
+            list.addAll(bean.getData().getList());
+        } else {
+            list.addAll(bean.getData().getList());
+        }
 
         if (page > 1) {
             mAutoLoadMoreAdapter.finishLoading();

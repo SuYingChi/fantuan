@@ -519,11 +519,8 @@ public class GalleryFragment extends BaseLazyFragment implements IHandlerMessage
     }
 
     public void AttentionFriends() {
-        if (mGalleryActivity.getTextString().equals("已关注")) {//0、取消1、关注
-            getNewsDetailPresenter.attentionFriends("0", gallery.getData().getUid());
-        } else {
             getNewsDetailPresenter.attentionFriends("1", gallery.getData().getUid());
-        }
+
     }
 
 
