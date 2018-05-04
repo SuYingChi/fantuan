@@ -71,6 +71,7 @@ public interface Const {
     String USER_FOCUS_LIST = BASEURL + "/user/focus/list";
     String SOCIAL = BASEURL + "/social";
     String DYNAMIC_DETAIL = BASEURL + "/dynamic/detail";
+//    String DYNAMIC_DETAIL = BASEURL + "/jv/anonymous/qz/dynamic";
     String LONG_DETAIL = BASEURL + "/jv/anonymous/qz/dynamicarticle";
     String DYNAMIC_COMMENT = BASEURL + "/dynamic/comment";
 //    String DYNAMIC_COMMENT_DELETE = BASEURL + "/dynamic/comment/delete";

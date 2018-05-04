@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#F6F6F6"
+    android:orientation="horizontal"
+    android:paddingBottom="5dp">
+
+
+    <TextView
+        android:id="@+id/reply_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:lineSpacingExtra="4sp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:textColor="#333333"
+        android:textSize="14sp"
+        tools:text="海南有趣、有料、有温度的生活圈，分分钟带你吃遍 全海南全海南全海南全海南全海南全海南全海南全..." />
+
+</LinearLayout>

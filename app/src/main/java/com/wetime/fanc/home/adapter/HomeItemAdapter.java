@@ -189,9 +189,11 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
 
 
             ((NewsHolder38) holder).typename.setText(bean.getTitle());
-            Glide.with(mActivity).load(bean.getCover().get(0).getCompress())
-                    .apply(new RequestOptions().centerCrop())
-                    .into(((NewsHolder38) holder).typeimage);
+            if (bean.getCover() != null && bean.getCover().size() > 0) {
+                Glide.with(mActivity).load(bean.getCover().get(0).getCompress())
+                        .apply(new RequestOptions().centerCrop())
+                        .into(((NewsHolder38) holder).typeimage);
+            }
 
             ((NewsHolder38) holder).tvSee.setText(bean.getRead_num());
 //            ((NewsHolder38) holder).tvZannum.setText(bean.getLike_num());

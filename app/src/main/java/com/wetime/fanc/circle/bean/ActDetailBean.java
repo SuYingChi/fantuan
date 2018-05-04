@@ -1,5 +1,6 @@
 package com.wetime.fanc.circle.bean;
 
+import com.google.gson.annotations.SerializedName;
 import com.wetime.fanc.home.bean.Cover;
 
 import java.util.List;
@@ -400,6 +401,11 @@ public class ActDetailBean {
             private boolean is_news;
             private boolean is_owner;
             private boolean to_news;
+            /**
+             * replys : {"paging":{"total":"0","total_page":"1","limit":"10","pn":"1","is_end":true},"list":[{"uid":"3","puid":"2","pid":"1","id":"2","time":"22分钟前","pusername":"哈哈哈哈","content":"33333ssssasd","username":"范范范3"}]}
+             */
+
+            private ReplysBean replys;
 
             public boolean isTo_news() {
                 return to_news;
@@ -487,6 +493,182 @@ public class ActDetailBean {
 
             public void setIs_news(boolean is_news) {
                 this.is_news = is_news;
+            }
+
+            public ReplysBean getReplys() {
+                return replys;
+            }
+
+            public void setReplys(ReplysBean replys) {
+                this.replys = replys;
+            }
+
+            public static class ReplysBean {
+                /**
+                 * paging : {"total":"0","total_page":"1","limit":"10","pn":"1","is_end":true}
+                 * list : [{"uid":"3","puid":"2","pid":"1","id":"2","time":"22分钟前","pusername":"哈哈哈哈","content":"33333ssssasd","username":"范范范3"}]
+                 */
+
+                private PagingBean paging;
+                private List<ListBean> list;
+
+                public PagingBean getPaging() {
+                    return paging;
+                }
+
+                public void setPaging(PagingBean paging) {
+                    this.paging = paging;
+                }
+
+                public List<ListBean> getList() {
+                    return list;
+                }
+
+                public void setList(List<ListBean> list) {
+                    this.list = list;
+                }
+
+                public static class PagingBean {
+                    /**
+                     * total : 0
+                     * total_page : 1
+                     * limit : 10
+                     * pn : 1
+                     * is_end : true
+                     */
+
+                    private String total;
+                    private String total_page;
+                    private String limit;
+                    private String pn;
+                    private boolean is_end;
+
+                    public String getTotal() {
+                        return total;
+                    }
+
+                    public void setTotal(String total) {
+                        this.total = total;
+                    }
+
+                    public String getTotal_page() {
+                        return total_page;
+                    }
+
+                    public void setTotal_page(String total_page) {
+                        this.total_page = total_page;
+                    }
+
+                    public String getLimit() {
+                        return limit;
+                    }
+
+                    public void setLimit(String limit) {
+                        this.limit = limit;
+                    }
+
+                    public String getPn() {
+                        return pn;
+                    }
+
+                    public void setPn(String pn) {
+                        this.pn = pn;
+                    }
+
+                    public boolean isIs_end() {
+                        return is_end;
+                    }
+
+                    public void setIs_end(boolean is_end) {
+                        this.is_end = is_end;
+                    }
+                }
+
+                public static class ListBean {
+                    /**
+                     * uid : 3
+                     * puid : 2
+                     * pid : 1
+                     * id : 2
+                     * time : 22分钟前
+                     * pusername : 哈哈哈哈
+                     * content : 33333ssssasd
+                     * username : 范范范3
+                     */
+
+                    private String uid;
+                    private String puid;
+                    private String pid;
+                    private String id;
+                    private String time;
+                    private String pusername;
+                    private String content;
+                    private String username;
+
+                    public String getUid() {
+                        return uid;
+                    }
+
+                    public void setUid(String uid) {
+                        this.uid = uid;
+                    }
+
+                    public String getPuid() {
+                        return puid;
+                    }
+
+                    public void setPuid(String puid) {
+                        this.puid = puid;
+                    }
+
+                    public String getPid() {
+                        return pid;
+                    }
+
+                    public void setPid(String pid) {
+                        this.pid = pid;
+                    }
+
+                    public String getId() {
+                        return id;
+                    }
+
+                    public void setId(String id) {
+                        this.id = id;
+                    }
+
+                    public String getTime() {
+                        return time;
+                    }
+
+                    public void setTime(String time) {
+                        this.time = time;
+                    }
+
+                    public String getPusername() {
+                        return pusername;
+                    }
+
+                    public void setPusername(String pusername) {
+                        this.pusername = pusername;
+                    }
+
+                    public String getContent() {
+                        return content;
+                    }
+
+                    public void setContent(String content) {
+                        this.content = content;
+                    }
+
+                    public String getUsername() {
+                        return username;
+                    }
+
+                    public void setUsername(String username) {
+                        this.username = username;
+                    }
+                }
             }
         }
     }

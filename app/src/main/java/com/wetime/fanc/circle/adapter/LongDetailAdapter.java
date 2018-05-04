@@ -30,7 +30,6 @@ import com.wetime.fanc.circle.bean.ActDetailBean;
 import com.wetime.fanc.circle.bean.LongBean;
 import com.wetime.fanc.circle.bean.LongTextBean;
 import com.wetime.fanc.circle.presenter.FocusPresenter;
-import com.wetime.fanc.customview.GridViewForScrollView;
 import com.wetime.fanc.customview.SpaceItemDecoration;
 import com.wetime.fanc.login.act.LoginActivity;
 import com.wetime.fanc.my.act.UserCardActivity;
@@ -182,16 +181,11 @@ public class LongDetailAdapter extends RecyclerView.Adapter {
             }
         }
         if (holder instanceof ViewHolder1) {
-            ((ViewHolder1) holder).tvZannum.setText(String.format("%s人点赞", actDetailBean.getData().getLike_num()));
-            CircleImageGridAdapter adapter = new CircleImageGridAdapter(mActivity, actDetailBean.getData().getLike_list());
-            ((ViewHolder1) holder).gv.setAdapter(adapter);
-            adapter.notifyDataSetChanged();
             if (actDetailBean.getData().getComment_num().equals("0")) {
-                ((ViewHolder1) holder).tvComm.setText("暂无评论");
-                ((ViewHolder1) holder).llEmpty.setVisibility(View.VISIBLE);
+                ((ViewHolder1) holder).itemView.setVisibility(View.GONE);
             } else {
+                ((ViewHolder1) holder).itemView.setVisibility(View.VISIBLE);
                 ((ViewHolder1) holder).tvComm.setText(String.format("%s条评论", actDetailBean.getData().getComment_num()));
-                ((ViewHolder1) holder).llEmpty.setVisibility(View.GONE);
             }
 
         }
@@ -249,6 +243,9 @@ public class LongDetailAdapter extends RecyclerView.Adapter {
                 ((LongDetailActivity) mActivity).showKeyborad();
             }, 0));
             Glide.with(mActivity).load(bean.getAvatar()).into(((ViewHolder2) holder).ivHead);
+            ((ViewHolder2) holder).commentreply.setLayoutManager(new LinearLayoutManager(mActivity));
+            ((ViewHolder2) holder).commentreply.setAdapter(new CommentReplyAdapter(mActivity, R.layout.item_commen_reply, bean.getReplys().getList()));
+
             ((ViewHolder2) holder).ivHead.setOnClickListener(view -> {
                 Intent go = new Intent(mActivity, UserCardActivity.class);
                 go.putExtra("num", bean.isIs_news() ? "3" : "2");
@@ -323,14 +320,8 @@ public class LongDetailAdapter extends RecyclerView.Adapter {
     }
 
     class ViewHolder1 extends RecyclerView.ViewHolder {
-        @BindView(R.id.tv_zannum)
-        TextView tvZannum;
         @BindView(R.id.tv_commentnum)
         TextView tvComm;
-        @BindView(R.id.gv)
-        GridViewForScrollView gv;
-        @BindView(R.id.ll_empty)
-        RelativeLayout llEmpty;
 
         ViewHolder1(View view) {
             super(view);
@@ -349,6 +340,8 @@ public class LongDetailAdapter extends RecyclerView.Adapter {
         CircleImageView ivHead;
         @BindView(R.id.iv_delete)
         RelativeLayout ivdelete;
+        @BindView(R.id.comment_reply)
+        RecyclerView commentreply;
 
         ViewHolder2(View view) {
             super(view);

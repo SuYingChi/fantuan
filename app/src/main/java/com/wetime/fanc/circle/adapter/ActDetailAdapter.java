@@ -90,20 +90,15 @@ public class ActDetailAdapter extends RecyclerView.Adapter {
             if (TextUtils.isEmpty(actDetailBean.getData().getContent())) {
                 ((ViewHolder0) holder).tvContent.setVisibility(View.GONE);
             }
-            if (actDetailBean.getData().isIs_owner()) {
-                ((ViewHolder0) holder).tvFocus.setVisibility(View.GONE);
-            } else {
-                ((ViewHolder0) holder).tvFocus.setVisibility(View.VISIBLE);
-            }
 
             if (actDetailBean.getData().isIs_follow()) {
-                ((ViewHolder0) holder).tvFocus.setText("已关注");
-                ((ViewHolder0) holder).tvFocus.setTextColor(ContextCompat.getColor(mActivity, R.color.text_hint));
-                ((ViewHolder0) holder).tvFocus.setBackgroundResource(R.drawable.bg_btn_gray_circle);
+                ((ViewHolder0) holder).tvFocus.setVisibility(View.GONE);
             } else {
-                ((ViewHolder0) holder).tvFocus.setText("关注");
-                ((ViewHolder0) holder).tvFocus.setTextColor(ContextCompat.getColor(mActivity, R.color.white));
-                ((ViewHolder0) holder).tvFocus.setBackgroundResource(R.drawable.bg_btn_red_corner);
+                if (actDetailBean.getData().isIs_owner()) {
+                    ((ViewHolder0) holder).tvFocus.setVisibility(View.GONE);
+                } else {
+                    ((ViewHolder0) holder).tvFocus.setVisibility(View.VISIBLE);
+                }
             }
             ((ViewHolder0) holder).tvFocus.setOnClickListener(v -> {
                 FocusPresenter focusPresenter = new FocusPresenter();
@@ -117,15 +112,26 @@ public class ActDetailAdapter extends RecyclerView.Adapter {
                 focusPresenter.focusUser(mActivity, Tools.getSpu(mActivity).getToken(),
                         actDetailBean.getData().isIs_follow() ? "1" : "0",
                         actDetailBean.getData().getUid());
+//                if (actDetailBean.getData().isIs_follow()) {
+//                    ((ViewHolder0) holder).tvFocus.setText("已关注");
+//                    ((ViewHolder0) holder).tvFocus.setTextColor(ContextCompat.getColor(mActivity, R.color.text_hint));
+//                    ((ViewHolder0) holder).tvFocus.setBackgroundResource(R.drawable.bg_btn_gray_circle);
+//                } else {
+//                    ((ViewHolder0) holder).tvFocus.setText("关注");
+//                    ((ViewHolder0) holder).tvFocus.setTextColor(ContextCompat.getColor(mActivity, R.color.white));
+//                    ((ViewHolder0) holder).tvFocus.setBackgroundResource(R.drawable.bg_btn_red_corner);
+//                }
+
                 if (actDetailBean.getData().isIs_follow()) {
-                    ((ViewHolder0) holder).tvFocus.setText("已关注");
-                    ((ViewHolder0) holder).tvFocus.setTextColor(ContextCompat.getColor(mActivity, R.color.text_hint));
-                    ((ViewHolder0) holder).tvFocus.setBackgroundResource(R.drawable.bg_btn_gray_circle);
+                    ((ViewHolder0) holder).tvFocus.setVisibility(View.GONE);
                 } else {
-                    ((ViewHolder0) holder).tvFocus.setText("关注");
-                    ((ViewHolder0) holder).tvFocus.setTextColor(ContextCompat.getColor(mActivity, R.color.white));
-                    ((ViewHolder0) holder).tvFocus.setBackgroundResource(R.drawable.bg_btn_red_corner);
+                    if (actDetailBean.getData().isIs_owner()) {
+                        ((ViewHolder0) holder).tvFocus.setVisibility(View.GONE);
+                    } else {
+                        ((ViewHolder0) holder).tvFocus.setVisibility(View.VISIBLE);
+                    }
                 }
+
             });
 
             if (actDetailBean.getData().getCover().size() == 0) {
@@ -138,15 +144,19 @@ public class ActDetailAdapter extends RecyclerView.Adapter {
                 int sw = Tools.getScreenW(mActivity);
                 if (actDetailBean.getData().getType() == 19) {
                     ((ViewHolder0) holder).gv.setNumColumns(3);
-                    params.width = sw - Tools.dip2px(mActivity, 15 + 15);
+                    ((ViewHolder0) holder).gv.setHorizontalSpacing(6);
+                    ((ViewHolder0) holder).gv.setVerticalSpacing(6);
+//                    params.width = sw - Tools.dip2px(mActivity, 15 + 15);
                 } else if (actDetailBean.getData().getType() == 14) {//四宫格
                     ((ViewHolder0) holder).gv.setNumColumns(2);
+                    ((ViewHolder0) holder).gv.setHorizontalSpacing(6);
+                    ((ViewHolder0) holder).gv.setVerticalSpacing(6);
                     int w = (sw - Tools.dip2px(mActivity, 15 + 15 + 6 + 6)) / 3;
-                    params.width = w * 2 + Tools.dip2px(mActivity, 6);//设置当前控件布局的高度
+//                    params.width = w * 2 + Tools.dip2px(mActivity, 6);//设置当前控件布局的高度
                 } else {//单图
-                    params.width = sw - Tools.dip2px(mActivity, 6 + 6);
+//                    params.width = sw - Tools.dip2px(mActivity, 6 + 6);
                 }
-
+                params.width = sw;
                 ((ViewHolder0) holder).gv.setLayoutParams(params);
                 ((ViewHolder0) holder).gv.setAdapter(gvadapter);
 //            gvadapter.notifyDataSetChanged();
@@ -180,16 +190,11 @@ public class ActDetailAdapter extends RecyclerView.Adapter {
             }
         }
         if (holder instanceof ViewHolder1) {
-            ((ViewHolder1) holder).tvZannum.setText(String.format("%s人点赞", actDetailBean.getData().getLike_num()));
-            CircleImageGridAdapter adapter = new CircleImageGridAdapter(mActivity, actDetailBean.getData().getLike_list());
-            ((ViewHolder1) holder).gv.setAdapter(adapter);
-            adapter.notifyDataSetChanged();
             if (actDetailBean.getData().getComment_num() == 0) {
-                ((ViewHolder1) holder).tvComm.setText("暂无评论");
-                ((ViewHolder1) holder).llEmpty.setVisibility(View.VISIBLE);
+                ((ViewHolder1) holder).itemView.setVisibility(View.GONE);
             } else {
                 ((ViewHolder1) holder).tvComm.setText(String.format("%s条评论", actDetailBean.getData().getComment_num()));
-                ((ViewHolder1) holder).llEmpty.setVisibility(View.GONE);
+                ((ViewHolder1) holder).itemView.setVisibility(View.VISIBLE);
             }
 
         }
@@ -241,6 +246,8 @@ public class ActDetailAdapter extends RecyclerView.Adapter {
 
                 ((ViewHolder2) holder).tvContent.setText(s1);
             }
+
+
             ((ViewHolder2) holder).tvContent.setOnClickListener(v -> {
                 ((ActDetailActivity) mActivity).toId = bean.getUid();
                 ((ActDetailActivity) mActivity).etContent.setHint("回复 " + bean.getUsername());
@@ -298,6 +305,12 @@ public class ActDetailAdapter extends RecyclerView.Adapter {
         TextView tvAddres;
         @BindView(R.id.iv_onwer)
         ImageView ivOnwer;
+        @BindView(R.id.zan_civ1)
+        ImageView zanciv1;
+        @BindView(R.id.zan_civ2)
+        ImageView zanciv2;
+        @BindView(R.id.zan_civ3)
+        ImageView zanciv3;
         @BindView(R.id.tv_time)
         TextView tvTime;
         @BindView(R.id.ll_head_circle)
@@ -321,14 +334,8 @@ public class ActDetailAdapter extends RecyclerView.Adapter {
     }
 
     class ViewHolder1 extends RecyclerView.ViewHolder {
-        @BindView(R.id.tv_zannum)
-        TextView tvZannum;
         @BindView(R.id.tv_commentnum)
         TextView tvComm;
-        @BindView(R.id.gv)
-        GridViewForScrollView gv;
-        @BindView(R.id.ll_empty)
-        RelativeLayout llEmpty;
 
         ViewHolder1(View view) {
             super(view);
@@ -347,6 +354,8 @@ public class ActDetailAdapter extends RecyclerView.Adapter {
         CircleImageView ivHead;
         @BindView(R.id.iv_delete)
         RelativeLayout ivdelete;
+        @BindView(R.id.comment_reply)
+        RecyclerView commentreply;
 
         ViewHolder2(View view) {
             super(view);

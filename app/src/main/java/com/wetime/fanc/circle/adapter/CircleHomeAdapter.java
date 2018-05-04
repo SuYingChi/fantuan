@@ -243,7 +243,7 @@ public class CircleHomeAdapter extends RecyclerView.Adapter {
             } else {
                 ((NewsHolder19) holder).tvContent.setVisibility(View.VISIBLE);
             }
-            if (bean.getCover().size() == 0) {
+            if (bean.getCover() == null || bean.getCover().size() == 0) {
                 ((NewsHolder19) holder).gv.setVisibility(View.GONE);
             } else {
                 ((NewsHolder19) holder).gv.setVisibility(View.VISIBLE);
@@ -355,9 +355,11 @@ public class CircleHomeAdapter extends RecyclerView.Adapter {
             ((NewsHolder18) holder).tvTime.setText(bean.getTime());
 
             ((NewsHolder18) holder).typename.setText(bean.getTitle());
-            Glide.with(mActivity).load(bean.getCover().get(0))
-                    .apply(new RequestOptions().centerCrop())
-                    .into(((NewsHolder18) holder).typeimage);
+            if (bean.getCover() != null && bean.getCover().size() > 0) {
+                Glide.with(mActivity).load(bean.getCover().get(0))
+                        .apply(new RequestOptions().centerCrop())
+                        .into(((NewsHolder18) holder).typeimage);
+            }
 
             ((NewsHolder18) holder).tvSee.setText(bean.getRead_num());
             ((NewsHolder18) holder).tvZannum.setText(bean.getLike_num());
