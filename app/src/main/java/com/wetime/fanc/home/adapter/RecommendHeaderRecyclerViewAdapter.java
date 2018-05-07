@@ -126,7 +126,7 @@ class RecommendHeaderRecyclerViewAdapter extends RecyclerView.Adapter  {
 
 
 
-    private class RecommendHeaderViewHolder extends RecyclerView.ViewHolder {
+    public static class RecommendHeaderViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.circle_image)
         ImageView circleImage;
         @BindView(R.id.recommend_circle_name)

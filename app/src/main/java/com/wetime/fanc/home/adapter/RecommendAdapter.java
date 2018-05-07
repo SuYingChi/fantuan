@@ -375,7 +375,7 @@ public class RecommendAdapter extends RecyclerView.Adapter {
         }
     }
 
-    private class RecommendHeaderViewHolder extends RecyclerView.ViewHolder {
+    public static class RecommendHeaderViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.banner)
         Banner banner;
         @BindView(R.id.rcl_circle)

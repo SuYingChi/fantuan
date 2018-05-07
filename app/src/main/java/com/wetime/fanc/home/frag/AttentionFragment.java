@@ -33,16 +33,16 @@ import butterknife.BindView;
 public class AttentionFragment extends BaseLazyFragment implements IAttentionView, OnRefreshListener {
 
     @BindView(R.id.rcl_home_attention)
-    private RecyclerView rcl;
+     RecyclerView rcl;
     @BindView(R.id.refreshLayout_attention)
-    private SmartRefreshLayout refreshLayout;
+     SmartRefreshLayout refreshLayout;
     @BindView(R.id.rl_empty)
-    private RelativeLayout rlEmpty;
-    private AttentionFragmentPresenter attentionFragmentPresenter;
-    private List<HeadAttentionBean.DataBean.ListBean> list=new ArrayList<HeadAttentionBean.DataBean.ListBean>();
-    private AttentionAdapter adapter;
-    private int page=1;
-    private AutoLoadMoreAdapter autoLoadMoreAdapter;
+     RelativeLayout rlEmpty;
+     AttentionFragmentPresenter attentionFragmentPresenter;
+     List<HeadAttentionBean.DataBean.ListBean> list=new ArrayList<HeadAttentionBean.DataBean.ListBean>();
+     AttentionAdapter adapter;
+     int page=1;
+     AutoLoadMoreAdapter autoLoadMoreAdapter;
 
  /*   @Nullable
     @Override
