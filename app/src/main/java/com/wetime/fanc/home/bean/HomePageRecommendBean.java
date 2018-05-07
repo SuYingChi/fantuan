@@ -6,7 +6,7 @@ import java.util.List;
  * Created by admin on 2018/5/6.
  */
 
-public class HeadRecommendBean {
+public class HomePageRecommendBean {
 
     /**
      * error : 0

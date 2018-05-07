@@ -1,39 +1,36 @@
 package com.wetime.fanc.home.presenter;
 
 import com.fan.http.okhttp.OkHttpUtils;
-import com.wetime.fanc.home.bean.HeadAttentionBean;
-import com.wetime.fanc.home.iviews.IAttentionView;
+import com.wetime.fanc.home.bean.HomePageCircleBean;
+import com.wetime.fanc.home.iviews.IHomePageCircleView;
 import com.wetime.fanc.utils.Const;
 import com.wetime.fanc.utils.DataStringCallback;
 import com.wetime.fanc.utils.GsonUtils;
 
 /**
- * Created by admin on 2018/5/4.
+ * Created by admin on 2018/5/7.
  */
 
-public class AttentionFragmentPresenter {
+public class HomePageCircleFragmentPresenter {
+    private IHomePageCircleView iView;
 
-    private IAttentionView iView;
-
-    public AttentionFragmentPresenter(IAttentionView iView) {
+    public HomePageCircleFragmentPresenter(IHomePageCircleView iView) {
         this.iView = iView;
     }
 
-    public void getAttentionPage() {
+    public void getCircles() {
         OkHttpUtils
                 .post()
-                .url(Const.FOLLOW_INGDYNAMICS)
+                .url(Const.ALL_CIRCLE)
                 .addHeader("token",iView.getToken())
-                .addParams("pn",iView.getPage() )
-                .addParams("limit", "20")
                 .build()
                 .execute(new DataStringCallback(iView, false) {
                     @Override
                     public void onResponse(String s, int i) {
                         super.onResponse(s, i);
-                        HeadAttentionBean bean = GsonUtils.getGsonInstance().fromJson(s, HeadAttentionBean.class);
+                        HomePageCircleBean bean = GsonUtils.getGsonInstance().fromJson(s, HomePageCircleBean.class);
                         if (bean.getError() == 0) {
-                            iView.onGetAttention(bean);
+                            iView.onGetCircle(bean);
                         }
 
                     }

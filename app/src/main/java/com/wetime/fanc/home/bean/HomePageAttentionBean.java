@@ -6,7 +6,7 @@ import java.util.List;
  * Created by admin on 2018/5/4.
  */
 
-public class HeadAttentionBean {
+public class HomePageAttentionBean {
 
     /**
      * error : 0

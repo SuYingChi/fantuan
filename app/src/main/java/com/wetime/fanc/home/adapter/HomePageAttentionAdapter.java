@@ -25,7 +25,7 @@ import com.wetime.fanc.circle.act.LongDetailActivity;
 import com.wetime.fanc.circle.adapter.NineImageGridListAdapter;
 import com.wetime.fanc.circle.presenter.ZanActPresenter;
 import com.wetime.fanc.customview.CanDoBlankGridView;
-import com.wetime.fanc.home.bean.HeadAttentionBean;
+import com.wetime.fanc.home.bean.HomePageAttentionBean;
 import com.wetime.fanc.login.act.LoginActivity;
 import com.wetime.fanc.my.act.UserCardActivity;
 import com.wetime.fanc.utils.Tools;
@@ -40,13 +40,13 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * Created by admin on 2018/5/4.
  */
 
-public class AttentionAdapter extends RecyclerView.Adapter {
+public class HomePageAttentionAdapter extends RecyclerView.Adapter {
 
-    private final List<HeadAttentionBean.DataBean.ListBean> list;
+    private final List<HomePageAttentionBean.DataBean.ListBean> list;
     private final Activity activity;
     private final LayoutInflater inflater;
 
-    public AttentionAdapter(List<HeadAttentionBean.DataBean.ListBean> list, Activity activity){
+    public HomePageAttentionAdapter(List<HomePageAttentionBean.DataBean.ListBean> list, Activity activity){
       this.list=list;
       this.activity=activity;
       this.inflater = LayoutInflater.from(activity);
@@ -68,7 +68,7 @@ public class AttentionAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        HeadAttentionBean.DataBean.ListBean bean = list.get(position);
+        HomePageAttentionBean.DataBean.ListBean bean = list.get(position);
         int type = Integer.valueOf(bean.getType());
         holder.itemView.setOnClickListener(view -> {
             switch (type) {
@@ -180,7 +180,7 @@ public class AttentionAdapter extends RecyclerView.Adapter {
             }*/
         }
          else    if (holder instanceof AttentionHolder18) {
-//            ((NewsHolder18) holder).typelinear.setOnClickListener(view -> {
+//            ((NewsHolder18) holder).typelinear.setOnItemClickListener(view -> {
 //                if (bean.getType() != -1) {
 //                    LongDetailActivity.startToLongDetail(mActivity, bean.getId());
 //                }

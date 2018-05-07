@@ -134,7 +134,7 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
         HomeItemBean bean = list.get(position);
 
 //        if (mOnItemClickLitener != null) {
-//            holder.itemView.setOnClickListener(view -> mOnItemClickLitener.onItemClick(view, position));
+//            holder.itemView.setOnItemClickListener(view -> mOnItemClickLitener.onItemClick(view, position));
 //        }
         //点击
         holder.itemView.setOnClickListener(view -> {
@@ -368,7 +368,7 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
         }
 
         if (holder instanceof NewsHolder18) {
-//            ((NewsHolder18) holder).typelinear.setOnClickListener(view -> {
+//            ((NewsHolder18) holder).typelinear.setOnItemClickListener(view -> {
 //                if (bean.getType() != -1) {
 //                    LongDetailActivity.startToLongDetail(mActivity, bean.getId());
 //                }

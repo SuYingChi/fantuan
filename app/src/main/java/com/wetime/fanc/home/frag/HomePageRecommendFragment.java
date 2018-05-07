@@ -12,11 +12,11 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 import com.wetime.fanc.R;
-import com.wetime.fanc.home.adapter.RecommendAdapter;
-import com.wetime.fanc.home.bean.HeadRecommendBean;
+import com.wetime.fanc.home.adapter.HomePageRecommendAdapter;
+import com.wetime.fanc.home.bean.HomePageRecommendBean;
 import com.wetime.fanc.home.event.ReFreshCircleEvent;
-import com.wetime.fanc.home.iviews.IRecommendView;
-import com.wetime.fanc.home.presenter.RecommendPresenter;
+import com.wetime.fanc.home.iviews.IHomePageRecommendView;
+import com.wetime.fanc.home.presenter.HomePageRecommendFragmentPresenter;
 import com.wetime.fanc.main.frag.BaseLazyFragment;
 import com.wetime.fanc.utils.GsonUtils;
 import com.wetime.fanc.utils.SimpleCatchKey;
@@ -34,7 +34,7 @@ import butterknife.BindView;
  * Created by admin on 2018/5/3.
  */
 
-public class RecommendFragment extends BaseLazyFragment implements OnRefreshLoadMoreListener ,IRecommendView{
+public class HomePageRecommendFragment extends BaseLazyFragment implements OnRefreshLoadMoreListener ,IHomePageRecommendView {
     @BindView(R.id.refreshLayout_recommend)
     SmartRefreshLayout refreshLayout;
     @BindView(R.id.rcl_recommend)
@@ -42,21 +42,23 @@ public class RecommendFragment extends BaseLazyFragment implements OnRefreshLoad
     @BindView(R.id.rl_empty)
     RelativeLayout emptey;
     private int page=1;
-    private RecommendAdapter adapter;
+    private HomePageRecommendAdapter adapter;
     private AutoLoadMoreAdapter autoLoadMoreAdapter;
-    private List<HeadRecommendBean.DataBean.ListBean> list= new ArrayList<HeadRecommendBean.DataBean.ListBean>();
+    private List<HomePageRecommendBean.DataBean.ListBean> list= new ArrayList<HomePageRecommendBean.DataBean.ListBean>();
 
-    private RecommendPresenter recommendPresenter;
+    private HomePageRecommendFragmentPresenter homePageRecommendFragmentPresenter;
+
+
 
     @Override
     protected void refresh() {
-        super.refresh();
+        onRefresh(refreshLayout);
     }
 
 
     @Override
     protected int setLayoutId() {
-        return R.layout.fragment_first_recommend;
+        return R.layout.fragment_home_page_recommend;
     }
 
     @Override
@@ -67,7 +69,7 @@ public class RecommendFragment extends BaseLazyFragment implements OnRefreshLoad
         refreshLayout.setEnableLoadMore(false);
         if (!TextUtils.isEmpty(spu.getValue(SimpleCatchKey.catch_recommend))) {
             onGetRecommend(GsonUtils.getGsonInstance().fromJson(
-                    spu.getValue(SimpleCatchKey.catch_recommend), HeadRecommendBean.class));
+                    spu.getValue(SimpleCatchKey.catch_recommend), HomePageRecommendBean.class));
         }
     }
 
@@ -78,21 +80,21 @@ public class RecommendFragment extends BaseLazyFragment implements OnRefreshLoad
 
     @Override
     public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-
+        homePageRecommendFragmentPresenter.getRecommend();
     }
 
     @Override
     protected void initData() {
-        recommendPresenter =  new RecommendPresenter(this);
-        recommendPresenter.getRecommend();
+        homePageRecommendFragmentPresenter =  new HomePageRecommendFragmentPresenter(this);
+        homePageRecommendFragmentPresenter.getRecommend();
     }
 
     @Override
-    public void onGetRecommend(HeadRecommendBean headRecommendBean) {
+    public void onGetRecommend(HomePageRecommendBean homePageRecommendBean) {
         refreshLayout.finishRefresh(1000);
         if (adapter == null) {
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-            adapter = new RecommendAdapter(headRecommendBean.getData().getBanner(), headRecommendBean.getData().getCircles(), list, getActivity());
+            adapter = new HomePageRecommendAdapter(homePageRecommendBean.getData().getBanner(), homePageRecommendBean.getData().getCircles(), list, getActivity());
             autoLoadMoreAdapter = new AutoLoadMoreAdapter(getContext(), adapter);
             autoLoadMoreAdapter.setOnLoadListener(new AutoLoadMoreAdapter.OnLoadListener() {
                 @Override
@@ -103,25 +105,25 @@ public class RecommendFragment extends BaseLazyFragment implements OnRefreshLoad
                 @Override
                 public void onLoadMore() {
                     page++;
-                    recommendPresenter.getRecommend();
+                    homePageRecommendFragmentPresenter.getRecommend();
                 }
             });
             recyclerView.setAdapter(autoLoadMoreAdapter);
         }
 
 //
-        adapter.setCirccles(headRecommendBean.getData().getCircles());
-        adapter.setBanner(headRecommendBean.getData().getBanner());
+        adapter.setCirccles(homePageRecommendBean.getData().getCircles());
+        adapter.setBanner(homePageRecommendBean.getData().getBanner());
 
 
         if (page == 1) {
             list.clear();
-            spu.setValue(SimpleCatchKey.catch_recommend, GsonUtils.getGsonInstance().toJson(headRecommendBean));
+            spu.setValue(SimpleCatchKey.catch_recommend, GsonUtils.getGsonInstance().toJson(homePageRecommendBean));
         }
-        if (headRecommendBean.getData().getPaging().isIs_end()) {
+        if (homePageRecommendBean.getData().getPaging().isIs_end()) {
             autoLoadMoreAdapter.disable();
         }
-        list.addAll(headRecommendBean.getData().getList());
+        list.addAll(homePageRecommendBean.getData().getList());
         autoLoadMoreAdapter.notifyDataSetChanged();
         adapter.notifyDataSetChanged();
 
