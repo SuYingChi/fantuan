@@ -46,7 +46,12 @@ class HomePageRecommendHeaderRecyclerViewAdapter extends RecyclerView.Adapter  {
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new RecommendHeaderViewHolder(inflate.inflate(R.layout.item_recommend_circle, parent, false));
+        View itemView = inflate.inflate(R.layout.item_recommend_circle, parent, false);
+        ViewGroup.LayoutParams layoutParams = itemView.getLayoutParams();
+        layoutParams.width = ((Tools.getScreenW(activity) - Tools.dip2px(activity, 10 + 10)) / 4);
+        itemView.setLayoutParams(layoutParams);
+        return new RecommendHeaderViewHolder(itemView);
+
     }
 
     @Override
