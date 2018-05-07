@@ -29,6 +29,7 @@ import com.wetime.fanc.utils.GsonUtils;
 import com.wetime.fanc.utils.SimpleCatchKey;
 import com.wetime.fanc.utils.Tools;
 import com.wetime.fanc.weex.WeexLocalActivity;
+import com.wetime.fanc.weex.WeexURLActivity;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -75,8 +76,10 @@ public class NewsLazyFragment extends BaseLazyFragment implements IGetMyChannelV
         mRootView.findViewById(R.id.iv_edit).setOnClickListener(view -> {
 //            Tools.goActivity(getContext(), ChannelActivity.class);
             //add by zhoukang  测试weex用的
-            WeexLocalActivity.startWeexLocalActivity(getContext(),"Fan.js");
+//            WeexLocalActivity.startWeexLocalActivity(getContext(),"Fan.js");
+            WeexURLActivity.startWeexURLActivity(getContext(),"http://192.168.11.139:8081/dist/Fan.js");
         });
+
         vp = mRootView.findViewById(R.id.vp);
 
 
