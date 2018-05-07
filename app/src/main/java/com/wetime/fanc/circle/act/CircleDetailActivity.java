@@ -2,8 +2,13 @@ package com.wetime.fanc.circle.act;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
@@ -24,6 +29,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.gyf.barlibrary.ImmersionBar;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -191,9 +198,6 @@ public class CircleDetailActivity extends BaseActivity implements IGetCircleHead
             }
         });
         FloatingActionButton.setOnClickListener(v -> {
-//            ObjectAnimator rotation = ObjectAnimator.ofFloat(FloatingActionButton, "rotation", rotationNub, rotationNub + 45);
-//            rotation.setDuration(200);
-//            rotation.start();
             Animation operatingAnim = AnimationUtils.loadAnimation(CircleDetailActivity.this, R.anim.rotate_anim);
             LinearInterpolator lin = new LinearInterpolator();
             operatingAnim.setFillAfter(true);
@@ -227,16 +231,32 @@ public class CircleDetailActivity extends BaseActivity implements IGetCircleHead
     }
     @Override
     public void onGetCircleHead(CircleHeadBean bean) {
+        int sw = Tools.getScreenW(this);
+        int w = sw - Tools.dip2px(this, 15 + 15);
+        Double rate = 194.0 / 345;
+        int h = (int) (w * rate);
         RequestOptions myOptions = new RequestOptions()
                 .transform(new GlideRoundTransform(mContext, 5));
         Glide.with(getApplicationContext())
                 .load(bean.getData().getCover_url())
                 .apply(myOptions)
                 .into(ivCover);
+
+        Glide.with(getApplicationContext())
+                .load(bean.getData().getCover_url())
+                .apply(myOptions.override(w, h))
+                .into(new SimpleTarget<Drawable>() {
+                    @Override
+                    public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
+                        Bitmap bitmap = Tools.blurBitmap(CircleDetailActivity.this, Tools.drawableToBitmap(resource), 20);
+                        llHeadinfo.setBackground(new BitmapDrawable(CircleDetailActivity.this.getResources(), bitmap));
+                    }
+                });
+
+
 //        tvCirclename.setText(bean.getData().getName());
 
         CollapsingToolbarLayout.setTitle(bean.getData().getName());
-
         CollapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.myCollaTitleSize);
         CollapsingToolbarLayout.setExpandedTitleColor(Color.WHITE);
 

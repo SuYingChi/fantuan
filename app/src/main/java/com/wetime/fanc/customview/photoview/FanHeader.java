@@ -18,13 +18,18 @@ import com.wetime.fanc.R;
 
 public class FanHeader extends LinearLayout implements RefreshHeader {
     private View mHeadView;
-    private ImageView mHeaderImage;
-    private  Animation rotate;
+    private ImageView mHeaderImageNor;
+    private ImageView mHeaderImageRe;
+    private Animation rotate;
+    private Animation alpha;
+
     public FanHeader(Context context) {
         super(context);
         mHeadView = LayoutInflater.from(context).inflate(R.layout.item_fanheader, null);
-        mHeaderImage= mHeadView.findViewById(R.id.iv_header);
-        rotate = AnimationUtils.loadAnimation(context, R.anim.anim_referesh_header);
+        mHeaderImageNor = mHeadView.findViewById(R.id.iv_header_nor);
+        mHeaderImageRe = mHeadView.findViewById(R.id.iv_header_re);
+        rotate = AnimationUtils.loadAnimation(context, R.anim.anim_referesh_rotate);
+        alpha = AnimationUtils.loadAnimation(context, R.anim.anim_referesh_alpha);
     }
 
     @NonNull
@@ -61,14 +66,16 @@ public class FanHeader extends LinearLayout implements RefreshHeader {
 
     @Override
     public void onStartAnimator(@NonNull RefreshLayout refreshLayout, int height, int maxDragHeight) {
-        mHeaderImage.setImageResource(R.drawable.ic_fan_header_refreshing);
-        mHeaderImage.startAnimation(rotate);
+//        mHeaderImageRe.setImageResource(R.drawable.ic_fan_header_refreshing);
+        mHeaderImageRe.startAnimation(rotate);
+        mHeaderImageNor.startAnimation(alpha);
     }
 
     @Override
     public int onFinish(@NonNull RefreshLayout refreshLayout, boolean success) {
-        mHeaderImage.clearAnimation();
-        return 0;
+//        mHeaderImageRe.clearAnimation();
+//        mHeaderImageNor.clearAnimation();
+        return 500;
     }
 
     @Override
@@ -83,8 +90,9 @@ public class FanHeader extends LinearLayout implements RefreshHeader {
 
     @Override
     public void onStateChanged(@NonNull RefreshLayout refreshLayout, @NonNull RefreshState oldState, @NonNull RefreshState newState) {
-        if(newState==RefreshState.PullDownToRefresh){
-            mHeaderImage.setImageResource(R.drawable.ic_fan_header_noraml);
+        if (newState == RefreshState.PullDownToRefresh) {
+            mHeaderImageRe.clearAnimation();
+            mHeaderImageNor.clearAnimation();
         }
     }
 }

@@ -78,8 +78,8 @@ public class CircleFragment extends BaseLazyFragment implements OnRefreshListene
 
     @Override
     protected void initData() {
-//        getCircleHomePresenter = new GetCircleHomePresenter(this);
-//        getCircleHomePresenter.getCircleHome();
+        getCircleHomePresenter = new GetCircleHomePresenter(this);
+        getCircleHomePresenter.getCircleHome();
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

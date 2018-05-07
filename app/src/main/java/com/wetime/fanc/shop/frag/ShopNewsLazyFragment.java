@@ -87,7 +87,7 @@ public class ShopNewsLazyFragment extends BaseLazyFragment implements OnLoadMore
     public void onGetNews(NewsListBean bean) {
         refreshLayout.finishLoadMore();
         refreshLayout.setEnableLoadMore(!bean.getData().getPaging().isIs_end());
-        list.addAll(bean.getData().getList());
+//        list.addAll(bean.getData().getList());
         adapter.notifyDataSetChanged();
         if (list.size() > 0)
             rlNo.setVisibility(View.GONE);

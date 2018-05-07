@@ -4,11 +4,11 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.PixelFormat;
-import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -54,6 +54,61 @@ public class LongDetailItemAdapte extends CommonAdapter<LongTextBean> {
                     break;
             }
         }
+    }
+
+    public static Bitmap convertViewToBitmap(View view, int size) {
+        view.measure(View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED),
+                View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
+        int width = size * 40;
+        view.layout(0, 0, width, view.getMeasuredHeight());  //根据字符串的长度显示view的宽度
+        view.buildDrawingCache();
+        Bitmap bitmap = view.getDrawingCache();
+        return bitmap;
+    }
+
+    public Bitmap drawableToBitmap(Drawable drawable) {
+
+        int w = drawable.getIntrinsicWidth();
+        int h = drawable.getIntrinsicHeight();
+        Bitmap.Config config =
+                drawable.getOpacity() != PixelFormat.OPAQUE ? Bitmap.Config.ARGB_8888
+                        : Bitmap.Config.RGB_565;
+        Bitmap bitmap = Bitmap.createBitmap(w, h, config);
+        //注意，下面三行代码要用到，否则在View或者SurfaceView里的canvas.drawBitmap会看不到图
+        Canvas canvas = new Canvas(bitmap);
+        drawable.setBounds(0, 0, w, h);
+        drawable.draw(canvas);
+
+        return bitmap;
+    }
+
+    // Drawable转换成InputStream
+    public InputStream Drawable2InputStream(Drawable d) {
+        Bitmap bitmap = this.drawable2Bitmap(d);
+        return this.Bitmap2InputStream(bitmap);
+    }
+
+    // Drawable转换成Bitmap
+    public Bitmap drawable2Bitmap(Drawable drawable) {
+        Bitmap bitmap = Bitmap
+                .createBitmap(
+                        drawable.getIntrinsicWidth(),
+                        drawable.getIntrinsicHeight(),
+                        drawable.getOpacity() != PixelFormat.OPAQUE ? Bitmap.Config.ARGB_8888
+                                : Bitmap.Config.RGB_565);
+        Canvas canvas = new Canvas(bitmap);
+        drawable.setBounds(0, 0, drawable.getIntrinsicWidth(),
+                drawable.getIntrinsicHeight());
+        drawable.draw(canvas);
+        return bitmap;
+    }
+
+    // 将Bitmap转换成InputStream
+    public InputStream Bitmap2InputStream(Bitmap bm) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bm.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        InputStream is = new ByteArrayInputStream(baos.toByteArray());
+        return is;
     }
 
     @Override
@@ -104,6 +159,7 @@ public class LongDetailItemAdapte extends CommonAdapter<LongTextBean> {
                     public void onLoadStarted(Drawable placeholder) {
                         super.onLoadStarted(placeholder);
                         //设置加载中的占位图
+                        ((UpdateImageView) (holder.getView(R.id.item_img))).setImage(LayoutToDrawable(R.layout.img_item_pregess, screenW));
 //                        ((UpdateImageView) holder.getView(R.id.item_img)).setImage(new ColorDrawable(Color.GREEN));
                     }
                 });
@@ -122,49 +178,15 @@ public class LongDetailItemAdapte extends CommonAdapter<LongTextBean> {
 
     }
 
-    public Bitmap drawableToBitmap(Drawable drawable) {
+    public Drawable LayoutToDrawable(int layout_id, int w) {
 
-        int w = drawable.getIntrinsicWidth();
-        int h = drawable.getIntrinsicHeight();
-        Bitmap.Config config =
-                drawable.getOpacity() != PixelFormat.OPAQUE ? Bitmap.Config.ARGB_8888
-                        : Bitmap.Config.RGB_565;
-        Bitmap bitmap = Bitmap.createBitmap(w, h, config);
-        //注意，下面三行代码要用到，否则在View或者SurfaceView里的canvas.drawBitmap会看不到图
-        Canvas canvas = new Canvas(bitmap);
-        drawable.setBounds(0, 0, w, h);
-        drawable.draw(canvas);
+        LayoutInflater inflator = ((Activity) mContext).getLayoutInflater();
+        View viewHelp = inflator.inflate(/*R.layout.test */ layout_id, null);
+        Bitmap snapshot = convertViewToBitmap(viewHelp, w);
+        Drawable drawable = (Drawable) new BitmapDrawable(snapshot);
 
-        return bitmap;
-    }
+        return drawable;
 
-    // Drawable转换成InputStream
-    public InputStream Drawable2InputStream(Drawable d) {
-        Bitmap bitmap = this.drawable2Bitmap(d);
-        return this.Bitmap2InputStream(bitmap);
-    }
-
-    // Drawable转换成Bitmap
-    public Bitmap drawable2Bitmap(Drawable drawable) {
-        Bitmap bitmap = Bitmap
-                .createBitmap(
-                        drawable.getIntrinsicWidth(),
-                        drawable.getIntrinsicHeight(),
-                        drawable.getOpacity() != PixelFormat.OPAQUE ? Bitmap.Config.ARGB_8888
-                                : Bitmap.Config.RGB_565);
-        Canvas canvas = new Canvas(bitmap);
-        drawable.setBounds(0, 0, drawable.getIntrinsicWidth(),
-                drawable.getIntrinsicHeight());
-        drawable.draw(canvas);
-        return bitmap;
-    }
-
-    // 将Bitmap转换成InputStream
-    public InputStream Bitmap2InputStream(Bitmap bm) {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bm.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-        InputStream is = new ByteArrayInputStream(baos.toByteArray());
-        return is;
     }
 
 

@@ -25,7 +25,7 @@ public class GetActDetailPresenter {
                 .url(Const.DYNAMIC_DETAIL)
                 .addParams("pn", iView.getPage() + "")
                 .addParams("id", iView.getId())
-                .addParams("token", iView.getToken())
+                .addHeader("token", iView.getToken())
                 .build()
                 .execute(new DataStringCallback(iView, false) {
                     @Override

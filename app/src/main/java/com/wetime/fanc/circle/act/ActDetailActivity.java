@@ -47,8 +47,7 @@ public class ActDetailActivity extends BaseActivity implements IGetActDetailView
 
 
     @BindView(R.id.et_content)
-    public
-    EditText etContent;
+    public EditText etContent;
     public String toId = "";
     @BindView(R.id.tv_title)
     TextView tvTitle;

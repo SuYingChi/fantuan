@@ -1,5 +1,6 @@
 package com.wetime.fanc.news.frag;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -27,6 +28,8 @@ import com.wetime.fanc.news.presenter.SaveMyChannelPresenter;
 import com.wetime.fanc.utils.GsonUtils;
 import com.wetime.fanc.utils.SimpleCatchKey;
 import com.wetime.fanc.utils.Tools;
+import com.wetime.fanc.weex.WeexLocalActivity;
+import com.wetime.fanc.weex.WeexURLActivity;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -71,8 +74,12 @@ public class NewsLazyFragment extends BaseLazyFragment implements IGetMyChannelV
     @Override
     protected void initView() {
         mRootView.findViewById(R.id.iv_edit).setOnClickListener(view -> {
-            Tools.goActivity(getContext(), ChannelActivity.class);
+//            Tools.goActivity(getContext(), ChannelActivity.class);
+            //add by zhoukang  测试weex用的
+//            WeexLocalActivity.startWeexLocalActivity(getContext(),"Fan.js");
+            WeexURLActivity.startWeexURLActivity(getContext(),"http://192.168.11.139:8081/dist/Fan.js");
         });
+
         vp = mRootView.findViewById(R.id.vp);
 
 

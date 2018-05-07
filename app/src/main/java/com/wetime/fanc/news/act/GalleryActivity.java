@@ -9,7 +9,6 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.ViewStub;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -53,12 +52,10 @@ public class GalleryActivity extends BaseActivity implements View.OnClickListene
     TextView friendBaseTitle;
     @BindView(R.id.friend_base_text)
     TextView friendBaseText;
-    @BindView(R.id.friend_base_TextView)
-    TextView friendBaseTextView;
-    @BindView(R.id.friend_base_LinearLayout)
-    LinearLayout friendBaseLinearLayout;
     @BindView(R.id.activity_net_error_stub)
     ViewStub activityNetErrorStub;
+    @BindView(R.id.tv_focus)
+    ImageView tvFocus;
 
     private List<Fragment> fragments;
     private TabHomeAdapter adapter;
@@ -76,8 +73,6 @@ public class GalleryActivity extends BaseActivity implements View.OnClickListene
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gallery);
-//        ImmersionBar.with(this).statusBarColor(R.color._1b1b1b).navigationBarColor(R.color._1b1b1b).navigationBarAlpha(1f).fullScreen(true).statusBarDarkFont(true, 1f).fitsSystemWindows(true).init();
-//        StatusBarCompat.setStatusBarColor(this, Color.parseColor("#1b1b1b"), false);
         ButterKnife.bind(this);
         initView();
         initData();
@@ -90,10 +85,10 @@ public class GalleryActivity extends BaseActivity implements View.OnClickListene
 
     private void initView() {
         mBackBtn.setOnClickListener(this);
-        friendBaseLinearLayout.setOnClickListener(this);
         friendBaseHead.setOnClickListener(this);
         friendBaseTitle.setOnClickListener(this);
         friendBaseText.setOnClickListener(this);
+        tvFocus.setOnClickListener(this);
         viewPager.setOffscreenPageLimit(2);
         viewPager.setOnNeedScrollListener(this);
         viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -175,7 +170,7 @@ public class GalleryActivity extends BaseActivity implements View.OnClickListene
                 go.putExtra("id", bean.getData().getUid());
                 this.startActivity(go);
                 break;
-            case R.id.friend_base_LinearLayout:
+            case R.id.tv_focus:
                 if (spu.getToken().equals("")) {
                     Intent go1 = new Intent(this, LoginActivity.class);
                     startActivity(go1);
@@ -202,18 +197,10 @@ public class GalleryActivity extends BaseActivity implements View.OnClickListene
         friendBaseTitle.setText(bean.getData().getNews_name());
         friendBaseText.setText(bean.getData().getFollower_num() + "粉丝");
         if (bean.getData().isIs_following()) {
-            friendBaseLinearLayout.setBackground(getResources().getDrawable(R.drawable.icon_attention));
-            friendBaseTextView.setText("已关注");
-            friendBaseTextView.setVisibility(View.GONE);
+            tvFocus.setVisibility(View.GONE);
         } else {
-            friendBaseLinearLayout.setBackground(getResources().getDrawable(R.drawable.bg_circle_gallery));
-            friendBaseTextView.setText("关注");
-            friendBaseTextView.setVisibility(View.VISIBLE);
+            tvFocus.setVisibility(View.VISIBLE);
         }
-    }
-
-    public String getTextString() {
-        return String.valueOf(friendBaseTextView.getText());
     }
 
 
@@ -242,18 +229,12 @@ public class GalleryActivity extends BaseActivity implements View.OnClickListene
     public void drawingAttring(AttentionBean bean) {
         if (bean.getError() != 0) {
             Toast.makeText(this, bean.getMsg(), Toast.LENGTH_SHORT).show();
+            tvFocus.setVisibility(View.VISIBLE);
             return;
         }
+        tvFocus.setVisibility(View.GONE);
         Toast.makeText(this, bean.getMsg(), Toast.LENGTH_SHORT).show();
-        if (String.valueOf(friendBaseTextView.getText()).equals("关注")) {
-            friendBaseLinearLayout.setBackground(getResources().getDrawable(R.drawable.icon_attention));
-            friendBaseTextView.setText("已关注");
-            friendBaseTextView.setVisibility(View.GONE);
-        } else {
-            friendBaseLinearLayout.setBackground(getResources().getDrawable(R.drawable.bg_circle_gallery));
-            friendBaseTextView.setText("关注");
-            friendBaseTextView.setVisibility(View.VISIBLE);
-        }
+
     }
 
     @Override

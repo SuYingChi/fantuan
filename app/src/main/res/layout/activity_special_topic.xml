@@ -4,15 +4,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tl="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true">
+    android:layout_height="match_parent">
 
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fitsSystemWindows="true">
+        android:layout_height="wrap_content">
 
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/toolbar_layout"
@@ -34,7 +32,6 @@
                     android:id="@+id/topic_iv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="50dp"
                     android:scaleType="fitXY"
                     android:src="@drawable/iv_empty_card_comment" />
 
@@ -67,13 +64,28 @@
 
             </LinearLayout>
 
-            <com.wetime.fanc.customview.LetToolBar
+            <android.support.v7.widget.Toolbar
                 android:id="@+id/id_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
+                android:layout_marginTop="25dp"
+                android:gravity="center"
                 app:layout_collapseMode="pin">
 
-            </com.wetime.fanc.customview.LetToolBar>
+                <TextView
+                    android:id="@+id/textview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:ellipsize="end"
+                    android:maxEms="6"
+                    android:maxLines="1"
+                    android:text="立即播放立即播放"
+                    android:textColor="#333333"
+                    android:textSize="18sp"
+                    android:visibility="invisible" />
+
+            </android.support.v7.widget.Toolbar>
 
 
 

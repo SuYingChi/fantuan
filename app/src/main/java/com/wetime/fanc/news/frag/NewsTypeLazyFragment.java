@@ -30,7 +30,9 @@ import com.wetime.fanc.login.event.LoginEvent;
 import com.wetime.fanc.login.event.LogoutEvent;
 import com.wetime.fanc.main.frag.BaseLazyFragment;
 import com.wetime.fanc.news.act.RecomentFocusActivity;
+import com.wetime.fanc.news.adapter.NewsListAdapter;
 import com.wetime.fanc.news.bean.NewsListBean;
+import com.wetime.fanc.news.bean.NewsListItemBean;
 import com.wetime.fanc.utils.GsonUtils;
 import com.wetime.fanc.utils.SimpleCatchKey;
 import com.wetime.fanc.utils.Tools;
@@ -61,9 +63,9 @@ public class NewsTypeLazyFragment extends BaseLazyFragment implements IGetNewsTy
     private String total = "";
     private int page = 1;
     private RecyclerView rcl;
-    private List<HomeItemBean> list = new ArrayList<>();
+    private List<NewsListItemBean> list = new ArrayList<>();
     //    private List<SpecialTopicBean.DataBean.ListBean> mlist = new ArrayList<>();
-    private HomeItemAdapter adapter;
+    private NewsListAdapter adapter;
     private SmartRefreshLayout refreshLayout;
     private TextView tvRec;
     private AutoLoadMoreAdapter mAutoLoadMoreAdapter;
@@ -108,7 +110,7 @@ public class NewsTypeLazyFragment extends BaseLazyFragment implements IGetNewsTy
         refreshLayout.setOnRefreshListener(this);
 
         list = new ArrayList<>();
-        adapter = new HomeItemAdapter(list, getActivity());
+        adapter = new NewsListAdapter(list, getActivity());
         rcl = mRootView.findViewById(R.id.rcl_news);
         rcl.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -166,7 +168,7 @@ public class NewsTypeLazyFragment extends BaseLazyFragment implements IGetNewsTy
     @Override
     public void onGetNews(NewsListBean bean) {
         if (bean.getError() != 0) {
-            refreshLayout.finishRefresh();
+            refreshLayout.finishRefresh(2000);
             return;
         }
         // 推荐空页面
@@ -185,13 +187,13 @@ public class NewsTypeLazyFragment extends BaseLazyFragment implements IGetNewsTy
             }
         }
 
-        refreshLayout.finishRefresh();
+        refreshLayout.finishRefresh(1000);
 
         if (page == 1) {
             list.clear();
             //推荐 特殊的头部
             if (type.equals("-1")) {
-                HomeItemBean headbean = new HomeItemBean();
+                NewsListItemBean headbean = new NewsListItemBean();
                 headbean.setType(9000);
                 list.add(headbean);
             }

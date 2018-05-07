@@ -12,8 +12,10 @@ import android.widget.TextView;
 
 import com.gyf.barlibrary.ImmersionBar;
 import com.wetime.fanc.R;
+import com.wetime.fanc.home.bean.Cover;
 import com.wetime.fanc.main.adapter.ImageAdapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -35,7 +37,7 @@ public class PictureActivity extends BaseActivity implements View.OnClickListene
     @BindView(R.id.gallery_desc_layout)
     ScrollView galleryDescLayout;
     private ImageAdapter adapter;
-    private List<String> allStr;
+    private List<Cover> allStr;
     private List<String> contents;
     private int page = 0;
 
@@ -59,7 +61,7 @@ public class PictureActivity extends BaseActivity implements View.OnClickListene
         setContentView(R.layout.activity_picture);
         ButterKnife.bind(this);
 
-        allStr = (List<String>) getIntent().getSerializableExtra("big_photo");
+        allStr = (List<Cover>) getIntent().getSerializableExtra("big_photo");
         contents = (List<String>) getIntent().getSerializableExtra("contents");
 
         tvIndex.setVisibility(View.GONE);
@@ -80,7 +82,11 @@ public class PictureActivity extends BaseActivity implements View.OnClickListene
                 tvDescNumber.setText(contents.get(page));
             }
         }
-        adapter = new ImageAdapter(this, allStr);
+        List<String>data=new ArrayList<>();
+        for (int i = 0; i < allStr.size(); i++) {
+            data.add(allStr.get(i).getUrl());
+        }
+        adapter = new ImageAdapter(this, data);
         vp.setAdapter(adapter);
         vp.setCurrentItem(page);
         adapter.setOnClickListener(this);

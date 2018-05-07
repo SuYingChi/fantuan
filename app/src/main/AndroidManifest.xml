@@ -195,7 +195,6 @@
         <activity
             android:name=".wallet.act.RedPackActivity"
             android:theme="@style/translucent" />
-        <activity android:name=".shop.act.ShopNewsHomeActivity" />
         <activity android:name=".shop.act.ShopSayActivity" />
         <activity android:name=".news.act.ChannelActivity" />
         <activity android:name=".my.act.UserCardActivity" />
@@ -243,6 +242,8 @@
             android:name=".circle.act.LongTextEditActivity"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity android:name=".weex.EmptyWeexActivity" />
+        <activity android:name=".weex.WeexLocalActivity" />
+        <activity android:name=".weex.WeexURLActivity" />
 
         <service
             android:name=".service.UploadImageService"

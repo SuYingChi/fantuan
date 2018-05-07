@@ -30,7 +30,7 @@ public class NineImageGridListAdapterCard extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return mlist.size();
+        return mlist != null ? mlist.size() : 0;
     }
 
 
@@ -65,7 +65,7 @@ public class NineImageGridListAdapterCard extends BaseAdapter {
             Double rate = 66.0 / 92;
 
             int h = (int) (w * rate);
-            Glide.with(mContext.getApplicationContext()).load(mlist.get(position))
+            Glide.with(mContext.getApplicationContext()).load(mlist.get(position).getUrl())
                     .apply(new RequestOptions()
                             .override(w, h)
                             .centerCrop()
@@ -77,7 +77,7 @@ public class NineImageGridListAdapterCard extends BaseAdapter {
             Double rate = 9.0 / 16;
 
             int h = (int) (w * rate);
-            Glide.with(mContext.getApplicationContext()).load(mlist.get(position))
+            Glide.with(mContext.getApplicationContext()).load(mlist.get(position).getUrl())
                     .apply(new RequestOptions()
                             .override(w, h)
                             .centerCrop()
