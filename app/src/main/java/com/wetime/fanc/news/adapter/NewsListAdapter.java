@@ -168,7 +168,7 @@ public class NewsListAdapter extends RecyclerView.Adapter {
 
             });
             int sw = Tools.getScreenW(mActivity);
-            int w = sw - Tools.dip2px(mActivity, 15 + 15);
+            int w = sw;
 
             Double rate = 9.0 / 16;
             int h = (int) (w * rate);
@@ -246,34 +246,34 @@ public class NewsListAdapter extends RecyclerView.Adapter {
                     .into(((NewsHolder1) holder).ivCover);
         }
         if (holder instanceof NewsHolder2) {
-
-            ((NewsHolder2) holder).tvName.setText(bean.getName());
-            ((NewsHolder2) holder).tvAuthor.setText(bean.getNews_name());
-            ((NewsHolder2) holder).tvTime.setText(bean.getTime());
-            ((NewsHolder2) holder).tvReadnum.setText(bean.getRead_num());
-            ((NewsHolder2) holder).tvCoverNum.setText(bean.getAtlas_num());
+            NewsHolder2 holder2 = (NewsHolder2) holder;
+            holder2.tvName.setText(bean.getName());
+            holder2.tvAuthor.setText(bean.getNews_name());
+            holder2.tvTime.setText(bean.getTime());
+            holder2.tvReadnum.setText(bean.getRead_num());
+            holder2.tvCoverNum.setText(bean.getAtlas_num());
             if (TextUtils.isEmpty(bean.getNews_name())) {
-                ((NewsHolder2) holder).tvAuthor.setVisibility(View.GONE);
+                holder2.tvAuthor.setVisibility(View.GONE);
             } else {
-                ((NewsHolder2) holder).tvAuthor.setVisibility(View.VISIBLE);
+                holder2.tvAuthor.setVisibility(View.VISIBLE);
             }
             int sw = Tools.getScreenW(mActivity);
             int w = sw - Tools.dip2px(mActivity, 15 + 15);
 
-            Double rate = 194.0 / 345;
+            Double rate = 9.0 / 16;
             int h = (int) (w * rate);
 
             ViewGroup.LayoutParams params = ((NewsHolder2) holder).rlIv.getLayoutParams();
             params.height = h;
             params.width = w;
-            ((NewsHolder2) holder).rlIv.setLayoutParams(params);
+            holder2.rlIv.setLayoutParams(params);
 
             Glide.with(mActivity).load(bean.getCover().get(0).getCompress()).apply(
                     new RequestOptions()
                             .override(w, h)
                             .centerCrop()
                             .placeholder(R.drawable.iv_default_news_small))
-                    .into(((NewsHolder2) holder).ivCover);
+                    .into(holder2.ivCover);
         }
 
 
