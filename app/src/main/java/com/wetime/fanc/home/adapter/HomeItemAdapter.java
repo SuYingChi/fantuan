@@ -496,13 +496,13 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
                     .into(((NewsHolder4) holder).ivBanner);
         }
         if (holder instanceof NewsHolder1) {
-            if (isBlod) {
-                ((NewsHolder1) holder).bigLine.setVisibility(View.VISIBLE);
-                ((NewsHolder1) holder).smallLine.setVisibility(View.GONE);
-            } else {
-                ((NewsHolder1) holder).bigLine.setVisibility(View.GONE);
-                ((NewsHolder1) holder).smallLine.setVisibility(View.VISIBLE);
-            }
+//            if (isBlod) {
+//                ((NewsHolder1) holder).bigLine.setVisibility(View.VISIBLE);
+//                ((NewsHolder1) holder).smallLine.setVisibility(View.GONE);
+//            } else {
+//                ((NewsHolder1) holder).bigLine.setVisibility(View.GONE);
+//                ((NewsHolder1) holder).smallLine.setVisibility(View.VISIBLE);
+//            }
 
             ((NewsHolder1) holder).tvName.setText(bean.getName());
             ((NewsHolder1) holder).tvAuthor.setText(bean.getNews_name());
@@ -528,13 +528,13 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
                     .into(((NewsHolder1) holder).ivCover);
         }
         if (holder instanceof NewsHolder2) {
-            if (isBlod) {
-                ((NewsHolder2) holder).bigLine.setVisibility(View.VISIBLE);
-                ((NewsHolder2) holder).smallLine.setVisibility(View.GONE);
-            } else {
-                ((NewsHolder2) holder).bigLine.setVisibility(View.GONE);
-                ((NewsHolder2) holder).smallLine.setVisibility(View.VISIBLE);
-            }
+//            if (isBlod) {
+//                ((NewsHolder2) holder).bigLine.setVisibility(View.VISIBLE);
+//                ((NewsHolder2) holder).smallLine.setVisibility(View.GONE);
+//            } else {
+//                ((NewsHolder2) holder).bigLine.setVisibility(View.GONE);
+//                ((NewsHolder2) holder).smallLine.setVisibility(View.VISIBLE);
+//            }
 
             ((NewsHolder2) holder).tvName.setText(bean.getName());
             ((NewsHolder2) holder).tvAuthor.setText(bean.getNews_name());
@@ -590,13 +590,13 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
                     .into(((NewsHolder1Shop) holder).ivCover);
         }
         if (holder instanceof NewsHolder3) {
-            if (isBlod) {
-                ((NewsHolder3) holder).bigLine.setVisibility(View.VISIBLE);
-                ((NewsHolder3) holder).smallLine.setVisibility(View.GONE);
-            } else {
-                ((NewsHolder3) holder).bigLine.setVisibility(View.GONE);
-                ((NewsHolder3) holder).smallLine.setVisibility(View.VISIBLE);
-            }
+//            if (isBlod) {
+//                ((NewsHolder3) holder).bigLine.setVisibility(View.VISIBLE);
+//                ((NewsHolder3) holder).smallLine.setVisibility(View.GONE);
+//            } else {
+//                ((NewsHolder3) holder).bigLine.setVisibility(View.GONE);
+//                ((NewsHolder3) holder).smallLine.setVisibility(View.VISIBLE);
+//            }
 
             ((NewsHolder3) holder).tvName.setText(bean.getName());
             ((NewsHolder3) holder).tvAuthor.setText(bean.getNews_name());
@@ -949,8 +949,8 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
         TextView tvReadnum;
         @BindView(R.id.iv_cover)
         ImageView ivCover;
-        @BindView(R.id.bigline)
-        View bigLine;
+//        @BindView(R.id.bigline)
+//        View bigLine;
         @BindView(R.id.smallline)
         View smallLine;
 
@@ -977,8 +977,8 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
         TextView tvReadnum;
         @BindView(R.id.iv_cover)
         ImageView ivCover;
-        @BindView(R.id.bigline)
-        View bigLine;
+//        @BindView(R.id.bigline)
+//        View bigLine;
         @BindView(R.id.smallline)
         View smallLine;
 
@@ -1031,8 +1031,8 @@ public class HomeItemAdapter extends RecyclerView.Adapter {
         ImageView ivCover1;
         @BindView(R.id.iv_cover2)
         ImageView ivCover2;
-        @BindView(R.id.bigline)
-        View bigLine;
+//        @BindView(R.id.bigline)
+//        View bigLine;
         @BindView(R.id.smallline)
         View smallLine;
 

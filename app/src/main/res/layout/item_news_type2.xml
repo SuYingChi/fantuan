@@ -7,11 +7,7 @@
     android:orientation="vertical"
     android:paddingBottom="15dp">
 
-    <View
-        android:id="@+id/bigline"
-        android:layout_width="match_parent"
-        android:layout_height="5dp"
-        android:background="@color/biglinebg" />
+   
 
     <TextView
         android:id="@+id/name"

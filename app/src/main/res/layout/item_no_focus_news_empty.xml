@@ -28,22 +28,22 @@
             android:gravity="center_horizontal"
             android:lineSpacingExtra="0sp"
             android:text="你还没有关注头条号哦~"
-            android:textColor="#333333"
-            android:textSize="17sp" />
+            android:textColor="#999999"
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/tv_gofocus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            android:background="@drawable/bg_btn_red_circle"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/bg_btn_blue_circle"
             android:lineSpacingExtra="0sp"
-            android:paddingBottom="15dp"
+            android:paddingBottom="12dp"
             android:paddingLeft="18dp"
             android:paddingRight="18dp"
-            android:paddingTop="15dp"
+            android:paddingTop="12dp"
             android:text="关注感兴趣的头条号"
-            android:textColor="#ff3f53"
+            android:textColor="#1EB0FD"
             android:textSize="16sp" />
     </LinearLayout>
 </RelativeLayout>
