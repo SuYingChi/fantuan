@@ -325,8 +325,6 @@ public class HomePageAttentionAdapter extends RecyclerView.Adapter {
         TextView atName;
         @BindView(R.id.at_time)
         TextView atTime;
-        @BindView(R.id.at_content)
-        TextView atContent;
         @BindView(R.id.at_commentnum)
         TextView atCommentnum;
         @BindView(R.id.at_zan)
