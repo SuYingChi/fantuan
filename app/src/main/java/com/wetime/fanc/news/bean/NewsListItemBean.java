@@ -54,6 +54,15 @@ public class NewsListItemBean {
     private boolean circle_owner ;
     private boolean circle_admin ;
     private List<Cover> covers;
+    private boolean is_readed;
+
+    public boolean isIs_readed() {
+        return is_readed;
+    }
+
+    public void setIs_readed(boolean is_readed) {
+        this.is_readed = is_readed;
+    }
 
     public String getTitle() {
         return title;

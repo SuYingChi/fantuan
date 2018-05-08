@@ -68,6 +68,7 @@ public class NewsTypeLazyFragment extends BaseLazyFragment implements IGetNewsTy
     private TextView tvRec;
     private AutoLoadMoreAdapter mAutoLoadMoreAdapter;
 
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -82,6 +83,8 @@ public class NewsTypeLazyFragment extends BaseLazyFragment implements IGetNewsTy
         super.onCreate(savedInstanceState);
         if (!EventBus.getDefault().isRegistered(this))
             EventBus.getDefault().register(this);
+
+
     }
 
     @Override

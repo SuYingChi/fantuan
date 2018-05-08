@@ -118,4 +118,5 @@ public interface Const {
     String RECOMMEDN = BASEURL+"/jv/qz/dynamics";
     String ATTENTION_CIRLCLE = BASEURL+"/jv/qz/following";
     String ALL_CIRCLE = BASEURL+"/jv/qz/mycircles";
+    String NEWSARTICLE_READED = BASEURL+"/jv/newsarticle/readed";
 }
