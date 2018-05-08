@@ -369,10 +369,7 @@ public class NewsListAdapter extends RecyclerView.Adapter {
         TextView tvReadnum;
         @BindView(R.id.iv_cover)
         ImageView ivCover;
-        @BindView(R.id.bigline)
-        View bigLine;
-        @BindView(R.id.smallline)
-        View smallLine;
+
 
 
         NewsHolder1(View view) {
@@ -397,10 +394,6 @@ public class NewsListAdapter extends RecyclerView.Adapter {
         TextView tvReadnum;
         @BindView(R.id.iv_cover)
         ImageView ivCover;
-        @BindView(R.id.bigline)
-        View bigLine;
-        @BindView(R.id.smallline)
-        View smallLine;
 
 
         NewsHolder2(View view) {
@@ -433,10 +426,7 @@ public class NewsListAdapter extends RecyclerView.Adapter {
         ImageView ivCover1;
         @BindView(R.id.iv_cover2)
         ImageView ivCover2;
-        @BindView(R.id.bigline)
-        View bigLine;
-        @BindView(R.id.smallline)
-        View smallLine;
+
 
 
         NewsHolder3(View view) {
