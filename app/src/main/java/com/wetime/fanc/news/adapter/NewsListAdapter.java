@@ -1,6 +1,7 @@
 package com.wetime.fanc.news.adapter;
 
 import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -100,39 +101,44 @@ public class NewsListAdapter extends RecyclerView.Adapter {
 
 
         if (holder instanceof NewsHolder5) {
-            ((NewsHolder5) holder).itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+
+            NewsHolder5  holder5 = (NewsHolder5) holder;
+            ((NewsHolder5) holder).itemView.setOnClickListener(v -> {
 //                    if (TextUtils.isEmpty(bean.getArticle_url()))
 //                        return;
-                    if (TextUtils.isEmpty(bean.getSpecial().getCoverStr()))
-                        return;
-                    if (TextUtils.isEmpty(bean.getSpecial().getName()))
-                        return;
-                    if (TextUtils.isEmpty(bean.getSpecial().getIntro()))
-                        return;
-                    SpecialTopicActivity.startToSpecialTopic(mActivity, bean.getElements(),
-                            bean.getSpecial().getCover().get(0).getCompress(),
-                            bean.getSpecial().getName(),
-                            bean.getSpecial().getIntro(),
-                            bean.getSpecial().getArticle_url());
+                if (TextUtils.isEmpty(bean.getSpecial().getCoverStr()))
+                    return;
+                if (TextUtils.isEmpty(bean.getSpecial().getName()))
+                    return;
+                if (TextUtils.isEmpty(bean.getSpecial().getIntro()))
+                    return;
+                ActivityOptions options = null;
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+                    options = ActivityOptions.makeSceneTransitionAnimation(mActivity, ((NewsHolder5) holder).reportcover, mActivity.getString(R.string.image_transition_name));
                 }
+                SpecialTopicActivity.startToSpecialTopic(mActivity, bean.getElements(),
+                        bean.getSpecial().getCover().get(0).getCompress(),
+                        bean.getSpecial().getName(),
+                        bean.getSpecial().getIntro(),
+                        bean.getSpecial().getArticle_url(), options);
             });
 
+
+
             if (bean.getSpecial() != null && bean.getSpecial().getName() != null) {
-                ((NewsHolder5) holder).mixtureTextView.setText(" " + bean.getSpecial().getName());
+                holder5.mixtureTextView.setText(" " + bean.getSpecial().getName());
             }
             if (bean.getLastest() != null && bean.getLastest().getName() != null) {
-                ((NewsHolder5) holder).reportnew.setText(bean.getLastest().getName());
+                holder5.reportnew.setText(bean.getLastest().getName());
             }
             if (bean.getHottest() != null && bean.getHottest().getName() != null) {
-                ((NewsHolder5) holder).reporthot.setText(bean.getHottest().getName());
+                holder5.reporthot.setText(bean.getHottest().getName());
             }
             if (bean.getFocused() != null && bean.getFocused().getName() != null) {
-                ((NewsHolder5) holder).reportnewhot.setText(bean.getFocused().getName());
+                holder5.reportnewhot.setText(bean.getFocused().getName());
             }
 
-            ((NewsHolder5) holder).reporthotliner.setOnClickListener(v -> {
+            holder5.reporthotliner.setOnClickListener(v -> {
                 if (bean.getHottest().getContentType().equals("0")) {
                     if (TextUtils.isEmpty(bean.getHottest().getArticle_url())) return;
                     Intent goweb = new Intent(mActivity, WebActivity.class);
@@ -144,7 +150,7 @@ public class NewsListAdapter extends RecyclerView.Adapter {
                     GalleryActivity.startToGallery(mActivity, bean.getHottest().getId());
                 }
             });
-            ((NewsHolder5) holder).reportnewhotliner.setOnClickListener(v -> {
+            holder5.reportnewhotliner.setOnClickListener(v -> {
                 if (bean.getFocused().getContentType().equals("0")) {
                     if (TextUtils.isEmpty(bean.getFocused().getArticle_url())) return;
                     Intent goweb = new Intent(mActivity, WebActivity.class);
@@ -157,7 +163,7 @@ public class NewsListAdapter extends RecyclerView.Adapter {
                 }
 
             });
-            ((NewsHolder5) holder).reportnewliner.setOnClickListener(v -> {
+            holder5.reportnewliner.setOnClickListener(v -> {
                 if (bean.getLastest().getContentType().equals("0")) {
                     if (TextUtils.isEmpty(bean.getLastest().getArticle_url()))
                         return;
@@ -172,10 +178,15 @@ public class NewsListAdapter extends RecyclerView.Adapter {
 
             });
             int sw = Tools.getScreenW(mActivity);
-            int w = sw - Tools.dip2px(mActivity, 15 + 15);
+            int w = sw;
 
-            Double rate = 194.0 / 345;
+            Double rate = 9.0 / 16;
             int h = (int) (w * rate);
+
+            ViewGroup.LayoutParams params = holder5.reportcover.getLayoutParams();
+            params.height = h;
+            holder5.reportcover.setLayoutParams(params);
+
             if (bean.getSpecial().getCover() != null && bean.getSpecial().getCover().size() > 0) {
                 Glide.with(mActivity)
                         .load(bean.getSpecial().getCover().get(0).getCompress())
@@ -184,7 +195,7 @@ public class NewsListAdapter extends RecyclerView.Adapter {
                                         .override(w, h)
                                         .centerCrop()
                                         .placeholder(R.drawable.iv_default_news_small))
-                        .into(((NewsHolder5) holder).reportcover);
+                        .into(holder5.reportcover);
             }
 
         }
@@ -245,34 +256,34 @@ public class NewsListAdapter extends RecyclerView.Adapter {
                     .into(((NewsHolder1) holder).ivCover);
         }
         if (holder instanceof NewsHolder2) {
-
-            ((NewsHolder2) holder).tvName.setText(bean.getName());
-            ((NewsHolder2) holder).tvAuthor.setText(bean.getNews_name());
-            ((NewsHolder2) holder).tvTime.setText(bean.getTime());
-            ((NewsHolder2) holder).tvReadnum.setText(bean.getRead_num());
-            ((NewsHolder2) holder).tvCoverNum.setText(bean.getAtlas_num());
+            NewsHolder2 holder2 = (NewsHolder2) holder;
+            holder2.tvName.setText(bean.getName());
+            holder2.tvAuthor.setText(bean.getNews_name());
+            holder2.tvTime.setText(bean.getTime());
+            holder2.tvReadnum.setText(bean.getRead_num());
+            holder2.tvCoverNum.setText(bean.getAtlas_num());
             if (TextUtils.isEmpty(bean.getNews_name())) {
-                ((NewsHolder2) holder).tvAuthor.setVisibility(View.GONE);
+                holder2.tvAuthor.setVisibility(View.GONE);
             } else {
-                ((NewsHolder2) holder).tvAuthor.setVisibility(View.VISIBLE);
+                holder2.tvAuthor.setVisibility(View.VISIBLE);
             }
             int sw = Tools.getScreenW(mActivity);
             int w = sw - Tools.dip2px(mActivity, 15 + 15);
 
-            Double rate = 194.0 / 345;
+            Double rate = 9.0 / 16;
             int h = (int) (w * rate);
 
             ViewGroup.LayoutParams params = ((NewsHolder2) holder).rlIv.getLayoutParams();
             params.height = h;
             params.width = w;
-            ((NewsHolder2) holder).rlIv.setLayoutParams(params);
+            holder2.rlIv.setLayoutParams(params);
 
             Glide.with(mActivity).load(bean.getCover().get(0).getCompress()).apply(
                     new RequestOptions()
                             .override(w, h)
                             .centerCrop()
                             .placeholder(R.drawable.iv_default_news_small))
-                    .into(((NewsHolder2) holder).ivCover);
+                    .into(holder2.ivCover);
         }
 
 

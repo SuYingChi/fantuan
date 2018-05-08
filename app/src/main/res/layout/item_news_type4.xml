@@ -15,7 +15,7 @@
             android:id="@+id/iv_banner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@drawable/iv_default_news_single_big" />
+            android:src="@drawable/iv_default" />
 
         <TextView
             android:id="@+id/tv_name"
