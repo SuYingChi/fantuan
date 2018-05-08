@@ -244,6 +244,7 @@
         <activity android:name=".web.NewsDetailWebActivity"/>
         <activity android:name=".weex.EmptyWeexActivity" />
         <activity android:name=".weex.WeexLocalActivity" />
+        <activity android:name=".weex.WeexURLActivity" />
 
         <service
             android:name=".service.UploadImageService"

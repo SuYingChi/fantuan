@@ -114,7 +114,8 @@ public interface Const {
     // java的写到这里
     String DYNAMIC_LONGARTICLE = BASEURL + "/jv/qz/publish/dynamicarticle";
     String NEWS = BASEURL + "/jv/anonymous/newsarticle/articles";
-
-
-
+    String FOLLOW_INGDYNAMICS = BASEURL + "/jv/qz/followingdynamics";
+    String RECOMMEDN = BASEURL+"/jv/qz/dynamics";
+    String ATTENTION_CIRLCLE = BASEURL+"/jv/qz/following";
+    String ALL_CIRCLE = BASEURL+"/jv/qz/mycircles";
 }

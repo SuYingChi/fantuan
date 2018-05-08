@@ -36,9 +36,7 @@ public class GetNewsTypePresenter {
                         super.onResponse(s, i);
 //                        NewsListBean bean = GsonUtils.getGsonInstance().fromJson(s, NewsListBean.class);
 //                        iView.onGetNews(bean);
-                        Log.d("suyingchi", "onResponse: s====" + s);
                         NewsListBean bean = GsonUtils.getGsonInstance().fromJson(s, NewsListBean.class);
-                        Log.d("suyingchi", "onResponse: GsonUtils.getGsonInstance().fromJson");
                         iView.onGetNews(bean);
                     }
                 });
