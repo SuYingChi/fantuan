@@ -3,6 +3,7 @@ package com.wetime.fanc.news.adapter;
 import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.Intent;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -21,7 +22,9 @@ import com.wetime.fanc.news.act.GalleryActivity;
 import com.wetime.fanc.news.act.RecomentFocusActivity;
 import com.wetime.fanc.news.act.SpecialTopicActivity;
 import com.wetime.fanc.news.bean.NewsListItemBean;
+import com.wetime.fanc.news.presenter.GetNewsReadedPresenter;
 import com.wetime.fanc.utils.Tools;
+import com.wetime.fanc.web.NewsDetailWebActivity;
 import com.wetime.fanc.web.WebActivity;
 
 import java.util.List;
@@ -37,12 +40,13 @@ public class NewsListAdapter extends RecyclerView.Adapter {
     private List<NewsListItemBean> list;
     private Activity mActivity;
     private LayoutInflater inflater;
-
+    private GetNewsReadedPresenter getNewsReadedPresenter;
 
     public NewsListAdapter(List<NewsListItemBean> list, Activity mActivity) {
         this.list = list;
         this.mActivity = mActivity;
         this.inflater = LayoutInflater.from(mActivity);
+        getNewsReadedPresenter = new GetNewsReadedPresenter();
     }
 
 
@@ -68,6 +72,15 @@ public class NewsListAdapter extends RecyclerView.Adapter {
 
     }
 
+    private void goWebUrl(int position) {
+        if (TextUtils.isEmpty(list.get(position).getArticle_url()))
+            return;
+        Intent goweb = new Intent(mActivity, WebActivity.class);
+        goweb.putExtra("url", list.get(position).getArticle_url());
+        goweb.putExtra("type", "2");
+        goweb.putExtra("title", list.get(position).getNews_name());
+        mActivity.startActivity(goweb);
+    }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
@@ -78,19 +91,31 @@ public class NewsListAdapter extends RecyclerView.Adapter {
 //        }
         //点击
         holder.itemView.setOnClickListener(view -> {
+
+            list.get(position).setIs_readed(true);
+            getNewsReadedPresenter.getNewReaded(list.get(position).getId(), Tools.getSpu(mActivity).getToken());
             switch (bean.getType()) {
                 case 2:
                     GalleryActivity.startToGallery(mActivity, bean.getId());
+                    ((NewsHolder2) holder).tvName.setTextColor(ContextCompat.getColor(mActivity, R.color.color9));
                     break;
                 case 1:
+                    ((NewsHolder1) holder).tvName.setTextColor(ContextCompat.getColor(mActivity, R.color.color9));
+                    goWebUrl(position);
+                    break;
                 case 3:
-                    if (TextUtils.isEmpty(list.get(position).getArticle_url()))
-                        return;
-                    Intent goweb = new Intent(mActivity, WebActivity.class);
-                    goweb.putExtra("url", list.get(position).getArticle_url());
-                    goweb.putExtra("type", "2");
-                    goweb.putExtra("title", list.get(position).getNews_name());
-                    mActivity.startActivity(goweb);
+//                    if (TextUtils.isEmpty(list.get(position).getArticle_url()))
+//                        return;
+//                    Intent goweb = new Intent(mActivity, WebActivity.class);
+//                    goweb.putExtra("url", list.get(position).getArticle_url());
+//                    goweb.putExtra("type", "2");
+//                    goweb.putExtra("title", list.get(position).getNews_name());
+//                    mActivity.startActivity(goweb);
+//                    NewsDetailWebActivity.starToWeb(mActivity, list.get(position).getArticle_url(),
+//                            list.get(position).getId(),
+//                            list.get(position).getRead_num());
+                    ((NewsHolder3) holder).tvName.setTextColor(ContextCompat.getColor(mActivity, R.color.color9));
+                    goWebUrl(position);
                     break;
                 case 9000:
                     Intent goFocus = new Intent(mActivity, RecomentFocusActivity.class);
@@ -230,7 +255,11 @@ public class NewsListAdapter extends RecyclerView.Adapter {
         }
         if (holder instanceof NewsHolder1) {
             NewsHolder1 holder1 = (NewsHolder1) holder;
-
+            if (bean.isIs_readed()) {
+                holder1.tvName.setTextColor(ContextCompat.getColor(mActivity, R.color.color9));
+            } else {
+                holder1.tvName.setTextColor(ContextCompat.getColor(mActivity, R.color.color3));
+            }
             holder1.tvName.setText(bean.getName());
             holder1.tvAuthor.setText(bean.getNews_name());
             holder1.tvTime.setText(bean.getTime());
@@ -257,6 +286,11 @@ public class NewsListAdapter extends RecyclerView.Adapter {
         }
         if (holder instanceof NewsHolder2) {
             NewsHolder2 holder2 = (NewsHolder2) holder;
+            if (bean.isIs_readed()) {
+                holder2.tvName.setTextColor(ContextCompat.getColor(mActivity, R.color.color9));
+            } else {
+                holder2.tvName.setTextColor(ContextCompat.getColor(mActivity, R.color.color3));
+            }
             holder2.tvName.setText(bean.getName());
             holder2.tvAuthor.setText(bean.getNews_name());
             holder2.tvTime.setText(bean.getTime());
@@ -289,7 +323,11 @@ public class NewsListAdapter extends RecyclerView.Adapter {
 
         if (holder instanceof NewsHolder3) {
             NewsHolder3 holder3 = ((NewsHolder3) holder);
-
+            if (bean.isIs_readed()) {
+                holder3.tvName.setTextColor(ContextCompat.getColor(mActivity, R.color.color9));
+            } else {
+                holder3.tvName.setTextColor(ContextCompat.getColor(mActivity, R.color.color3));
+            }
             holder3.tvName.setText(bean.getName());
             holder3.tvAuthor.setText(bean.getNews_name());
             holder3.tvTime.setText(bean.getTime());
