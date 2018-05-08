@@ -90,8 +90,10 @@ public class HomePageRecommendAdapter extends RecyclerView.Adapter {
                 ((RecommendHeaderViewHolder) holder).banner.setVisibility(View.VISIBLE);
             }
             if (circles.size() <= 0) {
+                ((RecommendHeaderViewHolder) holder).linearLayout.setVisibility(View.GONE);
                 ((RecommendHeaderViewHolder) holder).recommendCircle.setVisibility(View.GONE);
             } else {
+                ((RecommendHeaderViewHolder) holder).linearLayout.setVisibility(View.VISIBLE);
                 ((RecommendHeaderViewHolder) holder).recommendCircle.setVisibility(View.VISIBLE);
             }
             if (homePageRecommendHeaderRecyclerViewAdapter == null) {
@@ -339,6 +341,9 @@ public class HomePageRecommendAdapter extends RecyclerView.Adapter {
         Banner banner;
         @BindView(R.id.rcl_circle)
         RecyclerView recommendCircle;
+        @BindView(R.id.recommend_circles_title)
+        LinearLayout linearLayout;
+
 
         public RecommendHeaderViewHolder(View inflate) {
             super(inflate);

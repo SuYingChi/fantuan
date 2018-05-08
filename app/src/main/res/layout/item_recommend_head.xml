@@ -6,6 +6,7 @@
     android:orientation="vertical">
 
     <LinearLayout
+        android:id="@+id/recommend_circles_title"
         android:layout_width="match_parent"
         android:layout_height="20dp"
         android:layout_marginBottom="10dp"
