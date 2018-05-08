@@ -65,7 +65,8 @@ public class HomePageAttentionFragment extends BaseLazyFragment implements IHome
 
     @Override
     protected void refresh() {
-        onRefresh(refreshLayout);
+        page = 1;
+        homePageAttentionFragmentPresenter.getAttentionPage();
     }
 
     @Override

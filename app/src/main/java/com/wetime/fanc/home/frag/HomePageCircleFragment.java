@@ -60,7 +60,7 @@ public class HomePageCircleFragment extends BaseLazyFragment implements IHomePag
 
     @Override
     protected void refresh() {
-        onRefresh(refreshLayout);
+        homePageCircleFragmentPresenter.getCircles();
     }
 
     @Override

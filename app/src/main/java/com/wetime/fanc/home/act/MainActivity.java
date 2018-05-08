@@ -25,7 +25,6 @@ import com.wetime.fanc.home.event.ReFreshCircleEvent;
 import com.wetime.fanc.home.event.ReFreshNewsEvent;
 import com.wetime.fanc.home.event.RefreshRedNumEvent;
 import com.wetime.fanc.home.event.SwichFragEvent;
-import com.wetime.fanc.home.frag.HomeFragment;
 import com.wetime.fanc.home.frag.HomePageFragment;
 import com.wetime.fanc.home.iviews.IBindPushView;
 import com.wetime.fanc.home.iviews.IGetRedNumView;
@@ -87,7 +86,7 @@ public class MainActivity extends BaseActivity implements IBindPushView, IGetRed
     private List<Fragment> list_fragment = new ArrayList<>();
     private int mOnId = R.drawable.bot_3_on;
     private int mOffId = R.drawable.bot_3_off;
-   // private HomeFragment f0;
+    // private HomeFragment f0;
     private HomePageFragment f0;
     private NewsLazyFragment f1;
     //    private SortActivity f1;
@@ -167,9 +166,9 @@ public class MainActivity extends BaseActivity implements IBindPushView, IGetRed
 
 
     private void initView() {
-       // f0 = new HomeFragment();
+        // f0 = new HomeFragment();
 //        f1 = new SortActivity();
-        f0= new HomePageFragment();
+        f0 = new HomePageFragment();
         f1 = new NewsLazyFragment();
         f2 = new CircleHomeFragment();
         f3 = new MyFragment();
@@ -211,7 +210,6 @@ public class MainActivity extends BaseActivity implements IBindPushView, IGetRed
                 if (vp.getCurrentItem() != 0) {
                     initBottom(0);
                     vp.setCurrentItem(0, false);
-                    ImmersionBar.with(this).statusBarColor(R.color.white).statusBarDarkFont(true, 0.2f).fitsSystemWindows(true).init();
                     spu.setValue("citem", "0");
                     if (!TextUtils.isEmpty(spu.getToken()))
                         getRedNumPresenter.getRedNum();
@@ -221,7 +219,6 @@ public class MainActivity extends BaseActivity implements IBindPushView, IGetRed
                 if (vp.getCurrentItem() != 1) {
                     initBottom(1);
                     vp.setCurrentItem(1, false);
-                    ImmersionBar.with(this).statusBarColor(R.color.white).statusBarDarkFont(true, 0.2f).fitsSystemWindows(true).init();
                     spu.setValue("citem", "1");
                 } else {
                     EventBus.getDefault().post(new ReFreshNewsEvent());
@@ -231,7 +228,6 @@ public class MainActivity extends BaseActivity implements IBindPushView, IGetRed
                 if (vp.getCurrentItem() != 2) {
                     vp.setCurrentItem(2, false);
                     initBottom(2);
-                    ImmersionBar.with(this).statusBarColor(R.color.white).statusBarDarkFont(true, 0.2f).fitsSystemWindows(true).init();
                     spu.setValue("citem", "2");
                     if (!TextUtils.isEmpty(spu.getToken()))
                         getRedNumPresenter.getRedNum();
@@ -243,10 +239,6 @@ public class MainActivity extends BaseActivity implements IBindPushView, IGetRed
                 if (vp.getCurrentItem() != 3) {
                     vp.setCurrentItem(3, false);
                     initBottom(3);
-                    ImmersionBar.with(this)
-                            .transparentStatusBar()
-                            .statusBarDarkFont(false)
-                            .fitsSystemWindows(false).init();
 
                     spu.setValue("citem", "3");
                     if (!TextUtils.isEmpty(spu.getToken()))
@@ -322,7 +314,6 @@ public class MainActivity extends BaseActivity implements IBindPushView, IGetRed
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(SwichFragEvent event) {
         vp.setCurrentItem(event.getPos(), false);
-        ImmersionBar.with(this).statusBarColor(R.color.white).statusBarDarkFont(true, 0.2f).fitsSystemWindows(true).init();
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

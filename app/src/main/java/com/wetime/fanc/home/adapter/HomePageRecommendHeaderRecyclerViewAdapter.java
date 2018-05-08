@@ -15,6 +15,8 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.wetime.fanc.R;
+import com.wetime.fanc.circle.act.AllCircleActivity;
+import com.wetime.fanc.circle.act.CircleDetailActivity;
 import com.wetime.fanc.home.bean.HomePageRecommendBean;
 import com.wetime.fanc.utils.AttentionCircleTool;
 import com.wetime.fanc.login.act.LoginActivity;
@@ -34,7 +36,7 @@ class HomePageRecommendHeaderRecyclerViewAdapter extends RecyclerView.Adapter  {
     private final Activity activity;
     private final LayoutInflater inflate;
     private  List<HomePageRecommendBean.DataBean.CirclesBean> circles;
-    private OnItemClickLitener onItemClickLitener;
+
 
     public HomePageRecommendHeaderRecyclerViewAdapter(List<HomePageRecommendBean.DataBean.CirclesBean> circles, Activity activity) {
         this.circles = circles;
@@ -82,10 +84,17 @@ class HomePageRecommendHeaderRecyclerViewAdapter extends RecyclerView.Adapter  {
                 }
             }
         });
-        recommendHeaderViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+        recommendHeaderViewHolder.circleImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onItemClickLitener.onclick(v,holder.getAdapterPosition());
+                if (circles.get(position).getId().equals("0")) {
+                    Intent goAll = new Intent(activity, AllCircleActivity.class);
+                    activity.startActivity(goAll);
+                } else {
+                    Intent goCircle = new Intent(activity, CircleDetailActivity.class);
+                    goCircle.putExtra("id", circles.get(position).getId());
+                    activity.startActivity(goCircle);
+                }
             }
         });
     }
@@ -116,9 +125,6 @@ class HomePageRecommendHeaderRecyclerViewAdapter extends RecyclerView.Adapter  {
             super(inflate);
             ButterKnife.bind(this,inflate);
         }
-    }
-   void  setOnItemClickLitener(OnItemClickLitener onItemClickLitener){
-       this.onItemClickLitener = onItemClickLitener;
     }
     public interface OnItemClickLitener{
        void onclick(View view, int position);

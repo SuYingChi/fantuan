@@ -119,17 +119,6 @@ public class HomePageRecommendAdapter extends RecyclerView.Adapter {
                         ((RecommendHeaderViewHolder) holder).banner.setVisibility(View.VISIBLE);
                     }
                     ((RecommendHeaderViewHolder) holder).recommendCircle.setAdapter(homePageRecommendHeaderRecyclerViewAdapter);
-
-                    homePageRecommendHeaderRecyclerViewAdapter.setOnItemClickLitener((view, position2) -> {
-                        if (circles.get(position2).getId().equals("0")) {
-                            Intent goAll = new Intent(activity, AllCircleActivity.class);
-                            activity.startActivity(goAll);
-                        } else {
-                            Intent goCircle = new Intent(activity, CircleDetailActivity.class);
-                            goCircle.putExtra("id", circles.get(position2).getId());
-                            activity.startActivity(goCircle);
-                        }
-                    });
                 }
             } else {
                 homePageRecommendHeaderRecyclerViewAdapter.notifyDataSetChanged();
@@ -338,16 +327,6 @@ public class HomePageRecommendAdapter extends RecyclerView.Adapter {
                 homePageRecommendHeaderRecyclerViewAdapter.setRecommendList(circles);
                 homePageRecommendHeaderRecyclerViewAdapter.notifyDataSetChanged();
             }
-            homePageRecommendHeaderRecyclerViewAdapter.setOnItemClickLitener((view, position2) -> {
-                if (circles.get(position2).getId().equals("0")) {
-                    Intent goAll = new Intent(activity, AllCircleActivity.class);
-                    activity.startActivity(goAll);
-                } else {
-                    Intent goCircle = new Intent(activity, CircleDetailActivity.class);
-                    goCircle.putExtra("id", circles.get(position2).getId());
-                    activity.startActivity(goCircle);
-                }
-            });
         }
     }
 

@@ -13,16 +13,16 @@
             android:id="@+id/iv_header_re"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginBottom="15dp"
+            android:layout_marginTop="15dp"
             android:src="@drawable/ic_fan_header_refreshing" />
 
         <ImageView
             android:id="@+id/iv_header_nor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginBottom="15dp"
+            android:layout_marginTop="15dp"
             android:src="@drawable/ic_fan_header_noraml" />
     </RelativeLayout>
 </LinearLayout>

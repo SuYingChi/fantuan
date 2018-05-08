@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.gyf.barlibrary.ImmersionBar;
+import com.wetime.fanc.R;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -148,10 +149,14 @@ public abstract class BaseLazyFragment extends BaseFragment {
 
     /**
      * 初始化沉浸式
+     *
+     * 默认白色 有特殊需求  重写此方法
      */
     protected void initImmersionBar() {
-        mImmersionBar = ImmersionBar.with(this);
-        mImmersionBar.keyboardEnable(true).navigationBarWithKitkatEnable(false).init();
+        ImmersionBar.with(this).statusBarColor(R.color.white).statusBarDarkFont(true, 0.2f).fitsSystemWindows(true).init();
+
+//        mImmersionBar = ImmersionBar.with(this);
+//        mImmersionBar.keyboardEnable(true).navigationBarWithKitkatEnable(false).init();
     }
 
     /**
