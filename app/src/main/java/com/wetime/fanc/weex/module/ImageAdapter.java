@@ -1,4 +1,4 @@
-package com.wetime.fanc.weex;
+package com.wetime.fanc.weex.module;
 
 import android.text.TextUtils;
 import android.widget.ImageView;

@@ -5,16 +5,17 @@ import android.app.Application;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.support.multidex.MultiDex;
+import android.util.Log;
 
 import com.fan.http.okhttp.OkHttpUtils;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.constant.SpinnerStyle;
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
-import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.sina.weibo.sdk.WbSdk;
 import com.sina.weibo.sdk.auth.AuthInfo;
 import com.taobao.weex.InitConfig;
 import com.taobao.weex.WXSDKEngine;
+import com.taobao.weex.common.WXException;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.tencent.tauth.Tencent;
@@ -23,7 +24,9 @@ import com.wetime.fanc.customview.photoview.FanHeader;
 import com.wetime.fanc.utils.MLoggerInterceptor;
 import com.wetime.fanc.utils.SharePreferenceUtil;
 import com.wetime.fanc.utils.Tools;
-import com.wetime.fanc.weex.ImageAdapter;
+import com.wetime.fanc.weex.module.ImageAdapter;
+import com.wetime.fanc.weex.module.JumpNativeModule;
+import com.wetime.fanc.weex.module.MyModule;
 import com.wetime.fanc.weibo.Constants;
 
 import java.util.ArrayList;
@@ -96,7 +99,16 @@ public class FApp extends Application {
         super.onCreate();
         BGASwipeBackHelper.init(this, null);
         InitConfig config = new InitConfig.Builder().setImgAdapter(new ImageAdapter()).build();
+
         WXSDKEngine.initialize(this, config);
+        try {
+            boolean isok = WXSDKEngine.registerModule("JumpNativeModule", JumpNativeModule.class);
+            Log.e("zk app", "onCreate: " + isok);
+            isok = WXSDKEngine.registerModule("MyModule", MyModule.class);
+            Log.e("zk app", "onCreate: " + isok);
+        } catch (WXException e) {
+            e.printStackTrace();
+        }
 
         registToWX();
         registToTencent();
