@@ -25,9 +25,9 @@ import butterknife.ButterKnife;
 
 public class HomePageMyCircleAdapter extends RecyclerView.Adapter {
 
-    private final List<HomePageCircleBean.DataBean.ListBean> myCircles;
-    private final Activity activity;
-    private final LayoutInflater inflater;
+    private  List<HomePageCircleBean.DataBean.ListBean> myCircles;
+    private  Activity activity;
+    private  LayoutInflater inflater;
     private OnItemClickLitener onItemClickLitener;
 
     public HomePageMyCircleAdapter(List<HomePageCircleBean.DataBean.ListBean> myCircles, Activity activity) {
@@ -60,7 +60,7 @@ public class HomePageMyCircleAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemCount() {
-        return 0;
+        return myCircles.size();
     }
 
     interface OnItemClickLitener {
@@ -70,7 +70,7 @@ public class HomePageMyCircleAdapter extends RecyclerView.Adapter {
         this.onItemClickLitener = onItemClickLitener;
     }
 
-    private class MyCircleViewHolder extends RecyclerView.ViewHolder {
+    public static  class MyCircleViewHolder extends RecyclerView.ViewHolder {
        @BindView(R.id.my_circle_content_num)
        TextView myCircleContentNum;
         @BindView(R.id.my_circle_name)
