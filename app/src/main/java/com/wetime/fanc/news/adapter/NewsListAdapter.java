@@ -22,6 +22,7 @@ import com.wetime.fanc.news.act.RecomentFocusActivity;
 import com.wetime.fanc.news.act.SpecialTopicActivity;
 import com.wetime.fanc.news.bean.NewsListItemBean;
 import com.wetime.fanc.utils.Tools;
+import com.wetime.fanc.web.NewsDetailWebActivity;
 import com.wetime.fanc.web.WebActivity;
 
 import java.util.List;
@@ -91,6 +92,9 @@ public class NewsListAdapter extends RecyclerView.Adapter {
                     goweb.putExtra("type", "2");
                     goweb.putExtra("title", list.get(position).getNews_name());
                     mActivity.startActivity(goweb);
+//                    NewsDetailWebActivity.starToWeb(mActivity, list.get(position).getArticle_url(),
+//                            list.get(position).getId(),
+//                            list.get(position).getRead_num());
                     break;
                 case 9000:
                     Intent goFocus = new Intent(mActivity, RecomentFocusActivity.class);
