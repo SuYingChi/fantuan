@@ -46,7 +46,7 @@ public class HomePageFragment extends BaseLazyFragment {
         slidingTabLayout.setOnTabSelectListener(new OnTabSelectListener() {
             @Override
             public void onTabSelect(int homePageCitem) {
-              refreshChildFragment(homePageCitem);
+                refreshChildFragment(homePageCitem);
                 spu.setValue("HomePageCitem",String.valueOf(homePageCitem));
             }
 
