@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.widget.LinearLayout;
 
 import com.taobao.weex.IWXRenderListener;
@@ -17,6 +16,7 @@ import com.taobao.weex.WXSDKInstance;
 import com.taobao.weex.common.WXRenderStrategy;
 import com.taobao.weex.utils.WXFileUtils;
 import com.wetime.fanc.R;
+import com.wetime.fanc.weex.module.ImageAdapter;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -60,8 +60,8 @@ public class WeexBaseActivity extends AppCompatActivity implements IWXRenderList
         WXEnvironment.isPerf = true;
 //        WXSDKEngine.addCustomOptions("appName", "WXSample");
 //        WXSDKEngine.addCustomOptions("appGroup", "WXApp");
-        WXSDKEngine.initialize(getApplication(),
-                new InitConfig.Builder().setImgAdapter(new ImageAdapter()).build());
+//        WXSDKEngine.initialize(getApplication(),
+//                new InitConfig.Builder().setImgAdapter(new ImageAdapter()).build());
 
     }
 
