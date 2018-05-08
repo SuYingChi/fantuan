@@ -1,6 +1,7 @@
 package com.wetime.fanc.news.adapter;
 
 import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -111,11 +112,15 @@ public class NewsListAdapter extends RecyclerView.Adapter {
                         return;
                     if (TextUtils.isEmpty(bean.getSpecial().getIntro()))
                         return;
+                    ActivityOptions options = null;
+                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+                        options = ActivityOptions.makeSceneTransitionAnimation(mActivity, ((NewsHolder5) holder).reportcover, mActivity.getString(R.string.image_transition_name));
+                    }
                     SpecialTopicActivity.startToSpecialTopic(mActivity, bean.getElements(),
                             bean.getSpecial().getCover().get(0).getCompress(),
                             bean.getSpecial().getName(),
                             bean.getSpecial().getIntro(),
-                            bean.getSpecial().getArticle_url());
+                            bean.getSpecial().getArticle_url(), options);
                 }
             });
 

@@ -53,6 +53,7 @@
     <string name="str_title_cannot_empty">请输入标题</string>
     <string name="str_content_cannot_empty">请输入内容</string>
     <string name="text1" >此刻，我想说......</string>
+    <string name="image_transition_name">image_transition</string>
     <item name="tag_position" type="id" />
     <item name="tag_photo" type="id" />
 
