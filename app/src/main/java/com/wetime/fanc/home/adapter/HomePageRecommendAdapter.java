@@ -50,6 +50,7 @@ public class HomePageRecommendAdapter extends RecyclerView.Adapter {
     private  LayoutInflater inflater;
     private List<HomePageRecommendBean.DataBean.BannerBean> banners = new ArrayList<HomePageRecommendBean.DataBean.BannerBean>();
     private List<String> imgeUrls = new ArrayList<String>();
+    private List<String> bannerTitles = new ArrayList<String>();
     private  List<HomePageRecommendBean.DataBean.CirclesBean> circles= new ArrayList<HomePageRecommendBean.DataBean.CirclesBean>();
     private  List<HomePageRecommendBean.DataBean.ListBean> list= new ArrayList<HomePageRecommendBean.DataBean.ListBean>();
     private  Activity activity;
@@ -96,8 +97,10 @@ public class HomePageRecommendAdapter extends RecyclerView.Adapter {
                     banner.setDelayTime(5000);//设置轮播时间
                     for(HomePageRecommendBean.DataBean.BannerBean bannerBean:banners){
                      imgeUrls.add(bannerBean.getCover().getCompress());
+                     bannerTitles.add("");
                     }
                     banner.setImages(imgeUrls);//设置图片源
+                    banner.setBannerTitles(bannerTitles);
                     banner.start();
 
                     LinearLayoutManager linearLayoutManager = new LinearLayoutManager(activity);
@@ -361,10 +364,11 @@ public class HomePageRecommendAdapter extends RecyclerView.Adapter {
             bannerLayout.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE);//设置圆形指示器与标题
             bannerLayout.setIndicatorGravity(BannerConfig.RIGHT);//设置指示器位置
             bannerLayout.setDelayTime(5000);//设置轮播时间
-            bannerLayout.start();
             imgeUrls.clear();
+            bannerTitles.clear();
             for(HomePageRecommendBean.DataBean.BannerBean bannerBean:banners){
                 imgeUrls.add(bannerBean.getCover().getCompress());
+                bannerTitles.add("");
             }
             bannerLayout.setImages(imgeUrls);//设置图片源
             if(imgeUrls.size()<=0){
@@ -372,6 +376,7 @@ public class HomePageRecommendAdapter extends RecyclerView.Adapter {
             }else{
                 ((RecommendHeaderViewHolder) holder).banner.setVisibility(View.VISIBLE);
             }
+            bannerLayout.start();
         }
     }
 
