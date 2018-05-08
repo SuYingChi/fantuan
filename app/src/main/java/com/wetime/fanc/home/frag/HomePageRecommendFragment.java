@@ -42,9 +42,11 @@ public class HomePageRecommendFragment extends BaseLazyFragment implements OnRef
     @BindView(R.id.rl_empty)
     RelativeLayout emptey;
     private int page=1;
-    private HomePageRecommendAdapter adapter;
+    private HomePageRecommendAdapter homePageRecommendAdapter;
     private AutoLoadMoreAdapter autoLoadMoreAdapter;
     private List<HomePageRecommendBean.DataBean.ListBean> list= new ArrayList<HomePageRecommendBean.DataBean.ListBean>();
+    private List<HomePageRecommendBean.DataBean.BannerBean>bannerList = new ArrayList<HomePageRecommendBean.DataBean.BannerBean>();
+    private List<HomePageRecommendBean.DataBean.CirclesBean>circlesList = new ArrayList<HomePageRecommendBean.DataBean.CirclesBean>();
 
     private HomePageRecommendFragmentPresenter homePageRecommendFragmentPresenter;
 
@@ -80,6 +82,7 @@ public class HomePageRecommendFragment extends BaseLazyFragment implements OnRef
 
     @Override
     public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+        page=1;
         homePageRecommendFragmentPresenter.getRecommend();
     }
 
@@ -92,10 +95,10 @@ public class HomePageRecommendFragment extends BaseLazyFragment implements OnRef
     @Override
     public void onGetRecommend(HomePageRecommendBean homePageRecommendBean) {
         refreshLayout.finishRefresh(1000);
-        if (adapter == null) {
+        if (homePageRecommendAdapter == null) {
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-            adapter = new HomePageRecommendAdapter(homePageRecommendBean.getData().getBanner(), homePageRecommendBean.getData().getCircles(), list, getActivity());
-            autoLoadMoreAdapter = new AutoLoadMoreAdapter(getContext(), adapter);
+            homePageRecommendAdapter = new HomePageRecommendAdapter(bannerList, circlesList, list, getActivity());
+            autoLoadMoreAdapter = new AutoLoadMoreAdapter(getContext(), homePageRecommendAdapter);
             autoLoadMoreAdapter.setOnLoadListener(new AutoLoadMoreAdapter.OnLoadListener() {
                 @Override
                 public void onRetry() {
@@ -111,13 +114,14 @@ public class HomePageRecommendFragment extends BaseLazyFragment implements OnRef
             recyclerView.setAdapter(autoLoadMoreAdapter);
         }
 
-//
-        adapter.setCirccles(homePageRecommendBean.getData().getCircles());
-        adapter.setBanner(homePageRecommendBean.getData().getBanner());
-
-
         if (page == 1) {
             list.clear();
+            bannerList.clear();
+            circlesList.clear();
+            bannerList.addAll(homePageRecommendBean.getData().getBanner());
+            circlesList.addAll(homePageRecommendBean.getData().getCircles());
+            homePageRecommendAdapter.setBanner(bannerList);
+            homePageRecommendAdapter.setCirccles(circlesList);
             spu.setValue(SimpleCatchKey.catch_recommend, GsonUtils.getGsonInstance().toJson(homePageRecommendBean));
         }
         if (homePageRecommendBean.getData().getPaging().isIs_end()) {
@@ -125,8 +129,7 @@ public class HomePageRecommendFragment extends BaseLazyFragment implements OnRef
         }
         list.addAll(homePageRecommendBean.getData().getList());
         autoLoadMoreAdapter.notifyDataSetChanged();
-        adapter.notifyDataSetChanged();
-
+        homePageRecommendAdapter.notifyDataSetChanged();
         emptey.setVisibility(View.GONE);
         if (page > 1) {
             autoLoadMoreAdapter.finishLoading();

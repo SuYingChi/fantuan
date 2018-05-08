@@ -96,7 +96,6 @@ public class HomePageAttentionFragment extends BaseLazyFragment implements IHome
         } else {
             autoLoadMoreAdapter.finishLoading();
         }
-
         list.addAll(bean.getData().getList());
         if (bean.getData().getPaging().isIs_end()) {
             autoLoadMoreAdapter.disable();

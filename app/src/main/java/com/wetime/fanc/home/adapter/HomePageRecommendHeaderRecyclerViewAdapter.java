@@ -57,12 +57,12 @@ class HomePageRecommendHeaderRecyclerViewAdapter extends RecyclerView.Adapter  {
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         RecommendHeaderViewHolder recommendHeaderViewHolder = (RecommendHeaderViewHolder)holder;
-        HomePageRecommendBean.DataBean.CirclesBean circleBean = circles.get(position);
+        HomePageRecommendBean.DataBean.CirclesBean circleBean = circles.get(holder.getAdapterPosition());
         Glide.with(activity).load(circles.get(position).getCover().getCompress())
                 .apply(new RequestOptions().centerCrop())
                 .into(recommendHeaderViewHolder.circleImage);
-        recommendHeaderViewHolder.circleName.setText(circles.get(position).getName());
-        recommendHeaderViewHolder.textView.setText(circles.get(position).getNum());
+        recommendHeaderViewHolder.circleName.setText(circles.get(holder.getAdapterPosition()).getName());
+        recommendHeaderViewHolder.textView.setText(circles.get(holder.getAdapterPosition()).getNum());
         recommendHeaderViewHolder.button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -71,7 +71,7 @@ class HomePageRecommendHeaderRecyclerViewAdapter extends RecyclerView.Adapter  {
                     Intent goLogin = new Intent(activity, LoginActivity.class);
                     activity.startActivity(goLogin);
                 } else {
-                    AttentionCircleTool.attentionCircle(activity, circles.get(position).getId(), new AttentionCircleTool.OnAttentionCircleListener() {
+                    AttentionCircleTool.attentionCircle(activity, circles.get(holder.getAdapterPosition()).getId(), new AttentionCircleTool.OnAttentionCircleListener() {
                         @Override
                         public void onAttentionCircleResponse(boolean isSuccess) {
                             if (isSuccess){
@@ -80,6 +80,12 @@ class HomePageRecommendHeaderRecyclerViewAdapter extends RecyclerView.Adapter  {
                         }
                     });
                 }
+            }
+        });
+        recommendHeaderViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onItemClickLitener.onclick(v,holder.getAdapterPosition());
             }
         });
     }
