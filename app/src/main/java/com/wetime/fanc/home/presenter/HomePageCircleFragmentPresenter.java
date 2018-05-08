@@ -22,7 +22,7 @@ public class HomePageCircleFragmentPresenter {
         OkHttpUtils
                 .post()
                 .url(Const.ALL_CIRCLE)
-                .addHeader("token",iView.getToken())
+                .addHeader("token", iView.getToken())
                 .build()
                 .execute(new DataStringCallback(iView, false) {
                     @Override

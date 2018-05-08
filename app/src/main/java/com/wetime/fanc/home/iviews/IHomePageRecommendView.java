@@ -9,6 +9,7 @@ import com.wetime.fanc.main.ivews.IBaseVIew;
 
 public interface IHomePageRecommendView extends IBaseVIew {
     void onGetRecommend(HomePageRecommendBean homePageRecommendBean);
+
     int getPage();
 
 }

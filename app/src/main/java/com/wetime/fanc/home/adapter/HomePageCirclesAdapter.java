@@ -21,6 +21,7 @@ import com.wetime.fanc.circle.act.CircleDetailActivity;
 import com.wetime.fanc.home.bean.HomePageCircleBean;
 import com.wetime.fanc.utils.AttentionCircleTool;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -31,11 +32,12 @@ import butterknife.ButterKnife;
  */
 
 public class HomePageCirclesAdapter extends RecyclerView.Adapter {
-    private  List<HomePageCircleBean.DataBean.NotmissBean> hotCircles;
-    private  List<HomePageCircleBean.DataBean.ListBean> myCircles;
-    private  LayoutInflater inflater;
-    private  FragmentActivity activity;
+    private List<HomePageCircleBean.DataBean.NotmissBean> hotCircles;
+    private List<HomePageCircleBean.DataBean.ListBean> myCircles ;
+    private LayoutInflater inflater;
+    private FragmentActivity activity;
     private HomePageMyCircleAdapter homePageMyCircleAdapter;
+    private RecyclerView.ViewHolder holder;
 
     public HomePageCirclesAdapter(List<HomePageCircleBean.DataBean.NotmissBean> hotCircles, List<HomePageCircleBean.DataBean.ListBean> myCircles, FragmentActivity activity) {
         this.hotCircles = hotCircles;
@@ -48,82 +50,83 @@ public class HomePageCirclesAdapter extends RecyclerView.Adapter {
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-       if (viewType == -1) {
+        if (viewType == -1) {
             return new CircleHeaderViewHolder(inflater.inflate(R.layout.item_home_page_fragment_circle_my_circles_header, parent, false));
-        } else  {
+        } else {
             return new HotCircleViewHolder(inflater.inflate(R.layout.item_home_page_fragment_circle_hot_circles, parent, false));
         }
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-     if(holder instanceof CircleHeaderViewHolder){
-         if(homePageMyCircleAdapter == null) {
-             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(activity);
-             linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-             ((CircleHeaderViewHolder) holder).rcl_circle_my.setLayoutManager(linearLayoutManager);
-             homePageMyCircleAdapter = new HomePageMyCircleAdapter(myCircles, activity);
-             if(myCircles.size()<=0){
-                 ((CircleHeaderViewHolder) holder).emptyMyCircle.setVisibility(View.VISIBLE);
-             }else{
-                 ((CircleHeaderViewHolder) holder).emptyMyCircle.setVisibility(View.GONE);
-             }
-             ((CircleHeaderViewHolder) holder).rcl_circle_my.setAdapter(homePageMyCircleAdapter);
-             homePageMyCircleAdapter.setOnItemClickListener((view, position2) -> {
-                     Intent goCircle = new Intent(activity, CircleDetailActivity.class);
-                     goCircle.putExtra("id", myCircles.get(position2).getId());
-                     activity.startActivity(goCircle);
-             });
-             ((CircleHeaderViewHolder) holder).moreCircles.setOnClickListener(new View.OnClickListener() {
-                 @Override
-                 public void onClick(View v) {
-                     Intent goAll = new Intent(activity, AllCircleActivity.class);
-                     activity.startActivity(goAll);
-                 }
-             });
-         }else {
-             homePageMyCircleAdapter.notifyDataSetChanged();
-         }
-         if(hotCircles.size()==0){
-             ((CircleHeaderViewHolder) holder).relativeLayout.setVisibility(View.GONE);
-         }
-     }else if(holder instanceof HotCircleViewHolder) {
-         if(hotCircles.size()>0) {
-             Glide.with(activity).load(hotCircles.get(holder.getAdapterPosition() - 1).getCover().getCompress()).into(((HotCircleViewHolder) holder).hotCircleCover);
-             ((HotCircleViewHolder) holder).hotCircleAttentCircleBtn.setOnClickListener(new View.OnClickListener() {
-                 @Override
-                 public void onClick(View v) {
-                     AttentionCircleTool.attentionCircle(activity, hotCircles.get(holder.getAdapterPosition() - 1).getId(), new AttentionCircleTool.OnAttentionCircleListener() {
-                         @Override
-                         public void onAttentionCircleResponse(boolean isSuccess) {
-                             if (isSuccess) {
-                                 ((HotCircleViewHolder) holder).hotCircleAttentCircleBtn.setText("已关注");
-                                 ((HotCircleViewHolder) holder).hotCircleAttentCircleBtn.setTextColor(ContextCompat.getColor(activity, R.color.textcolor));
-                             }
-                         }
-                     });
-                 }
-             });
-             holder.itemView.setOnClickListener(new View.OnClickListener() {
-                 @Override
-                 public void onClick(View v) {
-                     Intent goCircle = new Intent(activity, CircleDetailActivity.class);
-                     goCircle.putExtra("id", hotCircles.get(holder.getAdapterPosition() - 1).getId());
-                     activity.startActivity(goCircle);
-                 }
-             });
-             ((HotCircleViewHolder) holder).hotCircleAttentCircleNum.setText(hotCircles.get(holder.getAdapterPosition() - 1).getFollowing_num()+"人关注");
-             ((HotCircleViewHolder) holder).hotCircleBrief.setText(hotCircles.get(holder.getAdapterPosition() - 1).getIntro());
-             ((HotCircleViewHolder) holder).hotCircleName.setText(hotCircles.get(holder.getAdapterPosition() - 1).getName());
+        if (holder instanceof CircleHeaderViewHolder) {
+            if (homePageMyCircleAdapter == null) {
+                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(activity);
+                linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+                ((CircleHeaderViewHolder) holder).rcl_circle_my.setLayoutManager(linearLayoutManager);
+                homePageMyCircleAdapter = new HomePageMyCircleAdapter(myCircles, activity);
+                if (myCircles.size() <= 0) {
+                    ((CircleHeaderViewHolder) holder).emptyMyCircle.setVisibility(View.VISIBLE);
+                } else {
+                    ((CircleHeaderViewHolder) holder).emptyMyCircle.setVisibility(View.GONE);
+                }
+                ((CircleHeaderViewHolder) holder).rcl_circle_my.setAdapter(homePageMyCircleAdapter);
+                homePageMyCircleAdapter.setOnItemClickListener((view, position2) -> {
+                    Intent goCircle = new Intent(activity, CircleDetailActivity.class);
+                    goCircle.putExtra("id", myCircles.get(position2).getId());
+                    activity.startActivity(goCircle);
+                });
+                ((CircleHeaderViewHolder) holder).moreCircles.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent goAll = new Intent(activity, AllCircleActivity.class);
+                        activity.startActivity(goAll);
+                    }
+                });
+            } else {
+                homePageMyCircleAdapter.notifyDataSetChanged();
+            }
+            if (hotCircles.size() == 0) {
+                ((CircleHeaderViewHolder) holder).relativeLayout.setVisibility(View.GONE);
+            }
+        } else if (holder instanceof HotCircleViewHolder) {
+            if (hotCircles.size() > 0) {
+                Glide.with(activity).load(hotCircles.get(holder.getAdapterPosition() - 1).getCover().getCompress()).into(((HotCircleViewHolder) holder).hotCircleCover);
+                ((HotCircleViewHolder) holder).hotCircleAttentCircleBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        AttentionCircleTool.attentionCircle(activity, hotCircles.get(holder.getAdapterPosition() - 1).getId(), new AttentionCircleTool.OnAttentionCircleListener() {
+                            @Override
+                            public void onAttentionCircleResponse(boolean isSuccess) {
+                                if (isSuccess) {
+                                    ((HotCircleViewHolder) holder).hotCircleAttentCircleBtn.setText("已关注");
+                                    ((HotCircleViewHolder) holder).hotCircleAttentCircleBtn.setTextColor(ContextCompat.getColor(activity, R.color.textcolor));
+                                }
+                            }
+                        });
+                    }
+                });
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent goCircle = new Intent(activity, CircleDetailActivity.class);
+                        goCircle.putExtra("id", hotCircles.get(holder.getAdapterPosition() - 1).getId());
+                        activity.startActivity(goCircle);
+                    }
+                });
+                ((HotCircleViewHolder) holder).hotCircleAttentCircleNum.setText(hotCircles.get(holder.getAdapterPosition() - 1).getFollowing_num() + "人关注");
+                ((HotCircleViewHolder) holder).hotCircleBrief.setText(hotCircles.get(holder.getAdapterPosition() - 1).getIntro());
+                ((HotCircleViewHolder) holder).hotCircleName.setText(hotCircles.get(holder.getAdapterPosition() - 1).getName());
 
-         }
-     }
+            }
+        }
     }
 
     @Override
     public int getItemCount() {
-        return hotCircles.size()+1;
+        return hotCircles.size() + 1;
     }
+
     @Override
     public int getItemViewType(int position) {
         if (position == 0)
@@ -140,9 +143,10 @@ public class HomePageCirclesAdapter extends RecyclerView.Adapter {
         TextView emptyMyCircle;
         @BindView(R.id.recommend_circles)
         RelativeLayout relativeLayout;
+
         public CircleHeaderViewHolder(View inflate) {
             super(inflate);
-            ButterKnife.bind(this,inflate);
+            ButterKnife.bind(this, inflate);
         }
     }
 
@@ -160,7 +164,7 @@ public class HomePageCirclesAdapter extends RecyclerView.Adapter {
 
         public HotCircleViewHolder(View inflate) {
             super(inflate);
-            ButterKnife.bind(this,inflate);
+            ButterKnife.bind(this, inflate);
         }
     }
 }

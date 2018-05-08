@@ -14,7 +14,7 @@ import com.wetime.fanc.utils.GsonUtils;
 public class HomePageRecommendFragmentPresenter {
     private IHomePageRecommendView iHomePageRecommendView;
 
-    public HomePageRecommendFragmentPresenter(IHomePageRecommendView iHomePageRecommendView){
+    public HomePageRecommendFragmentPresenter(IHomePageRecommendView iHomePageRecommendView) {
         this.iHomePageRecommendView = iHomePageRecommendView;
 
     }
@@ -24,7 +24,7 @@ public class HomePageRecommendFragmentPresenter {
                 .post()
                 .url(Const.RECOMMEDN)
                 .addHeader("token", iHomePageRecommendView.getToken())
-                .addParams("limit", 20+"")
+                .addParams("limit", 20 + "")
                 .addParams("pn", iHomePageRecommendView.getPage() + "")
                 .build()
                 .execute(new DataStringCallback(iHomePageRecommendView, false) {

@@ -33,16 +33,16 @@ import butterknife.BindView;
 public class HomePageAttentionFragment extends BaseLazyFragment implements IHomePageAttentionView, OnRefreshListener {
 
     @BindView(R.id.rcl_home_attention)
-     RecyclerView rcl;
+    RecyclerView rcl;
     @BindView(R.id.refreshLayout_attention)
-     SmartRefreshLayout refreshLayout;
+    SmartRefreshLayout refreshLayout;
     @BindView(R.id.rl_empty)
-     RelativeLayout rlEmpty;
-     HomePageAttentionFragmentPresenter homePageAttentionFragmentPresenter;
-     List<HomePageAttentionBean.DataBean.ListBean> list=new ArrayList<HomePageAttentionBean.DataBean.ListBean>();
-     HomePageAttentionAdapter adapter;
-     int page=1;
-     AutoLoadMoreAdapter autoLoadMoreAdapter;
+    RelativeLayout rlEmpty;
+    HomePageAttentionFragmentPresenter homePageAttentionFragmentPresenter;
+    List<HomePageAttentionBean.DataBean.ListBean> list = new ArrayList<HomePageAttentionBean.DataBean.ListBean>();
+    HomePageAttentionAdapter adapter;
+    int page = 1;
+    AutoLoadMoreAdapter autoLoadMoreAdapter;
 
     @Override
     protected int setLayoutId() {
@@ -115,15 +115,17 @@ public class HomePageAttentionFragment extends BaseLazyFragment implements IHome
     }
 
     @Override
-    public void onRefresh( RefreshLayout refreshLayout) {
+    public void onRefresh(RefreshLayout refreshLayout) {
         page = 1;
         homePageAttentionFragmentPresenter.getAttentionPage();
     }
+
     @Override
     public void onNetError() {
         super.onNetError();
         refreshLayout.finishRefresh();
     }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(ReFreshCircleEvent event) {
         if (mIsVisible) {
