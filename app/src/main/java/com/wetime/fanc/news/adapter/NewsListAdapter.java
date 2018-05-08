@@ -134,8 +134,7 @@ public class NewsListAdapter extends RecyclerView.Adapter {
 
             ((NewsHolder5) holder).reporthotliner.setOnClickListener(v -> {
                 if (bean.getHottest().getContentType().equals("0")) {
-                    if (TextUtils.isEmpty(bean.getHottest().getArticle_url()))
-                        return;
+                    if (TextUtils.isEmpty(bean.getHottest().getArticle_url())) return;
                     Intent goweb = new Intent(mActivity, WebActivity.class);
                     goweb.putExtra("url", bean.getHottest().getArticle_url());
                     goweb.putExtra("type", "2");
@@ -147,8 +146,7 @@ public class NewsListAdapter extends RecyclerView.Adapter {
             });
             ((NewsHolder5) holder).reportnewhotliner.setOnClickListener(v -> {
                 if (bean.getFocused().getContentType().equals("0")) {
-                    if (TextUtils.isEmpty(bean.getFocused().getArticle_url()))
-                        return;
+                    if (TextUtils.isEmpty(bean.getFocused().getArticle_url())) return;
                     Intent goweb = new Intent(mActivity, WebActivity.class);
                     goweb.putExtra("url", bean.getFocused().getArticle_url());
                     goweb.putExtra("type", "2");
@@ -179,7 +177,6 @@ public class NewsListAdapter extends RecyclerView.Adapter {
             Double rate = 194.0 / 345;
             int h = (int) (w * rate);
             if (bean.getSpecial().getCover() != null && bean.getSpecial().getCover().size() > 0) {
-
                 Glide.with(mActivity)
                         .load(bean.getSpecial().getCover().get(0).getCompress())
                         .apply(
@@ -372,10 +369,7 @@ public class NewsListAdapter extends RecyclerView.Adapter {
         TextView tvReadnum;
         @BindView(R.id.iv_cover)
         ImageView ivCover;
-        @BindView(R.id.bigline)
-        View bigLine;
-        @BindView(R.id.smallline)
-        View smallLine;
+
 
 
         NewsHolder1(View view) {
@@ -400,10 +394,6 @@ public class NewsListAdapter extends RecyclerView.Adapter {
         TextView tvReadnum;
         @BindView(R.id.iv_cover)
         ImageView ivCover;
-        @BindView(R.id.bigline)
-        View bigLine;
-        @BindView(R.id.smallline)
-        View smallLine;
 
 
         NewsHolder2(View view) {
@@ -436,10 +426,7 @@ public class NewsListAdapter extends RecyclerView.Adapter {
         ImageView ivCover1;
         @BindView(R.id.iv_cover2)
         ImageView ivCover2;
-        @BindView(R.id.bigline)
-        View bigLine;
-        @BindView(R.id.smallline)
-        View smallLine;
+
 
 
         NewsHolder3(View view) {

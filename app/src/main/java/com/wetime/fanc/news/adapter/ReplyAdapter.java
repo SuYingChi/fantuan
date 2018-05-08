@@ -93,13 +93,6 @@ public class ReplyAdapter extends CommonAdapter<ReplyCommentBean.DataBean.ReplyB
 
         holder.setOnClickListener(R.id.reply_delete, v -> {
             DialogUtils.showNormalDialog(mContext, null, "确认删除该评论？", new DialogInterface.OnClickListener() {
-                /**
-                 * This method will be invoked when a button in the dialog is clicked.
-                 *
-                 * @param dialog the dialog that received the click
-                 * @param which  the button that was clicked (ex.
-                 *               {@link DialogInterface#BUTTON_POSITIVE}) or the position
-                 */
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     ((ReplyActivity) context).deleteReply(replyBean.getId());
@@ -116,9 +109,7 @@ public class ReplyAdapter extends CommonAdapter<ReplyCommentBean.DataBean.ReplyB
                 replyBean.setIs_like(false);
                 int i = Integer.parseInt(((TextView) holder.getView(R.id.reply_item_good)).getText().toString());
                 holder.setText(R.id.reply_item_good, String.valueOf(i - 1));
-
                 holder.setImageResource(R.id.reply_item_image, R.drawable.ic_homeitem_zan_off_off);
-//                holder.setTextColor(R.id.reply_item_good, R.color.bot_gray);
                 ((TextView) holder.getView(R.id.reply_item_good)).setTextColor(Color.parseColor("#999999"));
                 ((ReplyActivity) context).clickLike(replyBean.getId(), "0");
             } else {
@@ -128,13 +119,13 @@ public class ReplyAdapter extends CommonAdapter<ReplyCommentBean.DataBean.ReplyB
                 int i = Integer.parseInt(((TextView) holder.getView(R.id.reply_item_good)).getText().toString());
                 holder.setText(R.id.reply_item_good, String.valueOf(i + 1));
                 holder.setImageResource(R.id.reply_item_image, R.drawable.ic_homeitem_zan_off_on);
-//                holder.setTextColor(R.id.reply_item_good, R.color._ff3f53);
                 ((TextView) holder.getView(R.id.reply_item_good)).setTextColor(Color.parseColor("#ff3f53"));
                 ((ReplyActivity) context).clickLike(replyBean.getId(), "1");
             }
-
         });
-
+        if (replyBean.isIs_author()) {
+            holder.itemView.setOnClickListener(v -> ((ReplyActivity) mContext).showMyReply(replyBean.getId(), replyBean.getComment_id(), replyBean.getUser().getUsername(), position));
+        }
         holder.setOnClickListener(R.id.reply_item_head, v -> {
             Intent go = new Intent(context, UserCardActivity.class);
             go.putExtra("num", "3");

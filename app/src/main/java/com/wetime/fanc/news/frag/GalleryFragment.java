@@ -613,9 +613,9 @@ public class GalleryFragment extends BaseLazyFragment implements IHandlerMessage
             } else {
 
                 if (gallery.getData().isIs_collect()) {
-                    collertImage.setImageResource(R.drawable.icon_collert);
+                    collertImage.setImageResource(R.drawable.star_v2);
                 } else {
-                    collertImage.setImageResource(R.drawable.star_2);
+                    collertImage.setImageResource(R.drawable.star_v2_nor);
                 }
 
                 data.addAll(bean.getData().getAtlas_content());
@@ -634,10 +634,10 @@ public class GalleryFragment extends BaseLazyFragment implements IHandlerMessage
     @Override
     public void onCollectNews() {
         if (gallery.getData().isIs_collect()) {
-            collertImage.setImageResource(R.drawable.star_2);
+            collertImage.setImageResource(R.drawable.star_v2_nor);
             gallery.getData().setIs_collect(false);
         } else {
-            collertImage.setImageResource(R.drawable.icon_collert);
+            collertImage.setImageResource(R.drawable.star_v2);
             gallery.getData().setIs_collect(true);
         }
     }

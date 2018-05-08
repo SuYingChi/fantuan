@@ -100,10 +100,12 @@ public interface Const {
     String ATTENTION_FRIENDS = BASEURL + "/user/follow";
     String SEND_COMMONET = BASEURL + "/news/comment/issue";
     String COLLECT_NEWS = BASEURL + "/news/collect";
-    String GRT_ALL_COMMENT = BASEURL + "/news/detail/comment";
+//    String GRT_ALL_COMMENT = BASEURL + "/news/detail/comment";
+    String GRT_ALL_COMMENT = BASEURL + "/jv/newsarticle/comment";
     String CLICK_LIKE = BASEURL + "/news/comment/like";
     String REPLY_CLICK_LIKE = BASEURL + "/news/reply/like";
-    String GET_COMMENT_REPLY = BASEURL + "/news/comment";
+//    String GET_COMMENT_REPLY = BASEURL + "/news/comment";
+    String GET_COMMENT_REPLY = BASEURL + "/jv/newsarticle/commentdetals";
     String SEND_COMMENT_REPLY = BASEURL + "/news/reply";
     String DELETE_COMMENT_REPLY = BASEURL + "/news/reply/delete";
     String DELETE_COMMENT = BASEURL + "/news/comment/delete";

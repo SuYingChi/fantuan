@@ -80,7 +80,7 @@ public class GetCommentReplyPresenter {
                     public void onResponse(String s, int i) {
                         super.onResponse(s, i);
                         ErrorBean galleryItemBean = GsonUtils.getGsonInstance().fromJson(s, ErrorBean.class);
-                        iview.onDeleteCommont(galleryItemBean);
+                        iview.onDeleteReply(galleryItemBean);
                     }
                 });
     }

@@ -397,7 +397,7 @@ public class NewsListItemBean {
      * read_num : 35次浏览
      * content_type : 0
      * name : 海南这个地方的春色美翻了，还上了央视《新闻联播》！你去了吗？
-     * news_name : 连环八卦掌
+     * news_name : 连环八卦掌`
      * id : 7462
      * time : 04-12
      * atlas_num : 0图
@@ -411,8 +411,25 @@ public class NewsListItemBean {
     private FocusedBean focused;
 
     private String content_type;
+    private String news_type;
     private String news_id;
     private List<ElementsBean> elements;
+
+    public String getNews_type() {
+        return news_type;
+    }
+
+    public void setNews_type(String news_type) {
+        this.news_type = news_type;
+    }
+
+    public List<Cover> getCovers() {
+        return covers;
+    }
+
+    public void setCovers(List<Cover> covers) {
+        this.covers = covers;
+    }
 
     public List<ElementsBean> getElements() {
         return elements;
@@ -601,7 +618,16 @@ public class NewsListItemBean {
         private String score;
         private String contentType;
         private String atlasNum;
+        private String news_type;
         private String article_url;
+
+        public String getNews_type() {
+            return news_type;
+        }
+
+        public void setNews_type(String news_type) {
+            this.news_type = news_type;
+        }
 
         public String getId() {
             return id;
@@ -807,7 +833,16 @@ public class NewsListItemBean {
         private String score;
         private String contentType;
         private String atlasNum;
+        private String news_type;
         private String article_url;
+
+        public String getNews_type() {
+            return news_type;
+        }
+
+        public void setNews_type(String news_type) {
+            this.news_type = news_type;
+        }
 
         public String getId() {
             return id;
@@ -1013,7 +1048,16 @@ public class NewsListItemBean {
         private String score;
         private String contentType;
         private String atlasNum;
+        private String news_type;
         private String article_url;
+
+        public String getNews_type() {
+            return news_type;
+        }
+
+        public void setNews_type(String news_type) {
+            this.news_type = news_type;
+        }
 
         public String getId() {
             return id;

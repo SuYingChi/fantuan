@@ -67,13 +67,6 @@ public class CommentListAdapter extends CommonAdapter<CommentBean.DataBean.ListB
         holder.getConvertView().setOnClickListener(v -> ((CommentActivity) context).hideInput());
         holder.setOnClickListener(R.id.comment_delete, v -> {
             DialogUtils.showNormalDialog(mContext, null, "确认删除该评论？", new DialogInterface.OnClickListener() {
-                /**
-                 * This method will be invoked when a button in the dialog is clicked.
-                 *
-                 * @param dialog the dialog that received the click
-                 * @param which  the button that was clicked (ex.
-                 *               {@link DialogInterface#BUTTON_POSITIVE}) or the position
-                 */
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     ((CommentActivity) context).deleteComment(commentTestBean.getId());
@@ -109,19 +102,15 @@ public class CommentListAdapter extends CommonAdapter<CommentBean.DataBean.ListB
         holder.setOnClickListener(R.id.comment_number, v -> {
             ReplyActivity.startToReplyActivity(context, commentTestBean);
         });
-        holder.setOnClickListener(R.id.comment_head, new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent go = new Intent(context, UserCardActivity.class);
-                go.putExtra("num", "3");
-                go.putExtra("index", 0);
-                go.putExtra("id", commentTestBean.getUser().getId());
-                context.startActivity(go);
-            }
+        holder.setOnClickListener(R.id.comment_head, v -> {
+            Intent go = new Intent(context, UserCardActivity.class);
+            go.putExtra("num", "3");
+            go.putExtra("index", 0);
+            go.putExtra("id", commentTestBean.getUser().getId());
+            context.startActivity(go);
         });
         holder.getConvertView().setOnClickListener(v -> {
             ReplyActivity.startToReplyActivity(context, commentTestBean);
-
         });
 
     }

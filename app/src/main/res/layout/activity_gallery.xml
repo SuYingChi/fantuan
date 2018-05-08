@@ -17,6 +17,7 @@
         android:id="@+id/back_layout"
         android:layout_width="match_parent"
         android:layout_height="44dp"
+        android:layout_marginTop="25dp"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
@@ -36,8 +37,8 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/friend_base_head"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:layout_marginLeft="5dp"
             android:src="@drawable/ic_head_default" />
 
@@ -57,7 +58,7 @@
                 android:lineSpacingExtra="0sp"
                 android:text="锦鲤大王"
                 android:textColor="#ffffff"
-                android:textSize="10sp" />
+                android:textSize="12sp" />
 
             <TextView
                 android:id="@+id/friend_base_text"

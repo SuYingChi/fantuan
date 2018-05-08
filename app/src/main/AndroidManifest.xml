@@ -241,6 +241,7 @@
         <activity
             android:name=".circle.act.LongTextEditActivity"
             android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity android:name=".web.NewsDetailWebActivity"/>
         <activity android:name=".weex.EmptyWeexActivity" />
         <activity android:name=".weex.WeexLocalActivity" />
         <activity android:name=".weex.WeexURLActivity" />

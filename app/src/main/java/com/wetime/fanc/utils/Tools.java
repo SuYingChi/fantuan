@@ -20,6 +20,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.IBinder;
+import android.provider.MediaStore;
 import android.renderscript.Allocation;
 import android.renderscript.Element;
 import android.renderscript.RenderScript;
@@ -801,7 +802,7 @@ public class Tools {
     public static File saveImageToGallery(Context context, Bitmap bmp) {
         // 首先保存图片
         File file = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).getAbsoluteFile();//注意小米手机必须这样获得public绝对路径
-        String fileName = "ningjing";
+        String fileName = "fantuan";
         File appDir = new File(file, fileName);
         if (!appDir.exists()) {
             appDir.mkdirs();
@@ -829,16 +830,60 @@ public class Tools {
         }
 
         // 其次把文件插入到系统图库
-//        try {
-//            MediaStore.Images.Media.insertImage(context.getContentResolver(),
-//                    currentFile.getAbsolutePath(), fileName, null);
-//        } catch (FileNotFoundException e) {
-//            e.printStackTrace();
-//        }
+        try {
+            MediaStore.Images.Media.insertImage(context.getContentResolver(),
+                    currentFile.getAbsolutePath(), fileName, null);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
 
         // 最后通知图库更新
-//        context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE,
-//                Uri.fromFile(new File(currentFile.getPath()))));
+        context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE,
+                Uri.fromFile(new File(currentFile.getPath()))));
         return currentFile;
+    }
+
+    public static boolean saveImage(Context context, Bitmap bmp) {
+        // 首先保存图片
+        File file = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).getAbsoluteFile();//注意小米手机必须这样获得public绝对路径
+        String fileName = "fantuan";
+        File appDir = new File(file, fileName);
+        if (!appDir.exists()) {
+            appDir.mkdirs();
+        }
+        fileName = System.currentTimeMillis() + ".jpg";
+        File currentFile = new File(appDir, fileName);
+
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream(currentFile);
+            bmp.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+            fos.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            try {
+                if (fos != null) {
+                    fos.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+                return false;
+            }
+        }
+
+        // 其次把文件插入到系统图库
+        try {
+            MediaStore.Images.Media.insertImage(context.getContentResolver(),
+                    currentFile.getAbsolutePath(), fileName, null);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        // 最后通知图库更新
+        context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE,
+                Uri.fromFile(new File(currentFile.getPath()))));
+        return true;
     }
 }

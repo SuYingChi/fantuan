@@ -2,6 +2,7 @@ package com.wetime.fanc.news.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
 import android.support.v4.view.PagerAdapter;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DataSource;
@@ -19,9 +21,13 @@ import com.bumptech.glide.request.target.Target;
 import com.wetime.fanc.R;
 import com.wetime.fanc.customview.photoview.PhotoView;
 import com.wetime.fanc.customview.photoview.PhotoViewAttacher;
+import com.wetime.fanc.main.act.BaseActivity;
 import com.wetime.fanc.news.bean.GalleryItemBean;
+import com.wetime.fanc.utils.Tools;
 
 import java.util.List;
+
+import me.shaohui.bottomdialog.BottomDialog;
 
 public class GalleryAdapter extends PagerAdapter {
 
@@ -133,6 +139,7 @@ public class GalleryAdapter extends PagerAdapter {
     }
 
     private void showImage(final View retryView, GalleryItemBean.DataBean.AtlasContentBean item, final PhotoView photoView, final TextView progressStr, final View progressLayout) {
+        Bitmap bitmap;
         if (item == null) {
             return;
         }
@@ -153,6 +160,35 @@ public class GalleryAdapter extends PagerAdapter {
             }
 
         }).into(photoView);
+        photoView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+
+                BottomDialog mDeleteBottomDialog = BottomDialog.create(((BaseActivity) context).getSupportFragmentManager());
+                mDeleteBottomDialog.setDimAmount(0.5f);
+                mDeleteBottomDialog.setCancelOutside(true);
+                mDeleteBottomDialog.setLayoutRes(R.layout.bottom_save_dialog_layout);
+                mDeleteBottomDialog.setViewListener(v11 -> {
+                    v11.findViewById(R.id.tv_item1).setOnClickListener(v1 -> {
+                        boolean b = Tools.saveImage(context, photoView.getVisibleRectangleBitmap());
+                        if (b) {
+                            Toast.makeText(context, "保存成功", Toast.LENGTH_SHORT).show();
+                            mDeleteBottomDialog.dismiss();
+                        } else {
+                            Toast.makeText(context, "保存失败", Toast.LENGTH_SHORT).show();
+                            mDeleteBottomDialog.dismiss();
+                        }
+                    });
+                    v11.findViewById(R.id.tv_item6).setOnClickListener(v2 -> {
+                        mDeleteBottomDialog.dismiss();
+                    });
+                });
+
+                mDeleteBottomDialog.show();
+
+                return false;
+            }
+        });
     }
 
     public interface OnGalleryAdapterCallback {

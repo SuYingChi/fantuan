@@ -6,11 +6,6 @@
     android:background="@drawable/touch_bg"
     android:orientation="vertical">
 
-    <View
-        android:id="@+id/bigline"
-        android:layout_width="match_parent"
-        android:layout_height="5dp"
-        android:background="@color/biglinebg" />
 
     <LinearLayout
         android:layout_width="match_parent"

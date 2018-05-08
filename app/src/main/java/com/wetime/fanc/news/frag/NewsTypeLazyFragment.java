@@ -20,8 +20,6 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.wetime.fanc.R;
-import com.wetime.fanc.home.adapter.HomeItemAdapter;
-import com.wetime.fanc.home.bean.HomeItemBean;
 import com.wetime.fanc.home.event.ReFreshNewsEvent;
 import com.wetime.fanc.home.iviews.IGetNewsTypeView;
 import com.wetime.fanc.home.presenter.GetNewsTypePresenter;
