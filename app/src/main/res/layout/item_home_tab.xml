@@ -28,7 +28,7 @@
             android:layout_marginTop="2dp"
             android:gravity="center"
             android:text="@string/str_bot1"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/text_blue"
             android:textSize="12sp"/>
     </LinearLayout>
 
