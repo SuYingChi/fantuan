@@ -54,7 +54,8 @@ public class HomePageRecommendFragment extends BaseLazyFragment implements OnRef
 
     @Override
     protected void refresh() {
-        onRefresh(refreshLayout);
+        page=1;
+        homePageRecommendFragmentPresenter.getRecommend();
     }
 
 
