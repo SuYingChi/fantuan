@@ -49,9 +49,9 @@ public class HomePageCirclesAdapter extends RecyclerView.Adapter {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
        if (viewType == -1) {
-            return new CircleHeaderViewHolder(inflater.inflate(R.layout.frgament__home_page_circle_header, parent, false));
+            return new CircleHeaderViewHolder(inflater.inflate(R.layout.item_home_page_fragment_circle_my_circles_header, parent, false));
         } else  {
-            return new HotCircleViewHolder(inflater.inflate(R.layout.item_home_page_fragment_circle, parent, false));
+            return new HotCircleViewHolder(inflater.inflate(R.layout.item_home_page_fragment_circle_hot_circles, parent, false));
         }
     }
 
@@ -112,7 +112,7 @@ public class HomePageCirclesAdapter extends RecyclerView.Adapter {
                      activity.startActivity(goCircle);
                  }
              });
-             ((HotCircleViewHolder) holder).hotCircleAttentCircleNum.setText(hotCircles.get(holder.getAdapterPosition() - 1).getFollowing_num());
+             ((HotCircleViewHolder) holder).hotCircleAttentCircleNum.setText(hotCircles.get(holder.getAdapterPosition() - 1).getFollowing_num()+"人关注");
              ((HotCircleViewHolder) holder).hotCircleBrief.setText(hotCircles.get(holder.getAdapterPosition() - 1).getIntro());
              ((HotCircleViewHolder) holder).hotCircleName.setText(hotCircles.get(holder.getAdapterPosition() - 1).getName());
 

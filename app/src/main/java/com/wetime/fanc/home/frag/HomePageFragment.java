@@ -31,14 +31,14 @@ public class HomePageFragment extends BaseLazyFragment {
     private String[] mTitles = {"关注", "推荐","圈子"};
 
     protected void initView() {
-        HomePageAttentionFragment attentFrag = new HomePageAttentionFragment();
-        list_fragment.add(attentFrag);
+        f0 = new HomePageAttentionFragment();
+        list_fragment.add(f0);
 
-        HomePageRecommendFragment homePageRecommendFragment = new HomePageRecommendFragment();
-        list_fragment.add(homePageRecommendFragment);
+        f1 = new HomePageRecommendFragment();
+        list_fragment.add(f1);
 
-        HomePageCircleFragment circleFragment = new HomePageCircleFragment();
-        list_fragment.add(circleFragment);
+        f2 = new HomePageCircleFragment();
+        list_fragment.add(f2 );
 
         NormalTitlePagerAdapter mAdapter = new NormalTitlePagerAdapter(getChildFragmentManager(), list_fragment, mTitles);
         vp.setAdapter(mAdapter);
