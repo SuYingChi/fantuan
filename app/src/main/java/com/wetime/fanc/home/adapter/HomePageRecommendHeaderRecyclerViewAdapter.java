@@ -52,9 +52,6 @@ class HomePageRecommendHeaderRecyclerViewAdapter extends RecyclerView.Adapter {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = inflate.inflate(R.layout.item_recommend_circle, parent, false);
-        ViewGroup.LayoutParams layoutParams = itemView.getLayoutParams();
-        layoutParams.width = ((Tools.getScreenW(activity) - Tools.dip2px(activity, 10 + 10)) / 4);
-        itemView.setLayoutParams(layoutParams);
         return new RecommendHeaderViewHolder(itemView);
 
     }
@@ -66,7 +63,9 @@ class HomePageRecommendHeaderRecyclerViewAdapter extends RecyclerView.Adapter {
                     .apply(new RequestOptions().centerCrop())
                     .into(((RecommendHeaderViewHolder)holder).circleImage);
             ((RecommendHeaderViewHolder)holder).circleName.setText(circles.get(holder.getAdapterPosition()).getName());
-            ((RecommendHeaderViewHolder)holder).textView.setText(circles.get(holder.getAdapterPosition()).getNum());
+            ((RecommendHeaderViewHolder)holder).textView.setText(circles.get(holder.getAdapterPosition()).getNum()+"人关注");
+            ((RecommendHeaderViewHolder)holder).button.setBackgroundResource(R.drawable.bg_btn_blue_circle);
+            ((RecommendHeaderViewHolder)holder).button.setTextColor(ContextCompat.getColor(activity,R.color.text_blue));
             ((RecommendHeaderViewHolder)holder).button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -87,6 +86,7 @@ class HomePageRecommendHeaderRecyclerViewAdapter extends RecyclerView.Adapter {
                     }
                 }
             });
+
             ((RecommendHeaderViewHolder)holder).circleImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

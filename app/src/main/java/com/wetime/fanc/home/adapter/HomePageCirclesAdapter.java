@@ -92,6 +92,8 @@ public class HomePageCirclesAdapter extends RecyclerView.Adapter {
         } else if (holder instanceof HotCircleViewHolder) {
             if (hotCircles.size() > 0) {
                 Glide.with(activity).load(hotCircles.get(holder.getAdapterPosition() - 1).getCover().getCompress()).into(((HotCircleViewHolder) holder).hotCircleCover);
+                ((HotCircleViewHolder)holder).hotCircleAttentCircleBtn.setBackgroundResource(R.drawable.bg_btn_blue_circle);
+                ((HotCircleViewHolder)holder).hotCircleAttentCircleBtn.setTextColor(ContextCompat.getColor(activity,R.color.text_blue));
                 ((HotCircleViewHolder) holder).hotCircleAttentCircleBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

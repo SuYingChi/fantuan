@@ -4,13 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="15dp"
+    >
 
     <com.youth.banner.Banner
         android:id="@+id/banner"
         android:layout_width="match_parent"
         android:layout_height="130dp"
-        android:layout_margin="15dp"
         app:layout_scrollFlags="scroll"
         ></com.youth.banner.Banner>
 
