@@ -28,8 +28,9 @@
             tools:text="满口喝到完苏梅子果肉，这杯正是暖冬的味道正是暖冬的..." />
 
         <LinearLayout
+            android:id="@+id/ll_iv"
             android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:gravity="center"
             android:orientation="horizontal">
@@ -46,7 +47,7 @@
                 android:id="@+id/iv_cover1"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="6dp"
+                android:layout_marginLeft="3dp"
                 android:layout_weight="1"
                 android:scaleType="centerCrop"
                 android:src="@drawable/iv_default_news_small" />
@@ -55,7 +56,7 @@
                 android:id="@+id/iv_cover2"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="6dp"
+                android:layout_marginLeft="3dp"
                 android:layout_weight="1"
                 android:scaleType="centerCrop"
                 android:src="@drawable/iv_default_news_small" />

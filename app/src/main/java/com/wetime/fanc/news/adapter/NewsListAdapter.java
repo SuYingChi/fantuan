@@ -102,7 +102,7 @@ public class NewsListAdapter extends RecyclerView.Adapter {
 
         if (holder instanceof NewsHolder5) {
 
-            NewsHolder5  holder5 = (NewsHolder5) holder;
+            NewsHolder5 holder5 = (NewsHolder5) holder;
             ((NewsHolder5) holder).itemView.setOnClickListener(v -> {
 //                    if (TextUtils.isEmpty(bean.getArticle_url()))
 //                        return;
@@ -122,7 +122,6 @@ public class NewsListAdapter extends RecyclerView.Adapter {
                         bean.getSpecial().getIntro(),
                         bean.getSpecial().getArticle_url(), options);
             });
-
 
 
             if (bean.getSpecial() != null && bean.getSpecial().getName() != null) {
@@ -230,30 +229,31 @@ public class NewsListAdapter extends RecyclerView.Adapter {
                     .into(((NewsHolder4) holder).ivBanner);
         }
         if (holder instanceof NewsHolder1) {
+            NewsHolder1 holder1 = (NewsHolder1) holder;
 
-
-            ((NewsHolder1) holder).tvName.setText(bean.getName());
-            ((NewsHolder1) holder).tvAuthor.setText(bean.getNews_name());
-            ((NewsHolder1) holder).tvTime.setText(bean.getTime());
-            ((NewsHolder1) holder).tvReadnum.setText(bean.getRead_num());
+            holder1.tvName.setText(bean.getName());
+            holder1.tvAuthor.setText(bean.getNews_name());
+            holder1.tvTime.setText(bean.getTime());
+            holder1.tvReadnum.setText(bean.getRead_num());
             if (TextUtils.isEmpty(bean.getNews_name())) {
-                ((NewsHolder1) holder).tvAuthor.setVisibility(View.GONE);
+                holder1.tvAuthor.setVisibility(View.GONE);
             } else {
-                ((NewsHolder1) holder).tvAuthor.setVisibility(View.VISIBLE);
+                holder1.tvAuthor.setVisibility(View.VISIBLE);
             }
             int sw = Tools.getScreenW(mActivity);
-            int w = (sw - Tools.dip2px(mActivity, 15 + 15 + 6 + 6)) / 3;
+            int w = (sw - Tools.dip2px(mActivity, 15 + 15 + 3 + 3)) / 3;
 
-            Double rate = 80.0 / 110;
-
+            Double rate = 3.0 / 4;
             int h = (int) (w * rate);
+
+            ViewGroup.LayoutParams params = holder1.ivCover.getLayoutParams();
+            params.height = h;
+            holder1.ivCover.setLayoutParams(params);
+
             Glide.with(mActivity).load(bean.getCover().get(0).getCompress()).apply(
                     new RequestOptions()
-                            .override(w, h)
-                            .centerCrop()
                             .placeholder(R.drawable.iv_default_news_small))
-
-                    .into(((NewsHolder1) holder).ivCover);
+                    .into(holder1.ivCover);
         }
         if (holder instanceof NewsHolder2) {
             NewsHolder2 holder2 = (NewsHolder2) holder;
@@ -288,46 +288,49 @@ public class NewsListAdapter extends RecyclerView.Adapter {
 
 
         if (holder instanceof NewsHolder3) {
+            NewsHolder3 holder3 = ((NewsHolder3) holder);
 
-
-            ((NewsHolder3) holder).tvName.setText(bean.getName());
-            ((NewsHolder3) holder).tvAuthor.setText(bean.getNews_name());
-            ((NewsHolder3) holder).tvTime.setText(bean.getTime());
-            ((NewsHolder3) holder).tvReadnum.setText(bean.getRead_num());
+            holder3.tvName.setText(bean.getName());
+            holder3.tvAuthor.setText(bean.getNews_name());
+            holder3.tvTime.setText(bean.getTime());
+            holder3.tvReadnum.setText(bean.getRead_num());
 
             if (TextUtils.isEmpty(bean.getNews_name())) {
-                ((NewsHolder3) holder).tvAuthor.setVisibility(View.GONE);
+                holder3.tvAuthor.setVisibility(View.GONE);
             } else {
-                ((NewsHolder3) holder).tvAuthor.setVisibility(View.VISIBLE);
+                holder3.tvAuthor.setVisibility(View.VISIBLE);
             }
 
             int sw = Tools.getScreenW(mActivity);
-            int w = (sw - Tools.dip2px(mActivity, 15 + 15 + 6 + 6)) / 3;
-            Double rate = 80.0 / 110;
+            int w = (sw - Tools.dip2px(mActivity, 15 + 15 + 3 + 3)) / 3;
+            Double rate = 3.0 / 4;
 
             int h = (int) (w * rate);
+            ViewGroup.LayoutParams params = holder3.llIV.getLayoutParams();
+            params.height = h;
 
+            holder3.llIV.setLayoutParams(params);
 
             Glide.with(mActivity).load(bean.getCover().get(0).getCompress()).apply(
                     new RequestOptions()
                             .override(w, h)
                             .centerCrop()
                             .placeholder(R.drawable.iv_default_news_small))
-                    .into(((NewsHolder3) holder).ivCover0);
+                    .into(holder3.ivCover0);
 
             Glide.with(mActivity).load(bean.getCover().get(1).getCompress()).apply(
                     new RequestOptions()
                             .override(w, h)
                             .centerCrop()
                             .placeholder(R.drawable.iv_default_news_small))
-                    .into(((NewsHolder3) holder).ivCover1);
+                    .into(holder3.ivCover1);
 
             Glide.with(mActivity).load(bean.getCover().get(2).getCompress()).apply(
                     new RequestOptions()
                             .override(w, h)
                             .centerCrop()
                             .placeholder(R.drawable.iv_default_news_small))
-                    .into(((NewsHolder3) holder).ivCover2);
+                    .into(holder3.ivCover2);
         }
 
 
@@ -380,7 +383,6 @@ public class NewsListAdapter extends RecyclerView.Adapter {
         TextView tvReadnum;
         @BindView(R.id.iv_cover)
         ImageView ivCover;
-
 
 
         NewsHolder1(View view) {
@@ -437,7 +439,8 @@ public class NewsListAdapter extends RecyclerView.Adapter {
         ImageView ivCover1;
         @BindView(R.id.iv_cover2)
         ImageView ivCover2;
-
+        @BindView(R.id.ll_iv)
+        LinearLayout llIV;
 
 
         NewsHolder3(View view) {
