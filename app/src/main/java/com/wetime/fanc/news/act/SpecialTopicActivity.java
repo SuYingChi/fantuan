@@ -1,6 +1,7 @@
 package com.wetime.fanc.news.act;
 
 import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -18,7 +19,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -95,13 +95,22 @@ public class SpecialTopicActivity extends BaseActivity implements View.OnClickLi
     private boolean isOnly = false;
 
     public static void startToSpecialTopic(Context context, List<NewsListItemBean.ElementsBean> specialTopicId, String imageurl, String name, String content, String titleUrl) {
+        startToSpecialTopic(context, specialTopicId, imageurl, name, content, titleUrl, null);
+    }
+
+    public static void startToSpecialTopic(Context context, List<NewsListItemBean.ElementsBean> specialTopicId, String imageurl, String name, String content, String titleUrl, ActivityOptions options) {
         Intent intent = new Intent(context, SpecialTopicActivity.class);
         intent.putExtra("elements", (Serializable) specialTopicId);
         intent.putExtra("imageurl", imageurl);
         intent.putExtra("name", name);
         intent.putExtra("content", content);
         intent.putExtra("titleUrl", titleUrl);
-        context.startActivity(intent);
+        if (options != null) {
+            context.startActivity(intent, options.toBundle());
+        } else {
+            context.startActivity(intent);
+        }
+
     }
 
     @Override

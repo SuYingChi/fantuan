@@ -21,7 +21,7 @@ public class GetCommentReplyPresenter {
         this.iview = iview;
     }
 
-    public void getCommentReply(String comment_id) {
+    public void getCommentReply(String comment_id,int page) {
 
         OkHttpUtils.post().url(Const.GET_COMMENT_REPLY)
                 .addParams("token", iview.getToken())

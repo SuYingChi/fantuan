@@ -1,6 +1,7 @@
 package com.wetime.fanc.news.adapter;
 
 import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -100,20 +101,29 @@ public class NewsListAdapter extends RecyclerView.Adapter {
 
 
         if (holder instanceof NewsHolder5) {
+
             NewsHolder5  holder5 = (NewsHolder5) holder;
-            holder5.itemView.setOnClickListener(v -> {
+            ((NewsHolder5) holder).itemView.setOnClickListener(v -> {
+//                    if (TextUtils.isEmpty(bean.getArticle_url()))
+//                        return;
                 if (TextUtils.isEmpty(bean.getSpecial().getCoverStr()))
                     return;
                 if (TextUtils.isEmpty(bean.getSpecial().getName()))
                     return;
                 if (TextUtils.isEmpty(bean.getSpecial().getIntro()))
                     return;
+                ActivityOptions options = null;
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+                    options = ActivityOptions.makeSceneTransitionAnimation(mActivity, ((NewsHolder5) holder).reportcover, mActivity.getString(R.string.image_transition_name));
+                }
                 SpecialTopicActivity.startToSpecialTopic(mActivity, bean.getElements(),
                         bean.getSpecial().getCover().get(0).getCompress(),
                         bean.getSpecial().getName(),
                         bean.getSpecial().getIntro(),
-                        bean.getSpecial().getArticle_url());
+                        bean.getSpecial().getArticle_url(), options);
             });
+
+
 
             if (bean.getSpecial() != null && bean.getSpecial().getName() != null) {
                 holder5.mixtureTextView.setText(" " + bean.getSpecial().getName());

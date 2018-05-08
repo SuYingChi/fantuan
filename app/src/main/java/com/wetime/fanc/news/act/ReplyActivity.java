@@ -23,6 +23,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.wetime.fanc.R;
 import com.wetime.fanc.customview.GoodView;
@@ -48,7 +49,7 @@ import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
 import me.shaohui.bottomdialog.BottomDialog;
 
-public class ReplyActivity extends BaseActivity implements OnRefreshListener, IGetCommentReplyView, IGetAllCommentView {
+public class ReplyActivity extends BaseActivity implements OnRefreshListener, IGetCommentReplyView, IGetAllCommentView, OnLoadMoreListener {
 
     @BindView(R.id.tv_title)
     TextView tvTitle;
@@ -101,9 +102,7 @@ public class ReplyActivity extends BaseActivity implements OnRefreshListener, IG
         initLintsner();
     }
 
-    private void initLintsner() {
-        replyRefreshLayout.setOnRefreshListener(this);
-    }
+    private int page = 1;
 
     private void initData() {
         commentTestBean = (CommentBean.DataBean.ListBean) getIntent().getSerializableExtra("commentTestBean");
@@ -128,7 +127,7 @@ public class ReplyActivity extends BaseActivity implements OnRefreshListener, IG
         }
 
         getCommentReplyPresenter = new GetCommentReplyPresenter(this);
-        getCommentReplyPresenter.getCommentReply(commentTestBean.getId());
+        getCommentReplyPresenter.getCommentReply(commentTestBean.getId(), page);
     }
 
     private void init() {
@@ -137,6 +136,8 @@ public class ReplyActivity extends BaseActivity implements OnRefreshListener, IG
         replyListview.setLayoutManager(new LinearLayoutManager(this));
         replyRefreshLayout.setEnableLoadMore(false);
         mGoodView = new GoodView(this);
+        adapter = new ReplyAdapter(this, R.layout.item_reply, data);
+        replyListview.setAdapter(adapter);
     }
 
     private ViewTreeObserver.OnGlobalLayoutListener getGlobalLayoutListener(final View decorView, final LinearLayout contentView) {
@@ -181,9 +182,20 @@ public class ReplyActivity extends BaseActivity implements OnRefreshListener, IG
     private ReplyCommentBean bean;
     private GetAllCommentPresenter getAllCommentPresenter;
 
+    private void initLintsner() {
+        replyRefreshLayout.setOnRefreshListener(this);
+        replyRefreshLayout.setOnLoadMoreListener(this);
+    }
     @Override
     public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-        getCommentReplyPresenter.getCommentReply(commentTestBean.getId());
+        page = 1;
+        getCommentReplyPresenter.getCommentReply(commentTestBean.getId(), page);
+    }
+
+    @Override
+    public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+        page++;
+        getCommentReplyPresenter.getCommentReply(commentTestBean.getId(), page);
     }
 
     public void hideInput() {
@@ -351,11 +363,14 @@ public class ReplyActivity extends BaseActivity implements OnRefreshListener, IG
     @Override
     public void onGetCommentReply(ReplyCommentBean bean) {
         this.bean = bean;
-        data = new ArrayList<>();
+        if (page == 1) {
+            data = new ArrayList<>();
+            replyRefreshLayout.finishRefresh();
+        } else {
+            replyRefreshLayout.finishLoadMore();
+        }
         data.addAll(bean.getData().getReply());
-        replyRefreshLayout.finishRefresh();
-        adapter = new ReplyAdapter(this, R.layout.item_reply, data);
-        replyListview.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
         if (data.size() == 0) {
             replyListview.setVisibility(View.GONE);
             emptyView.setVisibility(View.VISIBLE);
@@ -403,7 +418,7 @@ public class ReplyActivity extends BaseActivity implements OnRefreshListener, IG
     public void onDeleteReply(ErrorBean bean) {
         if (bean.getError() == 0) {
             Toast.makeText(this, "删除成功", Toast.LENGTH_SHORT).show();
-            onRefresh(replyRefreshLayout);
+//            onRefresh(replyRefreshLayout);
         }
     }
 
