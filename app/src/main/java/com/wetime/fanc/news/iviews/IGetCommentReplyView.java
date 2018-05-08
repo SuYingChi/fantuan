@@ -18,5 +18,5 @@ public interface IGetCommentReplyView extends IBaseVIew {
 
     void onClickLike(CommentBean bean);
 
-    void onDeleteCommont(ErrorBean bean);
+    void onDeleteReply(ErrorBean bean);
 }

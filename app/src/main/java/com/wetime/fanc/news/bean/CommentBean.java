@@ -127,68 +127,28 @@ public class CommentBean implements Serializable {
         public static class ListBean implements Serializable {
 
             /**
-             * id : 190
-             * content : 也一生一世我在破
-             * time : 2小时前
-             * like_num : 0
-             * reply_num : 0
-             * score : 0
-             * user : {"id":"281","username":"183****3639","avatar":"https://staticcdntest.fantuanlife.com/image/fant/default_avatar.png"}
-             * is_author : false
+             * like_num : 2
              * is_news : false
+             * is_author : false
              * is_like : false
+             * reply_num : 16
+             * id : 220
+             * time : 04月04日 13:50
+             * aid : 7241
+             * user : {"id":"37","username":"Jian","avatar":"https://staticcdntest.fantuanlife.com/uimage/e4/d5/fd/ff/e4d5fdffab49e67338bf06734e6a21bf.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70/"}
+             * content : mr ni yi w s
              */
 
-            private String id;
-            private String content;
-            private String time;
             private String like_num;
-            private String reply_num;
-            private String score;
-            private UserBean user;
-            private boolean is_author;
             private boolean is_news;
+            private boolean is_author;
             private boolean is_like;
-
-            @Override
-            public String toString() {
-                return "ListBean{" +
-                        "id='" + id + '\'' +
-                        ", content='" + content + '\'' +
-                        ", time='" + time + '\'' +
-                        ", like_num='" + like_num + '\'' +
-                        ", reply_num='" + reply_num + '\'' +
-                        ", score='" + score + '\'' +
-                        ", user=" + user +
-                        ", is_author=" + is_author +
-                        ", is_news=" + is_news +
-                        ", is_like=" + is_like +
-                        '}';
-            }
-
-            public String getId() {
-                return id;
-            }
-
-            public void setId(String id) {
-                this.id = id;
-            }
-
-            public String getContent() {
-                return content;
-            }
-
-            public void setContent(String content) {
-                this.content = content;
-            }
-
-            public String getTime() {
-                return time;
-            }
-
-            public void setTime(String time) {
-                this.time = time;
-            }
+            private String reply_num;
+            private String id;
+            private String time;
+            private String aid;
+            private UserBean user;
+            private String content;
 
             public String getLike_num() {
                 return like_num;
@@ -196,38 +156,6 @@ public class CommentBean implements Serializable {
 
             public void setLike_num(String like_num) {
                 this.like_num = like_num;
-            }
-
-            public String getReply_num() {
-                return reply_num;
-            }
-
-            public void setReply_num(String reply_num) {
-                this.reply_num = reply_num;
-            }
-
-            public String getScore() {
-                return score;
-            }
-
-            public void setScore(String score) {
-                this.score = score;
-            }
-
-            public UserBean getUser() {
-                return user;
-            }
-
-            public void setUser(UserBean user) {
-                this.user = user;
-            }
-
-            public boolean isIs_author() {
-                return is_author;
-            }
-
-            public void setIs_author(boolean is_author) {
-                this.is_author = is_author;
             }
 
             public boolean isIs_news() {
@@ -238,6 +166,14 @@ public class CommentBean implements Serializable {
                 this.is_news = is_news;
             }
 
+            public boolean isIs_author() {
+                return is_author;
+            }
+
+            public void setIs_author(boolean is_author) {
+                this.is_author = is_author;
+            }
+
             public boolean isIs_like() {
                 return is_like;
             }
@@ -246,11 +182,59 @@ public class CommentBean implements Serializable {
                 this.is_like = is_like;
             }
 
+            public String getReply_num() {
+                return reply_num;
+            }
+
+            public void setReply_num(String reply_num) {
+                this.reply_num = reply_num;
+            }
+
+            public String getId() {
+                return id;
+            }
+
+            public void setId(String id) {
+                this.id = id;
+            }
+
+            public String getTime() {
+                return time;
+            }
+
+            public void setTime(String time) {
+                this.time = time;
+            }
+
+            public String getAid() {
+                return aid;
+            }
+
+            public void setAid(String aid) {
+                this.aid = aid;
+            }
+
+            public UserBean getUser() {
+                return user;
+            }
+
+            public void setUser(UserBean user) {
+                this.user = user;
+            }
+
+            public String getContent() {
+                return content;
+            }
+
+            public void setContent(String content) {
+                this.content = content;
+            }
+
             public static class UserBean implements Serializable {
                 /**
-                 * id : 281
-                 * username : 183****3639
-                 * avatar : https://staticcdntest.fantuanlife.com/image/fant/default_avatar.png
+                 * id : 37
+                 * username : Jian
+                 * avatar : https://staticcdntest.fantuanlife.com/uimage/e4/d5/fd/ff/e4d5fdffab49e67338bf06734e6a21bf.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70/
                  */
 
                 private String id;

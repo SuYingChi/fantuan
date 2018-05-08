@@ -146,6 +146,10 @@ public class CommentActivity extends BaseActivity implements IGetAllCommentView,
 
     @Override
     public void onGetAllComment(CommentBean bean) {
+        if (bean.getError() != 0) {
+            Toast.makeText(mContext, bean.getMsg(), Toast.LENGTH_SHORT).show();
+            return;
+        }
         if (isRefresh) {
             data = new ArrayList<>();
             data.addAll(bean.getData().getList());

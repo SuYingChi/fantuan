@@ -33,16 +33,12 @@
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
-        <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginLeft="15dp"
-            android:src="@drawable/icon_comment" />
-
         <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_marginLeft="11dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/bg_btn_comm"
+            android:paddingLeft="5dp"
             android:layout_weight="1"
             android:gravity="center_vertical"
             android:text="发表一下高见吧~"
@@ -58,44 +54,52 @@
         android:layout_height="100dp"
         android:layout_alignParentBottom="true"
         android:background="@color/white"
-        android:gravity="center"
-        android:orientation="horizontal">
-
-
-        <EditText
-            android:id="@+id/gallery_curr_EditText"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="11dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_weight="1"
-            android:background="#f1f1f1"
-            android:gravity="top"
-            android:hint="发表一下高见吧~"
-            android:maxLength="150"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
-            android:textColor="#333"
-            android:textColorHint="#999999" />
+        android:gravity="bottom"
+        android:orientation="horizontal"
+        android:visibility="gone">
 
         <LinearLayout
-            android:id="@+id/gallery_curr_TextView"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginRight="10dp"
-            android:gravity="center">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-            <TextView
+
+            <EditText
+                android:id="@+id/gallery_curr_EditText"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="11dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_btn_comm"
+                android:gravity="top"
+                android:hint="发表一下高见吧~"
+                android:maxLength="150"
+                android:padding="5dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:textColor="#333"
+                android:textColorHint="#999999" />
+
+            <LinearLayout
+                android:id="@+id/gallery_curr_TextView"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="发送"
-                android:textColor="#333333"
-                android:textSize="16sp" />
+                android:layout_height="match_parent"
+                android:layout_marginRight="10dp"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="发送"
+                    android:textColor="#333333"
+                    android:textSize="16sp" />
 
 
+            </LinearLayout>
         </LinearLayout>
 
 

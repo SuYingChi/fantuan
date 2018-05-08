@@ -134,8 +134,7 @@ public class NewsListAdapter extends RecyclerView.Adapter {
 
             ((NewsHolder5) holder).reporthotliner.setOnClickListener(v -> {
                 if (bean.getHottest().getContentType().equals("0")) {
-                    if (TextUtils.isEmpty(bean.getHottest().getArticle_url()))
-                        return;
+                    if (TextUtils.isEmpty(bean.getHottest().getArticle_url())) return;
                     Intent goweb = new Intent(mActivity, WebActivity.class);
                     goweb.putExtra("url", bean.getHottest().getArticle_url());
                     goweb.putExtra("type", "2");
@@ -147,8 +146,7 @@ public class NewsListAdapter extends RecyclerView.Adapter {
             });
             ((NewsHolder5) holder).reportnewhotliner.setOnClickListener(v -> {
                 if (bean.getFocused().getContentType().equals("0")) {
-                    if (TextUtils.isEmpty(bean.getFocused().getArticle_url()))
-                        return;
+                    if (TextUtils.isEmpty(bean.getFocused().getArticle_url())) return;
                     Intent goweb = new Intent(mActivity, WebActivity.class);
                     goweb.putExtra("url", bean.getFocused().getArticle_url());
                     goweb.putExtra("type", "2");
@@ -179,7 +177,6 @@ public class NewsListAdapter extends RecyclerView.Adapter {
             Double rate = 194.0 / 345;
             int h = (int) (w * rate);
             if (bean.getSpecial().getCover() != null && bean.getSpecial().getCover().size() > 0) {
-
                 Glide.with(mActivity)
                         .load(bean.getSpecial().getCover().get(0).getCompress())
                         .apply(

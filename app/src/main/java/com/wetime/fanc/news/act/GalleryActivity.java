@@ -80,7 +80,12 @@ public class GalleryActivity extends BaseActivity implements View.OnClickListene
 
     @Override
     protected void initStateBar() {
-        ImmersionBar.with(this).statusBarColor(R.color.black).fitsSystemWindows(true).init();
+        ImmersionBar.with(this)
+                .transparentStatusBar()
+                .statusBarDarkFont(false)
+                .fitsSystemWindows(false).init();
+//        super.initStateBar();
+//        ImmersionBar.with(this).statusBarColor(R.color.white_lib).statusBarDarkFont(true, 0f).fitsSystemWindows(true).init();
     }
 
     private void initView() {

@@ -32,9 +32,13 @@ import com.wetime.fanc.main.model.ErrorBean;
 import com.wetime.fanc.my.act.UserCardActivity;
 import com.wetime.fanc.news.adapter.ReplyAdapter;
 import com.wetime.fanc.news.bean.CommentBean;
+import com.wetime.fanc.news.bean.GalleryCommentBean;
 import com.wetime.fanc.news.bean.ReplyCommentBean;
+import com.wetime.fanc.news.iviews.IGetAllCommentView;
 import com.wetime.fanc.news.iviews.IGetCommentReplyView;
+import com.wetime.fanc.news.presenter.GetAllCommentPresenter;
 import com.wetime.fanc.news.presenter.GetCommentReplyPresenter;
+import com.wetime.fanc.utils.DialogUtils;
 
 import java.util.ArrayList;
 
@@ -42,8 +46,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
+import me.shaohui.bottomdialog.BottomDialog;
 
-public class ReplyActivity extends BaseActivity implements OnRefreshListener, IGetCommentReplyView {
+public class ReplyActivity extends BaseActivity implements OnRefreshListener, IGetCommentReplyView, IGetAllCommentView {
 
     @BindView(R.id.tv_title)
     TextView tvTitle;
@@ -69,6 +74,8 @@ public class ReplyActivity extends BaseActivity implements OnRefreshListener, IG
     LinearLayout galleryCurrLinearLayout;
     @BindView(R.id.gallery_linear)
     LinearLayout galleryLinear;
+    @BindView(R.id.empty_view)
+    TextView emptyView;
     private boolean isShowInput = false;
     private CommentBean.DataBean.ListBean commentTestBean = null;
     private GoodView mGoodView;
@@ -171,7 +178,23 @@ public class ReplyActivity extends BaseActivity implements OnRefreshListener, IG
         return super.onTouchEvent(event);
     }
 
-    @OnClick({R.id.iv_back, R.id.reply_linear, R.id.reply_head, R.id.gallery_linear, R.id.gallery_curr_TextView, R.id.reply_all_comment})
+    private ReplyCommentBean bean;
+    private GetAllCommentPresenter getAllCommentPresenter;
+
+    @Override
+    public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+        getCommentReplyPresenter.getCommentReply(commentTestBean.getId());
+    }
+
+    public void hideInput() {
+        if (isShowInput) {
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(galleryCurrEditText.getWindowToken(), 0);
+            isShowInput = false;
+        }
+    }
+
+    @OnClick({R.id.iv_back, R.id.reply_content, R.id.reply_linear, R.id.reply_head, R.id.gallery_linear, R.id.gallery_curr_TextView, R.id.reply_all_comment})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
@@ -179,6 +202,11 @@ public class ReplyActivity extends BaseActivity implements OnRefreshListener, IG
                     hideInput();
                 } else {
                     onBackPressed();
+                }
+                break;
+            case R.id.reply_content:
+                if (commentTestBean.isIs_author()){
+                    showDelete();
                 }
                 break;
             case R.id.reply_linear:
@@ -234,26 +262,107 @@ public class ReplyActivity extends BaseActivity implements OnRefreshListener, IG
         }
     }
 
-    @Override
-    public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-        getCommentReplyPresenter.getCommentReply(commentTestBean.getId());
+    public void deleteComment(String comment_id) {
+        getAllCommentPresenter = new GetAllCommentPresenter(this);
+        getAllCommentPresenter.deleteCommonet(comment_id);
     }
 
-    public void hideInput() {
-        if (isShowInput) {
-            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(galleryCurrEditText.getWindowToken(), 0);
-            isShowInput = false;
-        }
+    private void showDelete() {
+        BottomDialog mDialog = BottomDialog.create(getSupportFragmentManager());
+        mDialog.setDimAmount(0.5f);
+        mDialog.setLayoutRes(R.layout.item_delete_comment);
+        mDialog.setViewListener(v1 -> {
+            ((TextView) v1.findViewById(R.id.tv_reply)).setText("删除评论后，评论下所有的回复都会被删除。");
+            ((TextView) v1.findViewById(R.id.tv_reply)).setTextSize(12);
+            ((TextView) v1.findViewById(R.id.tv_reply)).setTextColor(Color.parseColor("#666666"));
+
+            ((TextView) v1.findViewById(R.id.tv_delete)).setText("确认删除");
+            v1.findViewById(R.id.tv_delete).setOnClickListener(v11 -> {
+                mDialog.dismiss();
+                DialogUtils.showNormalDialog(ReplyActivity.this, null, "是否删除该评论", (dialog, which) -> {
+                    deleteComment(commentTestBean.getId());
+                });
+            });
+            ((TextView) v1.findViewById(R.id.tv_cancel)).setTextColor(Color.parseColor("#333333"));
+            v1.findViewById(R.id.tv_cancel).setOnClickListener(v14 -> {
+                mDialog.dismiss();
+            });
+        });
+        mDialog.show();
+    }
+
+    public void showMyReply(String pid, String commentId, String username, int position) {
+        BottomDialog mCommentBottomDialog = BottomDialog.create(getSupportFragmentManager());
+        mCommentBottomDialog.setDimAmount(0.5f);
+        mCommentBottomDialog.setLayoutRes(R.layout.item_delete_comment);
+        mCommentBottomDialog.setViewListener(v -> {
+            ((TextView) v.findViewById(R.id.tv_reply)).setTextColor(Color.parseColor("#333333"));
+            v.findViewById(R.id.tv_reply).setOnClickListener(v1 -> {
+                mCommentBottomDialog.dismiss();
+                sendReply(pid, commentId, username);
+            });
+            v.findViewById(R.id.tv_delete).setOnClickListener(v12 -> {
+                mCommentBottomDialog.dismiss();
+
+                BottomDialog mDialog = BottomDialog.create(getSupportFragmentManager());
+                mDialog.setDimAmount(0.5f);
+                mDialog.setLayoutRes(R.layout.item_delete_comment);
+                mDialog.setViewListener(v1 -> {
+                    ((TextView) v1.findViewById(R.id.tv_reply)).setText("确认删除该回复？");
+                    ((TextView) v1.findViewById(R.id.tv_reply)).setTextSize(12);
+                    ((TextView) v1.findViewById(R.id.tv_reply)).setTextColor(Color.parseColor("#666666"));
+
+                    ((TextView) v1.findViewById(R.id.tv_delete)).setText("确认删除");
+                    v1.findViewById(R.id.tv_delete).setOnClickListener(v11 -> {
+                        mDialog.dismiss();
+                        deleteReply(pid);
+                        data.remove(position);
+                        if (data.size() == 0) {
+                            replyListview.setVisibility(View.GONE);
+                            emptyView.setVisibility(View.VISIBLE);
+                        } else {
+                            replyListview.setVisibility(View.VISIBLE);
+                            emptyView.setVisibility(View.GONE);
+                        }
+                        adapter.notifyDataSetChanged();
+//                        DialogUtils.showNormalDialog(ReplyActivity.this, null, "是否删除该评论", (dialog, which) -> {
+//                            deleteReply(pid);
+//                            data.remove(position);
+//                            adapter.notifyDataSetChanged();
+//                        });
+                    });
+                    ((TextView) v1.findViewById(R.id.tv_cancel)).setTextColor(Color.parseColor("#333333"));
+                    v1.findViewById(R.id.tv_cancel).setOnClickListener(v14 -> {
+                        mDialog.dismiss();
+                    });
+                });
+                mDialog.show();
+
+
+            });
+            ((TextView) v.findViewById(R.id.tv_cancel)).setTextColor(Color.parseColor("#333333"));
+            v.findViewById(R.id.tv_cancel).setOnClickListener(v14 -> {
+                mCommentBottomDialog.dismiss();
+            });
+        });
+        mCommentBottomDialog.show();
     }
 
     @Override
     public void onGetCommentReply(ReplyCommentBean bean) {
+        this.bean = bean;
         data = new ArrayList<>();
         data.addAll(bean.getData().getReply());
         replyRefreshLayout.finishRefresh();
         adapter = new ReplyAdapter(this, R.layout.item_reply, data);
         replyListview.setAdapter(adapter);
+        if (data.size() == 0) {
+            replyListview.setVisibility(View.GONE);
+            emptyView.setVisibility(View.VISIBLE);
+        } else {
+            replyListview.setVisibility(View.VISIBLE);
+            emptyView.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -267,12 +376,31 @@ public class ReplyActivity extends BaseActivity implements OnRefreshListener, IG
     }
 
     @Override
+    public void onGetAllComment(CommentBean bean) {
+
+    }
+
+    @Override
     public void onClickLike(CommentBean bean) {
 
     }
 
     @Override
+    public void onSendCommont(GalleryCommentBean bean) {
+
+    }
+
+    @Override
     public void onDeleteCommont(ErrorBean bean) {
+        Toast.makeText(this, bean.getMsg(), Toast.LENGTH_SHORT).show();
+        if (bean.getError() == 0) {
+            this.finish();
+        }
+
+    }
+
+    @Override
+    public void onDeleteReply(ErrorBean bean) {
         if (bean.getError() == 0) {
             Toast.makeText(this, "删除成功", Toast.LENGTH_SHORT).show();
             onRefresh(replyRefreshLayout);

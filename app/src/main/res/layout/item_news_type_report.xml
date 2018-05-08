@@ -13,40 +13,53 @@
         android:paddingRight="15dp"
         android:paddingTop="15dp">
 
-        <com.wetime.fanc.customview.MixtureTextView
-            android:id="@+id/mixtureTextView"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="#333333"
-            android:textSize="18sp">
+            android:layout_height="wrap_content">
 
             <ImageView
-                android:layout_width="wrap_content"
+                android:id="@+id/report_cover"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:scaleType="centerCrop" />
+
+
+            <com.wetime.fanc.customview.MixtureTextView
+                android:id="@+id/mixtureTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/report_cover"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
-                android:src="@drawable/invalid_report" />
+                android:ellipsize="end"
+                android:lineSpacingExtra="5sp"
+                android:maxLines="2"
+                android:textColor="#FFFFFF"
+                android:textSize="14sp">
 
-            <!--<TextView-->
-            <!--android:id="@+id/report_name"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:ellipsize="end"-->
-            <!--android:lineSpacingExtra="5sp"-->
-            <!--android:maxLines="2"-->
-            <!--android:text="聚焦新一届国务院机构组成人员，这个专题名称可以有两行哦"-->
-            <!--android:textColor="#333333"-->
-            <!--android:textSize="18sp" />-->
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
+                    android:src="@drawable/invalid_report" />
+
+                <!--<TextView-->
+                <!--android:id="@+id/report_name"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:ellipsize="end"-->
+                <!--android:lineSpacingExtra="5sp"-->
+                <!--android:maxLines="2"-->
+                <!--android:text="聚焦新一届国务院机构组成人员，这个专题名称可以有两行哦"-->
+                <!--android:textColor="#333333"-->
+                <!--android:textSize="18sp" />-->
 
 
-        </com.wetime.fanc.customview.MixtureTextView>
+            </com.wetime.fanc.customview.MixtureTextView>
 
 
-        <ImageView
-            android:id="@+id/report_cover"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:scaleType="centerCrop" />
+        </RelativeLayout>
 
 
         <LinearLayout
@@ -63,7 +76,7 @@
                 android:layout_height="wrap_content"
                 android:lineSpacingExtra="0sp"
                 android:text="最新"
-                android:textColor="#ff3f53"
+                android:textColor="#000000"
                 android:textSize="18sp" />
 
             <View
@@ -82,7 +95,7 @@
                 android:lineSpacingExtra="5sp"
                 android:maxLines="2"
                 android:text="聚焦新一届国务院机构组成人员，这个专题名称可以有两行哦"
-                android:textColor="#333333"
+                android:textColor="#666666"
                 android:textSize="16sp" />
         </LinearLayout>
 
@@ -100,7 +113,7 @@
                 android:layout_height="wrap_content"
                 android:lineSpacingExtra="0sp"
                 android:text="热点"
-                android:textColor="#ff3f53"
+                android:textColor="#000000"
                 android:textSize="18sp" />
 
             <View
@@ -119,7 +132,7 @@
                 android:lineSpacingExtra="5sp"
                 android:maxLines="2"
                 android:text="聚焦新一届国务院机构组成人员，这个专题名称可以有两行哦"
-                android:textColor="#333333"
+                android:textColor="#666666"
                 android:textSize="16sp" />
         </LinearLayout>
 
@@ -138,7 +151,7 @@
                 android:layout_height="wrap_content"
                 android:lineSpacingExtra="0sp"
                 android:text="聚焦"
-                android:textColor="#ff3f53"
+                android:textColor="#000000"
                 android:textSize="18sp" />
 
             <View
@@ -157,7 +170,7 @@
                 android:lineSpacingExtra="5sp"
                 android:maxLines="2"
                 android:text="聚焦新一届国务院机构组成人员，这个专题名称可以有两行哦"
-                android:textColor="#333333"
+                android:textColor="#666666"
 
                 android:textSize="16sp" />
         </LinearLayout>

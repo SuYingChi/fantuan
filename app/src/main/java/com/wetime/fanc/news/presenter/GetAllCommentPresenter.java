@@ -25,8 +25,8 @@ public class GetAllCommentPresenter {
     public void getAllComment(String comment_id, String pn) {
 
         OkHttpUtils.post().url(Const.GRT_ALL_COMMENT)
-                .addParams("token", iview.getToken())
-                .addParams("article_id", comment_id)
+                .addHeader("token", iview.getToken())
+                .addParams("id", comment_id)
                 .addParams("pn", pn)
                 .build()
                 .execute(new DataStringCallback(iview, false) {
