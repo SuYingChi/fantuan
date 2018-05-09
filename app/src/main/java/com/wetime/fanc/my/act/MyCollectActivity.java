@@ -26,8 +26,8 @@ public class MyCollectActivity extends BaseActivity {
     TextView tvTitle;
 
 
-    @BindView(R.id.tablayout)
-    SlidingTabLayout slidingTabLayout;
+//    @BindView(R.id.tablayout)
+//    SlidingTabLayout slidingTabLayout;
     @BindView(R.id.vp)
     ViewPager vp;
 
@@ -48,19 +48,20 @@ public class MyCollectActivity extends BaseActivity {
         tvTitle.setText("我的收藏");
 
 
-        String[] mTitles = {"文章", "商家"};
+//        String[] mTitles = {"文章", "商家"};
+        String[] mTitles = {"文章"};
 
 
         MyCollectNewsLazyFragment newsFragment = new MyCollectNewsLazyFragment();
         mFragments.add(newsFragment);
 
-        MyCollectShopLazyFragment shopFragment = new MyCollectShopLazyFragment();
-        mFragments.add(shopFragment);
+//        MyCollectShopLazyFragment shopFragment = new MyCollectShopLazyFragment();
+//        mFragments.add(shopFragment);
 
 
         NormalTitlePagerAdapter mAdapter = new NormalTitlePagerAdapter(getSupportFragmentManager(), mFragments, mTitles);
         vp.setAdapter(mAdapter);
-        slidingTabLayout.setViewPager(vp, mTitles);
+//        slidingTabLayout.setViewPager(vp, mTitles);
     }
 
     @Override
