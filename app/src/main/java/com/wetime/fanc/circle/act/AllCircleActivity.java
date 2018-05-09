@@ -41,7 +41,6 @@ public class AllCircleActivity extends BaseActivity implements OnLoadMoreListene
     private GetAllCirclePresenter getAllCirclePresenter;
     private List<AllCircleListBean.DataBean.CircleListBean> list = new ArrayList<>();
     private AllCircleAdapter allCircleAdapter;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
