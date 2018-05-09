@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -50,6 +51,10 @@ public class MyFragment extends BaseLazyFragment implements IGetMyprofileView {
     TextView tvName;
     @BindView(R.id.iv_news)
     ImageView ivNews;
+    @BindView(R.id.iv_reddot)
+    ImageView ivRedDot;
+    @BindView(R.id.ll_beauthor)
+    LinearLayout llBeauthor;
 
 
 //    private QBadgeView qBadgeMsg;
@@ -119,10 +124,17 @@ public class MyFragment extends BaseLazyFragment implements IGetMyprofileView {
         if (!TextUtils.isEmpty(bean.getData().getToutiao_apply_url())) {
             tvBeauthor.setOnClickListener(v -> Tools.goWeb(getContext(), bean.getData().getToutiao_apply_url()));
         }
-        if(bean.getData().isIs_news()){
+        if (bean.getData().isIs_news()) {
             ivNews.setVisibility(View.VISIBLE);
-        }else{
+            llBeauthor.setVisibility(View.GONE);
+        } else {
             ivNews.setVisibility(View.GONE);
+            llBeauthor.setVisibility(View.VISIBLE);
+        }
+        if (bean.getData().isHas_new_fans()) {
+            ivRedDot.setVisibility(View.VISIBLE);
+        } else {
+            ivRedDot.setVisibility(View.GONE);
         }
 
     }
