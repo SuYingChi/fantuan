@@ -10,7 +10,7 @@ import java.util.List;
  * Created by zhoukang on 2018/3/1.
  */
 
-public class NewsListItemBean {
+public class NewsListItemBean implements Serializable {
     /**
      * id : 2
      * uid : 18
