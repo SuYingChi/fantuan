@@ -72,7 +72,7 @@ public class FApp extends Application {
 
     }
 
-    private List<Activity> oList;
+//    private List<Activity> oList;
     private SharePreferenceUtil spu;
 
     public static boolean isd(Context context) {
@@ -141,7 +141,7 @@ public class FApp extends Application {
                 .build();
 
         OkHttpUtils.initClient(okHttpClient);
-        oList = new ArrayList<>();
+//        oList = new ArrayList<>();
         spu = Tools.getSpu(this);
         instance = this;
 
@@ -157,12 +157,12 @@ public class FApp extends Application {
         mTencent = Tencent.createInstance("1106601878", this.getApplicationContext());
     }
 
-    public void addActivity(Activity activity) {
-
-        if (!oList.contains(activity)) {
-            oList.add(activity);
-        }
-    }
+//    public void addActivity(Activity activity) {
+//
+//        if (!oList.contains(activity)) {
+//            oList.add(activity);
+//        }
+//    }
 
     private void registToWX() {
         mWxApi = WXAPIFactory.createWXAPI(this, "wx2fbcb61b6e5b1384", true);
@@ -170,18 +170,18 @@ public class FApp extends Application {
     }
 
 
-    public void removeActivity(Activity activity) {
-        if (oList.contains(activity)) {
-            oList.remove(activity);
-            activity.finish();
-        }
-    }
-
-
-    public void removeALLActivity() {
-        for (Activity activity : oList) {
-            activity.finish();
-        }
-    }
+//    public void removeActivity(Activity activity) {
+//        if (oList.contains(activity)) {
+//            oList.remove(activity);
+//            activity.finish();
+//        }
+//    }
+//
+//
+//    public void removeALLActivity() {
+//        for (Activity activity : oList) {
+//            activity.finish();
+//        }
+//    }
 }
 

@@ -10,7 +10,7 @@ public class MyInfoBean {
     /**
      * error : 0
      * msg :
-     * data : {"user":{"username":"Yun'''。","phone":"18689789691","avatar":"https://staticcdntest.fantuanlife.com/uimage/55/5e/8c/12/555e8c12849a191cc42cfab16f904c54.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"},"link":{"reward":{"name":"我的范票","url":"https://fanttest.fantuanlife.com/index.html#/user/reward"},"coupon":{"name":"我的优惠券","url":"https://fanttest.fantuanlife.com/index.html#/user/coupon"},"focus":{"name":"我的关注","url":"https://fanttest.fantuanlife.com/index.html#/user/follow"},"notice":{"name":"我的消息","url":"https://fanttest.fantuanlife.com/index.html#/user/message"},"review":{"name":"我的评价","url":"https://fanttest.fantuanlife.com/index.html#/user/comment"},"inviter":{"name":"邀请有礼","url":""}},"notice_num":"0"}
+     * data : {"birthday":"请选择","is_follow":false,"avatar_url":"https://staticcdntest.fantuanlife.com/uimage/40/b0/32/5b/40b0325b70b5b012c75fa70ef4159755.jpg","signature":"请填写","is_owner":true,"sex":"请选择","id":"38","avatar":"https://staticcdntest.fantuanlife.com/uimage/40/b0/32/5b/40b0325b70b5b012c75fa70ef4159755.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70/","username":"起点"}
      */
 
     private int error;
@@ -43,234 +43,97 @@ public class MyInfoBean {
 
     public static class DataBean {
         /**
-         * user : {"username":"Yun'''。","phone":"18689789691","avatar":"https://staticcdntest.fantuanlife.com/uimage/55/5e/8c/12/555e8c12849a191cc42cfab16f904c54.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"}
-         * link : {"reward":{"name":"我的范票","url":"https://fanttest.fantuanlife.com/index.html#/user/reward"},"coupon":{"name":"我的优惠券","url":"https://fanttest.fantuanlife.com/index.html#/user/coupon"},"focus":{"name":"我的关注","url":"https://fanttest.fantuanlife.com/index.html#/user/follow"},"notice":{"name":"我的消息","url":"https://fanttest.fantuanlife.com/index.html#/user/message"},"review":{"name":"我的评价","url":"https://fanttest.fantuanlife.com/index.html#/user/comment"},"inviter":{"name":"邀请有礼","url":""}}
-         * notice_num : 0
+         * birthday : 请选择
+         * is_follow : false
+         * avatar_url : https://staticcdntest.fantuanlife.com/uimage/40/b0/32/5b/40b0325b70b5b012c75fa70ef4159755.jpg
+         * signature : 请填写
+         * is_owner : true
+         * sex : 请选择
+         * id : 38
+         * avatar : https://staticcdntest.fantuanlife.com/uimage/40/b0/32/5b/40b0325b70b5b012c75fa70ef4159755.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70/
+         * username : 起点
          */
 
-        private UserBean user;
-        private LinkBean link;
+        private String birthday;
+        private boolean is_follow;
+        private String avatar_url;
+        private String signature;
+        private boolean is_owner;
+        private String sex;
+        private String id;
+        private String avatar;
+        private String username;
 
-
-        public UserBean getUser() {
-            return user;
+        public String getBirthday() {
+            return birthday;
         }
 
-        public void setUser(UserBean user) {
-            this.user = user;
+        public void setBirthday(String birthday) {
+            this.birthday = birthday;
         }
 
-        public LinkBean getLink() {
-            return link;
+        public boolean isIs_follow() {
+            return is_follow;
         }
 
-        public void setLink(LinkBean link) {
-            this.link = link;
+        public void setIs_follow(boolean is_follow) {
+            this.is_follow = is_follow;
         }
 
-
-        public static class UserBean {
-            /**
-             * username : Yun'''。
-             * phone : 18689789691
-             * avatar : https://staticcdntest.fantuanlife.com/uimage/55/5e/8c/12/555e8c12849a191cc42cfab16f904c54.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70
-             * "news_article_num": "75",
-             " dynamic_num": "6",
-             " order_review_num": "0"
-             **/
-
-            private String news_article_num;
-            private String dynamic_num;
-            private String order_review_num;
-            private String username;
-            private String phone;
-            private String avatar;
-            private String uid;
-            private boolean has_news;
-
-            public String getNews_article_num() {
-                return news_article_num;
-            }
-
-            public void setNews_article_num(String news_article_num) {
-                this.news_article_num = news_article_num;
-            }
-
-            public String getDynamic_num() {
-                return dynamic_num;
-            }
-
-            public void setDynamic_num(String dynamic_num) {
-                this.dynamic_num = dynamic_num;
-            }
-
-            public String getOrder_review_num() {
-                return order_review_num;
-            }
-
-            public void setOrder_review_num(String order_review_num) {
-                this.order_review_num = order_review_num;
-            }
-
-            public String getUid() {
-                return uid;
-            }
-
-            public void setUid(String uid) {
-                this.uid = uid;
-            }
-
-            public boolean isHas_news() {
-                return has_news;
-            }
-
-            public void setHas_news(boolean has_news) {
-                this.has_news = has_news;
-            }
-
-            public String getUsername() {
-                return username;
-            }
-
-            public void setUsername(String username) {
-                this.username = username;
-            }
-
-            public String getPhone() {
-                return phone;
-            }
-
-            public void setPhone(String phone) {
-                this.phone = phone;
-            }
-
-            public String getAvatar() {
-                return avatar;
-            }
-
-            public void setAvatar(String avatar) {
-                this.avatar = avatar;
-            }
+        public String getAvatar_url() {
+            return avatar_url;
         }
 
-        public static class LinkBean {
-            /**
-             * reward : {"name":"我的范票","url":"https://fanttest.fantuanlife.com/index.html#/user/reward"}
-             * coupon : {"name":"我的优惠券","url":"https://fanttest.fantuanlife.com/index.html#/user/coupon"}
-             * focus : {"name":"我的关注","url":"https://fanttest.fantuanlife.com/index.html#/user/follow"}
-             * notice : {"name":"我的消息","url":"https://fanttest.fantuanlife.com/index.html#/user/message"}
-             * review : {"name":"我的评价","url":"https://fanttest.fantuanlife.com/index.html#/user/comment"}
-             * inviter : {"name":"邀请有礼","url":""}
-             */
+        public void setAvatar_url(String avatar_url) {
+            this.avatar_url = avatar_url;
+        }
 
-            private RewardBean reward;
-            private CouponBean coupon;
-            private NewsBean news;
+        public String getSignature() {
+            return signature;
+        }
 
-            public NewsBean getNews() {
-                return news;
-            }
+        public void setSignature(String signature) {
+            this.signature = signature;
+        }
 
-            public void setNews(NewsBean news) {
-                this.news = news;
-            }
+        public boolean isIs_owner() {
+            return is_owner;
+        }
 
-            public RewardBean getReward() {
-                return reward;
-            }
+        public void setIs_owner(boolean is_owner) {
+            this.is_owner = is_owner;
+        }
 
-            public void setReward(RewardBean reward) {
-                this.reward = reward;
-            }
+        public String getSex() {
+            return sex;
+        }
 
-            public CouponBean getCoupon() {
-                return coupon;
-            }
+        public void setSex(String sex) {
+            this.sex = sex;
+        }
 
-            public void setCoupon(CouponBean coupon) {
-                this.coupon = coupon;
-            }
+        public String getId() {
+            return id;
+        }
 
+        public void setId(String id) {
+            this.id = id;
+        }
 
-            public static class RewardBean {
-                /**
-                 * name : 我的范票
-                 * url : https://fanttest.fantuanlife.com/index.html#/user/reward
-                 */
+        public String getAvatar() {
+            return avatar;
+        }
 
-                private String name;
-                private String url;
+        public void setAvatar(String avatar) {
+            this.avatar = avatar;
+        }
 
-                public String getName() {
-                    return name;
-                }
+        public String getUsername() {
+            return username;
+        }
 
-                public void setName(String name) {
-                    this.name = name;
-                }
-
-                public String getUrl() {
-                    return url;
-                }
-
-                public void setUrl(String url) {
-                    this.url = url;
-                }
-            }
-
-            public static class CouponBean {
-                /**
-                 * name : 我的优惠券
-                 * url : https://fanttest.fantuanlife.com/index.html#/user/coupon
-                 */
-
-                private String name;
-                private String url;
-
-                public String getName() {
-                    return name;
-                }
-
-                public void setName(String name) {
-                    this.name = name;
-                }
-
-                public String getUrl() {
-                    return url;
-                }
-
-                public void setUrl(String url) {
-                    this.url = url;
-                }
-            }
-
-
-            public static class NewsBean {
-                /**
-                 * name : 我的评价
-                 * url : https://fanttest.fantuanlife.com/index.html#/user/comment
-                 */
-
-                private String name;
-                private String url;
-
-                public String getName() {
-                    return name;
-                }
-
-                public void setName(String name) {
-                    this.name = name;
-                }
-
-                public String getUrl() {
-                    return url;
-                }
-
-                public void setUrl(String url) {
-                    this.url = url;
-                }
-            }
-
+        public void setUsername(String username) {
+            this.username = username;
         }
     }
 }

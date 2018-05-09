@@ -18,7 +18,6 @@ public interface Const {
     String LOGIN_PSW = BASEURL + "/login";
     String LOGIN_WX = BASEURL + "/login/wexin";
     String WEIXIN_BIND = BASEURL + "/user/weixin/bind";
-    String USER_PROFILE = BASEURL + "/user/profile";
     String LOGOUT = BASEURL + "/logout";
     String USER_PROFILE_UPDATEAVATAR = BASEURL + "/user/profile/updateavatar";
     String USER_PROFILE_UPDATENAME = BASEURL + "/user/profile/updatename";
@@ -121,4 +120,5 @@ public interface Const {
     String NEWSARTICLE_READED = BASEURL+"/jv/newsarticle/readed";
     String JV_USER_PROFILE = BASEURL+"/jv/user/profile";
     String GET_RECOMMEN_DA = BASEURL + "/jv/anonymous/newsarticle/recommendarticles";
+    String USER_PROFILE = BASEURL + "/jv/user/loginuserinfo";
 }

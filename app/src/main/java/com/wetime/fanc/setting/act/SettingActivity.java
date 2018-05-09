@@ -36,6 +36,7 @@ import org.greenrobot.eventbus.ThreadMode;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import me.shaohui.bottomdialog.BottomDialog;
 
 public class SettingActivity extends BaseActivity implements ILogoutView, IGetSettingView, IWXBindView {
 
@@ -52,8 +53,7 @@ public class SettingActivity extends BaseActivity implements ILogoutView, IGetSe
     TextView tvWx;
     @BindView(R.id.tv_psw)
     TextView tvPsw;
-    @BindView(R.id.tv_about)
-    TextView tvAbout;
+
     @BindView(R.id.tv_logout)
     TextView tvLogout;
 
@@ -94,7 +94,7 @@ public class SettingActivity extends BaseActivity implements ILogoutView, IGetSe
     }
 
 
-    @OnClick({R.id.iv_back, R.id.tv_myinfo, R.id.tv_phone, R.id.tv_wx, R.id.tv_psw, R.id.tv_about, R.id.tv_logout})
+    @OnClick({R.id.iv_back, R.id.tv_myinfo, R.id.tv_phone, R.id.tv_wx, R.id.tv_psw, R.id.tv_logout})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
@@ -104,23 +104,10 @@ public class SettingActivity extends BaseActivity implements ILogoutView, IGetSe
                 Intent goInfo = new Intent(this, UserinfoActivity.class);
                 startActivity(goInfo);
                 break;
-
             case R.id.tv_wx:
                 break;
-
-            case R.id.tv_about:
-                Intent goAbout = new Intent(this, AboutActivity.class);
-                startActivity(goAbout);
-                break;
             case R.id.tv_logout:
-                Tools.showTipsDialog(this, "", "确定要退出登录吗？", null, new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        logoutPresenter = new LogoutPresenter(SettingActivity.this);
-                        logoutPresenter.logout();
-                    }
-                });
-
+                showBottomDialog();
                 break;
         }
     }
@@ -130,12 +117,28 @@ public class SettingActivity extends BaseActivity implements ILogoutView, IGetSe
         if (bean.getError() == 0) {
             Tools.logout(this);
             EventBus.getDefault().post(new LogoutEvent());
-            Intent goLogin = new Intent(this, LoginActivity.class);
+            Intent goLogin = new Intent(mContext, LoginActivity.class);
             startActivity(goLogin);
-            finish();
         }
     }
+    private void showBottomDialog(){
+        BottomDialog mDeleteBottomDialog = BottomDialog.create(getSupportFragmentManager());
+        mDeleteBottomDialog.setDimAmount(0.5f);
+        mDeleteBottomDialog.setCancelOutside(true);
+        mDeleteBottomDialog.setLayoutRes(R.layout.bottom_logout_dialog_layout);
+        mDeleteBottomDialog.setViewListener(v11 -> {
+            v11.findViewById(R.id.tv_logout).setOnClickListener(v -> {
+                mDeleteBottomDialog.dismiss();
+                logoutPresenter = new LogoutPresenter(SettingActivity.this);
+                logoutPresenter.logout();
+            });
+            v11.findViewById(R.id.tv_cancel).setOnClickListener(v -> mDeleteBottomDialog.dismiss());
 
+        });
+
+        mDeleteBottomDialog.show();
+
+    }
     @Override
     public void onGetSetting(SettingPageBean bean) {
         this.bean = bean;

@@ -23,7 +23,7 @@ public class GetUserInfoPresenter {
         OkHttpUtils
                 .post()
                 .url(Const.USER_PROFILE)
-                .addParams("token", iView.getToken())
+                .addHeader("token", iView.getToken())
                 .build()
                 .execute(new DataStringCallback(iView, false) {
                     @Override

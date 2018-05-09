@@ -474,7 +474,7 @@ public class WebActivity extends BaseActivity implements IPostMultiFileView, WbS
         web.post(() -> {
             Tools.logout(mContext);
             EventBus.getDefault().post(new LogoutEvent());
-            FApp.getInstance().removeALLActivity();
+//            FApp.getInstance().removeALLActivity();
         });
     }
 

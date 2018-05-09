@@ -52,9 +52,10 @@ public class NewsListAdapter extends RecyclerView.Adapter {
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        if (viewType == 0) {
-            return new NewsHolder0(inflater.inflate(R.layout.item_news_type0, parent, false));
-        } else if (viewType == 1) {
+//        if (viewType == 0) {
+//            return new NewsHolder0(inflater.inflate(R.layout.item_news_type0, parent, false));
+//        } else
+        if (viewType == 1) {
             return new NewsHolder1(inflater.inflate(R.layout.item_news_type1, parent, false));
         } else if (viewType == 3) {
             return new NewsHolder3(inflater.inflate(R.layout.item_news_type3, parent, false));
@@ -225,20 +226,20 @@ public class NewsListAdapter extends RecyclerView.Adapter {
         }
 
 
-        if (holder instanceof NewsHolder0) {
-            int sw = Tools.getScreenW(mActivity);
-            int w = (sw - Tools.dip2px(mActivity, 15 + 15));
-            Double rate = 80.0 / 345;
-
-            int h = (int) (w * rate);
-
-            Glide.with(mActivity).load(bean.getBanner().get(0).getImg()).apply(
-                    new RequestOptions()
-                            .override(w, h)
-                            .centerCrop()
-                            .placeholder(R.drawable.iv_default_news_small))
-                    .into(((NewsHolder0) holder).ivBanner);
-        }
+//        if (holder instanceof NewsHolder0) {
+//            int sw = Tools.getScreenW(mActivity);
+//            int w = (sw - Tools.dip2px(mActivity, 15 + 15));
+//            Double rate = 80.0 / 345;
+//
+//            int h = (int) (w * rate);
+//
+//            Glide.with(mActivity).load(bean.getBanner().get(0).getImg()).apply(
+//                    new RequestOptions()
+//                            .override(w, h)
+//                            .centerCrop()
+//                            .placeholder(R.drawable.iv_default_news_small))
+//                    .into(((NewsHolder0) holder).ivBanner);
+//        }
         if (holder instanceof NewsHolder4) {
             int sw = Tools.getScreenW(mActivity);
             int w = (sw - Tools.dip2px(mActivity, 15 + 15));
@@ -397,17 +398,17 @@ public class NewsListAdapter extends RecyclerView.Adapter {
         }
     }
 
-    // 一张小图
-    class NewsHolder0 extends RecyclerView.ViewHolder {
-        @BindView(R.id.iv_banner)
-        ImageView ivBanner;
-
-
-        NewsHolder0(View view) {
-            super(view);
-            ButterKnife.bind(this, view);
-        }
-    }
+//    // 一张小图
+//    class NewsHolder0 extends RecyclerView.ViewHolder {
+//        @BindView(R.id.iv_banner)
+//        ImageView ivBanner;
+//
+//
+//        NewsHolder0(View view) {
+//            super(view);
+//            ButterKnife.bind(this, view);
+//        }
+//    }
 
     // 小图加文字
     class NewsHolder1 extends RecyclerView.ViewHolder {
