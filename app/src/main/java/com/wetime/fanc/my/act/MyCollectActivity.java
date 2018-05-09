@@ -1,5 +1,7 @@
 package com.wetime.fanc.my.act;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -24,13 +26,19 @@ public class MyCollectActivity extends BaseActivity {
     TextView tvTitle;
 
 
-    @BindView(R.id.tablayout)
-    SlidingTabLayout slidingTabLayout;
+//    @BindView(R.id.tablayout)
+//    SlidingTabLayout slidingTabLayout;
     @BindView(R.id.vp)
     ViewPager vp;
 
 
     private ArrayList<Fragment> mFragments = new ArrayList<>();
+
+    public static void goMyCollectAct(Context context){
+        Intent go =  new Intent(context,MyCollectActivity.class);
+        context.startActivity(go);
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,19 +48,20 @@ public class MyCollectActivity extends BaseActivity {
         tvTitle.setText("我的收藏");
 
 
-        String[] mTitles = {"文章", "商家"};
+//        String[] mTitles = {"文章", "商家"};
+        String[] mTitles = {"文章"};
 
 
         MyCollectNewsLazyFragment newsFragment = new MyCollectNewsLazyFragment();
         mFragments.add(newsFragment);
 
-        MyCollectShopLazyFragment shopFragment = new MyCollectShopLazyFragment();
-        mFragments.add(shopFragment);
+//        MyCollectShopLazyFragment shopFragment = new MyCollectShopLazyFragment();
+//        mFragments.add(shopFragment);
 
 
         NormalTitlePagerAdapter mAdapter = new NormalTitlePagerAdapter(getSupportFragmentManager(), mFragments, mTitles);
         vp.setAdapter(mAdapter);
-        slidingTabLayout.setViewPager(vp, mTitles);
+//        slidingTabLayout.setViewPager(vp, mTitles);
     }
 
     @Override

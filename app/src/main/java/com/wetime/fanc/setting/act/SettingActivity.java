@@ -1,5 +1,6 @@
 package com.wetime.fanc.setting.act;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import com.wetime.fanc.login.act.LoginActivity;
 import com.wetime.fanc.login.event.LogoutEvent;
 import com.wetime.fanc.main.act.BaseActivity;
 import com.wetime.fanc.main.model.BaseBean;
+import com.wetime.fanc.my.act.MyCollectActivity;
 import com.wetime.fanc.utils.Tools;
 import com.tencent.mm.opensdk.modelmsg.SendAuth;
 import com.wetime.fanc.application.FApp;
@@ -60,6 +62,10 @@ public class SettingActivity extends BaseActivity implements ILogoutView, IGetSe
     private SettingPageBean bean;
     private WXBindPresenter wxBindPresenter;
 
+    public static void goSettingAct(Context context){
+        Intent go =  new Intent(context,SettingActivity.class);
+        context.startActivity(go);
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
