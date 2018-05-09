@@ -184,6 +184,8 @@ public class HomePageRecommendAdapter extends RecyclerView.Adapter {
             } else {
                 ((HomePageAttentionAdapter.AttentionHolder) holder).atZan.setImageResource(R.drawable.ic_homeitem_zan_off_off);
             }
+            ((HomePageAttentionAdapter.AttentionHolder) holder).atZannum.setText(Integer.valueOf(bean.getLike_num())==0?"点赞":bean.getLike_num());
+            ((HomePageAttentionAdapter.AttentionHolder) holder).atCommentnum.setText(Integer.valueOf(bean.getComment_num())==0?"评论":bean.getLike_num());
             ((HomePageAttentionAdapter.AttentionHolder) holder).atZan.setOnClickListener(view -> {
                 if (Tools.getSpu(activity).getToken().equals("")) {
                     Intent gologin = new Intent(activity, LoginActivity.class);
@@ -194,13 +196,14 @@ public class HomePageRecommendAdapter extends RecyclerView.Adapter {
                             @Override
                             public void onLikeAttentionListener(boolean isSuccess) {
                                 if(isSuccess){
-                                    ((HomePageAttentionAdapter.AttentionHolder18)holder).atZan.setImageResource(R.drawable.ic_homeitem_zan_off_off);
+                                    ((HomePageAttentionAdapter.AttentionHolder)holder).atZan.setImageResource(R.drawable.ic_homeitem_zan_off_off);
                                     bean.setHas_like(false);
                                     int num = 0;
-                                    if (Integer.valueOf(((HomePageAttentionAdapter.AttentionHolder) holder).atZannum.getText().toString()) != 0) {
-                                        num = Integer.valueOf(((HomePageAttentionAdapter.AttentionHolder) holder).atZannum.getText().toString()) - 1;
+                                    if (Integer.valueOf(bean.getLike_num()) != 0) {
+                                        num = Integer.valueOf(bean.getLike_num()) - 1;
                                     }
                                     ((HomePageAttentionAdapter.AttentionHolder) holder).atZannum.setText(num==0?"点赞":bean.getLike_num());
+                                    bean.setLike_num(String.valueOf(num));
                                 }
                             }
                         });
@@ -209,10 +212,11 @@ public class HomePageRecommendAdapter extends RecyclerView.Adapter {
                             @Override
                             public void onLikeAttentionListener(boolean isSuccess) {
                                 if(isSuccess){
-                                    ((HomePageAttentionAdapter.AttentionHolder18)holder).atZan.setImageResource(R.drawable.ic_homeitem_zan_off_on);
+                                    ((HomePageAttentionAdapter.AttentionHolder)holder).atZan.setImageResource(R.drawable.ic_homeitem_zan_off_on);
                                     bean.setHas_like(true);
-                                    int num = Integer.valueOf(((HomePageAttentionAdapter.AttentionHolder) holder).atZannum.getText().toString()) + 1;
+                                    int num = Integer.valueOf(bean.getLike_num()) + 1;
                                     ((HomePageAttentionAdapter.AttentionHolder) holder).atZannum.setText(String.format("%d", num));
+                                    bean.setLike_num(String.valueOf(num));
                                 }
                             }
                         });
@@ -271,32 +275,26 @@ public class HomePageRecommendAdapter extends RecyclerView.Adapter {
             } else {
                 ((HomePageAttentionAdapter.AttentionHolder18)holder).atZan.setImageResource(R.drawable.ic_homeitem_zan_off_off);
             }
+            ((HomePageAttentionAdapter.AttentionHolder18) holder).atZannum.setText(Integer.valueOf(bean.getLike_num())==0?"点赞":bean.getLike_num());
+            ((HomePageAttentionAdapter.AttentionHolder18) holder).atCommentnum.setText(Integer.valueOf(bean.getComment_num())==0?"评论":bean.getLike_num());
             ((HomePageAttentionAdapter.AttentionHolder18)holder).atZan.setOnClickListener(view -> {
                 if (Tools.getSpu(activity).getToken().equals("")) {
                     Intent gologin = new Intent(activity, LoginActivity.class);
                     activity.startActivity(gologin);
                 } else {
-               /*     ZanActPresenter presenter = new ZanActPresenter();
                     if (bean.isHas_like()) {
-                        ((HomePageAttentionAdapter.AttentionHolder18)holder).atZan.setImageResource(R.drawable.ic_homeitem_zan_off_off);
-                        presenter.zanAct(bean.getId(), Tools.getSpu(activity).getToken(), "0");
-                        bean.setHas_like(false);
-                        int num = 0;
-                    } else {
-                        ((HomePageAttentionAdapter.AttentionHolder18)holder).atZan.setImageResource(R.drawable.ic_homeitem_zan_off_on);
-                        presenter.zanAct(bean.getId(), Tools.getSpu(activity).getToken(), "1");
-                        bean.setHas_like(true);
-                    }*/
-                    if (bean.isHas_like()) {
-                        //AttentionClickZanPresenter.attentionCircle(bean.getId(), Tools.getSpu(activity).getToken(), "0");
                         AttentionClickZanPresenter.clickZan(activity,bean.getId(),false, new AttentionClickZanPresenter.OnLikeAttentionListener() {
                             @Override
                             public void onLikeAttentionListener(boolean isSuccess) {
                                 if(isSuccess){
                                     ((HomePageAttentionAdapter.AttentionHolder18)holder).atZan.setImageResource(R.drawable.ic_homeitem_zan_off_off);
+                                    int num = 0;
+                                    if (Integer.valueOf(bean.getLike_num()) != 0) {
+                                        num = Integer.valueOf(bean.getLike_num()) - 1;
+                                    }
+                                    ((HomePageAttentionAdapter.AttentionHolder18) holder).atZannum.setText(num==0?"点赞":bean.getLike_num());
+                                    bean.setLike_num(String.valueOf(num));
                                     bean.setHas_like(false);
-
-                                }else {
 
                                 }
                             }
@@ -308,9 +306,9 @@ public class HomePageRecommendAdapter extends RecyclerView.Adapter {
                                 if(isSuccess){
                                     ((HomePageAttentionAdapter.AttentionHolder18)holder).atZan.setImageResource(R.drawable.ic_homeitem_zan_off_on);
                                     bean.setHas_like(true);
-
-                                }else {
-
+                                    int num = Integer.valueOf(bean.getLike_num()) + 1;
+                                    ((HomePageAttentionAdapter.AttentionHolder18) holder).atZannum.setText(String.format("%d", num));
+                                    bean.setLike_num(String.valueOf(num));
                                 }
                             }
                         });
@@ -356,21 +354,6 @@ public class HomePageRecommendAdapter extends RecyclerView.Adapter {
         return list.size() + 1;
     }
 
-    public void setCirccles(List<HomePageRecommendBean.DataBean.CirclesBean> recommendCircles) {
-        if (holder != null && holder instanceof RecommendHeaderViewHolder) {
-          /*  if (recommendCircles.size() <= 0) {
-                ((RecommendHeaderViewHolder) holder).recommendCircle.setVisibility(View.GONE);
-            } else {
-                ((RecommendHeaderViewHolder) holder).recommendCircle.setVisibility(View.VISIBLE);
-            }*/
-            if (homePageRecommendHeaderRecyclerViewAdapter == null) {
-                homePageRecommendHeaderRecyclerViewAdapter = new HomePageRecommendHeaderRecyclerViewAdapter(recommendCircles, activity);
-                ((RecommendHeaderViewHolder) holder).recommendCircle.setAdapter(homePageRecommendHeaderRecyclerViewAdapter);
-            } else {
-                homePageRecommendHeaderRecyclerViewAdapter.notifyDataSetChanged();
-            }
-        }
-    }
 
 
 

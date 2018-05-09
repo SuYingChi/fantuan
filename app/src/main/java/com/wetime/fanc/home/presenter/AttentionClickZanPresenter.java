@@ -53,11 +53,8 @@ public class AttentionClickZanPresenter {
                     public void onResponse(ErrorBean bean, int i) {
                         if (bean.getError() == 0){
                             iView.onLikeAttentionListener(true);
-                            Log.d("suyingchi", "dianzan onResponse: true"+bean.getMsg());
                         }else {
                             iView.onLikeAttentionListener(false);
-                            Log.d("suyingchi", "dianzan onResponse: fail"+bean.getMsg());
-
                         }
                     }
 
