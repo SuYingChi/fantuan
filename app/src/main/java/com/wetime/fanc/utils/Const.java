@@ -117,6 +117,8 @@ public interface Const {
     String FOLLOW_INGDYNAMICS = BASEURL + "/jv/qz/followingdynamics";
     String RECOMMEDN = BASEURL+"/jv/qz/dynamics";
     String ATTENTION_CIRLCLE = BASEURL+"/jv/qz/following";
-    String ALL_CIRCLE = BASEURL+"/jv/qz/mycircles";
+    String ALL_CIRCLE_HOME_PAGE_RECOMMEND = BASEURL+"/jv/qz/mycircles";
     String NEWSARTICLE_READED = BASEURL+"/jv/newsarticle/readed";
+    String LIKE_ATTENTION=BASEURL+"/jv/qz/like";
+    String HOMEPAGE_ALL_CIRCLE =BASEURL+"/jv/qz/allcircles";
 }

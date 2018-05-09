@@ -1,7 +1,9 @@
 package com.wetime.fanc.home.frag;
 
+import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
 
@@ -16,6 +18,7 @@ import com.wetime.fanc.home.event.ReFreshCircleEvent;
 import com.wetime.fanc.home.iviews.IHomePageAttentionView;
 import com.wetime.fanc.home.presenter.HomePageAttentionFragmentPresenter;
 import com.wetime.fanc.main.frag.BaseLazyFragment;
+import com.wetime.fanc.utils.Tools;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -23,6 +26,7 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.LogRecord;
 
 import butterknife.BindView;
 
@@ -38,11 +42,14 @@ public class HomePageAttentionFragment extends BaseLazyFragment implements IHome
     SmartRefreshLayout refreshLayout;
     @BindView(R.id.rl_empty)
     RelativeLayout rlEmpty;
+    @BindView(R.id.homepage_root)
+    RelativeLayout homepage_root;
     HomePageAttentionFragmentPresenter homePageAttentionFragmentPresenter;
     List<HomePageAttentionBean.DataBean.ListBean> list = new ArrayList<HomePageAttentionBean.DataBean.ListBean>();
     HomePageAttentionAdapter adapter;
     int page = 1;
     AutoLoadMoreAdapter autoLoadMoreAdapter;
+    Handler handler = new Handler();
 
     @Override
     protected int setLayoutId() {
@@ -53,6 +60,7 @@ public class HomePageAttentionFragment extends BaseLazyFragment implements IHome
     protected void initView() {
         EventBus.getDefault().register(this);
 //        rclHome.setFocusableInTouchMode(false);
+        Tools.showEmptyLoading(homepage_root);
         refreshLayout.setOnRefreshListener(this);
         refreshLayout.setEnableLoadMore(false);
         homePageAttentionFragmentPresenter = new HomePageAttentionFragmentPresenter(this);
@@ -60,24 +68,33 @@ public class HomePageAttentionFragment extends BaseLazyFragment implements IHome
 
     @Override
     protected void initData() {
-        homePageAttentionFragmentPresenter.getAttentionPage();
-    }
-
-    @Override
-    protected void refresh() {
         page = 1;
         homePageAttentionFragmentPresenter.getAttentionPage();
+        Log.d("suyingchi", "initData: ");
     }
 
+
     @Override
-    public void onResume() {
-        super.onResume();
-        refresh();
+    protected void onInvisible() {
+        super.onInvisible();
+        Tools.hideEmptyLoading(homepage_root);
+        if(refreshLayout!=null){
+            refreshLayout.finishRefresh();
+        }
+        Log.d("suyingchi", "onInvisible: ");
+
     }
 
     @Override
     public void onGetAttention(HomePageAttentionBean bean) {
         refreshLayout.finishRefresh(1000);
+        Tools.hideEmptyLoading(homepage_root);
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Tools.hideEmptyLoading(homepage_root);
+            }
+        },1000);
         if (adapter == null) {
             rcl.setLayoutManager(new LinearLayoutManager(getContext()));
             adapter = new HomePageAttentionAdapter(list, getActivity());
@@ -129,7 +146,8 @@ public class HomePageAttentionFragment extends BaseLazyFragment implements IHome
     @Override
     public void onNetError() {
         super.onNetError();
-        refreshLayout.finishRefresh();
+        refreshLayout.finishLoadMore(1000);
+        Tools.hideEmptyLoading(homepage_root);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

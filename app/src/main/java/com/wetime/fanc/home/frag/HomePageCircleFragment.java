@@ -1,8 +1,10 @@
 package com.wetime.fanc.home.frag;
 
 
+import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.RelativeLayout;
 
 
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -16,6 +18,7 @@ import com.wetime.fanc.home.event.ReFreshCircleEvent;
 import com.wetime.fanc.home.iviews.IHomePageCircleView;
 import com.wetime.fanc.home.presenter.HomePageCircleFragmentPresenter;
 import com.wetime.fanc.main.frag.BaseLazyFragment;
+import com.wetime.fanc.utils.Tools;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -36,10 +39,13 @@ public class HomePageCircleFragment extends BaseLazyFragment implements IHomePag
     SmartRefreshLayout refreshLayout;
     @BindView(R.id.circles_recommend)
     RecyclerView hotCircleRcl;
+    @BindView(R.id.homepage_root)
+    RelativeLayout homepage_root;
     HomePageCircleFragmentPresenter homePageCircleFragmentPresenter;
     List<HomePageCircleBean.DataBean.ListBean> myCircles = new ArrayList<HomePageCircleBean.DataBean.ListBean>();
     List<HomePageCircleBean.DataBean.NotmissBean> hotCircles = new ArrayList<HomePageCircleBean.DataBean.NotmissBean>();
     HomePageCirclesAdapter homePageCirclesAdapter;
+
 
     @Override
     protected int setLayoutId() {
@@ -49,6 +55,7 @@ public class HomePageCircleFragment extends BaseLazyFragment implements IHomePag
     @Override
     protected void initView() {
         EventBus.getDefault().register(this);
+        Tools.showEmptyLoading(homepage_root);
         refreshLayout.setOnRefreshListener(this);
         refreshLayout.setEnableLoadMore(false);
         homePageCircleFragmentPresenter = new HomePageCircleFragmentPresenter(this);
@@ -60,20 +67,17 @@ public class HomePageCircleFragment extends BaseLazyFragment implements IHomePag
     }
 
     @Override
-    protected void refresh() {
-        homePageCircleFragmentPresenter.getCircles();
+    protected void onInvisible() {
+        super.onInvisible();
+        Tools.hideEmptyLoading(homepage_root);
+        if(refreshLayout!=null){
+            refreshLayout.finishRefresh();
+        }
     }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        refresh();
-    }
-
     @Override
     public void onGetCircle(HomePageCircleBean homePageCircleBean) {
         refreshLayout.finishRefresh(1000);
-
+        Tools.hideEmptyLoading(homepage_root);
         if (homePageCirclesAdapter == null) {
             hotCircleRcl.setLayoutManager(new LinearLayoutManager(getContext()));
             homePageCirclesAdapter = new HomePageCirclesAdapter(hotCircles, myCircles, getActivity());
@@ -94,7 +98,7 @@ public class HomePageCircleFragment extends BaseLazyFragment implements IHomePag
     @Override
     public void onNetError() {
         super.onNetError();
-        refreshLayout.finishRefresh();
+        refreshLayout.finishRefresh(1000);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -108,7 +112,8 @@ public class HomePageCircleFragment extends BaseLazyFragment implements IHomePag
     @Override
     public void onError(String s) {
         super.onError(s);
-        refreshLayout.finishRefresh();
+        refreshLayout.finishLoadMore(1000);
+        Tools.hideEmptyLoading(homepage_root);
     }
 
 

@@ -232,12 +232,12 @@ public class NewsListAdapter extends RecyclerView.Adapter {
 
             int h = (int) (w * rate);
 
-            Glide.with(mActivity).load(bean.getBanner().get(0).getImg()).apply(
+           /* Glide.with(mActivity).load(bean.getBanner().get(0).getImg()).apply(
                     new RequestOptions()
                             .override(w, h)
                             .centerCrop()
                             .placeholder(R.drawable.iv_default_news_small))
-                    .into(((NewsHolder0) holder).ivBanner);
+                    .into(((NewsHolder0) holder).ivBanner);*/
         }
         if (holder instanceof NewsHolder4) {
             int sw = Tools.getScreenW(mActivity);

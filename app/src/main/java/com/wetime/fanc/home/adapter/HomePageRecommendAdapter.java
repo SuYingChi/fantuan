@@ -28,6 +28,7 @@ import com.wetime.fanc.circle.act.LongDetailActivity;
 import com.wetime.fanc.circle.adapter.NineImageGridListAdapter;
 import com.wetime.fanc.circle.presenter.ZanActPresenter;
 import com.wetime.fanc.home.bean.HomePageRecommendBean;
+import com.wetime.fanc.home.presenter.AttentionClickZanPresenter;
 import com.wetime.fanc.login.act.LoginActivity;
 import com.wetime.fanc.my.act.UserCardActivity;
 import com.wetime.fanc.utils.Tools;
@@ -177,7 +178,7 @@ public class HomePageRecommendAdapter extends RecyclerView.Adapter {
                 ((HomePageAttentionAdapter.AttentionHolder) holder).atGv.setOnItemClickListener((adapterView, view, i, l) -> Tools.goPicGallery(activity, bean.getCovers(), i));
 //                ((NewsHolder19) holder).gv.setOnTouchInvalidPositionListener(motionEvent -> false);
             }
-            ((HomePageAttentionAdapter.AttentionHolder) holder).atZannum.setText(bean.getLike_num());
+            ((HomePageAttentionAdapter.AttentionHolder) holder).atZannum.setText(Integer.valueOf(bean.getLike_num())==0?"点赞":bean.getLike_num());
             if (bean.isHas_like()) {
                 ((HomePageAttentionAdapter.AttentionHolder) holder).atZan.setImageResource(R.drawable.ic_homeitem_zan_off_on);
             } else {
@@ -188,22 +189,33 @@ public class HomePageRecommendAdapter extends RecyclerView.Adapter {
                     Intent gologin = new Intent(activity, LoginActivity.class);
                     activity.startActivity(gologin);
                 } else {
-                    ZanActPresenter presenter = new ZanActPresenter();
-                    if (bean.isHas_like()) {
-                        ((HomePageAttentionAdapter.AttentionHolder) holder).atZan.setImageResource(R.drawable.ic_homeitem_zan_off_off);
-                        presenter.zanAct(bean.getId(), Tools.getSpu(activity).getToken(), "0");
-                        bean.setHas_like(false);
-                        int num = 0;
-                        if (Integer.valueOf(((HomePageAttentionAdapter.AttentionHolder) holder).atZannum.getText().toString()) != 0) {
-                            num = Integer.valueOf(((HomePageAttentionAdapter.AttentionHolder) holder).atZannum.getText().toString()) - 1;
-                        }
-                        ((HomePageAttentionAdapter.AttentionHolder) holder).atZannum.setText(String.format("%d", num));
+                         if (bean.isHas_like()) {
+                        AttentionClickZanPresenter.clickZan(activity,bean.getId(),false, new AttentionClickZanPresenter.OnLikeAttentionListener() {
+                            @Override
+                            public void onLikeAttentionListener(boolean isSuccess) {
+                                if(isSuccess){
+                                    ((HomePageAttentionAdapter.AttentionHolder18)holder).atZan.setImageResource(R.drawable.ic_homeitem_zan_off_off);
+                                    bean.setHas_like(false);
+                                    int num = 0;
+                                    if (Integer.valueOf(((HomePageAttentionAdapter.AttentionHolder) holder).atZannum.getText().toString()) != 0) {
+                                        num = Integer.valueOf(((HomePageAttentionAdapter.AttentionHolder) holder).atZannum.getText().toString()) - 1;
+                                    }
+                                    ((HomePageAttentionAdapter.AttentionHolder) holder).atZannum.setText(num==0?"点赞":bean.getLike_num());
+                                }
+                            }
+                        });
                     } else {
-                        ((HomePageAttentionAdapter.AttentionHolder) holder).atZan.setImageResource(R.drawable.ic_homeitem_zan_off_on);
-                        presenter.zanAct(bean.getId(), Tools.getSpu(activity).getToken(), "1");
-                        bean.setHas_like(true);
-                        int num = Integer.valueOf(((HomePageAttentionAdapter.AttentionHolder) holder).atZannum.getText().toString()) + 1;
-                        ((HomePageAttentionAdapter.AttentionHolder) holder).atZannum.setText(String.format("%d", num));
+                        AttentionClickZanPresenter.clickZan(activity,bean.getId(),true, new AttentionClickZanPresenter.OnLikeAttentionListener() {
+                            @Override
+                            public void onLikeAttentionListener(boolean isSuccess) {
+                                if(isSuccess){
+                                    ((HomePageAttentionAdapter.AttentionHolder18)holder).atZan.setImageResource(R.drawable.ic_homeitem_zan_off_on);
+                                    bean.setHas_like(true);
+                                    int num = Integer.valueOf(((HomePageAttentionAdapter.AttentionHolder) holder).atZannum.getText().toString()) + 1;
+                                    ((HomePageAttentionAdapter.AttentionHolder) holder).atZannum.setText(String.format("%d", num));
+                                }
+                            }
+                        });
                     }
                 }
             });
@@ -264,7 +276,7 @@ public class HomePageRecommendAdapter extends RecyclerView.Adapter {
                     Intent gologin = new Intent(activity, LoginActivity.class);
                     activity.startActivity(gologin);
                 } else {
-                    ZanActPresenter presenter = new ZanActPresenter();
+               /*     ZanActPresenter presenter = new ZanActPresenter();
                     if (bean.isHas_like()) {
                         ((HomePageAttentionAdapter.AttentionHolder18)holder).atZan.setImageResource(R.drawable.ic_homeitem_zan_off_off);
                         presenter.zanAct(bean.getId(), Tools.getSpu(activity).getToken(), "0");
@@ -274,6 +286,34 @@ public class HomePageRecommendAdapter extends RecyclerView.Adapter {
                         ((HomePageAttentionAdapter.AttentionHolder18)holder).atZan.setImageResource(R.drawable.ic_homeitem_zan_off_on);
                         presenter.zanAct(bean.getId(), Tools.getSpu(activity).getToken(), "1");
                         bean.setHas_like(true);
+                    }*/
+                    if (bean.isHas_like()) {
+                        //AttentionClickZanPresenter.attentionCircle(bean.getId(), Tools.getSpu(activity).getToken(), "0");
+                        AttentionClickZanPresenter.clickZan(activity,bean.getId(),false, new AttentionClickZanPresenter.OnLikeAttentionListener() {
+                            @Override
+                            public void onLikeAttentionListener(boolean isSuccess) {
+                                if(isSuccess){
+                                    ((HomePageAttentionAdapter.AttentionHolder18)holder).atZan.setImageResource(R.drawable.ic_homeitem_zan_off_off);
+                                    bean.setHas_like(false);
+
+                                }else {
+
+                                }
+                            }
+                        });
+                    } else {
+                        AttentionClickZanPresenter.clickZan(activity,bean.getId(),true, new AttentionClickZanPresenter.OnLikeAttentionListener() {
+                            @Override
+                            public void onLikeAttentionListener(boolean isSuccess) {
+                                if(isSuccess){
+                                    ((HomePageAttentionAdapter.AttentionHolder18)holder).atZan.setImageResource(R.drawable.ic_homeitem_zan_off_on);
+                                    bean.setHas_like(true);
+
+                                }else {
+
+                                }
+                            }
+                        });
                     }
                 }
             });

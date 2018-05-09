@@ -43,19 +43,25 @@ public class HomePageFragment extends BaseLazyFragment {
         NormalTitlePagerAdapter mAdapter = new NormalTitlePagerAdapter(getChildFragmentManager(), list_fragment, mTitles);
         vp.setAdapter(mAdapter);
         slidingTabLayout.setViewPager(vp, mTitles);
-        slidingTabLayout.setOnTabSelectListener(new OnTabSelectListener() {
-            @Override
-            public void onTabSelect(int homePageCitem) {
-                spu.setValue("HomePageCitem",String.valueOf(homePageCitem));
-            }
+       vp.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+           @Override
+           public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
-            @Override
-            public void onTabReselect(int position) {
+           }
 
-            }
-        });
+           @Override
+           public void onPageSelected(int position) {
+               spu.setValue("HomePageCitem",""+position);
+           }
+
+           @Override
+           public void onPageScrollStateChanged(int state) {
+
+           }
+       });
        if(TextUtils.isEmpty(spu.getValue("HomePageCitem"))){
            slidingTabLayout.setCurrentTab(0);
+           spu.setValue("HomePageCitem","0");
        }else {
            slidingTabLayout.setCurrentTab(Integer.valueOf(spu.getValue("HomePageCitem")));
         }
@@ -68,7 +74,6 @@ public class HomePageFragment extends BaseLazyFragment {
         f0 = null;
         f1 = null;
         f2 = null;
-        spu.setValue("HomePageCitem",String.valueOf(vp.getCurrentItem()));
         System.gc();
         super.onDestroy();
 

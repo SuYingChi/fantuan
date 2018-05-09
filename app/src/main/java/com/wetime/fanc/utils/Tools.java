@@ -892,18 +892,22 @@ public class Tools {
      * @param rl 需要遮盖的RelativeLayout
      */
     public static void showEmptyLoading(RelativeLayout rl) {
-        View view = LayoutInflater.from(
-                rl.getContext()).inflate(R.layout.item_empty_loading_top,
-                null, false);
-        rl.addView(view);
+        if(rl!=null) {
+            View view = LayoutInflater.from(
+                    rl.getContext()).inflate(R.layout.item_empty_loading_top,
+                    null, false);
+            rl.addView(view);
+        }
     }
 
     /**
      * @param rl 包含空页面的需要遮盖的RelativeLayout
      */
     public static void hideEmptyLoading(RelativeLayout rl) {
-        View view = rl.findViewById(R.id.ll_empty);
-        if (view != null)
-            rl.removeView(view);
+        if (rl != null) {
+            View view = rl.findViewById(R.id.ll_empty);
+            if (view != null)
+                rl.removeView(view);
+        }
     }
 }

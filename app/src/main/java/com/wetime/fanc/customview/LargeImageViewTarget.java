@@ -57,7 +57,9 @@ public class LargeImageViewTarget extends ViewTarget<View, File>{
 
     @Override
     public void onLoadFailed(@Nullable Drawable errorDrawable) {
-        largeImageView.setImageDrawable(errorDrawable);
+        if(errorDrawable!=null){
+            largeImageView.setImageDrawable(errorDrawable);
+        }
     }
 
     /**

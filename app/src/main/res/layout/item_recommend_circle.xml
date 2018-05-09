@@ -30,11 +30,11 @@
 <TextView
     android:id="@+id/recommend_circle_attention_num"
     android:layout_width="match_parent"
-    android:layout_height="12dp"
+    android:layout_height="15dp"
     android:layout_below="@+id/recommend_circle_name"
     android:gravity="center"
     android:textColor="#ff999999"
-    android:textSize="12dp"
+    android:textSize="12sp"
     android:layout_marginLeft="24dp"
     android:layout_marginRight="24dp"
     android:layout_marginTop="15dp"
@@ -51,5 +51,6 @@
         android:text="关注"
         android:textColor="#00a4ff"
         android:layout_below="@+id/recommend_circle_attention_num"
+        android:layout_marginBottom="10dp"
         />
 </RelativeLayout>
