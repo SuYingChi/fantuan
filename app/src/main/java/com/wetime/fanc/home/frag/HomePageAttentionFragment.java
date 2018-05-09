@@ -70,6 +70,12 @@ public class HomePageAttentionFragment extends BaseLazyFragment implements IHome
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        refresh();
+    }
+
+    @Override
     public void onGetAttention(HomePageAttentionBean bean) {
         refreshLayout.finishRefresh(1000);
         if (adapter == null) {

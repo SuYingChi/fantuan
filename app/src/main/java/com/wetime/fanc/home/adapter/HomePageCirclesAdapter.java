@@ -71,6 +71,8 @@ public class HomePageCirclesAdapter extends RecyclerView.Adapter {
                     ((CircleHeaderViewHolder) holder).emptyMyCircle.setVisibility(View.GONE);
                 }
                 ((CircleHeaderViewHolder) holder).rcl_circle_my.setAdapter(homePageMyCircleAdapter);
+                ((CircleHeaderViewHolder) holder).rcl_circle_my.setFocusableInTouchMode(false);
+                ((CircleHeaderViewHolder) holder).rcl_circle_my.requestFocus();
                 homePageMyCircleAdapter.setOnItemClickListener((view, position2) -> {
                     Intent goCircle = new Intent(activity, CircleDetailActivity.class);
                     goCircle.putExtra("id", myCircles.get(position2).getId());
@@ -88,6 +90,8 @@ public class HomePageCirclesAdapter extends RecyclerView.Adapter {
             }
             if (hotCircles.size() == 0) {
                 ((CircleHeaderViewHolder) holder).relativeLayout.setVisibility(View.GONE);
+            }else{
+                ((CircleHeaderViewHolder) holder).relativeLayout.setVisibility(View.VISIBLE);
             }
         } else if (holder instanceof HotCircleViewHolder) {
             if (hotCircles.size() > 0) {

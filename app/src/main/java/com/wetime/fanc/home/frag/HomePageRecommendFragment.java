@@ -58,6 +58,11 @@ public class HomePageRecommendFragment extends BaseLazyFragment implements OnRef
         homePageRecommendFragmentPresenter.getRecommend();
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        refresh();
+    }
 
     @Override
     protected int setLayoutId() {
@@ -67,7 +72,7 @@ public class HomePageRecommendFragment extends BaseLazyFragment implements OnRef
     @Override
     protected void initView() {
         EventBus.getDefault().register(this);
-
+        homePageRecommendFragmentPresenter = new HomePageRecommendFragmentPresenter(this);
         refreshLayout.setOnRefreshListener(this);
         refreshLayout.setEnableLoadMore(false);
         if (!TextUtils.isEmpty(spu.getValue(SimpleCatchKey.catch_recommend))) {
@@ -84,7 +89,6 @@ public class HomePageRecommendFragment extends BaseLazyFragment implements OnRef
 
     @Override
     protected void initData() {
-        homePageRecommendFragmentPresenter = new HomePageRecommendFragmentPresenter(this);
         homePageRecommendFragmentPresenter.getRecommend();
     }
 

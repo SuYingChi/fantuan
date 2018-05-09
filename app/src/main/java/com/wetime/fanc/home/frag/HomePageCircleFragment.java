@@ -65,12 +65,18 @@ public class HomePageCircleFragment extends BaseLazyFragment implements IHomePag
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        refresh();
+    }
+
+    @Override
     public void onGetCircle(HomePageCircleBean homePageCircleBean) {
         refreshLayout.finishRefresh(1000);
 
         if (homePageCirclesAdapter == null) {
             hotCircleRcl.setLayoutManager(new LinearLayoutManager(getContext()));
-            homePageCirclesAdapter = new HomePageCirclesAdapter(homePageCircleBean.getData().getNotmiss(), homePageCircleBean.getData().getList(), getActivity());
+            homePageCirclesAdapter = new HomePageCirclesAdapter(hotCircles, myCircles, getActivity());
             hotCircleRcl.setAdapter(homePageCirclesAdapter);
         }
         myCircles.clear();

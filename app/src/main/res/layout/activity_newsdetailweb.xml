@@ -6,7 +6,7 @@
 
     <include layout="@layout/item_header" />
 
-    <android.support.v7.widget.RecyclerView
+    <com.wetime.fanc.customview.recycview.NestedScrollingRecyclerView
         android:id="@+id/web_recyclerview"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

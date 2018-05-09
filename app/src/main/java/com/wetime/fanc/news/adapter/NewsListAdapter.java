@@ -75,11 +75,13 @@ public class NewsListAdapter extends RecyclerView.Adapter {
     private void goWebUrl(int position) {
         if (TextUtils.isEmpty(list.get(position).getArticle_url()))
             return;
-        Intent goweb = new Intent(mActivity, WebActivity.class);
-        goweb.putExtra("url", list.get(position).getArticle_url());
-        goweb.putExtra("type", "2");
-        goweb.putExtra("title", list.get(position).getNews_name());
-        mActivity.startActivity(goweb);
+//        Intent goweb = new Intent(mActivity, WebActivity.class);
+//        goweb.putExtra("url", list.get(position).getArticle_url());
+//        goweb.putExtra("type", "2");
+//        goweb.putExtra("title", list.get(position).getNews_name());
+//        mActivity.startActivity(goweb);
+        NewsDetailWebActivity.starToWeb(mActivity, list.get(position).getArticle_url(),
+                list.get(position).getId(), list.get(position).getLike_num(), list.get(position).isHas_like());
     }
 
     @Override
@@ -111,9 +113,7 @@ public class NewsListAdapter extends RecyclerView.Adapter {
 //                    goweb.putExtra("type", "2");
 //                    goweb.putExtra("title", list.get(position).getNews_name());
 //                    mActivity.startActivity(goweb);
-//                    NewsDetailWebActivity.starToWeb(mActivity, list.get(position).getArticle_url(),
-//                            list.get(position).getId(),
-//                            list.get(position).getRead_num());
+//
                     ((NewsHolder3) holder).tvName.setTextColor(ContextCompat.getColor(mActivity, R.color.color9));
                     goWebUrl(position);
                     break;
