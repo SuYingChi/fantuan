@@ -1,5 +1,7 @@
 package com.wetime.fanc.web.bean;
 
+import com.wetime.fanc.news.bean.NewsListItemBean;
+
 import java.util.List;
 
 /**
@@ -43,13 +45,13 @@ public class NewsWebBean {
     }
 
     public static class DataBean {
-        private List<ListBean> list;
+        private List<NewsListItemBean> list;
 
-        public List<ListBean> getList() {
+        public List<NewsListItemBean> getList() {
             return list;
         }
 
-        public void setList(List<ListBean> list) {
+        public void setList(List<NewsListItemBean> list) {
             this.list = list;
         }
 
@@ -82,6 +84,9 @@ public class NewsWebBean {
              */
 
             private long originTime;
+            private boolean is_following;
+            private boolean is_collected;
+            private boolean is_like;
             private boolean is_readed;
             private String author;
             private String atlasNum;
@@ -105,6 +110,30 @@ public class NewsWebBean {
             private String contentType;
             private String cid;
             private List<CoversBean> covers;
+
+            public boolean isIs_following() {
+                return is_following;
+            }
+
+            public void setIs_following(boolean is_following) {
+                this.is_following = is_following;
+            }
+
+            public boolean isIs_collected() {
+                return is_collected;
+            }
+
+            public void setIs_collected(boolean is_collected) {
+                this.is_collected = is_collected;
+            }
+
+            public boolean isIs_like() {
+                return is_like;
+            }
+
+            public void setIs_like(boolean is_like) {
+                this.is_like = is_like;
+            }
 
             public long getOriginTime() {
                 return originTime;

@@ -22,6 +22,8 @@ public class NestedScrollingWebView extends WebView implements NestedScrollingCh
     private int[] mOffsetInWindow = new int[2];
     private float mLastY;
 
+    private OnScrollChangedCallback mOnScrollChangedCallback;
+
     private Scroller mScroller;
     private VelocityTracker mVelocityTracker = VelocityTracker.obtain();
 
@@ -36,6 +38,25 @@ public class NestedScrollingWebView extends WebView implements NestedScrollingCh
     public NestedScrollingWebView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         mScroller = new Scroller(context, new LinearInterpolator());
+    }
+
+    public OnScrollChangedCallback getOnScrollChangedCallback() {
+        return mOnScrollChangedCallback;
+    }
+
+    public void setOnScrollChangedCallback(
+            final OnScrollChangedCallback onScrollChangedCallback) {
+        mOnScrollChangedCallback = onScrollChangedCallback;
+    }
+
+    @Override
+    protected void onScrollChanged(final int l, final int t, final int oldl,
+                                   final int oldt) {
+        super.onScrollChanged(l, t, oldl, oldt);
+
+        if (mOnScrollChangedCallback != null) {
+            mOnScrollChangedCallback.onScroll(l, t);
+        }
     }
 
     @Override
@@ -143,13 +164,13 @@ public class NestedScrollingWebView extends WebView implements NestedScrollingCh
     }
 
     @Override
-    public void setNestedScrollingEnabled(boolean enabled) {
-        getChildHelper().setNestedScrollingEnabled(enabled);
+    public boolean isNestedScrollingEnabled() {
+        return getChildHelper().isNestedScrollingEnabled();
     }
 
     @Override
-    public boolean isNestedScrollingEnabled() {
-        return getChildHelper().isNestedScrollingEnabled();
+    public void setNestedScrollingEnabled(boolean enabled) {
+        getChildHelper().setNestedScrollingEnabled(enabled);
     }
 
     @Override
@@ -185,5 +206,9 @@ public class NestedScrollingWebView extends WebView implements NestedScrollingCh
     @Override
     public boolean dispatchNestedFling(float velocityX, float velocityY, boolean consumed) {
         return getChildHelper().dispatchNestedFling(velocityX, velocityY, consumed);
+    }
+
+    public static interface OnScrollChangedCallback {
+        public void onScroll(int dx, int dy);
     }
 }

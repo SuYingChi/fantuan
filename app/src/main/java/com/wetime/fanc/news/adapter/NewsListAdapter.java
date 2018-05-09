@@ -81,8 +81,17 @@ public class NewsListAdapter extends RecyclerView.Adapter {
 //        goweb.putExtra("type", "2");
 //        goweb.putExtra("title", list.get(position).getNews_name());
 //        mActivity.startActivity(goweb);
-        NewsDetailWebActivity.starToWeb(mActivity, list.get(position).getArticle_url(),
-                list.get(position).getId(), list.get(position).getLike_num(), list.get(position).isHas_like());
+//        NewsDetailWebActivity.starToWeb(mActivity, list.get(position).getArticle_url(),
+//                list.get(position).getId(),
+//                list.get(position).getUid(),
+//                list.get(position).getContent(),
+//                list.get(position).getUsername(),
+//                list.get(position).getAvatar(),
+//                list.get(position).getArticle_url(),
+//                list.get(position).getCovers().get(position).getCompress(),
+//                list.get(position).getLike_num(),
+//                list.get(position).isHas_like());
+        NewsDetailWebActivity.starToWeb(mActivity,list.get(position));
     }
 
     @Override

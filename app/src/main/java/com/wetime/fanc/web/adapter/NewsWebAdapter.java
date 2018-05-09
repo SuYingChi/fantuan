@@ -8,6 +8,7 @@ import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,10 +21,12 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.wetime.fanc.R;
 import com.wetime.fanc.customview.GoodView;
+import com.wetime.fanc.customview.recycview.NestedScrollingWebView;
 import com.wetime.fanc.my.act.UserCardActivity;
 import com.wetime.fanc.news.act.ReplyActivity;
 import com.wetime.fanc.news.adapter.CommentListAdapter;
 import com.wetime.fanc.news.bean.CommentBean;
+import com.wetime.fanc.news.bean.NewsListItemBean;
 import com.wetime.fanc.utils.DialogUtils;
 import com.wetime.fanc.web.NewsDetailWebActivity;
 import com.wetime.fanc.web.bean.NewsWebBean;
@@ -44,7 +47,7 @@ public class NewsWebAdapter extends RecyclerView.Adapter {
 
     private Context context;
     private List<CommentBean.DataBean.ListBean> dataComm = new ArrayList<>();
-    private List<NewsWebBean.DataBean.ListBean> data = new ArrayList<>();
+    private List<NewsListItemBean> data = new ArrayList<>();
     private LayoutInflater inflater;
     private String url;
     private NewsHolder1 holder1;
@@ -52,7 +55,7 @@ public class NewsWebAdapter extends RecyclerView.Adapter {
     private CommentListAdapter commentListAdapter;
     private GoodView mGoodView;
 
-    public NewsWebAdapter(Context context, String url, List<CommentBean.DataBean.ListBean> dataComm, List<NewsWebBean.DataBean.ListBean> data) {
+    public NewsWebAdapter(Context context, String url, List<CommentBean.DataBean.ListBean> dataComm, List<NewsListItemBean> data) {
         this.context = context;
         this.url = url;
         this.dataComm = dataComm;
@@ -61,7 +64,7 @@ public class NewsWebAdapter extends RecyclerView.Adapter {
         mGoodView = new GoodView(context);
     }
 
-    public void setData(List<NewsWebBean.DataBean.ListBean> data) {
+    public void setData(List<NewsListItemBean> data) {
         this.data = data;
         if (holder1 != null) {
             if (adapter != null) {
@@ -99,6 +102,14 @@ public class NewsWebAdapter extends RecyclerView.Adapter {
         if (holder instanceof NewsHolder0) {
             initWebView(((NewsHolder0) holder).webview);
             ((NewsHolder0) holder).webview.loadUrl(url);
+            ((NewsHolder0) holder).webview.setOnScrollChangedCallback((dx, dy) -> {
+                //这里我们根据dx和dy参数做自己想做的事情
+                if (dy > 80) {
+                    ((NewsDetailWebActivity) context).showTool();
+                } else {
+                    ((NewsDetailWebActivity) context).hideTool();
+                }
+            });
         }
 
         if (holder instanceof NewsHolder1) {
@@ -160,15 +171,14 @@ public class NewsWebAdapter extends RecyclerView.Adapter {
             } else {
                 ((NewsHolder2) holder).comment_image.setImageResource(R.drawable.ic_homeitem_zan_off_off);
                 ((NewsHolder2) holder).comment_good.setTextColor(Color.parseColor("#999999"));
-//            holder.setTextColor(R.id.comment_good, R.color.bot_gray);
             }
 //            holder.itemView.setOnClickListener(v -> ((CommentActivity) context).hideInput());
             ((NewsHolder2) holder).comment_delete.setOnClickListener(v -> {
                 DialogUtils.showNormalDialog(context, null, "确认删除该评论？", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-//                        ((CommentActivity) context).deleteComment(commentTestBean.getId());
-//                        dialog.dismiss();
+                        ((NewsDetailWebActivity) context).deleteComment(commentTestBean.getId());
+                        dialog.dismiss();
                     }
                 });
 
@@ -183,7 +193,7 @@ public class NewsWebAdapter extends RecyclerView.Adapter {
                     int i = Integer.parseInt(((NewsHolder2) holder).comment_good.getText().toString());
                     ((NewsHolder2) holder).comment_good.setText(String.valueOf(i - 1));
                     ((NewsHolder2) holder).comment_good.setTextColor(Color.parseColor("#999999"));
-//                    ((CommentActivity) context).clickLike(commentTestBean.getId(), "0");
+                    ((NewsDetailWebActivity) context).clickLike(commentTestBean.getId(), "0");
                 } else {
                     mGoodView.setText("+1");
                     mGoodView.show(v);
@@ -192,7 +202,7 @@ public class NewsWebAdapter extends RecyclerView.Adapter {
                     int i = Integer.parseInt(((NewsHolder2) holder).comment_good.getText().toString());
                     ((NewsHolder2) holder).comment_good.setText(String.valueOf(i + 1));
                     ((NewsHolder2) holder).comment_good.setTextColor(Color.parseColor("#ff3f53"));
-//                    ((CommentActivity) context).clickLike(commentTestBean.getId(), "1");
+                    ((NewsDetailWebActivity) context).clickLike(commentTestBean.getId(), "1");
                 }
 
             });
@@ -251,7 +261,7 @@ public class NewsWebAdapter extends RecyclerView.Adapter {
 
     class NewsHolder0 extends RecyclerView.ViewHolder {
         @BindView(R.id.web_webview)
-        WebView webview;
+        NestedScrollingWebView webview;
 
 
         NewsHolder0(View view) {
