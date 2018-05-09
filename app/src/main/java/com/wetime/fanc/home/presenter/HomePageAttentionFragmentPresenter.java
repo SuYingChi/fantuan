@@ -23,8 +23,8 @@ public class HomePageAttentionFragmentPresenter {
         OkHttpUtils
                 .post()
                 .url(Const.FOLLOW_INGDYNAMICS)
-                .addHeader("token",iView.getToken())
-                .addParams("pn",iView.getPage() )
+                .addHeader("token", iView.getToken())
+                .addParams("pn", iView.getPage())
                 .addParams("limit", "20")
                 .build()
                 .execute(new DataStringCallback(iView, false) {

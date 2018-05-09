@@ -24,6 +24,7 @@ import com.wetime.fanc.news.act.SpecialTopicActivity;
 import com.wetime.fanc.news.bean.NewsListItemBean;
 import com.wetime.fanc.news.presenter.GetNewsReadedPresenter;
 import com.wetime.fanc.utils.Tools;
+import com.wetime.fanc.web.NewsDetailWebActivity;
 import com.wetime.fanc.web.WebActivity;
 
 import java.util.List;
@@ -103,6 +104,16 @@ public class NewsListAdapter extends RecyclerView.Adapter {
                     goWebUrl(position);
                     break;
                 case 3:
+//                    if (TextUtils.isEmpty(list.get(position).getArticle_url()))
+//                        return;
+//                    Intent goweb = new Intent(mActivity, WebActivity.class);
+//                    goweb.putExtra("url", list.get(position).getArticle_url());
+//                    goweb.putExtra("type", "2");
+//                    goweb.putExtra("title", list.get(position).getNews_name());
+//                    mActivity.startActivity(goweb);
+//                    NewsDetailWebActivity.starToWeb(mActivity, list.get(position).getArticle_url(),
+//                            list.get(position).getId(),
+//                            list.get(position).getRead_num());
                     ((NewsHolder3) holder).tvName.setTextColor(ContextCompat.getColor(mActivity, R.color.color9));
                     goWebUrl(position);
                     break;

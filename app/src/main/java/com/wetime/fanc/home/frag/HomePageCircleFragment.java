@@ -30,7 +30,7 @@ import butterknife.BindView;
  * Created by admin on 2018/5/3.
  */
 
-public class HomePageCircleFragment extends BaseLazyFragment implements IHomePageCircleView,OnRefreshListener {
+public class HomePageCircleFragment extends BaseLazyFragment implements IHomePageCircleView, OnRefreshListener {
 
     @BindView(R.id.refresh_circle_layout)
     SmartRefreshLayout refreshLayout;
@@ -40,6 +40,7 @@ public class HomePageCircleFragment extends BaseLazyFragment implements IHomePag
     List<HomePageCircleBean.DataBean.ListBean> myCircles = new ArrayList<HomePageCircleBean.DataBean.ListBean>();
     List<HomePageCircleBean.DataBean.NotmissBean> hotCircles = new ArrayList<HomePageCircleBean.DataBean.NotmissBean>();
     HomePageCirclesAdapter homePageCirclesAdapter;
+
     @Override
     protected int setLayoutId() {
         return R.layout.fragment_home_page_circle_layout;
@@ -64,7 +65,7 @@ public class HomePageCircleFragment extends BaseLazyFragment implements IHomePag
     }
 
     @Override
-    public void onGetCircle( HomePageCircleBean homePageCircleBean) {
+    public void onGetCircle(HomePageCircleBean homePageCircleBean) {
         refreshLayout.finishRefresh(1000);
 
         if (homePageCirclesAdapter == null) {
@@ -78,15 +79,18 @@ public class HomePageCircleFragment extends BaseLazyFragment implements IHomePag
         hotCircles.addAll(homePageCircleBean.getData().getNotmiss());
         homePageCirclesAdapter.notifyDataSetChanged();
     }
+
     @Override
-    public void onRefresh( RefreshLayout refreshLayout) {
+    public void onRefresh(RefreshLayout refreshLayout) {
         homePageCircleFragmentPresenter.getCircles();
     }
+
     @Override
     public void onNetError() {
         super.onNetError();
         refreshLayout.finishRefresh();
     }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(ReFreshCircleEvent event) {
         if (mIsVisible) {
