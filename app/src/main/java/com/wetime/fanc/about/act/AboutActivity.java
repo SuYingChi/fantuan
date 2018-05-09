@@ -84,8 +84,9 @@ public class AboutActivity extends BaseActivity implements IGetVersionPageView {
                     "取消", "确定更新", null, view -> Tools.goMarket(AboutActivity.this));
 
         } else {
-            Tools.showTipsDialog(this, "提示", "赞一个，当前已是最新版本了哦~",
-                    "", "确定", null, null);
+//            Tools.showTipsDialog(this, "提示", "赞一个，当前已是最新版本了哦~",
+//                    "", "确定", null, null);
+            Tools.toastInBottom(this, "当前已是最新版本");
         }
     }
 
