@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 public class NestedScrollingLinearLayoutManager extends LinearLayoutManager {
 
     private IScrollingHelper mScrollingHelper;
+    private int restY = 0;
 
     public NestedScrollingLinearLayoutManager(Context context) {
         this(context, LinearLayoutManager.VERTICAL, false);
@@ -19,9 +20,14 @@ public class NestedScrollingLinearLayoutManager extends LinearLayoutManager {
         super(context, orientation, reverseLayout);
     }
 
+    public int getRestY() {
+        return restY;
+    }
+
     @Override
     public int scrollVerticallyBy(int dy, RecyclerView.Recycler recycler, RecyclerView.State state) {
         int restDeltaY = dy;
+        restY += dy;
         //1、pre nested scroll
         int preNestedDeltaY = doPreNestedScroll(restDeltaY);
         if (preNestedDeltaY != 0) {

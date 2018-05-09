@@ -24,7 +24,17 @@ public class RecommendReadAdapter extends CommonAdapter<NewsWebBean.DataBean.Lis
     protected void convert(ViewHolder holder, NewsWebBean.DataBean.ListBean listBean, int position) {
         holder.setText(R.id.item_text, listBean.getName());
         holder.setOnClickListener(R.id.item_text, v -> {
-            NewsDetailWebActivity.starToWeb(mContext, listBean.getArticle_url(), listBean.getId(), listBean.getLikeNum(), false);
+            NewsDetailWebActivity.starToWeb(mContext,
+                    listBean.getArticle_url(),
+                    listBean.getId(),
+                    listBean.getId(),
+                    listBean.getName(),
+                    listBean.getAuthor(),
+                    listBean.getAuthor(),
+                    listBean.getArticle_url(),
+                    listBean.getCovers().get(position).getCompress(),
+                    listBean.getLikeNum(),
+                    false);
         });
     }
 }
