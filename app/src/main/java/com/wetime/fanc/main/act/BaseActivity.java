@@ -17,6 +17,8 @@ import com.wetime.fanc.application.FApp;
 import com.wetime.fanc.login.event.LogoutEvent;
 import com.wetime.fanc.main.ivews.IBaseVIew;
 import com.wetime.fanc.main.model.ErrorBean;
+import com.wetime.fanc.setting.act.SettingActivity;
+import com.wetime.fanc.setting.presenter.LogoutPresenter;
 import com.wetime.fanc.utils.SharePreferenceUtil;
 import com.wetime.fanc.utils.Tools;
 
@@ -42,7 +44,7 @@ public class BaseActivity extends AppCompatActivity implements IBaseVIew, BGASwi
         EventBus.getDefault().register(this);
         spu = Tools.getSpu(this);
         initStateBar();
-        addToActManager();
+//        addToActManager();
         mContext = this;
     }
 
@@ -77,9 +79,9 @@ public class BaseActivity extends AppCompatActivity implements IBaseVIew, BGASwi
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
     }
 
-    protected void addToActManager() {
-        FApp.getInstance().addActivity(this);
-    }
+//    protected void addToActManager() {
+//        FApp.getInstance().addActivity(this);
+//    }
 
     @Override
     public Resources getResources() {
@@ -128,7 +130,7 @@ public class BaseActivity extends AppCompatActivity implements IBaseVIew, BGASwi
     @Override
     protected void onDestroy() {
         ImmersionBar.with(this).destroy();
-        FApp.getInstance().removeActivity(this);
+//        FApp.getInstance().removeActivity(this);
         EventBus.getDefault().unregister(this);
         super.onDestroy();
     }
@@ -181,6 +183,11 @@ public class BaseActivity extends AppCompatActivity implements IBaseVIew, BGASwi
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEvent(ErrorBean messageEvent) {
 
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(LogoutEvent messageEvent) {
+        finish();
     }
 
     /**

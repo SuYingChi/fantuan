@@ -142,10 +142,10 @@ public class MainActivity extends BaseActivity implements IBindPushView, IGetRed
         });
     }
 
-    @Override
-    protected void addToActManager() {
-
-    }
+//    @Override
+//    protected void addToActManager() {
+//
+//    }
 
     @Override
     public void initStateBar() {

@@ -5,7 +5,6 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
@@ -13,6 +12,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -38,8 +38,6 @@ import com.wetime.fanc.utils.Tools;
 
 import org.greenrobot.eventbus.EventBus;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,6 +58,18 @@ public class UserinfoActivity extends BaseActivity implements IGetMyInfoView,
     CircleImageView civHead;
     @BindView(R.id.tv_name)
     TextView tvName;
+    @BindView(R.id.iv_more)
+    ImageView ivMore;
+    @BindView(R.id.rl_header)
+    RelativeLayout rlHeader;
+    @BindView(R.id.tv_birthday)
+    TextView tvBirthday;
+    @BindView(R.id.tv_sex)
+    TextView tvSex;
+    @BindView(R.id.tv_noteq)
+    TextView tvNoteq;
+    @BindView(R.id.tv_note)
+    TextView tvNote;
 
     private GetUserInfoPresenter getUserInfoPresenter;
     private PostMultiFilePresenter postMultiFilePresenter;
@@ -113,8 +123,8 @@ public class UserinfoActivity extends BaseActivity implements IGetMyInfoView,
 
     @Override
     public void onGetUserInfo(MyInfoBean bean) {
-        tvName.setText(bean.getData().getUser().getUsername());
-        Glide.with(this).load(bean.getData().getUser().getAvatar()).into(civHead);
+//        tvName.setText(bean.getData().getUser().getUsername());
+//        Glide.with(this).load(bean.getData().getUser().getAvatar()).into(civHead);
     }
 
 //    private long getFileSize(File file) throws Exception {
@@ -142,13 +152,13 @@ public class UserinfoActivity extends BaseActivity implements IGetMyInfoView,
                 // 如果裁剪并压缩了，以取压缩路径为准，因为是先裁剪后压缩的
                 if (selectList != null && selectList.size() > 0) {
 
-                        ArrayList<String> pathlist = new ArrayList<>();
-                        if (selectList.get(0).isCompressed()) {
-                            pathlist.add(selectList.get(0).getCompressPath());
-                        } else {
-                            pathlist.add(selectList.get(0).getPath());
-                        }
-                        // 测试信息
+                    ArrayList<String> pathlist = new ArrayList<>();
+                    if (selectList.get(0).isCompressed()) {
+                        pathlist.add(selectList.get(0).getCompressPath());
+                    } else {
+                        pathlist.add(selectList.get(0).getPath());
+                    }
+                    // 测试信息
 //                        if (BuildConfig.DEBUG) {
 //                            try {
 //                                File of = new File(selectList.get(0).getPath());
@@ -160,8 +170,8 @@ public class UserinfoActivity extends BaseActivity implements IGetMyInfoView,
 //                                e.printStackTrace();
 //                            }
 //                        }
-                        postMultiFilePresenter.PostMultiFile(pathlist);
-                        Glide.with(mContext).load(pathlist.get(0)).into(civHead);
+                    postMultiFilePresenter.PostMultiFile(pathlist);
+                    Glide.with(mContext).load(pathlist.get(0)).into(civHead);
 
 
                 }

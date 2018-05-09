@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:descendantFocusability="blocksDescendants">
+    android:layout_height="match_parent">
 
-    <WebView
+    <com.wetime.fanc.customview.recycview.NestedScrollingWebView
         android:id="@+id/web_webview"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

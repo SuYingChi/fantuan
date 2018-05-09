@@ -1,5 +1,7 @@
 package com.wetime.fanc.about.act;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -21,6 +23,8 @@ public class AboutActivity extends BaseActivity implements IGetVersionPageView {
 
     @BindView(R.id.tv_title)
     TextView tvTitle;
+    @BindView(R.id.tv_version)
+    TextView tvVersion;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +36,8 @@ public class AboutActivity extends BaseActivity implements IGetVersionPageView {
         } else {
             tvTitle.setText("关于");
         }
+        tvVersion.setText(String.format("version %s", Tools.getVerName(this)));
+
     }
 
     @Override
@@ -39,7 +45,8 @@ public class AboutActivity extends BaseActivity implements IGetVersionPageView {
         super.onBackPressed();
     }
 
-    @OnClick({R.id.iv_back, R.id.tv_check})
+    @OnClick({R.id.iv_back, R.id.tv_check, R.id.tv_protocol_user,
+            R.id.tv_protocol_community, R.id.tv_protocol_author, R.id.tv_tel})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
@@ -48,6 +55,20 @@ public class AboutActivity extends BaseActivity implements IGetVersionPageView {
             case R.id.tv_check:
                 GetVersionPresenter getVersionPresenter = new GetVersionPresenter(this);
                 getVersionPresenter.getVersionResult();
+                break;
+            case R.id.tv_protocol_user:
+                Tools.goWeb(this, "https://www.baidu.com");
+                break;
+            case R.id.tv_protocol_community:
+                Tools.goWeb(this, "https://www.baidu.com");
+                break;
+            case R.id.tv_protocol_author:
+                Tools.goWeb(this, "https://www.baidu.com");
+                break;
+            case R.id.tv_tel:
+                Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:400-3663-2552"));
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
                 break;
 
         }
@@ -60,16 +81,13 @@ public class AboutActivity extends BaseActivity implements IGetVersionPageView {
             Tools.showTipsDialog(this, "检查更新", "当前版本为V" + Tools.getVerName(this)
                             + ",最新版本为V" + bean.getData().getVersion().getName()
                             + ",是否更新到最新版本？",
-                    "取消", "确定更新", null, new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            Tools.goMarket(AboutActivity.this);
-                        }
-                    });
+                    "取消", "确定更新", null, view -> Tools.goMarket(AboutActivity.this));
 
         } else {
-            Tools.showTipsDialog(this, "提示", "赞一个，当前已是最新版本了哦~",
-                    "", "确定", null, null);
+//            Tools.showTipsDialog(this, "提示", "赞一个，当前已是最新版本了哦~",
+//                    "", "确定", null, null);
+            Tools.toastInBottom(this, "当前已是最新版本");
         }
     }
+
 }
