@@ -105,6 +105,7 @@ public class NewsTypeLazyFragment extends BaseLazyFragment implements IGetNewsTy
 
     @Override
     protected void initView() {
+        Tools.showEmptyLoading(mRootView.findViewById(R.id.rl_content));
         tvRec = mRootView.findViewById(R.id.tv_recoment);
         refreshLayout = mRootView.findViewById(R.id.refreshLayout);
         refreshLayout.setEnableLoadMore(false);
@@ -132,20 +133,14 @@ public class NewsTypeLazyFragment extends BaseLazyFragment implements IGetNewsTy
         rcl.setAdapter(mAutoLoadMoreAdapter);
         adapter.notifyDataSetChanged();
 
-//        rcl.setAdapter(adapter);
-//        adapter.setOnItemClickLitener((view, position) -> {
-//            Intent goweb = new Intent(getContext(), WebActivity.class);
-//            goweb.putExtra("url", list.get(position).getArticle_url());
-//            goweb.putExtra("type", "2");
-//            goweb.putExtra("title", list.get(position).getNews_name());
-//            startActivity(goweb);
-//        });
+
         getNewsTypePresenter = new GetNewsTypePresenter(this);
         //预先加载缓存
         String catchStr = spu.getValue(SimpleCatchKey.catchkey_news + type);
         if (!TextUtils.isEmpty(catchStr)) {
             NewsListBean bean = GsonUtils.getGsonInstance().fromJson(catchStr, NewsListBean.class);
             onGetNews(bean);
+            Tools.hideEmptyLoading(mRootView.findViewById(R.id.rl_content));
         }
 
     }
@@ -161,15 +156,16 @@ public class NewsTypeLazyFragment extends BaseLazyFragment implements IGetNewsTy
             });
         } else {
             if (Tools.isNetworkAvailable(mActivity))
-                refreshLayout.autoRefresh();
+                getNewsTypePresenter.getNews();
         }
 
     }
 
     @Override
     public void onGetNews(NewsListBean bean) {
+        Tools.hideEmptyLoading(mRootView.findViewById(R.id.rl_content));
         if (bean.getError() != 0) {
-            refreshLayout.finishRefresh(2000);
+            refreshLayout.finishRefresh(1000);
             return;
         }
         // 推荐空页面
@@ -239,6 +235,7 @@ public class NewsTypeLazyFragment extends BaseLazyFragment implements IGetNewsTy
 
             }
         });
+
     }
 
     @Override
