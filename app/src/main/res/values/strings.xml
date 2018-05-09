@@ -54,6 +54,7 @@
     <string name="str_content_cannot_empty">请输入内容</string>
     <string name="text1" >此刻，我想说......</string>
     <string name="image_transition_name">image_transition</string>
+    <string name="str_loading">正在加载…</string>
     <item name="tag_position" type="id" />
     <item name="tag_photo" type="id" />
 

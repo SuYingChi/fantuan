@@ -10,6 +10,7 @@ import android.widget.RelativeLayout;
 import com.fan.baselib.loadmore.AutoLoadMoreAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 import com.wetime.fanc.R;
 import com.wetime.fanc.home.adapter.HomePageRecommendAdapter;
@@ -34,30 +35,34 @@ import butterknife.BindView;
  * Created by admin on 2018/5/3.
  */
 
-public class HomePageRecommendFragment extends BaseLazyFragment implements OnRefreshLoadMoreListener ,IHomePageRecommendView {
+public class HomePageRecommendFragment extends BaseLazyFragment implements OnRefreshListener, IHomePageRecommendView {
     @BindView(R.id.refreshLayout_recommend)
     SmartRefreshLayout refreshLayout;
     @BindView(R.id.rcl_recommend)
     RecyclerView recyclerView;
     @BindView(R.id.rl_empty)
     RelativeLayout emptey;
-    private int page=1;
+    private int page = 1;
     private HomePageRecommendAdapter homePageRecommendAdapter;
     private AutoLoadMoreAdapter autoLoadMoreAdapter;
-    private List<HomePageRecommendBean.DataBean.ListBean> list= new ArrayList<HomePageRecommendBean.DataBean.ListBean>();
-    private List<HomePageRecommendBean.DataBean.BannerBean>bannerList = new ArrayList<HomePageRecommendBean.DataBean.BannerBean>();
-    private List<HomePageRecommendBean.DataBean.CirclesBean>circlesList = new ArrayList<HomePageRecommendBean.DataBean.CirclesBean>();
+    private List<HomePageRecommendBean.DataBean.ListBean> list = new ArrayList<HomePageRecommendBean.DataBean.ListBean>();
+    private List<HomePageRecommendBean.DataBean.BannerBean> bannerList = new ArrayList<HomePageRecommendBean.DataBean.BannerBean>();
+    private List<HomePageRecommendBean.DataBean.CirclesBean> circlesList = new ArrayList<HomePageRecommendBean.DataBean.CirclesBean>();
 
     private HomePageRecommendFragmentPresenter homePageRecommendFragmentPresenter;
 
 
-
     @Override
     protected void refresh() {
-        page=1;
+        page = 1;
         homePageRecommendFragmentPresenter.getRecommend();
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        refresh();
+    }
 
     @Override
     protected int setLayoutId() {
@@ -67,7 +72,7 @@ public class HomePageRecommendFragment extends BaseLazyFragment implements OnRef
     @Override
     protected void initView() {
         EventBus.getDefault().register(this);
-
+        homePageRecommendFragmentPresenter = new HomePageRecommendFragmentPresenter(this);
         refreshLayout.setOnRefreshListener(this);
         refreshLayout.setEnableLoadMore(false);
         if (!TextUtils.isEmpty(spu.getValue(SimpleCatchKey.catch_recommend))) {
@@ -77,19 +82,13 @@ public class HomePageRecommendFragment extends BaseLazyFragment implements OnRef
     }
 
     @Override
-    public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
-
-    }
-
-    @Override
     public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-        page=1;
+        page = 1;
         homePageRecommendFragmentPresenter.getRecommend();
     }
 
     @Override
     protected void initData() {
-        homePageRecommendFragmentPresenter =  new HomePageRecommendFragmentPresenter(this);
         homePageRecommendFragmentPresenter.getRecommend();
     }
 
@@ -121,8 +120,6 @@ public class HomePageRecommendFragment extends BaseLazyFragment implements OnRef
             circlesList.clear();
             bannerList.addAll(homePageRecommendBean.getData().getBanner());
             circlesList.addAll(homePageRecommendBean.getData().getCircles());
-            homePageRecommendAdapter.setBanner(bannerList);
-            homePageRecommendAdapter.setCirccles(circlesList);
             spu.setValue(SimpleCatchKey.catch_recommend, GsonUtils.getGsonInstance().toJson(homePageRecommendBean));
         }
         if (homePageRecommendBean.getData().getPaging().isIs_end()) {
@@ -130,7 +127,6 @@ public class HomePageRecommendFragment extends BaseLazyFragment implements OnRef
         }
         list.addAll(homePageRecommendBean.getData().getList());
         autoLoadMoreAdapter.notifyDataSetChanged();
-        homePageRecommendAdapter.notifyDataSetChanged();
         emptey.setVisibility(View.GONE);
         if (page > 1) {
             autoLoadMoreAdapter.finishLoading();
@@ -141,6 +137,7 @@ public class HomePageRecommendFragment extends BaseLazyFragment implements OnRef
     public int getPage() {
         return page;
     }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(ReFreshCircleEvent event) {
         if (mIsVisible) {

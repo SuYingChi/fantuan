@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rl_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -11,9 +12,11 @@
         android:layout_height="match_parent"
         app:srlEnableHeaderTranslationContent="true"
         app:srlEnableOverScrollBounce="false">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rcl_news"
                 android:layout_width="match_parent"
@@ -23,19 +26,22 @@
                 android:requiresFadingEdge="none"
                 android:scrollbarStyle="insideOverlay"
                 android:scrollbars="vertical" />
-            <include layout="@layout/item_no_focus_news_empty"/>
+
+            <include layout="@layout/item_no_focus_news_empty" />
 
         </RelativeLayout>
 
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>
-    <include layout="@layout/item_no_login_news_empty"/>
+
+    <include layout="@layout/item_no_login_news_empty" />
+
     <TextView
         android:id="@+id/tv_recoment"
         android:layout_width="match_parent"
         android:layout_height="30dp"
         android:background="#fff6dd"
         android:gravity="center"
-        android:textColor="#ff3f53"
+        android:textColor="@color/text_blue"
         android:textSize="14sp"
         android:visibility="gone"
         tools:text="范团为您推荐了7条新内容" />

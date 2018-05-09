@@ -8,6 +8,6 @@ import com.wetime.fanc.main.ivews.IBaseVIew;
  * Created by admin on 2018/5/7.
  */
 
-public interface IHomePageCircleView extends IBaseVIew{
-   void onGetCircle(HomePageCircleBean homePageCircleBean);
+public interface IHomePageCircleView extends IBaseVIew {
+    void onGetCircle(HomePageCircleBean homePageCircleBean);
 }

@@ -39,6 +39,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -732,16 +733,16 @@ public class Tools {
     }
 
 
-    public static Bitmap rsBlur(Context context,Bitmap source,int radius){
+    public static Bitmap rsBlur(Context context, Bitmap source, int radius) {
 
         Bitmap inputBmp = source;
         //(1)
-        RenderScript renderScript =  RenderScript.create(context);
+        RenderScript renderScript = RenderScript.create(context);
 
         // Allocate memory for Renderscript to work with
         //(2)
-        final Allocation input = Allocation.createFromBitmap(renderScript,inputBmp);
-        final Allocation output = Allocation.createTyped(renderScript,input.getType());
+        final Allocation input = Allocation.createFromBitmap(renderScript, inputBmp);
+        final Allocation output = Allocation.createTyped(renderScript, input.getType());
         //(3)
         // Load up an instance of the specific script that we want to use.
         ScriptIntrinsicBlur scriptIntrinsicBlur = ScriptIntrinsicBlur.create(renderScript, Element.U8_4(renderScript));
@@ -885,5 +886,24 @@ public class Tools {
         context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE,
                 Uri.fromFile(new File(currentFile.getPath()))));
         return true;
+    }
+
+    /**
+     * @param rl 需要遮盖的RelativeLayout
+     */
+    public static void showEmptyLoading(RelativeLayout rl) {
+        View view = LayoutInflater.from(
+                rl.getContext()).inflate(R.layout.item_empty_loading_top,
+                null, false);
+        rl.addView(view);
+    }
+
+    /**
+     * @param rl 包含空页面的需要遮盖的RelativeLayout
+     */
+    public static void hideEmptyLoading(RelativeLayout rl) {
+        View view = rl.findViewById(R.id.ll_empty);
+        if (view != null)
+            rl.removeView(view);
     }
 }
