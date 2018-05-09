@@ -49,6 +49,7 @@ import com.wetime.fanc.main.model.ErrorBean;
 import com.wetime.fanc.my.bean.AttentionBean;
 import com.wetime.fanc.news.bean.CommentBean;
 import com.wetime.fanc.news.bean.GalleryCommentBean;
+import com.wetime.fanc.news.bean.NewsListItemBean;
 import com.wetime.fanc.news.iviews.IGetAllCommentView;
 import com.wetime.fanc.news.presenter.GetAllCommentPresenter;
 import com.wetime.fanc.utils.Tools;
@@ -79,6 +80,7 @@ public class NewsDetailWebActivity extends BaseActivity implements IGetRecommenD
     public String article_url = "";
     public String compress = "";
     public String content = "";
+    public NewsListItemBean newsListItemBean;
     public boolean has_like;
     @BindView(R.id.web_recyclerview)
     NestedScrollingRecyclerView webRecyclerview;
@@ -103,18 +105,24 @@ public class NewsDetailWebActivity extends BaseActivity implements IGetRecommenD
     private PopupWindow pop;
     private WbShareHandler shareHandler;
 
-    public static void starToWeb(Context context, String url, String id, String uid, String content, String username, String avatar, String article_url, String compress, String like_num, boolean has_like) {
+//    public static void starToWeb(Context context, String url, String id, String uid, String content, String username, String avatar, String article_url, String compress, String like_num, boolean has_like) {
+//        Intent intent = new Intent(context, NewsDetailWebActivity.class);
+//        intent.putExtra("url", url);
+//        intent.putExtra("id", id);
+//        intent.putExtra("uid", uid);
+//        intent.putExtra("content", content);
+//        intent.putExtra("avatar", avatar);
+//        intent.putExtra("article_url", article_url);
+//        intent.putExtra("compress", compress);
+//        intent.putExtra("username", username);
+//        intent.putExtra("like_num", like_num);
+//        intent.putExtra("has_like", has_like);
+//        context.startActivity(intent);
+//    }
+
+    public static void starToWeb(Context context, NewsListItemBean newsListItemBean) {
         Intent intent = new Intent(context, NewsDetailWebActivity.class);
-        intent.putExtra("url", url);
-        intent.putExtra("id", id);
-        intent.putExtra("uid", uid);
-        intent.putExtra("content", content);
-        intent.putExtra("avatar", avatar);
-        intent.putExtra("article_url", article_url);
-        intent.putExtra("compress", compress);
-        intent.putExtra("username", username);
-        intent.putExtra("like_num", like_num);
-        intent.putExtra("has_like", has_like);
+        intent.putExtra("NewsListItemBean", newsListItemBean);
         context.startActivity(intent);
     }
 
@@ -179,7 +187,7 @@ public class NewsDetailWebActivity extends BaseActivity implements IGetRecommenD
 
     }
 
-    public void hideTool(){
+    public void hideTool() {
         friendBaseHead.setVisibility(View.GONE);
         friendBaseTitle.setVisibility(View.GONE);
         tvFocus.setVisibility(View.GONE);
@@ -199,6 +207,7 @@ public class NewsDetailWebActivity extends BaseActivity implements IGetRecommenD
         shareHandler = new WbShareHandler(this);
         shareHandler.registerApp();
         url = getIntent().getStringExtra("url");
+        newsListItemBean = (NewsListItemBean) getIntent().getSerializableExtra("newsListItemBean");
         id = getIntent().getStringExtra("id");
         uid = getIntent().getStringExtra("uid");
         avatar = getIntent().getStringExtra("avatar");
@@ -334,7 +343,7 @@ public class NewsDetailWebActivity extends BaseActivity implements IGetRecommenD
 
     @OnClick({R.id.iv_back, R.id.tv_focus, R.id.gallery_share, R.id.gallery_editText, R.id.gallery_curr_TextView, R.id.gallery_imageview, R.id.gallery_text, R.id.gallery_collect})
     public void onViewClicked(View view) {
-        Log.e("xi", "onViewClicked: " );
+        Log.e("xi", "onViewClicked: ");
         switch (view.getId()) {
             case R.id.iv_back:
                 onBackPressed();
@@ -381,7 +390,7 @@ public class NewsDetailWebActivity extends BaseActivity implements IGetRecommenD
                 }
                 break;
             case R.id.gallery_editText:
-                Log.e("xi", "gallery_editText: " );
+                Log.e("xi", "gallery_editText: ");
                 isShowInput = true;
                 InputMethodManager imm = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);

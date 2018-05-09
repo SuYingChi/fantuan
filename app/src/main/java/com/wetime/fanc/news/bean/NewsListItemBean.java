@@ -51,10 +51,93 @@ public class NewsListItemBean implements Serializable {
     private int type;
     private boolean has_like;
     private boolean is_news;
-    private boolean circle_owner ;
-    private boolean circle_admin ;
+    private boolean circle_owner;
+    private boolean circle_admin;
     private List<Cover> covers;
+    private boolean is_following;
+    private boolean is_collected;
+    private boolean is_like;
     private boolean is_readed;
+    //热评
+    private String mid;
+    private String merchant_name;
+    private String score;
+    private String reply;
+    private String year;
+    private String month;
+    private String day;
+    /**
+     * id : 87
+     * name : 震惊！吃货团编辑部引发内部大战，竟是因吃饭问题！
+     * cover : ["https://staticcdntest.fantuanlife.com/uimage/dd/20/af/82/dd20af82ca287f4b6df6606f60b0aa83.jpg","https://staticcdntest.fantuanlife.com/uimage/c8/40/9f/36/c8409f360807fc916a4ce67b608405ff.jpg","https://staticcdntest.fantuanlife.com/uimage/f1/82/1e/2f/f1821e2fb202870799ce5d4ffae499fd.jpg"]
+     * author : 大白菜
+     * time : 01-24
+     * read_num : 0次浏览
+     * article_url : www.baidu.com
+     * type : 3
+     */
+
+//    private String id;
+    private String name;
+    private String news_name;
+    //    private String time;
+//    private String read_num;
+    private String article_url;
+    //    private int type;
+//    private List<String> cover;
+    private List<BannerBean> banner;
+    private String emptyType;
+    /**
+     * special : {"id":"1","name":"测试专题名称测试","intro":"简介简介简介简介简介简介简介简介简介简介啦啦啦","coverStr":"https://staticcdntest.fantuanlife.com/uimage/ce/42/21/ae/ce4221ae23f3f1d5a50174f641425e6f.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70/","status":"1","createdAt":"2018-04-13 10:27:33","cover":["https://staticcdntest.fantuanlife.com/uimage/ce/42/21/ae/ce4221ae23f3f1d5a50174f641425e6f.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70/"]}
+     * lastest : {"id":"12726","newsId":"47","cid":"1","name":"共创亚洲和世界的美好未来\u2014\u2014解读习近平主席在博鳌亚洲论坛2018年年会开幕式上的主旨演讲","cover":"393283","author":"南海网11","readNum":"0","likeNum":"0","commentNum":"0","recommend":"0","cause":"0","state":"1","time":"2018-04-11 09:06:00","originTime":"2018-04-11 09:06:00","spiderTime":"2018-04-11 19:46:52","type":"2","score":"1200","contentType":"0","atlasNum":"0","article_url":"https://staticcdntest.fantuanlife.com/index.html#/article/detail?article_id=12726"}
+     * hottest : {"id":"49","newsId":"1","cid":"1","name":"上海迪士尼花2.4万可插队有问题吗？","cover":"309136","author":"呆毛","readNum":"228","likeNum":"0","commentNum":"11","recommend":"1","cause":"0","state":"1","time":"2018-04-09 15:47:44","originTime":"2018-01-16 00:00:00","spiderTime":"2018-01-24 14:40:45","type":"0","score":"4040","contentType":"1","atlasNum":"2","article_url":"https://staticcdntest.fantuanlife.com/index.html#/article/detail?article_id=49"}
+     * elements : [{"id":"2","name":"测试要点二","specialId":"1","createdAt":"2018-04-13 10:27:43"},{"id":"9","name":"dfd","specialId":"1","createdAt":"2018-04-17 13:45:09"}]
+     * focused : {"id":"56","newsId":"1","cid":"1","name":"是我太难搞？还是重庆老火锅就是这个味？","cover":"307778","author":"呆毛","readNum":"48","likeNum":"0","commentNum":"0","recommend":"1","cause":"0","state":"1","time":"2018-02-02 16:39:36","originTime":"2017-12-11 00:00:00","spiderTime":"2018-01-24 14:41:42","type":"0","score":"960","contentType":"0","atlasNum":"0","article_url":"https://staticcdntest.fantuanlife.com/index.html#/article/detail?article_id=56"}
+     * type : 5
+     * cover : ["https://staticcdntest.fantuanlife.com/uimage/e4/97/b9/a2/e497b9a26807858af1c52786a3433596.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70/","https://staticcdntest.fantuanlife.com/uimage/9e/65/87/11/9e658711b57eb62bee8c105539290681.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70/","https://staticcdntest.fantuanlife.com/uimage/e5/47/43/e8/e54743e8aedc28f2fb17a6d57ecf5150.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70/"]
+     * read_num : 35次浏览
+     * content_type : 0
+     * name : 海南这个地方的春色美翻了，还上了央视《新闻联播》！你去了吗？
+     * news_name : 连环八卦掌`
+     * id : 7462
+     * time : 04-12
+     * atlas_num : 0图
+     * article_url : https://staticcdntest.fantuanlife.com/index.html#/article/detail?article_id=7462
+     * news_id : 56
+     */
+
+    private SpecialBean special;
+    private LastestBean lastest;
+    private HottestBean hottest;
+    private FocusedBean focused;
+    private String content_type;
+    private String news_type;
+    private String news_id;
+    private List<ElementsBean> elements;
+
+    public boolean isIs_following() {
+        return is_following;
+    }
+
+    public void setIs_following(boolean is_following) {
+        this.is_following = is_following;
+    }
+
+    public boolean isIs_collected() {
+        return is_collected;
+    }
+
+    public void setIs_collected(boolean is_collected) {
+        this.is_collected = is_collected;
+    }
+
+    public boolean isIs_like() {
+        return is_like;
+    }
+
+    public void setIs_like(boolean is_like) {
+        this.is_like = is_like;
+    }
 
     public boolean isIs_readed() {
         return is_readed;
@@ -79,38 +162,6 @@ public class NewsListItemBean implements Serializable {
     public void setCircle_admin(boolean circle_admin) {
         this.circle_admin = circle_admin;
     }
-
-    //热评
-    private String mid;
-    private String merchant_name;
-    private String score;
-    private String reply;
-    private String year;
-    private String month;
-    private String day;
-
-    /**
-     * id : 87
-     * name : 震惊！吃货团编辑部引发内部大战，竟是因吃饭问题！
-     * cover : ["https://staticcdntest.fantuanlife.com/uimage/dd/20/af/82/dd20af82ca287f4b6df6606f60b0aa83.jpg","https://staticcdntest.fantuanlife.com/uimage/c8/40/9f/36/c8409f360807fc916a4ce67b608405ff.jpg","https://staticcdntest.fantuanlife.com/uimage/f1/82/1e/2f/f1821e2fb202870799ce5d4ffae499fd.jpg"]
-     * author : 大白菜
-     * time : 01-24
-     * read_num : 0次浏览
-     * article_url : www.baidu.com
-     * type : 3
-     */
-
-//    private String id;
-    private String name;
-    private String news_name;
-    //    private String time;
-//    private String read_num;
-    private String article_url;
-    //    private int type;
-//    private List<String> cover;
-    private List<BannerBean> banner;
-    private String emptyType;
-
 
     public String getAtlas_num() {
         return atlas_num;
@@ -368,62 +419,6 @@ public class NewsListItemBean implements Serializable {
         this.covers = cover;
     }
 
-    public static class BannerBean {
-        /**
-         * url :
-         * img : https://staticcdntest.fantuanlife.com/image/fant/news_banner.png
-         */
-
-        private String url;
-        private String img;
-
-        public String getUrl() {
-            return url;
-        }
-
-        public void setUrl(String url) {
-            this.url = url;
-        }
-
-        public String getImg() {
-            return img;
-        }
-
-        public void setImg(String img) {
-            this.img = img;
-        }
-    }
-
-
-    /**
-     * special : {"id":"1","name":"测试专题名称测试","intro":"简介简介简介简介简介简介简介简介简介简介啦啦啦","coverStr":"https://staticcdntest.fantuanlife.com/uimage/ce/42/21/ae/ce4221ae23f3f1d5a50174f641425e6f.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70/","status":"1","createdAt":"2018-04-13 10:27:33","cover":["https://staticcdntest.fantuanlife.com/uimage/ce/42/21/ae/ce4221ae23f3f1d5a50174f641425e6f.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70/"]}
-     * lastest : {"id":"12726","newsId":"47","cid":"1","name":"共创亚洲和世界的美好未来\u2014\u2014解读习近平主席在博鳌亚洲论坛2018年年会开幕式上的主旨演讲","cover":"393283","author":"南海网11","readNum":"0","likeNum":"0","commentNum":"0","recommend":"0","cause":"0","state":"1","time":"2018-04-11 09:06:00","originTime":"2018-04-11 09:06:00","spiderTime":"2018-04-11 19:46:52","type":"2","score":"1200","contentType":"0","atlasNum":"0","article_url":"https://staticcdntest.fantuanlife.com/index.html#/article/detail?article_id=12726"}
-     * hottest : {"id":"49","newsId":"1","cid":"1","name":"上海迪士尼花2.4万可插队有问题吗？","cover":"309136","author":"呆毛","readNum":"228","likeNum":"0","commentNum":"11","recommend":"1","cause":"0","state":"1","time":"2018-04-09 15:47:44","originTime":"2018-01-16 00:00:00","spiderTime":"2018-01-24 14:40:45","type":"0","score":"4040","contentType":"1","atlasNum":"2","article_url":"https://staticcdntest.fantuanlife.com/index.html#/article/detail?article_id=49"}
-     * elements : [{"id":"2","name":"测试要点二","specialId":"1","createdAt":"2018-04-13 10:27:43"},{"id":"9","name":"dfd","specialId":"1","createdAt":"2018-04-17 13:45:09"}]
-     * focused : {"id":"56","newsId":"1","cid":"1","name":"是我太难搞？还是重庆老火锅就是这个味？","cover":"307778","author":"呆毛","readNum":"48","likeNum":"0","commentNum":"0","recommend":"1","cause":"0","state":"1","time":"2018-02-02 16:39:36","originTime":"2017-12-11 00:00:00","spiderTime":"2018-01-24 14:41:42","type":"0","score":"960","contentType":"0","atlasNum":"0","article_url":"https://staticcdntest.fantuanlife.com/index.html#/article/detail?article_id=56"}
-     * type : 5
-     * cover : ["https://staticcdntest.fantuanlife.com/uimage/e4/97/b9/a2/e497b9a26807858af1c52786a3433596.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70/","https://staticcdntest.fantuanlife.com/uimage/9e/65/87/11/9e658711b57eb62bee8c105539290681.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70/","https://staticcdntest.fantuanlife.com/uimage/e5/47/43/e8/e54743e8aedc28f2fb17a6d57ecf5150.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70/"]
-     * read_num : 35次浏览
-     * content_type : 0
-     * name : 海南这个地方的春色美翻了，还上了央视《新闻联播》！你去了吗？
-     * news_name : 连环八卦掌`
-     * id : 7462
-     * time : 04-12
-     * atlas_num : 0图
-     * article_url : https://staticcdntest.fantuanlife.com/index.html#/article/detail?article_id=7462
-     * news_id : 56
-     */
-
-    private SpecialBean special;
-    private LastestBean lastest;
-    private HottestBean hottest;
-    private FocusedBean focused;
-
-    private String content_type;
-    private String news_type;
-    private String news_id;
-    private List<ElementsBean> elements;
-
     public String getNews_type() {
         return news_type;
     }
@@ -480,7 +475,6 @@ public class NewsListItemBean implements Serializable {
         this.focused = focused;
     }
 
-
     public String getContent_type() {
         return content_type;
     }
@@ -488,7 +482,6 @@ public class NewsListItemBean implements Serializable {
     public void setContent_type(String content_type) {
         this.content_type = content_type;
     }
-
 
     public String getNews_id() {
         return news_id;
@@ -498,6 +491,31 @@ public class NewsListItemBean implements Serializable {
         this.news_id = news_id;
     }
 
+    public static class BannerBean implements Serializable {
+        /**
+         * url :
+         * img : https://staticcdntest.fantuanlife.com/image/fant/news_banner.png
+         */
+
+        private String url;
+        private String img;
+
+        public String getUrl() {
+            return url;
+        }
+
+        public void setUrl(String url) {
+            this.url = url;
+        }
+
+        public String getImg() {
+            return img;
+        }
+
+        public void setImg(String img) {
+            this.img = img;
+        }
+    }
 
     public static class SpecialBean {
         /**

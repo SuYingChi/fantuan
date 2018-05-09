@@ -26,6 +26,7 @@ import com.wetime.fanc.my.act.UserCardActivity;
 import com.wetime.fanc.news.act.ReplyActivity;
 import com.wetime.fanc.news.adapter.CommentListAdapter;
 import com.wetime.fanc.news.bean.CommentBean;
+import com.wetime.fanc.news.bean.NewsListItemBean;
 import com.wetime.fanc.utils.DialogUtils;
 import com.wetime.fanc.web.NewsDetailWebActivity;
 import com.wetime.fanc.web.bean.NewsWebBean;
@@ -46,7 +47,7 @@ public class NewsWebAdapter extends RecyclerView.Adapter {
 
     private Context context;
     private List<CommentBean.DataBean.ListBean> dataComm = new ArrayList<>();
-    private List<NewsWebBean.DataBean.ListBean> data = new ArrayList<>();
+    private List<NewsListItemBean> data = new ArrayList<>();
     private LayoutInflater inflater;
     private String url;
     private NewsHolder1 holder1;
@@ -54,7 +55,7 @@ public class NewsWebAdapter extends RecyclerView.Adapter {
     private CommentListAdapter commentListAdapter;
     private GoodView mGoodView;
 
-    public NewsWebAdapter(Context context, String url, List<CommentBean.DataBean.ListBean> dataComm, List<NewsWebBean.DataBean.ListBean> data) {
+    public NewsWebAdapter(Context context, String url, List<CommentBean.DataBean.ListBean> dataComm, List<NewsListItemBean> data) {
         this.context = context;
         this.url = url;
         this.dataComm = dataComm;
@@ -63,7 +64,7 @@ public class NewsWebAdapter extends RecyclerView.Adapter {
         mGoodView = new GoodView(context);
     }
 
-    public void setData(List<NewsWebBean.DataBean.ListBean> data) {
+    public void setData(List<NewsListItemBean> data) {
         this.data = data;
         if (holder1 != null) {
             if (adapter != null) {
