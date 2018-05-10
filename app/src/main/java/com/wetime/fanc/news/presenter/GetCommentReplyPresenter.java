@@ -21,11 +21,12 @@ public class GetCommentReplyPresenter {
         this.iview = iview;
     }
 
-    public void getCommentReply(String comment_id,int page) {
+    public void getCommentReply(String comment_id, int page) {
 
         OkHttpUtils.post().url(Const.GET_COMMENT_REPLY)
-                .addParams("token", iview.getToken())
-                .addParams("comment_id", comment_id)
+                .addHeader("token", iview.getToken())
+                .addParams("id", comment_id)
+                .addParams("pn", page + "")
                 .build()
                 .execute(new DataStringCallback(iview, false) {
                     @Override
@@ -56,10 +57,11 @@ public class GetCommentReplyPresenter {
     }
 
     public void clickLike(String reply_id, String like) {
-        OkHttpUtils.post().url(Const.REPLY_CLICK_LIKE)
-                .addParams("token", iview.getToken())
-                .addParams("reply_id", reply_id)
+        OkHttpUtils.post().url(Const.ARTICLE_LIKE)
+                .addHeader("token", iview.getToken())
+                .addParams("id", reply_id)
                 .addParams("like", like)
+                .addParams("type", "5")
                 .build()
                 .execute(new DataStringCallback(iview, false, false, false) {
                     @Override
@@ -71,9 +73,10 @@ public class GetCommentReplyPresenter {
     }
 
     public void deleteReply(String reply_id) {
-        OkHttpUtils.post().url(Const.DELETE_COMMENT_REPLY)
-                .addParams("token", iview.getToken())
-                .addParams("reply_id", reply_id)
+        OkHttpUtils.post().url(Const.DELETE_RECORD)
+                .addHeader("token", iview.getToken())
+                .addParams("type_id", reply_id)
+                .addParams("type", "5")
                 .build()
                 .execute(new DataStringCallback(iview, true, false, false) {
                     @Override

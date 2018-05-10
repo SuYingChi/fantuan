@@ -40,9 +40,10 @@ public class GetAllCommentPresenter {
     }
 
     public void clickLike(String comment_id, String like) {
-        OkHttpUtils.post().url(Const.CLICK_LIKE)
-                .addParams("token", iview.getToken())
-                .addParams("comment_id", comment_id)
+        OkHttpUtils.post().url(Const.ARTICLE_LIKE)
+                .addHeader("token", iview.getToken())
+                .addParams("id", comment_id)
+                .addParams("type", "4")
                 .addParams("like", like)
                 .build()
                 .execute(new DataStringCallback(iview, false, false, false) {
@@ -70,9 +71,10 @@ public class GetAllCommentPresenter {
                 });
     }
     public void deleteCommonet(String comment_id) {
-        OkHttpUtils.post().url(Const.DELETE_COMMENT)
-                .addParams("token", iview.getToken())
-                .addParams("comment_id", comment_id)
+        OkHttpUtils.post().url(Const.DELETE_RECORD)
+                .addHeader("token", iview.getToken())
+                .addParams("type_id", comment_id)
+                .addParams("type", "4")
                 .build()
                 .execute(new DataStringCallback(iview, true, false, false) {
                     @Override

@@ -8,10 +8,11 @@ import java.util.List;
 
 public class ReplyCommentBean {
 
+
     /**
      * error : 0
      * msg :
-     * data : {"comment":{"id":"1","uid":"15","content":"家光好帅啊，惊呆了我啊！！！！！","like_num":"2","time":"02月28日","user":{"id":"15","username":"枫释","avatar":"https://staticcdntest.fantuanlife.com/uimage/83/16/2a/64/83162a64e3bc72da90cf9cec1176d4e0.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"},"is_author":false,"is_like":true,"is_news":false},"reply":[{"id":"112","comment_id":"1","uid":"23","content":"ddd","time":"03月29日","like_num":"1","user":{"id":"23","username":"神经病的日常","avatar":"https://staticcdntest.fantuanlife.com/uimage/30/34/00/f4/303400f48e12c0009dce7ad0d861b20e.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"},"reply_object":{"id":"111","comment_id":"1","uid":"23","content":"aaaaaaaaaa","time":"2018-03-29 10:29:41","like_num":"0","user":{"id":"23","username":"神经病的日常","avatar":"353614","is_author":true}},"is_author":true,"is_news":true,"is_like":true},{"id":"111","comment_id":"1","uid":"23","content":"aaaaaaaaaa","time":"03月29日","like_num":"0","user":{"id":"23","username":"神经病的日常","avatar":"https://staticcdntest.fantuanlife.com/uimage/30/34/00/f4/303400f48e12c0009dce7ad0d861b20e.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"},"reply_object":[],"is_author":true,"is_news":true,"is_like":false},{"id":"110","comment_id":"1","uid":"23","content":"sdfsd","time":"03月29日","like_num":"0","user":{"id":"23","username":"神经病的日常","avatar":"https://staticcdntest.fantuanlife.com/uimage/30/34/00/f4/303400f48e12c0009dce7ad0d861b20e.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"},"reply_object":[],"is_author":true,"is_news":true,"is_like":false},{"id":"109","comment_id":"1","uid":"23","content":"dfg","time":"03月29日","like_num":"0","user":{"id":"23","username":"神经病的日常","avatar":"https://staticcdntest.fantuanlife.com/uimage/30/34/00/f4/303400f48e12c0009dce7ad0d861b20e.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"},"reply_object":[],"is_author":true,"is_news":true,"is_like":false},{"id":"96","comment_id":"1","uid":"23","content":"testsssssss","time":"03月27日","like_num":"0","user":{"id":"23","username":"神经病的日常","avatar":"https://staticcdntest.fantuanlife.com/uimage/30/34/00/f4/303400f48e12c0009dce7ad0d861b20e.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"},"reply_object":[],"is_author":true,"is_news":true,"is_like":false},{"id":"22","comment_id":"1","uid":"23","content":"sdf","time":"03月07日","like_num":"1","user":{"id":"23","username":"神经病的日常","avatar":"https://staticcdntest.fantuanlife.com/uimage/30/34/00/f4/303400f48e12c0009dce7ad0d861b20e.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"},"reply_object":[],"is_author":true,"is_news":true,"is_like":false},{"id":"20","comment_id":"1","uid":"23","content":"wert","time":"03月07日","like_num":"1","user":{"id":"23","username":"神经病的日常","avatar":"https://staticcdntest.fantuanlife.com/uimage/30/34/00/f4/303400f48e12c0009dce7ad0d861b20e.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"},"reply_object":{"id":"19","comment_id":"1","uid":"23","content":"srt","time":"2018-03-07 09:21:21","like_num":"0","user":{"id":"23","username":"神经病的日常","avatar":"353614","is_author":true}},"is_author":true,"is_news":true,"is_like":true},{"id":"19","comment_id":"1","uid":"23","content":"srt","time":"03月07日","like_num":"0","user":{"id":"23","username":"神经病的日常","avatar":"https://staticcdntest.fantuanlife.com/uimage/30/34/00/f4/303400f48e12c0009dce7ad0d861b20e.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"},"reply_object":[],"is_author":true,"is_news":true,"is_like":false},{"id":"18","comment_id":"1","uid":"23","content":"ee4","time":"03月07日","like_num":"0","user":{"id":"23","username":"神经病的日常","avatar":"https://staticcdntest.fantuanlife.com/uimage/30/34/00/f4/303400f48e12c0009dce7ad0d861b20e.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"},"reply_object":[],"is_author":true,"is_news":true,"is_like":false},{"id":"17","comment_id":"1","uid":"23","content":"dff","time":"03月07日","like_num":"0","user":{"id":"23","username":"神经病的日常","avatar":"https://staticcdntest.fantuanlife.com/uimage/30/34/00/f4/303400f48e12c0009dce7ad0d861b20e.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"},"reply_object":[],"is_author":true,"is_news":true,"is_like":false},{"id":"15","comment_id":"1","uid":"23","content":"水电费","time":"03月06日","like_num":"0","user":{"id":"23","username":"神经病的日常","avatar":"https://staticcdntest.fantuanlife.com/uimage/30/34/00/f4/303400f48e12c0009dce7ad0d861b20e.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"},"reply_object":{"id":"2","comment_id":"1","uid":"20","content":"好假啊逗比","time":"2018-02-28 15:29:14","like_num":"1","user":{"id":"20","username":"188****6435","avatar":"353783","is_author":false}},"is_author":true,"is_news":true,"is_like":false},{"id":"9","comment_id":"1","uid":"23","content":"测试回复的回复","time":"03月06日","like_num":"0","user":{"id":"23","username":"神经病的日常","avatar":"https://staticcdntest.fantuanlife.com/uimage/30/34/00/f4/303400f48e12c0009dce7ad0d861b20e.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"},"reply_object":{"id":"8","comment_id":"1","uid":"23","content":"测试回复","time":"2018-03-06 10:59:20","like_num":"0","user":{"id":"23","username":"神经病的日常","avatar":"353614","is_author":true}},"is_author":true,"is_news":true,"is_like":false},{"id":"7","comment_id":"1","uid":"23","content":"我就@你，测试@交互","time":"03月06日","like_num":"0","user":{"id":"23","username":"神经病的日常","avatar":"https://staticcdntest.fantuanlife.com/uimage/30/34/00/f4/303400f48e12c0009dce7ad0d861b20e.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"},"reply_object":{"id":"6","comment_id":"1","uid":"23","content":"测试回复，不@任何人","time":"2018-03-06 10:45:11","like_num":"0","user":{"id":"23","username":"神经病的日常","avatar":"353614","is_author":true}},"is_author":true,"is_news":true,"is_like":false},{"id":"6","comment_id":"1","uid":"23","content":"测试回复，不@任何人","time":"03月06日","like_num":"0","user":{"id":"23","username":"神经病的日常","avatar":"https://staticcdntest.fantuanlife.com/uimage/30/34/00/f4/303400f48e12c0009dce7ad0d861b20e.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"},"reply_object":[],"is_author":true,"is_news":true,"is_like":false},{"id":"4","comment_id":"1","uid":"22","content":"别老是说假话","time":"03月05日","like_num":"0","user":{"id":"22","username":"爱吃土豆的小豆豆","avatar":"https://staticcdntest.fantuanlife.com/uimage/78/b9/23/43/78b9234394368dd0e4b4c88c30b1e11f.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"},"reply_object":{"id":"2","comment_id":"1","uid":"20","content":"好假啊逗比","time":"2018-02-28 15:29:14","like_num":"1","user":{"id":"20","username":"188****6435","avatar":"353783","is_author":false}},"is_author":false,"is_news":false,"is_like":false},{"id":"3","comment_id":"1","uid":"21","content":"长得还行","time":"03月05日","like_num":"0","user":{"id":"21","username":"peggy","avatar":"https://staticcdntest.fantuanlife.com/uimage/34/a8/96/f1/34a896f13692732b061f0eb850c1537e.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"},"reply_object":{"id":"1","comment_id":"1","uid":"23","content":"谢谢你哦，说了大实话！！！","time":"2018-02-28 10:15:29","like_num":"2","user":{"id":"23","username":"神经病的日常","avatar":"353614","is_author":true}},"is_author":false,"is_news":true,"is_like":false},{"id":"2","comment_id":"1","uid":"20","content":"好假啊逗比","time":"02月28日","like_num":"1","user":{"id":"20","username":"188****6435","avatar":"https://staticcdntest.fantuanlife.com/uimage/3c/6b/bb/ea/3c6bbbeaa553cdf66d8ed4418f156676.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"},"reply_object":{"id":"1","comment_id":"1","uid":"23","content":"谢谢你哦，说了大实话！！！","time":"2018-02-28 10:15:29","like_num":"2","user":{"id":"23","username":"神经病的日常","avatar":"353614","is_author":true}},"is_author":false,"is_news":false,"is_like":true},{"id":"1","comment_id":"1","uid":"23","content":"谢谢你哦，说了大实话！！！","time":"02月28日","like_num":"2","user":{"id":"23","username":"神经病的日常","avatar":"https://staticcdntest.fantuanlife.com/uimage/30/34/00/f4/303400f48e12c0009dce7ad0d861b20e.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"},"reply_object":[],"is_author":true,"is_news":true,"is_like":true}]}
+     * data : {"like_num":"0","is_news":true,"is_author":false,"is_like":false,"reply_num":"2","id":"214","time":"04月02日 14:15","reply":[{"like_num":"0","is_news":false,"reply_object":null,"is_author":false,"is_like":false,"pid":"0","id":"239","time":"05月03日 18:05","is_following":false,"user":{"id":"319","username":"138****3230","avatar":"https://fanttest.fantuanlife.com/image/fant/default_avatar.png"},"content":"斤斤计较"},{"like_num":"0","is_news":false,"reply_object":{"uid":"319","is_news":false,"id":"239","avatar":"https://fanttest.fantuanlife.com/image/fant/default_avatar.png","is_following":false,"username":"138****3230"},"is_author":false,"is_like":false,"pid":"239","id":"240","time":"05月03日 18:05","is_following":false,"user":{"id":"319","username":"138****3230","avatar":"https://fanttest.fantuanlife.com/image/fant/default_avatar.png"},"content":"咯去搜"}],"aid":"10756","is_following":true,"user":{"id":"19","username":"1234567890","avatar":"https://staticcdntest.fantuanlife.com/uimage/f5/2d/0f/78/f52d0f7842df9f03a1488bcff1031b70.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70/"},"content":"肉肉肉肉"}
      */
 
     private int error;
@@ -44,19 +45,119 @@ public class ReplyCommentBean {
 
     public static class DataBean {
         /**
-         * comment : {"id":"1","uid":"15","content":"家光好帅啊，惊呆了我啊！！！！！","like_num":"2","time":"02月28日","user":{"id":"15","username":"枫释","avatar":"https://staticcdntest.fantuanlife.com/uimage/83/16/2a/64/83162a64e3bc72da90cf9cec1176d4e0.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"},"is_author":false,"is_like":true,"is_news":false}
-         * reply : [{"id":"112","comment_id":"1","uid":"23","content":"ddd","time":"03月29日","like_num":"1","user":{"id":"23","username":"神经病的日常","avatar":"https://staticcdntest.fantuanlife.com/uimage/30/34/00/f4/303400f48e12c0009dce7ad0d861b20e.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"},"reply_object":{"id":"111","comment_id":"1","uid":"23","content":"aaaaaaaaaa","time":"2018-03-29 10:29:41","like_num":"0","user":{"id":"23","username":"神经病的日常","avatar":"353614","is_author":true}},"is_author":true,"is_news":true,"is_like":true},{"id":"111","comment_id":"1","uid":"23","content":"aaaaaaaaaa","time":"03月29日","like_num":"0","user":{"id":"23","username":"神经病的日常","avatar":"https://staticcdntest.fantuanlife.com/uimage/30/34/00/f4/303400f48e12c0009dce7ad0d861b20e.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"},"reply_object":[],"is_author":true,"is_news":true,"is_like":false},{"id":"110","comment_id":"1","uid":"23","content":"sdfsd","time":"03月29日","like_num":"0","user":{"id":"23","username":"神经病的日常","avatar":"https://staticcdntest.fantuanlife.com/uimage/30/34/00/f4/303400f48e12c0009dce7ad0d861b20e.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"},"reply_object":[],"is_author":true,"is_news":true,"is_like":false},{"id":"109","comment_id":"1","uid":"23","content":"dfg","time":"03月29日","like_num":"0","user":{"id":"23","username":"神经病的日常","avatar":"https://staticcdntest.fantuanlife.com/uimage/30/34/00/f4/303400f48e12c0009dce7ad0d861b20e.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"},"reply_object":[],"is_author":true,"is_news":true,"is_like":false},{"id":"96","comment_id":"1","uid":"23","content":"testsssssss","time":"03月27日","like_num":"0","user":{"id":"23","username":"神经病的日常","avatar":"https://staticcdntest.fantuanlife.com/uimage/30/34/00/f4/303400f48e12c0009dce7ad0d861b20e.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"},"reply_object":[],"is_author":true,"is_news":true,"is_like":false},{"id":"22","comment_id":"1","uid":"23","content":"sdf","time":"03月07日","like_num":"1","user":{"id":"23","username":"神经病的日常","avatar":"https://staticcdntest.fantuanlife.com/uimage/30/34/00/f4/303400f48e12c0009dce7ad0d861b20e.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"},"reply_object":[],"is_author":true,"is_news":true,"is_like":false},{"id":"20","comment_id":"1","uid":"23","content":"wert","time":"03月07日","like_num":"1","user":{"id":"23","username":"神经病的日常","avatar":"https://staticcdntest.fantuanlife.com/uimage/30/34/00/f4/303400f48e12c0009dce7ad0d861b20e.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"},"reply_object":{"id":"19","comment_id":"1","uid":"23","content":"srt","time":"2018-03-07 09:21:21","like_num":"0","user":{"id":"23","username":"神经病的日常","avatar":"353614","is_author":true}},"is_author":true,"is_news":true,"is_like":true},{"id":"19","comment_id":"1","uid":"23","content":"srt","time":"03月07日","like_num":"0","user":{"id":"23","username":"神经病的日常","avatar":"https://staticcdntest.fantuanlife.com/uimage/30/34/00/f4/303400f48e12c0009dce7ad0d861b20e.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"},"reply_object":[],"is_author":true,"is_news":true,"is_like":false},{"id":"18","comment_id":"1","uid":"23","content":"ee4","time":"03月07日","like_num":"0","user":{"id":"23","username":"神经病的日常","avatar":"https://staticcdntest.fantuanlife.com/uimage/30/34/00/f4/303400f48e12c0009dce7ad0d861b20e.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"},"reply_object":[],"is_author":true,"is_news":true,"is_like":false},{"id":"17","comment_id":"1","uid":"23","content":"dff","time":"03月07日","like_num":"0","user":{"id":"23","username":"神经病的日常","avatar":"https://staticcdntest.fantuanlife.com/uimage/30/34/00/f4/303400f48e12c0009dce7ad0d861b20e.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"},"reply_object":[],"is_author":true,"is_news":true,"is_like":false},{"id":"15","comment_id":"1","uid":"23","content":"水电费","time":"03月06日","like_num":"0","user":{"id":"23","username":"神经病的日常","avatar":"https://staticcdntest.fantuanlife.com/uimage/30/34/00/f4/303400f48e12c0009dce7ad0d861b20e.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"},"reply_object":{"id":"2","comment_id":"1","uid":"20","content":"好假啊逗比","time":"2018-02-28 15:29:14","like_num":"1","user":{"id":"20","username":"188****6435","avatar":"353783","is_author":false}},"is_author":true,"is_news":true,"is_like":false},{"id":"9","comment_id":"1","uid":"23","content":"测试回复的回复","time":"03月06日","like_num":"0","user":{"id":"23","username":"神经病的日常","avatar":"https://staticcdntest.fantuanlife.com/uimage/30/34/00/f4/303400f48e12c0009dce7ad0d861b20e.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"},"reply_object":{"id":"8","comment_id":"1","uid":"23","content":"测试回复","time":"2018-03-06 10:59:20","like_num":"0","user":{"id":"23","username":"神经病的日常","avatar":"353614","is_author":true}},"is_author":true,"is_news":true,"is_like":false},{"id":"7","comment_id":"1","uid":"23","content":"我就@你，测试@交互","time":"03月06日","like_num":"0","user":{"id":"23","username":"神经病的日常","avatar":"https://staticcdntest.fantuanlife.com/uimage/30/34/00/f4/303400f48e12c0009dce7ad0d861b20e.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"},"reply_object":{"id":"6","comment_id":"1","uid":"23","content":"测试回复，不@任何人","time":"2018-03-06 10:45:11","like_num":"0","user":{"id":"23","username":"神经病的日常","avatar":"353614","is_author":true}},"is_author":true,"is_news":true,"is_like":false},{"id":"6","comment_id":"1","uid":"23","content":"测试回复，不@任何人","time":"03月06日","like_num":"0","user":{"id":"23","username":"神经病的日常","avatar":"https://staticcdntest.fantuanlife.com/uimage/30/34/00/f4/303400f48e12c0009dce7ad0d861b20e.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"},"reply_object":[],"is_author":true,"is_news":true,"is_like":false},{"id":"4","comment_id":"1","uid":"22","content":"别老是说假话","time":"03月05日","like_num":"0","user":{"id":"22","username":"爱吃土豆的小豆豆","avatar":"https://staticcdntest.fantuanlife.com/uimage/78/b9/23/43/78b9234394368dd0e4b4c88c30b1e11f.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"},"reply_object":{"id":"2","comment_id":"1","uid":"20","content":"好假啊逗比","time":"2018-02-28 15:29:14","like_num":"1","user":{"id":"20","username":"188****6435","avatar":"353783","is_author":false}},"is_author":false,"is_news":false,"is_like":false},{"id":"3","comment_id":"1","uid":"21","content":"长得还行","time":"03月05日","like_num":"0","user":{"id":"21","username":"peggy","avatar":"https://staticcdntest.fantuanlife.com/uimage/34/a8/96/f1/34a896f13692732b061f0eb850c1537e.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"},"reply_object":{"id":"1","comment_id":"1","uid":"23","content":"谢谢你哦，说了大实话！！！","time":"2018-02-28 10:15:29","like_num":"2","user":{"id":"23","username":"神经病的日常","avatar":"353614","is_author":true}},"is_author":false,"is_news":true,"is_like":false},{"id":"2","comment_id":"1","uid":"20","content":"好假啊逗比","time":"02月28日","like_num":"1","user":{"id":"20","username":"188****6435","avatar":"https://staticcdntest.fantuanlife.com/uimage/3c/6b/bb/ea/3c6bbbeaa553cdf66d8ed4418f156676.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"},"reply_object":{"id":"1","comment_id":"1","uid":"23","content":"谢谢你哦，说了大实话！！！","time":"2018-02-28 10:15:29","like_num":"2","user":{"id":"23","username":"神经病的日常","avatar":"353614","is_author":true}},"is_author":false,"is_news":false,"is_like":true},{"id":"1","comment_id":"1","uid":"23","content":"谢谢你哦，说了大实话！！！","time":"02月28日","like_num":"2","user":{"id":"23","username":"神经病的日常","avatar":"https://staticcdntest.fantuanlife.com/uimage/30/34/00/f4/303400f48e12c0009dce7ad0d861b20e.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"},"reply_object":[],"is_author":true,"is_news":true,"is_like":true}]
+         * like_num : 0
+         * is_news : true
+         * is_author : false
+         * is_like : false
+         * reply_num : 2
+         * id : 214
+         * time : 04月02日 14:15
+         * reply : [{"like_num":"0","is_news":false,"reply_object":null,"is_author":false,"is_like":false,"pid":"0","id":"239","time":"05月03日 18:05","is_following":false,"user":{"id":"319","username":"138****3230","avatar":"https://fanttest.fantuanlife.com/image/fant/default_avatar.png"},"content":"斤斤计较"},{"like_num":"0","is_news":false,"reply_object":{"uid":"319","is_news":false,"id":"239","avatar":"https://fanttest.fantuanlife.com/image/fant/default_avatar.png","is_following":false,"username":"138****3230"},"is_author":false,"is_like":false,"pid":"239","id":"240","time":"05月03日 18:05","is_following":false,"user":{"id":"319","username":"138****3230","avatar":"https://fanttest.fantuanlife.com/image/fant/default_avatar.png"},"content":"咯去搜"}]
+         * aid : 10756
+         * is_following : true
+         * user : {"id":"19","username":"1234567890","avatar":"https://staticcdntest.fantuanlife.com/uimage/f5/2d/0f/78/f52d0f7842df9f03a1488bcff1031b70.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70/"}
+         * content : 肉肉肉肉
          */
 
-        private CommentBean comment;
+        private String like_num;
+        private boolean is_news;
+        private boolean is_author;
+        private boolean is_like;
+        private String reply_num;
+        private String id;
+        private String time;
+        private String aid;
+        private boolean is_following;
+        private UserBean user;
+        private String content;
         private List<ReplyBean> reply;
 
-        public CommentBean getComment() {
-            return comment;
+        public String getLike_num() {
+            return like_num;
         }
 
-        public void setComment(CommentBean comment) {
-            this.comment = comment;
+        public void setLike_num(String like_num) {
+            this.like_num = like_num;
+        }
+
+        public boolean isIs_news() {
+            return is_news;
+        }
+
+        public void setIs_news(boolean is_news) {
+            this.is_news = is_news;
+        }
+
+        public boolean isIs_author() {
+            return is_author;
+        }
+
+        public void setIs_author(boolean is_author) {
+            this.is_author = is_author;
+        }
+
+        public boolean isIs_like() {
+            return is_like;
+        }
+
+        public void setIs_like(boolean is_like) {
+            this.is_like = is_like;
+        }
+
+        public String getReply_num() {
+            return reply_num;
+        }
+
+        public void setReply_num(String reply_num) {
+            this.reply_num = reply_num;
+        }
+
+        public String getId() {
+            return id;
+        }
+
+        public void setId(String id) {
+            this.id = id;
+        }
+
+        public String getTime() {
+            return time;
+        }
+
+        public void setTime(String time) {
+            this.time = time;
+        }
+
+        public String getAid() {
+            return aid;
+        }
+
+        public void setAid(String aid) {
+            this.aid = aid;
+        }
+
+        public boolean isIs_following() {
+            return is_following;
+        }
+
+        public void setIs_following(boolean is_following) {
+            this.is_following = is_following;
+        }
+
+        public UserBean getUser() {
+            return user;
+        }
+
+        public void setUser(UserBean user) {
+            this.user = user;
+        }
+
+        public String getContent() {
+            return content;
+        }
+
+        public void setContent(String content) {
+            this.content = content;
         }
 
         public List<ReplyBean> getReply() {
@@ -67,28 +168,16 @@ public class ReplyCommentBean {
             this.reply = reply;
         }
 
-        public static class CommentBean {
+        public static class UserBean {
             /**
-             * id : 1
-             * uid : 15
-             * content : 家光好帅啊，惊呆了我啊！！！！！
-             * like_num : 2
-             * time : 02月28日
-             * user : {"id":"15","username":"枫释","avatar":"https://staticcdntest.fantuanlife.com/uimage/83/16/2a/64/83162a64e3bc72da90cf9cec1176d4e0.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"}
-             * is_author : false
-             * is_like : true
-             * is_news : false
+             * id : 19
+             * username : 1234567890
+             * avatar : https://staticcdntest.fantuanlife.com/uimage/f5/2d/0f/78/f52d0f7842df9f03a1488bcff1031b70.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70/
              */
 
             private String id;
-            private String uid;
-            private String content;
-            private String like_num;
-            private String time;
-            private UserBean user;
-            private boolean is_author;
-            private boolean is_like;
-            private boolean is_news;
+            private String username;
+            private String avatar;
 
             public String getId() {
                 return id;
@@ -98,21 +187,49 @@ public class ReplyCommentBean {
                 this.id = id;
             }
 
-            public String getUid() {
-                return uid;
+            public String getUsername() {
+                return username;
             }
 
-            public void setUid(String uid) {
-                this.uid = uid;
+            public void setUsername(String username) {
+                this.username = username;
             }
 
-            public String getContent() {
-                return content;
+            public String getAvatar() {
+                return avatar;
             }
 
-            public void setContent(String content) {
-                this.content = content;
+            public void setAvatar(String avatar) {
+                this.avatar = avatar;
             }
+        }
+
+        public static class ReplyBean {
+            /**
+             * like_num : 0
+             * is_news : false
+             * reply_object : null
+             * is_author : false
+             * is_like : false
+             * pid : 0
+             * id : 239
+             * time : 05月03日 18:05
+             * is_following : false
+             * user : {"id":"319","username":"138****3230","avatar":"https://fanttest.fantuanlife.com/image/fant/default_avatar.png"}
+             * content : 斤斤计较
+             */
+
+            private String like_num;
+            private boolean is_news;
+            private Reply_object reply_object;
+            private boolean is_author;
+            private boolean is_like;
+            private String pid;
+            private String id;
+            private String time;
+            private boolean is_following;
+            private UserBeanX user;
+            private String content;
 
             public String getLike_num() {
                 return like_num;
@@ -120,38 +237,6 @@ public class ReplyCommentBean {
 
             public void setLike_num(String like_num) {
                 this.like_num = like_num;
-            }
-
-            public String getTime() {
-                return time;
-            }
-
-            public void setTime(String time) {
-                this.time = time;
-            }
-
-            public UserBean getUser() {
-                return user;
-            }
-
-            public void setUser(UserBean user) {
-                this.user = user;
-            }
-
-            public boolean isIs_author() {
-                return is_author;
-            }
-
-            public void setIs_author(boolean is_author) {
-                this.is_author = is_author;
-            }
-
-            public boolean isIs_like() {
-                return is_like;
-            }
-
-            public void setIs_like(boolean is_like) {
-                this.is_like = is_like;
             }
 
             public boolean isIs_news() {
@@ -162,131 +247,11 @@ public class ReplyCommentBean {
                 this.is_news = is_news;
             }
 
-            public static class UserBean {
-                /**
-                 * id : 15
-                 * username : 枫释
-                 * avatar : https://staticcdntest.fantuanlife.com/uimage/83/16/2a/64/83162a64e3bc72da90cf9cec1176d4e0.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70
-                 */
-
-                private String id;
-                private String username;
-                private String avatar;
-
-                public String getId() {
-                    return id;
-                }
-
-                public void setId(String id) {
-                    this.id = id;
-                }
-
-                public String getUsername() {
-                    return username;
-                }
-
-                public void setUsername(String username) {
-                    this.username = username;
-                }
-
-                public String getAvatar() {
-                    return avatar;
-                }
-
-                public void setAvatar(String avatar) {
-                    this.avatar = avatar;
-                }
-            }
-        }
-
-        public static class ReplyBean {
-            /**
-             * id : 112
-             * comment_id : 1
-             * uid : 23
-             * content : ddd
-             * time : 03月29日
-             * like_num : 1
-             * user : {"id":"23","username":"神经病的日常","avatar":"https://staticcdntest.fantuanlife.com/uimage/30/34/00/f4/303400f48e12c0009dce7ad0d861b20e.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70"}
-             * reply_object : {"id":"111","comment_id":"1","uid":"23","content":"aaaaaaaaaa","time":"2018-03-29 10:29:41","like_num":"0","user":{"id":"23","username":"神经病的日常","avatar":"353614","is_author":true}}
-             * is_author : true
-             * is_news : true
-             * is_like : true
-             */
-
-            private String id;
-            private String comment_id;
-            private String uid;
-            private String content;
-            private String time;
-            private String like_num;
-            private UserBeanX user;
-            private ReplyObjectBean reply_object;
-            private boolean is_author;
-            private boolean is_news;
-            private boolean is_like;
-
-            public String getId() {
-                return id;
-            }
-
-            public void setId(String id) {
-                this.id = id;
-            }
-
-            public String getComment_id() {
-                return comment_id;
-            }
-
-            public void setComment_id(String comment_id) {
-                this.comment_id = comment_id;
-            }
-
-            public String getUid() {
-                return uid;
-            }
-
-            public void setUid(String uid) {
-                this.uid = uid;
-            }
-
-            public String getContent() {
-                return content;
-            }
-
-            public void setContent(String content) {
-                this.content = content;
-            }
-
-            public String getTime() {
-                return time;
-            }
-
-            public void setTime(String time) {
-                this.time = time;
-            }
-
-            public String getLike_num() {
-                return like_num;
-            }
-
-            public void setLike_num(String like_num) {
-                this.like_num = like_num;
-            }
-
-            public UserBeanX getUser() {
-                return user;
-            }
-
-            public void setUser(UserBeanX user) {
-                this.user = user;
-            }
-
-            public ReplyObjectBean getReply_object() {
+            public Reply_object getReply_object() {
                 return reply_object;
             }
 
-            public void setReply_object(ReplyObjectBean reply_object) {
+            public void setReply_object(Reply_object reply_object) {
                 this.reply_object = reply_object;
             }
 
@@ -298,14 +263,6 @@ public class ReplyCommentBean {
                 this.is_author = is_author;
             }
 
-            public boolean isIs_news() {
-                return is_news;
-            }
-
-            public void setIs_news(boolean is_news) {
-                this.is_news = is_news;
-            }
-
             public boolean isIs_like() {
                 return is_like;
             }
@@ -314,11 +271,59 @@ public class ReplyCommentBean {
                 this.is_like = is_like;
             }
 
+            public String getPid() {
+                return pid;
+            }
+
+            public void setPid(String pid) {
+                this.pid = pid;
+            }
+
+            public String getId() {
+                return id;
+            }
+
+            public void setId(String id) {
+                this.id = id;
+            }
+
+            public String getTime() {
+                return time;
+            }
+
+            public void setTime(String time) {
+                this.time = time;
+            }
+
+            public boolean isIs_following() {
+                return is_following;
+            }
+
+            public void setIs_following(boolean is_following) {
+                this.is_following = is_following;
+            }
+
+            public UserBeanX getUser() {
+                return user;
+            }
+
+            public void setUser(UserBeanX user) {
+                this.user = user;
+            }
+
+            public String getContent() {
+                return content;
+            }
+
+            public void setContent(String content) {
+                this.content = content;
+            }
+
             public static class UserBeanX {
                 /**
-                 * id : 23
-                 * username : 神经病的日常
-                 * avatar : https://staticcdntest.fantuanlife.com/uimage/30/34/00/f4/303400f48e12c0009dce7ad0d861b20e.jpg?x-oss-process=image/resize,m_fill,h_200,w_200/format,jpg/interlace,1/quality,Q_70
+                 * id : 319
+                 * username : 138****3230
+                 * avatar : https://fanttest.fantuanlife.com/image/fant/default_avatar.png
                  */
 
                 private String id;
@@ -349,41 +354,23 @@ public class ReplyCommentBean {
                     this.avatar = avatar;
                 }
             }
+            public static class Reply_object {
 
-            public static class ReplyObjectBean {
                 /**
-                 * id : 111
-                 * comment_id : 1
-                 * uid : 23
-                 * content : aaaaaaaaaa
-                 * time : 2018-03-29 10:29:41
-                 * like_num : 0
-                 * user : {"id":"23","username":"神经病的日常","avatar":"353614","is_author":true}
+                 * uid : 319
+                 * is_news : false
+                 * id : 239
+                 * avatar : https://fanttest.fantuanlife.com/image/fant/default_avatar.png
+                 * is_following : false
+                 * username : 138****3230
                  */
 
-                private String id;
-                private String comment_id;
                 private String uid;
-                private String content;
-                private String time;
-                private String like_num;
-                private UserBeanXX user;
-
-                public String getId() {
-                    return id;
-                }
-
-                public void setId(String id) {
-                    this.id = id;
-                }
-
-                public String getComment_id() {
-                    return comment_id;
-                }
-
-                public void setComment_id(String comment_id) {
-                    this.comment_id = comment_id;
-                }
+                private boolean is_news;
+                private String id;
+                private String avatar;
+                private boolean is_following;
+                private String username;
 
                 public String getUid() {
                     return uid;
@@ -393,82 +380,44 @@ public class ReplyCommentBean {
                     this.uid = uid;
                 }
 
-                public String getContent() {
-                    return content;
+                public boolean isIs_news() {
+                    return is_news;
                 }
 
-                public void setContent(String content) {
-                    this.content = content;
+                public void setIs_news(boolean is_news) {
+                    this.is_news = is_news;
                 }
 
-                public String getTime() {
-                    return time;
+                public String getId() {
+                    return id;
                 }
 
-                public void setTime(String time) {
-                    this.time = time;
+                public void setId(String id) {
+                    this.id = id;
                 }
 
-                public String getLike_num() {
-                    return like_num;
+                public String getAvatar() {
+                    return avatar;
                 }
 
-                public void setLike_num(String like_num) {
-                    this.like_num = like_num;
+                public void setAvatar(String avatar) {
+                    this.avatar = avatar;
                 }
 
-                public UserBeanXX getUser() {
-                    return user;
+                public boolean isIs_following() {
+                    return is_following;
                 }
 
-                public void setUser(UserBeanXX user) {
-                    this.user = user;
+                public void setIs_following(boolean is_following) {
+                    this.is_following = is_following;
                 }
 
-                public static class UserBeanXX {
-                    /**
-                     * id : 23
-                     * username : 神经病的日常
-                     * avatar : 353614
-                     * is_author : true
-                     */
+                public String getUsername() {
+                    return username;
+                }
 
-                    private String id;
-                    private String username;
-                    private String avatar;
-                    private boolean is_author;
-
-                    public String getId() {
-                        return id;
-                    }
-
-                    public void setId(String id) {
-                        this.id = id;
-                    }
-
-                    public String getUsername() {
-                        return username;
-                    }
-
-                    public void setUsername(String username) {
-                        this.username = username;
-                    }
-
-                    public String getAvatar() {
-                        return avatar;
-                    }
-
-                    public void setAvatar(String avatar) {
-                        this.avatar = avatar;
-                    }
-
-                    public boolean isIs_author() {
-                        return is_author;
-                    }
-
-                    public void setIs_author(boolean is_author) {
-                        this.is_author = is_author;
-                    }
+                public void setUsername(String username) {
+                    this.username = username;
                 }
             }
         }

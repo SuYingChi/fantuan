@@ -115,21 +115,18 @@
             android:layout_weight="1"
             >
 
-            <EditText
-
+            <TextView
+                android:id="@+id/gallery_editText1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginBottom="12dp"
                 android:layout_marginLeft="11dp"
                 android:layout_marginTop="12dp"
                 android:background="@drawable/bg_btn_comm"
-                android:editable="false"
-                android:hint="发表一下高见吧~"
-                android:imeOptions="actionDone"
+                android:text="发表一下高见吧~"
+                android:gravity="center_vertical"
                 android:paddingLeft="5dp"
-                android:singleLine="true"
                 android:textColor="#999999"
-                android:textColorHint="#999999"
                 android:textSize="12sp" />
 
 

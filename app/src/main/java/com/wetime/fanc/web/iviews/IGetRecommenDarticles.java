@@ -13,4 +13,6 @@ public interface IGetRecommenDarticles extends IBaseVIew {
     void onRecommenDarticles(NewsWebBean bean);
 
     void onAttentionFriends(AttentionBean bean);
+
+    void onCollectNews();
 }

@@ -1,7 +1,10 @@
 package com.wetime.fanc.web.presenter;
 
 
+import android.util.Log;
+
 import com.fan.http.okhttp.OkHttpUtils;
+import com.wetime.fanc.main.model.ErrorBean;
 import com.wetime.fanc.my.bean.AttentionBean;
 import com.wetime.fanc.utils.Const;
 import com.wetime.fanc.utils.DataStringCallback;
@@ -49,6 +52,38 @@ public class GetAllRecommenDarticles {
                         super.onResponse(s, i);
                         AttentionBean galleryItemBean = GsonUtils.getGsonInstance().fromJson(s, AttentionBean.class);
                         iview.onAttentionFriends(galleryItemBean);
+                    }
+                });
+    }
+
+    public void collectNews(String article_id, String collect) {
+        OkHttpUtils.post().url(Const.COLLECT_NEWS)
+                .addParams("token", iview.getToken())
+                .addParams("article_id", article_id)
+                .addParams("collect", collect)
+                .build()
+                .execute(new DataStringCallback(iview, false, false, true) {
+                    @Override
+                    public void onResponse(String s, int i) {
+                        super.onResponse(s, i);
+                        ErrorBean errorBean = GsonUtils.getGsonInstance().fromJson(s, ErrorBean.class);
+                        if (errorBean.getError()==0) iview.onCollectNews();
+                    }
+                });
+    }
+
+    public void clickLike(String article_id, String like) {
+        OkHttpUtils.post().url(Const.ARTICLE_LIKE)
+                .addHeader("token", iview.getToken())
+                .addParams("id", article_id)
+                .addParams("type", "3")
+                .addParams("like", like)
+                .build()
+                .execute(new DataStringCallback(iview, false, false, false) {
+                    @Override
+                    public void onResponse(String s, int i) {
+                        super.onResponse(s, i);
+//                        Log.e("xi", "onResponse: " + s);
                     }
                 });
     }

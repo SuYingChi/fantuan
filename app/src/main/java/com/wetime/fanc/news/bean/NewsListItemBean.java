@@ -45,7 +45,6 @@ public class NewsListItemBean implements Serializable {
     private String comment_num;
     private String time;
     private String username;
-    private String avatar;
     private String atlas_num;
     private String circle_name;
     private int type;
@@ -83,6 +82,7 @@ public class NewsListItemBean implements Serializable {
     //    private String time;
 //    private String read_num;
     private String article_url;
+    private String avatar;
     //    private int type;
 //    private List<String> cover;
     private List<BannerBean> banner;
@@ -517,7 +517,7 @@ public class NewsListItemBean implements Serializable {
         }
     }
 
-    public static class SpecialBean {
+    public static class SpecialBean implements Serializable {
         /**
          * id : 1
          * name : 测试专题名称测试
@@ -602,138 +602,111 @@ public class NewsListItemBean implements Serializable {
         }
     }
 
-    public static class LastestBean {
+    public static class LastestBean implements Serializable {
+
         /**
-         * id : 12726
-         * newsId : 47
-         * cid : 1
-         * name : 共创亚洲和世界的美好未来——解读习近平主席在博鳌亚洲论坛2018年年会开幕式上的主旨演讲
-         * cover : 393283
-         * author : 南海网11
-         * readNum : 0
-         * likeNum : 0
-         * commentNum : 0
-         * recommend : 0
+         * comment_num : 2
+         * nullusername :
+         * is_readed : true
+         * nullavatar :
          * cause : 0
-         * state : 1
-         * time : 2018-04-11 09:06:00
-         * originTime : 2018-04-11 09:06:00
-         * spiderTime : 2018-04-11 19:46:52
+         * recommend : 1
          * type : 2
-         * score : 1200
-         * contentType : 0
-         * atlasNum : 0
-         * article_url : https://staticcdntest.fantuanlife.com/index.html#/article/detail?article_id=12726
+         * atlas_num : 5图
+         * news_id : 61
+         * cover : 371077
+         * score : 1789
+         * read_num : 128次浏览
+         * spider_time : 2018-04-02 11:14:17
+         * content_type : 1
+         * news_type : 1
+         * is_like : false
+         * news_name : null
+         * origin_time : 2018-04-02 10:52:00
+         * id : 10756
+         * state : 1
+         * covers : [{"url":"https://staticcdntest.fantuanlife.com/uimage/44/fb/0a/dc/44fb0adc35f3c9f23c382e26572cd098.jpg","compress":"https://staticcdntest.fantuanlife.com/uimage/44/fb/0a/dc/44fb0adc35f3c9f23c382e26572cd098.jpg?x-oss-process=image/resize,m_mfit,h_600/format,jpg/interlace,1/quality,Q_70/","height":"367","width":"550","longCover":false}]
+         * like_num : 0
+         * author : 光明网
+         * is_collected : false
+         * avatar : []
+         * article_url : https://fanttest.fantuanlife.com/index.html#/article/detail?article_id=10756
+         * name : 在荒滩上播撒新希望——酒泉市大力发展戈壁农业
+         * time : null
+         * is_following : false
+         * cid : 5
          */
 
-        private String id;
-        private String newsId;
-        private String cid;
-        private String name;
-        private String cover;
-        private String author;
-        private String readNum;
-        private String likeNum;
-        private String commentNum;
-        private String recommend;
+        private String comment_num;
+        private String nullusername;
+        private boolean is_readed;
+        private String nullavatar;
         private String cause;
-        private String state;
-        private String time;
-        private String originTime;
-        private String spiderTime;
+        private String uid;
+        private String recommend;
         private String type;
+        private String atlas_num;
+        private String news_id;
+        private String cover;
         private String score;
-        private String contentType;
-        private String atlasNum;
+        private String read_num;
+        private String spider_time;
+        private String content_type;
         private String news_type;
+        private boolean is_like;
+        private Object news_name;
+        private String origin_time;
+        private String id;
+        private String state;
+        private String like_num;
+        private String author;
+        private boolean is_collected;
         private String article_url;
+        private String name;
+        private Object time;
+        private boolean is_following;
+        private String cid;
+        private List<Cover> covers;
+        private String avatar;
 
-        public String getNews_type() {
-            return news_type;
+        public String getUid() {
+            return uid;
         }
 
-        public void setNews_type(String news_type) {
-            this.news_type = news_type;
+        public void setUid(String uid) {
+            this.uid = uid;
         }
 
-        public String getId() {
-            return id;
+        public String getComment_num() {
+            return comment_num;
         }
 
-        public void setId(String id) {
-            this.id = id;
+        public void setComment_num(String comment_num) {
+            this.comment_num = comment_num;
         }
 
-        public String getNewsId() {
-            return newsId;
+        public String getNullusername() {
+            return nullusername;
         }
 
-        public void setNewsId(String newsId) {
-            this.newsId = newsId;
+        public void setNullusername(String nullusername) {
+            this.nullusername = nullusername;
         }
 
-        public String getCid() {
-            return cid;
+        public boolean isIs_readed() {
+            return is_readed;
         }
 
-        public void setCid(String cid) {
-            this.cid = cid;
+        public void setIs_readed(boolean is_readed) {
+            this.is_readed = is_readed;
         }
 
-        public String getName() {
-            return name;
+        public String getNullavatar() {
+            return nullavatar;
         }
 
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public String getCover() {
-            return cover;
-        }
-
-        public void setCover(String cover) {
-            this.cover = cover;
-        }
-
-        public String getAuthor() {
-            return author;
-        }
-
-        public void setAuthor(String author) {
-            this.author = author;
-        }
-
-        public String getReadNum() {
-            return readNum;
-        }
-
-        public void setReadNum(String readNum) {
-            this.readNum = readNum;
-        }
-
-        public String getLikeNum() {
-            return likeNum;
-        }
-
-        public void setLikeNum(String likeNum) {
-            this.likeNum = likeNum;
-        }
-
-        public String getCommentNum() {
-            return commentNum;
-        }
-
-        public void setCommentNum(String commentNum) {
-            this.commentNum = commentNum;
-        }
-
-        public String getRecommend() {
-            return recommend;
-        }
-
-        public void setRecommend(String recommend) {
-            this.recommend = recommend;
+        public void setNullavatar(String nullavatar) {
+            this.nullavatar = nullavatar;
         }
 
         public String getCause() {
@@ -744,36 +717,12 @@ public class NewsListItemBean implements Serializable {
             this.cause = cause;
         }
 
-        public String getState() {
-            return state;
+        public String getRecommend() {
+            return recommend;
         }
 
-        public void setState(String state) {
-            this.state = state;
-        }
-
-        public String getTime() {
-            return time;
-        }
-
-        public void setTime(String time) {
-            this.time = time;
-        }
-
-        public String getOriginTime() {
-            return originTime;
-        }
-
-        public void setOriginTime(String originTime) {
-            this.originTime = originTime;
-        }
-
-        public String getSpiderTime() {
-            return spiderTime;
-        }
-
-        public void setSpiderTime(String spiderTime) {
-            this.spiderTime = spiderTime;
+        public void setRecommend(String recommend) {
+            this.recommend = recommend;
         }
 
         public String getType() {
@@ -784,6 +733,30 @@ public class NewsListItemBean implements Serializable {
             this.type = type;
         }
 
+        public String getAtlas_num() {
+            return atlas_num;
+        }
+
+        public void setAtlas_num(String atlas_num) {
+            this.atlas_num = atlas_num;
+        }
+
+        public String getNews_id() {
+            return news_id;
+        }
+
+        public void setNews_id(String news_id) {
+            this.news_id = news_id;
+        }
+
+        public String getCover() {
+            return cover;
+        }
+
+        public void setCover(String cover) {
+            this.cover = cover;
+        }
+
         public String getScore() {
             return score;
         }
@@ -792,20 +765,100 @@ public class NewsListItemBean implements Serializable {
             this.score = score;
         }
 
-        public String getContentType() {
-            return contentType;
+        public String getRead_num() {
+            return read_num;
         }
 
-        public void setContentType(String contentType) {
-            this.contentType = contentType;
+        public void setRead_num(String read_num) {
+            this.read_num = read_num;
         }
 
-        public String getAtlasNum() {
-            return atlasNum;
+        public String getSpider_time() {
+            return spider_time;
         }
 
-        public void setAtlasNum(String atlasNum) {
-            this.atlasNum = atlasNum;
+        public void setSpider_time(String spider_time) {
+            this.spider_time = spider_time;
+        }
+
+        public String getContent_type() {
+            return content_type;
+        }
+
+        public void setContent_type(String content_type) {
+            this.content_type = content_type;
+        }
+
+        public String getNews_type() {
+            return news_type;
+        }
+
+        public void setNews_type(String news_type) {
+            this.news_type = news_type;
+        }
+
+        public boolean isIs_like() {
+            return is_like;
+        }
+
+        public void setIs_like(boolean is_like) {
+            this.is_like = is_like;
+        }
+
+        public Object getNews_name() {
+            return news_name;
+        }
+
+        public void setNews_name(Object news_name) {
+            this.news_name = news_name;
+        }
+
+        public String getOrigin_time() {
+            return origin_time;
+        }
+
+        public void setOrigin_time(String origin_time) {
+            this.origin_time = origin_time;
+        }
+
+        public String getId() {
+            return id;
+        }
+
+        public void setId(String id) {
+            this.id = id;
+        }
+
+        public String getState() {
+            return state;
+        }
+
+        public void setState(String state) {
+            this.state = state;
+        }
+
+        public String getLike_num() {
+            return like_num;
+        }
+
+        public void setLike_num(String like_num) {
+            this.like_num = like_num;
+        }
+
+        public String getAuthor() {
+            return author;
+        }
+
+        public void setAuthor(String author) {
+            this.author = author;
+        }
+
+        public boolean isIs_collected() {
+            return is_collected;
+        }
+
+        public void setIs_collected(boolean is_collected) {
+            this.is_collected = is_collected;
         }
 
         public String getArticle_url() {
@@ -815,140 +868,162 @@ public class NewsListItemBean implements Serializable {
         public void setArticle_url(String article_url) {
             this.article_url = article_url;
         }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public Object getTime() {
+            return time;
+        }
+
+        public void setTime(Object time) {
+            this.time = time;
+        }
+
+        public boolean isIs_following() {
+            return is_following;
+        }
+
+        public void setIs_following(boolean is_following) {
+            this.is_following = is_following;
+        }
+
+        public String getCid() {
+            return cid;
+        }
+
+        public void setCid(String cid) {
+            this.cid = cid;
+        }
+
+        public List<Cover> getCovers() {
+            return covers;
+        }
+
+        public void setCovers(List<Cover> covers) {
+            this.covers = covers;
+        }
+
+        public String getAvatar() {
+            return avatar;
+        }
+
+        public void setAvatar(String avatar) {
+            this.avatar = avatar;
+        }
+
     }
 
-    public static class HottestBean {
+    public static class HottestBean implements Serializable {
+
         /**
-         * id : 49
-         * newsId : 1
-         * cid : 1
-         * name : 上海迪士尼花2.4万可插队有问题吗？
-         * cover : 309136
-         * author : 呆毛
-         * readNum : 228
-         * likeNum : 0
-         * commentNum : 11
-         * recommend : 1
+         * comment_num : 2
+         * nullusername :
+         * is_readed : true
+         * nullavatar :
          * cause : 0
+         * recommend : 1
+         * type : 2
+         * atlas_num : 5图
+         * news_id : 61
+         * cover : 371077
+         * score : 1789
+         * read_num : 128次浏览
+         * spider_time : 2018-04-02 11:14:17
+         * content_type : 1
+         * news_type : 1
+         * is_like : false
+         * news_name : null
+         * origin_time : 2018-04-02 10:52:00
+         * id : 10756
          * state : 1
-         * time : 2018-04-09 15:47:44
-         * originTime : 2018-01-16 00:00:00
-         * spiderTime : 2018-01-24 14:40:45
-         * type : 0
-         * score : 4040
-         * contentType : 1
-         * atlasNum : 2
-         * article_url : https://staticcdntest.fantuanlife.com/index.html#/article/detail?article_id=49
+         * covers : [{"url":"https://staticcdntest.fantuanlife.com/uimage/44/fb/0a/dc/44fb0adc35f3c9f23c382e26572cd098.jpg","compress":"https://staticcdntest.fantuanlife.com/uimage/44/fb/0a/dc/44fb0adc35f3c9f23c382e26572cd098.jpg?x-oss-process=image/resize,m_mfit,h_600/format,jpg/interlace,1/quality,Q_70/","height":"367","width":"550","longCover":false}]
+         * like_num : 0
+         * author : 光明网
+         * is_collected : false
+         * avatar : []
+         * article_url : https://fanttest.fantuanlife.com/index.html#/article/detail?article_id=10756
+         * name : 在荒滩上播撒新希望——酒泉市大力发展戈壁农业
+         * time : null
+         * is_following : false
+         * cid : 5
          */
 
-        private String id;
-        private String newsId;
-        private String cid;
-        private String name;
-        private String cover;
-        private String author;
-        private String readNum;
-        private String likeNum;
-        private String commentNum;
-        private String recommend;
+        private String comment_num;
+        private String nullusername;
+        private boolean is_readed;
+        private String nullavatar;
         private String cause;
-        private String state;
-        private String time;
-        private String originTime;
-        private String spiderTime;
+        private String uid;
+        private String recommend;
         private String type;
+        private String atlas_num;
+        private String news_id;
+        private String cover;
         private String score;
-        private String contentType;
-        private String atlasNum;
+        private String read_num;
+        private String spider_time;
+        private String content_type;
         private String news_type;
+        private boolean is_like;
+        private Object news_name;
+        private String origin_time;
+        private String id;
+        private String state;
+        private String like_num;
+        private String author;
+        private boolean is_collected;
         private String article_url;
+        private String name;
+        private Object time;
+        private boolean is_following;
+        private String cid;
+        private List<Cover> covers;
+        private String avatar;
 
-        public String getNews_type() {
-            return news_type;
+        public String getUid() {
+            return uid;
         }
 
-        public void setNews_type(String news_type) {
-            this.news_type = news_type;
+        public void setUid(String uid) {
+            this.uid = uid;
         }
 
-        public String getId() {
-            return id;
+        public String getComment_num() {
+            return comment_num;
         }
 
-        public void setId(String id) {
-            this.id = id;
+        public void setComment_num(String comment_num) {
+            this.comment_num = comment_num;
         }
 
-        public String getNewsId() {
-            return newsId;
+        public String getNullusername() {
+            return nullusername;
         }
 
-        public void setNewsId(String newsId) {
-            this.newsId = newsId;
+        public void setNullusername(String nullusername) {
+            this.nullusername = nullusername;
         }
 
-        public String getCid() {
-            return cid;
+        public boolean isIs_readed() {
+            return is_readed;
         }
 
-        public void setCid(String cid) {
-            this.cid = cid;
+        public void setIs_readed(boolean is_readed) {
+            this.is_readed = is_readed;
         }
 
-        public String getName() {
-            return name;
+        public String getNullavatar() {
+            return nullavatar;
         }
 
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public String getCover() {
-            return cover;
-        }
-
-        public void setCover(String cover) {
-            this.cover = cover;
-        }
-
-        public String getAuthor() {
-            return author;
-        }
-
-        public void setAuthor(String author) {
-            this.author = author;
-        }
-
-        public String getReadNum() {
-            return readNum;
-        }
-
-        public void setReadNum(String readNum) {
-            this.readNum = readNum;
-        }
-
-        public String getLikeNum() {
-            return likeNum;
-        }
-
-        public void setLikeNum(String likeNum) {
-            this.likeNum = likeNum;
-        }
-
-        public String getCommentNum() {
-            return commentNum;
-        }
-
-        public void setCommentNum(String commentNum) {
-            this.commentNum = commentNum;
-        }
-
-        public String getRecommend() {
-            return recommend;
-        }
-
-        public void setRecommend(String recommend) {
-            this.recommend = recommend;
+        public void setNullavatar(String nullavatar) {
+            this.nullavatar = nullavatar;
         }
 
         public String getCause() {
@@ -959,36 +1034,12 @@ public class NewsListItemBean implements Serializable {
             this.cause = cause;
         }
 
-        public String getState() {
-            return state;
+        public String getRecommend() {
+            return recommend;
         }
 
-        public void setState(String state) {
-            this.state = state;
-        }
-
-        public String getTime() {
-            return time;
-        }
-
-        public void setTime(String time) {
-            this.time = time;
-        }
-
-        public String getOriginTime() {
-            return originTime;
-        }
-
-        public void setOriginTime(String originTime) {
-            this.originTime = originTime;
-        }
-
-        public String getSpiderTime() {
-            return spiderTime;
-        }
-
-        public void setSpiderTime(String spiderTime) {
-            this.spiderTime = spiderTime;
+        public void setRecommend(String recommend) {
+            this.recommend = recommend;
         }
 
         public String getType() {
@@ -999,6 +1050,30 @@ public class NewsListItemBean implements Serializable {
             this.type = type;
         }
 
+        public String getAtlas_num() {
+            return atlas_num;
+        }
+
+        public void setAtlas_num(String atlas_num) {
+            this.atlas_num = atlas_num;
+        }
+
+        public String getNews_id() {
+            return news_id;
+        }
+
+        public void setNews_id(String news_id) {
+            this.news_id = news_id;
+        }
+
+        public String getCover() {
+            return cover;
+        }
+
+        public void setCover(String cover) {
+            this.cover = cover;
+        }
+
         public String getScore() {
             return score;
         }
@@ -1007,20 +1082,100 @@ public class NewsListItemBean implements Serializable {
             this.score = score;
         }
 
-        public String getContentType() {
-            return contentType;
+        public String getRead_num() {
+            return read_num;
         }
 
-        public void setContentType(String contentType) {
-            this.contentType = contentType;
+        public void setRead_num(String read_num) {
+            this.read_num = read_num;
         }
 
-        public String getAtlasNum() {
-            return atlasNum;
+        public String getSpider_time() {
+            return spider_time;
         }
 
-        public void setAtlasNum(String atlasNum) {
-            this.atlasNum = atlasNum;
+        public void setSpider_time(String spider_time) {
+            this.spider_time = spider_time;
+        }
+
+        public String getContent_type() {
+            return content_type;
+        }
+
+        public void setContent_type(String content_type) {
+            this.content_type = content_type;
+        }
+
+        public String getNews_type() {
+            return news_type;
+        }
+
+        public void setNews_type(String news_type) {
+            this.news_type = news_type;
+        }
+
+        public boolean isIs_like() {
+            return is_like;
+        }
+
+        public void setIs_like(boolean is_like) {
+            this.is_like = is_like;
+        }
+
+        public Object getNews_name() {
+            return news_name;
+        }
+
+        public void setNews_name(Object news_name) {
+            this.news_name = news_name;
+        }
+
+        public String getOrigin_time() {
+            return origin_time;
+        }
+
+        public void setOrigin_time(String origin_time) {
+            this.origin_time = origin_time;
+        }
+
+        public String getId() {
+            return id;
+        }
+
+        public void setId(String id) {
+            this.id = id;
+        }
+
+        public String getState() {
+            return state;
+        }
+
+        public void setState(String state) {
+            this.state = state;
+        }
+
+        public String getLike_num() {
+            return like_num;
+        }
+
+        public void setLike_num(String like_num) {
+            this.like_num = like_num;
+        }
+
+        public String getAuthor() {
+            return author;
+        }
+
+        public void setAuthor(String author) {
+            this.author = author;
+        }
+
+        public boolean isIs_collected() {
+            return is_collected;
+        }
+
+        public void setIs_collected(boolean is_collected) {
+            this.is_collected = is_collected;
         }
 
         public String getArticle_url() {
@@ -1030,140 +1185,163 @@ public class NewsListItemBean implements Serializable {
         public void setArticle_url(String article_url) {
             this.article_url = article_url;
         }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public Object getTime() {
+            return time;
+        }
+
+        public void setTime(Object time) {
+            this.time = time;
+        }
+
+        public boolean isIs_following() {
+            return is_following;
+        }
+
+        public void setIs_following(boolean is_following) {
+            this.is_following = is_following;
+        }
+
+        public String getCid() {
+            return cid;
+        }
+
+        public void setCid(String cid) {
+            this.cid = cid;
+        }
+
+        public List<Cover> getCovers() {
+            return covers;
+        }
+
+        public void setCovers(List<Cover> covers) {
+            this.covers = covers;
+        }
+
+        public String getAvatar() {
+            return avatar;
+        }
+
+        public void setAvatar(String avatar) {
+            this.avatar = avatar;
+        }
+
+
     }
 
     public static class FocusedBean implements Serializable {
+
         /**
-         * id : 56
-         * newsId : 1
-         * cid : 1
-         * name : 是我太难搞？还是重庆老火锅就是这个味？
-         * cover : 307778
-         * author : 呆毛
-         * readNum : 48
-         * likeNum : 0
-         * commentNum : 0
-         * recommend : 1
+         * comment_num : 2
+         * nullusername :
+         * is_readed : true
+         * nullavatar :
          * cause : 0
+         * recommend : 1
+         * type : 2
+         * atlas_num : 5图
+         * news_id : 61
+         * cover : 371077
+         * score : 1789
+         * read_num : 128次浏览
+         * spider_time : 2018-04-02 11:14:17
+         * content_type : 1
+         * news_type : 1
+         * is_like : false
+         * news_name : null
+         * origin_time : 2018-04-02 10:52:00
+         * id : 10756
          * state : 1
-         * time : 2018-02-02 16:39:36
-         * originTime : 2017-12-11 00:00:00
-         * spiderTime : 2018-01-24 14:41:42
-         * type : 0
-         * score : 960
-         * contentType : 0
-         * atlasNum : 0
-         * article_url : https://staticcdntest.fantuanlife.com/index.html#/article/detail?article_id=56
+         * covers : [{"url":"https://staticcdntest.fantuanlife.com/uimage/44/fb/0a/dc/44fb0adc35f3c9f23c382e26572cd098.jpg","compress":"https://staticcdntest.fantuanlife.com/uimage/44/fb/0a/dc/44fb0adc35f3c9f23c382e26572cd098.jpg?x-oss-process=image/resize,m_mfit,h_600/format,jpg/interlace,1/quality,Q_70/","height":"367","width":"550","longCover":false}]
+         * like_num : 0
+         * author : 光明网
+         * is_collected : false
+         * avatar : []
+         * article_url : https://fanttest.fantuanlife.com/index.html#/article/detail?article_id=10756
+         * name : 在荒滩上播撒新希望——酒泉市大力发展戈壁农业
+         * time : null
+         * is_following : false
+         * cid : 5
          */
 
-        private String id;
-        private String newsId;
-        private String cid;
-        private String name;
-        private String cover;
-        private String author;
-        private String readNum;
-        private String likeNum;
-        private String commentNum;
-        private String recommend;
+        private String comment_num;
+        private String nullusername;
+        private boolean is_readed;
+        private String nullavatar;
         private String cause;
-        private String state;
-        private String time;
-        private String originTime;
-        private String spiderTime;
+        private String uid;
+        private String recommend;
         private String type;
+        private String atlas_num;
+        private String news_id;
+        private String cover;
         private String score;
-        private String contentType;
-        private String atlasNum;
+        private String read_num;
+        private String spider_time;
+        private String content_type;
         private String news_type;
+        private boolean is_like;
+        private Object news_name;
+        private String origin_time;
+        private String id;
+        private String state;
+        private String like_num;
+        private String author;
+        private boolean is_collected;
         private String article_url;
+        private String name;
+        private Object time;
+        private boolean is_following;
+        private String cid;
+        private List<Cover> covers;
+        private String avatar;
 
-        public String getNews_type() {
-            return news_type;
+        public String getUid() {
+            return uid;
         }
 
-        public void setNews_type(String news_type) {
-            this.news_type = news_type;
+        public void setUid(String uid) {
+            this.uid = uid;
         }
 
-        public String getId() {
-            return id;
+        public String getComment_num() {
+            return comment_num;
         }
 
-        public void setId(String id) {
-            this.id = id;
+        public void setComment_num(String comment_num) {
+            this.comment_num = comment_num;
         }
 
-        public String getNewsId() {
-            return newsId;
+        public String getNullusername() {
+            return nullusername;
         }
 
-        public void setNewsId(String newsId) {
-            this.newsId = newsId;
+        public void setNullusername(String nullusername) {
+            this.nullusername = nullusername;
         }
 
-        public String getCid() {
-            return cid;
+        public boolean isIs_readed() {
+            return is_readed;
         }
 
-        public void setCid(String cid) {
-            this.cid = cid;
+        public void setIs_readed(boolean is_readed) {
+            this.is_readed = is_readed;
         }
 
-        public String getName() {
-            return name;
+        public String getNullavatar() {
+            return nullavatar;
         }
 
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public String getCover() {
-            return cover;
-        }
-
-        public void setCover(String cover) {
-            this.cover = cover;
-        }
-
-        public String getAuthor() {
-            return author;
-        }
-
-        public void setAuthor(String author) {
-            this.author = author;
-        }
-
-        public String getReadNum() {
-            return readNum;
-        }
-
-        public void setReadNum(String readNum) {
-            this.readNum = readNum;
-        }
-
-        public String getLikeNum() {
-            return likeNum;
-        }
-
-        public void setLikeNum(String likeNum) {
-            this.likeNum = likeNum;
-        }
-
-        public String getCommentNum() {
-            return commentNum;
-        }
-
-        public void setCommentNum(String commentNum) {
-            this.commentNum = commentNum;
-        }
-
-        public String getRecommend() {
-            return recommend;
-        }
-
-        public void setRecommend(String recommend) {
-            this.recommend = recommend;
+        public void setNullavatar(String nullavatar) {
+            this.nullavatar = nullavatar;
         }
 
         public String getCause() {
@@ -1174,36 +1352,12 @@ public class NewsListItemBean implements Serializable {
             this.cause = cause;
         }
 
-        public String getState() {
-            return state;
+        public String getRecommend() {
+            return recommend;
         }
 
-        public void setState(String state) {
-            this.state = state;
-        }
-
-        public String getTime() {
-            return time;
-        }
-
-        public void setTime(String time) {
-            this.time = time;
-        }
-
-        public String getOriginTime() {
-            return originTime;
-        }
-
-        public void setOriginTime(String originTime) {
-            this.originTime = originTime;
-        }
-
-        public String getSpiderTime() {
-            return spiderTime;
-        }
-
-        public void setSpiderTime(String spiderTime) {
-            this.spiderTime = spiderTime;
+        public void setRecommend(String recommend) {
+            this.recommend = recommend;
         }
 
         public String getType() {
@@ -1214,6 +1368,30 @@ public class NewsListItemBean implements Serializable {
             this.type = type;
         }
 
+        public String getAtlas_num() {
+            return atlas_num;
+        }
+
+        public void setAtlas_num(String atlas_num) {
+            this.atlas_num = atlas_num;
+        }
+
+        public String getNews_id() {
+            return news_id;
+        }
+
+        public void setNews_id(String news_id) {
+            this.news_id = news_id;
+        }
+
+        public String getCover() {
+            return cover;
+        }
+
+        public void setCover(String cover) {
+            this.cover = cover;
+        }
+
         public String getScore() {
             return score;
         }
@@ -1222,20 +1400,100 @@ public class NewsListItemBean implements Serializable {
             this.score = score;
         }
 
-        public String getContentType() {
-            return contentType;
+        public String getRead_num() {
+            return read_num;
         }
 
-        public void setContentType(String contentType) {
-            this.contentType = contentType;
+        public void setRead_num(String read_num) {
+            this.read_num = read_num;
         }
 
-        public String getAtlasNum() {
-            return atlasNum;
+        public String getSpider_time() {
+            return spider_time;
         }
 
-        public void setAtlasNum(String atlasNum) {
-            this.atlasNum = atlasNum;
+        public void setSpider_time(String spider_time) {
+            this.spider_time = spider_time;
+        }
+
+        public String getContent_type() {
+            return content_type;
+        }
+
+        public void setContent_type(String content_type) {
+            this.content_type = content_type;
+        }
+
+        public String getNews_type() {
+            return news_type;
+        }
+
+        public void setNews_type(String news_type) {
+            this.news_type = news_type;
+        }
+
+        public boolean isIs_like() {
+            return is_like;
+        }
+
+        public void setIs_like(boolean is_like) {
+            this.is_like = is_like;
+        }
+
+        public Object getNews_name() {
+            return news_name;
+        }
+
+        public void setNews_name(Object news_name) {
+            this.news_name = news_name;
+        }
+
+        public String getOrigin_time() {
+            return origin_time;
+        }
+
+        public void setOrigin_time(String origin_time) {
+            this.origin_time = origin_time;
+        }
+
+        public String getId() {
+            return id;
+        }
+
+        public void setId(String id) {
+            this.id = id;
+        }
+
+        public String getState() {
+            return state;
+        }
+
+        public void setState(String state) {
+            this.state = state;
+        }
+
+        public String getLike_num() {
+            return like_num;
+        }
+
+        public void setLike_num(String like_num) {
+            this.like_num = like_num;
+        }
+
+        public String getAuthor() {
+            return author;
+        }
+
+        public void setAuthor(String author) {
+            this.author = author;
+        }
+
+        public boolean isIs_collected() {
+            return is_collected;
+        }
+
+        public void setIs_collected(boolean is_collected) {
+            this.is_collected = is_collected;
         }
 
         public String getArticle_url() {
@@ -1245,6 +1503,55 @@ public class NewsListItemBean implements Serializable {
         public void setArticle_url(String article_url) {
             this.article_url = article_url;
         }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public Object getTime() {
+            return time;
+        }
+
+        public void setTime(Object time) {
+            this.time = time;
+        }
+
+        public boolean isIs_following() {
+            return is_following;
+        }
+
+        public void setIs_following(boolean is_following) {
+            this.is_following = is_following;
+        }
+
+        public String getCid() {
+            return cid;
+        }
+
+        public void setCid(String cid) {
+            this.cid = cid;
+        }
+
+        public List<Cover> getCovers() {
+            return covers;
+        }
+
+        public void setCovers(List<Cover> covers) {
+            this.covers = covers;
+        }
+
+        public String getAvatar() {
+            return avatar;
+        }
+
+        public void setAvatar(String avatar) {
+            this.avatar = avatar;
+        }
+
     }
 
     public static class ElementsBean implements Serializable {

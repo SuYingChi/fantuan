@@ -13,7 +13,6 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -98,12 +97,15 @@ public class NewsDetailWebActivity extends BaseActivity implements IGetRecommenD
     ImageView tvFocus;
     @BindView(R.id.gallery_text)
     TextView galleryText;
+    @BindView(R.id.gallery_collect)
+    ImageView galleryCollect;
     private GetAllRecommenDarticles getAllRecommenDarticles;
     private GetAllCommentPresenter getAllCommentPresenter;
     private NewsWebAdapter adapter;
     private boolean isShowInput = false;
     private PopupWindow pop;
     private WbShareHandler shareHandler;
+    private String typeName;
 
 //    public static void starToWeb(Context context, String url, String id, String uid, String content, String username, String avatar, String article_url, String compress, String like_num, boolean has_like) {
 //        Intent intent = new Intent(context, NewsDetailWebActivity.class);
@@ -120,9 +122,10 @@ public class NewsDetailWebActivity extends BaseActivity implements IGetRecommenD
 //        context.startActivity(intent);
 //    }
 
-    public static void starToWeb(Context context, NewsListItemBean newsListItemBean) {
+    public static void starToWeb(Context context, NewsListItemBean newsListItemBean, String name) {
         Intent intent = new Intent(context, NewsDetailWebActivity.class);
-        intent.putExtra("NewsListItemBean", newsListItemBean);
+        intent.putExtra("newsListItemBean", newsListItemBean);
+        intent.putExtra("name", name);
         context.startActivity(intent);
     }
 
@@ -132,6 +135,7 @@ public class NewsDetailWebActivity extends BaseActivity implements IGetRecommenD
         setContentView(R.layout.activity_newsdetailweb);
         ButterKnife.bind(this);
         initView();
+        hideTool();
         iniData();
     }
 
@@ -183,8 +187,11 @@ public class NewsDetailWebActivity extends BaseActivity implements IGetRecommenD
     public void showTool() {
         friendBaseHead.setVisibility(View.VISIBLE);
         friendBaseTitle.setVisibility(View.VISIBLE);
-        tvFocus.setVisibility(View.VISIBLE);
-
+        if (newsListItemBean.isIs_following()) {
+            tvFocus.setVisibility(View.GONE);
+        } else {
+            tvFocus.setVisibility(View.VISIBLE);
+        }
     }
 
     public void hideTool() {
@@ -198,6 +205,10 @@ public class NewsDetailWebActivity extends BaseActivity implements IGetRecommenD
         getAllCommentPresenter.clickLike(comment_id, like);
     }
 
+    public void articleClickLike(String comment_id, String like) {
+        getAllRecommenDarticles.clickLike(comment_id, like);
+    }
+
     public void deleteComment(String comment_id) {
         getAllCommentPresenter.deleteCommonet(comment_id);
     }
@@ -206,25 +217,11 @@ public class NewsDetailWebActivity extends BaseActivity implements IGetRecommenD
         WbSdk.install(this, new AuthInfo(this, Constants.APP_KEY, article_url, Constants.SCOPE));
         shareHandler = new WbShareHandler(this);
         shareHandler.registerApp();
-        url = getIntent().getStringExtra("url");
         newsListItemBean = (NewsListItemBean) getIntent().getSerializableExtra("newsListItemBean");
-        id = getIntent().getStringExtra("id");
-        uid = getIntent().getStringExtra("uid");
-        avatar = getIntent().getStringExtra("avatar");
-        username = getIntent().getStringExtra("username");
-        like_num = getIntent().getStringExtra("like_num");
-        compress = getIntent().getStringExtra("compress");
-        content = getIntent().getStringExtra("compress");
-        article_url = getIntent().getStringExtra("article_url");
-        has_like = getIntent().getBooleanExtra("has_like", false);
-
-        Glide.with(this).load(adapter).into(friendBaseHead);
+        typeName = getIntent().getStringExtra("name");
+        getData();
+        Glide.with(this).load(avatar).into(friendBaseHead);
         friendBaseTitle.setText(username);
-//        if () {
-//            tvFocus.setVisibility(View.GONE);
-//        } else {
-//            tvFocus.setVisibility(View.VISIBLE);
-//        }
 
         View decorView = getWindow().getDecorView();
         decorView.getViewTreeObserver().addOnGlobalLayoutListener(getGlobalLayoutListener(decorView, galleryCurrLinearLayout));
@@ -233,6 +230,72 @@ public class NewsDetailWebActivity extends BaseActivity implements IGetRecommenD
                 "https://www.baidu.com/",
                 null, null);
         webRecyclerview.setAdapter(adapter);
+    }
+
+    private void getData() {
+//        url = getIntent().getStringExtra("url");
+//        id = getIntent().getStringExtra("id");
+//        uid = getIntent().getStringExtra("uid");
+//        avatar = getIntent().getStringExtra("avatar");
+//        username = getIntent().getStringExtra("username");
+//        like_num = getIntent().getStringExtra("like_num");
+//        compress = getIntent().getStringExtra("compress");
+//        content = getIntent().getStringExtra("compress");
+//        article_url = getIntent().getStringExtra("article_url");
+//        has_like = getIntent().getBooleanExtra("has_like", false);
+        switch (typeName) {
+            case "null":
+                url = newsListItemBean.getArticle_url();
+                id = newsListItemBean.getId();
+                uid = newsListItemBean.getUid();
+                avatar = newsListItemBean.getAvatar();
+                username = newsListItemBean.getUsername();
+                like_num = newsListItemBean.getLike_num();
+                compress = newsListItemBean.getCovers().get(0).getCompress();
+                content = newsListItemBean.getContent();
+                article_url = newsListItemBean.getArticle_url();
+                has_like = newsListItemBean.isIs_like();
+                break;
+            case "hottest":
+                url = newsListItemBean.getHottest().getArticle_url();
+                id = newsListItemBean.getHottest().getId();
+                uid = newsListItemBean.getHottest().getUid();
+                avatar = newsListItemBean.getHottest().getAvatar();
+                username = newsListItemBean.getHottest().getAuthor();
+                like_num = newsListItemBean.getHottest().getLike_num();
+                compress = newsListItemBean.getHottest().getCovers().get(0).getCompress();
+                content = newsListItemBean.getHottest().getName();
+                article_url = newsListItemBean.getHottest().getArticle_url();
+                has_like = newsListItemBean.getHottest().isIs_like();
+                break;
+            case "focused":
+                url = newsListItemBean.getFocused().getArticle_url();
+                id = newsListItemBean.getFocused().getId();
+                uid = newsListItemBean.getFocused().getUid();
+                avatar = newsListItemBean.getFocused().getAvatar();
+                username = newsListItemBean.getFocused().getAuthor();
+                like_num = newsListItemBean.getFocused().getLike_num();
+                compress = newsListItemBean.getFocused().getCovers().get(0).getCompress();
+                content = newsListItemBean.getFocused().getName();
+                article_url = newsListItemBean.getFocused().getArticle_url();
+                has_like = newsListItemBean.getFocused().isIs_like();
+                break;
+            case "lastest":
+                url = newsListItemBean.getLastest().getArticle_url();
+                id = newsListItemBean.getLastest().getId();
+                uid = newsListItemBean.getLastest().getUid();
+                avatar = newsListItemBean.getLastest().getAvatar();
+                username = newsListItemBean.getLastest().getAuthor();
+                like_num = newsListItemBean.getLastest().getLike_num();
+                compress = newsListItemBean.getLastest().getCovers().get(0).getCompress();
+                content = newsListItemBean.getLastest().getName();
+                article_url = newsListItemBean.getLastest().getArticle_url();
+                has_like = newsListItemBean.getLastest().isIs_like();
+                break;
+
+
+        }
+
     }
 
     @Override
@@ -259,6 +322,17 @@ public class NewsDetailWebActivity extends BaseActivity implements IGetRecommenD
         }
         tvFocus.setVisibility(View.GONE);
         Toast.makeText(this, bean.getMsg(), Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onCollectNews() {
+        if (newsListItemBean.isIs_collected()) {
+            galleryCollect.setImageResource(R.drawable.star_v2_nor);
+            newsListItemBean.setIs_collected(false);
+        } else {
+            galleryCollect.setImageResource(R.drawable.star_v2);
+            newsListItemBean.setIs_collected(true);
+        }
     }
 
     @Override
@@ -341,9 +415,8 @@ public class NewsDetailWebActivity extends BaseActivity implements IGetRecommenD
         pop.showAtLocation(this.getWindow().getDecorView(), Gravity.BOTTOM, 0, 0);
     }
 
-    @OnClick({R.id.iv_back, R.id.tv_focus, R.id.gallery_share, R.id.gallery_editText, R.id.gallery_curr_TextView, R.id.gallery_imageview, R.id.gallery_text, R.id.gallery_collect})
+    @OnClick({R.id.iv_back, R.id.tv_focus, R.id.gallery_share, R.id.gallery_editText1, R.id.gallery_editText, R.id.gallery_curr_TextView, R.id.gallery_imageview, R.id.gallery_text, R.id.gallery_collect})
     public void onViewClicked(View view) {
-        Log.e("xi", "onViewClicked: ");
         switch (view.getId()) {
             case R.id.iv_back:
                 onBackPressed();
@@ -359,18 +432,19 @@ public class NewsDetailWebActivity extends BaseActivity implements IGetRecommenD
             case R.id.gallery_imageview:
             case R.id.gallery_text:
                 webRecyclerview.scrollToPosition(2);
+                showTool();
                 break;
             case R.id.gallery_collect:
-//                if (spu.getToken().equals("")) {
-//                    Intent go1 = new Intent(this, LoginActivity.class);
-//                    startActivity(go1);
-//                } else {
-//                    if () {
-//                        getNewsDetailPresenter.collectNews(galleryId, "0");
-//                    } else {
-//                        getNewsDetailPresenter.collectNews(galleryId, "1");
-//                    }
-//                }
+                if (spu.getToken().equals("")) {
+                    Intent go1 = new Intent(this, LoginActivity.class);
+                    startActivity(go1);
+                } else {
+                    if (newsListItemBean.isIs_collected()) {
+                        getAllRecommenDarticles.collectNews(newsListItemBean.getId(), "0");
+                    } else {
+                        getAllRecommenDarticles.collectNews(newsListItemBean.getId(), "1");
+                    }
+                }
                 break;
             case R.id.gallery_share:
                 showPop();
@@ -390,7 +464,7 @@ public class NewsDetailWebActivity extends BaseActivity implements IGetRecommenD
                 }
                 break;
             case R.id.gallery_editText:
-                Log.e("xi", "gallery_editText: ");
+            case R.id.gallery_editText1:
                 isShowInput = true;
                 InputMethodManager imm = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
@@ -403,12 +477,6 @@ public class NewsDetailWebActivity extends BaseActivity implements IGetRecommenD
         switch (v.getId()) {
             case R.id.ll_share_wx:
                 Glide.with(this).load(compress).into(new SimpleTarget<Drawable>() {
-                    /**
-                     * The method that will be called when the resource load has finished.
-                     *
-                     * @param resource   the loaded resource.
-                     * @param transition
-                     */
                     @Override
                     public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
                         Tools.shareWx(NewsDetailWebActivity.this, drawableToBitmap(resource), article_url, SendMessageToWX.Req.WXSceneSession, username, content);
@@ -417,12 +485,6 @@ public class NewsDetailWebActivity extends BaseActivity implements IGetRecommenD
                 break;
             case R.id.ll_share_wxq:
                 Glide.with(this).load(compress).into(new SimpleTarget<Drawable>() {
-                    /**
-                     * The method that will be called when the resource load has finished.
-                     *
-                     * @param resource   the loaded resource.
-                     * @param transition
-                     */
                     @Override
                     public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
                         Tools.shareWx(NewsDetailWebActivity.this, drawableToBitmap(resource), article_url, SendMessageToWX.Req.WXSceneTimeline, username, content);
@@ -432,12 +494,6 @@ public class NewsDetailWebActivity extends BaseActivity implements IGetRecommenD
                 break;
             case R.id.ll_share_wb:
                 Glide.with(this).load(compress).into(new SimpleTarget<Drawable>() {
-                    /**
-                     * The method that will be called when the resource load has finished.
-                     *
-                     * @param resource   the loaded resource.
-                     * @param transition
-                     */
                     @Override
                     public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
                         Tools.shareWb(NewsDetailWebActivity.this, shareHandler, drawableToBitmap(resource), article_url, "分享来自范团APP的《" + username + "》", "分享来自范团APP的《" + content + "》");
@@ -501,7 +557,6 @@ public class NewsDetailWebActivity extends BaseActivity implements IGetRecommenD
     }
 
     public Bitmap drawableToBitmap(Drawable drawable) {
-
         int w = drawable.getIntrinsicWidth();
         int h = drawable.getIntrinsicHeight();
         Bitmap.Config config =

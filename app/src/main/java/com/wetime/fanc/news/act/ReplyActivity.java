@@ -84,7 +84,10 @@ public class ReplyActivity extends BaseActivity implements OnRefreshListener, IG
     private ReplyAdapter adapter;
     private GetCommentReplyPresenter getCommentReplyPresenter;
     private String pid;
-    private String commentId;
+    public String commentId;
+    private int page = 1;
+    private ReplyCommentBean bean;
+    private GetAllCommentPresenter getAllCommentPresenter;
 
     public static void startToReplyActivity(Context context, CommentBean.DataBean.ListBean commentTestBean) {
         Intent intent = new Intent(context, ReplyActivity.class);
@@ -101,8 +104,6 @@ public class ReplyActivity extends BaseActivity implements OnRefreshListener, IG
         initData();
         initLintsner();
     }
-
-    private int page = 1;
 
     private void initData() {
         commentTestBean = (CommentBean.DataBean.ListBean) getIntent().getSerializableExtra("commentTestBean");
@@ -179,13 +180,11 @@ public class ReplyActivity extends BaseActivity implements OnRefreshListener, IG
         return super.onTouchEvent(event);
     }
 
-    private ReplyCommentBean bean;
-    private GetAllCommentPresenter getAllCommentPresenter;
-
     private void initLintsner() {
         replyRefreshLayout.setOnRefreshListener(this);
         replyRefreshLayout.setOnLoadMoreListener(this);
     }
+
     @Override
     public void onRefresh(@NonNull RefreshLayout refreshLayout) {
         page = 1;
@@ -217,7 +216,7 @@ public class ReplyActivity extends BaseActivity implements OnRefreshListener, IG
                 }
                 break;
             case R.id.reply_content:
-                if (commentTestBean.isIs_author()){
+                if (commentTestBean.isIs_author()) {
                     showDelete();
                 }
                 break;
@@ -327,7 +326,7 @@ public class ReplyActivity extends BaseActivity implements OnRefreshListener, IG
                     ((TextView) v1.findViewById(R.id.tv_delete)).setText("确认删除");
                     v1.findViewById(R.id.tv_delete).setOnClickListener(v11 -> {
                         mDialog.dismiss();
-                        deleteReply(pid);
+                        deleteReply(commentId);
                         data.remove(position);
                         if (data.size() == 0) {
                             replyListview.setVisibility(View.GONE);
@@ -362,9 +361,13 @@ public class ReplyActivity extends BaseActivity implements OnRefreshListener, IG
 
     @Override
     public void onGetCommentReply(ReplyCommentBean bean) {
+        if (bean.getError() != 0) {
+            Toast.makeText(this, bean.getMsg(), Toast.LENGTH_SHORT).show();
+            return;
+        }
         this.bean = bean;
         if (page == 1) {
-            data = new ArrayList<>();
+            data.clear();
             replyRefreshLayout.finishRefresh();
         } else {
             replyRefreshLayout.finishLoadMore();
@@ -418,13 +421,13 @@ public class ReplyActivity extends BaseActivity implements OnRefreshListener, IG
     public void onDeleteReply(ErrorBean bean) {
         if (bean.getError() == 0) {
             Toast.makeText(this, "删除成功", Toast.LENGTH_SHORT).show();
-//            onRefresh(replyRefreshLayout);
+            onRefresh(replyRefreshLayout);
         }
     }
 
     public void sendReply(String pid, String commentId, String username) {
         this.pid = pid;
-        this.commentId = commentId;
+        this.commentId = commentTestBean.getId();
         galleryCurrEditText.setHint("@" + username);
         isShowInput = true;
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);

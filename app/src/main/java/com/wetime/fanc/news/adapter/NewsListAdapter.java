@@ -25,7 +25,6 @@ import com.wetime.fanc.news.bean.NewsListItemBean;
 import com.wetime.fanc.news.presenter.GetNewsReadedPresenter;
 import com.wetime.fanc.utils.Tools;
 import com.wetime.fanc.web.NewsDetailWebActivity;
-import com.wetime.fanc.web.WebActivity;
 
 import java.util.List;
 
@@ -73,7 +72,7 @@ public class NewsListAdapter extends RecyclerView.Adapter {
 
     }
 
-    private void goWebUrl(int position) {
+    private void goWebUrl(int position, String name) {
         if (TextUtils.isEmpty(list.get(position).getArticle_url()))
             return;
 //        Intent goweb = new Intent(mActivity, WebActivity.class);
@@ -91,7 +90,7 @@ public class NewsListAdapter extends RecyclerView.Adapter {
 //                list.get(position).getCovers().get(position).getCompress(),
 //                list.get(position).getLike_num(),
 //                list.get(position).isHas_like());
-        NewsDetailWebActivity.starToWeb(mActivity,list.get(position));
+        NewsDetailWebActivity.starToWeb(mActivity, list.get(position), name);
     }
 
     @Override
@@ -113,7 +112,7 @@ public class NewsListAdapter extends RecyclerView.Adapter {
                     break;
                 case 1:
                     ((NewsHolder1) holder).tvName.setTextColor(ContextCompat.getColor(mActivity, R.color.color9));
-                    goWebUrl(position);
+                    goWebUrl(position, "null");
                     break;
                 case 3:
 //                    if (TextUtils.isEmpty(list.get(position).getArticle_url()))
@@ -125,7 +124,7 @@ public class NewsListAdapter extends RecyclerView.Adapter {
 //                    mActivity.startActivity(goweb);
 //
                     ((NewsHolder3) holder).tvName.setTextColor(ContextCompat.getColor(mActivity, R.color.color9));
-                    goWebUrl(position);
+                    goWebUrl(position, "null");
                     break;
                 case 9000:
                     Intent goFocus = new Intent(mActivity, RecomentFocusActivity.class);
@@ -173,39 +172,26 @@ public class NewsListAdapter extends RecyclerView.Adapter {
             }
 
             holder5.reporthotliner.setOnClickListener(v -> {
-                if (bean.getHottest().getContentType().equals("0")) {
+                if (bean.getHottest().getContent_type().equals("0")) {
                     if (TextUtils.isEmpty(bean.getHottest().getArticle_url())) return;
-                    Intent goweb = new Intent(mActivity, WebActivity.class);
-                    goweb.putExtra("url", bean.getHottest().getArticle_url());
-                    goweb.putExtra("type", "2");
-                    goweb.putExtra("title", bean.getHottest().getAuthor());
-                    mActivity.startActivity(goweb);
+                    NewsDetailWebActivity.starToWeb(mActivity, list.get(position), "hottest");
                 } else {
                     GalleryActivity.startToGallery(mActivity, bean.getHottest().getId());
                 }
             });
             holder5.reportnewhotliner.setOnClickListener(v -> {
-                if (bean.getFocused().getContentType().equals("0")) {
+                if (bean.getFocused().getContent_type().equals("0")) {
                     if (TextUtils.isEmpty(bean.getFocused().getArticle_url())) return;
-                    Intent goweb = new Intent(mActivity, WebActivity.class);
-                    goweb.putExtra("url", bean.getFocused().getArticle_url());
-                    goweb.putExtra("type", "2");
-                    goweb.putExtra("title", bean.getFocused().getAuthor());
-                    mActivity.startActivity(goweb);
+                    NewsDetailWebActivity.starToWeb(mActivity, list.get(position), "focused");
                 } else {
                     GalleryActivity.startToGallery(mActivity, bean.getFocused().getId());
                 }
 
             });
             holder5.reportnewliner.setOnClickListener(v -> {
-                if (bean.getLastest().getContentType().equals("0")) {
-                    if (TextUtils.isEmpty(bean.getLastest().getArticle_url()))
-                        return;
-                    Intent goweb = new Intent(mActivity, WebActivity.class);
-                    goweb.putExtra("url", bean.getLastest().getArticle_url());
-                    goweb.putExtra("type", "2");
-                    goweb.putExtra("title", bean.getLastest().getAuthor());
-                    mActivity.startActivity(goweb);
+                if (bean.getLastest().getContent_type().equals("0")) {
+                    if (TextUtils.isEmpty(bean.getLastest().getArticle_url())) return;
+                    NewsDetailWebActivity.starToWeb(mActivity, list.get(position), "lastest");
                 } else {
                     GalleryActivity.startToGallery(mActivity, bean.getLastest().getId());
                 }

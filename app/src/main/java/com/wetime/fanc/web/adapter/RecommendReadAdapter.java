@@ -35,7 +35,7 @@ public class RecommendReadAdapter extends CommonAdapter<NewsListItemBean> {
 //                    listBean.getCovers().get(position).getCompress(),
 //                    listBean.getLikeNum(),
 //                    false);
-            NewsDetailWebActivity.starToWeb(mContext, listBean);
+            NewsDetailWebActivity.starToWeb(mContext, listBean,"null");
         });
     }
 }

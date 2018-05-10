@@ -64,11 +64,11 @@ public class ReplyAdapter extends CommonAdapter<ReplyCommentBean.DataBean.ReplyB
 
         if (replyBean.getReply_object() != null) {
             SpannableStringBuilder builder = new SpannableStringBuilder();
-            builder.append(replyBean.getContent()).append(" //@").append(replyBean.getReply_object().getUser().getUsername()).append(":  ").append(replyBean.getReply_object().getContent());
+            builder.append(replyBean.getContent()).append(" //@").append(replyBean.getReply_object().getUsername()).append(":  ").append(replyBean.getContent());
             ClickableSpan clickableSpan = new ClickableSpan() {
                 @Override
                 public void onClick(View view) {
-                    ((ReplyActivity) context).sendReply(replyBean.getId(), replyBean.getComment_id(), replyBean.getUser().getUsername());
+                    ((ReplyActivity) context).sendReply(replyBean.getId(), ((ReplyActivity) context).commentId, replyBean.getUser().getUsername());
                 }
 
                 @Override
@@ -78,7 +78,7 @@ public class ReplyAdapter extends CommonAdapter<ReplyCommentBean.DataBean.ReplyB
                     ds.setUnderlineText(false);
                 }
             };
-            builder.setSpan(clickableSpan, builder.toString().indexOf("@"), builder.toString().indexOf("@") + replyBean.getReply_object().getUser().getUsername().length() + 1, Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
+            builder.setSpan(clickableSpan, builder.toString().indexOf("@"), builder.toString().indexOf("@") + replyBean.getReply_object().getUsername().length() + 1, Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
             ((TextView) holder.getView(R.id.reply_item_content)).setText(builder);
             ((TextView) holder.getView(R.id.reply_item_content)).setMovementMethod(LinkMovementMethod.getInstance());
         } else {
@@ -88,7 +88,7 @@ public class ReplyAdapter extends CommonAdapter<ReplyCommentBean.DataBean.ReplyB
         }
         holder.getConvertView().setOnClickListener(v -> ((ReplyActivity) context).hideInput());
         holder.setOnClickListener(R.id.reply_item_name, v -> {
-            ((ReplyActivity) context).sendReply(replyBean.getId(), replyBean.getComment_id(), replyBean.getUser().getUsername());
+            ((ReplyActivity) context).sendReply(replyBean.getId(), ((ReplyActivity) context).commentId, replyBean.getUser().getUsername());
         });
 
         holder.setOnClickListener(R.id.reply_delete, v -> {
@@ -124,7 +124,7 @@ public class ReplyAdapter extends CommonAdapter<ReplyCommentBean.DataBean.ReplyB
             }
         });
         if (replyBean.isIs_author()) {
-            holder.itemView.setOnClickListener(v -> ((ReplyActivity) mContext).showMyReply(replyBean.getId(), replyBean.getComment_id(), replyBean.getUser().getUsername(), position));
+            holder.itemView.setOnClickListener(v -> ((ReplyActivity) mContext).showMyReply(replyBean.getId(), replyBean.getId(), replyBean.getUser().getUsername(), position));
         }
         holder.setOnClickListener(R.id.reply_item_head, v -> {
             Intent go = new Intent(context, UserCardActivity.class);

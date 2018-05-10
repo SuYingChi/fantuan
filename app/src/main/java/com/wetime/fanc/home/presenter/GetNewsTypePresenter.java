@@ -1,8 +1,6 @@
 package com.wetime.fanc.home.presenter;
 
 
-import android.util.Log;
-
 import com.fan.http.okhttp.OkHttpUtils;
 import com.wetime.fanc.home.iviews.IGetNewsTypeView;
 import com.wetime.fanc.news.bean.NewsListBean;

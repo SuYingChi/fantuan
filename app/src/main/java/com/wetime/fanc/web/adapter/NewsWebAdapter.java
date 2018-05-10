@@ -1,14 +1,16 @@
 package com.wetime.fanc.web.adapter;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +21,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
+import com.tencent.mm.opensdk.modelmsg.SendMessageToWX;
 import com.wetime.fanc.R;
 import com.wetime.fanc.customview.GoodView;
 import com.wetime.fanc.customview.recycview.NestedScrollingWebView;
@@ -28,8 +33,8 @@ import com.wetime.fanc.news.adapter.CommentListAdapter;
 import com.wetime.fanc.news.bean.CommentBean;
 import com.wetime.fanc.news.bean.NewsListItemBean;
 import com.wetime.fanc.utils.DialogUtils;
+import com.wetime.fanc.utils.Tools;
 import com.wetime.fanc.web.NewsDetailWebActivity;
-import com.wetime.fanc.web.bean.NewsWebBean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -124,13 +129,44 @@ public class NewsWebAdapter extends RecyclerView.Adapter {
                 holder1.webAttention.setCompoundDrawablesWithIntrinsicBounds(null, top, null, null);
             }
             holder1.llShareCopy.setOnClickListener(v -> {
-
+                ClipboardManager cm = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+                // 将文本内容放到系统剪贴板里。
+                if (cm != null) {
+                    cm.setPrimaryClip(ClipData.newPlainText("text", ((NewsDetailWebActivity) context).article_url));
+                    Tools.toastInBottom(context, "复制成功");
+                } else {
+                    Tools.toastInBottom(context, "复制失败");
+                }
             });
             holder1.llShareWx.setOnClickListener(v -> {
-
+                Glide.with(context).load(((NewsDetailWebActivity) context).compress).into(new SimpleTarget<Drawable>() {
+                    @Override
+                    public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
+                        Tools.shareWx(context, ((NewsDetailWebActivity) context).drawableToBitmap(resource), ((NewsDetailWebActivity) context).article_url, SendMessageToWX.Req.WXSceneSession, ((NewsDetailWebActivity) context).username, ((NewsDetailWebActivity) context).content);
+                    }
+                });
             });
             holder1.llShareWxq.setOnClickListener(v -> {
-
+                Glide.with(context).load(((NewsDetailWebActivity) context).compress).into(new SimpleTarget<Drawable>() {
+                    @Override
+                    public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
+                        Tools.shareWx(context, ((NewsDetailWebActivity) context).drawableToBitmap(resource), ((NewsDetailWebActivity) context).article_url, SendMessageToWX.Req.WXSceneTimeline, ((NewsDetailWebActivity) context).username, ((NewsDetailWebActivity) context).content);
+                    }
+                });
+            });
+            holder1.webAttention.setOnClickListener(v -> {
+                if (!((NewsDetailWebActivity) context).has_like) {
+                    Drawable top = context.getResources().getDrawable(R.drawable.icon_att_nor);
+                    holder1.webAttention.setCompoundDrawablesWithIntrinsicBounds(null, top, null, null);
+                    holder1.webAttention.setText(String.valueOf(Integer.parseInt(holder1.webAttention.getText().toString()) + 1));
+                    ((NewsDetailWebActivity) context).articleClickLike(((NewsDetailWebActivity) context).id, "1");
+                } else {
+                    Drawable top = context.getResources().getDrawable(R.drawable.icon_att_v2);
+                    holder1.webAttention.setCompoundDrawablesWithIntrinsicBounds(null, top, null, null);
+                    holder1.webAttention.setText(String.valueOf(Integer.parseInt(holder1.webAttention.getText().toString()) - 1));
+                    ((NewsDetailWebActivity) context).articleClickLike(((NewsDetailWebActivity) context).id, "0");
+                }
+                ((NewsDetailWebActivity) context).has_like = !((NewsDetailWebActivity) context).has_like;
             });
             holder1.webItemRc.setLayoutManager(new LinearLayoutManager(context));
             adapter = new RecommendReadAdapter(context, R.layout.item_recommend_read, data);
