@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
@@ -45,6 +46,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
+import me.shaohui.bottomdialog.BottomDialog;
 
 public class UserinfoActivity extends BaseActivity implements IGetMyInfoView,
         IPostMultiFileView, ISetHeadImageView, ISetUsernameView {
@@ -94,16 +96,13 @@ public class UserinfoActivity extends BaseActivity implements IGetMyInfoView,
     }
 
 
-    @OnClick({R.id.iv_back, R.id.civ_head, R.id.tv_name})
+    @OnClick({R.id.iv_back, R.id.tv_name})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
                 onBackPressed();
                 break;
-            case R.id.civ_head:
-                gotoSelectPic();
 
-                break;
             case R.id.tv_name:
                 showGuqingDialog();
                 break;
@@ -116,17 +115,51 @@ public class UserinfoActivity extends BaseActivity implements IGetMyInfoView,
                 .selectionMode(PictureConfig.SINGLE)
                 .theme(R.style.picture_my_style)
                 .previewImage(true)
-                .isCamera(true)
+                .isCamera(false)
                 .compress(true)
                 .forResult(PictureConfig.CHOOSE_REQUEST);
     }
 
     @Override
     public void onGetUserInfo(MyInfoBean bean) {
-//        tvName.setText(bean.getData().getUser().getUsername());
-//        Glide.with(this).load(bean.getData().getUser().getAvatar()).into(civHead);
+        tvName.setText(bean.getData().getUsername());
+        Glide.with(this).load(bean.getData().getAvatar()).into(civHead);
+        tvBirthday.setText(bean.getData().getBirthday());
+        tvSex.setText(bean.getData().getSex());
+        tvNote.setText(bean.getData().getSignature());
+        civHead.setOnClickListener(v -> {
+            if (TextUtils.isEmpty(bean.getData().getAvatar())) {
+                showBottomDialog();
+            } else {
+                //查看大图
+                UserBigHeadImageActivity.goUserBigHeadImageAct(
+                        this
+                        , bean.getData().getAvatar_url()
+                        , bean.getData().getAvatar());
+            }
+
+        });
     }
 
+    private void showBottomDialog() {
+        BottomDialog mDeleteBottomDialog = BottomDialog.create(getSupportFragmentManager());
+        mDeleteBottomDialog.setDimAmount(0.5f);
+        mDeleteBottomDialog.setCancelOutside(true);
+        mDeleteBottomDialog.setLayoutRes(R.layout.bottom_selectpic_dialog_layout);
+        mDeleteBottomDialog.setViewListener(v11 -> {
+            v11.findViewById(R.id.tv_takepic).setOnClickListener(v -> {
+                mDeleteBottomDialog.dismiss();
+            });
+            v11.findViewById(R.id.tv_select).setOnClickListener(v -> {
+                gotoSelectPic();
+            });
+            v11.findViewById(R.id.tv_cancel).setOnClickListener(v -> mDeleteBottomDialog.dismiss());
+
+        });
+
+        mDeleteBottomDialog.show();
+
+    }
 //    private long getFileSize(File file) throws Exception {
 //        if (file == null) {
 //            return 0;
