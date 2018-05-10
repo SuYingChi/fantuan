@@ -119,6 +119,7 @@
             android:textSize="15sp" />
 
         <TextView
+
             android:id="@+id/tv_birthday"
             android:layout_width="wrap_content"
             android:layout_height="60dp"
@@ -128,7 +129,7 @@
             android:drawableRight="@drawable/ic_right"
             android:gravity="center|left"
             android:lineSpacingExtra="1sp"
-            android:paddingLeft="15dp"
+            android:paddingLeft="45dp"
             android:paddingRight="15dp"
             android:textColor="#999999"
             android:textSize="15sp"

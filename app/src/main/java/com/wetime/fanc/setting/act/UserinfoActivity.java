@@ -46,11 +46,13 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.qqtheme.framework.picker.DatePicker;
 import de.hdodenhof.circleimageview.CircleImageView;
 import me.shaohui.bottomdialog.BottomDialog;
 
@@ -148,8 +150,42 @@ public class UserinfoActivity extends BaseActivity implements IGetMyInfoView,
                         , bean.getData().getAvatar_url()
                         , bean.getData().getAvatar());
             }
-
         });
+        tvBirthday.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onYearMonthDayPicker(bean.getData().getBirthday());
+            }
+        });
+    }
+
+    public void onYearMonthDayPicker(String birthday) {
+        final DatePicker picker = new DatePicker(this);
+        picker.setCanceledOnTouchOutside(true);
+        picker.setUseWeight(true);
+        picker.setTopPadding(20);
+        Calendar now = Calendar.getInstance();
+        System.out.println("年: " + now.get(Calendar.YEAR));
+        System.out.println("月: " + (now.get(Calendar.MONTH) + 1) + "");
+        System.out.println("日: " + now.get(Calendar.DAY_OF_MONTH));
+
+        picker.setRangeEnd(now.get(Calendar.YEAR), now.get(Calendar.MONTH) + 1, now.get(Calendar.DAY_OF_MONTH));
+        picker.setRangeStart(1900, 1, 1);
+        if (TextUtils.equals(birthday, "请选择")) {
+            picker.setSelectedItem(1990, 1, 1);
+        } else {
+            String array[] = birthday.split("-");
+            picker.setSelectedItem(Integer.valueOf(array[0]), Integer.valueOf(array[1]), Integer.valueOf(array[2]));
+        }
+
+        picker.setResetWhileWheel(false);
+        picker.setOnDatePickListener((DatePicker.OnYearMonthDayPickListener) (year, month, day) -> {
+            String resutl = year + "-" + month + "-" + day;
+            setUserInfoPresenter.setUserInfo("birthday", resutl);
+//            Tools.toastInBottom(this, resutl);
+        });
+
+        picker.show();
     }
 
     private void showBottomDialog() {
@@ -282,6 +318,7 @@ public class UserinfoActivity extends BaseActivity implements IGetMyInfoView,
             setUserInfoPresenter.setUserInfo("username", et.getText().toString());
         });
     }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEvent(ChangeUserInfoEvent messageEvent) {
         getUserInfoPresenter.getUserInfo();

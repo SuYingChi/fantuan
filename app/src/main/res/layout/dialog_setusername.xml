@@ -18,7 +18,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:lineSpacingExtra="0sp"
-        android:text="长度限制：1—10个字"
+        android:text="长度限制：10个字"
         android:textColor="#030303"
         android:textSize="14sp" />
 
