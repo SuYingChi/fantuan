@@ -97,8 +97,6 @@ public class BaseFragment extends Fragment implements IBaseVIew {
         return spu.getValue("wd");
     }
 
-    protected void refresh(){
 
-    }
 
 }

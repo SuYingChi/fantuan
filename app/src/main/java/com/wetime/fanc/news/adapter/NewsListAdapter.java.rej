@@ -1,0 +1,39 @@
+diff a/app/src/main/java/com/wetime/fanc/news/adapter/NewsListAdapter.java b/app/src/main/java/com/wetime/fanc/news/adapter/NewsListAdapter.java	(rejected hunks)
+@@ -235,20 +235,37 @@
+          }
+  
+  
+++<<<<<<< HEAD
+ +        if (holder instanceof NewsHolder0) {
+ +            int sw = Tools.getScreenW(mActivity);
+ +            int w = (sw - Tools.dip2px(mActivity, 15 + 15));
+ +            Double rate = 80.0 / 345;
+ +
+ +            int h = (int) (w * rate);
+ +
+ +           /* Glide.with(mActivity).load(bean.getBanner().get(0).getImg()).apply(
+ +                    new RequestOptions()
+ +                            .override(w, h)
+ +                            .centerCrop()
+ +                            .placeholder(R.drawable.iv_default_news_small))
+ +                    .into(((NewsHolder0) holder).ivBanner);*/
+ +        }
+++=======
++ //        if (holder instanceof NewsHolder0) {
++ //            int sw = Tools.getScreenW(mActivity);
++ //            int w = (sw - Tools.dip2px(mActivity, 15 + 15));
++ //            Double rate = 80.0 / 345;
++ //
++ //            int h = (int) (w * rate);
++ //
++ //            Glide.with(mActivity).load(bean.getBanner().get(0).getImg()).apply(
++ //                    new RequestOptions()
++ //                            .override(w, h)
++ //                            .centerCrop()
++ //                            .placeholder(R.drawable.iv_default_news_small))
++ //                    .into(((NewsHolder0) holder).ivBanner);
++ //        }
+++>>>>>>> ebfc9b3ffa2656e4a5a108588029b106b0c8a7d9
+          if (holder instanceof NewsHolder4) {
+              int sw = Tools.getScreenW(mActivity);
+              int w = (sw - Tools.dip2px(mActivity, 15 + 15));

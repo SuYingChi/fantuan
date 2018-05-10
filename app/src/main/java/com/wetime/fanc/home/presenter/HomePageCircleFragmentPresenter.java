@@ -21,7 +21,7 @@ public class HomePageCircleFragmentPresenter {
     public void getCircles() {
         OkHttpUtils
                 .post()
-                .url(Const.ALL_CIRCLE)
+                .url(Const.ALL_CIRCLE_HOME_PAGE_RECOMMEND)
                 .addHeader("token", iView.getToken())
                 .build()
                 .execute(new DataStringCallback(iView, false) {

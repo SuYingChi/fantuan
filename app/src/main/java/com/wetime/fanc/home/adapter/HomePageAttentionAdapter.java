@@ -9,6 +9,7 @@ import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +27,8 @@ import com.wetime.fanc.circle.adapter.NineImageGridListAdapter;
 import com.wetime.fanc.circle.presenter.ZanActPresenter;
 import com.wetime.fanc.customview.CanDoBlankGridView;
 import com.wetime.fanc.home.bean.HomePageAttentionBean;
+import com.wetime.fanc.home.presenter.AttentionClickZanPresenter;
+import com.wetime.fanc.home.presenter.AttentionClickZanPresenter.OnLikeAttentionListener;
 import com.wetime.fanc.login.act.LoginActivity;
 import com.wetime.fanc.my.act.UserCardActivity;
 import com.wetime.fanc.utils.Tools;
@@ -56,7 +59,7 @@ public class HomePageAttentionAdapter extends RecyclerView.Adapter {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        if (viewType == 10 || viewType == 19) {
+        if (viewType == 10 || viewType == 19||viewType == 14||viewType == 11) {
             return new AttentionHolder(inflater.inflate(R.layout.item_attention_layout, parent, false));
         } else if (viewType == 18) {
             return new AttentionHolder18(inflater.inflate(R.layout.item_attention_layout_type18, parent, false));
@@ -69,24 +72,20 @@ public class HomePageAttentionAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        HomePageAttentionBean.DataBean.ListBean bean = list.get(position);
+        HomePageAttentionBean.DataBean.ListBean bean = list.get(holder.getAdapterPosition());
         int type = Integer.valueOf(bean.getType());
-        holder.itemView.setOnClickListener(view -> {
-            switch (type) {
-                case 10:
-                case 19:
+        if (holder instanceof AttentionHolder) {
+            holder.itemView.setOnClickListener(view -> {
+                if (Integer.valueOf(bean.getType()) != -1) {
                     Intent goDet = new Intent(activity, ActDetailActivity.class);
                     goDet.putExtra("id", bean.getId());
                     activity.startActivity(goDet);
-                    break;
-            }
-        });
-        if (holder instanceof AttentionHolder) {
+                }
+            });
             Glide.with(activity).load(bean.getAvatar()).into(((AttentionHolder)holder).atHead);
             ((AttentionHolder)holder).atName.setText(bean.getUsername());
             ((AttentionHolder)holder).atTime.setText(bean.getTime());
             int max = 100;
-            //变蓝色 需求
             if (bean.getContent().length() > max) {
                 SpannableString ss = new SpannableString(bean.getContent().substring(0, max) + "...全文");
                 ss.setSpan(new ForegroundColorSpan(ContextCompat.getColor(activity, R.color.text_blue)),
@@ -132,20 +131,42 @@ public class HomePageAttentionAdapter extends RecyclerView.Adapter {
             } else {
                 ((AttentionHolder)holder).atZan.setImageResource(R.drawable.ic_homeitem_zan_off_off);
             }
+            ((AttentionHolder) holder).atZannum.setText(Integer.valueOf(bean.getLike_num())==0?"点赞":bean.getLike_num());
+            ((AttentionHolder) holder).atCommentnum.setText(Integer.valueOf(bean.getComment_num())==0?"评论":bean.getLike_num());
             ((AttentionHolder)holder).atZan.setOnClickListener(view -> {
                 if (Tools.getSpu(activity).getToken().equals("")) {
                     Intent gologin = new Intent(activity, LoginActivity.class);
                     activity.startActivity(gologin);
                 } else {
-                    ZanActPresenter presenter = new ZanActPresenter();
                     if (bean.isHas_like()) {
-                        ((AttentionHolder)holder).atZan.setImageResource(R.drawable.ic_homeitem_zan_off_off);
-                        presenter.zanAct(bean.getId(), Tools.getSpu(activity).getToken(), "0");
-                        bean.setHas_like(false);
+                        AttentionClickZanPresenter.clickZan(activity,bean.getId(),false, new AttentionClickZanPresenter.OnLikeAttentionListener() {
+                            @Override
+                            public void onLikeAttentionListener(boolean isSuccess) {
+                                if(isSuccess){
+                                    ((AttentionHolder)holder).atZan.setImageResource(R.drawable.ic_homeitem_zan_off_off);
+                                    bean.setHas_like(false);
+                                    int num = 0;
+                                    if (Integer.valueOf(bean.getLike_num()) != 0) {
+                                        num = Integer.valueOf(bean.getLike_num()) - 1;
+                                    }
+                                    ((AttentionHolder) holder).atZannum.setText(num==0?"点赞":bean.getLike_num());
+                                    bean.setLike_num(String.valueOf(num));
+                                }
+                            }
+                        });
                     } else {
-                        ((AttentionHolder)holder).atZan.setImageResource(R.drawable.ic_homeitem_zan_off_on);
-                        presenter.zanAct(bean.getId(), Tools.getSpu(activity).getToken(), "1");
-                        bean.setHas_like(true);
+                        AttentionClickZanPresenter.clickZan(activity,bean.getId(),true, new AttentionClickZanPresenter.OnLikeAttentionListener() {
+                            @Override
+                            public void onLikeAttentionListener(boolean isSuccess) {
+                                if(isSuccess){
+                                    ((AttentionHolder)holder).atZan.setImageResource(R.drawable.ic_homeitem_zan_off_on);
+                                    bean.setHas_like(true);
+                                    int num = Integer.valueOf(bean.getLike_num()) + 1;
+                                    ((AttentionHolder) holder).atZannum.setText(String.format("%d", num));
+                                    bean.setLike_num(String.valueOf(num));
+                                }
+                            }
+                        });
                     }
                 }
             });
@@ -172,7 +193,7 @@ public class HomePageAttentionAdapter extends RecyclerView.Adapter {
                 activity.startActivity(go);
             });
         } else if (holder instanceof AttentionHolder18) {
-            ((AttentionHolder18) holder).itemView.setOnClickListener(view -> {
+            ((HomePageAttentionAdapter.AttentionHolder18) holder).itemView.setOnClickListener(view -> {
                 if (String.valueOf(bean.getType()) != -1 + "") {
                     LongDetailActivity.startToLongDetail(activity, bean.getId());
                 }
@@ -190,30 +211,51 @@ public class HomePageAttentionAdapter extends RecyclerView.Adapter {
                         .into(((AttentionHolder18)holder).typeimage);
             }
 
-
-//            ((NewsHolder18) holder).tvZannum.setText(bean.getLike_num());
             if (bean.isHas_like()) {
                 ((AttentionHolder18)holder).atZan.setImageResource(R.drawable.ic_homeitem_zan_off_on);
             } else {
                 ((AttentionHolder18)holder).atZan.setImageResource(R.drawable.ic_homeitem_zan_off_off);
             }
+            ((AttentionHolder18) holder).atZannum.setText(Integer.valueOf(bean.getLike_num())==0?"点赞":bean.getLike_num());
+            ((AttentionHolder18) holder).atCommentnum.setText(Integer.valueOf(bean.getComment_num())==0?"评论":bean.getLike_num());
             ((AttentionHolder18)holder).atZan.setOnClickListener(view -> {
                 if (Tools.getSpu(activity).getToken().equals("")) {
                     Intent gologin = new Intent(activity, LoginActivity.class);
                     activity.startActivity(gologin);
                 } else {
-                    ZanActPresenter presenter = new ZanActPresenter();
                     if (bean.isHas_like()) {
-                        ((AttentionHolder18)holder).atZan.setImageResource(R.drawable.ic_homeitem_zan_off_off);
-                        presenter.zanAct(bean.getId(), Tools.getSpu(activity).getToken(), "0");
-                        bean.setHas_like(false);
-                        int num = 0;
+                        AttentionClickZanPresenter.clickZan(activity,bean.getId(),false, new AttentionClickZanPresenter.OnLikeAttentionListener() {
+                            @Override
+                            public void onLikeAttentionListener(boolean isSuccess) {
+                                if(isSuccess){
+                                    ((HomePageAttentionAdapter.AttentionHolder18)holder).atZan.setImageResource(R.drawable.ic_homeitem_zan_off_off);
+                                    bean.setHas_like(false);
+                                    int num = 0;
+                                    if (Integer.valueOf(bean.getLike_num()) != 0) {
+                                        num = Integer.valueOf(bean.getLike_num()) - 1;
+                                    }
+                                    ((HomePageAttentionAdapter.AttentionHolder18) holder).atZannum.setText(num==0?"点赞":bean.getLike_num());
+                                    bean.setLike_num(String.valueOf(num));
+                                }
+                            }
+                        });
                     } else {
-                        ((AttentionHolder18)holder).atZan.setImageResource(R.drawable.ic_homeitem_zan_off_on);
-                        presenter.zanAct(bean.getId(), Tools.getSpu(activity).getToken(), "1");
-                        bean.setHas_like(true);
+                        AttentionClickZanPresenter.clickZan(activity,bean.getId(),true, new AttentionClickZanPresenter.OnLikeAttentionListener() {
+                            @Override
+                            public void onLikeAttentionListener(boolean isSuccess) {
+                                if(isSuccess){
+                                    ((HomePageAttentionAdapter.AttentionHolder18)holder).atZan.setImageResource(R.drawable.ic_homeitem_zan_off_on);
+                                    bean.setHas_like(true);
+                                    int num = Integer.valueOf(bean.getLike_num()) + 1;
+                                    ((HomePageAttentionAdapter.AttentionHolder18) holder).atZannum.setText(String.format("%d", num));
+                                    bean.setLike_num(String.valueOf(num));
+                                }
+                            }
+                        });
                     }
-                }
+
+                    }
+
             });
 
             if (TextUtils.isEmpty(bean.getCircle_name())) {

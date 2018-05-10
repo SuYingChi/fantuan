@@ -1,5 +1,6 @@
 package com.wetime.fanc.home.frag;
 
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -21,6 +22,7 @@ import com.wetime.fanc.home.presenter.HomePageRecommendFragmentPresenter;
 import com.wetime.fanc.main.frag.BaseLazyFragment;
 import com.wetime.fanc.utils.GsonUtils;
 import com.wetime.fanc.utils.SimpleCatchKey;
+import com.wetime.fanc.utils.Tools;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -42,6 +44,8 @@ public class HomePageRecommendFragment extends BaseLazyFragment implements OnRef
     RecyclerView recyclerView;
     @BindView(R.id.rl_empty)
     RelativeLayout emptey;
+    @BindView(R.id.homepage_root)
+    RelativeLayout homepage_root;
     private int page = 1;
     private HomePageRecommendAdapter homePageRecommendAdapter;
     private AutoLoadMoreAdapter autoLoadMoreAdapter;
@@ -52,17 +56,8 @@ public class HomePageRecommendFragment extends BaseLazyFragment implements OnRef
     private HomePageRecommendFragmentPresenter homePageRecommendFragmentPresenter;
 
 
-    @Override
-    protected void refresh() {
-        page = 1;
-        homePageRecommendFragmentPresenter.getRecommend();
-    }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        refresh();
-    }
+
 
     @Override
     protected int setLayoutId() {
@@ -72,6 +67,7 @@ public class HomePageRecommendFragment extends BaseLazyFragment implements OnRef
     @Override
     protected void initView() {
         EventBus.getDefault().register(this);
+        Tools.showEmptyLoading(homepage_root);
         homePageRecommendFragmentPresenter = new HomePageRecommendFragmentPresenter(this);
         refreshLayout.setOnRefreshListener(this);
         refreshLayout.setEnableLoadMore(false);
@@ -89,12 +85,14 @@ public class HomePageRecommendFragment extends BaseLazyFragment implements OnRef
 
     @Override
     protected void initData() {
+        page=1;
         homePageRecommendFragmentPresenter.getRecommend();
     }
 
     @Override
     public void onGetRecommend(HomePageRecommendBean homePageRecommendBean) {
         refreshLayout.finishRefresh(1000);
+        Tools.hideEmptyLoading(homepage_root);
         if (homePageRecommendAdapter == null) {
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
             homePageRecommendAdapter = new HomePageRecommendAdapter(bannerList, circlesList, list, getActivity());
@@ -143,6 +141,20 @@ public class HomePageRecommendFragment extends BaseLazyFragment implements OnRef
         if (mIsVisible) {
             recyclerView.scrollToPosition(0);
             refreshLayout.autoRefresh();
+        }
+    }
+    @Override
+    public void onNetError() {
+        super.onNetError();
+        refreshLayout.finishLoadMore(1000);
+        Tools.hideEmptyLoading(homepage_root);
+    }
+    @Override
+    protected void onInvisible() {
+        super.onInvisible();
+        Tools.hideEmptyLoading(homepage_root);
+        if(refreshLayout!=null){
+            refreshLayout.finishRefresh();
         }
     }
 }

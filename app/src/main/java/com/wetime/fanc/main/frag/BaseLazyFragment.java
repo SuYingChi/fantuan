@@ -192,4 +192,6 @@ public abstract class BaseLazyFragment extends BaseFragment {
         return (T) mActivity.findViewById(id);
     }
 
+
+
 }

@@ -11,8 +11,10 @@ import android.widget.TextView;
 
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.wetime.fanc.R;
 import com.wetime.fanc.home.bean.HomePageCircleBean;
+import com.wetime.fanc.utils.GlideRoundTransform;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +28,7 @@ import butterknife.ButterKnife;
 
 public class HomePageMyCircleAdapter extends RecyclerView.Adapter {
 
+    private final RequestOptions myOptions;
     private List<HomePageCircleBean.DataBean.ListBean> myCircles;
     private Activity activity;
     private LayoutInflater inflater;
@@ -35,6 +38,8 @@ public class HomePageMyCircleAdapter extends RecyclerView.Adapter {
         this.myCircles = myCircles;
         this.activity = activity;
         this.inflater = LayoutInflater.from(activity);
+        myOptions = new RequestOptions()
+                .transform(new GlideRoundTransform(activity, 5));
     }
 
     @NonNull
@@ -52,7 +57,7 @@ public class HomePageMyCircleAdapter extends RecyclerView.Adapter {
             }
         });
         if (holder instanceof MyCircleViewHolder) {
-            Glide.with(activity).load(myCircles.get(position).getCover().getCompress()).into(((MyCircleViewHolder) holder).myCirclesCover);
+            Glide.with(activity).load(myCircles.get(position).getCover().getCompress()).apply(myOptions).into(((MyCircleViewHolder) holder).myCirclesCover);
             ((MyCircleViewHolder) holder).myCircleContentNum.setText(myCircles.get(position).getToday_num());
             ((MyCircleViewHolder) holder).myCircleName.setText(myCircles.get(position).getName());
         }
