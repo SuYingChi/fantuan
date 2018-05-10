@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import com.wetime.fanc.R;
 
 
-public class EmptyFragment extends Fragment {
+public class EmptyFragment extends BaseFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

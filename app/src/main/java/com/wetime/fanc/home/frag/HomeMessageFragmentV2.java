@@ -4,7 +4,7 @@ import com.wetime.fanc.R;
 import com.wetime.fanc.main.frag.BaseLazyFragment;
 
 
-public class HomeLazyFragmentV2 extends BaseLazyFragment {
+public class HomeMessageFragmentV2 extends BaseLazyFragment {
 
 
     @Override
