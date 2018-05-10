@@ -141,7 +141,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="24dp"
+            android:layout_height="30dp"
             android:layout_marginTop="15dp">
 
             <LinearLayout
@@ -152,16 +152,18 @@
 
                 <ImageView
                     android:id="@+id/at_zan"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/icon_zan" />
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/icon_zan"
+                    android:padding="5dp"
+                    />
 
                 <TextView
                     android:id="@+id/at_zannum"
                     android:layout_width="36dp"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="7dp"
-                    android:gravity="center|left"
+                    android:gravity="center"
                     android:lineSpacingExtra="0sp"
                     android:paddingBottom="2dp"
                     android:textColor="#999999"
@@ -169,18 +171,19 @@
                     android:text="点赞" />
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:layout_marginLeft="30dp"
-                    android:src="@drawable/icon_v2_comment" />
+                    android:src="@drawable/icon_v2_comment"
+                    android:padding="5dp"
+                    />
 
                 <TextView
                     android:id="@+id/at_commentnum"
                     android:layout_width="36dp"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="7dp"
-                    android:gravity="center|left"
+                    android:gravity="center"
                     android:lineSpacingExtra="0sp"
                     android:paddingBottom="2dp"
                     android:textColor="#999999"

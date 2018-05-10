@@ -15,11 +15,14 @@ import android.widget.TextView;
 
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.wetime.fanc.R;
 import com.wetime.fanc.circle.act.AllCircleActivity;
 import com.wetime.fanc.circle.act.CircleDetailActivity;
+import com.wetime.fanc.home.act.HomepageAllCirclesActivity;
 import com.wetime.fanc.home.bean.HomePageCircleBean;
 import com.wetime.fanc.utils.AttentionCircleTool;
+import com.wetime.fanc.utils.GlideRoundTransform;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +35,7 @@ import butterknife.ButterKnife;
  */
 
 public class HomePageCirclesAdapter extends RecyclerView.Adapter {
+    private final RequestOptions myOptions;
     private List<HomePageCircleBean.DataBean.NotmissBean> hotCircles;
     private List<HomePageCircleBean.DataBean.ListBean> myCircles ;
     private LayoutInflater inflater;
@@ -44,6 +48,8 @@ public class HomePageCirclesAdapter extends RecyclerView.Adapter {
         this.myCircles = myCircles;
         this.activity = activity;
         this.inflater = LayoutInflater.from(activity);
+        myOptions = new RequestOptions()
+                .transform(new GlideRoundTransform(activity, 5));
     }
 
 
@@ -81,7 +87,7 @@ public class HomePageCirclesAdapter extends RecyclerView.Adapter {
                 ((CircleHeaderViewHolder) holder).moreCircles.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent goAll = new Intent(activity, AllCircleActivity.class);
+                        Intent goAll = new Intent(activity, HomepageAllCirclesActivity.class);
                         activity.startActivity(goAll);
                     }
                 });
@@ -95,7 +101,7 @@ public class HomePageCirclesAdapter extends RecyclerView.Adapter {
             }
         } else if (holder instanceof HotCircleViewHolder) {
             if (hotCircles.size() > 0) {
-                Glide.with(activity).load(hotCircles.get(holder.getAdapterPosition() - 1).getCover().getCompress()).into(((HotCircleViewHolder) holder).hotCircleCover);
+                Glide.with(activity).load(hotCircles.get(holder.getAdapterPosition() - 1).getCover().getCompress()).apply(myOptions).into(((HotCircleViewHolder) holder).hotCircleCover);
                 ((HotCircleViewHolder) holder).hotCircleAttentCircleBtn.setText("+关注");
                 ((HotCircleViewHolder)holder).hotCircleAttentCircleBtn.setBackgroundResource(R.drawable.bg_btn_blue_circle);
                 ((HotCircleViewHolder)holder).hotCircleAttentCircleBtn.setTextColor(ContextCompat.getColor(activity,R.color.text_blue));
@@ -160,14 +166,19 @@ public class HomePageCirclesAdapter extends RecyclerView.Adapter {
 
     public static class HotCircleViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.hot_circle_attent_circle_btn)
+        public
         TextView hotCircleAttentCircleBtn;
         @BindView(R.id.hot_circle_attent_circle_num)
+        public
         TextView hotCircleAttentCircleNum;
         @BindView(R.id.hot_circle_brief)
+        public
         TextView hotCircleBrief;
         @BindView(R.id.hot_circle_cover)
+        public
         ImageView hotCircleCover;
         @BindView(R.id.hot_circle_name)
+        public
         TextView hotCircleName;
 
         public HotCircleViewHolder(View inflate) {
