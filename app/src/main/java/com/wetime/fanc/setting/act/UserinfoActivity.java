@@ -108,15 +108,11 @@ public class UserinfoActivity extends BaseActivity implements IGetMyInfoView,
     }
 
 
-    @OnClick({R.id.iv_back, R.id.tv_name})
+    @OnClick({R.id.iv_back})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
                 onBackPressed();
-                break;
-
-            case R.id.tv_name:
-                showGuqingDialog();
                 break;
         }
     }
@@ -140,9 +136,10 @@ public class UserinfoActivity extends BaseActivity implements IGetMyInfoView,
         tvBirthday.setText(bean.getData().getBirthday());
         tvSex.setText(bean.getData().getSex());
         tvNote.setText(bean.getData().getSignature());
+
         civHead.setOnClickListener(v -> {
             if (TextUtils.isEmpty(bean.getData().getAvatar())) {
-                showBottomDialog();
+                showSelectPicDialog();
             } else {
                 //查看大图
                 UserBigHeadImageActivity.goUserBigHeadImageAct(
@@ -151,12 +148,9 @@ public class UserinfoActivity extends BaseActivity implements IGetMyInfoView,
                         , bean.getData().getAvatar());
             }
         });
-        tvBirthday.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onYearMonthDayPicker(bean.getData().getBirthday());
-            }
-        });
+        tvName.setOnClickListener(v -> showSetNameDialog());
+        tvBirthday.setOnClickListener(v -> onYearMonthDayPicker(bean.getData().getBirthday()));
+        tvNote.setOnClickListener(v -> showSetNoteDialog());
     }
 
     public void onYearMonthDayPicker(String birthday) {
@@ -188,7 +182,7 @@ public class UserinfoActivity extends BaseActivity implements IGetMyInfoView,
         picker.show();
     }
 
-    private void showBottomDialog() {
+    private void showSelectPicDialog() {
         BottomDialog mDeleteBottomDialog = BottomDialog.create(getSupportFragmentManager());
         mDeleteBottomDialog.setDimAmount(0.5f);
         mDeleteBottomDialog.setCancelOutside(true);
@@ -278,7 +272,7 @@ public class UserinfoActivity extends BaseActivity implements IGetMyInfoView,
             EventBus.getDefault().post(new ChangeUserInfoEvent());
     }
 
-    private void showGuqingDialog() {
+    private void showSetNameDialog() {
         LayoutInflater inflaterDl = LayoutInflater.from(mContext);
         LinearLayout layout = (LinearLayout) inflaterDl.inflate(
                 R.layout.dialog_setusername, null);
@@ -292,15 +286,12 @@ public class UserinfoActivity extends BaseActivity implements IGetMyInfoView,
 
 
         TextView btnCancel = layout.findViewById(R.id.dialog_btn_cancel);
-        btnCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.showSoftInput(et, InputMethodManager.SHOW_FORCED);
-                imm.hideSoftInputFromWindow(et.getWindowToken(), 0);
-                tel_dialog.dismiss();
+        btnCancel.setOnClickListener(v -> {
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.showSoftInput(et, InputMethodManager.SHOW_FORCED);
+            imm.hideSoftInputFromWindow(et.getWindowToken(), 0);
+            tel_dialog.dismiss();
 
-            }
         });
 
 
@@ -319,6 +310,42 @@ public class UserinfoActivity extends BaseActivity implements IGetMyInfoView,
         });
     }
 
+    private void showSetNoteDialog() {
+        LayoutInflater inflaterDl = LayoutInflater.from(mContext);
+        LinearLayout layout = (LinearLayout) inflaterDl.inflate(
+                R.layout.dialog_setusernote, null);
+        final Dialog tel_dialog = new AlertDialog.Builder(mContext).create();
+
+        tel_dialog.show();
+        tel_dialog.getWindow().setContentView(layout);
+        final EditText et = layout.findViewById(R.id.et_food_num);
+        tel_dialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
+        tel_dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+
+
+        TextView btnCancel = layout.findViewById(R.id.dialog_btn_cancel);
+        btnCancel.setOnClickListener(v -> {
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.showSoftInput(et, InputMethodManager.SHOW_FORCED);
+            imm.hideSoftInputFromWindow(et.getWindowToken(), 0);
+            tel_dialog.dismiss();
+        });
+
+
+        TextView btnOK = layout.findViewById(R.id.dialog_btn_ok);
+        btnOK.setOnClickListener(v -> {
+            if (et.getText().toString().length() == 0) {
+                Tools.toastInBottom(mContext, "长度限制: 30个字");
+                return;
+            }
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.showSoftInput(et, InputMethodManager.SHOW_FORCED);
+            imm.hideSoftInputFromWindow(et.getWindowToken(), 0);
+            tel_dialog.dismiss();
+            tvNote.setText(et.getText().toString());
+            setUserInfoPresenter.setUserInfo("signature", et.getText().toString());
+        });
+    }
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEvent(ChangeUserInfoEvent messageEvent) {
         getUserInfoPresenter.getUserInfo();
