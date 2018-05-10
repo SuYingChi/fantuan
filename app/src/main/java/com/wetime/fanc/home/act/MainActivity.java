@@ -25,6 +25,7 @@ import com.wetime.fanc.home.event.ReFreshCircleEvent;
 import com.wetime.fanc.home.event.ReFreshNewsEvent;
 import com.wetime.fanc.home.event.RefreshRedNumEvent;
 import com.wetime.fanc.home.event.SwichFragEvent;
+import com.wetime.fanc.home.frag.HomeLazyFragmentV2;
 import com.wetime.fanc.home.frag.HomePageFragment;
 import com.wetime.fanc.home.iviews.IBindPushView;
 import com.wetime.fanc.home.iviews.IGetRedNumView;
@@ -87,7 +88,7 @@ public class MainActivity extends BaseActivity implements IBindPushView, IGetRed
     private int mOnId = R.drawable.bot_3_on;
     private int mOffId = R.drawable.bot_3_off;
     // private HomeFragment f0;
-    private HomePageFragment f0;
+    private HomeLazyFragmentV2 f0;
     private NewsLazyFragment f1;
     //    private SortActivity f1;
     private CircleHomeFragment f2;
@@ -168,7 +169,7 @@ public class MainActivity extends BaseActivity implements IBindPushView, IGetRed
     private void initView() {
         // f0 = new HomeFragment();
 //        f1 = new SortActivity();
-        f0 = new HomePageFragment();
+        f0 = new HomeLazyFragmentV2();
         f1 = new NewsLazyFragment();
         f2 = new CircleHomeFragment();
         f3 = new MyFragment();
@@ -181,7 +182,7 @@ public class MainActivity extends BaseActivity implements IBindPushView, IGetRed
 
         vp.setCurrentItem(Integer.valueOf(spu.getValue("citem")));
         initBottom(Integer.valueOf(spu.getValue("citem")));
-//        vp.setOffscreenPageLimit(3);
+        vp.setOffscreenPageLimit(3);
 
         vp.setScanScroll(false);
         vp.setPageTransformer(true, null);
