@@ -134,7 +134,15 @@ public class UserinfoActivity extends BaseActivity implements IGetMyInfoView,
         if (!TextUtils.isEmpty(bean.getData().getAvatar()))
             Glide.with(this).load(bean.getData().getAvatar()).into(civHead);
         tvBirthday.setText(bean.getData().getBirthday());
-        tvSex.setText(bean.getData().getSex());
+        if (bean.getData().getSex().equals("1")) {
+            tvSex.setText("男");
+        } else if (bean.getData().getSex().equals("2")) {
+            tvSex.setText("女");
+        } else {
+            tvSex.setText(bean.getData().getSex());
+        }
+
+
         tvNote.setText(bean.getData().getSignature());
 
         civHead.setOnClickListener(v -> {
@@ -151,6 +159,28 @@ public class UserinfoActivity extends BaseActivity implements IGetMyInfoView,
         tvName.setOnClickListener(v -> showSetNameDialog());
         tvBirthday.setOnClickListener(v -> onYearMonthDayPicker(bean.getData().getBirthday()));
         tvNote.setOnClickListener(v -> showSetNoteDialog());
+        tvSex.setOnClickListener(v -> showSexDialog());
+    }
+
+    private void showSexDialog() {
+        BottomDialog mDeleteBottomDialog = BottomDialog.create(getSupportFragmentManager());
+        mDeleteBottomDialog.setDimAmount(0.5f);
+        mDeleteBottomDialog.setCancelOutside(true);
+        mDeleteBottomDialog.setLayoutRes(R.layout.bottom_selectsex_dialog_layout);
+        mDeleteBottomDialog.setViewListener(v11 -> {
+            v11.findViewById(R.id.tv_man).setOnClickListener(v -> {
+                mDeleteBottomDialog.dismiss();
+                setUserInfoPresenter.setUserInfo("sex", "1");
+            });
+            v11.findViewById(R.id.tv_woman).setOnClickListener(v -> {
+                mDeleteBottomDialog.dismiss();
+                setUserInfoPresenter.setUserInfo("sex", "2");
+
+            });
+            v11.findViewById(R.id.tv_cancel).setOnClickListener(v -> mDeleteBottomDialog.dismiss());
+
+        });
+        mDeleteBottomDialog.show();
     }
 
     public void onYearMonthDayPicker(String birthday) {
@@ -346,6 +376,7 @@ public class UserinfoActivity extends BaseActivity implements IGetMyInfoView,
             setUserInfoPresenter.setUserInfo("signature", et.getText().toString());
         });
     }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEvent(ChangeUserInfoEvent messageEvent) {
         getUserInfoPresenter.getUserInfo();
