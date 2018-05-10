@@ -15,9 +15,9 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.wetime.fanc.R;
 import com.wetime.fanc.about.act.AboutActivity;
-import com.wetime.fanc.login.event.LogoutEvent;
 import com.wetime.fanc.main.frag.BaseLazyFragment;
 import com.wetime.fanc.my.act.MyCollectActivity;
+import com.wetime.fanc.my.act.MyFriendsActivity;
 import com.wetime.fanc.my.bean.MyProfileBean;
 import com.wetime.fanc.my.iviews.IGetMyprofileView;
 import com.wetime.fanc.my.presenter.GetMyProfilePresenter;
@@ -98,7 +98,7 @@ public class MyFragment extends BaseLazyFragment implements IGetMyprofileView {
         super.onDestroyView();
     }
 
-    @OnClick({R.id.tv_collect, R.id.tv_setting, R.id.tv_about})
+    @OnClick({R.id.tv_collect, R.id.tv_setting, R.id.tv_about, R.id.ll_act, R.id.ll_focus, R.id.ll_fans})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_collect:
@@ -110,6 +110,15 @@ public class MyFragment extends BaseLazyFragment implements IGetMyprofileView {
             case R.id.tv_about:
                 Intent goAbout = new Intent(getContext(), AboutActivity.class);
                 startActivity(goAbout);
+                break;
+            case R.id.ll_act:
+                Tools.toastInBottom(getContext(), "没接口");
+                break;
+            case R.id.ll_focus:
+                MyFriendsActivity.goMyFriendsAct(getContext(),1);
+                break;
+            case R.id.ll_fans:
+                MyFriendsActivity.goMyFriendsAct(getContext(),2);
                 break;
         }
     }
@@ -140,6 +149,7 @@ public class MyFragment extends BaseLazyFragment implements IGetMyprofileView {
         } else {
             ivRedDot.setVisibility(View.GONE);
         }
+
 
     }
 
