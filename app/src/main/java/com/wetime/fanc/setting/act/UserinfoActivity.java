@@ -4,7 +4,11 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.os.Handler;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,14 +35,16 @@ import com.wetime.fanc.my.bean.MyInfoBean;
 import com.wetime.fanc.my.iviews.IGetMyInfoView;
 import com.wetime.fanc.my.presenter.GetUserInfoPresenter;
 import com.wetime.fanc.setting.event.ChangeUserInfoEvent;
-import com.wetime.fanc.setting.iviews.ISetHeadImageView;
-import com.wetime.fanc.setting.iviews.ISetUsernameView;
-import com.wetime.fanc.setting.presenter.SetHeadImagePresenter;
-import com.wetime.fanc.setting.presenter.SetUserNamePresenter;
+import com.wetime.fanc.setting.iviews.ISetUserInfoView;
+import com.wetime.fanc.setting.presenter.SetUserInfoPresenter;
 import com.wetime.fanc.utils.Tools;
+import com.yalantis.ucrop.UCrop;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,7 +55,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import me.shaohui.bottomdialog.BottomDialog;
 
 public class UserinfoActivity extends BaseActivity implements IGetMyInfoView,
-        IPostMultiFileView, ISetHeadImageView, ISetUsernameView {
+        IPostMultiFileView, ISetUserInfoView {
 
 
     @BindView(R.id.tv_title)
@@ -74,8 +80,10 @@ public class UserinfoActivity extends BaseActivity implements IGetMyInfoView,
     TextView tvNote;
 
     private GetUserInfoPresenter getUserInfoPresenter;
+    private SetUserInfoPresenter setUserInfoPresenter;
+
     private PostMultiFilePresenter postMultiFilePresenter;
-    private SetUserNamePresenter setUserNamePresenter;
+//    private SetUserNamePresenter setUserNamePresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,7 +95,9 @@ public class UserinfoActivity extends BaseActivity implements IGetMyInfoView,
         getUserInfoPresenter = new GetUserInfoPresenter(this);
         getUserInfoPresenter.getUserInfo();
         postMultiFilePresenter = new PostMultiFilePresenter(this);
-        setUserNamePresenter = new SetUserNamePresenter(this);
+//        setUserNamePresenter = new SetUserNamePresenter(this);
+
+        setUserInfoPresenter = new SetUserInfoPresenter(this);
     }
 
     @Override
@@ -123,7 +133,8 @@ public class UserinfoActivity extends BaseActivity implements IGetMyInfoView,
     @Override
     public void onGetUserInfo(MyInfoBean bean) {
         tvName.setText(bean.getData().getUsername());
-        Glide.with(this).load(bean.getData().getAvatar()).into(civHead);
+        if (!TextUtils.isEmpty(bean.getData().getAvatar()))
+            Glide.with(this).load(bean.getData().getAvatar()).into(civHead);
         tvBirthday.setText(bean.getData().getBirthday());
         tvSex.setText(bean.getData().getSex());
         tvNote.setText(bean.getData().getSignature());
@@ -149,80 +160,84 @@ public class UserinfoActivity extends BaseActivity implements IGetMyInfoView,
         mDeleteBottomDialog.setViewListener(v11 -> {
             v11.findViewById(R.id.tv_takepic).setOnClickListener(v -> {
                 mDeleteBottomDialog.dismiss();
+                PictureSelector.create(this)
+                        .openCamera(PictureMimeType.ofImage())
+                        .compress(true)
+                        .forResult(PictureConfig.CHOOSE_REQUEST);
             });
             v11.findViewById(R.id.tv_select).setOnClickListener(v -> {
+                mDeleteBottomDialog.dismiss();
                 gotoSelectPic();
             });
             v11.findViewById(R.id.tv_cancel).setOnClickListener(v -> mDeleteBottomDialog.dismiss());
 
         });
-
         mDeleteBottomDialog.show();
-
     }
-//    private long getFileSize(File file) throws Exception {
-//        if (file == null) {
-//            return 0;
-//        }
-//        long size = 0;
-//        if (file.exists()) {
-//            FileInputStream fis = null;
-//            fis = new FileInputStream(file);
-//            size = fis.available();
-//        }
-//        return size / 1024;
-//    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == PictureConfig.CHOOSE_REQUEST) {
-            if (resultCode == RESULT_OK) {
-                List<LocalMedia> selectList = PictureSelector.obtainMultipleResult(data);
-                // 例如 LocalMedia 里面返回三种path
-                // 1.media.getPath(); 为原图path
-                // 2.media.getCutPath();为裁剪后path，需判断media.isCut();是否为true  注意：音视频除外
-                // 3.media.getCompressPath();为压缩后path，需判断media.isCompressed();是否为true  注意：音视频除外
-                // 如果裁剪并压缩了，以取压缩路径为准，因为是先裁剪后压缩的
-                if (selectList != null && selectList.size() > 0) {
 
-                    ArrayList<String> pathlist = new ArrayList<>();
-                    if (selectList.get(0).isCompressed()) {
-                        pathlist.add(selectList.get(0).getCompressPath());
-                    } else {
-                        pathlist.add(selectList.get(0).getPath());
+        if (resultCode == RESULT_OK && requestCode == PictureConfig.CHOOSE_REQUEST && data != null) {
+            List<LocalMedia> selectList = PictureSelector.obtainMultipleResult(data);
+            ArrayList<String> path = new ArrayList<>();
+            if (selectList.get(0).isCut()) {
+                path.add(selectList.get(0).getCompressPath());
+            } else {
+                path.add(selectList.get(0).getPath());
+            }
+
+            if (path.size() > 0) {
+                new Handler().post(() -> {
+                    Uri uri_crop = Uri.fromFile(new File(path.get(0)));
+                    //裁剪后保存到文件中
+                    String pt = Environment.getExternalStorageDirectory().getPath() + "/fantuan/iamge/";
+                    File des = new File(pt);
+                    if (!des.exists()) {
+                        des.mkdirs();
                     }
-                    // 测试信息
-//                        if (BuildConfig.DEBUG) {
-//                            try {
-//                                File of = new File(selectList.get(0).getPath());
-//                                Log.e("zk", "压缩前文件大小kb" + getFileSize(of));
-//
-//                                File nf = new File(selectList.get(0).getCompressPath());
-//                                Log.e("zk", "压缩后文件大小kb" + getFileSize(nf));
-//                            } catch (Exception e) {
-//                                e.printStackTrace();
-//                            }
-//                        }
-                    postMultiFilePresenter.PostMultiFile(pathlist);
-                    Glide.with(mContext).load(pathlist.get(0)).into(civHead);
+                    Uri destinationUri = Uri.fromFile(new File(pt + System.currentTimeMillis() + ".jpg"));
+                    UCrop.Options options = new UCrop.Options();
+                    options.setHideBottomControls(true);
+                    //设置toolbar颜色
+                    options.setToolbarColor(ContextCompat.getColor(mContext, R.color.black));
+                    //设置状态栏颜色
+                    options.setStatusBarColor(ContextCompat.getColor(mContext, R.color.black));
+                    UCrop.of(uri_crop, destinationUri)
+                            .withOptions(options)
+                            .withAspectRatio(1, 1)
+//                            .withMaxResultSize(maxWidth, maxHeight)
+                            .start(this);
 
+                });
 
-                }
             }
         }
+        if (resultCode == RESULT_OK && requestCode == UCrop.REQUEST_CROP) {
+            final Uri resultUri = UCrop.getOutput(data);
+            if (postMultiFilePresenter == null)
+                postMultiFilePresenter = new PostMultiFilePresenter(this);
+            final List<String> pathlist = new ArrayList<>();
+            pathlist.add(resultUri.getPath());
+            postMultiFilePresenter.PostMultiFile(pathlist);
+
+        }
+
+
     }
 
     @Override
     public void onPostResult(PostFileResultBean bean) {
         if (bean.getError() != 0)
             return;
+        Glide.with(mContext).load(bean.getData().getUrl().get(0)).into(civHead);
 
-        SetHeadImagePresenter setHeadImagePresenter = new SetHeadImagePresenter(this);
-        setHeadImagePresenter.setHeadImage(bean.getData().getId().get(0));
+
+        setUserInfoPresenter.setUserInfo("avatar", bean.getData().getId().get(0));
     }
 
     @Override
-    public void onSetHeadImageResult(BaseBean bean) {
+    public void onSetUserInfoResult(BaseBean bean) {
         if (bean.getError() == 0)
             EventBus.getDefault().post(new ChangeUserInfoEvent());
     }
@@ -254,26 +269,22 @@ public class UserinfoActivity extends BaseActivity implements IGetMyInfoView,
 
 
         TextView btnOK = layout.findViewById(R.id.dialog_btn_ok);
-        btnOK.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (et.getText().toString().length() == 0) {
-                    Tools.toastInBottom(mContext, "长度限制: 1—10个字");
-                    return;
-                }
-                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.showSoftInput(et, InputMethodManager.SHOW_FORCED);
-                imm.hideSoftInputFromWindow(et.getWindowToken(), 0);
-                tel_dialog.dismiss();
-                tvName.setText(et.getText().toString());
-                setUserNamePresenter.setUserName(et.getText().toString());
+        btnOK.setOnClickListener(v -> {
+            if (et.getText().toString().length() == 0) {
+                Tools.toastInBottom(mContext, "长度限制: 1—10个字");
+                return;
             }
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.showSoftInput(et, InputMethodManager.SHOW_FORCED);
+            imm.hideSoftInputFromWindow(et.getWindowToken(), 0);
+            tel_dialog.dismiss();
+            tvName.setText(et.getText().toString());
+            setUserInfoPresenter.setUserInfo("username", et.getText().toString());
         });
     }
-
-    @Override
-    public void onSetUsername(BaseBean bean) {
-        if (bean.getError() == 0)
-            EventBus.getDefault().post(new ChangeUserInfoEvent());
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(ChangeUserInfoEvent messageEvent) {
+        getUserInfoPresenter.getUserInfo();
     }
+
 }

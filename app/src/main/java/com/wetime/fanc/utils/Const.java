@@ -19,8 +19,8 @@ public interface Const {
     String LOGIN_WX = BASEURL + "/login/wexin";
     String WEIXIN_BIND = BASEURL + "/user/weixin/bind";
     String LOGOUT = BASEURL + "/logout";
-    String USER_PROFILE_UPDATEAVATAR = BASEURL + "/user/profile/updateavatar";
-    String USER_PROFILE_UPDATENAME = BASEURL + "/user/profile/updatename";
+//    String USER_PROFILE_UPDATEAVATAR = BASEURL + "/user/profile/updateavatar";
+//    String USER_PROFILE_UPDATENAME = BASEURL + "/user/profile/updatename";
     String USER_PROFILE_SETTING = BASEURL + "/user/profile/setting";
     String MALL = BASEURL + "/mall";
     String CATEGORY = BASEURL + "/category";
@@ -123,4 +123,5 @@ public interface Const {
     String USER_PROFILE = BASEURL + "/jv/user/loginuserinfo";
     String LIKE_ATTENTION=BASEURL+"/jv/qz/like";
     String HOMEPAGE_ALL_CIRCLE =BASEURL+"/jv/qz/allcircles";
+    String USER_SAVEUSERINFO =BASEURL+"/jv/user/saveuserinfo";
 }

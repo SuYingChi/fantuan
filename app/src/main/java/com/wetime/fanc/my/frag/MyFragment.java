@@ -15,15 +15,19 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.wetime.fanc.R;
 import com.wetime.fanc.about.act.AboutActivity;
+import com.wetime.fanc.login.event.LogoutEvent;
 import com.wetime.fanc.main.frag.BaseLazyFragment;
 import com.wetime.fanc.my.act.MyCollectActivity;
 import com.wetime.fanc.my.bean.MyProfileBean;
 import com.wetime.fanc.my.iviews.IGetMyprofileView;
 import com.wetime.fanc.my.presenter.GetMyProfilePresenter;
 import com.wetime.fanc.setting.act.SettingActivity;
+import com.wetime.fanc.setting.event.ChangeUserInfoEvent;
 import com.wetime.fanc.utils.Tools;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -57,19 +61,19 @@ public class MyFragment extends BaseLazyFragment implements IGetMyprofileView {
     LinearLayout llBeauthor;
 
 
-//    private QBadgeView qBadgeMsg;
-
+    //    private QBadgeView qBadgeMsg;
+    private GetMyProfilePresenter getMyProfilePresenter;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-//        EventBus.getDefault().register(this);
+        EventBus.getDefault().register(this);
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
     @Override
     protected void initData() {
-        GetMyProfilePresenter getMyProfilePresenter = new GetMyProfilePresenter(this);
+        getMyProfilePresenter = new GetMyProfilePresenter(this);
         getMyProfilePresenter.getUserInfo();
     }
 
@@ -115,8 +119,8 @@ public class MyFragment extends BaseLazyFragment implements IGetMyprofileView {
         Context context = getContext();
         if (context == null)
             return;
-
-        Glide.with(context).load(bean.getData().getAvatar()).into(civHead);
+        if (!TextUtils.isEmpty(bean.getData().getAvatar()))
+            Glide.with(context).load(bean.getData().getAvatar()).into(civHead);
         tvName.setText(bean.getData().getUsername());
         tvActnum.setText(bean.getData().getDynamic_num());
         tvFocusnum.setText(bean.getData().getFollow_num());
@@ -137,5 +141,10 @@ public class MyFragment extends BaseLazyFragment implements IGetMyprofileView {
             ivRedDot.setVisibility(View.GONE);
         }
 
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(ChangeUserInfoEvent messageEvent) {
+        getMyProfilePresenter.getUserInfo();
     }
 }
