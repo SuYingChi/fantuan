@@ -18,6 +18,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.wetime.fanc.R;
 import com.wetime.fanc.customview.MixtureTextView;
+import com.wetime.fanc.my.presenter.DeleteMyNewsPresenter;
 import com.wetime.fanc.news.act.GalleryActivity;
 import com.wetime.fanc.news.act.RecomentFocusActivity;
 import com.wetime.fanc.news.act.SpecialTopicActivity;
@@ -65,6 +66,8 @@ public class NewsListAdapter extends RecyclerView.Adapter {
             return new NewsHolder9000(inflater.inflate(R.layout.item_news_type9000, parent, false));
         } else if (viewType == 5) {//专题
             return new NewsHolder5(inflater.inflate(R.layout.item_news_type_report, parent, false));
+        } else if (viewType == -1) {// 收藏删除的
+            return new NewsHolderDelete(inflater.inflate(R.layout.item_news_collect_deleted, parent, false));
         }
 
         return new NewsHolderTemp(inflater.inflate(R.layout.item_news_type_temp, parent, false));
@@ -316,7 +319,17 @@ public class NewsListAdapter extends RecyclerView.Adapter {
                             .placeholder(R.drawable.iv_default_news_small))
                     .into(holder2.ivCover);
         }
+        if (holder instanceof NewsHolderDelete) {
+            ((NewsHolderDelete) holder).tvDelete.setOnClickListener(v -> {
+                list.remove(position);
+                notifyItemRemoved(position);
+                DeleteMyNewsPresenter deleteMyNewsPresenter = new DeleteMyNewsPresenter();
+                deleteMyNewsPresenter.detDleteMyNews(bean.getId(), Tools.getSpu(mActivity).getToken());
 
+            });
+            ((NewsHolderDelete) holder).tvName.setText(
+                    String.format("抱歉，您收藏的文章《%s…》已被删除", bean.getName().substring(0, 4)));
+        }
 
         if (holder instanceof NewsHolder3) {
             NewsHolder3 holder3 = ((NewsHolder3) holder);
@@ -492,6 +505,19 @@ public class NewsListAdapter extends RecyclerView.Adapter {
         TextView tvName;
 
         NewsHolder4(View view) {
+            super(view);
+            ButterKnife.bind(this, view);
+        }
+    }
+
+    class NewsHolderDelete extends RecyclerView.ViewHolder {
+
+        @BindView(R.id.tv_delete)
+        TextView tvDelete;
+        @BindView(R.id.tv_name)
+        TextView tvName;
+
+        NewsHolderDelete(View view) {
             super(view);
             ButterKnife.bind(this, view);
         }

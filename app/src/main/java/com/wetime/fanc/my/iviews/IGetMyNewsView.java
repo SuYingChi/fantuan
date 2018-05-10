@@ -2,6 +2,7 @@ package com.wetime.fanc.my.iviews;
 
 
 import com.wetime.fanc.main.ivews.IBaseVIew;
+import com.wetime.fanc.my.bean.MyCollectionListBean;
 import com.wetime.fanc.my.bean.MyNewsListBean;
 
 /**
@@ -9,7 +10,7 @@ import com.wetime.fanc.my.bean.MyNewsListBean;
  */
 
 public interface IGetMyNewsView extends IBaseVIew {
-    void onGetMyNews(MyNewsListBean bean);
+    void onGetMyNews(MyCollectionListBean bean);
 
     String getPage();
 

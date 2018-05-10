@@ -13,9 +13,12 @@ import com.wetime.fanc.R;
 import com.wetime.fanc.home.adapter.HomeItemAdapter;
 import com.wetime.fanc.home.bean.HomeItemBean;
 import com.wetime.fanc.main.frag.BaseLazyFragment;
+import com.wetime.fanc.my.bean.MyCollectionListBean;
 import com.wetime.fanc.my.bean.MyNewsListBean;
 import com.wetime.fanc.my.iviews.IGetMyNewsView;
 import com.wetime.fanc.my.presenter.GetMyNewsPresenter;
+import com.wetime.fanc.news.adapter.NewsListAdapter;
+import com.wetime.fanc.news.bean.NewsListItemBean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,8 +38,8 @@ public class MyCollectNewsLazyFragment extends BaseLazyFragment
 
     private int page = 1;
     private GetMyNewsPresenter getMyNewsPresenter;
-    private List<HomeItemBean> list;
-    private HomeItemAdapter adapter;
+    private List<NewsListItemBean> list;
+    private NewsListAdapter adapter;
 
     @Override
     protected int setLayoutId() {
@@ -59,7 +62,7 @@ public class MyCollectNewsLazyFragment extends BaseLazyFragment
     protected void initData() {
         rclCircle.setLayoutManager(new LinearLayoutManager(getContext()));
         list = new ArrayList<>();
-        adapter = new HomeItemAdapter(list, getActivity());
+        adapter = new NewsListAdapter(list, getActivity());
         rclCircle.setAdapter(adapter);
 
         getMyNewsPresenter = new GetMyNewsPresenter(this);
@@ -80,7 +83,7 @@ public class MyCollectNewsLazyFragment extends BaseLazyFragment
     }
 
     @Override
-    public void onGetMyNews(MyNewsListBean bean) {
+    public void onGetMyNews(MyCollectionListBean bean) {
         if (page == 1) {
             list.clear();
         }
@@ -89,7 +92,7 @@ public class MyCollectNewsLazyFragment extends BaseLazyFragment
         refreshLayout.finishRefresh();
         refreshLayout.finishLoadMore();
         refreshLayout.setEnableLoadMore(!bean.getData().getPaging().isIs_end());
-        if (bean.getData().getPaging().getTotal() != 0) {
+        if (bean.getData().getPaging().getTotal().equals("0")) {
             rlEmpty.setVisibility(View.GONE);
         } else {
             rlEmpty.setVisibility(View.VISIBLE);
