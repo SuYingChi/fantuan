@@ -28,6 +28,28 @@
             tl:tl_textsize="17sp"
             tl:tl_underline_color="#e5e5e5"
             tl:tl_underline_height="0.5dp" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/iv_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_marginBottom="0.5dp"
+                android:paddingLeft="18dp"
+                android:paddingRight="18dp"
+                android:src="@drawable/ic_add_circle" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_alignParentBottom="true"
+                android:background="#e5e5e5" />
+        </RelativeLayout>
+
     </RelativeLayout>
 
     <android.support.v4.view.ViewPager

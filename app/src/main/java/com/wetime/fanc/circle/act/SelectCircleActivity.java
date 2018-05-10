@@ -39,7 +39,7 @@ public class SelectCircleActivity extends BaseActivity implements OnLoadMoreList
 
     private int page = 1;
     private GetAllCirclePresenter getAllCirclePresenter;
-    private List<AllCircleListBean.DataBean.CircleListBean> list = new ArrayList<>();
+    private List<AllCircleListBean.DataBean.ListBean> list = new ArrayList<>();
     private AllCircleAdapter allCircleAdapter;
 
     @Override
@@ -94,7 +94,7 @@ public class SelectCircleActivity extends BaseActivity implements OnLoadMoreList
 
     @Override
     public void onGetAllCircle(AllCircleListBean bean) {
-        list.addAll(bean.getData().getCircle_list());
+        list.addAll(bean.getData().getList());
         allCircleAdapter.notifyDataSetChanged();
         refreshLayout.finishLoadMore();
         refreshLayout.setEnableLoadMore(!bean.getData().getPaging().isIs_end());

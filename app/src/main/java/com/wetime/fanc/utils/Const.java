@@ -60,7 +60,7 @@ public interface Const {
     String CIRCLE = BASEURL + "/circle";
     String DYNAMIC_PUBLISH_INITFORM = BASEURL + "/dynamic/publish/initform";
     String DYNAMIC_PUBLISH_SAVE = BASEURL + "/dynamic/publish/save";
-    String DYNAMIC_PUBLISH_LIST = BASEURL + "/dynamic/publish/list";
+
     String CIRCLE_INFO = BASEURL + "/circle/info";
     String CIRCLE_ATTRNTION = BASEURL + "/jv/qz/following";
     String DYNAMIC_LIST_CIRCLE = BASEURL + "/dynamic/list/circle";
@@ -130,4 +130,5 @@ public interface Const {
     String HOMEPAGE_ALL_CIRCLE =BASEURL+"/jv/qz/allcircles";
     String USER_SAVEUSERINFO =BASEURL+"/jv/user/saveuserinfo";
     String NEWSARTICLE_COLLECTS = BASEURL + "/jv/newsarticle/collects";
+    String QZ_ALL_CIRCLES = BASEURL + "/jv/qz/allcircles";
 }

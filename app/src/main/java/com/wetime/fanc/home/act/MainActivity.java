@@ -25,6 +25,7 @@ import com.wetime.fanc.home.event.ReFreshNewsEvent;
 import com.wetime.fanc.home.event.RefreshRedNumEvent;
 import com.wetime.fanc.home.event.SwichFragEvent;
 import com.wetime.fanc.home.frag.HomeMsgLazyFragmentV2;
+import com.wetime.fanc.home.frag.HomePageLazyFragmentV2;
 import com.wetime.fanc.home.iviews.IBindPushView;
 import com.wetime.fanc.home.iviews.IGetRedNumView;
 import com.wetime.fanc.home.presenter.BindPushPresenter;
@@ -86,7 +87,7 @@ public class MainActivity extends BaseActivity implements IBindPushView, IGetRed
     private int mOnId = R.drawable.bot_3_on;
     private int mOffId = R.drawable.bot_3_off;
     // private HomeFragment f0;
-    private HomeMsgLazyFragmentV2 f0;
+    private HomePageLazyFragmentV2 f0;
     private NewsLazyFragment f1;
     //    private SortActivity f1;
     private HomeMsgLazyFragmentV2 f2;
@@ -167,7 +168,7 @@ public class MainActivity extends BaseActivity implements IBindPushView, IGetRed
     private void initView() {
         // f0 = new HomeFragment();
 //        f1 = new SortActivity();
-        f0 = new HomeMsgLazyFragmentV2();
+        f0 = new HomePageLazyFragmentV2();
         f1 = new NewsLazyFragment();
         f2 = new HomeMsgLazyFragmentV2();
         f3 = new MyFragment();

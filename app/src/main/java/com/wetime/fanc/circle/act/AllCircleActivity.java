@@ -1,5 +1,6 @@
 package com.wetime.fanc.circle.act;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -39,8 +40,14 @@ public class AllCircleActivity extends BaseActivity implements OnLoadMoreListene
 
     private int page = 1;
     private GetAllCirclePresenter getAllCirclePresenter;
-    private List<AllCircleListBean.DataBean.CircleListBean> list = new ArrayList<>();
+    private List<AllCircleListBean.DataBean.ListBean> list = new ArrayList<>();
     private AllCircleAdapter allCircleAdapter;
+
+    public static void goAllCircleAct(Context context) {
+        Intent go = new Intent(context, AllCircleActivity.class);
+        context.startActivity(go);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,7 +98,7 @@ public class AllCircleActivity extends BaseActivity implements OnLoadMoreListene
 
     @Override
     public void onGetAllCircle(AllCircleListBean bean) {
-        list.addAll(bean.getData().getCircle_list());
+        list.addAll(bean.getData().getList());
         allCircleAdapter.notifyDataSetChanged();
         refreshLayout.finishLoadMore();
         refreshLayout.setEnableLoadMore(!bean.getData().getPaging().isIs_end());

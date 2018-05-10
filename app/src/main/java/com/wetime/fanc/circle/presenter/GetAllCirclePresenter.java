@@ -22,7 +22,8 @@ public class GetAllCirclePresenter {
     public void getDefaultCircle() {
         OkHttpUtils
                 .post()
-                .url(Const.DYNAMIC_PUBLISH_LIST)
+                .url(Const.QZ_ALL_CIRCLES)
+                .addHeader("token",iView.getToken())
                 .addParams("pn", iView.getPage() + "")
                 .build()
                 .execute(new DataStringCallback(iView, false) {
