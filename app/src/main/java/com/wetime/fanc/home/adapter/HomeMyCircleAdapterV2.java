@@ -28,7 +28,7 @@ import butterknife.ButterKnife;
  * Created by yuxun on 2017/4/15.
  */
 
-public class HomeMyCircleAdapter extends RecyclerView.Adapter {
+public class HomeMyCircleAdapterV2 extends RecyclerView.Adapter {
 
 
     private RequestOptions myOptions;
@@ -36,7 +36,7 @@ public class HomeMyCircleAdapter extends RecyclerView.Adapter {
     private Context mContext;
     private FocusCirclePresenter focusCirclePresenter;
 
-    public HomeMyCircleAdapter(HomeMyCircleBean data, Context mContext) {
+    public HomeMyCircleAdapterV2(HomeMyCircleBean data, Context mContext) {
         this.data = data;
         this.mContext = mContext;
         myOptions = new RequestOptions()

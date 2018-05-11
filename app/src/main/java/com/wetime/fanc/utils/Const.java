@@ -133,4 +133,5 @@ public interface Const {
     String NEWSARTICLE_COLLECTS = BASEURL + "/jv/newsarticle/collects";
     String QZ_ALL_CIRCLES = BASEURL + "/jv/qz/allcircles";
     String QZ_MYCIRCLES = BASEURL + "/jv/qz/mycircles";
+    String QZ_FOLLOWINGDYNAMICS = BASEURL + "/jv/qz/followingdynamics";
 }
