@@ -17,7 +17,6 @@ import android.widget.Toast;
 
 import com.gyf.barlibrary.ImmersionBar;
 import com.wetime.fanc.R;
-import com.wetime.fanc.circle.frag.CircleHomeFragment;
 import com.wetime.fanc.customview.CustomViewPager;
 import com.wetime.fanc.home.adapter.HomeFragmentPagerAdapter;
 import com.wetime.fanc.home.bean.RedNumBean;
@@ -25,7 +24,8 @@ import com.wetime.fanc.home.event.ReFreshCircleEvent;
 import com.wetime.fanc.home.event.ReFreshNewsEvent;
 import com.wetime.fanc.home.event.RefreshRedNumEvent;
 import com.wetime.fanc.home.event.SwichFragEvent;
-import com.wetime.fanc.home.frag.HomePageFragment;
+import com.wetime.fanc.home.frag.HomeMsgLazyFragmentV2;
+import com.wetime.fanc.home.frag.HomePageLazyFragmentV2;
 import com.wetime.fanc.home.iviews.IBindPushView;
 import com.wetime.fanc.home.iviews.IGetRedNumView;
 import com.wetime.fanc.home.presenter.BindPushPresenter;
@@ -87,10 +87,10 @@ public class MainActivity extends BaseActivity implements IBindPushView, IGetRed
     private int mOnId = R.drawable.bot_3_on;
     private int mOffId = R.drawable.bot_3_off;
     // private HomeFragment f0;
-    private HomePageFragment f0;
+    private HomePageLazyFragmentV2 f0;
     private NewsLazyFragment f1;
     //    private SortActivity f1;
-    private CircleHomeFragment f2;
+    private HomeMsgLazyFragmentV2 f2;
     private MyFragment f3;
     private GetRedNumPresenter getRedNumPresenter;
     private long exitTime = 0;
@@ -168,9 +168,9 @@ public class MainActivity extends BaseActivity implements IBindPushView, IGetRed
     private void initView() {
         // f0 = new HomeFragment();
 //        f1 = new SortActivity();
-        f0 = new HomePageFragment();
+        f0 = new HomePageLazyFragmentV2();
         f1 = new NewsLazyFragment();
-        f2 = new CircleHomeFragment();
+        f2 = new HomeMsgLazyFragmentV2();
         f3 = new MyFragment();
         list_fragment.add(f0);
         list_fragment.add(f1);
@@ -181,7 +181,7 @@ public class MainActivity extends BaseActivity implements IBindPushView, IGetRed
 
         vp.setCurrentItem(Integer.valueOf(spu.getValue("citem")));
         initBottom(Integer.valueOf(spu.getValue("citem")));
-//        vp.setOffscreenPageLimit(3);
+        vp.setOffscreenPageLimit(3);
 
         vp.setScanScroll(false);
         vp.setPageTransformer(true, null);

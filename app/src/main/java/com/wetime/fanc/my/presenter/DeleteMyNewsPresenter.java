@@ -1,9 +1,9 @@
 package com.wetime.fanc.my.presenter;
 
 
-import com.wetime.fanc.utils.Const;
 import com.fan.http.okhttp.OkHttpUtils;
 import com.fan.http.okhttp.callback.StringCallback;
+import com.wetime.fanc.utils.Const;
 
 import okhttp3.Call;
 
@@ -16,9 +16,10 @@ public class DeleteMyNewsPresenter {
     public void detDleteMyNews(String id, String token) {
         OkHttpUtils
                 .post()
-                .url(Const.NEWS_COLLECT_CANCEL)
+                .url(Const.COLLECT_NEWS)
                 .addParams("token", token)
                 .addParams("article_id", id)
+                .addParams("collect", "0")
                 .build()
                 .execute(new StringCallback() {
                     @Override

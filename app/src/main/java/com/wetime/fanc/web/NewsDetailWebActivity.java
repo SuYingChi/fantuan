@@ -137,6 +137,7 @@ public class NewsDetailWebActivity extends BaseActivity implements IGetRecommenD
         initView();
         hideTool();
         iniData();
+        Tools.toastInBottom(this, "H5无法滚动，H5正在改这个bug");
     }
 
     private ViewTreeObserver.OnGlobalLayoutListener getGlobalLayoutListener(final View decorView, final LinearLayout contentView) {

@@ -60,14 +60,14 @@ public interface Const {
     String CIRCLE = BASEURL + "/circle";
     String DYNAMIC_PUBLISH_INITFORM = BASEURL + "/dynamic/publish/initform";
     String DYNAMIC_PUBLISH_SAVE = BASEURL + "/dynamic/publish/save";
-    String DYNAMIC_PUBLISH_LIST = BASEURL + "/dynamic/publish/list";
+
     String CIRCLE_INFO = BASEURL + "/circle/info";
     String CIRCLE_ATTRNTION = BASEURL + "/jv/qz/following";
     String DYNAMIC_LIST_CIRCLE = BASEURL + "/dynamic/list/circle";
 //    String DYNAMIC_LIST = BASEURL + "/dynamic/list";
     String DYNAMIC_LIST = BASEURL + "/jv/qz/circleinfo";
-    String USER_COLLECT_LIST = BASEURL + "/user/collect/list";
-    String NEWS_COLLECT_CANCEL = BASEURL + "/news/collect/cancel";
+//    String USER_COLLECT_LIST = BASEURL + "/user/collect/list";
+//    String NEWS_COLLECT_CANCEL = BASEURL + "/news/collect/cancel";
     String USER_FOCUS_LIST = BASEURL + "/user/focus/list";
     String SOCIAL = BASEURL + "/social";
 //    String DYNAMIC_DETAIL = BASEURL + "/dynamic/detail";
@@ -130,4 +130,6 @@ public interface Const {
     String HOMEPAGE_ALL_CIRCLE =BASEURL+"/jv/qz/allcircles";
     String USER_SAVEUSERINFO =BASEURL+"/jv/user/saveuserinfo";
     String CLICK_NUMBER =BASEURL+"/jv/qz/dynamiclikes";
+    String NEWSARTICLE_COLLECTS = BASEURL + "/jv/newsarticle/collects";
+    String QZ_ALL_CIRCLES = BASEURL + "/jv/qz/allcircles";
 }

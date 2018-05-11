@@ -151,7 +151,7 @@ public class ActDetailAdapter extends RecyclerView.Adapter {
             }
 
             if (actDetailBean.getData().isIs_owner()){
-                
+
             }
 
             if (actDetailBean.getData().isHas_like()) {

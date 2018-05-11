@@ -132,7 +132,7 @@ dependencies {
     implementation 'com.alibaba:fastjson:1.2.46'
 
     implementation 'cn.bingoogolapple:bga-swipebacklayout:1.1.8@aar'
-    compile('cn.qqtheme.framework:WheelPicker:1.5.5') {
+    implementation('cn.qqtheme.framework:WheelPicker:1.5.5') {
         exclude group: 'com.android.support'
     }
 }

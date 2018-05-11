@@ -62,6 +62,7 @@
             android:paddingRight="15dp">
 
             <LinearLayout
+                android:id="@+id/ll_act"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
@@ -70,10 +71,10 @@
                     android:id="@+id/tv_actnum"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="0"
                     android:textColor="#333333"
                     android:textSize="18sp"
-                    android:textStyle="bold"
-                    tools:text="3556" />
+                    android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -84,6 +85,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/ll_focus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="25dp"
@@ -93,10 +95,10 @@
                     android:id="@+id/tv_focusnum"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="0"
                     android:textColor="#333333"
                     android:textSize="18sp"
-                    android:textStyle="bold"
-                    tools:text="3556" />
+                    android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -107,6 +109,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/ll_fans"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="25dp"
@@ -120,16 +123,17 @@
                         android:id="@+id/tv_fansnum"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:text="0"
                         android:textColor="#333333"
                         android:textSize="18sp"
-                        android:textStyle="bold"
-                        tools:text="3556" />
+                        android:textStyle="bold" />
 
                     <ImageView
                         android:id="@+id/iv_reddot"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/iv_reddot" />
+                        android:src="@drawable/iv_reddot"
+                        android:visibility="gone" />
                 </LinearLayout>
 
 
