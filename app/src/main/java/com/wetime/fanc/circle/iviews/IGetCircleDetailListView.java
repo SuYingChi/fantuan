@@ -2,6 +2,7 @@ package com.wetime.fanc.circle.iviews;
 
 
 import com.wetime.fanc.circle.bean.CircleDetailListBean;
+import com.wetime.fanc.circle.bean.CircleListBean;
 import com.wetime.fanc.main.ivews.IBaseVIew;
 
 /**
@@ -9,7 +10,7 @@ import com.wetime.fanc.main.ivews.IBaseVIew;
  */
 
 public interface IGetCircleDetailListView extends IBaseVIew {
-    void onGetCircleList(CircleDetailListBean bean);
+    void onGetCircleList(CircleListBean bean);
 
     int getPage();
 

@@ -10,7 +10,7 @@
         android:id="@+id/appbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
+        android:background="@color/transparence"
         app:elevation="0dp">
 
         <android.support.design.widget.CollapsingToolbarLayout
@@ -31,7 +31,6 @@
                 android:id="@+id/ll_headinfo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@mipmap/ic_launcher"
                 android:orientation="vertical"
                 android:paddingTop="50dp"
                 app:layout_scrollFlags="scroll">

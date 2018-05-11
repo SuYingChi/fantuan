@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -23,6 +24,7 @@ import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.wetime.fanc.R;
 import com.wetime.fanc.circle.adapter.ActDetailAdapter;
 import com.wetime.fanc.circle.bean.ActDetailBean;
+import com.wetime.fanc.circle.bean.ClickNumBean;
 import com.wetime.fanc.circle.iviews.ICommentActView;
 import com.wetime.fanc.circle.iviews.IDeleteActView;
 import com.wetime.fanc.circle.iviews.IDeleteCommentView;
@@ -34,6 +36,7 @@ import com.wetime.fanc.circle.presenter.ZanActPresenter;
 import com.wetime.fanc.login.act.LoginActivity;
 import com.wetime.fanc.main.act.BaseActivity;
 import com.wetime.fanc.main.model.BaseBean;
+import com.wetime.fanc.main.model.ErrorBean;
 import com.wetime.fanc.utils.DialogUtils;
 import com.wetime.fanc.utils.KeyboardChangeListener;
 import com.wetime.fanc.utils.Tools;
@@ -94,6 +97,7 @@ public class ActDetailActivity extends BaseActivity implements IGetActDetailView
         getActDetailPresenter.getActDetail(false);
         commentActPresenter = new CommentActPresenter(this);
         deleteCommentPresenter = new DeleteCommentPresenter(this);
+
     }
 
     //    @Override
@@ -125,13 +129,8 @@ public class ActDetailActivity extends BaseActivity implements IGetActDetailView
                 onBackPressed();
                 break;
             case R.id.tv_gocomment:
-                if (spu.getToken().equals("")) {
-                    Intent gologin = new Intent(this, LoginActivity.class);
-                    startActivity(gologin);
-                } else {
-                    toId = "";
-                    showKeyborad();
-                }
+
+                showComment();
                 break;
             case R.id.tv_zan:
                 if (spu.getToken().equals("")) {
@@ -210,6 +209,20 @@ public class ActDetailActivity extends BaseActivity implements IGetActDetailView
 
     }
 
+    public void showComment() {
+        if (spu.getToken().equals("")) {
+            Intent gologin = new Intent(this, LoginActivity.class);
+            startActivity(gologin);
+        } else {
+            toId = "";
+            showKeyborad();
+        }
+    }
+
+    public void clickLike(boolean b) {
+        getActDetailPresenter.getClickLike("0", b);
+    }
+
     @Override
     public void onGetActDetail(ActDetailBean bean, boolean isComment) {
         if (bean.getError() != 0) {
@@ -223,6 +236,7 @@ public class ActDetailActivity extends BaseActivity implements IGetActDetailView
             actbean = bean;
             actDetailAdapter = new ActDetailAdapter(this, actbean);
             rclCircle.setAdapter(actDetailAdapter);
+            getActDetailPresenter.getClickNub();
             actDetailAdapter.setOnItemClickLitener((view, position) -> {
                 if (TextUtils.isEmpty(spu.getToken())) {
                     Intent gologin = new Intent(this, LoginActivity.class);
@@ -296,6 +310,20 @@ public class ActDetailActivity extends BaseActivity implements IGetActDetailView
         if (isComment)
             rclCircle.scrollToPosition(2);
 
+    }
+
+    @Override
+    public void onGeClickNumber(ClickNumBean bean) {
+        if (bean.getError() != 0) {
+            Toast.makeText(mContext, bean.getMsg(), Toast.LENGTH_SHORT).show();
+            return;
+        }
+        actDetailAdapter.setLikeNumber(bean);
+    }
+
+    @Override
+    public void onGeClickLike(ErrorBean bean, boolean like) {
+        if (bean.getError() == 0) getActDetailPresenter.getClickNub();
     }
 
     @Override

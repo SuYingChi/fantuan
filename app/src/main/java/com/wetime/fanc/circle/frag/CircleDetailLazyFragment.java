@@ -8,7 +8,9 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.wetime.fanc.R;
+import com.wetime.fanc.circle.adapter.CircleListAdapter;
 import com.wetime.fanc.circle.bean.CircleDetailListBean;
+import com.wetime.fanc.circle.bean.CircleListBean;
 import com.wetime.fanc.circle.iviews.IGetCircleDetailListView;
 import com.wetime.fanc.circle.presenter.GetCircleDetailListPresenter;
 import com.wetime.fanc.home.adapter.HomeItemAdapter;
@@ -30,8 +32,8 @@ public class CircleDetailLazyFragment extends BaseLazyFragment implements IGetCi
     private int page = 1;
     private GetCircleDetailListPresenter getCircleDetailListPresenter;
 
-    private List<HomeItemBean> list = new ArrayList<>();
-    private HomeItemAdapter adapter;
+    private List<CircleListBean.DataBean.ListBean> list = new ArrayList<>();
+    private CircleListAdapter adapter;
 
     @Override
     protected int setLayoutId() {
@@ -41,7 +43,7 @@ public class CircleDetailLazyFragment extends BaseLazyFragment implements IGetCi
     @Override
     protected void initView() {
         rclCircle.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new HomeItemAdapter(list, getActivity(), true);
+        adapter = new CircleListAdapter(list, getActivity(), true);
         rclCircle.setAdapter(adapter);
         refreshLayout.setOnLoadMoreListener(this);
         refreshLayout.setOnRefreshListener(this);
@@ -59,7 +61,7 @@ public class CircleDetailLazyFragment extends BaseLazyFragment implements IGetCi
     }
 
     @Override
-    public void onGetCircleList(CircleDetailListBean bean) {
+    public void onGetCircleList(CircleListBean bean) {
         refreshLayout.setEnableLoadMore(!bean.getData().getPaging().isIs_end());
         if (page == 1) {
             list.clear();
@@ -69,6 +71,7 @@ public class CircleDetailLazyFragment extends BaseLazyFragment implements IGetCi
         refreshLayout.finishRefresh();
         refreshLayout.finishLoadMore();
     }
+
 
     @Override
     public int getPage() {
