@@ -1,6 +1,7 @@
 package com.wetime.fanc.home.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -14,6 +15,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.wetime.fanc.R;
 import com.wetime.fanc.circle.act.AllCircleActivity;
+import com.wetime.fanc.circle.act.CircleDetailActivity;
 import com.wetime.fanc.circle.presenter.FocusCirclePresenter;
 import com.wetime.fanc.home.bean.HomeMyCircleBean;
 import com.wetime.fanc.utils.GlideRoundTransform;
@@ -71,6 +73,7 @@ public class HomeMyCircleAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
 
+
         if (holder instanceof Title1ViewHolder) {
             if (data.getData().getList().size() == 0) {
                 ((Title1ViewHolder) holder).tvEmpty.setVisibility(View.VISIBLE);
@@ -86,6 +89,11 @@ public class HomeMyCircleAdapter extends RecyclerView.Adapter {
                     .into(((CircleType1ViewHolder) holder).ivCover);
             ((CircleType1ViewHolder) holder).tvName.setText(bean.getName());
             ((CircleType1ViewHolder) holder).tvTodaynum.setText(String.format("今日：%s", bean.getToday_num()));
+            ((CircleType1ViewHolder) holder).itemView.setOnClickListener(v -> {
+                Intent goCircle = new Intent(mContext, CircleDetailActivity.class);
+                goCircle.putExtra("id", bean.getId());
+                mContext.startActivity(goCircle);
+            });
         } else if (holder instanceof Title2ViewHolder) {
             ((Title2ViewHolder) holder).tvMore.setOnClickListener(v -> AllCircleActivity.goAllCircleAct(mContext));
         } else if (holder instanceof CircleType3ViewHolder) {
@@ -113,6 +121,11 @@ public class HomeMyCircleAdapter extends RecyclerView.Adapter {
 
 
             mHoler.tvFocusnum.setText(String.format("%d人关注", bean.getFollowing_num()));
+            ((CircleType3ViewHolder) holder).itemView.setOnClickListener(v -> {
+                Intent goCircle = new Intent(mContext, CircleDetailActivity.class);
+                goCircle.putExtra("id", bean.getId());
+                mContext.startActivity(goCircle);
+            });
 
         }
 

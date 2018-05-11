@@ -93,6 +93,13 @@ public class LongTextEditActivity extends BaseActivity implements LongTextAdapte
     private String mCircleID;
     private int max = 100;
 
+
+    public static void goLongTextEditAct(Context context,String id){
+        Intent goPublish = new Intent(context, LongTextEditActivity.class);
+        goPublish.putExtra("id",id);
+        context.startActivity(goPublish);
+
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

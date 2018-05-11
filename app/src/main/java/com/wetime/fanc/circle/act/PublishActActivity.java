@@ -1,5 +1,6 @@
 package com.wetime.fanc.circle.act;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -75,6 +76,12 @@ public class PublishActActivity extends BaseActivity implements IPostMultiFileVi
     private String mCircleID;
     private LocItemBean locBean = new LocItemBean();
     private List<LocalMedia> selectList = new ArrayList<>();
+    public static void goPublishActAct(Context context,String id){
+        Intent goPublish = new Intent(context, PublishActActivity.class);
+        goPublish.putExtra("id",id);
+        context.startActivity(goPublish);
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
