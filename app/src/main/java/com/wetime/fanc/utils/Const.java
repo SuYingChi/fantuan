@@ -132,4 +132,5 @@ public interface Const {
     String CLICK_NUMBER =BASEURL+"/jv/qz/dynamiclikes";
     String NEWSARTICLE_COLLECTS = BASEURL + "/jv/newsarticle/collects";
     String QZ_ALL_CIRCLES = BASEURL + "/jv/qz/allcircles";
+    String QZ_MYCIRCLES = BASEURL + "/jv/qz/mycircles";
 }

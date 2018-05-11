@@ -36,7 +36,7 @@ public class AllCircleAdapter extends RecyclerView.Adapter {
     private Context mContext;
     private RequestOptions myOptions;
     private FocusCirclePresenter focusCirclePresenter;
-    ;
+
 
 
     public AllCircleAdapter(Context context, List<AllCircleListBean.DataBean.ListBean> mData) {
