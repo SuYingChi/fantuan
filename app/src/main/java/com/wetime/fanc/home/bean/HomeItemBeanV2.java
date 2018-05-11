@@ -239,8 +239,8 @@ public class HomeItemBeanV2 {
 
         private String url;
         private String compress;
-        private String height;
-        private String width;
+        private int height;
+        private int width;
         private boolean longCover;
 
         public String getUrl() {
@@ -259,19 +259,19 @@ public class HomeItemBeanV2 {
             this.compress = compress;
         }
 
-        public String getHeight() {
+        public int getHeight() {
             return height;
         }
 
-        public void setHeight(String height) {
+        public void setHeight(int height) {
             this.height = height;
         }
 
-        public String getWidth() {
+        public int getWidth() {
             return width;
         }
 
-        public void setWidth(String width) {
+        public void setWidth(int width) {
             this.width = width;
         }
 

@@ -9,9 +9,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.wetime.fanc.R;
 import com.wetime.fanc.circle.presenter.FocusCirclePresenter;
 import com.wetime.fanc.home.bean.HomeItemBeanV2;
@@ -32,14 +34,13 @@ public class HomeFocusAdapterV2 extends RecyclerView.Adapter {
 
     private List<HomeItemBeanV2> list;
     private Context mContext;
-    private FocusCirclePresenter focusCirclePresenter;
 
     public HomeFocusAdapterV2(List<HomeItemBeanV2> list, Context mContext) {
         this.list = list;
         this.mContext = mContext;
     }
 
-//    tpye 10=无图 11=1图 14=四图 19=其他 18=长文
+//    tpye 10=无图 11=1图 14=四图 19=九宫格 18=长文
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -67,7 +68,14 @@ public class HomeFocusAdapterV2 extends RecyclerView.Adapter {
                 mHolder.llHeadCircle.setVisibility(View.VISIBLE);
                 mHolder.tvCirclename.setText(bean.getCircle_name());
             }
-            mHolder.tvContent.setText(bean.getContent());
+            if(!TextUtils.isEmpty(bean.getContent())){
+                mHolder.tvContent.setVisibility(View.VISIBLE);
+                mHolder.tvContent.setText(bean.getContent());
+            }else{
+                mHolder.tvContent.setVisibility(View.GONE);
+                mHolder.tvContent.setText(bean.getContent());
+            }
+
             if (TextUtils.isEmpty(bean.getLocation())) {
                 mHolder.tvLoc.setVisibility(View.GONE);
             } else {
@@ -82,13 +90,49 @@ public class HomeFocusAdapterV2 extends RecyclerView.Adapter {
             mHolder.tvZannum.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Tools.toastInBottom(mContext,"zan le ");
+                    Tools.toastInBottom(mContext, "zan le ");
                 }
             });
             if (bean.getComment_num().equals("0")) {
                 mHolder.tvCommentNum.setText("评论");
             } else {
                 mHolder.tvCommentNum.setText(bean.getComment_num());
+            }
+            int sw = Tools.getScreenW(mContext);
+            //图片 1图
+            if (bean.getCovers().size() == 0) {
+                mHolder.rlIv.setVisibility(View.GONE);
+            } else {
+                HomeItemBeanV2.CoversBean coversBean = bean.getCovers().get(0);
+                if (coversBean.isLongCover()) {
+                    mHolder.ivIsLong.setVisibility(View.VISIBLE);
+                } else {
+                    mHolder.ivIsLong.setVisibility(View.GONE);
+                    //宽大
+                    int w, h;
+                    if (coversBean.getWidth() >= coversBean.getHeight()) {
+                        Double rate = 360.0 / 750;
+                        w = (int) (sw * rate);
+                        Double rate2 = coversBean.getHeight() * 1.0 / coversBean.getWidth();
+                        h = (int) (w * rate2);
+                    } else {
+                        //高大
+                        Double rate = 360.0 / 750;
+                        h = (int) (sw * rate);
+                        Double rate2 = coversBean.getWidth() * 1.0 / coversBean.getHeight();
+                        w = (int) (h * rate2);
+                    }
+                    ViewGroup.LayoutParams params = mHolder.rlIv.getLayoutParams();
+                    params.width = w;
+                    params.height = h;
+                    mHolder.rlIv.setLayoutParams(params);
+
+                    Glide.with(mContext).load(coversBean.getCompress())
+                            .apply(new RequestOptions().override(w, h)
+                                    .centerCrop()
+                                    .placeholder(R.drawable.iv_default))
+                            .into(mHolder.ivCover);
+                }
             }
 
         }
@@ -135,6 +179,12 @@ public class HomeFocusAdapterV2 extends RecyclerView.Adapter {
         TextView tvLoc;
         @BindView(R.id.tv_commentnum)
         TextView tvCommentNum;
+        @BindView(R.id.iv_cover)
+        ImageView ivCover;
+        @BindView(R.id.iv_islong)
+        ImageView ivIsLong;
+        @BindView(R.id.rl_iv)
+        RelativeLayout rlIv;
 
 
         V10ViewHolder(View view) {

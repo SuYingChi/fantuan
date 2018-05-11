@@ -19,15 +19,31 @@
         android:ellipsize="end"
         android:lineSpacingExtra="6dp"
         android:maxLines="5"
+        android:paddingBottom="12dp"
         android:textColor="#333333"
         android:textSize="16sp"
         tools:text="“海口”一名最早出现于宋代，已有九百多年的历 史，意为南渡江入海口处的一块浦滩之地。海口 历史上隶属琼山县，名称沿革有宋代的海口浦， 元代的海口港，明代的海口都、海口所、海口所 城，清代的琼州口等明代的海口都、海口…全文" />
 
-    <ImageView
+    <RelativeLayout
+        android:id="@+id/rl_iv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:src="@drawable/iv_default" />
+        android:background="#eeeeee">
+
+        <ImageView
+            android:id="@+id/iv_cover"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="centerCrop" />
+
+        <ImageView
+            android:id="@+id/iv_islong"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/ic_long_image" />
+    </RelativeLayout>
 
     <include layout="@layout/item_home_act_bottom_v2" />
 </LinearLayout>

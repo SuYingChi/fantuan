@@ -5,6 +5,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.RelativeLayout;
 
+import com.fan.baselib.loadmore.AutoLoadMoreAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
@@ -37,6 +38,7 @@ public class HomeFocusLazyFragmentV2 extends BaseLazyFragment implements OnRefre
     private int page = 1;
     private HomeFocusAdapterV2 adapter;
     private List<HomeItemBeanV2> list = new ArrayList<>();
+    private AutoLoadMoreAdapter mAutoLoadMoreAdapter;
 
     @Override
     protected int setLayoutId() {
@@ -53,16 +55,31 @@ public class HomeFocusLazyFragmentV2 extends BaseLazyFragment implements OnRefre
     @Override
     protected void initData() {
         Tools.showEmptyLoading(rlContent);
-        adapter = new HomeFocusAdapterV2(list,getContext());
-        rclHome.setAdapter(adapter);
+        adapter = new HomeFocusAdapterV2(list, getContext());
 
         getHomeFocusV2Presenter = new GetHomeFocusV2Presenter(this);
         getHomeFocusV2Presenter.getHomeFocusList();
+        mAutoLoadMoreAdapter = new AutoLoadMoreAdapter(getContext(), adapter);
+        mAutoLoadMoreAdapter.setOnLoadListener(new AutoLoadMoreAdapter.OnLoadListener() {
+            @Override
+            public void onRetry() {
+
+            }
+
+            @Override
+            public void onLoadMore() {
+                page++;
+                getHomeFocusV2Presenter.getHomeFocusList();
+            }
+        });
+
+        rclHome.setAdapter(mAutoLoadMoreAdapter);
 
     }
 
     @Override
     public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+        page = 1;
         getHomeFocusV2Presenter.getHomeFocusList();
     }
 
@@ -70,11 +87,19 @@ public class HomeFocusLazyFragmentV2 extends BaseLazyFragment implements OnRefre
     public void onGetHomeFocus(HomeListBeanV2 bean) {
         Tools.hideEmptyLoading(rlContent);
         refreshLayout.finishRefresh();
-        if(page==1){
+        if (page == 1) {
             list.clear();
         }
         list.addAll(bean.getData().getList());
-        adapter.notifyDataSetChanged();
+        if (page > 1) {
+            mAutoLoadMoreAdapter.finishLoading();
+        }
+        if (bean.getData().getPaging().isIs_end()) {
+            mAutoLoadMoreAdapter.disable();
+        }else{
+            mAutoLoadMoreAdapter.enable();
+        }
+        mAutoLoadMoreAdapter.notifyDataSetChanged();
     }
 
     @Override
