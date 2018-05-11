@@ -3,6 +3,7 @@ package com.wetime.fanc.circle.presenter;
 
 import com.fan.http.okhttp.OkHttpUtils;
 import com.wetime.fanc.circle.bean.CircleDetailListBean;
+import com.wetime.fanc.circle.bean.CircleListBean;
 import com.wetime.fanc.circle.iviews.IGetCircleDetailListView;
 import com.wetime.fanc.utils.Const;
 import com.wetime.fanc.utils.DataStringCallback;
@@ -32,7 +33,7 @@ public class GetCircleDetailListPresenter {
                     @Override
                     public void onResponse(String s, int i) {
                         super.onResponse(s, i);
-                        CircleDetailListBean bean = GsonUtils.getGsonInstance().fromJson(s, CircleDetailListBean.class);
+                        CircleListBean bean = GsonUtils.getGsonInstance().fromJson(s, CircleListBean.class);
                         if (bean.getError() == 0)
                             iView.onGetCircleList(bean);
                     }

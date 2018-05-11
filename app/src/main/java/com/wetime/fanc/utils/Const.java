@@ -129,4 +129,5 @@ public interface Const {
     String LIKE_ATTENTION=BASEURL+"/jv/qz/like";
     String HOMEPAGE_ALL_CIRCLE =BASEURL+"/jv/qz/allcircles";
     String USER_SAVEUSERINFO =BASEURL+"/jv/user/saveuserinfo";
+    String CLICK_NUMBER =BASEURL+"/jv/qz/dynamiclikes";
 }

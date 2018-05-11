@@ -26,6 +26,7 @@ import com.wetime.fanc.R;
 import com.wetime.fanc.circle.act.ActDetailActivity;
 import com.wetime.fanc.circle.act.CircleDetailActivity;
 import com.wetime.fanc.circle.bean.ActDetailBean;
+import com.wetime.fanc.circle.bean.ClickNumBean;
 import com.wetime.fanc.circle.presenter.FocusPresenter;
 import com.wetime.fanc.customview.GridViewForScrollView;
 import com.wetime.fanc.login.act.LoginActivity;
@@ -45,10 +46,57 @@ public class ActDetailAdapter extends RecyclerView.Adapter {
     private ActDetailBean actDetailBean;
     private Activity mActivity;
     private OnItemClickLitener mOnItemClickLitener;
+    private RecyclerView.ViewHolder holder;
 
     public ActDetailAdapter(Activity mActivity, ActDetailBean actDetailBean) {
         this.mActivity = mActivity;
         this.actDetailBean = actDetailBean;
+    }
+
+    public void setLikeNumber(ClickNumBean likeNumber) {
+        if (holder != null) {
+            ViewHolder0 holder = (ViewHolder0) this.holder;
+            holder.zanciv1.setVisibility(View.VISIBLE);
+            holder.zanciv2.setVisibility(View.VISIBLE);
+            holder.zanciv3.setVisibility(View.VISIBLE);
+            holder.zanNumber.setVisibility(View.VISIBLE);
+            if (likeNumber.getData().getList() != null) {
+                switch (likeNumber.getData().getList().size()) {
+                    case 0:
+                        holder.zanciv1.setVisibility(View.GONE);
+                        holder.zanciv2.setVisibility(View.GONE);
+                        holder.zanciv3.setVisibility(View.GONE);
+                        holder.zanNumber.setVisibility(View.GONE);
+                        break;
+                    case 1:
+                        Glide.with(mActivity).load(likeNumber.getData().getList().get(0).getAvatar()).into(holder.zanciv1);
+                        holder.zanciv2.setVisibility(View.GONE);
+                        holder.zanciv3.setVisibility(View.GONE);
+                        break;
+                    case 2:
+                        Glide.with(mActivity).load(likeNumber.getData().getList().get(0).getAvatar()).into(holder.zanciv1);
+                        Glide.with(mActivity).load(likeNumber.getData().getList().get(1).getAvatar()).into(holder.zanciv2);
+                        holder.zanciv2.setVisibility(View.GONE);
+                        break;
+                    case 3:
+                        Glide.with(mActivity).load(likeNumber.getData().getList().get(0).getAvatar()).into(holder.zanciv1);
+                        Glide.with(mActivity).load(likeNumber.getData().getList().get(1).getAvatar()).into(holder.zanciv2);
+                        Glide.with(mActivity).load(likeNumber.getData().getList().get(2).getAvatar()).into(holder.zanciv3);
+                        break;
+                    default:
+                        Glide.with(mActivity).load(likeNumber.getData().getList().get(0).getAvatar()).into(holder.zanciv1);
+                        Glide.with(mActivity).load(likeNumber.getData().getList().get(1).getAvatar()).into(holder.zanciv2);
+                        Glide.with(mActivity).load(likeNumber.getData().getList().get(2).getAvatar()).into(holder.zanciv3);
+                        break;
+                }
+            } else {
+                holder.zanciv1.setVisibility(View.GONE);
+                holder.zanciv2.setVisibility(View.GONE);
+                holder.zanciv3.setVisibility(View.GONE);
+                holder.zanNumber.setVisibility(View.GONE);
+            }
+            holder.zanNumber.setText(likeNumber.getData().getList().size() + "人点了赞");
+        }
     }
 
     @Override
@@ -72,6 +120,7 @@ public class ActDetailAdapter extends RecyclerView.Adapter {
             });
         }
         if (holder instanceof ViewHolder0) {
+            this.holder = holder;
             Glide.with(mActivity).load(actDetailBean.getData().getAvatar()).into(((ViewHolder0) holder).ivHead);
             ((ViewHolder0) holder).tvName.setText(actDetailBean.getData().getUsername());
             ((ViewHolder0) holder).tvTime.setText(actDetailBean.getData().getTime());
@@ -100,6 +149,16 @@ public class ActDetailAdapter extends RecyclerView.Adapter {
                     ((ViewHolder0) holder).tvFocus.setVisibility(View.VISIBLE);
                 }
             }
+
+            if (actDetailBean.getData().isIs_owner()){
+                
+            }
+
+            if (actDetailBean.getData().isHas_like()) {
+                ((ViewHolder0) holder).ivZan.setImageResource(R.drawable.icon_zan_nor);
+            } else {
+                ((ViewHolder0) holder).ivZan.setImageResource(R.drawable.icon_zan_n);
+            }
             ((ViewHolder0) holder).tvFocus.setOnClickListener(v -> {
                 FocusPresenter focusPresenter = new FocusPresenter();
                 if (((ActDetailActivity) mActivity).getToken().isEmpty()) {
@@ -112,15 +171,6 @@ public class ActDetailAdapter extends RecyclerView.Adapter {
                 focusPresenter.focusUser(mActivity, Tools.getSpu(mActivity).getToken(),
                         actDetailBean.getData().isIs_follow() ? "1" : "0",
                         actDetailBean.getData().getUid());
-//                if (actDetailBean.getData().isIs_follow()) {
-//                    ((ViewHolder0) holder).tvFocus.setText("已关注");
-//                    ((ViewHolder0) holder).tvFocus.setTextColor(ContextCompat.getColor(mActivity, R.color.text_hint));
-//                    ((ViewHolder0) holder).tvFocus.setBackgroundResource(R.drawable.bg_btn_gray_circle);
-//                } else {
-//                    ((ViewHolder0) holder).tvFocus.setText("关注");
-//                    ((ViewHolder0) holder).tvFocus.setTextColor(ContextCompat.getColor(mActivity, R.color.white));
-//                    ((ViewHolder0) holder).tvFocus.setBackgroundResource(R.drawable.bg_btn_red_corner);
-//                }
 
                 if (actDetailBean.getData().isIs_follow()) {
                     ((ViewHolder0) holder).tvFocus.setVisibility(View.GONE);
@@ -147,21 +197,38 @@ public class ActDetailAdapter extends RecyclerView.Adapter {
                     ((ViewHolder0) holder).gv.setHorizontalSpacing(6);
                     ((ViewHolder0) holder).gv.setVerticalSpacing(6);
 //                    params.width = sw - Tools.dip2px(mActivity, 15 + 15);
+                    params.width = sw;
                 } else if (actDetailBean.getData().getType() == 14) {//四宫格
                     ((ViewHolder0) holder).gv.setNumColumns(2);
                     ((ViewHolder0) holder).gv.setHorizontalSpacing(6);
                     ((ViewHolder0) holder).gv.setVerticalSpacing(6);
                     int w = (sw - Tools.dip2px(mActivity, 15 + 15 + 6 + 6)) / 3;
-//                    params.width = w * 2 + Tools.dip2px(mActivity, 6);//设置当前控件布局的高度
+                    params.width = w * 2 + Tools.dip2px(mActivity, 6);//设置当前控件布局的高度
                 } else {//单图
 //                    params.width = sw - Tools.dip2px(mActivity, 6 + 6);
+                    params.width = sw;
                 }
-                params.width = sw;
+
                 ((ViewHolder0) holder).gv.setLayoutParams(params);
                 ((ViewHolder0) holder).gv.setAdapter(gvadapter);
-//            gvadapter.notifyDataSetChanged();
+                gvadapter.notifyDataSetChanged();
                 ((ViewHolder0) holder).gv.setOnItemClickListener((adapterView, view, i, l) -> Tools.goPicGallery(mActivity, actDetailBean.getData().getCover(), i));
             }
+
+
+            ((ViewHolder0) holder).ivZan.setOnClickListener(v -> {
+                if (actDetailBean.getData().isHas_like()) {
+                    ((ActDetailActivity) mActivity).clickLike(false);
+                    ((ViewHolder0) holder).ivZan.setImageResource(R.drawable.icon_zan_n);
+                } else {
+                    ((ActDetailActivity) mActivity).clickLike(true);
+                    ((ViewHolder0) holder).ivZan.setImageResource(R.drawable.icon_zan_nor);
+                }
+                actDetailBean.getData().setHas_like(!actDetailBean.getData().isHas_like());
+            });
+            ((ViewHolder0) holder).ivComment.setOnClickListener(v -> {
+                ((ActDetailActivity) mActivity).showComment();
+            });
             ((ViewHolder0) holder).tvCirclename.setOnClickListener(view -> {
                 Intent goCircle = new Intent(mActivity, CircleDetailActivity.class);
                 goCircle.putExtra("id", actDetailBean.getData().getCircle_id());
@@ -307,12 +374,20 @@ public class ActDetailAdapter extends RecyclerView.Adapter {
         ImageView ivOnwer;
         @BindView(R.id.zan_civ1)
         ImageView zanciv1;
+        @BindView(R.id.iv_zan)
+        ImageView ivZan;
+        @BindView(R.id.iv_comment)
+        ImageView ivComment;
         @BindView(R.id.zan_civ2)
         ImageView zanciv2;
         @BindView(R.id.zan_civ3)
         ImageView zanciv3;
         @BindView(R.id.tv_time)
         TextView tvTime;
+        @BindView(R.id.tv_owner)
+        TextView tvOwner;
+        @BindView(R.id.zan_number)
+        TextView zanNumber;
         @BindView(R.id.ll_head_circle)
         LinearLayout llHeadCircle;
         @BindView(R.id.tv_content)

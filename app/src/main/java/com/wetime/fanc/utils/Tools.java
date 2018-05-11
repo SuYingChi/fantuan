@@ -87,8 +87,11 @@ import static android.content.Context.INPUT_METHOD_SERVICE;
 
 public class Tools {
     public static final int REQUEST_IMAGE = 1004;
+    // 图片缩放比例(即模糊度)
+    private static final float BITMAP_SCALE = 0.4f;
     private static Toast toast;
     private static Dialog loadingDialog;
+    private static Dialog dialog;
     private int shareType = QQShare.SHARE_TO_QQ_TYPE_DEFAULT;
 
     public static SharePreferenceUtil getSpu(Context mContext) {
@@ -126,7 +129,6 @@ public class Tools {
             Log.e("zk", e.toString());
         }
     }
-
 
     public static void showWaitDialog(Context context, boolean cancelable) {
 
@@ -390,7 +392,6 @@ public class Tools {
         mContext.startActivity(go);
     }
 
-
     private static Bitmap compressImage(Bitmap image) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         image.compress(Bitmap.CompressFormat.JPEG, 70, baos);//质量压缩方法，这里100表示不压缩，把压缩后的数据存放到baos中
@@ -426,7 +427,6 @@ public class Tools {
 
         shareWx(mContext, thumb, url, type, title, des, 1);
     }
-
 
     public static void shareWx(Context mContext, Bitmap thumb, String url, int type, String title, String des, int size) {
 
@@ -691,9 +691,6 @@ public class Tools {
         return window;
     }
 
-    // 图片缩放比例(即模糊度)
-    private static final float BITMAP_SCALE = 0.4f;
-
     /**
      * @param context 上下文对象
      * @param image   需要模糊的图片
@@ -731,7 +728,6 @@ public class Tools {
 
         return outputBitmap;
     }
-
 
     public static Bitmap rsBlur(Context context, Bitmap source, int radius) {
 
@@ -778,7 +774,6 @@ public class Tools {
 
         return bitmap;
     }
-
 
     public static PopupWindow showPopWin(Context context, View ivEdit, String id, String name, String simpleName) {
 
@@ -892,11 +887,23 @@ public class Tools {
      * @param rl 需要遮盖的RelativeLayout
      */
     public static void showEmptyLoading(RelativeLayout rl) {
-        if(rl!=null) {
+        if (rl != null) {
             View view = LayoutInflater.from(
                     rl.getContext()).inflate(R.layout.item_empty_loading_top,
                     null, false);
             rl.addView(view);
+        }
+    }
+
+    public static void showEmptyLoading(Context context) {
+        dialog = new Dialog(context, R.style.Dialog_Fullscreen);
+        dialog.setContentView(R.layout.item_empty_loading_top);
+        dialog.show();
+    }
+
+    public static void hideEmptyLoading() {
+        if (dialog.isShowing()) {
+            dialog.dismiss();
         }
     }
 

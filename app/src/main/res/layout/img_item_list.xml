@@ -5,9 +5,9 @@
     android:gravity="center"
     android:orientation="vertical">
 
-    <com.shizhefei.view.largeimage.UpdateImageView
+    <ImageView
         android:id="@+id/img"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:scaleType="centerCrop" />
+        android:scaleType="fitXY" />
 </RelativeLayout>

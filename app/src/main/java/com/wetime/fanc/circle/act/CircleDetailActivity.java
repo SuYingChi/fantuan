@@ -37,14 +37,13 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.wetime.fanc.R;
-import com.wetime.fanc.circle.bean.CircleDetailListBean;
+import com.wetime.fanc.circle.adapter.CircleListAdapter;
 import com.wetime.fanc.circle.bean.CircleHeadBean;
+import com.wetime.fanc.circle.bean.CircleListBean;
 import com.wetime.fanc.circle.iviews.IGetCircleDetailListView;
 import com.wetime.fanc.circle.iviews.IGetCircleHeadView;
 import com.wetime.fanc.circle.presenter.GetCircleDetailListPresenter;
 import com.wetime.fanc.circle.presenter.GetCircleHeadPresenter;
-import com.wetime.fanc.home.adapter.HomeItemAdapter;
-import com.wetime.fanc.home.bean.HomeItemBean;
 import com.wetime.fanc.login.act.LoginActivity;
 import com.wetime.fanc.main.act.BaseActivity;
 import com.wetime.fanc.main.model.ErrorBean;
@@ -98,11 +97,11 @@ public class CircleDetailActivity extends BaseActivity implements IGetCircleHead
     private float rotationNub = 0f;
     private int page = 1;
     private GetCircleDetailListPresenter getCircleDetailListPresenter;
-    private List<HomeItemBean> list = new ArrayList<>();
+    private List<CircleListBean.DataBean.ListBean> list = new ArrayList<CircleListBean.DataBean.ListBean>();
 
     private GetCircleHeadPresenter getCircleHeadPresenter;
     private boolean issu = false;
-    private HomeItemAdapter adapter;
+    private CircleListAdapter adapter;
     private boolean isOnly = false;
     private boolean isOne = false;
     private int lastverticalOffset = 0;
@@ -115,11 +114,11 @@ public class CircleDetailActivity extends BaseActivity implements IGetCircleHead
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
         setContentView(R.layout.activity_circle_detail);
-
         ButterKnife.bind(this);
+
+        Tools.showEmptyLoading(this);
+
         initView();
         progess.setVisibility(View.GONE);
         getCircleHeadPresenter = new GetCircleHeadPresenter(this);
@@ -172,7 +171,7 @@ public class CircleDetailActivity extends BaseActivity implements IGetCircleHead
 
     private void initView() {
         rclCircle.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new HomeItemAdapter(list, this, true);
+        adapter = new CircleListAdapter(list, this, true);
         rclCircle.setAdapter(adapter);
         refreshLayout.setOnLoadMoreListener(this);
         refreshLayout.setOnRefreshListener(this);
@@ -229,8 +228,17 @@ public class CircleDetailActivity extends BaseActivity implements IGetCircleHead
         }
         return marginBottom;
     }
+
     @Override
     public void onGetCircleHead(CircleHeadBean bean) {
+
+        if (bean.getError() != 0) {
+            Tools.hideEmptyLoading();
+            this.finish();
+            return;
+        }
+
+
         int sw = Tools.getScreenW(this);
         int w = sw - Tools.dip2px(this, 15 + 15);
         Double rate = 194.0 / 345;
@@ -250,6 +258,7 @@ public class CircleDetailActivity extends BaseActivity implements IGetCircleHead
                     public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
                         Bitmap bitmap = Tools.blurBitmap(CircleDetailActivity.this, Tools.drawableToBitmap(resource), 20);
                         llHeadinfo.setBackground(new BitmapDrawable(CircleDetailActivity.this.getResources(), bitmap));
+
                     }
                 });
 
@@ -301,6 +310,7 @@ public class CircleDetailActivity extends BaseActivity implements IGetCircleHead
         }
 
         CollapsingToolbarLayout.setVisibility(View.VISIBLE);
+        Tools.hideEmptyLoading();
 
     }
 
@@ -336,7 +346,7 @@ public class CircleDetailActivity extends BaseActivity implements IGetCircleHead
     }
 
     @Override
-    public void onGetCircleList(CircleDetailListBean bean) {
+    public void onGetCircleList(CircleListBean bean) {
         refreshLayout.setEnableLoadMore(!bean.getData().getPaging().isIs_end());
         if (page == 1) {
             list.clear();

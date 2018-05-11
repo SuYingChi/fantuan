@@ -10,9 +10,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.shizhefei.view.largeimage.UpdateImageView;
+import com.bumptech.glide.request.RequestOptions;
 import com.wetime.fanc.R;
 import com.wetime.fanc.customview.LargeImageViewTarget;
 import com.wetime.fanc.home.bean.Cover;
@@ -33,11 +34,20 @@ public class NineImageGridListAdapter extends BaseAdapter {
         inflater = LayoutInflater.from(mContext);
     }
 
+    public static Bitmap convertViewToBitmap(View view, int size) {
+        view.measure(View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED),
+                View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
+        int width = size * 40;
+        view.layout(0, 0, width, view.getMeasuredHeight());  //根据字符串的长度显示view的宽度
+        view.buildDrawingCache();
+        Bitmap bitmap = view.getDrawingCache();
+        return bitmap;
+    }
+
     @Override
     public int getCount() {
         return mlist.size();
     }
-
 
     @Override
     public Object getItem(int position) {
@@ -49,16 +59,6 @@ public class NineImageGridListAdapter extends BaseAdapter {
     public long getItemId(int position) {
         // TODO Auto-generated method stub
         return position;
-    }
-
-    public static Bitmap convertViewToBitmap(View view, int size) {
-        view.measure(View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED),
-                View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
-        int width = size * 40;
-        view.layout(0, 0, width, view.getMeasuredHeight());  //根据字符串的长度显示view的宽度
-        view.buildDrawingCache();
-        Bitmap bitmap = view.getDrawingCache();
-        return bitmap;
     }
 
     @SuppressLint("CheckResult")
@@ -87,14 +87,23 @@ public class NineImageGridListAdapter extends BaseAdapter {
             layoutParams.width = sw / 3;
             holder.iv.setLayoutParams(layoutParams);
 
-            Glide.with(mContext).load(mlist.get(position).getUrl()).downloadOnly(new LargeImageViewTarget(holder.iv) {
-                @Override
-                public void onLoadStarted(Drawable placeholder) {
-                    super.onLoadStarted(placeholder);
-                    //设置加载中的占位图
-                    ((UpdateImageView) holder.iv).setImage(LayoutToDrawable(R.layout.img_item_pregess, w));
-                }
-            });
+            Glide.with(mContext)
+                    .load(mlist.get(position).getUrl())
+                    .apply(new RequestOptions()
+                            .override(sw / 3, h)
+                            .placeholder(LayoutToDrawable(R.layout.img_item_pregess, w))
+                            .centerCrop())
+                    .into(holder.iv);
+
+
+//            Glide.with(mContext).load(mlist.get(position).getUrl()).downloadOnly(new LargeImageViewTarget(holder.iv) {
+//                @Override
+//                public void onLoadStarted(Drawable placeholder) {
+//                    super.onLoadStarted(placeholder);
+//                    //设置加载中的占位图
+////                    ((UpdateImageView) holder.iv).setImage(LayoutToDrawable(R.layout.img_item_pregess, w));
+//                }
+//            });
 
 
         } else {
@@ -115,14 +124,22 @@ public class NineImageGridListAdapter extends BaseAdapter {
             layoutParams.width = sw;
             holder.iv.setLayoutParams(layoutParams);
 
-            Glide.with(mContext).load(mlist.get(position).getUrl()).downloadOnly(new LargeImageViewTarget(holder.iv) {
-                @Override
-                public void onLoadStarted(Drawable placeholder) {
-                    super.onLoadStarted(placeholder);
-                    //设置加载中的占位图
-                    ((UpdateImageView) holder.iv).setImage(LayoutToDrawable(R.layout.img_item_pregess, w));
-                }
-            });
+            Glide.with(mContext)
+                    .load(mlist.get(position).getUrl())
+                    .apply(new RequestOptions()
+                            .override(sw, h)
+                            .placeholder(LayoutToDrawable(R.layout.img_item_pregess, w))
+                            .centerCrop())
+                    .into(holder.iv);
+
+//            Glide.with(mContext).load(mlist.get(position).getUrl()).downloadOnly(new LargeImageViewTarget(holder.iv) {
+//                @Override
+//                public void onLoadStarted(Drawable placeholder) {
+//                    super.onLoadStarted(placeholder);
+//                    //设置加载中的占位图
+//                    ((UpdateImageView) holder.iv).setImage(LayoutToDrawable(R.layout.img_item_pregess, w));
+//                }
+//            });
 
         }
 
@@ -142,7 +159,7 @@ public class NineImageGridListAdapter extends BaseAdapter {
     }
 
     private class Holder {
-        private UpdateImageView iv;
+        private ImageView iv;
 
     }
 

@@ -1,13 +1,13 @@
 package com.wetime.fanc.circle.presenter;
 
 
+import com.fan.http.okhttp.OkHttpUtils;
 import com.wetime.fanc.circle.bean.CircleHeadBean;
 import com.wetime.fanc.circle.iviews.IGetCircleHeadView;
 import com.wetime.fanc.main.model.ErrorBean;
 import com.wetime.fanc.utils.Const;
 import com.wetime.fanc.utils.DataStringCallback;
 import com.wetime.fanc.utils.GsonUtils;
-import com.fan.http.okhttp.OkHttpUtils;
 
 /**
  * Created by zhoukang on 2017/5/19.
@@ -32,8 +32,7 @@ public class GetCircleHeadPresenter {
                     public void onResponse(String s, int i) {
                         super.onResponse(s, i);
                         CircleHeadBean bean = GsonUtils.getGsonInstance().fromJson(s, CircleHeadBean.class);
-                        if (bean.getError() == 0)
-                            iView.onGetCircleHead(bean);
+                        iView.onGetCircleHead(bean);
                     }
                 });
     }
@@ -51,8 +50,7 @@ public class GetCircleHeadPresenter {
                     public void onResponse(String s, int i) {
                         super.onResponse(s, i);
                         ErrorBean bean = GsonUtils.getGsonInstance().fromJson(s, ErrorBean.class);
-                        if (bean.getError() == 0)
-                            iView.onSetCircleAttention(bean);
+                        if (bean.getError() == 0) iView.onSetCircleAttention(bean);
                     }
                 });
     }
