@@ -3,6 +3,7 @@ package com.wetime.fanc.circle.adapter;
 import android.content.Context;
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +15,10 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.wetime.fanc.R;
 import com.wetime.fanc.circle.bean.AllCircleListBean;
+import com.wetime.fanc.circle.presenter.FocusCirclePresenter;
+import com.wetime.fanc.utils.AttentionCircleTool;
 import com.wetime.fanc.utils.GlideRoundTransform;
+import com.wetime.fanc.utils.Tools;
 
 import java.util.List;
 
@@ -31,6 +35,8 @@ public class AllCircleAdapter extends RecyclerView.Adapter {
     private List<AllCircleListBean.DataBean.ListBean> mData;
     private Context mContext;
     private RequestOptions myOptions;
+    private FocusCirclePresenter focusCirclePresenter;
+
 
 
     public AllCircleAdapter(Context context, List<AllCircleListBean.DataBean.ListBean> mData) {
@@ -38,6 +44,7 @@ public class AllCircleAdapter extends RecyclerView.Adapter {
         mContext = context;
         myOptions = new RequestOptions()
                 .transform(new GlideRoundTransform(mContext, 5));
+        focusCirclePresenter = new FocusCirclePresenter();
     }
 
     @Override
@@ -68,6 +75,9 @@ public class AllCircleAdapter extends RecyclerView.Adapter {
                 bean.setFollowed(true);
                 bean.setFollowing_num(bean.getFollowing_num() + 1);
                 notifyItemChanged(position);
+                if (mContext != null)
+                    focusCirclePresenter.focusCircle(mContext,
+                            Tools.getSpu(mContext).getToken(), "1", bean.getId());
             });
         }
 

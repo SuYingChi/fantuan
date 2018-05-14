@@ -40,7 +40,7 @@ public class GetCircleHeadPresenter {
     public void setCircleAttention(String id, String follow) {
         OkHttpUtils
                 .post()
-                .url(Const.CIRCLE_ATTRNTION)
+                .url(Const.ATTENTION_CIRLCLE)
                 .addHeader("token", iView.getToken())
                 .addParams("id", id)
                 .addParams("follow", follow)
