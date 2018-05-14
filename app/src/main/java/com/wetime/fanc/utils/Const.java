@@ -136,4 +136,5 @@ public interface Const {
     String QZ_MYCIRCLES = BASEURL + "/jv/qz/mycircles";
     String QZ_FOLLOWINGDYNAMICS = BASEURL + "/jv/qz/followingdynamics";
     String DYNAMIC_LIKE = BASEURL + "/jv/qz/like";
+    String QZ_DYNAMICS = BASEURL + "/jv/qz/dynamics";
 }
