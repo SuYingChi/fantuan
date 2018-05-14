@@ -17,24 +17,26 @@
         tools:text="海口世贸北路一号海岸海口海海" />
 
     <LinearLayout
-        android:paddingTop="14dp"
-        android:paddingBottom="17dp"
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-
+<!-- pad mar 写到下面 增加点击区域-->
         <TextView
             android:id="@+id/tv_zannum"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/ic_zan_v2"
             android:drawablePadding="10dp"
-
+            android:paddingTop="14dp"
+            android:paddingBottom="17dp"
             android:text="点赞"
             android:textColor="#666666"
             android:textSize="12sp" />
 
         <TextView
+            android:paddingTop="14dp"
+            android:paddingBottom="17dp"
             android:id="@+id/tv_commentnum"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

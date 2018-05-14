@@ -17,9 +17,10 @@ public class ZanActPresenter {
         OkHttpUtils
                 .post()
                 .url(Const.DYNAMIC_LIKE)
-                .addParams("token", token)
+                .addHeader("token", token)
                 .addParams("like", like)
-                .addParams("dy_id", id)
+                .addParams("id", id)
+                .addParams("type", "0")
                 .build()
                 .execute(new StringCallback() {
                     @Override

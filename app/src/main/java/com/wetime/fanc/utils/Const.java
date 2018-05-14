@@ -78,7 +78,7 @@ public interface Const {
     String DYNAMIC_COMMENT_DELETE = BASEURL + "/jv/qz/deleterecord";
     String REPORT = BASEURL + "/jv/qz/report";
     String DYNAMIC_DELETE = BASEURL + "/dynamic/delete";
-    String DYNAMIC_LIKE = BASEURL + "/dynamic/like";
+
     String USER_NOTICE_UNREAD = BASEURL + "/user/notice/unread";
     String MSG_URL = BASEURL + "/index.html#/user/message";
     String DYNAMIC_ADDRESS = BASEURL + "/dynamic/address";
@@ -135,4 +135,5 @@ public interface Const {
     String GET_REPLY = BASEURL + "/jv/qz/replays";
     String QZ_MYCIRCLES = BASEURL + "/jv/qz/mycircles";
     String QZ_FOLLOWINGDYNAMICS = BASEURL + "/jv/qz/followingdynamics";
+    String DYNAMIC_LIKE = BASEURL + "/jv/qz/like";
 }

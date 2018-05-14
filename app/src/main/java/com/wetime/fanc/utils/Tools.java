@@ -917,4 +917,16 @@ public class Tools {
                 rl.removeView(view);
         }
     }
+
+    public static String getZanStr(int num) {
+        if (num == 0) {
+            return "点赞";
+        } else if (num > 0 && num < 999) {
+            return num + "";
+        } else {
+            return "999+";
+        }
+
+
+    }
 }
