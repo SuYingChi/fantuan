@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Handler;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -95,7 +96,7 @@ public class ActDetailAdapter extends RecyclerView.Adapter {
                 holder.zanciv3.setVisibility(View.GONE);
                 holder.zanNumber.setVisibility(View.GONE);
             }
-            holder.zanNumber.setText(likeNumber.getData().getList().size() + "人点了赞");
+            holder.zanNumber.setText("等" + likeNumber.getData().getList().size() + "人点了赞");
         }
     }
 
@@ -150,7 +151,7 @@ public class ActDetailAdapter extends RecyclerView.Adapter {
                 }
             }
 
-            if (actDetailBean.getData().isIs_owner()){
+            if (actDetailBean.getData().isIs_owner()) {
 
             }
 
@@ -335,6 +336,9 @@ public class ActDetailAdapter extends RecyclerView.Adapter {
                     ((ActDetailActivity) mActivity).showKeyborad();
                 }, 500);
             });
+
+            ((ViewHolder2) holder).commentreply.setLayoutManager(new LinearLayoutManager(mActivity));
+//            ((ViewHolder2) holder).commentreply.setAdapter(new CommentReplyAdapter(mActivity, R.layout.item_commen_reply, bean.getReplys().getList()));
         }
 
     }

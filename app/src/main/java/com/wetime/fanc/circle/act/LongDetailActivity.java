@@ -25,6 +25,7 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -45,18 +46,21 @@ import com.tencent.tauth.UiError;
 import com.wetime.fanc.R;
 import com.wetime.fanc.circle.adapter.LongDetailAdapter;
 import com.wetime.fanc.circle.bean.ActDetailBean;
+import com.wetime.fanc.circle.bean.ClickNumBean;
 import com.wetime.fanc.circle.bean.LongBean;
+import com.wetime.fanc.circle.bean.ReplyCommBean;
 import com.wetime.fanc.circle.iviews.ICommentActView;
 import com.wetime.fanc.circle.iviews.IDeleteActView;
 import com.wetime.fanc.circle.iviews.IDeleteCommentView;
 import com.wetime.fanc.circle.iviews.IGetLongDetailView;
 import com.wetime.fanc.circle.presenter.CommentActPresenter;
 import com.wetime.fanc.circle.presenter.DeleteCommentPresenter;
+import com.wetime.fanc.circle.presenter.FocusPresenter;
 import com.wetime.fanc.circle.presenter.GetLongDetailPresenter;
-import com.wetime.fanc.circle.presenter.ZanActPresenter;
 import com.wetime.fanc.login.act.LoginActivity;
 import com.wetime.fanc.main.act.BaseActivity;
 import com.wetime.fanc.main.model.BaseBean;
+import com.wetime.fanc.main.model.ErrorBean;
 import com.wetime.fanc.utils.DialogUtils;
 import com.wetime.fanc.utils.KeyboardChangeListener;
 import com.wetime.fanc.utils.Tools;
@@ -64,6 +68,7 @@ import com.wetime.fanc.utils.Tools;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import de.hdodenhof.circleimageview.CircleImageView;
 import me.shaohui.bottomdialog.BottomDialog;
 
 public class LongDetailActivity extends BaseActivity implements OnLoadMoreListener, KeyboardChangeListener.KeyBoardListener, ICommentActView, IDeleteCommentView, IDeleteActView, IGetLongDetailView, View.OnClickListener, WbShareCallback {
@@ -80,18 +85,22 @@ public class LongDetailActivity extends BaseActivity implements OnLoadMoreListen
     SmartRefreshLayout refreshLayout;
     @BindView(R.id.iv_back)
     ImageView ivBack;
-    @BindView(R.id.tv_gocomment)
-    TextView tvGocomment;
-    @BindView(R.id.tv_zan)
-    TextView tvZan;
-    @BindView(R.id.tv_message)
-    TextView tvMessage;
     @BindView(R.id.tv_send)
     TextView tvSend;
     @BindView(R.id.rl_bottom)
     RelativeLayout rlBottom;
     @BindView(R.id.iv_memu)
     ImageView ivMemu;
+    @BindView(R.id.friend_base_head)
+    CircleImageView friendBaseHead;
+    @BindView(R.id.friend_base_title)
+    TextView friendBaseTitle;
+    @BindView(R.id.friend_base_linear)
+    LinearLayout friendBaseLinear;
+    @BindView(R.id.tv_focus)
+    ImageView tvFocus;
+    @BindView(R.id.friend_image_linear)
+    LinearLayout friendImageLinear;
     private GetLongDetailPresenter getActDetailPresenter;
     private int page = 1;
     private LongDetailAdapter actDetailAdapter;
@@ -107,6 +116,7 @@ public class LongDetailActivity extends BaseActivity implements OnLoadMoreListen
     private String titleUrl;
     private WbShareHandler shareHandler;
     private boolean isComm = false;
+    private int pn = 1;
 
     public static void startToLongDetail(Context context, String longId) {
         Intent intent = new Intent(context, LongDetailActivity.class);
@@ -132,6 +142,52 @@ public class LongDetailActivity extends BaseActivity implements OnLoadMoreListen
         getActDetailPresenter.getLongDetail();
         commentActPresenter = new CommentActPresenter(this);
         deleteCommentPresenter = new DeleteCommentPresenter(this);
+        rclCircle.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                int scollYDistance = getScollYDistance();
+                if (scollYDistance >= 250) {
+                    friendBaseHead.setVisibility(View.VISIBLE);
+                    friendBaseTitle.setVisibility(View.VISIBLE);
+                    friendBaseLinear.setVisibility(View.VISIBLE);
+                    if (actbean.getData().isIs_follow()) {
+                    } else {
+                        if (actbean.getData().isIs_owner()) {
+                        } else {
+                            tvFocus.setVisibility(View.VISIBLE);
+                        }
+                    }
+                    friendImageLinear.setVisibility(View.VISIBLE);
+                    tvTitle.setVisibility(View.GONE);
+                } else {
+                    friendBaseHead.setVisibility(View.GONE);
+                    friendBaseTitle.setVisibility(View.GONE);
+                    friendBaseLinear.setVisibility(View.GONE);
+                    tvFocus.setVisibility(View.GONE);
+                    friendImageLinear.setVisibility(View.GONE);
+                    tvTitle.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+    }
+
+    public synchronized void getCommReply(String commentId, int position) {
+        pn++;
+        getActDetailPresenter.getCommReply(commentId, String.valueOf(pn), "10", position);
+    }
+
+    public int getScollYDistance() {
+        LinearLayoutManager layoutManager = (LinearLayoutManager) rclCircle.getLayoutManager();
+        int position = layoutManager.findFirstVisibleItemPosition();
+        View firstVisiableChildView = layoutManager.findViewByPosition(position);
+        int itemHeight = firstVisiableChildView.getHeight();
+        if (position > 0) {
+            return (position) * itemHeight - firstVisiableChildView.getTop() + 250;
+        } else {
+            return (position) * itemHeight - firstVisiableChildView.getTop();
+        }
+
     }
 
     @Override
@@ -152,63 +208,23 @@ public class LongDetailActivity extends BaseActivity implements OnLoadMoreListen
         super.onBackPressed();
     }
 
-    @OnClick({R.id.iv_back, R.id.tv_gocomment, R.id.tv_zan, R.id.tv_message, R.id.rl_bottom, R.id.tv_send, R.id.iv_memu, R.id.gallery_share})
+    public void showComment() {
+        if (spu.getToken().equals("")) {
+            Intent gologin = new Intent(this, LoginActivity.class);
+            startActivity(gologin);
+        } else {
+            toId = "";
+            showKeyborad();
+        }
+    }
+
+    @OnClick({R.id.iv_back, R.id.rl_bottom,R.id.rl_linear_bottom, R.id.tv_send, R.id.iv_memu, R.id.tv_focus})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
                 onBackPressed();
                 break;
-            case R.id.tv_gocomment:
-                if (spu.getToken().equals("")) {
-                    Intent gologin = new Intent(this, LoginActivity.class);
-                    startActivity(gologin);
-                } else {
-                    showKeyborad();
-                }
-                break;
-            case R.id.tv_zan:
-                if (spu.getToken().equals("")) {
-                    Intent gologin = new Intent(this, LoginActivity.class);
-                    startActivity(gologin);
-                } else {
-                    ZanActPresenter presenter = new ZanActPresenter();
-                    if (actbean.getData().isHas_like()) {
-                        Drawable drawable = getResources().getDrawable(R.drawable.ic_homeitem_zan_off_off);
-                        drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getMinimumHeight());
-                        tvZan.setCompoundDrawables(drawable, null, null, null);
-                        presenter.zanAct(actbean.getData().getCurrent_uid(), Tools.getSpu(mContext).getToken(), "0");
 
-                        int num = Integer.valueOf(tvZan.getText().toString()) - 1;
-                        tvZan.setText(String.format("%d", num));
-                        actbean.getData().setLike_num(String.format("%d", num));
-                        for (int i = 0; i < actbean.getData().getLike_list().size(); i++) {
-                            if (TextUtils.equals(actbean.getData().getLike_list().get(i).getUid(), actbean.getData().getCurrent_uid())) {
-                                actbean.getData().getLike_list().remove(i);
-                            }
-
-                        }
-                        actDetailAdapter.notifyItemChanged(1);
-                        actbean.getData().setHas_like(false);
-                    } else {
-                        Drawable drawable = getResources().getDrawable(R.drawable.ic_homeitem_zan_off_on);
-                        drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getMinimumHeight());
-                        tvZan.setCompoundDrawables(drawable, null, null, null);
-                        presenter.zanAct(actbean.getData().getId(), Tools.getSpu(mContext).getToken(), "1");
-
-                        int num = Integer.valueOf(tvZan.getText().toString()) + 1;
-                        tvZan.setText(String.format("%d", num));
-                        actbean.getData().setLike_num(String.format("%d", num));
-                        actDetailAdapter.notifyItemChanged(1);
-                        ActDetailBean.DataBean.LikeListBean b = new ActDetailBean.DataBean.LikeListBean();
-                        b.setAvatar(actbean.getData().getCurrent_avatar());
-                        b.setUid(actbean.getData().getCurrent_uid());
-                        actbean.getData().getLike_list().add(0, b);
-                        actDetailAdapter.notifyItemChanged(1);
-                        actbean.getData().setHas_like(true);
-                    }
-
-                }
-                break;
             case R.id.tv_send:
                 if (!TextUtils.isEmpty(spu.getToken())) {
                     if (TextUtils.isEmpty(etContent.getText().toString())) {
@@ -225,6 +241,31 @@ public class LongDetailActivity extends BaseActivity implements OnLoadMoreListen
             case R.id.rl_bottom:
                 hideKeyboard();
                 break;
+            case R.id.rl_linear_bottom:
+                showKeyborad();
+                break;
+            case R.id.tv_focus:
+                FocusPresenter focusPresenter = new FocusPresenter();
+                if (this.getToken().isEmpty()) {
+                    Tools.toastInBottom(this, "请先登录");
+                    Intent goLogin = new Intent(this, LoginActivity.class);
+                    this.startActivity(goLogin);
+                    return;
+                }
+                actbean.getData().setIs_follow(!actbean.getData().isIs_follow());
+                focusPresenter.focusUser(this, Tools.getSpu(this).getToken(),
+                        actbean.getData().isIs_follow() ? "1" : "0",
+                        actbean.getData().getUid());
+                if (actbean.getData().isIs_follow()) {
+                    tvFocus.setVisibility(View.GONE);
+                } else {
+                    if (actbean.getData().isIs_owner()) {
+                        tvFocus.setVisibility(View.GONE);
+                    } else {
+                        tvFocus.setVisibility(View.VISIBLE);
+                    }
+                }
+                break;
             case R.id.iv_memu:
                 if (!TextUtils.isEmpty(spu.getToken())) {
                     if (actbean.getData() == null) return;
@@ -238,13 +279,6 @@ public class LongDetailActivity extends BaseActivity implements OnLoadMoreListen
                     Intent goLogin = new Intent(this, LoginActivity.class);
                     startActivity(goLogin);
                 }
-
-                break;
-            case R.id.gallery_share:
-                showPop();
-                break;
-            case R.id.tv_message:
-                rclCircle.scrollToPosition(actDetailAdapter.getItemCount() - 1);
                 break;
 
         }
@@ -256,6 +290,17 @@ public class LongDetailActivity extends BaseActivity implements OnLoadMoreListen
         if (bean.getError() != 0) {
             onBackPressed();
             return;
+        }
+        Glide.with(this).load(bean.getData().getAvatar()).into(friendBaseHead);
+        friendBaseTitle.setText(bean.getData().getUsername());
+        if (bean.getData().isIs_follow()) {
+            tvFocus.setVisibility(View.GONE);
+        } else {
+            if (bean.getData().isIs_owner()) {
+                tvFocus.setVisibility(View.GONE);
+            } else {
+                tvFocus.setVisibility(View.VISIBLE);
+            }
         }
 
         if (page == 1) {
@@ -274,6 +319,7 @@ public class LongDetailActivity extends BaseActivity implements OnLoadMoreListen
             actbean = bean;
             actDetailAdapter = new LongDetailAdapter(this, actbean);
             rclCircle.setAdapter(actDetailAdapter);
+            getActDetailPresenter.getClickNub();
             actDetailAdapter.setOnItemClickLitener((view, position) -> {
 
                 if (view.getId() == R.id.iv_delete) {
@@ -308,9 +354,6 @@ public class LongDetailActivity extends BaseActivity implements OnLoadMoreListen
                                 actDetailAdapter.notifyItemRangeChanged(2,
                                         actbean.getData().getComment_list().size());
                             });
-//
-//                                actDetailAdapter.notifyDataSetChanged();
-
 
                         });
                         v.findViewById(R.id.tv_cancel).setOnClickListener(v14 -> {
@@ -329,18 +372,6 @@ public class LongDetailActivity extends BaseActivity implements OnLoadMoreListen
 
 
             });
-
-            tvZan.setText(bean.getData().getLike_num());
-            tvMessage.setText(bean.getData().getComment_num());
-            if (actbean.getData().isHas_like()) {
-                Drawable drawable = getResources().getDrawable(R.drawable.ic_homeitem_zan_off_on);
-                drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getMinimumHeight());
-                tvZan.setCompoundDrawables(drawable, null, null, null);
-            } else {
-                Drawable drawable = getResources().getDrawable(R.drawable.ic_homeitem_zan_off_off);
-                drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getMinimumHeight());
-                tvZan.setCompoundDrawables(drawable, null, null, null);
-            }
 
         } else {
             actbean.getData().getComment_list().addAll(bean.getData().getComment_list());
@@ -361,6 +392,33 @@ public class LongDetailActivity extends BaseActivity implements OnLoadMoreListen
         }
 
 
+    }
+
+    public void clickLike(boolean b) {
+        getActDetailPresenter.getClickLike("0", b);
+    }
+
+    @Override
+    public void onGeClickNumber(ClickNumBean bean) {
+        if (bean.getError() != 0) {
+            Toast.makeText(mContext, bean.getMsg(), Toast.LENGTH_SHORT).show();
+            return;
+        }
+        actDetailAdapter.setLikeNumber(bean);
+    }
+
+    @Override
+    public void onGeClickLike(ErrorBean bean, boolean like) {
+        if (bean.getError() == 0) getActDetailPresenter.getClickNub();
+    }
+
+    @Override
+    public void onGetReply(ReplyCommBean bean, int position) {
+        if (bean.getError() != 0) {
+            Toast.makeText(mContext, bean.getMsg(), Toast.LENGTH_SHORT).show();
+            return;
+        }
+        actDetailAdapter.setRecAdapter(bean, position);
     }
 
     @Override
@@ -545,7 +603,7 @@ public class LongDetailActivity extends BaseActivity implements OnLoadMoreListen
         shareView.findViewById(R.id.pop_cancel).setOnClickListener(this);
     }
 
-    private void showPop() {
+    public void showPop() {
         View shareView = LayoutInflater.from(this).inflate(R.layout.view_popupwindow, null);
 
         initPopListener(shareView);

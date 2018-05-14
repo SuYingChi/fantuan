@@ -19,7 +19,7 @@ public interface Const {
     String LOGIN_WX = BASEURL + "/login/wexin";
     String WEIXIN_BIND = BASEURL + "/user/weixin/bind";
     String LOGOUT = BASEURL + "/logout";
-//    String USER_PROFILE_UPDATEAVATAR = BASEURL + "/user/profile/updateavatar";
+    //    String USER_PROFILE_UPDATEAVATAR = BASEURL + "/user/profile/updateavatar";
 //    String USER_PROFILE_UPDATENAME = BASEURL + "/user/profile/updatename";
     String USER_PROFILE_SETTING = BASEURL + "/user/profile/setting";
     String MALL = BASEURL + "/mall";
@@ -62,19 +62,19 @@ public interface Const {
     String DYNAMIC_PUBLISH_SAVE = BASEURL + "/dynamic/publish/save";
 
     String CIRCLE_INFO = BASEURL + "/circle/info";
-
+    String CIRCLE_ATTRNTION = BASEURL + "/jv/qz/following";
     String DYNAMIC_LIST_CIRCLE = BASEURL + "/dynamic/list/circle";
-//    String DYNAMIC_LIST = BASEURL + "/dynamic/list";
+    //    String DYNAMIC_LIST = BASEURL + "/dynamic/list";
     String DYNAMIC_LIST = BASEURL + "/jv/qz/circleinfo";
-//    String USER_COLLECT_LIST = BASEURL + "/user/collect/list";
+    //    String USER_COLLECT_LIST = BASEURL + "/user/collect/list";
 //    String NEWS_COLLECT_CANCEL = BASEURL + "/news/collect/cancel";
     String USER_FOCUS_LIST = BASEURL + "/user/focus/list";
     String SOCIAL = BASEURL + "/social";
-//    String DYNAMIC_DETAIL = BASEURL + "/dynamic/detail";
+    //    String DYNAMIC_DETAIL = BASEURL + "/dynamic/detail";
     String DYNAMIC_DETAIL = BASEURL + "/jv/qz/dynamic";
     String LONG_DETAIL = BASEURL + "/jv/anonymous/qz/dynamicarticle";
     String DYNAMIC_COMMENT = BASEURL + "/dynamic/comment";
-//    String DYNAMIC_COMMENT_DELETE = BASEURL + "/dynamic/comment/delete";
+    //    String DYNAMIC_COMMENT_DELETE = BASEURL + "/dynamic/comment/delete";
     String DYNAMIC_COMMENT_DELETE = BASEURL + "/jv/qz/deleterecord";
     String REPORT = BASEURL + "/jv/qz/report";
     String DYNAMIC_DELETE = BASEURL + "/dynamic/delete";
@@ -99,17 +99,17 @@ public interface Const {
     String ATTENTION_FRIENDS = BASEURL + "/user/follow";
     String SEND_COMMONET = BASEURL + "/news/comment/issue";
     String COLLECT_NEWS = BASEURL + "/news/collect";
-//    String GRT_ALL_COMMENT = BASEURL + "/news/detail/comment";
+    //    String GRT_ALL_COMMENT = BASEURL + "/news/detail/comment";
     String GRT_ALL_COMMENT = BASEURL + "/jv/newsarticle/comment";
-//    String CLICK_LIKE = BASEURL + "/news/comment/like";
+    //    String CLICK_LIKE = BASEURL + "/news/comment/like";
     String ARTICLE_LIKE = BASEURL + "/jv/newsarticle/like";
 //    String REPLY_CLICK_LIKE = BASEURL + "/news/reply/like";
 
 
-//    String GET_COMMENT_REPLY = BASEURL + "/news/comment";
+    //    String GET_COMMENT_REPLY = BASEURL + "/news/comment";
     String GET_COMMENT_REPLY = BASEURL + "/jv/newsarticle/commentdetails";
     String SEND_COMMENT_REPLY = BASEURL + "/news/reply";
-//    String DELETE_COMMENT_REPLY = BASEURL + "/news/reply/delete";
+    //    String DELETE_COMMENT_REPLY = BASEURL + "/news/reply/delete";
     String DELETE_RECORD = BASEURL + "/jv/newsarticle/deleterecord";
 //    String DELETE_COMMENT = BASEURL + "/news/comment/delete";
 //    String DELETE_COMMENT = BASEURL + "/news/comment/delete";
@@ -119,19 +119,20 @@ public interface Const {
     String DYNAMIC_LONGARTICLE = BASEURL + "/jv/qz/publish/dynamicarticle";
     String NEWS = BASEURL + "/jv/anonymous/newsarticle/articles";
     String FOLLOW_INGDYNAMICS = BASEURL + "/jv/qz/followingdynamics";
-    String RECOMMEDN = BASEURL+"/jv/qz/dynamics";
-    String ATTENTION_CIRLCLE = BASEURL+"/jv/qz/following";
-    String ALL_CIRCLE_HOME_PAGE_RECOMMEND = BASEURL+"/jv/qz/mycircles";
-    String NEWSARTICLE_READED = BASEURL+"/jv/newsarticle/readed";
-    String JV_USER_PROFILE = BASEURL+"/jv/user/profile";
+    String RECOMMEDN = BASEURL + "/jv/qz/dynamics";
+    String ATTENTION_CIRLCLE = BASEURL + "/jv/qz/following";
+    String ALL_CIRCLE_HOME_PAGE_RECOMMEND = BASEURL + "/jv/qz/mycircles";
+    String NEWSARTICLE_READED = BASEURL + "/jv/newsarticle/readed";
+    String JV_USER_PROFILE = BASEURL + "/jv/user/profile";
     String GET_RECOMMEN_DA = BASEURL + "/jv/anonymous/newsarticle/recommendarticles";
     String USER_PROFILE = BASEURL + "/jv/user/loginuserinfo";
-    String LIKE_ATTENTION=BASEURL+"/jv/qz/like";
-    String HOMEPAGE_ALL_CIRCLE =BASEURL+"/jv/qz/allcircles";
-    String USER_SAVEUSERINFO =BASEURL+"/jv/user/saveuserinfo";
-    String CLICK_NUMBER =BASEURL+"/jv/qz/dynamiclikes";
+    String LIKE_ATTENTION = BASEURL + "/jv/qz/like";
+    String HOMEPAGE_ALL_CIRCLE = BASEURL + "/jv/qz/allcircles";
+    String USER_SAVEUSERINFO = BASEURL + "/jv/user/saveuserinfo";
+    String CLICK_NUMBER = BASEURL + "/jv/qz/dynamiclikes";
     String NEWSARTICLE_COLLECTS = BASEURL + "/jv/newsarticle/collects";
     String QZ_ALL_CIRCLES = BASEURL + "/jv/qz/allcircles";
+    String GET_REPLY = BASEURL + "/jv/qz/replays";
     String QZ_MYCIRCLES = BASEURL + "/jv/qz/mycircles";
     String QZ_FOLLOWINGDYNAMICS = BASEURL + "/jv/qz/followingdynamics";
     String DYNAMIC_LIKE = BASEURL + "/jv/qz/like";

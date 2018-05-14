@@ -511,7 +511,7 @@ public class ActDetailBean {
                  */
 
                 private PagingBean paging;
-                private List<ListBean> list;
+                private List<ReplyCommBean.DataBean.ListBean> list;
 
                 public PagingBean getPaging() {
                     return paging;
@@ -521,11 +521,11 @@ public class ActDetailBean {
                     this.paging = paging;
                 }
 
-                public List<ListBean> getList() {
+                public List<ReplyCommBean.DataBean.ListBean> getList() {
                     return list;
                 }
 
-                public void setList(List<ListBean> list) {
+                public void setList(List<ReplyCommBean.DataBean.ListBean> list) {
                     this.list = list;
                 }
 

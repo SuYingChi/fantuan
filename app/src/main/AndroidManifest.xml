@@ -90,6 +90,7 @@
 
 
         </activity>
+        <activity android:name=".circle.act.CliclLikeActivity"/>
         <activity android:name=".home.act.LoadingActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
