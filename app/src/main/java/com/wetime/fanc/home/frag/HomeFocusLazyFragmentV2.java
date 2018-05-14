@@ -1,8 +1,10 @@
 package com.wetime.fanc.home.frag;
 
 import android.support.annotation.NonNull;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.RelativeLayout;
 
 import com.fan.baselib.loadmore.AutoLoadMoreAdapter;
@@ -56,7 +58,7 @@ public class HomeFocusLazyFragmentV2 extends BaseLazyFragment implements OnRefre
     @Override
     protected void initData() {
 
-        adapter = new HomeFocusAdapterV2(list, getContext());
+        adapter = new HomeFocusAdapterV2(list, getActivity());
 
         getHomeFocusV2Presenter = new GetHomeFocusV2Presenter(this);
         getHomeFocusV2Presenter.getHomeFocusList();
@@ -75,6 +77,15 @@ public class HomeFocusLazyFragmentV2 extends BaseLazyFragment implements OnRefre
         });
 
         rclHome.setAdapter(mAutoLoadMoreAdapter);
+        adapter.setOnZanClickLitener((view, position) -> {
+            HomeItemBeanV2 beanV2 = list.get(position);
+            int i= beanV2.isHas_like()?-1:1;
+            beanV2.setLike_num((Integer.valueOf(beanV2.getLike_num())+i)+"");
+            beanV2.setHas_like(!beanV2.isHas_like());
+            mAutoLoadMoreAdapter.notifyItemChanged(position);
+        });
+
+        ((DefaultItemAnimator)rclHome.getItemAnimator()).setSupportsChangeAnimations(false);
 
     }
 

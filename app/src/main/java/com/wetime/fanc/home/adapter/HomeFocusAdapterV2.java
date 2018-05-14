@@ -1,6 +1,10 @@
 package com.wetime.fanc.home.adapter;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -15,12 +19,18 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.wetime.fanc.R;
+import com.wetime.fanc.circle.act.ActDetailActivity;
+import com.wetime.fanc.circle.act.LongDetailActivity;
+import com.wetime.fanc.circle.presenter.ZanActPresenter;
 import com.wetime.fanc.customview.CanDoBlankGridView;
 import com.wetime.fanc.customview.MixtureTextView;
+import com.wetime.fanc.home.bean.Cover;
 import com.wetime.fanc.home.bean.HomeItemBeanV2;
+import com.wetime.fanc.news.act.GalleryActivity;
 import com.wetime.fanc.utils.Tools;
 
 import java.util.List;
+import java.util.logging.Handler;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -34,11 +44,13 @@ public class HomeFocusAdapterV2 extends RecyclerView.Adapter {
 
 
     private List<HomeItemBeanV2> list;
-    private Context mContext;
+    private Activity mContext;
+    private ZanActPresenter zanpresenter;
 
-    public HomeFocusAdapterV2(List<HomeItemBeanV2> list, Context mContext) {
+    public HomeFocusAdapterV2(List<HomeItemBeanV2> list, Activity mContext) {
         this.list = list;
         this.mContext = mContext;
+        zanpresenter = new ZanActPresenter();
     }
 
 //    tpye 10=无图 11=1图 14=四图 19=九宫格 18=长文
@@ -64,6 +76,23 @@ public class HomeFocusAdapterV2 extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, final int position) {
         HomeItemBeanV2 bean = list.get(position);
+
+
+        holder.itemView.setOnClickListener(view -> {
+            switch (bean.getType()) {
+                case 18:
+                    LongDetailActivity.startToLongDetail(mContext, bean.getId());
+                    break;
+                case 14:
+                case 19:
+                case 11:
+                    Intent goDet = new Intent(mContext, ActDetailActivity.class);
+                    goDet.putExtra("id", bean.getId());
+                    mContext.startActivity(goDet);
+                    break;
+            }
+        });
+
         if (holder instanceof V10ViewHolder) {
             V10ViewHolder mHolder = (V10ViewHolder) holder;
             Glide.with(mContext).load(bean.getAvatar()).into(mHolder.ivHead);
@@ -89,17 +118,27 @@ public class HomeFocusAdapterV2 extends RecyclerView.Adapter {
                 mHolder.tvLoc.setVisibility(View.VISIBLE);
                 mHolder.tvLoc.setText(bean.getLocation());
             }
-            if (bean.getLike_num().equals("0")) {
-                mHolder.tvZannum.setText("点赞");
-            } else {
-                mHolder.tvZannum.setText(bean.getLike_num());
+
+            mHolder.tvZannum.setText(Tools.getZanStr(Integer.valueOf(bean.getLike_num())));
+            if(bean.isHas_like()){
+                Drawable drawable = mContext.getResources().getDrawable(R.drawable.ic_zan_red_v2);
+                drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getMinimumHeight());
+                mHolder.tvZannum.setCompoundDrawables(drawable,null,null,null);
+                mHolder.tvZannum.setTextColor(Color.parseColor("#FF3F53"));
+            }else {
+                Drawable drawable = mContext.getResources().getDrawable(R.drawable.ic_zan_v2);
+                drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getMinimumHeight());
+                mHolder.tvZannum.setCompoundDrawables(drawable,null,null,null);
+                mHolder.tvZannum.setTextColor(Color.parseColor("#666666"));
             }
-            mHolder.tvZannum.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Tools.toastInBottom(mContext, "zan le ");
-                }
-            });
+            if(mOnZanClickLitener!=null){
+                mHolder.tvZannum.setOnClickListener(v -> mOnZanClickLitener.onItemClick(v,position));
+            }
+
+
+
+
+
             if (bean.getComment_num().equals("0")) {
                 mHolder.tvCommentNum.setText("评论");
             } else {
@@ -113,7 +152,7 @@ public class HomeFocusAdapterV2 extends RecyclerView.Adapter {
                 mHolder.rlIv.setVisibility(View.GONE);
             } else {
                 int w, h;
-                HomeItemBeanV2.CoversBean coversBean = bean.getCovers().get(0);
+                Cover coversBean = bean.getCovers().get(0);
                 if (coversBean.isLongCover()) {
                     //长图
                     mHolder.ivIsLong.setVisibility(View.VISIBLE);
@@ -149,6 +188,8 @@ public class HomeFocusAdapterV2 extends RecyclerView.Adapter {
                                 .centerCrop()
                                 .placeholder(R.drawable.iv_default))
                         .into(mHolder.ivCover);
+                mHolder.ivCover.setOnClickListener(v -> Tools.goPicGallery(mContext, bean.getCovers(), 0));
+
             }
 
         }
@@ -177,17 +218,22 @@ public class HomeFocusAdapterV2 extends RecyclerView.Adapter {
                 mHolder.tvLoc.setVisibility(View.VISIBLE);
                 mHolder.tvLoc.setText(bean.getLocation());
             }
-            if (bean.getLike_num().equals("0")) {
-                mHolder.tvZannum.setText("点赞");
-            } else {
-                mHolder.tvZannum.setText(bean.getLike_num());
+
+            mHolder.tvZannum.setText(Tools.getZanStr(Integer.valueOf(bean.getLike_num())));
+            if(bean.isHas_like()){
+                Drawable drawable = mContext.getResources().getDrawable(R.drawable.ic_zan_red_v2);
+                drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getMinimumHeight());
+                mHolder.tvZannum.setCompoundDrawables(drawable,null,null,null);
+                mHolder.tvZannum.setTextColor(Color.parseColor("#FF3F53"));
+            }else {
+                Drawable drawable = mContext.getResources().getDrawable(R.drawable.ic_zan_v2);
+                drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getMinimumHeight());
+                mHolder.tvZannum.setCompoundDrawables(drawable,null,null,null);
+                mHolder.tvZannum.setTextColor(Color.parseColor("#666666"));
             }
-            mHolder.tvZannum.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Tools.toastInBottom(mContext, "zan le ");
-                }
-            });
+            if(mOnZanClickLitener!=null){
+                mHolder.tvZannum.setOnClickListener(v -> mOnZanClickLitener.onItemClick(v,position));
+            }
             if (bean.getComment_num().equals("0")) {
                 mHolder.tvCommentNum.setText("评论");
             } else {
@@ -209,9 +255,11 @@ public class HomeFocusAdapterV2 extends RecyclerView.Adapter {
                 params.height = iW * 2 + Tools.dip2px(mContext, 3);
                 mHolder.gv.setNumColumns(3);
             }
-            FoucsNineGridLAdapter adapter = new FoucsNineGridLAdapter(mContext,bean.getCovers());
+            FoucsNineGridLAdapter adapter = new FoucsNineGridLAdapter(mContext, bean.getCovers());
             mHolder.gv.setLayoutParams(params);
             mHolder.gv.setAdapter(adapter);
+            mHolder.gv.setOnTouchInvalidPositionListener(motionEvent -> false);
+            mHolder.gv.setOnItemClickListener((adapterView, view, i, l) -> Tools.goPicGallery(mContext, bean.getCovers(), i));
 
         }
 
@@ -234,17 +282,21 @@ public class HomeFocusAdapterV2 extends RecyclerView.Adapter {
                 mHolder.tvLoc.setVisibility(View.VISIBLE);
                 mHolder.tvLoc.setText(bean.getLocation());
             }
-            if (bean.getLike_num().equals("0")) {
-                mHolder.tvZannum.setText("点赞");
-            } else {
-                mHolder.tvZannum.setText(bean.getLike_num());
+            mHolder.tvZannum.setText(Tools.getZanStr(Integer.valueOf(bean.getLike_num())));
+            if(bean.isHas_like()){
+                Drawable drawable = mContext.getResources().getDrawable(R.drawable.ic_zan_red_v2);
+                drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getMinimumHeight());
+                mHolder.tvZannum.setCompoundDrawables(drawable,null,null,null);
+                mHolder.tvZannum.setTextColor(Color.parseColor("#FF3F53"));
+            }else {
+                Drawable drawable = mContext.getResources().getDrawable(R.drawable.ic_zan_v2);
+                drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getMinimumHeight());
+                mHolder.tvZannum.setCompoundDrawables(drawable,null,null,null);
+                mHolder.tvZannum.setTextColor(Color.parseColor("#666666"));
             }
-            mHolder.tvZannum.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Tools.toastInBottom(mContext, "zan le ");
-                }
-            });
+            if(mOnZanClickLitener!=null){
+                mHolder.tvZannum.setOnClickListener(v -> mOnZanClickLitener.onItemClick(v,position));
+            }
             if (bean.getComment_num().equals("0")) {
                 mHolder.tvCommentNum.setText("评论");
             } else {
@@ -375,6 +427,16 @@ public class HomeFocusAdapterV2 extends RecyclerView.Adapter {
             ButterKnife.bind(this, view);
         }
     }
+    public interface OnZanClickLitener {
+        void onItemClick(View view, int position);
+    }
 
+
+    private OnZanClickLitener mOnZanClickLitener;
+
+
+    public void setOnZanClickLitener(OnZanClickLitener mOnZanClickLitener) {
+        this.mOnZanClickLitener = mOnZanClickLitener;
+    }
 
 }

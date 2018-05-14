@@ -50,7 +50,7 @@ public class HomeItemBeanV2 {
     private String longitude;
     private String username;
     private String circle_name;
-    private List<CoversBean> covers;
+    private List<Cover> covers;
 
     public String getComment_num() {
         return comment_num;
@@ -220,68 +220,14 @@ public class HomeItemBeanV2 {
         this.circle_name = circle_name;
     }
 
-    public List<CoversBean> getCovers() {
+    public List<Cover> getCovers() {
         return covers;
     }
 
-    public void setCovers(List<CoversBean> covers) {
+    public void setCovers(List<Cover> covers) {
         this.covers = covers;
     }
 
-    public static class CoversBean {
-        /**
-         * url : https://staticcdntest.fantuanlife.com/uimage/c9/77/18/91/c9771891e4da7ec51c12369d5034b8bb.jpg
-         * compress : https://staticcdntest.fantuanlife.com/uimage/c9/77/18/91/c9771891e4da7ec51c12369d5034b8bb.jpg?x-oss-process=image/resize,m_mfit,h_600/format,jpg/interlace,1/quality,Q_70/
-         * height : 1024
-         * width : 2048
-         * longCover : false
-         */
 
-        private String url;
-        private String compress;
-        private int height;
-        private int width;
-        private boolean longCover;
-
-        public String getUrl() {
-            return url;
-        }
-
-        public void setUrl(String url) {
-            this.url = url;
-        }
-
-        public String getCompress() {
-            return compress;
-        }
-
-        public void setCompress(String compress) {
-            this.compress = compress;
-        }
-
-        public int getHeight() {
-            return height;
-        }
-
-        public void setHeight(int height) {
-            this.height = height;
-        }
-
-        public int getWidth() {
-            return width;
-        }
-
-        public void setWidth(int width) {
-            this.width = width;
-        }
-
-        public boolean isLongCover() {
-            return longCover;
-        }
-
-        public void setLongCover(boolean longCover) {
-            this.longCover = longCover;
-        }
-    }
 }
 

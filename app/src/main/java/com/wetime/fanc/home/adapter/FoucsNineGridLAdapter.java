@@ -19,11 +19,11 @@ import java.util.List;
 
 public class FoucsNineGridLAdapter extends BaseAdapter {
     private Context mContext;
-    private List<HomeItemBeanV2.CoversBean> mlist = new ArrayList<>();
+    private List<Cover> mlist = new ArrayList<>();
     private LayoutInflater inflater = null;
 //    private final int mGridWidth;
 
-    public FoucsNineGridLAdapter(Context mContext, List<HomeItemBeanV2.CoversBean> list) {
+    public FoucsNineGridLAdapter(Context mContext, List<Cover> list) {
         this.mContext = mContext;
         this.mlist = list;
         inflater = LayoutInflater.from(mContext);
