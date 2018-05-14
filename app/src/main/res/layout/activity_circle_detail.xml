@@ -24,13 +24,14 @@
             app:contentScrim="@color/white"
             app:expandedTitleGravity="left"
             app:expandedTitleMarginStart="95dp"
+            app:expandedTitleMarginTop="0dp"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:scrimAnimationDuration="200">
 
             <LinearLayout
                 android:id="@+id/ll_headinfo"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="200dp"
                 android:orientation="vertical"
                 android:paddingTop="50dp"
                 app:layout_scrollFlags="scroll">
@@ -47,6 +48,7 @@
                         android:id="@+id/iv_cover"
                         android:layout_width="60dp"
                         android:layout_height="60dp"
+                        android:layout_gravity="bottom"
                         android:layout_marginBottom="5dp"
                         android:layout_marginTop="10dp"
                         android:src="@drawable/ic_default" />
@@ -54,36 +56,21 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="bottom"
                         android:orientation="vertical"
                         android:paddingLeft="15dp">
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="right"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:src="@drawable/icon_02"
-                                android:text="128人关注"
-                                android:visibility="invisible" />
-
-                        </LinearLayout>
-
-
                         <TextView
                             android:id="@+id/tv_circleinfo"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="25dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
                             android:ellipsize="end"
-                            android:lineSpacingExtra="2sp"
+                            android:gravity="center_vertical"
                             android:maxLines="3"
+                            android:paddingTop="20dp"
                             android:textColor="#FFFFFF"
-                            android:textSize="14sp"
+                            android:textSize="12sp"
                             tools:text="海南有趣、有料、有温度的生活圈，分分钟带你吃 遍全海南~" />
 
                     </LinearLayout>
@@ -108,13 +95,13 @@
                             android:id="@+id/iv_attention"
                             android:layout_width="60dp"
                             android:layout_height="25dp"
-                            android:layout_marginTop="5dp"
                             android:layout_marginBottom="5dp"
-                            android:visibility="gone"
+                            android:layout_marginTop="5dp"
                             android:background="@drawable/bg_circle_attention"
                             android:gravity="center"
                             android:text="关注"
-                            android:textColor="#FFFFFF"/>
+                            android:textColor="#FFFFFF"
+                            android:visibility="gone" />
 
                     </RelativeLayout>
 
