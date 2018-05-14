@@ -18,6 +18,7 @@
 
     <LinearLayout
         android:paddingTop="14dp"
+        android:paddingBottom="17dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
@@ -28,7 +29,7 @@
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/ic_zan_v2"
             android:drawablePadding="10dp"
-            android:paddingBottom="17dp"
+
             android:text="点赞"
             android:textColor="#666666"
             android:textSize="12sp" />
@@ -39,11 +40,10 @@
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/ic_comment_v2"
             android:drawablePadding="10dp"
-            android:paddingBottom="17dp"
             android:text="评论"
             android:textColor="#666666"
             android:textSize="12sp" />
     </LinearLayout>
-    <include layout="@layout/item_my_line"/>
+
 </LinearLayout>
 

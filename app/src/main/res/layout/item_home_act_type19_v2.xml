@@ -27,27 +27,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingTop="12dp">
+        <com.wetime.fanc.customview.CanDoBlankGridView
+            android:id="@+id/gv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:horizontalSpacing="3dp"
+            android:scrollbars="none"
+            android:verticalSpacing="3dp" />
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#eeeeee">
-
-
-            <ImageView
-                android:id="@+id/iv_cover"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:scaleType="centerCrop" />
-
-            <ImageView
-                android:id="@+id/iv_islong"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentRight="true"
-                android:src="@drawable/ic_long_image" />
-        </RelativeLayout>
     </RelativeLayout>
 
     <include layout="@layout/item_home_act_bottom_v2" />
