@@ -15,7 +15,6 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.wetime.fanc.R;
-import com.wetime.fanc.circle.presenter.FocusCirclePresenter;
 import com.wetime.fanc.home.bean.HomeItemBeanV2;
 import com.wetime.fanc.utils.Tools;
 
@@ -68,10 +67,10 @@ public class HomeFocusAdapterV2 extends RecyclerView.Adapter {
                 mHolder.llHeadCircle.setVisibility(View.VISIBLE);
                 mHolder.tvCirclename.setText(bean.getCircle_name());
             }
-            if(!TextUtils.isEmpty(bean.getContent())){
+            if (!TextUtils.isEmpty(bean.getContent())) {
                 mHolder.tvContent.setVisibility(View.VISIBLE);
                 mHolder.tvContent.setText(bean.getContent());
-            }else{
+            } else {
                 mHolder.tvContent.setVisibility(View.GONE);
                 mHolder.tvContent.setText(bean.getContent());
             }
@@ -103,13 +102,20 @@ public class HomeFocusAdapterV2 extends RecyclerView.Adapter {
             if (bean.getCovers().size() == 0) {
                 mHolder.rlIv.setVisibility(View.GONE);
             } else {
+                int w, h;
                 HomeItemBeanV2.CoversBean coversBean = bean.getCovers().get(0);
                 if (coversBean.isLongCover()) {
+                    //长图
                     mHolder.ivIsLong.setVisibility(View.VISIBLE);
+
+                    Double rate = 120.0 / 750;
+                    w = (int) (sw * rate);
+                    Double rate2 = 360.0 * 1.0 / 750;
+                    h = (int) (sw * rate2);
                 } else {
                     mHolder.ivIsLong.setVisibility(View.GONE);
                     //宽大
-                    int w, h;
+
                     if (coversBean.getWidth() >= coversBean.getHeight()) {
                         Double rate = 360.0 / 750;
                         w = (int) (sw * rate);
@@ -122,17 +128,17 @@ public class HomeFocusAdapterV2 extends RecyclerView.Adapter {
                         Double rate2 = coversBean.getWidth() * 1.0 / coversBean.getHeight();
                         w = (int) (h * rate2);
                     }
-                    ViewGroup.LayoutParams params = mHolder.rlIv.getLayoutParams();
-                    params.width = w;
-                    params.height = h;
-                    mHolder.rlIv.setLayoutParams(params);
-
-                    Glide.with(mContext).load(coversBean.getCompress())
-                            .apply(new RequestOptions().override(w, h)
-                                    .centerCrop()
-                                    .placeholder(R.drawable.iv_default))
-                            .into(mHolder.ivCover);
                 }
+                ViewGroup.LayoutParams params = mHolder.rlIv.getLayoutParams();
+                params.width = w;
+                params.height = h + Tools.dip2px(mContext, 12);//12pading
+                mHolder.rlIv.setLayoutParams(params);
+
+                Glide.with(mContext).load(coversBean.getCompress())
+                        .apply(new RequestOptions().override(w, h)
+                                .centerCrop()
+                                .placeholder(R.drawable.iv_default))
+                        .into(mHolder.ivCover);
             }
 
         }

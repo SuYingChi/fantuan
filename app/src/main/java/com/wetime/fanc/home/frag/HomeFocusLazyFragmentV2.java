@@ -50,11 +50,12 @@ public class HomeFocusLazyFragmentV2 extends BaseLazyFragment implements OnRefre
         refreshLayout.setOnRefreshListener(this);
         refreshLayout.setEnableLoadMore(false);
         rclHome.setLayoutManager(new LinearLayoutManager(getContext()));
+        Tools.showEmptyLoading(rlContent);
     }
 
     @Override
     protected void initData() {
-        Tools.showEmptyLoading(rlContent);
+
         adapter = new HomeFocusAdapterV2(list, getContext());
 
         getHomeFocusV2Presenter = new GetHomeFocusV2Presenter(this);

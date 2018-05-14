@@ -3,10 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:paddingTop="12dp">
+    android:orientation="vertical">
 
     <TextView
+        android:paddingTop="12dp"
         android:id="@+id/tv_loc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -17,6 +17,7 @@
         tools:text="海口世贸北路一号海岸海口海海" />
 
     <LinearLayout
+        android:paddingTop="14dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
@@ -28,7 +29,6 @@
             android:drawableLeft="@drawable/ic_zan_v2"
             android:drawablePadding="10dp"
             android:paddingBottom="17dp"
-            android:paddingTop="14dp"
             android:text="点赞"
             android:textColor="#666666"
             android:textSize="12sp" />
@@ -40,7 +40,6 @@
             android:drawableLeft="@drawable/ic_comment_v2"
             android:drawablePadding="10dp"
             android:paddingBottom="17dp"
-            android:paddingTop="14dp"
             android:text="评论"
             android:textColor="#666666"
             android:textSize="12sp" />
