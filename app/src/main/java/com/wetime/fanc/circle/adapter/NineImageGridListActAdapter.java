@@ -118,9 +118,9 @@ public class NineImageGridListActAdapter extends BaseAdapter {
             holder.iv_img.setVisibility(View.GONE);
 
             int sw = Tools.getScreenW(mContext);
-            Double rate = (double) (Integer.parseInt(mlist.get(position).getHeight()) / Integer.parseInt(mlist.get(position).getWidth()));
+            Double rate = (double) (mlist.get(position).getHeight() / mlist.get(position).getWidth());
             int h;
-            if (Integer.parseInt(mlist.get(position).getHeight()) > Integer.parseInt(mlist.get(position).getWidth())) {
+            if (mlist.get(position).getHeight() > mlist.get(position).getWidth()) {
                 h = (int) (sw * rate);
             } else {
                 h = (int) (sw * 9 / 16);
