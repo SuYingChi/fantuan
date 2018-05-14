@@ -519,7 +519,7 @@ public class LongTextEditActivity extends BaseActivity implements LongTextAdapte
         PictureSelector.create(this)
                 .openGallery(PictureMimeType.ofImage())
                 .maxSelectNum(max - getImageNum())
-                .theme(R.style.picture_my_style)
+                .theme(R.style.yuxun_picture_default_style)
                 .previewImage(true)
                 .isCamera(true)
                 .compress(true)

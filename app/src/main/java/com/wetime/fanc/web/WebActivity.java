@@ -635,7 +635,7 @@ public class WebActivity extends BaseActivity implements IPostMultiFileView, WbS
         PictureSelector.create(this)
                 .openGallery(PictureMimeType.ofImage())
                 .maxSelectNum(n)
-                .theme(R.style.picture_my_style)
+                .theme(R.style.yuxun_picture_default_style)
                 .previewImage(true)
                 .isCamera(true)
                 .compress(true)

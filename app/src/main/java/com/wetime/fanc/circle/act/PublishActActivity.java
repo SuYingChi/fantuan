@@ -262,7 +262,7 @@ public class PublishActActivity extends BaseActivity implements IPostMultiFileVi
         PictureSelector.create(this)
                 .openGallery(PictureMimeType.ofImage())
                 .maxSelectNum(9)
-                .theme(R.style.picture_my_style)
+                .theme(R.style.yuxun_picture_default_style)
                 .previewImage(true)
                 .isCamera(true)
                 .compress(true)

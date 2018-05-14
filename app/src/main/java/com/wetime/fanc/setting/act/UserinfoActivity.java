@@ -121,7 +121,7 @@ public class UserinfoActivity extends BaseActivity implements IGetMyInfoView,
         PictureSelector.create(this)
                 .openGallery(PictureMimeType.ofImage())
                 .selectionMode(PictureConfig.SINGLE)
-                .theme(R.style.picture_my_style)
+                .theme(R.style.yuxun_picture_default_style)
                 .previewImage(true)
                 .isCamera(false)
                 .compress(true)
