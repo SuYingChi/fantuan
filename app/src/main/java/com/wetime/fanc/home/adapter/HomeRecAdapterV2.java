@@ -379,7 +379,6 @@ public class HomeRecAdapterV2 extends RecyclerView.Adapter {
     class HeadHolderTemp extends RecyclerView.ViewHolder {
         @BindView(R.id.banner)
         Banner banner;
-        ;
 
 
         HeadHolderTemp(View view) {

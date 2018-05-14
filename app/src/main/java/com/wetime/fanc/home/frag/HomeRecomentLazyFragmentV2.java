@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.RelativeLayout;
 
 import com.fan.baselib.loadmore.AutoLoadMoreAdapter;
@@ -11,14 +12,10 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.wetime.fanc.R;
-import com.wetime.fanc.home.adapter.HomeActAdapterV2;
 import com.wetime.fanc.home.adapter.HomeRecAdapterV2;
 import com.wetime.fanc.home.bean.HomeItemBeanV2;
-import com.wetime.fanc.home.bean.HomeListBeanV2;
 import com.wetime.fanc.home.bean.HomeRecListBeanV2;
-import com.wetime.fanc.home.iviews.IGetHomeFocusV2View;
 import com.wetime.fanc.home.iviews.IGetHomeRecV2View;
-import com.wetime.fanc.home.presenter.GetHomeFocusV2Presenter;
 import com.wetime.fanc.home.presenter.GetHomeRecV2Presenter;
 import com.wetime.fanc.main.frag.BaseLazyFragment;
 import com.wetime.fanc.utils.Tools;
@@ -78,15 +75,13 @@ public class HomeRecomentLazyFragmentV2 extends BaseLazyFragment implements OnRe
             }
         });
 
-
         adapter.setOnZanClickLitener((view, position) -> {
-            HomeItemBeanV2 beanV2 = list.get(position);
+            HomeItemBeanV2 beanV2 = list.get(position - 1);
             int i = beanV2.isHas_like() ? -1 : 1;
             beanV2.setLike_num((Integer.valueOf(beanV2.getLike_num()) + i) + "");
             beanV2.setHas_like(!beanV2.isHas_like());
-            mAutoLoadMoreAdapter.notifyItemChanged(position);
+            mAutoLoadMoreAdapter.notifyItemChanged(position-1);
         });
-
         ((DefaultItemAnimator) rclHome.getItemAnimator()).setSupportsChangeAnimations(false);
 
     }
@@ -103,8 +98,8 @@ public class HomeRecomentLazyFragmentV2 extends BaseLazyFragment implements OnRe
         Tools.hideEmptyLoading(rlContent);
         refreshLayout.finishRefresh();
         if (page == 1) {
-            if(rclHome.getAdapter()==null)
-            rclHome.setAdapter(mAutoLoadMoreAdapter);
+            if (rclHome.getAdapter() == null)
+                rclHome.setAdapter(mAutoLoadMoreAdapter);
             list.clear();
             adapter.setBanner(bean.getData().getBanner());
         }
