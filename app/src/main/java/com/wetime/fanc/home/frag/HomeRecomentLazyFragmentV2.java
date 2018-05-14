@@ -76,11 +76,11 @@ public class HomeRecomentLazyFragmentV2 extends BaseLazyFragment implements OnRe
         });
 
         adapter.setOnZanClickLitener((view, position) -> {
-            HomeItemBeanV2 beanV2 = list.get(position - 1);
+            HomeItemBeanV2 beanV2 = list.get(position);
             int i = beanV2.isHas_like() ? -1 : 1;
             beanV2.setLike_num((Integer.valueOf(beanV2.getLike_num()) + i) + "");
             beanV2.setHas_like(!beanV2.isHas_like());
-            mAutoLoadMoreAdapter.notifyItemChanged(position-1);
+            mAutoLoadMoreAdapter.notifyItemChanged(position + 1);
         });
         ((DefaultItemAnimator) rclHome.getItemAnimator()).setSupportsChangeAnimations(false);
 
