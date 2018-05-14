@@ -188,7 +188,7 @@ public class ActDetailAdapter extends RecyclerView.Adapter {
             if (actDetailBean.getData().getCover().size() == 0) {
                 ((ViewHolder0) holder).gv.setVisibility(View.GONE);
             } else {
-                NineImageGridListAdapter gvadapter = new NineImageGridListAdapter(mActivity, actDetailBean.getData().getCover());
+                NineImageGridListActAdapter gvadapter = new NineImageGridListActAdapter(mActivity, actDetailBean.getData().getCover());
                 //九宫格
                 LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) ((ViewHolder0) holder).gv.getLayoutParams();
                 //获取当前控件的布局对象
@@ -197,14 +197,15 @@ public class ActDetailAdapter extends RecyclerView.Adapter {
                     ((ViewHolder0) holder).gv.setNumColumns(3);
                     ((ViewHolder0) holder).gv.setHorizontalSpacing(6);
                     ((ViewHolder0) holder).gv.setVerticalSpacing(6);
-//                    params.width = sw - Tools.dip2px(mActivity, 15 + 15);
+                    params.width = sw - Tools.dip2px(mActivity, 15 + 15);
                     params.width = sw;
                 } else if (actDetailBean.getData().getType() == 14) {//四宫格
                     ((ViewHolder0) holder).gv.setNumColumns(2);
                     ((ViewHolder0) holder).gv.setHorizontalSpacing(6);
                     ((ViewHolder0) holder).gv.setVerticalSpacing(6);
-                    int w = (sw - Tools.dip2px(mActivity, 15 + 15 + 6 + 6)) / 3;
-                    params.width = w * 2 + Tools.dip2px(mActivity, 6);//设置当前控件布局的高度
+//                    int w = (sw - Tools.dip2px(mActivity, 15 + 15 + 6 + 6)) / 3;
+//                    params.width = w * 2 + Tools.dip2px(mActivity, 6);//设置当前控件布局的高度
+                    params.width = sw;
                 } else {//单图
 //                    params.width = sw - Tools.dip2px(mActivity, 6 + 6);
                     params.width = sw;
