@@ -40,14 +40,14 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * Created by yuxun on 2017/4/15.
  */
 
-public class HomeFocusAdapterV2 extends RecyclerView.Adapter {
+public class HomeActAdapterV2 extends RecyclerView.Adapter {
 
 
     private List<HomeItemBeanV2> list;
     private Activity mContext;
     private ZanActPresenter zanpresenter;
 
-    public HomeFocusAdapterV2(List<HomeItemBeanV2> list, Activity mContext) {
+    public HomeActAdapterV2(List<HomeItemBeanV2> list, Activity mContext) {
         this.list = list;
         this.mContext = mContext;
         zanpresenter = new ZanActPresenter();

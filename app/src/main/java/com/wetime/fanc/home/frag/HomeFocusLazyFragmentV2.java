@@ -4,7 +4,6 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 import android.widget.RelativeLayout;
 
 import com.fan.baselib.loadmore.AutoLoadMoreAdapter;
@@ -12,7 +11,7 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.wetime.fanc.R;
-import com.wetime.fanc.home.adapter.HomeFocusAdapterV2;
+import com.wetime.fanc.home.adapter.HomeActAdapterV2;
 import com.wetime.fanc.home.bean.HomeItemBeanV2;
 import com.wetime.fanc.home.bean.HomeListBeanV2;
 import com.wetime.fanc.home.iviews.IGetHomeFocusV2View;
@@ -38,7 +37,7 @@ public class HomeFocusLazyFragmentV2 extends BaseLazyFragment implements OnRefre
 
     private GetHomeFocusV2Presenter getHomeFocusV2Presenter;
     private int page = 1;
-    private HomeFocusAdapterV2 adapter;
+    private HomeActAdapterV2 adapter;
     private List<HomeItemBeanV2> list = new ArrayList<>();
     private AutoLoadMoreAdapter mAutoLoadMoreAdapter;
 
@@ -58,7 +57,7 @@ public class HomeFocusLazyFragmentV2 extends BaseLazyFragment implements OnRefre
     @Override
     protected void initData() {
 
-        adapter = new HomeFocusAdapterV2(list, getActivity());
+        adapter = new HomeActAdapterV2(list, getActivity());
 
         getHomeFocusV2Presenter = new GetHomeFocusV2Presenter(this);
         getHomeFocusV2Presenter.getHomeFocusList();
