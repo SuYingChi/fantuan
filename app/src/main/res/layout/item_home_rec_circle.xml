@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_marginLeft="15dp"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_cccccc_round_corner4dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp">
+
+        <ImageView
+            android:id="@+id/iv_cover"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:scaleType="center"
+            android:src="@drawable/iv_default" />
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:lineSpacingExtra="2dp"
+            android:minLines="2"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            android:textColor="#ff333333"
+            android:textSize="14dp"
+            tools:text="老爸茶馆海口" />
+
+        <TextView
+            android:id="@+id/tv_focusnum"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="#999999"
+            android:textSize="12sp"
+            tools:text="1236人关注" />
+        <TextView
+            android:id="@+id/tv_focus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:paddingBottom="6dp"
+            android:paddingLeft="25dp"
+            android:paddingRight="25dp"
+            android:paddingTop="6dp"
+            android:text="关注"
+            android:background="@drawable/bg_btn_blue_circle"
+            android:textColor="@color/text_blue"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+
+</LinearLayout>
+

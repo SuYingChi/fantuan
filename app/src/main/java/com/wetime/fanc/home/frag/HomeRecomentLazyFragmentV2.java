@@ -101,7 +101,9 @@ public class HomeRecomentLazyFragmentV2 extends BaseLazyFragment implements OnRe
             if (rclHome.getAdapter() == null)
                 rclHome.setAdapter(mAutoLoadMoreAdapter);
             list.clear();
+
             adapter.setBanner(bean.getData().getBanner());
+            adapter.setCirclesBeans(bean.getData().getCircles());
         }
         list.addAll(bean.getData().getList());
         if (page > 1) {

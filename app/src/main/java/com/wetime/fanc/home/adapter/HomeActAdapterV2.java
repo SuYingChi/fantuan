@@ -45,12 +45,12 @@ public class HomeActAdapterV2 extends RecyclerView.Adapter {
 
     private List<HomeItemBeanV2> list;
     private Activity mContext;
-    private ZanActPresenter zanpresenter;
+//    private ZanActPresenter zanpresenter;
 
     public HomeActAdapterV2(List<HomeItemBeanV2> list, Activity mContext) {
         this.list = list;
         this.mContext = mContext;
-        zanpresenter = new ZanActPresenter();
+//        zanpresenter = new ZanActPresenter();
     }
 
 //    tpye 10=无图 11=1图 14=四图 19=九宫格 18=长文
