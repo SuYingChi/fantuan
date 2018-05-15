@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -25,7 +26,6 @@ import com.wetime.fanc.customview.CanDoBlankGridView;
 import com.wetime.fanc.customview.MixtureTextView;
 import com.wetime.fanc.home.bean.Cover;
 import com.wetime.fanc.home.bean.HomeItemBeanV2;
-import com.wetime.fanc.home.bean.HomePageRecommendBean;
 import com.wetime.fanc.home.bean.HomeRecListBeanV2;
 import com.wetime.fanc.utils.Tools;
 import com.youth.banner.Banner;
@@ -48,9 +48,11 @@ public class HomeRecAdapterV2 extends RecyclerView.Adapter {
 
     private List<HomeItemBeanV2> list;
     private Activity mContext;
-    private List<HomeRecListBeanV2.DataBean.BannerBean> banner;
+    private List<HomeRecListBeanV2.DataBean.BannerBean> banner = new ArrayList<>();
+    private List<HomeRecListBeanV2.DataBean.CirclesBean> circlesBeans = new ArrayList<>();
     private List<String> imgeUrls = new ArrayList<>();
     private List<String> bannerTitles = new ArrayList<>();
+    private HomeRecCircleAdapterV2 circleAdapter;
 
     public HomeRecAdapterV2(List<HomeItemBeanV2> list, Activity mContext) {
         this.list = list;
@@ -61,7 +63,18 @@ public class HomeRecAdapterV2 extends RecyclerView.Adapter {
 
 
     public void setBanner(List<HomeRecListBeanV2.DataBean.BannerBean> banner) {
-        this.banner = banner;
+        this.banner.clear();
+        this.banner.addAll(banner);
+    }
+
+    public void setCirclesBeans(List<HomeRecListBeanV2.DataBean.CirclesBean> circlesBeans) {
+        this.circlesBeans.clear();
+        this.circlesBeans.addAll(circlesBeans);
+//        if (circleAdapter == null) {
+            circleAdapter = new HomeRecCircleAdapterV2(circlesBeans, mContext);
+//        } else {
+            circleAdapter.notifyDataSetChanged();
+//        }
     }
 
     @Override
@@ -87,7 +100,7 @@ public class HomeRecAdapterV2 extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, final int position) {
-        if (position == 0 && banner != null) {//推荐头部
+        if (position == 0) {//推荐头部
             HeadHolderTemp mHolder = (HeadHolderTemp) holder;
             int sw = Tools.getScreenW(mContext);
             Double rate = 130.0 / 345;
@@ -106,13 +119,24 @@ public class HomeRecAdapterV2 extends RecyclerView.Adapter {
             mHolder.banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE);//设置圆形指示器与标题
             mHolder.banner.setIndicatorGravity(BannerConfig.CENTER);//设置指示器位置
             mHolder.banner.setDelayTime(5000);//设置轮播时间
+            imgeUrls.clear();
+            bannerTitles.clear();
             for (HomeRecListBeanV2.DataBean.BannerBean bannerBean : banner) {
                 imgeUrls.add(bannerBean.getCover().getCompress());
                 bannerTitles.add(bannerBean.getContent());
             }
+
             mHolder.banner.setImages(imgeUrls);//设置图片源
             mHolder.banner.setBannerTitles(bannerTitles);
             mHolder.banner.start();
+
+            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext);
+            linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+            mHolder.rclCircle.setLayoutManager(linearLayoutManager);
+            if (circleAdapter != null) {
+                mHolder.rclCircle.setAdapter(circleAdapter);
+                circleAdapter.notifyDataSetChanged();
+            }
 
         } else {
             int pos = position - 1;
@@ -379,6 +403,10 @@ public class HomeRecAdapterV2 extends RecyclerView.Adapter {
     class HeadHolderTemp extends RecyclerView.ViewHolder {
         @BindView(R.id.banner)
         Banner banner;
+        @BindView(R.id.rcl_circle)
+        RecyclerView rclCircle;
+        @BindView(R.id.ll_circle)
+        LinearLayout llCircle;
 
 
         HeadHolderTemp(View view) {

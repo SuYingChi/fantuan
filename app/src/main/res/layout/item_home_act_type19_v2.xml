@@ -39,7 +39,6 @@
 
     <include layout="@layout/item_home_act_bottom_v2" />
     <View
-        android:layout_marginTop="15dp"
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:background="@color/linebg" />
