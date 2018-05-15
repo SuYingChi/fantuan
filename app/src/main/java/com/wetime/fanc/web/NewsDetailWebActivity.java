@@ -107,21 +107,6 @@ public class NewsDetailWebActivity extends BaseActivity implements IGetRecommenD
     private WbShareHandler shareHandler;
     private String typeName;
 
-//    public static void starToWeb(Context context, String url, String id, String uid, String content, String username, String avatar, String article_url, String compress, String like_num, boolean has_like) {
-//        Intent intent = new Intent(context, NewsDetailWebActivity.class);
-//        intent.putExtra("url", url);
-//        intent.putExtra("id", id);
-//        intent.putExtra("uid", uid);
-//        intent.putExtra("content", content);
-//        intent.putExtra("avatar", avatar);
-//        intent.putExtra("article_url", article_url);
-//        intent.putExtra("compress", compress);
-//        intent.putExtra("username", username);
-//        intent.putExtra("like_num", like_num);
-//        intent.putExtra("has_like", has_like);
-//        context.startActivity(intent);
-//    }
-
     public static void starToWeb(Context context, NewsListItemBean newsListItemBean, String name) {
         Intent intent = new Intent(context, NewsDetailWebActivity.class);
         intent.putExtra("newsListItemBean", newsListItemBean);
@@ -234,16 +219,6 @@ public class NewsDetailWebActivity extends BaseActivity implements IGetRecommenD
     }
 
     private void getData() {
-//        url = getIntent().getStringExtra("url");
-//        id = getIntent().getStringExtra("id");
-//        uid = getIntent().getStringExtra("uid");
-//        avatar = getIntent().getStringExtra("avatar");
-//        username = getIntent().getStringExtra("username");
-//        like_num = getIntent().getStringExtra("like_num");
-//        compress = getIntent().getStringExtra("compress");
-//        content = getIntent().getStringExtra("compress");
-//        article_url = getIntent().getStringExtra("article_url");
-//        has_like = getIntent().getBooleanExtra("has_like", false);
         switch (typeName) {
             case "null":
                 url = newsListItemBean.getArticle_url();

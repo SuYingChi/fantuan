@@ -133,6 +133,9 @@ public class NineImageGridListActAdapter extends BaseAdapter {
             holder.iv.setLayoutParams(layoutParams);
 
             Glide.with(mContext).load(mlist.get(position).getUrl())
+                    .apply(new RequestOptions()
+                            .override(sw, h)
+                            .centerCrop())
                     .downloadOnly(new LargeImageViewTarget(holder.iv) {
                         @Override
                         public void onLoadStarted(Drawable placeholder) {
