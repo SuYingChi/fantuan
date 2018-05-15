@@ -49,7 +49,7 @@
                 <ImageView
                     android:id="@+id/iv_onwer"
                     android:layout_width="wrap_content"
-                    android:layout_height="16dp"
+                    android:layout_height="21dp"
                     android:layout_marginLeft="5dp"
                     android:src="@drawable/bg_circle_onwer"
                     android:visibility="gone" />
@@ -127,59 +127,40 @@
         android:scrollbars="none"
         android:verticalSpacing="0dp" />
 
-    <TextView
-        android:id="@+id/tv_addres"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:drawableLeft="@drawable/ic_loc_off"
-        android:drawablePadding="2dp"
-        android:ellipsize="end"
-        android:maxLines="1"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp"
-        android:paddingTop="15dp"
-        android:textColor="#999999"
-        android:textSize="13sp"
-        tools:text="世贸北路一号海岸一二三四五六七八号C栋综合楼1003..." />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:layout_marginTop="10dp"
         android:paddingLeft="15dp"
-        android:paddingRight="15dp"
-        android:paddingTop="15dp">
+        android:paddingRight="15dp">
+
+        <TextView
+            android:id="@+id/tv_addres"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/icon_address_v2"
+            android:drawablePadding="5dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:maxEms="17"
+            android:textColor="#999999"
+            android:textSize="10sp"
+            tools:text="世贸北路一号海岸一二二三四五六七八号C栋综合楼10" />
 
 
         <TextView
             android:id="@+id/tv_see"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
             android:lineSpacingExtra="0sp"
             android:paddingRight="10dp"
             android:textColor="#999999"
-            android:textSize="14sp"
+            android:textSize="10sp"
             tools:text="456次浏览" />
 
-        <TextView
-            android:id="@+id/tv_publishtitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:lineSpacingExtra="0sp"
-            android:text="发布于圈子： "
-            android:textColor="#999999"
-            android:textSize="14sp" />
 
-        <TextView
-            android:id="@+id/tv_circlename"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:lineSpacingExtra="0sp"
-            android:maxLines="1"
-            android:textColor="#05a4be"
-            android:textSize="14sp"
-            tools:text="舌尖上的海口" />
     </LinearLayout>
 
     <RelativeLayout
@@ -189,16 +170,18 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/zan_civ1"
-            android:layout_width="16dp"
-            android:layout_height="16dp"
+            android:layout_width="21dp"
+            android:layout_height="21dp"
+            android:visibility="gone"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
             android:src="@drawable/ic_head_default" />
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/zan_civ2"
-            android:layout_width="16dp"
-            android:layout_height="16dp"
+            android:layout_width="21dp"
+            android:layout_height="21dp"
+            android:visibility="gone"
             android:layout_centerVertical="true"
             android:layout_marginLeft="5dp"
             android:layout_toRightOf="@id/zan_civ1"
@@ -206,8 +189,9 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/zan_civ3"
-            android:layout_width="16dp"
-            android:layout_height="16dp"
+            android:layout_width="21dp"
+            android:layout_height="21dp"
+            android:visibility="gone"
             android:layout_centerVertical="true"
             android:layout_marginLeft="5dp"
             android:layout_toRightOf="@id/zan_civ2"
@@ -220,10 +204,11 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="5dp"
+            android:visibility="gone"
             android:layout_toRightOf="@id/zan_civ3"
             android:text="2人点了赞"
             android:textColor="#666666"
-            android:textSize="8dp" />
+            android:textSize="12dp" />
 
 
         <LinearLayout

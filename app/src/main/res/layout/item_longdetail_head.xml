@@ -63,7 +63,7 @@
                 <ImageView
                     android:id="@+id/iv_onwer"
                     android:layout_width="wrap_content"
-                    android:layout_height="16dp"
+                    android:layout_height="21dp"
                     android:layout_marginLeft="5dp"
                     android:src="@drawable/bg_circle_onwer"
                     android:visibility="gone" />
@@ -166,7 +166,7 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:lineSpacingExtra="0sp"
-            android:paddingRight="10dp"
+            android:layout_marginLeft="10dp"
             android:textColor="#999999"
             android:textSize="10sp"
             tools:text="456次浏览" />
@@ -181,27 +181,31 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/zan_civ1"
-            android:layout_width="16dp"
-            android:layout_height="16dp"
+            android:layout_width="21dp"
+            android:layout_height="21dp"
+            android:visibility="gone"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
             android:src="@drawable/ic_head_default" />
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/zan_civ2"
-            android:layout_width="16dp"
-            android:layout_height="16dp"
+            android:layout_width="21dp"
+            android:visibility="gone"
+            android:layout_height="21dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="5dp"
+
             android:layout_toRightOf="@id/zan_civ1"
             android:src="@drawable/ic_head_default" />
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/zan_civ3"
-            android:layout_width="16dp"
-            android:layout_height="16dp"
+            android:layout_width="21dp"
+            android:layout_height="21dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="5dp"
+            android:visibility="gone"
             android:layout_toRightOf="@id/zan_civ2"
             android:src="@drawable/ic_head_default" />
 
@@ -212,10 +216,11 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="5dp"
+            android:visibility="gone"
             android:layout_toRightOf="@id/zan_civ3"
             android:text="2人点了赞"
             android:textColor="#666666"
-            android:textSize="8dp" />
+            android:textSize="12sp" />
 
 
         <LinearLayout

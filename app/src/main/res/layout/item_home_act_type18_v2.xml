@@ -22,23 +22,32 @@
             android:layout_weight="1"
             android:orientation="vertical">
 
-            <com.wetime.fanc.customview.MixtureTextView
-                android:id="@+id/tv_content"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:gravity="center_vertical"
-                android:lineSpacingExtra="6dp"
-                android:maxLines="2"
-                android:textColor="#333333"
-                android:textSize="16sp">
+                android:layout_height="wrap_content">
 
-                <ImageView
-                    android:layout_width="wrap_content"
+                <com.wetime.fanc.customview.MixtureTextView
+                    android:id="@+id/tv_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="15dp"
-                    android:src="@drawable/ic_longtext" />
-            </com.wetime.fanc.customview.MixtureTextView>
+                    android:ellipsize="end"
+                    android:gravity="center_vertical"
+                    android:lineSpacingExtra="5dp"
+                    android:maxLines="2"
+                    android:textColor="#333333"
+                    android:textSize="16sp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
+                        android:src="@drawable/ic_longtext" />
+                </com.wetime.fanc.customview.MixtureTextView>
+
+
+            </RelativeLayout>
+
+
 
             <include layout="@layout/item_home_act_bottom_v2" />
         </LinearLayout>

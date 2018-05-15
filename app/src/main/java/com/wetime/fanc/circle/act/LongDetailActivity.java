@@ -242,7 +242,7 @@ public class LongDetailActivity extends BaseActivity implements OnLoadMoreListen
                 hideKeyboard();
                 break;
             case R.id.rl_linear_bottom:
-                showKeyborad();
+                showComment();
                 break;
             case R.id.tv_focus:
                 FocusPresenter focusPresenter = new FocusPresenter();

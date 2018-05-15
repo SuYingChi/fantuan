@@ -4,6 +4,7 @@ package com.wetime.fanc.circle.presenter;
 import com.fan.http.okhttp.OkHttpUtils;
 import com.wetime.fanc.circle.bean.ActDetailBean;
 import com.wetime.fanc.circle.bean.ClickNumBean;
+import com.wetime.fanc.circle.bean.ReplyCommBean;
 import com.wetime.fanc.circle.iviews.IGetActDetailView;
 import com.wetime.fanc.main.model.ErrorBean;
 import com.wetime.fanc.utils.Const;
@@ -73,6 +74,25 @@ public class GetActDetailPresenter {
                         super.onResponse(s, i);
                         ErrorBean errorBean = GsonUtils.getGsonInstance().fromJson(s, ErrorBean.class);
                         iView.onGeClickLike(errorBean, like);
+                    }
+                });
+    }
+
+    public synchronized void  getCommReply(String commentId, String pn, String limit, int position) {// 评论需要滚动到评论
+        OkHttpUtils
+                .post()
+                .url(Const.GET_REPLY)
+                .addParams("commentId", commentId)
+                .addParams("pn", pn)
+                .addParams("limit", limit)
+                .addHeader("token", iView.getToken())
+                .build()
+                .execute(new DataStringCallback(iView, false, true, false) {
+                    @Override
+                    public void onResponse(String s, int i) {
+                        super.onResponse(s, i);
+                        ReplyCommBean errorBean = GsonUtils.getGsonInstance().fromJson(s, ReplyCommBean.class);
+                        iView.onGetReply(errorBean,position);
                     }
                 });
     }

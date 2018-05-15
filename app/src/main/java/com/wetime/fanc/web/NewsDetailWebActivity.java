@@ -228,7 +228,7 @@ public class NewsDetailWebActivity extends BaseActivity implements IGetRecommenD
         decorView.getViewTreeObserver().addOnGlobalLayoutListener(getGlobalLayoutListener(decorView, galleryCurrLinearLayout));
         webRecyclerview.setLayoutManager(new NestedScrollingLinearLayoutManager(this));
         adapter = new NewsWebAdapter(this,
-                "https://www.baidu.com/",
+                url,
                 null, null);
         webRecyclerview.setAdapter(adapter);
     }

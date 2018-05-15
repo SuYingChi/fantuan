@@ -57,8 +57,8 @@ public class LongDetailAdapter extends RecyclerView.Adapter {
     private List<LongTextBean> datas = new ArrayList<>();
     private List<CommentReplyAdapter> holderList = new ArrayList<CommentReplyAdapter>();
     private List<List<ReplyCommBean.DataBean.ListBean>> beanList = new ArrayList<List<ReplyCommBean.DataBean.ListBean>>();
-    private RecyclerView.ViewHolder holder0;
     private int pn = 0;
+    private RecyclerView.ViewHolder holder0;
 
     public LongDetailAdapter(Activity mActivity, LongBean actDetailBean) {
         this.mActivity = mActivity;
