@@ -25,14 +25,18 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.wetime.fanc.R;
 import com.wetime.fanc.circle.act.ActDetailActivity;
-import com.wetime.fanc.circle.act.CircleDetailActivity;
+import com.wetime.fanc.circle.act.CliclLikeActivity;
 import com.wetime.fanc.circle.bean.ActDetailBean;
 import com.wetime.fanc.circle.bean.ClickNumBean;
+import com.wetime.fanc.circle.bean.ReplyCommBean;
 import com.wetime.fanc.circle.presenter.FocusPresenter;
 import com.wetime.fanc.customview.GridViewForScrollView;
 import com.wetime.fanc.login.act.LoginActivity;
 import com.wetime.fanc.my.act.UserCardActivity;
 import com.wetime.fanc.utils.Tools;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -48,6 +52,9 @@ public class ActDetailAdapter extends RecyclerView.Adapter {
     private Activity mActivity;
     private OnItemClickLitener mOnItemClickLitener;
     private RecyclerView.ViewHolder holder;
+    private List<CommentReplyAdapter> holderList = new ArrayList<CommentReplyAdapter>();
+    private List<List<ReplyCommBean.DataBean.ListBean>> beanList = new ArrayList<List<ReplyCommBean.DataBean.ListBean>>();
+    private int pn = 0;
 
     public ActDetailAdapter(Activity mActivity, ActDetailBean actDetailBean) {
         this.mActivity = mActivity;
@@ -77,7 +84,7 @@ public class ActDetailAdapter extends RecyclerView.Adapter {
                     case 2:
                         Glide.with(mActivity).load(likeNumber.getData().getList().get(0).getAvatar()).into(holder.zanciv1);
                         Glide.with(mActivity).load(likeNumber.getData().getList().get(1).getAvatar()).into(holder.zanciv2);
-                        holder.zanciv2.setVisibility(View.GONE);
+                        holder.zanciv3.setVisibility(View.GONE);
                         break;
                     case 3:
                         Glide.with(mActivity).load(likeNumber.getData().getList().get(0).getAvatar()).into(holder.zanciv1);
@@ -97,6 +104,12 @@ public class ActDetailAdapter extends RecyclerView.Adapter {
                 holder.zanNumber.setVisibility(View.GONE);
             }
             holder.zanNumber.setText("等" + likeNumber.getData().getList().size() + "人点了赞");
+            holder.zanNumber.setText("等" + likeNumber.getData().getList().size() + "人点了赞");
+            holder.zanciv1.setOnClickListener(v -> CliclLikeActivity.startToClickLike(mActivity, ((ActDetailActivity) mActivity).getId()));
+            holder.zanciv2.setOnClickListener(v -> CliclLikeActivity.startToClickLike(mActivity, ((ActDetailActivity) mActivity).getId()));
+            holder.zanciv3.setOnClickListener(v -> CliclLikeActivity.startToClickLike(mActivity, ((ActDetailActivity) mActivity).getId()));
+            holder.zanNumber.setOnClickListener(v -> CliclLikeActivity.startToClickLike(mActivity, ((ActDetailActivity) mActivity).getId()));
+
         }
     }
 
@@ -127,16 +140,8 @@ public class ActDetailAdapter extends RecyclerView.Adapter {
             ((ViewHolder0) holder).tvTime.setText(actDetailBean.getData().getTime());
             ((ViewHolder0) holder).tvContent.setText(actDetailBean.getData().getContent());
 
-            ((ViewHolder0) holder).tvSee.setText(actDetailBean.getData().getRead_num());
-            if (TextUtils.isEmpty(actDetailBean.getData().getCircle_name())) {
-                ((ViewHolder0) holder).tvPublishtitle.setVisibility(View.GONE);
-                ((ViewHolder0) holder).tvCirclename.setVisibility(View.GONE);
-            } else {
-                ((ViewHolder0) holder).tvPublishtitle.setVisibility(View.VISIBLE);
-                ((ViewHolder0) holder).tvCirclename.setVisibility(View.VISIBLE);
-                ((ViewHolder0) holder).tvCirclename.setText(actDetailBean.getData().getCircle_name());
-            }
-            ((ViewHolder0) holder).tvCirclename.setText(actDetailBean.getData().getCircle_name());
+            ((ViewHolder0) holder).tvSee.setText(actDetailBean.getData().getRead_num() + "次浏览");
+
             if (TextUtils.isEmpty(actDetailBean.getData().getContent())) {
                 ((ViewHolder0) holder).tvContent.setVisibility(View.GONE);
             }
@@ -230,11 +235,6 @@ public class ActDetailAdapter extends RecyclerView.Adapter {
             });
             ((ViewHolder0) holder).ivComment.setOnClickListener(v -> {
                 ((ActDetailActivity) mActivity).showComment();
-            });
-            ((ViewHolder0) holder).tvCirclename.setOnClickListener(view -> {
-                Intent goCircle = new Intent(mActivity, CircleDetailActivity.class);
-                goCircle.putExtra("id", actDetailBean.getData().getCircle_id());
-                mActivity.startActivity(goCircle);
             });
 
             ((ViewHolder0) holder).ivHead.setOnClickListener(view -> {
@@ -338,10 +338,48 @@ public class ActDetailAdapter extends RecyclerView.Adapter {
                 }, 500);
             });
 
-            ((ViewHolder2) holder).commentreply.setLayoutManager(new LinearLayoutManager(mActivity));
+            if (bean.getReplys().getList().size() != 0) {
+                ((ViewHolder2) holder).commentreply.setVisibility(View.VISIBLE);
+                ((ViewHolder2) holder).commentreply.setLayoutManager(new LinearLayoutManager(mActivity));
+                List<ReplyCommBean.DataBean.ListBean> list = bean.getReplys().getList();
+                beanList.add(list);
+                if (!bean.getReplys().getPaging().isIs_end()) {
+                    ReplyCommBean.DataBean.ListBean e = new ReplyCommBean.DataBean.ListBean();
+                    e.setUid("yuxun");
+                    list.add(e);
+                    bean.getReplys().getPaging().setIs_end(true);
+                }
+                CommentReplyAdapter adapter = new CommentReplyAdapter(mActivity, R.layout.item_commen_reply, list, bean.getId(), pn);
+                if (!holderList.contains(adapter)) {
+                    holderList.add(adapter);
+                    ((ViewHolder2) holder).commentreply.setAdapter(adapter);
+                    pn++;
+                }
+            } else {
+                ((ViewHolder2) holder).commentreply.setVisibility(View.GONE);
+            }
+
 //            ((ViewHolder2) holder).commentreply.setAdapter(new CommentReplyAdapter(mActivity, R.layout.item_commen_reply, bean.getReplys().getList()));
         }
 
+    }
+
+    public synchronized void setRecAdapter(ReplyCommBean bean, int position) {
+        CommentReplyAdapter holder2 = holderList.get(position);
+        if (holder2 != null) {
+            if (bean.getData().getList().size() != 0) {
+                List<ReplyCommBean.DataBean.ListBean> list = bean.getData().getList();
+                List<ReplyCommBean.DataBean.ListBean> listBeans = beanList.get(position);
+                listBeans.remove(listBeans.size() - 1);
+                listBeans.addAll(list);
+                if (!bean.getData().getPaging().isIs_end()) {
+                    ReplyCommBean.DataBean.ListBean e = new ReplyCommBean.DataBean.ListBean();
+                    e.setUid("yuxun");
+                    listBeans.add(e);
+                }
+                holder2.notifyDataSetChanged();
+            }
+        }
     }
 
     @Override
@@ -401,10 +439,6 @@ public class ActDetailAdapter extends RecyclerView.Adapter {
         GridViewForScrollView gv;
         @BindView(R.id.tv_see)
         TextView tvSee;
-        @BindView(R.id.tv_publishtitle)
-        TextView tvPublishtitle;
-        @BindView(R.id.tv_circlename)
-        TextView tvCirclename;
 
 
         ViewHolder0(View view) {

@@ -38,6 +38,7 @@ import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.wetime.fanc.R;
 import com.wetime.fanc.circle.adapter.CircleListAdapter;
+import com.wetime.fanc.circle.adapter.CircleListAdapterV2;
 import com.wetime.fanc.circle.bean.CircleHeadBean;
 import com.wetime.fanc.circle.bean.CircleListBean;
 import com.wetime.fanc.circle.iviews.IGetCircleDetailListView;
@@ -101,7 +102,7 @@ public class CircleDetailActivity extends BaseActivity implements IGetCircleHead
 
     private GetCircleHeadPresenter getCircleHeadPresenter;
     private boolean issu = false;
-    private CircleListAdapter adapter;
+    private CircleListAdapterV2 adapter;
     private boolean isOnly = false;
     private boolean isOne = false;
     private int lastverticalOffset = 0;
@@ -171,7 +172,7 @@ public class CircleDetailActivity extends BaseActivity implements IGetCircleHead
 
     private void initView() {
         rclCircle.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new CircleListAdapter(list, this, true);
+        adapter = new CircleListAdapterV2(list, this);
         rclCircle.setAdapter(adapter);
         refreshLayout.setOnLoadMoreListener(this);
         refreshLayout.setOnRefreshListener(this);

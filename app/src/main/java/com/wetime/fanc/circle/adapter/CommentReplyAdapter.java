@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.wetime.fanc.R;
+import com.wetime.fanc.circle.act.ActDetailActivity;
 import com.wetime.fanc.circle.act.LongDetailActivity;
 import com.wetime.fanc.circle.bean.ReplyCommBean;
 import com.zhy.adapter.recyclerview.CommonAdapter;
@@ -52,11 +53,12 @@ public class CommentReplyAdapter extends CommonAdapter<ReplyCommBean.DataBean.Li
             textView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ((LongDetailActivity) mContext).getCommReply(commentId, CommentReplyAdapter.this.position);
+                    if (mContext instanceof LongDetailActivity) ((LongDetailActivity) mContext).getCommReply(commentId, CommentReplyAdapter.this.position);
+                    if (mContext instanceof ActDetailActivity) ((ActDetailActivity) mContext).getCommReply(commentId, CommentReplyAdapter.this.position);
                 }
             });
             return;
-        }else {
+        } else {
             textView.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
             textView.setTextColor(Color.parseColor("#333333"));
         }
